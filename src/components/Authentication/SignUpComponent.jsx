@@ -63,21 +63,21 @@ export default function SignUpComponent() {
                         </div>
                         <div className="text-left mb-3">
                             <label className="block mb-2 ml-1 text-sm">Name</label>
-                            <input type="text" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Web mini project 002" />
+                            <input type="text" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter your name" />
+                            {/* <span className="block text-left text-error text-sm px-1 mt-1">
+                                Error
+                            </span> */}
+                        </div>
+                        <div className="text-left mb-3">
+                            <label className="block mb-2 ml-1 text-sm">Email</label>
+                            <input type="email" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter you email" />
                             {/* <span className="block text-left text-error text-sm px-1 mt-1">
                                 Error
                             </span> */}
                         </div>
                         <div className="text-left mb-3">
                             <label className="block mb-2 ml-1 text-sm">Name</label>
-                            <input type="text" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Web mini project 002" />
-                            {/* <span className="block text-left text-error text-sm px-1 mt-1">
-                                Error
-                            </span> */}
-                        </div>
-                        <div className="text-left mb-3">
-                            <label className="block mb-2 ml-1 text-sm">Name</label>
-                            <input type="text" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Web mini project 002" />
+                            <input type="password" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="********" />
                             {/* <span className="block text-left text-error text-sm px-1 mt-1">
                                 Error
                             </span> */}
