@@ -1,18 +1,26 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import WelcomeComponent from './components/WelcomeComponent'
+import { Route, Routes } from 'react-router-dom'
+import HomepageComponent from './components/HomepageComponent'
+import ProtectedRoute from './utils/ProtectedRoute'
+import SignUpComponent from './components/Authentication/SignUpComponent'
+import SignInComponent from './components/Authentication/SignInComponent'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [isLogged, setIsLogged] = useState(false)
 
   return (
-    <div>
-      {/* <WelcomeComponent></WelcomeComponent> */}
+    <>
+     <Routes>
+        <Route path='/signup' element={<SignUpComponent/>}/>
+        <Route path='/signin' element={<SignInComponent/>}/>
+        <Route element={<ProtectedRoute isLogged={false}/>}>
 
-    
-    </div>
+        </Route>
+      </Routes>
+
+    </>
   )
 }
 
