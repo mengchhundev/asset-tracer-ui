@@ -30,17 +30,20 @@ export default function LandingComponent() {
     <>
     <div class="bg-bgpink">
         <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
-          <div class="col-span-2"></div>
-          <div class="lg:text-left lg:ml-0 col-span-4 mt-20 sm:text-left sm:ml-16">
-            <div class="text-5xl font-bold text-textmediem">
-              Get started
-              <div>your exciting</div>
-              <div class="text-pending py-3">journey</div>
-              with us.
+          <div class="text-left col-span-6 mt-12 ">
+            <div class="w-[85%] ml-[180px] ">
+            <div class="text-4xl my-3 font-sp-pro-text-bold text-text-color">
+              Make assets
+              <div class="-my-2">tracking</div>
+              <div>
+              <div class="text-pending -my-2">simpler <span class="text-text-color">for your</span></div>
+              </div>
+              organization
             </div>
-            <div class="text-textmediem my-10 sm:w-[80%]">
-              A Team of experienced tourism professionals will provides you with
-              the best advides and tips for your desires place
+            <div class="text-text-color font-sp-pro-text-regular my-[20px] sm:w-[80%]">
+             Manage Assets for FREE*
+             <div>Guarenteed best asset management!</div>
+             <div class="text-pending">*See Subcription plans For Details</div>
             </div>
             <div class=" ">
             <button
@@ -50,22 +53,23 @@ export default function LandingComponent() {
               Try asset tracer free
             </button>
             </div>
+            </div>
           </div>
 
 
           <img
               src={Send}
               alt=""
-              class="absolute top-[100px] 2xl:ml-[840px] xl:ml-[700px] lg:ml-[600px] w-[55px] md:ml-[600px] sm:ml-[500px]"
+              class="absolute top-[100px] 2xl:ml-[840px] xl:ml-[700px] lg:ml-[600px] w-[45px] md:ml-[600px] sm:ml-[500px]"
             />
           <div class=" col-span-6 relative sm:grid-cols-1">
-            <img src={Icon} alt="" class="absolute top-[365px] w-[48px]" />
+            <img src={Icon} alt="" class="absolute top-[273px] w-[48px]" />
 
             <div
               href="#"
-              class="absolute ml-[20px] z-50 block px-3 py-2 bg-white border border-white rounded-xl top-[390px] w-[170px] h-[90px]"
+              class="absolute ml-[20px] z-50 block px-3 py-2 bg-white border border-white rounded-xl top-[300px] w-[170px] h-[90px]"
             >
-              <ul class=" text-textmediem list-inside ">
+              <ul class=" text-text-color list-inside ">
                 <li class="flex items-center">
                   <img
                     src={Outline}
@@ -86,44 +90,57 @@ export default function LandingComponent() {
             <img
               src={Grouplanding}
               alt=""
-              class="w-[490px] pt-[300px] ml-[60px]"
+              class="absolute w-[450px] top-[228px] ml-[60px]"
             />
             <img
               src={Peoplelanding}
               alt=""
-              class="w-[380px] z-40 absolute top-[37px] ml-[120px]"
+              class="w-[330px] z-40 absolute top-[10px] ml-[120px]"
             />
           </div>
         </div>
-        <div class="py-16">
+        <div class="py-8">
           <div
             href="#"
-            class=" w-[50%] mx-auto py-10 bg-white border border-gray-200 rounded-lg shadow-md shadow-gray-light"
+            class=" w-[50%] mx-auto py-8 bg-white border border-gray-200 rounded-lg shadow-md shadow-gray-light"
           >
-            <div class="w-full flex flex-col md:flex-row justify-between">
-              <ul class="font-medium flex flex-col md:flex-row ">
+            <div class="w-full flex justify-evenly">
+              <ul class="font-medium flex ">
                 <li>
-                  <div href="#" class="block py-2 px-8 text-textmediem ">
-                    Our team
+                  <div class="w-[150px] ml-4">
+                  <div href="#" class="block text-left text-text-color">
+                   Organization
+                  </div>
+                  <div class="text-[10px] text-left">All <div>Your organization</div></div>
                   </div>
                 </li>
                 <li>
-                  <div href="#" class="block py-2 px-8 text-textmediem ">
-                    About us
+                <div class="w-[100px]">
+                  <div href="#" class="block text-left text-text-color">
+                  Date
+                  </div>
+                  <div class="text-[10px] text-left">When you have join us</div>
                   </div>
                 </li>
                 <li>
-                  <div href="#" class="block py-2 px-8 text-textmediem ">
-                    Contact us
+                <div class="w-[150px] ml-10">
+                  <div href="#" class="block text-left text-text-color">
+                   User
+                  </div>
+                  <div class="text-[10px] text-left">Number of user</div>
                   </div>
                 </li>
               </ul>
-              <button
+
+                <div class="w-[150px] pt-3.5">
+                <button
                 type="button"
-                class="text-textwhite rounded-md bg-pending font-medium text-sm px-8 text-center mr-10 shadow-lg hover:bg-hoveryellow shadow-shadow"
+                class="text-textwhite rounded-md bg-pending font-medium text-sm px-8 py-2.5 text-center mr-10 shadow-lg hover:bg-hoveryellow shadow-shadow"
               >
                 Sign Up
               </button>
+                  </div>
+               
             </div>
           </div>
         </div>
@@ -142,13 +159,13 @@ export default function LandingComponent() {
           alt=""
           class="absolute 2xl:ml-[1100px] xl:ml-[900px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
         />
-        <div class="pt-[150px]">
-          <div class="text-4xl font-bold text-text-color text-center">
+        <div class="pt-[70px]">
+          <div class="text-4xl font-sp-pro-text-bold text-text-color text-center">
             This is Our
             <span class="text-pending px-3">Feature</span>
           </div>
         </div>
-        <div class="text-md w-[30%] font-medium text-[#4f6b7c] text-center mx-auto py-7 ">
+        <div class="text-md w-[30%] font-medium text-text-color text-center mx-auto py-3 mb-7">
           A Team of experienced tourism professionals will provides you with the
           best advides place
         </div>
@@ -156,51 +173,51 @@ export default function LandingComponent() {
         {/* Card */}
 
         <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[70%] mx-auto ">
-          <div class="mb-3 text-text-color relative ">
+          <div class="mb-3 text-left text-text-color relative ">
             <div
               href="#"
-              class="block px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow-xl shadow-gray-200 z-50 "
+              class="block px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow-xl shadow-gray-200 z-50 w-[280px] h-[250px] "
             >
               <img src={Frame} alt="" class="w-[60px] py-4" />
               <h5 class="mb-2 text-xl font-bold tracking-tight text-text-color ">
-                Noteworthy
+              Asset Tracking
               </h5>
               <p class="font-normal text-text-color ">
-                Here are the biggest enterprise technology
+              Focus on your company as a whole instead of individual assets. Use our software to keep tabs on your assets.
               </p>
             </div>
           </div>
-          <div class="mb-3 text-text-color ">
+          <div class="mb-3 text-text-color text-left">
             <div
               href="#"
-              class="block px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow "
+              class="block w-[280px] h-[250px] px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow "
             >
               <img src={Framecenter} alt="" class="w-[60px] py-4" />
               <h5 class="mb-2 text-xl font-bold tracking-tight text-text-color ">
-                Noteworthy
+                Members
               </h5>
               <p class="font-normal text-text-color ">
-                Here are the biggest enterprise technology
+              organization’s owner csn be manage member such as limit scop for user by role and can promote those user to admin 
               </p>
             </div>
           </div>
-          <div class="mb-3 text-text-color">
+          <div class="mb-3 text-text-color text-left">
             <div
               href="#"
-              class="block px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow "
+              class="block w-[280px] h-[250px] px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow "
             >
               <img src={Frameright} alt="" class="w-[60px] py-4 " />
               <h5 class="mb-2 text-xl font-bold tracking-tight text-text-color ">
-                Noteworthy
+                Asset Report
               </h5>
               <p class="font-normal text-text-color ">
-                Here are the biggest enterprise technology
+              View your assets with our predefined reports that include statements about your assets
               </p>
             </div>
           </div>
         </div>
         {/* ++++++++++++++++++++++++++++++++++++++++   One Card  +++++++++++++++++++++++++++++++++++++++++++ */}
-        <div class="grid grid-cols-12 xl:grid-cols-12 sm:grid-cols-1 py-[130px]">
+        <div class="grid grid-cols-12 xl:grid-cols-12 sm:grid-cols-1 py-[100px]">
 
           <div class="col-span-5 ">
           <img
@@ -208,14 +225,13 @@ export default function LandingComponent() {
               alt=""
               class="absolute top-[890px] w-[30px] ml-[12%]"
             />
-            <div class="w-[60%] xl:mx-[50%] lg:mx-auto md:mx-auto sm:mx-auto">
-            <div class="text-4xl font-bold text-text-color">
+            <div class="w-[70%] xl:mx-[40%] lg:mx-auto md:mx-auto sm:mx-auto">
+            <div class="text-left text-4xl font-sp-pro-text-bold text-text-color">
               What people say
               <div class="text-pending">about us.</div>
             </div>
-            <div class="text-text-color my-7">
-              A Team of experienced tourism professionals the best advides and
-              tips for your desires place
+            <div class="text-text-color mt-5 text-left sp-pro-text-regular">
+             Our Clients send us bunch of smilies with our System and we love them.
             </div>
             </div>
           </div>
@@ -233,35 +249,35 @@ export default function LandingComponent() {
                 class="absolute -top-[20px] w-[50px] ml-[130px] z-50"
               />
 
-              <div class="mb-3 text-text-color w-[380px] ml-[150px] absolute z-20 ">
+              <div class="mb-3 text-left text-text-color w-[380px] ml-[150px] absolute z-20 ">
               
                 <div
                   href="#"
                   class="block px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-2xl shadow-[#cbc6c6] "
                 >
                   <div class="font-normal text-text-color ">
-                    Here are the biggest enterprise technology here are the
-                    biggest enterprise technology
+                  “Asset Tracer can help organizations optimize their asset utilization and reduce costs by
+                   improving the efficiency of asset acquisition, deployment, and maintenance.”
                   </div>
                   <div class="font-normal text-text-color pt-7">
-                    Mike Tayler
+                    Kosal
                     <div>Lahorem</div>
                     <div>Cambodia</div>
                   </div>
                 </div>
               </div>
 
-              <div class="mb-3 text-text-color w-[380px] top-[70px] ml-[190px] relative">
+              <div class="mb-3  text-left text-text-color w-[380px] top-[70px] ml-[190px] relative">
                 <div
                   href="#"
                   class="block px-6 py-6 bg-[#F7F8FC] border border-gray-200 rounded-lg shadow "
                 >
                   <div class="font-normal text-gray-700 ">
-                    Here are the biggest enterprise technology here are the
-                    biggest enterprise technology
+                  “Asset Tracer can help organizations optimize their asset utilization and reduce costs by 
+                  improving the efficiency of asset acquisition, deployment, and maintenance.”
                   </div>
                   <div class="font-normal text-text-color pt-7">
-                    Mike Tayler
+                    Kosal
                     <div>Lahorem</div>
                     <div>Cambodia</div>
                   </div>
@@ -309,39 +325,46 @@ export default function LandingComponent() {
             class="absolute top-[580px] w-[70px] ml-[45px]"
           />
         </div>
-        <div class="text-4xl font-bold text-text-color text-center ">
+        <div class="text-4xl  font-sp-pro-text-bold text-text-color text-center ">
           This is our
           <span class="text-pending mx-3">benefits</span>
         </div>
 
         {/* ==========================================Card========================================= */}
 
-        <div class="w-[65%] h-[550px] mx-auto mt-5 relative">
+        <div class="w-[65%] h-[650px] mx-auto mt-5 relative">
           <div class="relative">
             <div class="w-[60%] h-[150px] absolute z-10 m-auto left-0 right-0 top-[80px]">
               <div class="grid grid-cols-1 sm:grid-cols-12">
                 <div class="col-span-6">
-                  <div class="mb-2 text-lg font-semibold text-text-color ">
-                    <ul class="max-w-md space-y-1 text-text-color list-inside ">
+                  <div class="mb-2 font-semibold text-text-color ">
+                    <ul class="max-w-md text-xl space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
                         <img src={Iconuser} alt="" class="w-[48px]" />
-                        At least 10
+                        <div class="ml-6">
+                        Users
+                        </div>
                       </li>
                     </ul>
                   </div>
-                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside">
+                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside pt-3">
+                    <div class="text-[13px]">
                     <li class="flex items-center">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                     <div class="ml-2">Add as many users as you</div> 
                     </li>
-                    <li class="flex items-center">
+                    <li class="flex items-center ml-[24px]">
+                    need for your accounts.
+                    </li>
+                   
+                    <li class="flex items-center mt-10">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                      <div class="ml-2">one user can create and</div> 
                     </li>
-                    <li class="flex items-center">
-                      <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                    <li class="flex items-center ml-[24px]">
+                    join many organization
                     </li>
+                    </div>
                   </ul>
                 </div>
 
@@ -350,56 +373,79 @@ export default function LandingComponent() {
                     <ul class="max-w-md space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
                         <img src={Iconassets} alt="" class="w-[48px]" />
-                        At least 10
+                        <div class="ml-6">
+                        Assets
+                        </div>
+                        
                       </li>
                     </ul>
                   </div>
-                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside">
+                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside pt-3">
+                    <div class="text-[13px]">
                     <li class="flex items-center">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                      <div class="ml-2">
+                      Focus on your company
+                      </div>
+              
                     </li>
-                    <li class="flex items-center">
+                    <li class="flex items-center ml-6">
+                    as a whole instead of
+                    </li>
+                    <li class="flex items-center ml-6">
+                      individual assets.
+                    </li>
+
+                  <div class="mt-5">
+                  <li class="flex items-center">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                      <div class="ml-2">
+                      Use our software to keep
+                      </div>
                     </li>
-                    <li class="flex items-center">
-                      <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                    <li class="flex items-center ml-6">
+                    tabs on your assets.
                     </li>
+                  </div>
+                    </div>
                   </ul>
                 </div>
               </div>
             </div>
 
-            <img src={Rectangletop} alt="" class=" w-[900px] h-[350px] " />
+            <img src={Rectangletop} alt="" class=" w-[900px] h-[400px] " />
           </div>
 
           <div class="">
-            <div class="w-[60%] h-[150px] absolute z-20 m-auto left-0 right-0 top-[340px]">
+            <div class="w-[60%] h-[150px] absolute z-20 m-auto left-0 right-0 top-[380px]">
               <div class="grid grid-cols-1 sm:grid-cols-12">
                 <div class="col-span-6">
                   <div class="mb-2 text-lg font-semibold text-text-color ">
                     <ul class="max-w-md space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
                         <img src={Iconreport} alt="" class="w-[48px]" />
-                        At least 10
+                        <div class="ml-6">Report</div>
                       </li>
                     </ul>
                   </div>
-                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside">
+                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside pt-3">
+                  <div class="text-[13px]">
                     <li class="flex items-center">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                      <div class="ml-2">
+                      View predefined reports
+                      </div>
                     </li>
-                    <li class="flex items-center">
-                      <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                    <li class="flex items-center ml-6 my-2">
+                    which include statements
                     </li>
-                    <li class="flex items-center">
-                      <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                    <li class="flex items-center ml-6 my-2">
+                    about your assets to help
                     </li>
+                    <li class="flex items-center ml-6 my-2">
+                    clean up your workload. 
+                    </li>
+                    </div>
                   </ul>
                 </div>
 
@@ -408,23 +454,22 @@ export default function LandingComponent() {
                     <ul class="max-w-md space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
                         <img src={Iconbackup} alt="" class="w-[48px]" />
-                        At least 10
+                      <div class="ml-6">Back up</div>
                       </li>
                     </ul>
                   </div>
-                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside">
+                  <ul class="max-w-lg space-y-2 px-3 text-text-color list-inside pt-3">
+                    <div class="text-[13px]">
                     <li class="flex items-center">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                     <div class="ml-2">Back up your asset </div> 
                     </li>
-                    <li class="flex items-center">
+                   
+                    <li class="flex items-center mt-6">
                       <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
+                      <div class="ml-2">Back up invoice</div> 
                     </li>
-                    <li class="flex items-center">
-                      <img src={Iconlist} alt="" class="w-[15px]" />
-                      At least one
-                    </li>
+                    </div>
                   </ul>
                 </div>
               </div>
@@ -432,7 +477,7 @@ export default function LandingComponent() {
             <img
               src={Rectanglebuttom}
               alt=""
-              class="absolute w-[900px] h-[330px] top-[250px]"
+              class="absolute w-[900px] h-[400px] top-[280px]"
             />
           </div>
         </div>
@@ -454,13 +499,14 @@ export default function LandingComponent() {
             </div>
             <div class="col-span-5 ">
             <div class="w-[90%] h-[300px] mx-auto bg-primarywhite mr-[90px] relative ">
-              <div class="w-[450px] order-2">
-                <div class="text-3xl font-bold text-text-color pt-[50px] ">
+              <div class="w-[500px] order-2">
+                <div class="text-3xl text-left font-sp-pro-text-bold text-text-color pt-[50px] ">
                   Create your accounted today and get started for free!
                 </div>
-                <div class="text-[#9795B5] py-7">
-                  Hello everyone! you can sign up here and use it free you can
-                  sign up here and use it free
+                <div class="text-text-color py-5 text-left">
+                Manage Assets for FREE*
+               <div> Guaranteed best asset management!</div>
+              <div class="text-pending"> * See Subscription P lans for Details </div>
                 </div>
               </div>
 

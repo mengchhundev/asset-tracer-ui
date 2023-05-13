@@ -9,8 +9,9 @@ export default function FooterComponent() {
     <>
      <footer class="bg-white rounded-lg shadow ">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-14">
-          <div class="sm:flex sm:items-center sm:justify-between">
-            <ul class="flex flex-wrap items-center mb-6 text-xl font-medium text-textmediem sm:mb-0 px-10">
+
+          <div class="flex flex-wrap-reverse items-center justify-between">
+            <ul class="flex flex-none -ml-[30px] lg:ml-10 md:ml-[160px] sm:ml-[100px] mb-6 text-xl font-medium text-textmediem sm:mb-0 px-10">
               <span class="mr-6 md:mr-8 ">Follow Us</span>
               <li>
                 <div href="#" class="mr-4 md:mr-6 ">
@@ -34,11 +35,11 @@ export default function FooterComponent() {
               </li>
             </ul>
 
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0 ">
+            <ul class="flex flex-wrap ml-[30px] items-center mb-8 lg:mb-0 md:mb-8 sm:mb-8 text-sm font-medium ">
               <li>
                 <div
                   href="#"
-                  class="mr-4 md:mr-6 text-xl font-medium text-text-color "
+                  class="mr-4 mb-3 lg:mb-0 md:mb-0 sm:mb-3 lg:ml-0 md:ml-[120px] text-xl font-medium text-text-color "
                 >
                   Get Newsletter
                 </div>
@@ -68,10 +69,11 @@ export default function FooterComponent() {
               </li>
             </ul>
           </div>
+
           <hr class="my-6 border-gray-light sm:mx-auto  lg:my-8" />
 
-          <div class="w-full flex flex-col p-4">
-            <ul class="font-normal text-text-color flex flex-col md:flex-row mx-auto">
+          <div class="w-full flex flex-col p-4 ">
+            <ul class="font-normal text-text-color flex mx-auto ">
               <li>
                 <div
                   href="#"
@@ -91,7 +93,7 @@ export default function FooterComponent() {
               <li>
                 <div
                   href="#"
-                  class="block py-2 px-5 border-r-2 border-gray-light"
+                  class="hidden md:block py-2 px-5 border-r-2 border-gray-light"
                 >
                   About us
                 </div>
@@ -99,7 +101,7 @@ export default function FooterComponent() {
               <li>
                 <div
                   href="#"
-                  class="block py-2 px-5 border-r-2 border-gray-light"
+                  class="hidden md:block py-2 px-5 border-r-2 border-gray-light"
                 >
                   Contact us
                 </div>
