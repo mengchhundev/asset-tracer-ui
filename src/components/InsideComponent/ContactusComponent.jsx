@@ -5,11 +5,13 @@ import email from "../../assets/images/ContactUs/email.png";
 import Phone from "../../assets/images/ContactUs/Phone.png";
 import facebook from "../../assets/images/ContactUs/facebook.png";
 import FooterComponent from "../LandingComponent/FooterComponent";
+import NavbarComponent from "../LandingComponent/NavbarComponent";
 
 export default function ContactusComponent() {
   return (
     <>
-      <div class="bg-bgpink">
+    <NavbarComponent/>
+      <div class="bg-bgpink pt-[60px]">
         <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
           <div class=" col-span-7 ">
             <div className="relative w-[90%] mx-auto hidden md:block mt-14">

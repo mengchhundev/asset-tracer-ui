@@ -23,20 +23,23 @@ import Iconlist from "../../assets/images/PictureLanding/Iconlist.png";
 import Iconassets from "../../assets/images/PictureLanding/Iconassets.png";
 import Iconreport from "../../assets/images/PictureLanding/Iconreport.png";
 import Iconbackup from "../../assets/images/PictureLanding/Iconbackup.png";
+import Vector from "../../assets/images/PictureLanding/Vector.png";
 import FooterComponent from './FooterComponent';
+import NavbarComponent from './NavbarComponent';
 
 export default function LandingComponent() {
   return (
     <>
-    <div class="bg-bgpink">
-        <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
+     <NavbarComponent/>
+    <div class="bg-bgpink pt-[90px]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-1 ">
           <div class="text-left col-span-6 mt-12 ">
-            <div class="w-[85%] ml-[180px] ">
+            <div class="w-[85%] lg:ml-[180px] md:ml-[60px] sm:ml-[40px] ml-6">
             <div class="text-4xl my-3 font-sp-pro-text-bold text-text-color">
               Make assets
-              <div class="-my-2">tracking</div>
+              <div class="-my-3">tracking</div>
               <div>
-              <div class="text-pending -my-2">simpler <span class="text-text-color">for your</span></div>
+              <div class="text-pending -my-3">simpler <span class="text-text-color">for your</span></div>
               </div>
               organization
             </div>
@@ -45,36 +48,34 @@ export default function LandingComponent() {
              <div>Guarenteed best asset management!</div>
              <div class="text-pending">*See Subcription plans For Details</div>
             </div>
-            <div class=" ">
+            <div class="lg:pb-0 md:pb-10 sm:pb-10 pb-10 ">
             <button
               type="button"
-              class="px-7 py-2 text-textwhite rounded-md bg-pending font-medium text-md text-center mr-14 shadow-lg hover:bg-hoveryellow shadow-shadow"
+              class=" px-7 py-2 text-textwhite rounded-md bg-pending font-medium text-md text-center mr-14 shadow-lg hover:bg-hoveryellow shadow-shadow"
             >
               Try asset tracer free
             </button>
             </div>
             </div>
           </div>
-
-
           <img
               src={Send}
               alt=""
-              class="absolute top-[100px] 2xl:ml-[840px] xl:ml-[700px] lg:ml-[600px] w-[45px] md:ml-[600px] sm:ml-[500px]"
+              class="hidden lg:block absolute top-[170px] 2xl:ml-[840px] xl:ml-[700px] lg:ml-[600px] w-[45px] md:ml-[600px] sm:ml-[500px]"
             />
           <div class=" col-span-6 relative sm:grid-cols-1">
             <img src={Icon} alt="" class="absolute top-[273px] w-[48px]" />
 
             <div
               href="#"
-              class="absolute ml-[20px] z-50 block px-3 py-2 bg-white border border-white rounded-xl top-[300px] w-[170px] h-[90px]"
+              class=" hidden md:block absolute ml-[20px] z-30 px-3 py-2 bg-white border border-white rounded-xl top-[300px] w-[170px] h-[90px]"
             >
               <ul class=" text-text-color list-inside ">
                 <li class="flex items-center">
                   <img
                     src={Outline}
                     alt=""
-                    class="w-[20px] absolute z-50 ml-[5px]"
+                    class="w-[20px] absolute ml-[5px]"
                   />
                   <img src={Iconinline} alt="" class="w-[30px] " />
                   <div class="px-3 text-xs">Counting</div>
@@ -90,16 +91,16 @@ export default function LandingComponent() {
             <img
               src={Grouplanding}
               alt=""
-              class="absolute w-[450px] top-[228px] ml-[60px]"
+              class="absolute hidden sm:block w-[450px] lg:top-[228px]  md:top-[255px]  top-[228px] lg:ml-[64px] md:-ml-[10px] sm:-ml-[5px]"
             />
             <img
               src={Peoplelanding}
               alt=""
-              class="w-[330px] z-40 absolute top-[10px] ml-[120px]"
+              class="w-[330px] z-10 absolute top-[10px] ml-[120px] hidden md:block lg:ml-[130px] md:ml-[40px] sm:-ml-[5px]"
             />
+            </div>
           </div>
-        </div>
-        <div class="py-8">
+          <div class="py-8 hidden lg:block">
           <div
             href="#"
             class=" w-[50%] mx-auto py-8 bg-white border border-gray-200 rounded-lg shadow-md shadow-gray-light"
@@ -108,24 +109,24 @@ export default function LandingComponent() {
               <ul class="font-medium flex ">
                 <li>
                   <div class="w-[150px] ml-4">
-                  <div href="#" class="block text-left text-text-color">
-                   Organization
+                  <div href="#" class="flex text-left text-text-color list-inside">
+                   Organization  <img src={Vector} alt="" class="w-[10px] h-2 ml-2 mt-[10px]" />
                   </div>
                   <div class="text-[10px] text-left">All <div>Your organization</div></div>
                   </div>
                 </li>
                 <li>
                 <div class="w-[100px]">
-                  <div href="#" class="block text-left text-text-color">
-                  Date
+                  <div href="#" class="text-left text-text-color flex">
+                  Date  <img src={Vector} alt="" class="w-[10px] h-2 ml-2 mt-[10px]" />
                   </div>
                   <div class="text-[10px] text-left">When you have join us</div>
                   </div>
                 </li>
                 <li>
                 <div class="w-[150px] ml-10">
-                  <div href="#" class="block text-left text-text-color">
-                   User
+                  <div href="#" class="flex text-left text-text-color">
+                   User <img src={Vector} alt="" class="w-[10px] h-2 ml-2 mt-[10px]" />
                   </div>
                   <div class="text-[10px] text-left">Number of user</div>
                   </div>
@@ -143,21 +144,22 @@ export default function LandingComponent() {
                
             </div>
           </div>
+        </div>  
         </div>
-      </div>
-      
+                                                          {/* FeatureComponent */}
 
       <div class="bg-bgsecondary py-0 relative">
-        <img src={Ellipseside} alt="" class="w-[200px] absolute" />
+        <img src={Ellipseside} alt="" class="w-[200px] absolute " />
+
         <img
           src={Ellipse}
           alt=""
-          class="absolute top-[70px] w-[70px] ml-[250px]"
+          class="absolute top-[70px] w-[70px] ml-[250px] hidden lg:block"
         />
            <img
           src={Element}
           alt=""
-          class="absolute 2xl:ml-[1100px] xl:ml-[900px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
+          class="absolute hidden md:block 2xl:ml-[1100px] xl:ml-[900px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
         />
         <div class="pt-[70px]">
           <div class="text-4xl font-sp-pro-text-bold text-text-color text-center">
@@ -165,7 +167,7 @@ export default function LandingComponent() {
             <span class="text-pending px-3">Feature</span>
           </div>
         </div>
-        <div class="text-md w-[30%] font-medium text-text-color text-center mx-auto py-3 mb-7">
+        <div class="text-md lg:w-[30%] md:w-[50%] sm:w-[60%] w-[100%] font-medium text-text-color text-center mx-auto py-3 mb-7">
           A Team of experienced tourism professionals will provides you with the
           best advides place
         </div>
@@ -173,12 +175,12 @@ export default function LandingComponent() {
         {/* Card */}
 
         <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[70%] mx-auto ">
-          <div class="mb-3 text-left text-text-color relative ">
+          <div class="mb-3 text-left text-text-color relative lg:ml-0 md:-ml-[30px] sm:ml-[80px] -ml-3 ">
             <div
               href="#"
               class="block px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow-xl shadow-gray-200 z-50 w-[280px] h-[250px] "
             >
-              <img src={Frame} alt="" class="w-[60px] py-4" />
+              <img src={Frame} alt="" class="w-[60px] py-4 " />
               <h5 class="mb-2 text-xl font-bold tracking-tight text-text-color ">
               Asset Tracking
               </h5>
@@ -187,7 +189,7 @@ export default function LandingComponent() {
               </p>
             </div>
           </div>
-          <div class="mb-3 text-text-color text-left">
+          <div class="mb-3 text-text-color text-left lg:ml-0 md:ml-[0px] sm:ml-[80px] -ml-3">
             <div
               href="#"
               class="block w-[280px] h-[250px] px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow "
@@ -197,11 +199,11 @@ export default function LandingComponent() {
                 Members
               </h5>
               <p class="font-normal text-text-color ">
-              organization’s owner csn be manage member such as limit scop for user by role and can promote those user to admin 
+              organization's owner csn be manage member such as limit scop for user by role and can promote those user to admin 
               </p>
             </div>
           </div>
-          <div class="mb-3 text-text-color text-left">
+          <div class="mb-3 text-text-color text-left lg:ml-0 md:ml-[120px] sm:ml-[80px] -ml-3">
             <div
               href="#"
               class="block w-[280px] h-[250px] px-6 pb-6 bg-white border border-gray-200 rounded-lg shadow "
@@ -217,20 +219,20 @@ export default function LandingComponent() {
           </div>
         </div>
         {/* ++++++++++++++++++++++++++++++++++++++++   One Card  +++++++++++++++++++++++++++++++++++++++++++ */}
-        <div class="grid grid-cols-12 xl:grid-cols-12 sm:grid-cols-1 py-[100px]">
+        <div class="grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 py-[100px]">
 
           <div class="col-span-5 ">
           <img
               src={Ellipse}
               alt=""
-              class="absolute top-[890px] w-[30px] ml-[12%]"
+              class="absolute top-[890px] w-[30px] ml-[12%] hidden lg:block"
             />
-            <div class="w-[70%] xl:mx-[40%] lg:mx-auto md:mx-auto sm:mx-auto">
+            <div class="w-[70%] ml-8 xl:mx-[40%] lg:mx-[40%] md:mx-auto sm:mx-auto">
             <div class="text-left text-4xl font-sp-pro-text-bold text-text-color">
               What people say
-              <div class="text-pending">about us.</div>
+              <div class="text-pending -my-3">about us.</div>
             </div>
-            <div class="text-text-color mt-5 text-left sp-pro-text-regular">
+            <div class="text-text-color mt-5 text-left sp-pro-text-regular lg:mb-0 md:mb-12 sm:mb-12 mb-12">
              Our Clients send us bunch of smilies with our System and we love them.
             </div>
             </div>
@@ -240,20 +242,20 @@ export default function LandingComponent() {
               <img
                 src={Elementleft}
                 alt=""
-                class="absolute -top-[100px] w-[120px] ml-[480px] z-50"
+                class="absolute -top-[100px] w-[120px] ml-[480px] z-40 hidden sm:block"
               />
             <div class="relative">
             <img
                 src={Image}
                 alt=""
-                class="absolute -top-[20px] w-[50px] ml-[130px] z-50"
+                class="absolute -top-[20px] w-[50px] ml-[130px] z-40 hidden md:block"
               />
 
-              <div class="mb-3 text-left text-text-color w-[380px] ml-[150px] absolute z-20 ">
+              <div class="mb-3 text-left text-text-color lg:ml-[150px] md:ml-[150px] sm:ml-[100px]  ml-9 relative z-20 ">
               
                 <div
                   href="#"
-                  class="block px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-2xl shadow-[#cbc6c6] "
+                  class="block px-6 py-6  lg:w-[385px] md:w-[385px] sm:w-[385px] w-[300px] lg:h-[240px] md:h-[240px] sm:h-[240px] h-[300px] bg-white border border-gray-200 rounded-lg shadow-2xl shadow-[#cbc6c6] "
                 >
                   <div class="font-normal text-text-color ">
                   “Asset Tracer can help organizations optimize their asset utilization and reduce costs by
@@ -267,10 +269,10 @@ export default function LandingComponent() {
                 </div>
               </div>
 
-              <div class="mb-3  text-left text-text-color w-[380px] top-[70px] ml-[190px] relative">
+              <div class="mb-3 text-left text-text-color top-[70px] ml-[190px] lg:ml-[185px] md:ml-[190px] sm:ml-[140px] absolute">
                 <div
                   href="#"
-                  class="block px-6 py-6 bg-[#F7F8FC] border border-gray-200 rounded-lg shadow "
+                  class=" hidden sm:block px-6 py-6 bg-[#F7F8FC] w-[380px] h-[240px] border border-gray-200 rounded-lg shadow "
                 >
                   <div class="font-normal text-gray-700 ">
                   “Asset Tracer can help organizations optimize their asset utilization and reduce costs by 
@@ -285,7 +287,7 @@ export default function LandingComponent() {
                 <img
                   src={Ellipse}
                   alt=""
-                  class="absolute top-[95px] w-[80px] ml-[310px]"
+                  class="absolute hidden sm:block top-[95px] w-[80px] ml-[310px]"
                 />
               </div>
             </div>
@@ -293,7 +295,7 @@ export default function LandingComponent() {
         </div>
       </div>
 
-                                                        {/* FeatureComponent */}
+                                                    {/* BenefitComponent */}
                                                         
       <div class="bg-bgpink relative py-8">
         <div>
@@ -305,12 +307,12 @@ export default function LandingComponent() {
           <img
             src={Ellipse}
             alt=""
-            class="w-[50px] absolute top-[410px] right-[270px]"
+            class="w-[50px] absolute top-[410px] right-[270px] hidden md:block"
           />
           <img
             src={Ellipse}
             alt=""
-            class="absolute top-[30px] w-[70px] ml-[50px]"
+            class="absolute top-[30px] w-[70px] ml-[50px] hidden md:block"
           />
 
           <img
@@ -334,9 +336,10 @@ export default function LandingComponent() {
 
         <div class="w-[65%] h-[650px] mx-auto mt-5 relative">
           <div class="relative">
-            <div class="w-[60%] h-[150px] absolute z-10 m-auto left-0 right-0 top-[80px]">
+            <div class="lg:w-[60%] md:w-[80%] sm:w-[90%] w-[80%] h-[150px] absolute z-10 m-auto left-0 right-0 top-[80px]">
               <div class="grid grid-cols-1 sm:grid-cols-12">
                 <div class="col-span-6">
+                  <div class="">
                   <div class="mb-2 font-semibold text-text-color ">
                     <ul class="max-w-md text-xl space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
@@ -366,9 +369,11 @@ export default function LandingComponent() {
                     </li>
                     </div>
                   </ul>
+                  </div>
                 </div>
 
                 <div class="col-span-6">
+                <div class="hidden md:block">
                   <div class="mb-2 text-lg font-semibold text-text-color ">
                     <ul class="max-w-md space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
@@ -409,6 +414,7 @@ export default function LandingComponent() {
                   </div>
                     </div>
                   </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -417,7 +423,7 @@ export default function LandingComponent() {
           </div>
 
           <div class="">
-            <div class="w-[60%] h-[150px] absolute z-20 m-auto left-0 right-0 top-[380px]">
+            <div class="lg:w-[60%] md:w-[80%] sm:w-[90%] w-[80%] h-[150px] absolute z-20 m-auto left-0 right-0 top-[380px]">
               <div class="grid grid-cols-1 sm:grid-cols-12">
                 <div class="col-span-6">
                   <div class="mb-2 text-lg font-semibold text-text-color ">
@@ -450,6 +456,7 @@ export default function LandingComponent() {
                 </div>
 
                 <div class="col-span-6">
+                  <div class="hidden md:block">
                   <div class="mb-2 text-lg font-semibold text-text-color ">
                     <ul class="max-w-md space-y-1 text-text-color list-inside ">
                       <li class="flex items-center">
@@ -472,6 +479,7 @@ export default function LandingComponent() {
                     </div>
                   </ul>
                 </div>
+                </div>
               </div>
             </div>
             <img
@@ -482,13 +490,12 @@ export default function LandingComponent() {
           </div>
         </div>
       </div>
-                                                      {/* BenefitComponent */}
 
       <div class="bg-[#F4F4F4] relative py-16 pb-24">
           <div class="grid 2xl:grid-cols-12 xl:grid-cols-12 lg:grid-cols-1 md:grid-cols-1 ">
             <div class="col-span-7 ">
-            <div class="w-[95%] h-[300px] mx-auto bg-primarywhite md:ml-[50px] relative">
-              <div class="order-1">
+            <div class="hidden lg:block w-[95%] h-[315px] mx-auto bg-white md:ml-[50px] relative">
+              <div class="order-1 relative">
               <img
                 src={girlimage}
                 alt=""
@@ -498,12 +505,12 @@ export default function LandingComponent() {
               </div>
             </div>
             <div class="col-span-5 ">
-            <div class="w-[90%] h-[300px] mx-auto bg-primarywhite mr-[90px] relative ">
-              <div class="w-[500px] order-2">
-                <div class="text-3xl text-left font-sp-pro-text-bold text-text-color pt-[50px] ">
+            <div class="lg:w-[475px] md:w-[690px] sm:w-[570px] w-[375px] lg:h-[315px] md:h-[315px] sm:h-[315px] h-[400px] mx-auto lg:ml-0 md:ml-10 sm:ml-9 ml-0 bg-white mr-[90px] relative ">
+              <div class="w-[500px] mx-auto lg:ml-0 md:ml-14 sm:ml-14 ml-10">
+                <div class=" text-3xl lg:w-[100%] md:w-[100%] sm:w-[100%] w-[60%] text-left font-sp-pro-text-bold text-text-color pt-[45px] ">
                   Create your accounted today and get started for free!
                 </div>
-                <div class="text-text-color py-5 text-left">
+                <div class="text-text-color py-3 text-left">
                 Manage Assets for FREE*
                <div> Guaranteed best asset management!</div>
               <div class="text-pending"> * See Subscription P lans for Details </div>
@@ -511,7 +518,7 @@ export default function LandingComponent() {
               </div>
 
               <div class="w-full flex flex-col md:flex-row py-3">
-                <div class="">
+                <div class="lg:ml-0 md:ml-[55px] sm:-ml-[150px] ml-[40px]">
                   <button
                     type="button"
                     class=" py-2 rounded-md text-textwhite bg-pending hover:bg-hoveryellow font-medium text-sm px-8 text-center mr-10 shadow-lg shadow-shadow"

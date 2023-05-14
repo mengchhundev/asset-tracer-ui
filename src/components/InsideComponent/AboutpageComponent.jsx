@@ -16,10 +16,12 @@ import vanneat from "../../assets/images/Iconteam/vanneat.png";
 import Rith from "../../assets/images/Iconteam/Rith.png";
 import Chhun from "../../assets/images/Iconteam/Chhun.png";
 import FooterComponent from "../LandingComponent/FooterComponent";
+import NavbarComponent from "../LandingComponent/NavbarComponent";
 export default function AboutpageComponent() {
   return (
     <>
-      <div class="bg-bgpink relative">
+    <NavbarComponent/>
+      <div class="bg-bgpink relative pt-[50px]">
         <div class=" ">
           <img
             src={bgsideleft}
@@ -36,7 +38,7 @@ export default function AboutpageComponent() {
           <img
             src={bgTre}
             alt=""
-            class="hidden lg:block w-[25px] h-[25px] absolute top-[170px] left-16  "
+            class="hidden lg:block w-[25px] h-[25px] absolute top-[230px] left-16  "
           />
         </div>
         <div class="w-[90%] mx-auto ">
@@ -58,7 +60,7 @@ export default function AboutpageComponent() {
                  You can count on us for secure, affordable, and user-friendly service. 
                  We're continually improving our quality products, so you can experience a better way to organize your assets.
                 </div>
-                <div class="lg:pt-[80px] md:pt-[20px] sm:pt-[10px] pt-[5px]">
+                <div class="lg:pt-[60px] md:pt-[20px] sm:pt-[10px] pt-[5px]">
                   <button
                     type="button"
                     class="text-textwhite rounded-md bg-pending font-medium text-sm px-8 py-2.5 text-center shadow-lg hover:bg-hoveryellow shadow-shadow"
