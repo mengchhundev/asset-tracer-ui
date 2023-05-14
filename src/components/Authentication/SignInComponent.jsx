@@ -1,17 +1,42 @@
 import React from 'react'
-import { auth, provider } from '../../redux/services/googleAuth/firebase';
-import { signInWithPopup } from 'firebase/auth';
+
 import { useState } from 'react';
-import { useEffect } from 'react';
+
 import api from '../../redux/services/config/api';
-import { Link } from 'react-router-dom';
-import * as Yup from "yup";
-import { useFormik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+
 import signin from '../../assets/images/signin.png'
 
 export default function SignInComponent() {
 
+    const [userInfo, setUserInfo] = useState({
+        email: "",
+        password: ""
+    })
 
+    const navigator = useNavigate();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setUserInfo((prev) => ({ ...prev, [name]: value }));
+      }
+      console.log(userInfo)
+    const handleSigin = () => {
+        api.post("/users/login", userInfo).then(
+            res => {
+                console.log(res.data.payload);
+                localStorage.setItem("token",res.data.payload.token)
+                if(localStorage.getItem("token")) {
+                    navigator("/dashboard");
+                  }
+            },
+            err => {
+                console.log(err);
+            }
+        ).catch( err => {
+            console.log(err);
+        })
+    }
 
 
     return (
@@ -27,14 +52,14 @@ export default function SignInComponent() {
 
                         <div className="text-left mb-3">
                             <label className="block mb-2 ml-1 text-sm">Email</label>
-                            <input type="email" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter you email" />
+                            <input type="email" onChange={handleChange} name='email' className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter you email" />
                             {/* <span className="block text-left text-error text-sm px-1 mt-1">
                                 Error
                             </span> */}
-                        </div>
+                        </div> 
                         <div className="text-left mb-3">
                             <label className="block mb-2 ml-1 text-sm">Name</label>
-                            <input type="password" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="********" />
+                            <input type="password" onChange={handleChange} name='password' className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="********" />
                             {/* <span className="block text-left text-error text-sm px-1 mt-1">
                                 Error
                             </span> */}
@@ -56,7 +81,7 @@ export default function SignInComponent() {
                         </p>
 
                         <div className="my-6">
-                            <button class="bg-primary w-full text-white font-bold py-2 px-4 rounded">
+                            <button onClick={handleSigin} class="bg-primary w-full text-white font-bold py-2 px-4 rounded">
                                 Sign in
                             </button>
                         </div>
@@ -69,7 +94,7 @@ export default function SignInComponent() {
                                 href="#"
                                 class="text-primary"
                             >
-                                <Link to={"/signin"}>Sign In</Link>
+                                <Link to={"/signup"}>Sign Up</Link>
                             </a>
                         </p>
 
