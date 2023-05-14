@@ -1,0 +1,19 @@
+
+.burger_ico {
+    display: none;
+}
+
+@media only screen and (max-width: 640px){
+	.header {
+        display: none;
+    }
+    header {
+        display: flex;
+        justify-content: end !important;
+    }
+    /* .burger_ico {
+        display: block;
+
+    } */
+}
+

@@ -6,6 +6,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-select/dist/index.esm.js"
   ],
   theme: {
     darkMode: false,
@@ -27,7 +28,7 @@ export default {
         "info": "#4583FB",
         "bg-primary": "#F4F4F4",
         "bg-secondary": "#FEFCFB",
-        'blue': '#1fb6ff',
+        // 'blue': '#1fb6ff',
         'purple': '#7e5bef',
         'pink': '#ff49db',
         'orange': '#ff7849',
@@ -37,21 +38,25 @@ export default {
         'gray': '#8492a6',
         'gray-light': '#d3dce6',
         "border-strock" : "#E1E9EE",
-        "error" : "#EE1D52"
+        "error" : "#EE1D52",
+        "bg-color" : "#FAFBFC",
+        "sidebar" : "#737791",
+        "bg-main" : "#F7F8FC"
       },
       fontSize: {
-        sm: '0.8rem',
-        base: '1rem',
-        xl: '1.25rem',
-        '2xl': '1.563rem',
-        '3xl': '1.953rem',
-        '4xl': '2.441rem',
-        '5xl': '3.052rem',
+        // md: '16px'
+        // sm: '0.8rem',
+        // base: '1rem',
+        // xl: '1.25rem',
+        // '2xl': '1.563rem',
+        // '3xl': '1.953rem',
+        // '4xl': '2.441rem',
+        // '5xl': '3.052rem',
       }
     },
 
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require('@headlessui/tailwindcss'),],
   daisyui: {
     styled: true,
     themes: false,
