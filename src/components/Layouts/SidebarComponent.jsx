@@ -19,7 +19,7 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`min-h-[92vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-80 bg-secondary-100 p-4 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                className={`min-h-[92vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-300`}
             >
                 <div>

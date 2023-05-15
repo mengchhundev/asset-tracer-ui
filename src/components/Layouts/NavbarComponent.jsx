@@ -24,7 +24,7 @@ export default function NavbarComponent() {
             >
                 <RiMenu3Line />
             </button>
-            <div className="flex items-center w-80 flex-shrink-0 header">
+            <div className="flex items-center w-72 flex-shrink-0 header">
                 <img src={logo} alt="" className="w-16" />
                 <h1 className="text-center text-2xl font-sp-pro-text-bold header">
                     Asset Tracer
