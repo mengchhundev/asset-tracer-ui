@@ -295,6 +295,8 @@ export default function DashboardComponent() {
                 </div>
             </aside >
 
+            
+
             <div className="flex flex-col flex-1 w-full">
                 <header className="header z-10 py-6 bg-white dark:bg-gray-800">
                     <div

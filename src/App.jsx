@@ -9,6 +9,7 @@ import DashboardComponent from './components/DashboardComponent'
 import MainComponent from './components/Layouts/MainComponent'
 import HomeComponent from './pages/HomeComponent'
 import CategoryComponent from './pages/category/CategoryComponent'
+import TrackingComponent from './pages/tracking/TrackingComponent'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<MainComponent />}>
             <Route path='/dashboard' element={<HomeComponent/>} />
             <Route path='/category' element={<CategoryComponent/>} />
+            <Route path='/tracking' element={<TrackingComponent/>}></Route>
         </Route>
         <Route element={<ProtectedRoute isLogged={false} />}>
 
