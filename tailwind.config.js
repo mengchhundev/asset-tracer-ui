@@ -33,6 +33,7 @@ export default {
         'pink': '#ff49db',
         'orange': '#ff7849',
         'green': '#13ce66',
+        'lightgreen' : 'rgba(60, 179, 113, 20%)',
         'yellow': '#ffc82c',
         'gray-dark': '#273444',
         'gray': '#8492a6',
