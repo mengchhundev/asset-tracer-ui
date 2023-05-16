@@ -8,12 +8,7 @@
         display: none;
     }
     header {
-        display: flex;
-        justify-content: end !important;
+        display: none;
     }
-    /* .burger_ico {
-        display: block;
-
-    } */
 }
 
