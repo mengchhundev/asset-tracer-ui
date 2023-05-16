@@ -38,7 +38,7 @@ export default function AboutpageComponent() {
           <img
             src={bgTre}
             alt=""
-            class="hidden lg:block w-[25px] h-[25px] absolute top-[230px] left-16  "
+            class="hidden lg:block w-[25px] h-[25px] absolute top-[240px] left-16  "
           />
         </div>
         <div class="w-[90%] mx-auto ">
@@ -52,18 +52,18 @@ export default function AboutpageComponent() {
           </div>
           <div class="grid grid-cols-1 gap-6 xl:grid-cols-2 ">
             <div class="grid-cols-6">
-              <div class="mb-3 text-left text-text-color w-[100%] lg:text-[18px] md:text-[18px] sm:text-[17px] text-[15px] lg:pt-[40px] md:pt-[20px] sm:pt-[10px] pt-[5px] ">
+              <div class="mb-3 text-left text-text-color w-[100%] lg:text-[18px] md:text-[18px] sm:text-[17px] text-[15px] lg:pt-[60px] md:pt-[20px] sm:pt-[10px] pt-[5px] ">
               Asset Tracer is a software system service that was created in 2023 by the Korea Software HRD Center. 
-              This website serves as a platform for both administrators and users to manage their organization’s assets
+              This website serves as a platform for both administrators and users to manage their organization's assets
                 <div class="my-6">
                 Asset Tracer allows you to use your existing asset tags and benefit from our design technology, easy-to-customize system, and friendly customer service team.
                  You can count on us for secure, affordable, and user-friendly service. 
                  We're continually improving our quality products, so you can experience a better way to organize your assets.
                 </div>
-                <div class="lg:pt-[60px] md:pt-[20px] sm:pt-[10px] pt-[5px]">
+                <div class="lg:pt-[40px] md:pt-[10px] sm:pt-[8px] pt-[5px]">
                   <button
                     type="button"
-                    class="text-textwhite rounded-md bg-pending font-medium text-sm px-8 py-2.5 text-center shadow-lg hover:bg-hoveryellow shadow-shadow"
+                    class="text-textwhite rounded-md bg-pending font-medium text-md px-14 py-2 text-center shadow-lg hover:bg-hoveryellow shadow-shadow"
                   >
                     See more
                   </button>
@@ -138,13 +138,13 @@ export default function AboutpageComponent() {
               <div class="mb-3 mx-auto text-text-color w-[300px] shadow-2xl shadow-gray-light xl:ml-[150px] lg:ml-[80px] md:ml-[0px] sm:ml-[10px] ml-[3px] ">
                 <div
                   href="#"
-                  class="block px-8 py-10 bg-white border border-gray-light rounded-lg shadow w-[300px] h-[300px]"
+                  class="block text-left px-8 py-4 bg-white border border-gray-light rounded-lg shadow w-[300px] h-[270px]"
                 >
-                  <h5 class="mb-2 text-3xl font-bold text-pending">Mission</h5>
-                  <p class="font-normal text-text-color mt-6 text-left ">
+                  <h5 class="mb-2 text-3xl  font-bold text-pending">Mission</h5>
+                  <p class="font-normal text-text-color mt-4">
                   Our mission is to make asset tracking efficient and cost effective.
                    Our best-on-the-market tags, 
-                  along with the state-of-the-art Asset​ 
+                  along with the state-of-the-art Asset
                   Tracer software make this mission possible.
                   </p>
                 </div>
@@ -155,14 +155,14 @@ export default function AboutpageComponent() {
                 <div class="mb-3 mx-auto text-text-color w-[300px] shadow-2xl shadow-gray-light xl:ml-[30px] lg:mr-[80px] md:mr-[0px] sm:mr-[10px] ml-[3px] ">
                   <div
                     href="#"
-                    class="block px-8 py-10 bg-white border border-gray-light rounded-lg shadow w-[300px] h-[300px]"
+                    class="block text-left px-8 py-4 bg-white border border-gray-light rounded-lg shadow w-[300px] h-[270px]"
                   >
                     <h5 class="mb-2 text-3xl font-bold  text-pending">
                       Vision
                     </h5>
-                    <p class="font-normal text-text-color mt-6 text-left">
+                    <p class="font-normal text-text-color mt-4">
                     Asset Tracer was created by our team to provide many useful features to users.
-                     The website’s goals are to help users manage their assets, 
+                     The website's goals are to help users manage their assets, 
                      To provide better work for users in Cambodia.
                     </p>
                   </div>
@@ -221,7 +221,7 @@ export default function AboutpageComponent() {
                       <img
                         src={hongmenng}
                         alt="Picture Hongmeng"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Leng Hongmeng
@@ -234,7 +234,7 @@ export default function AboutpageComponent() {
                     <img
                         src={Chhun}
                         alt="Picture Mengchhun"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                        Chheang Mengchhun
@@ -250,7 +250,7 @@ export default function AboutpageComponent() {
                       <img
                         src={Mnor}
                         alt="Picture Mnor"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Boeurn Mnor
@@ -263,7 +263,7 @@ export default function AboutpageComponent() {
                       <img
                         src={senglorn}
                         alt="Picture Senglorn"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Ly Senglorn
@@ -285,7 +285,7 @@ export default function AboutpageComponent() {
                       <img
                         src={Mony}
                         alt="Picture Mony"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Keo Mony
@@ -298,7 +298,7 @@ export default function AboutpageComponent() {
                       <img
                         src={menghout}
                         alt="Picture Menghout"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Keng Menghout
@@ -314,7 +314,7 @@ export default function AboutpageComponent() {
                       <img
                         src={vanneat}
                         alt="Picture Vanneat"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Thou Vanneat
@@ -327,7 +327,7 @@ export default function AboutpageComponent() {
                       <img
                         src={Rith}
                         alt="Picture Rith"
-                        class="w-[50px] mx-auto mb-5"
+                        class="w-[70px] mx-auto mb-5"
                       />
                       <div class="text-sm font-sp-pro-text-regular text-text-color">
                         Bun Monypanharith

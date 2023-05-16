@@ -30,11 +30,11 @@ import NavbarComponent from './NavbarComponent';
 export default function LandingComponent() {
   return (
     <>
-     <NavbarComponent/>
+      <NavbarComponent/>
     <div class="bg-bgpink pt-[90px]">
         <div class="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-1 ">
-          <div class="text-left col-span-6 mt-12 ">
-            <div class="w-[85%] lg:ml-[180px] md:ml-[60px] sm:ml-[40px] ml-6">
+          <div class="text-left md:col-span-6 mt-12 ">
+            <div class="w-[90%] lg:ml-[140px] md:ml-[30px] sm:ml-[40px] ml-6">
             <div class="text-4xl my-3 font-sp-pro-text-bold text-text-color">
               Make assets
               <div class="-my-3">tracking</div>
@@ -58,17 +58,18 @@ export default function LandingComponent() {
             </div>
             </div>
           </div>
+         
+          <div class=" col-span-6 relative sm:grid-cols-1">
           <img
               src={Send}
               alt=""
-              class="hidden lg:block absolute top-[170px] 2xl:ml-[840px] xl:ml-[700px] lg:ml-[600px] w-[45px] md:ml-[600px] sm:ml-[500px]"
+              class="hidden lg:block absolute top-[100px] lg:ml-[80px] w-[45px] md:ml-[60px] sm:ml-[50px]"
             />
-          <div class=" col-span-6 relative sm:grid-cols-1">
-            <img src={Icon} alt="" class="absolute top-[273px] w-[48px]" />
+            <img src={Icon} alt="" class="absolute top-[273px] w-[48px] -ml-8" />
 
             <div
               href="#"
-              class=" hidden md:block absolute ml-[20px] z-30 px-3 py-2 bg-white border border-white rounded-xl top-[300px] w-[170px] h-[90px]"
+              class=" hidden md:block absolute -ml-[10px] z-30 px-3 py-2 bg-white border border-white rounded-xl top-[300px] w-[170px] h-[90px]"
             >
               <ul class=" text-text-color list-inside ">
                 <li class="flex items-center">
@@ -91,15 +92,16 @@ export default function LandingComponent() {
             <img
               src={Grouplanding}
               alt=""
-              class="absolute hidden sm:block w-[450px] lg:top-[228px]  md:top-[255px]  top-[228px] lg:ml-[64px] md:-ml-[10px] sm:-ml-[5px]"
+              class="absolute hidden sm:block w-[450px] lg:top-[228px]  md:top-[255px]  top-[228px] lg:ml-[40px] md:-ml-[20px] sm:-ml-[5px]"
             />
             <img
               src={Peoplelanding}
               alt=""
-              class="w-[330px] z-10 absolute top-[10px] ml-[120px] hidden md:block lg:ml-[130px] md:ml-[40px] sm:-ml-[5px]"
+              class="w-[330px] z-10 absolute top-[10px] ml-[100px] hidden md:block lg:ml-[100px] md:ml-[30px] sm:-ml-[5px]"
             />
             </div>
           </div>
+
           <div class="py-8 hidden lg:block">
           <div
             href="#"
@@ -112,15 +114,15 @@ export default function LandingComponent() {
                   <div href="#" class="flex text-left text-text-color list-inside">
                    Organization  <img src={Vector} alt="" class="w-[10px] h-2 ml-2 mt-[10px]" />
                   </div>
-                  <div class="text-[10px] text-left">All <div>Your organization</div></div>
+                  <div class="text-[10px] text-left pt-3">All Your organization</div>
                   </div>
                 </li>
                 <li>
-                <div class="w-[100px]">
+                <div class="w-[130px] ml-5">
                   <div href="#" class="text-left text-text-color flex">
                   Date  <img src={Vector} alt="" class="w-[10px] h-2 ml-2 mt-[10px]" />
                   </div>
-                  <div class="text-[10px] text-left">When you have join us</div>
+                  <div class="text-[10px] text-left pt-3">When you have join us</div>
                   </div>
                 </li>
                 <li>
@@ -128,15 +130,15 @@ export default function LandingComponent() {
                   <div href="#" class="flex text-left text-text-color">
                    User <img src={Vector} alt="" class="w-[10px] h-2 ml-2 mt-[10px]" />
                   </div>
-                  <div class="text-[10px] text-left">Number of user</div>
+                  <div class="text-[10px] text-left pt-3">Number of user</div>
                   </div>
                 </li>
               </ul>
 
-                <div class="w-[150px] pt-3.5">
+                <div class="w-[150px] pt-2">
                 <button
                 type="button"
-                class="text-textwhite rounded-md bg-pending font-medium text-sm px-8 py-2.5 text-center mr-10 shadow-lg hover:bg-hoveryellow shadow-shadow"
+                class="text-textwhite rounded-md bg-pending font-medium text-sm px-10 py-2.5 text-center -ml-8 shadow-lg hover:bg-hoveryellow shadow-shadow"
               >
                 Sign Up
               </button>
@@ -255,13 +257,13 @@ export default function LandingComponent() {
               
                 <div
                   href="#"
-                  class="block px-6 py-6  lg:w-[385px] md:w-[385px] sm:w-[385px] w-[300px] lg:h-[240px] md:h-[240px] sm:h-[240px] h-[300px] bg-white border border-gray-200 rounded-lg shadow-2xl shadow-[#cbc6c6] "
+                  class="block px-6 py-6  lg:w-[390px] md:w-[385px] sm:w-[385px] w-[300px] lg:h-[250px] md:h-[260px] sm:h-[240px] h-[300px] bg-white border border-gray-200 rounded-lg shadow-2xl shadow-[#cbc6c6] "
                 >
-                  <div class="font-normal text-text-color ">
+                  <div class="font-sp-pro-text-medium text-text-color ">
                   “Asset Tracer can help organizations optimize their asset utilization and reduce costs by
                    improving the efficiency of asset acquisition, deployment, and maintenance.”
                   </div>
-                  <div class="font-normal text-text-color pt-7">
+                  <div class="font-sp-pro-text-medium text-text-color pt-7">
                     Kosal
                     <div>Lahorem</div>
                     <div>Cambodia</div>
@@ -272,13 +274,13 @@ export default function LandingComponent() {
               <div class="mb-3 text-left text-text-color top-[70px] ml-[190px] lg:ml-[185px] md:ml-[190px] sm:ml-[140px] absolute">
                 <div
                   href="#"
-                  class=" hidden sm:block px-6 py-6 bg-[#F7F8FC] w-[380px] h-[240px] border border-gray-200 rounded-lg shadow "
+                  class=" hidden sm:block px-6 py-6 bg-[#F7F8FC] w-[390px] h-[240px] border border-gray-200 rounded-lg shadow "
                 >
-                  <div class="font-normal text-gray-700 ">
+                  <div class="fontsp-pro-text-medium text-gray-700 ">
                   “Asset Tracer can help organizations optimize their asset utilization and reduce costs by 
                   improving the efficiency of asset acquisition, deployment, and maintenance.”
                   </div>
-                  <div class="font-normal text-text-color pt-7">
+                  <div class="font-sp-pro-text-medium text-text-color pt-7">
                     Kosal
                     <div>Lahorem</div>
                     <div>Cambodia</div>

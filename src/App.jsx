@@ -8,6 +8,7 @@ import SignInComponent from './components/Authentication/SignInComponent'
 import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
 import LandingComponent from './components/LandingComponent/LandingComponent'
 import ContactusComponent from './components/InsideComponent/ContactusComponent'
+import DashboardComponent from './components/homepage/DashboardComponent'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,8 +20,9 @@ function App() {
         <Route path='/signup' element={<SignUpComponent/>}/>
         <Route path='/signin' element={<SignInComponent/>}/>
         <Route path='/about' element={<AboutpageComponent/>} />
-        <Route path='/' element={<LandingComponent/>}/>
+        <Route path='/landing' element={<LandingComponent/>}/>
         <Route path='/contact' element={<ContactusComponent/>}/>
+        {/* <Route path='/' element={<DashboardComponent/>}/> */}
         <Route element={<ProtectedRoute isLogged={false}/>}>
 
         </Route>

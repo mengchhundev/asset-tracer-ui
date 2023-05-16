@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import Facebook from "../../assets/images/Iconfooter/Facebook.png";
 import Instagram from "../../assets/images/Iconfooter/Instagram.png";
 import Twitter from "../../assets/images/Iconfooter/Twitter.png";
@@ -50,7 +51,7 @@ export default function FooterComponent() {
                     <div class="relative w-full">
                       <input
                         type="text"
-                        class="bg-gray-50 border border-gray-light text-text-color text-sm rounded-sm  py-2.5 px-3"
+                        class="border-border-strock border-2 block w-full focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500 text-sm rounded-sm  py-2 px-3"
                         placeholder="Your email Address"
                       />
                       <button
@@ -103,7 +104,7 @@ export default function FooterComponent() {
                   href="#"
                   class="hidden md:block py-2 px-5 border-r-2 border-gray-light"
                 >
-                  Contact us
+                  <Link to={"/contact"}>Contact us</Link>
                 </div>
               </li>
               <li>

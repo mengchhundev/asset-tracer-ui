@@ -13,14 +13,14 @@ export default function ContactusComponent() {
     <NavbarComponent/>
       <div class="bg-bgpink pt-[60px]">
         <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
-          <div class=" col-span-7 ">
+          <div class=" col-span-6 ">
             <div className="relative w-[90%] mx-auto hidden md:block mt-14">
               <img src={contact} alt="Contact Picture" className="w-full" />
             </div>
           </div>
 
-          <div class=" col-span-5">
-            <div class="lg:ml-0 md:ml-[90px] sm:ml-[60px] ml-[25px]">
+          <div class=" col-span-6">
+            <div class="lg:ml-0 md:ml-[100px] sm:ml-[60px] ml-[25px]">
             <div className="mr-20 ">
               <div class=" w-[80%] text-text-color text-left">
                 <p className="font-sp-pro-text-regular text-sm  mt-14">
@@ -34,12 +34,12 @@ export default function ContactusComponent() {
                   about Asset Tracer, please send us a message.
                 </p>
               </div>
-              <div class="lg:w-[100%] md:w-[100%] sm:w-[100%] w-[80%]">
+              <div class="sm:w-[90%] w-[80%]">
               <div className="text-left mb-3">
                 <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">Full Name</label>
                 <input
                   type="email"
-                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500"
+                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
                   placeholder=" "
                 />
               </div>
@@ -47,7 +47,7 @@ export default function ContactusComponent() {
                 <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">Email</label>
                 <input
                   type="email"
-                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500"
+                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
                   placeholder=" "
                 />
               </div>
@@ -61,14 +61,14 @@ export default function ContactusComponent() {
                 </div>
                 <input
                   type="message"
-                  className="text-sm border-border-strock border-2 rounded-lg block w-full py-8 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500"
+                  className="text-sm border-border-strock border-2 rounded-lg block w-full py-8 px-4 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
                   placeholder=" "
                 />
               </div>
               </div>
               <button
                 type="message"
-                class="lg:mr-[310px] md:mr-[450px] sm:mr-[350px] mr-[250px] py-2.5 px-6 rounded-md text-textwhite bg-pending hover:bg-hoveryellow font-medium text-sm text-center shadow-lg shadow-shadow "
+                class="lg:mr-[400px] md:mr-[450px] sm:mr-[350px] mr-[250px] py-2.5 px-6 rounded-md text-textwhite bg-pending hover:bg-hoveryellow font-medium text-sm text-center shadow-lg shadow-shadow "
               >
                 <div class="w-[90px]">
                 Send Massage
