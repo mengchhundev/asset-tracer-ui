@@ -10,7 +10,7 @@ export default function MainComponent() {
       <NavbarComponent />
       <div className="flex flex-row">
         <SidebarComponent />
-        <div className="overflow-y-scroll p-5 w-full">
+        <div className="overflow-y-scroll p-5 w-full h-[90vh]">
           <ContentCompont/>
         </div>
       </div> 
