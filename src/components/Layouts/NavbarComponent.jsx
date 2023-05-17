@@ -11,28 +11,24 @@ import {
 } from "react-icons/ri";
 import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
-import "@szhsin/react-menu/dist/transitions/slide.css";
+import "@szhsin/react-menu/dist/transitions/slide.css"; 
 import { Link } from "react-router-dom";
 import logo from '../../assets/images/A_Tracer_logo1.png'
 import '../../style/navbar.css'
 
 export default function NavbarComponent() {
+    
     return (
-        <header className="bg-white p-8 h-[8vh] flex flex-row items-center justify-between z-50 text-text-color">
-            <button
-                className=" bg-white border-stone-200 border outline-none text-black p-3 rounded-full z-50 burger_ico"
-            >
-                <RiMenu3Line />
-            </button>
-            <div className="flex items-center w-80 flex-shrink-0 header">
+        <header className="bg-white p-8 h-[70px] flex flex-row items-center justify-between z-50 text-text-color">
+            <div className="flex items-center w-72 lg:flex-shrink-0 invisible lg:visible">
                 <img src={logo} alt="" className="w-16" />
-                <h1 className="text-center text-2xl font-sp-pro-text-bold header">
+                <h1 className="text-center text-2xl font-sp-pro-text-bold">
                     Asset Tracer
                 </h1>
             </div>
 
             <div className="flex items-center w-full justify-between">
-                <div className="font-sp-pro-text-semibold text-2xl">
+                <div className="font-sp-pro-text-semibold text-2xl invisible lg:visible">
                     Category
                 </div>
                 <nav className="flex items-center gap-2 ">

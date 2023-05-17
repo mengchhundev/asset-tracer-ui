@@ -3,7 +3,6 @@ import { auth, provider } from '../../redux/services/googleAuth/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import api from '../../redux/services/config/api';
 import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
