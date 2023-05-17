@@ -27,8 +27,8 @@ export default function NavbarComponent() {
                 </h1>
             </div>
 
-            <div className="flex items-center w-full justify-between invisible lg:visible">
-                <div className="font-sp-pro-text-semibold text-2xl">
+            <div className="flex items-center w-full justify-between">
+                <div className="font-sp-pro-text-semibold text-2xl invisible lg:visible">
                     Category
                 </div>
                 <nav className="flex items-center gap-2 ">

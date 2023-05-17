@@ -1,4 +1,4 @@
-import { Combobox, Listbox, Transition } from "@headlessui/react";
+import { Combobox, Dialog, Listbox, Transition } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { BiExpandVertical } from "react-icons/bi";
@@ -16,6 +16,17 @@ const people = [
 ];
 
 export default function CategoryComponent() {
+
+    // Modal 
+    let [isOpen, setIsOpen] = useState(true)
+
+    function closeModal() {
+        setIsOpen(false)
+    }
+
+    function openModal() {
+        setIsOpen(true)
+    }
 
     const [itemsPerPage, setItemsPerPage] = useState(4);
     const [selectedFruit, setSelectedFruit] = useState("Apple");
@@ -286,18 +297,20 @@ export default function CategoryComponent() {
 
                 <div className="overflow-x-auto">
                     <table className="table w-full">
-                        <tr className="bg-bg-primary text-sidebar">
-                            <th className="bg-bg-primary">No</th>
-                            <th>Name</th>
-                            <th>Created Date</th>
-                            <th>Action</th>
-                        </tr>
+                        <thead>
+                            <tr className="bg-bg-primary text-sidebar">
+                                <th className="bg-bg-primary">No</th>
+                                <th>Name</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
                         <tbody className="divide-y dark:divide-gray-700">
                             <tr className="font-md text-text-color">
                                 <th className="bg-white">1</th>
                                 <td>
                                     <div className="flex items-center">
-                                        <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                        <div className="relative  w-8 h-8 mr-3 rounded-full">
                                             <img
                                                 className="object-cover w-full h-full rounded-full"
                                                 src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -314,27 +327,14 @@ export default function CategoryComponent() {
                                 </td>
                                 <td>6/10/2020</td>
                                 <td>
-                                    {/* <div className="flex items-center space-x-4 w-20">
-                    <button
-                      className="flex items-center border border-accept text-accept px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                      aria-label="Edit"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="flex items-center border border-reject text-reject justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                      aria-label="Delete"
-                    >
-                      Delete
-                    </button>
-                  </div> */}
+                                    hi
                                 </td>
                             </tr>
                             <tr className="font-md text-text-color">
                                 <th className="bg-white">1</th>
                                 <td>
                                     <div className="flex items-center">
-                                        <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                        <div className="relative w-8 h-8 mr-3 rounded-full">
                                             <img
                                                 className="object-cover w-full h-full rounded-full"
                                                 src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -351,28 +351,18 @@ export default function CategoryComponent() {
                                 </td>
                                 <td>6/10/2020</td>
                                 <td>
-                                    {/* <div className="flex items-center space-x-4 w-20">
-                    <button
-                      className="flex items-center border border-accept text-accept px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                      aria-label="Edit"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="flex items-center border border-reject text-reject justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                      aria-label="Delete"
-                    >
-                      Delete
-                    </button>
-                  </div> */}
+                                    Hi
                                 </td>
                             </tr>
                         </tbody>
 
                     </table>
                 </div>
+
+
+
                 <div className="grid grid-cols-12 px-4 py-5 text-sm text-gray-500 uppercase">
-                    <div className="flex items-center col-span-3 mt-1">Showing 21-30 of 100</div>
+                    <div className="flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1">Showing 21-30 of 100</div>
                     <div className="col-span-2"></div>
 
                     <div id="react-paginate" className="col-span-12 md:col-span-7 ml-auto">

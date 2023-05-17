@@ -116,7 +116,7 @@ export default function SidebarComponent() {
                                             };
                                         }}
                                     >
-                                        Super
+                                        Type Super
                                     </NavLink>
                                 </li>
                                 <li>
@@ -124,7 +124,7 @@ export default function SidebarComponent() {
                                         to="/"
                                         className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
                                     >
-                                        Super
+                                        Type Normal
                                     </NavLink>
                                 </li>
                             </ul>
