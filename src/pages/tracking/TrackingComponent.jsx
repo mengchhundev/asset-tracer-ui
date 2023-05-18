@@ -1,0 +1,650 @@
+import React from "react";
+import { AiOutlineCheck, AiOutlineSearch } from "react-icons/ai";
+import { BiCheck } from "react-icons/bi";
+
+export default function TrackingComponent() {
+  return (
+    <div>
+      <main className="h-full overflow-y-auto">
+        <div className="mb-8 mt-3 p-10 bg-white rounded-3xl overflow-hidden">
+          <div className="flex justify-between mb-8 mt-3">
+            <div>
+              <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
+                All Tracking
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-8 gap-10">
+              {/* Search field */}
+              <div className="col-span-4">
+                <div className="relative w-full max-w-md">
+                  <div className="relative w-full max-w-md mr-6 focus-within:text-black focus:border-0 rounded-lg p-2 border-slate-200 bg-bg-main">
+                    <div className="absolute inset-y-0 flex items-center pl-2">
+                      <AiOutlineSearch className="w-5 h-5 text-primary" />
+                    </div>
+                    <input
+                      className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md focus:border:none"
+                      type="text"
+                      placeholder="Search..."
+                      aria-label="Search"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* filter */}
+              <div className="col-span-4">
+                <div className="relative w-full max-w-md">
+                  <select
+                    id="countries"
+                    class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                  >
+                    <option
+                      selected
+                      className="sp-pro-text-regular"
+                    >
+                      Sort by :
+                    </option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto text-text-color">
+            <table className="table w-full">
+              <thead>
+                <tr className="text-md tracking-wide text-left">
+                  <th>Label code</th>
+                  <th>Assets Name</th>
+                  <th>Categories</th>
+                  <th>Satatus</th>
+                  <th>Owner</th>
+                  <th>Room</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                      <span></span>
+                      <span className="text-green flex">
+                        <BiCheck className="w-6 h-6 flex pr-1" />
+                        In use
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                      <span></span>
+                      <span className="text-green flex">
+                        <BiCheck className="w-6 h-6 flex pr-1" />
+                        In use
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-red-100 w-[70px] text-green rounded-lg p-1 flex items-center">
+                      <span className="flex pr-1">
+                        <span>
+                          <svg
+                            width="15px"
+                            height="15px"
+                            viewBox="0 0 512 512"
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                          >
+                            <title>cancel</title>
+                            <g
+                              id="Page-1"
+                              stroke="none"
+                              stroke-width="1"
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <g
+                                id="work-case"
+                                fill="red"
+                                transform="translate(91.520000, 91.520000)"
+                              >
+                                <polygon
+                                  id="Close"
+                                  points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"
+                                ></polygon>
+                              </g>
+                            </g>
+                          </svg>
+                        </span>
+                      </span>
+                      <span className="text-red-500 flex">Issue</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                      <span></span>
+                      <span className="text-green flex">
+                        <BiCheck className="w-6 h-6 flex pr-1" />
+                        In use
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
+                      <span className="flex pr-1">
+                        <span>
+                          <svg
+                            width="15px"
+                            height="15px"
+                            viewBox="0 0 512 512"
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                          >
+                            <title>cancel</title>
+                            <g
+                              id="Page-1"
+                              stroke="none"
+                              stroke-width="1"
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <g
+                                id="work-case"
+                                fill="red"
+                                transform="translate(91.520000, 91.520000)"
+                              >
+                                <polygon
+                                  id="Close"
+                                  points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"
+                                ></polygon>
+                              </g>
+                            </g>
+                          </svg>
+                        </span>
+                      </span>
+                      <span className="text-red-500 flex">Issue</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                      <span></span>
+                      <span className="text-green flex">
+                        <BiCheck className="w-6 h-6 flex pr-1" />
+                        In use
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Electronic</div>
+                    </div>
+                  </td>
+                  <td>Furniture</td>
+                  <td className="">
+                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
+                      <span className="flex pr-1">
+                        <span>
+                          <svg
+                            width="15px"
+                            height="15px"
+                            viewBox="0 0 512 512"
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                          >
+                            <title>cancel</title>
+                            <g
+                              id="Page-1"
+                              stroke="none"
+                              stroke-width="1"
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <g
+                                id="work-case"
+                                fill="red"
+                                transform="translate(91.520000, 91.520000)"
+                              >
+                                <polygon
+                                  id="Close"
+                                  points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"
+                                ></polygon>
+                              </g>
+                            </g>
+                          </svg>
+                        </span>
+                      </span>
+                      <span className="text-red-500 flex">Issue</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="flex items-center">
+                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <img
+                          class="object-cover w-full h-full rounded-full"
+                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                          alt=""
+                          loading="lazy"
+                        />
+                        <div
+                          class="absolute inset-0 rounded-full shadow-inner"
+                          aria-hidden="true"
+                        ></div>
+                      </div>
+                      <div>Mnor</div>
+                    </div>
+                  </td>
+                  <td>Accounting</td>
+                  <td>
+                    <div class="flex items-center space-x-4 w-20">
+                      <button
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Edit"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <span class="flex items-center col-span-3">
+              Showing 21-30 of 100
+            </span>
+            <span class="col-span-2"></span>
+            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+              <nav aria-label="Table navigation">
+                <ul class="inline-flex items-center">
+                  <li>
+                    <button
+                      class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                      aria-label="Previous"
+                    >
+                      <svg
+                        class="w-4 h-4 fill-current"
+                        aria-hidden="true"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clip-rule="evenodd"
+                          fill-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2">
+                      1
+                    </button>
+                  </li>
+                  <li>
+                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                      2
+                    </button>
+                  </li>
+                  <li>
+                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                      4
+                    </button>
+                  </li>
+                  <li>
+                    <span class="p-2.5">...</span>
+                  </li>
+                  <li>
+                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                      8
+                    </button>
+                  </li>
+                  <li>
+                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                      9
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                      aria-label="Next"
+                    >
+                      <svg
+                        class="w-4 h-4 fill-current"
+                        aria-hidden="true"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clip-rule="evenodd"
+                          fill-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </span>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
