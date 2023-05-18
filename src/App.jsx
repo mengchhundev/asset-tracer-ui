@@ -9,12 +9,14 @@ import HomeComponent from './pages/HomeComponent'
 import CategoryComponent from './pages/category/CategoryComponent'
 import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
+import LandingComponent from './components/landingComponent/LandingComponent'
 
 function App() {
 
   return (
     <>
       <Routes>
+        <Route path='/' element={<LandingComponent/>}/>
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
         <Route path="/" element={<MainComponent />}>

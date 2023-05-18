@@ -22,7 +22,7 @@ export default function ListComponent() {
     const [isOpenModalCreate, setIsOpenModalCreate] = useState(false)
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
     const [isShowError, setIsShowError] = useState(false)
-    const [superCategoryId, setSuperCategoryId] = useState("324eab86-9ca8-4c17-aa8c-0127fa04faed")
+    const [superCategoryId, setSuperCategoryId] = useState("")
     const [newData, setNewData] = useState({
         id: "", name: ""
     })
@@ -58,6 +58,7 @@ export default function ListComponent() {
                 dispatch(setAllSuperCategory(res.data.payload))
             }
         }, (err) => {
+            console.log(err)
             if (err.response.data.status == 400) {
                 dispatch(setAllSuperCategory([]))
             }
@@ -113,6 +114,7 @@ export default function ListComponent() {
         setIsUpdate(true)
         openModalCreateSuperCategory(true)
         setNewData(val)
+        setSuperCategoryId(val.id)
         formik.setValues(val)
     }
 
