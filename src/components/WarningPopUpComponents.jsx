@@ -1,9 +1,12 @@
 import React from 'react';
 import false1 from '../assets/images/false.png'
+import true1 from '../assets/images/success.png'
 
-function WarningPopUpComponents({ setIsShowErr }) {
+function WarningPopUpComponents({setIsShowErr}) {
+    console.log(setIsShowErr);
     return (
-        <div>
+        <>
+          <div>
             <div className="fixed top-0 left-0 font-sp-pro-text-semibold right-0 bottom-0 bg-black bg-opacity-40 flex items-center justify-center">
                 <div className="bg-white rounded-3xl p-6 w-72 z-10 " >
                     <div className='flex flex-col justify-end'>
@@ -19,10 +22,7 @@ function WarningPopUpComponents({ setIsShowErr }) {
 
                 </div>
             </div>
-
-
         </div>
-    );
-}
-
+      </>
+    )}
 export default WarningPopUpComponents;
