@@ -86,27 +86,27 @@ export default function NavbarComponent() {
                 >
                  <ul class="flex flex-col text-lg p-4 md:p-0 mt-4 font-medium border rounded-lg md:border-0  ">
               <li>
-                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-[#ffc99d] hover:text-white">
+                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
                   Home
                 </div>
               </li>
               <li>
-                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-[#ffc99d] hover:text-white ">
+                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white ">
                   Feature
                 </div>
               </li>
               <li>
-                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-[#ffc99d] hover:text-white">
+                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
                   Benefits
                 </div>
               </li>
               <li>
-                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-[#ffc99d] hover:text-white">
+                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
                   Our team
                 </div>
               </li>
               <li>
-                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-[#ffc99d] hover:text-white">
+                <div href="#" class="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
                   <Link to={"/about"} class="hover:text-white">About us</Link>
                 </div>
               </li>
