@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from "yup";
-import { useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signup from '../../assets/images/signup.png'
 import RegisterPopUpComponent from '../RegisterPopUpComponent';
 // import { GoogleLogin } from 'react-google-login';

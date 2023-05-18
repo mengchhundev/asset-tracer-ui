@@ -25,6 +25,7 @@ export default {
         "accept": "#6DB33F",
         "reject": "#C52222",
         "reject-light" : "#FFC5C5",
+        "reject-light" : "#FFC5C5",
         "pending": "#F8C400",
         "info": "#4583FB",
         "bg-primary": "#F4F4F4",
@@ -44,6 +45,14 @@ export default {
         "sucPopup_color" : '#B3E67B'
       },
       fontSize: {
+        // md: '16px'
+        // sm: '0.8rem',
+        // base: '1rem',
+        // xl: '1.25rem',
+        // '2xl': '1.563rem',
+        // '3xl': '1.953rem',
+        // '4xl': '2.441rem',
+        // '5xl': '3.052rem',
         // md: '16px'
         // sm: '0.8rem',
         // base: '1rem',
