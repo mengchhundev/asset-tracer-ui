@@ -26,6 +26,7 @@ function App() {
         <Route element={<ProtectedRoute isLogged={false} />}>
 
         </Route>
+       
       </Routes>
     </>
   );
