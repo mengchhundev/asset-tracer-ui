@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
+        {/* <Route path='/signin' element={<SignInComponent />} /> */}
         <Route path="/" element={<MainComponent />}>
             <Route path='/dashboard' element={<HomeComponent/>} />
             <Route path='/category' element={<CategoryComponent/>} />

@@ -101,6 +101,10 @@ export default function SignInComponent() {
                                                 setMessage(err.response.data.detail)
                                                 setIsShowErr(true)
                                             }
+                                            if (err.response.data.status == 401) {
+                                                setMessage(err.response.data.detail)
+                                                setIsShowErr(true)
+                                            }
                                             console.log(err);
                                         }
                                     ).catch(err => {
