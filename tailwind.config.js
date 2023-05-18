@@ -7,6 +7,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tailwindcss-select/dist/index.esm.js"
+    "./node_modules/react-tailwindcss-select/dist/index.esm.js"
   ],
   theme: {
     darkMode: false,
@@ -24,6 +25,7 @@ export default {
         "text-color": "#324C5B",
         "accept": "#6DB33F",
         "reject": "#C52222",
+        "reject-light" : "#FFC5C5",
         "reject-light" : "#FFC5C5",
         "pending": "#F8C400",
         "info": "#4583FB",
@@ -52,11 +54,19 @@ export default {
         // '3xl': '1.953rem',
         // '4xl': '2.441rem',
         // '5xl': '3.052rem',
+        // md: '16px'
+        // sm: '0.8rem',
+        // base: '1rem',
+        // xl: '1.25rem',
+        // '2xl': '1.563rem',
+        // '3xl': '1.953rem',
+        // '4xl': '2.441rem',
+        // '5xl': '3.052rem',
       }
     },
 
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require('@headlessui/tailwindcss'),],
   daisyui: {
     styled: true,
     themes: false,
