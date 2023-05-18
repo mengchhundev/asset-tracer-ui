@@ -7,7 +7,6 @@ import { useFormik } from 'formik';
 import signin from '../../assets/images/signin.png'
 import WarningPopUpComponents from '../WarningPopUpComponents';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
 export default function SignInComponent() {
