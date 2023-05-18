@@ -10,7 +10,7 @@ import { setAllSuperCategory } from "../../redux/slices/SuperCategorySlice";
 import { useFormik } from 'formik';
 import * as Yup from "yup"
 import moment from "moment";
-import SyncLoader from "react-spinners/SyncLoader";
+// import SyncLoader from "react-spinners/SyncLoader";
 
 
 export default function ListComponent() {
