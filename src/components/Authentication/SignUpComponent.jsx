@@ -3,12 +3,11 @@ import { auth, provider } from '../../redux/services/googleAuth/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signup from '../../assets/images/signup.png'
 import RegisterPopUpComponent from '../RegisterPopUpComponent';
-import api from '../../redux/services/api';
 // import { GoogleLogin } from 'react-google-login';
 
 export default function SignUpComponent() {
@@ -26,6 +25,7 @@ export default function SignUpComponent() {
     const [userInfo, setUserInfo] = useState({})
     const [isShowErr, setIsShowErr] = useState(false)
     const [isShowSuc, setIsShowSuc] = useState(false)
+
 
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)

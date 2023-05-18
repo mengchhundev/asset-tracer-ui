@@ -1,15 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
 import signin from '../../assets/images/signin.png'
 import WarningPopUpComponents from '../WarningPopUpComponents';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
-import api from '../../redux/services/api';
 export default function SignInComponent() {
     const [message, setMessage] = useState('')
     const [isShowErr, setIsShowErr] = useState(false)
@@ -43,6 +43,28 @@ export default function SignInComponent() {
                 }
                 else {
 
+    const SignInWithFirebase = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                if (result) {
+                    console.log("result", result);
+                    api.post("/users/registerWithGoogle", {
+                        name: result.user.displayName,
+                        email: result.user.email,
+                        password: result.user.uid,
+                    })
+                        .then(res => {
+                            localStorage.setItem("token", res.data.payload.token)
+                            if (localStorage.getItem("token")) {
+                                navigator("/dashboard");
+                            }
+                        })
+                        .catch(err => {
+                            console.log("Error occurred while registering user:", err);
+                        });
+                }
+                else {
+
                     console.log("Sign-in result is undefined");
                 }
             })
@@ -54,7 +76,10 @@ export default function SignInComponent() {
         email: "",
         password: ""
     })
-
+    const [message, setMessage] = useState('')
+    const [isShowErr, setIsShowErr] = useState(false)
+    const navigator = useNavigate();
+    console.log(isShowErr)
 
     const validate = () => {
 
@@ -71,8 +96,8 @@ export default function SignInComponent() {
         <>
             <div>
                 <>
-                    {isShowErr && (
-                        <WarningPopUpComponents setIsShowErr={setIsShowErr}/>
+                {isShowErr && (
+                        <WarningPopUpComponents setIsShowErr={setIsShowErr} />
                     )}
                     <div className="h-screen w-full lg:container m-auto font-sp-pro-text-regular text-text-color">
                         <div className="flex h-full flex-wrap flex-row-reverse md:flex-nowrap  items-center justify-center px-10">
@@ -94,14 +119,6 @@ export default function SignInComponent() {
                                         },
                                         err => {
                                             if (err.response.data.status == 404) {
-                                                setMessage(err.response.data.detail)
-                                                setIsShowErr(true)
-                                            }
-                                            if (err.response.data.status == 400) {
-                                                setMessage(err.response.data.detail)
-                                                setIsShowErr(true)
-                                            }
-                                            if (err.response.data.status == 401) {
                                                 setMessage(err.response.data.detail)
                                                 setIsShowErr(true)
                                             }

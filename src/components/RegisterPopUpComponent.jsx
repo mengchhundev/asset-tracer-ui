@@ -1,6 +1,7 @@
 import React from 'react';
 import false1 from '../assets/images/false.png'
 import true1 from '../assets/images/success.png'
+import { useNavigate } from 'react-router-dom';
 function RegisterPopUpComponent({ setIsShowErr,setIsShowSuc }) {
   let Show = false;
   if(setIsShowErr){
@@ -13,7 +14,7 @@ function RegisterPopUpComponent({ setIsShowErr,setIsShowSuc }) {
   return (
     <>
       {Show && (
-        <div onClick={() => setIsShowErr(false)} className="fixed text-center top-0 left-0 font-sp-pro-text-semibold right-0 bottom-0 bg-black bg-opacity-20 flex items-center justify-center">
+        <div onClick={() => setIsShowErr(false)} className="fixed top-0 left-0 font-sp-pro-text-semibold right-0 bottom-0 bg-black bg-opacity-20 flex items-center justify-center">
           <div className="bg-white rounded-xl p-6 w-72 z-10 " pointerEvents= {""} >
             <div className="flex flex-col justify-end">
               <div className="relative w-40 m-auto pb-7">

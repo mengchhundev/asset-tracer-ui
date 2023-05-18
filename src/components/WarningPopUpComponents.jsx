@@ -1,7 +1,9 @@
 import React from 'react';
 import false1 from '../assets/images/false.png'
+import true1 from '../assets/images/success.png'
 
-function WarningPopUpComponents({setIsShowErr }) {
+function WarningPopUpComponents({setIsShowErr}) {
+    console.log(setIsShowErr);
     return (
         <>
           <div>
@@ -11,7 +13,7 @@ function WarningPopUpComponents({setIsShowErr }) {
                         <div className="relative w-40 m-auto pb-7">
                             <img src={false1} alt="Signup Picture" className='w-full' />
                         </div>
-                        <p className="text-3xl text-center text-red-400 mb-2">Ooop...</p>
+                        <p className="text-3xl  text-red-400 mb-2">Ooop...</p>
                         <p className="text-lg font-sp-pro-text-regular text-text-color mt-6">Your email or password are incorected!</p>
                         <button onClick={() => setIsShowErr(false)} className="bg-red-400 text-white mt-14 py-2 px-4 rounded-2xl">
                             <span >Close </span>
