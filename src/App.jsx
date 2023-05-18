@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
-import HomepageComponent from './components/HomepageComponent'
+import {Route, Routes,} from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
@@ -13,8 +11,6 @@ import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [isLogged, setIsLogged] = useState(false)
 
   return (
     <>
@@ -31,9 +27,8 @@ function App() {
 
         </Route>
       </Routes>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
