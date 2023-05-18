@@ -3,10 +3,9 @@ import { auth, provider } from '../../redux/services/googleAuth/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import api from '../../redux/services/config/api';
-import { Link, useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
+import * as Yup from "yup";
+import { useFormik } from 'formik';
 import signup from '../../assets/images/signup.png'
 // import { GoogleLogin } from 'react-google-login';
 

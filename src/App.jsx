@@ -3,21 +3,28 @@ import {Route, Routes,} from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
-import DashboadComponent from './components/Authentication/dashboadComponent'
-import TestingComponent from './components/Authentication/TestingComponent'
-import Testformik from './components/testformik'
+import DashboardComponent from './components/DashboardComponent'
+import MainComponent from './components/Layouts/MainComponent'
+import HomeComponent from './pages/HomeComponent'
+import CategoryComponent from './pages/category/CategoryComponent'
+import TrackingComponent from './pages/tracking/TrackingComponent'
+import ListComponent from './pages/superCategory/ListComponent'
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path='/testformik' element={<Testformik/>} />
-        <Route path='/testing' element={<TestingComponent/>} />
-        <Route path='/signup' element={<SignUpComponent/>}/>
-        <Route path='/signin' element={<SignInComponent/>}/> 
-        <Route element={<ProtectedRoute />}>
-          <Route path='/dashboard' element={<DashboadComponent/>}/>
+        <Route path='/signup' element={<SignUpComponent />} />
+        <Route path='/signin' element={<SignInComponent />} />
+        <Route path="/" element={<MainComponent />}>
+            <Route path='/dashboard' element={<HomeComponent/>} />
+            <Route path='/category' element={<CategoryComponent/>} />
+            <Route path='/super-category' element={<ListComponent/>} />
+            <Route path='/tracking' element={<TrackingComponent/>}></Route>
+        </Route>
+        <Route element={<ProtectedRoute isLogged={false} />}>
+
         </Route>
       </Routes>
     </>
