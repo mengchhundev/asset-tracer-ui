@@ -10,6 +10,10 @@ import CategoryComponent from './pages/category/CategoryComponent'
 import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
 import LandingComponent from './components/landingComponent/LandingComponent'
+import Forgotpassword from './components/Authentication/Forgotpassword'
+import EmailsendingComponent from './components/Authentication/EmailsendingComponent'
+import ResetpasswordComponent from './components/Authentication/ResetpasswordComponent'
+import SuccessComponent from './components/Authentication/SuccessComponent'
 
 function App() {
 
@@ -19,6 +23,11 @@ function App() {
         <Route path='/' element={<LandingComponent/>}/>
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
+        <Route path='/forgetpassword' element={<Forgotpassword/>} />
+        <Route path='/emailsending' element={<EmailsendingComponent/>} />
+        <Route path='/resetpassword' element={<ResetpasswordComponent/>} />
+        <Route path='/Success' element={<SuccessComponent/>} />
+        
         <Route path="/" element={<MainComponent />}>
             <Route path='/dashboard' element={<HomeComponent/>} />
             <Route path='/category' element={<CategoryComponent/>} />
@@ -26,9 +35,7 @@ function App() {
             <Route path='/tracking' element={<TrackingComponent/>}></Route>
         </Route>
         <Route element={<ProtectedRoute isLogged={false} />}>
-
         </Route>
-       
       </Routes>
     </>
   );

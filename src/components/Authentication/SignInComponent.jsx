@@ -1,23 +1,19 @@
 import React from 'react'
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
 import * as Yup from "yup";
 import signin from '../../assets/images/signin.png'
 import WarningPopUpComponents from '../WarningPopUpComponents';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
+import api from '../../redux/services/api';
 export default function SignInComponent() {
     const [message, setMessage] = useState('')
     const [isShowErr, setIsShowErr] = useState(false)
     const [isShowSuc, setSuccess] = useState()
     const navigator = useNavigate();
     console.log(message)
-
-
-
     const validate = () => {
 
     };
@@ -127,7 +123,7 @@ export default function SignInComponent() {
                                                     href="#"
                                                     className="text-primary"
                                                 >
-                                                    <Link to={"/signin"}>Forgot password?</Link>
+                                                    <Link to={"/resetpassword"}>Forgot password?</Link>
                                                 </a>
                                             </p>
 

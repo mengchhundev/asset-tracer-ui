@@ -1,7 +1,7 @@
 import React from 'react';
-import false1 from '../assets/images/false.png'
-import true1 from '../assets/images/success.png'
-import { useNavigate } from 'react-router-dom';
+import false1 from '../../../assets/images/false.png'
+import true1 from '../../../assets/images/success.png'
+// import { useNavigate } from 'react-router-dom';
 function RegisterPopUpComponent({ setIsShowErr,setIsShowSuc }) {
   let Show = false;
   if(setIsShowErr){
@@ -20,7 +20,7 @@ function RegisterPopUpComponent({ setIsShowErr,setIsShowSuc }) {
               <div className="relative w-40 m-auto pb-7">
                 <img src={setIsShowErr ? false1 : true1} alt="Signup Picture" className="w-full" />
               </div>
-              <p className={`text-3xl ${setIsShowErr ? 'text-errPopup_color' : 'text-sucPopup_color'} mb-2`}>
+              <p className={`text-3xl text-center ${setIsShowErr ? 'text-custom-red' : 'text-custom-blue'} mb-2`}>
                 {setIsShowErr ? 'Ooop...' : 'Success'}
               </p>
               <p className="text-lg font-sp-pro-text-regular text-text-color mt-6">
@@ -28,7 +28,7 @@ function RegisterPopUpComponent({ setIsShowErr,setIsShowSuc }) {
               </p>
               <button
                 onClick={setIsShowErr ? () => setIsShowErr(false): () => setIsShowSuc(false)}
-                className={`${setIsShowErr ? 'bg-errPopup_color' : 'bg-sucPopup_color'} text-white  mt-14 py-2 px-4 bg-bl rounded-2xl`}
+                className={`${setIsShowErr ? 'bg-custom-red' : 'bg-custom-blue'}  text-white  mt-14 py-2 px-4 bg-bl rounded-2xl`}
               >
                 <span>Close</span>
               </button>

@@ -7,18 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signup from '../../assets/images/signup.png'
-import RegisterPopUpComponent from '../RegisterPopUpComponent';
-// import { GoogleLogin } from 'react-google-login';
-
+import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
+import api from '../../redux/services/api';
 export default function SignUpComponent() {
-
-    // useEffect(() => {
-    //     api.get("/users/register/verify").then(
-    //         res => {
-    //             console.log(res);
-    //         }
-    //     )
-    // }, [])
     const navigator = useNavigate();
     const provider = new GoogleAuthProvider();
     const [success, setSuccess] = useState(false);

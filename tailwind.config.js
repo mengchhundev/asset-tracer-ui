@@ -44,7 +44,9 @@ export default {
         "error" : "#EE1D52",
         "bg-color" : "#FAFBFC",
         "sidebar" : "#737791",
-        "bg-main" : "#F7F8FC"
+        "bg-main" : "#F7F8FC",
+        "custom-red" :  "#FF6D5C",
+        "custom-blue" : "#B3E67B",
       },
       fontSize: {
         // md: '16px'

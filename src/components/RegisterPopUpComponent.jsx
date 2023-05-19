@@ -28,7 +28,7 @@ function RegisterPopUpComponent({ setIsShowErr,setIsShowSuc }) {
               </p>
               <button
                 onClick={setIsShowErr ? () => setIsShowErr(false): () => setIsShowSuc(false)}
-                className={`${setIsShowErr ? 'bg-errPopup_color' : 'bg-sucPopup_color'} text-white  mt-14 py-2 px-4 bg-bl rounded-2xl`}
+                className={`${setIsShowErr ? 'bg-custom_red' : 'bg-custom_blue'} text-black  mt-14 py-2 px-4 bg-bl rounded-2xl`}
               >
                 <span>Close</span>
               </button>
