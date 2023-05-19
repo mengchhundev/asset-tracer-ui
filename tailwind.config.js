@@ -44,7 +44,19 @@ export default {
         "error" : "#EE1D52",
         "bg-color" : "#FAFBFC",
         "sidebar" : "#737791",
-        "bg-main" : "#F7F8FC"
+        "bg-main" : "#F7F8FC",
+        "error" : "#EE1D52",
+        "gray-200" :"#edf2f7",
+        "white":"#FFFFFF",
+        "shadow":"#FFD2B3",
+        "hoveryellow": "#FFD300",
+        "blue-light":"#33B4FF",
+        "bgsecondary":"#F7F8FC",
+        "textwhite":"#FFFFFF",
+        "secondaryyellow": "#F8C400",
+        "textmediem": "#324C5B",
+        "bgpink":"#FEFCFB",
+        "textblack":"#111827",
       },
       fontSize: {
         // md: '16px'
