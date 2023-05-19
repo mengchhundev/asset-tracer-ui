@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
-import HomepageComponent from './components/HomepageComponent'
+import {Route, Routes,} from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
@@ -11,14 +9,14 @@ import HomeComponent from './pages/HomeComponent'
 import CategoryComponent from './pages/category/CategoryComponent'
 import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
+import LandingComponent from './components/landingComponent/LandingComponent'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [isLogged, setIsLogged] = useState(false)
 
   return (
     <>
       <Routes>
+        <Route path='/' element={<LandingComponent/>}/>
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
         <Route path="/" element={<MainComponent />}>
@@ -30,10 +28,10 @@ function App() {
         <Route element={<ProtectedRoute isLogged={false} />}>
 
         </Route>
+       
       </Routes>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
