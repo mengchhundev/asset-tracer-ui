@@ -47,6 +47,17 @@ export default {
         "bg-main" : "#F7F8FC",
         "custom-red" :  "#FF6D5C",
         "custom-blue" : "#B3E67B",
+        "gray-200" :"#edf2f7",
+        "white":"#FFFFFF",
+        "shadow":"#FFD2B3",
+        "hoveryellow": "#FFD300",
+        "blue-light":"#33B4FF",
+        "bgsecondary":"#F7F8FC",
+        "textwhite":"#FFFFFF",
+        "secondaryyellow": "#F8C400",
+        "textmediem": "#324C5B",
+        "bgpink":"#FEFCFB",
+        "textblack":"#111827",
       },
       fontSize: {
         // md: '16px'
