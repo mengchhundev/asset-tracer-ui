@@ -6,7 +6,7 @@ export default function NavbarComponent() {
   return (
     <>
       <nav class="bg-white fixed w-full z-50 top-0 left-0 border-b border-white ">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="flex flex-wrap items-center justify-between mx-auto p-4">
           <ul>
             <li>
             <div class="items-center inline-flex">

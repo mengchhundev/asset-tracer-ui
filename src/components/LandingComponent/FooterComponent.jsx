@@ -9,7 +9,7 @@ export default function FooterComponent() {
   return (
     <>
      <footer class="bg-white rounded-lg shadow ">
-        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-14">
+        <div class="w-full max-w-screen-3xl mx-auto p-4 md:py-14">
 
           <div class="flex flex-wrap-reverse items-center justify-between">
             <ul class="flex flex-none -ml-[30px] lg:ml-10 md:ml-[160px] sm:ml-[100px] mb-6 text-xl font-medium text-textmediem sm:mb-0 px-10">
