@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 // Icons
 import {
     RiBarChart2Line,
@@ -16,28 +16,39 @@ import { BsGraphUp } from "react-icons/bs";
 
 export default function SidebarComponent() {
     const [showMenu, setShowMenu] = useState(false);
-    const [showSubmenu, setShowSubmenu] = useState(false);
+    const [showOrganization, setShowOrganization] = useState(false);
+    const activeStyle = "flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary text-white bg-primary";
+    const inActiveStyle = "flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary";
+    
+    const [isShowOrganization, setIsShowOrganization] = useState(false)
+    const activeStyleDropDown = "flex items-center justify-between py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary text-white bg-primary";
+    const inActiveStyleDropDown = "flex items-center justify-between py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary";
+
+    const [showCategory, setShowCategory] = useState(false);
+    const [isShowCategory, setIsShowCategory] = useState(false);
+
+    const location = useLocation();
+    
+    useEffect(() => {
+        if(location.pathname == "/organization") {
+            setShowOrganization(true)
+            setIsShowOrganization(true)
+        }
+    }, [])
 
     return (
         <>
             <div
-                className={`min-h-[92vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                className={`h-[90vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-300`}
             >
                 <div>
                     <ul>
                         <li>
                             <NavLink
-                                to="/"
-                                className="flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "#FFFFFF" : "",
-                                        backgroundColor: isActive ? "#F8C400" : ""
-                                    };
-                                }}
+                                onClick={() => setShowOrganization(!showOrganization)}
+                                className={`${isShowOrganization ? "bg-primary hover:bg-primary" : ""} ${isShowOrganization ? activeStyleDropDown : inActiveStyleDropDown}`}
                             >
-
                                 <span className="flex items-center justify-start">
 
                                     <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,23 +61,48 @@ export default function SidebarComponent() {
                                     </svg>
                                     <p className="ml-3">Organization</p>
                                 </span>
+                                <RiArrowRightSLine
+                                    className={`${showOrganization && "rotate-90"
+                                        } transition-all text-2xl`}
+                                />
                             </NavLink>
+                            <ul
+                                className={` ${showOrganization ? "h-[100px]" : "h-0"
+                                    } overflow-y-hidden transition-all`}
+                            >
+                                <li>
+                                    <NavLink
+                                        to="/organization"
+                                        className={({ isActive }) => isActive ? `text-text-color py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors` :
+                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                        onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false) }}
+                                    >
+                                        Organization List
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/organization-create"
+                                        className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
+                                        style={({ isActive }) => {
+                                            return {
+                                                color: isActive ? "#F8C400" : "",
+                                            };
+                                        }}
+                                        onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false) }}
+                                    >
+                                        Create or Join
+                                    </NavLink>
+                                </li>
+                            </ul>
                         </li>
-
                         <li>
                             <NavLink
                                 to="/dashboard"
-                                className="flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "#FFFFFF" : "",
-                                        backgroundColor: isActive ? "#F8C400" : ""
-                                    };
-                                }}
+                                className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                                onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                             >
-
                                 <span className="flex items-center justify-start">
-
                                     <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
                                         <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
@@ -82,8 +118,8 @@ export default function SidebarComponent() {
 
                         <li>
                             <NavLink
-                                onClick={() => setShowSubmenu(!showSubmenu)}
-                                className="flex items-center justify-between py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
+                                onClick={() => setShowCategory(!showCategory)}
+                                className={`${isShowCategory ? "bg-primary hover:bg-primary" : ""} ${isShowCategory ? activeStyleDropDown : inActiveStyleDropDown}`}
                             >
                                 <span className="flex items-center justify-start">
 
@@ -98,12 +134,12 @@ export default function SidebarComponent() {
                                     <p className="ml-3">Category</p>
                                 </span>
                                 <RiArrowRightSLine
-                                    className={`${showSubmenu && "rotate-90"
+                                    className={`${showCategory && "rotate-90"
                                         } transition-all text-2xl`}
                                 />
                             </NavLink>
                             <ul
-                                className={` ${showSubmenu ? "h-[100px]" : "h-0"
+                                className={` ${showCategory ? "h-[100px]" : "h-0"
                                     } overflow-y-hidden transition-all`}
                             >
                                 <li>
@@ -115,14 +151,21 @@ export default function SidebarComponent() {
                                                 color: isActive ? "#F8C400" : "",
                                             };
                                         }}
+                                        onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false) }}
                                     >
                                         Type Super
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/"
+                                        to="/normal-category"
                                         className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
+                                        style={({ isActive }) => {
+                                            return {
+                                                color: isActive ? "#F8C400" : "",
+                                            };
+                                        }}
+                                        onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false) }}
                                     >
                                         Type Normal
                                     </NavLink>
@@ -131,15 +174,9 @@ export default function SidebarComponent() {
                         </li>
                         <li>
                             <NavLink
-                                to="/dashboard"
-                                className="flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "#FFFFFF" : "",
-                                        backgroundColor: isActive ? "#F8C400" : ""
-                                    };
-                                }}
-                                
+                                to="/invoice"
+                                className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                                onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                             >
 
                                 <span className="flex items-center justify-start">
@@ -158,14 +195,9 @@ export default function SidebarComponent() {
                         </li>
                         <li>
                             <NavLink
-                                to="/dashboard"
-                                className="flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "#FFFFFF" : "",
-                                        backgroundColor: isActive ? "#F8C400" : ""
-                                    };
-                                }}
+                                to="/asset"
+                                className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                                onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                             >
 
                                 <span className="flex items-center justify-start">
@@ -185,34 +217,22 @@ export default function SidebarComponent() {
                         <li>
                             <NavLink
                                 to="/tracking"
-                                className="flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "#FFFFFF" : "",
-                                        backgroundColor: isActive ? "#F8C400" : ""
-                                    };
-                                }}
+                                className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                                onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                             >
-
                                 <span className="flex items-center justify-start">
 
-                                <BsGraphUp className="w-6 h-6" />
+                                    <BsGraphUp className="w-6 h-6" />
                                     <p className="ml-3">Tracking</p>
                                 </span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink
-                                to="/dashboard"
-                                className="flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary"
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "#FFFFFF" : "",
-                                        backgroundColor: isActive ? "#F8C400" : ""
-                                    };
-                                }}
+                                to="/user"
+                                className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                                onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                             >
-
                                 <span className="flex items-center justify-start">
 
                                     <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -254,8 +274,8 @@ export default function SidebarComponent() {
                             className="w-10 h-10 object-cover rounded-full"
                         />
                         <span className="ml-3">
-                             Asset Tracer<br />
-                             <small>assettracerteam@gmail.com</small>
+                            Asset Tracer<br />
+                            <small>assettracerteam@gmail.com</small>
                         </span>
                     </div>
                 </nav>

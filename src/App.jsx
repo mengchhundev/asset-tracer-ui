@@ -1,43 +1,53 @@
 import './App.css'
-import {Route, Routes,} from 'react-router-dom'
+import { Route, Routes, } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
-import DashboardComponent from './components/DashboardComponent'
-import MainComponent from './components/Layouts/MainComponent'
-import HomeComponent from './pages/HomeComponent'
-import CategoryComponent from './pages/category/CategoryComponent'
 import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
-import LandingComponent from './components/landingComponent/LandingComponent'
 import Forgotpassword from './components/Authentication/Forgotpassword'
 import EmailsendingComponent from './components/Authentication/EmailsendingComponent'
 import ResetpasswordComponent from './components/Authentication/ResetpasswordComponent'
 import SuccessComponent from './components/Authentication/SuccessComponent'
+import HomeComponent from './components/homepage/HomeComponent'
+import AboutPageComponent from './components/homepage/AboutPageComponent'
+import ContactUsComponent from './components/homepage/ContactUsComponent'
+import MainComponent from './components/Layouts/MainComponent'
+import OrganizationListComponent from './components/admin/organization/OrganizationListComponent'
+import OrganzationCreateOrJoinComponent from './components/admin/organization/OrganzationCreateOrJoinComponent'
+import SuperCategoryComponent from './components/admin/superCategory/SuperCategoryComponent'
+import NormalCategoryComponent from './components/admin/normalCategory/NormalCategoryComponent'
+import UsersAllComponent from './components/admin/user/UsersAllComponent'
+import DashboardComponent from './components/admin/dashboard/DashboardComponent'
+import AssetComponent from './components/admin/asset/AssetComponent'
+import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path='/about' element={<AboutpageComponent/>} />
-        <Route path='/contact' element={<ContactusComponent/>}/>
-        <Route path='/' element={<LandingComponent/>}/>
+        <Route path='/' element={<HomeComponent />} />
+        <Route path='/about' element={<AboutPageComponent />} />
+        <Route path='/contact' element={<ContactUsComponent />} />
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
-        <Route path='/forgetpassword' element={<Forgotpassword/>} />
-        <Route path='/emailsending' element={<EmailsendingComponent/>} />
-        <Route path='/resetpassword' element={<ResetpasswordComponent/>} />
-        <Route path='/Success' element={<SuccessComponent/>} />
-        
-        <Route path="/" element={<MainComponent />}>
-            <Route path='/dashboard' element={<HomeComponent/>} />
-            <Route path='/category' element={<CategoryComponent/>} />
-            <Route path='/super-category' element={<ListComponent/>} />
-            <Route path='/tracking' element={<TrackingComponent/>}></Route>
-        <Route path='/update' element={<UpdateprofileComponent/>}/>
-        </Route>
-        <Route element={<ProtectedRoute isLogged={false} />}>
+        <Route path='/forgetpassword' element={<Forgotpassword />} />
+        <Route path='/emailsending' element={<EmailsendingComponent />} />
+        <Route path='/resetpassword' element={<ResetpasswordComponent />} />
+        <Route path='/Success' element={<SuccessComponent />} />
+        <Route element={<ProtectedRoute isLogged={true} />}>
+          <Route path="/" element={<MainComponent />}>
+            <Route path='/organization' element={<OrganizationListComponent />} />
+            <Route path='/organization-create' element={<OrganzationCreateOrJoinComponent />} />
+            <Route path='/dashboard' element={<DashboardComponent />} />
+            <Route path='/super-category' element={<SuperCategoryComponent />} />
+            <Route path='/normal-category' element={<NormalCategoryComponent />} />
+            <Route path='/invoice' element={<InvoiceComponent />} />
+            <Route path='/asset' element={<AssetComponent />}></Route>
+            <Route path='/tracking' element={<TrackingComponent />}></Route>
+            <Route path='/user' element={<UsersAllComponent />}></Route>
+          </Route>
         </Route>
       </Routes>
     </>

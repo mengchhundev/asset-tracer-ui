@@ -50,32 +50,32 @@ function Testformik(props) {
                                                     Error
                                                 </span>
                                             </div> */}
-                                            <p class="text-sm flex justify-between my-5">
-                                                <div class="flex items-center">
-                                                    <input type="checkbox" value="" class="w-3.5 h-3.5 text-blue-600 bg-gray-100 border-gray-300 rounded-lg" />
-                                                    <label for="checked-checkbox" class="ml-2 text-sm font-sm">Remember me</label>
+                                            <p className="text-sm flex justify-between my-5">
+                                                <div className="flex items-center">
+                                                    <input type="checkbox" value="" className="w-3.5 h-3.5 text-blue-600 bg-gray-100 border-gray-300 rounded-lg" />
+                                                    <label for="checked-checkbox" className="ml-2 text-sm font-sm">Remember me</label>
                                                 </div>
                                                 <a
                                                     href="#"
-                                                    class="text-primary"
+                                                    className="text-primary"
                                                 >
                                                     <Link to={"/signin"}>Forgot password?</Link>
                                                 </a>
                                             </p>
 
                                             {/* <div className="my-6"> */}
-                                            <button type="submit" disabled={isSubmitting} class="bg-primary w-full text-white font-bold py-2 px-4 my-6 rounded">
+                                            <button type="submit" disabled={isSubmitting} className="bg-primary w-full text-white font-bold py-2 px-4 my-6 rounded">
                                                 Sign in
                                             </button>
                                             {/* </div> */}
 
-                                            <p class="text-sm flex justify-between z-0">
+                                            <p className="text-sm flex justify-between z-0">
                                                 <span className=''>
                                                     Don't have account?
                                                 </span>
                                                 <a
                                                     href="#"
-                                                    class="text-primary"
+                                                    className="text-primary"
                                                 >
                                                     <Link to={"/signup"}>Sign Up</Link>
                                                 </a>

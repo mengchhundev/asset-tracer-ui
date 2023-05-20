@@ -6,7 +6,7 @@ import ContentCompont from './ContentCompont'
 
 export default function MainComponent() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F8FC]">
+    <div className="min-h-screen flex flex-col bg-[#F7F8FC] overflow-hidden">
       <NavbarComponent />
       <div className="flex flex-row">
         <SidebarComponent />

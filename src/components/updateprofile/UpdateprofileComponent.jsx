@@ -6,13 +6,13 @@ import Image from "../../assets/images/updatePicture/Image.png";
 export default function UpdateprofileComponent() {
   return (
     <>
-      <div class="w-[1000px] h-[680px] bg-[#F4F7FA] border border-white rounded-lg mx-auto my-8">
+      <div className="w-[1000px] h-[680px] bg-[#F4F7FA] border border-white rounded-lg mx-auto my-8">
         <div className="w-[99%] h-[200px] bg-white mt-5 rounded-md relative ml-2.5 shadow-sm shadow-gray-light">
           <label
             htmlFor="my-modal-3"
             className="bg-small-gray btn-sm btn-circle absolute right-7 top-3 flex items-center justify-center"
           >
-            <img src={Pen} alt="" class="w-[16px] " />
+            <img src={Pen} alt="" className="w-[16px] " />
           </label>
           {/* Toggle Form */}
           <input type="checkbox" id="my-modal-3" className="modal-toggle" />
@@ -25,19 +25,19 @@ export default function UpdateprofileComponent() {
                 x
               </label>
 
-              <div class=" mt-6 w-[85%] mx-auto">
-                <div class="mb-3 ">
-                  <div class="mb-4 text-text-color font-sp-pro-text-medium ">
+              <div className=" mt-6 w-[85%] mx-auto">
+                <div className="mb-3 ">
+                  <div className="mb-4 text-text-color font-sp-pro-text-medium ">
                     My Profile
                   </div>
-                  <div class="w-[90px] mx-auto rounded-full shadow-lg shadow-gray-light relative ">
-                    <img src={hongmenng} alt="" class="w-[90px] " />
-                    <div class="absolute w-[90px] h-12 bg-black bottom-0 pt-2 rounded-b-full text-md bg-opacity-30 text-white">Edit</div>
+                  <div className="w-[90px] mx-auto rounded-full shadow-lg shadow-gray-light relative ">
+                    <img src={hongmenng} alt="" className="w-[90px] " />
+                    <div className="absolute w-[90px] h-12 bg-black bottom-0 pt-2 rounded-b-full text-md bg-opacity-30 text-white">Edit</div>
                   </div>
                 </div>
-                <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
-                  <div class="mb-3 col-span-6">
-                    <div class=" w-[250px] mx-auto ">
+                <div className="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
+                  <div className="mb-3 col-span-6">
+                    <div className=" w-[250px] mx-auto ">
                       <div className="text-left mb-3">
                         <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">
                           User Name
@@ -70,8 +70,8 @@ export default function UpdateprofileComponent() {
                     </div>
                   </div>
 
-                  <div class="mb-3 col-span-6 ">
-                    <div class="w-[250px] mx-auto ">
+                  <div className="mb-3 col-span-6 ">
+                    <div className="w-[250px] mx-auto ">
                       <div className="text-left mb-3">
                         <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">
                           Email
@@ -108,7 +108,7 @@ export default function UpdateprofileComponent() {
                 <div className="card-body items-center text-center">
                   <div className="card-actions">
                     <button className=" bg-pending hover:bg-hoveryellow px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
-                      <div class="w-40">Submit</div>
+                      <div className="w-40">Submit</div>
                     </button>
                   </div>
                 </div>
@@ -117,42 +117,42 @@ export default function UpdateprofileComponent() {
           </div>
 
           {/* Card Top */}
-          <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
-            <div class=" col-span-5 ">
-              <div class="flex items-center text-text-color font-sp-pro-text-regular text-left ml-3 mt-5">
-                <img src={hongmenng} alt="" class="w-[90px]" />
-                <div class="ml-6 text-sm">
+          <div className="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
+            <div className=" col-span-5 ">
+              <div className="flex items-center text-text-color font-sp-pro-text-regular text-left ml-3 mt-5">
+                <img src={hongmenng} alt="" className="w-[90px]" />
+                <div className="ml-6 text-sm">
                   Leng Hongmeng
-                  <div class="my-2">
-                    Role : <span class="text-pending ">Admin</span>{" "}
+                  <div className="my-2">
+                    Role : <span className="text-pending ">Admin</span>{" "}
                   </div>
                   <div>Create Date: 1st Jan 2023</div>
                 </div>
               </div>
             </div>
 
-            <div class=" col-span-7 mb-3">
-              <div class="flex items-center text-left text-text-color font-sp-pro-text-regular ml-3 mt-3">
-                <div class=" border-dashed border-l-2 border-l-gray h-[135px]"></div>
-                <div class="ml-4 text-sm">
+            <div className=" col-span-7 mb-3">
+              <div className="flex items-center text-left text-text-color font-sp-pro-text-regular ml-3 mt-3">
+                <div className=" border-dashed border-l-2 border-l-gray h-[135px]"></div>
+                <div className="ml-4 text-sm">
                   <div>
                     Phone{" "}
-                    <span class="ml-16">
-                      : <span class="text-yellow">0103356788</span>
+                    <span className="ml-16">
+                      : <span className="text-yellow">0103356788</span>
                     </span>
                   </div>
-                  <div class="my-2">
+                  <div className="my-2">
                     Email{" "}
-                    <span class="ml-[71px]">
-                      : <span class="text-yellow">hongmeng@gmail.com</span>
+                    <span className="ml-[71px]">
+                      : <span className="text-yellow">hongmeng@gmail.com</span>
                     </span>{" "}
                   </div>
-                  <div class="my-2">
-                    Gender <span class="ml-[57px]">: Male</span>
+                  <div className="my-2">
+                    Gender <span className="ml-[57px]">: Male</span>
                   </div>
                   <div>
                     Address{" "}
-                    <span class="ml-[53px]">
+                    <span className="ml-[53px]">
                       : Chroy Changva, Chroy Changva, Phnom Penh
                     </span>
                   </div>
@@ -160,24 +160,24 @@ export default function UpdateprofileComponent() {
               </div>
             </div>
           </div>
-          <hr class=" border-gray-light border-[1px] sm:mx-auto" />
-          <div class="flex justify-between text-sm w-[39.5%] text-text-color font-sp-pro-text-medium ">
-            <div class="hover:bg-shadow py-[8.5px] px-10 rounded-bl-md hover:border-b-4 hover:border-b-pending">
-              <div class=" w-[100%]">Your Organization</div>
+          <hr className=" border-gray-light border-[1px] sm:mx-auto" />
+          <div className="flex justify-between text-sm w-[39.5%] text-text-color font-sp-pro-text-medium ">
+            <div className="hover:bg-shadow py-[8.5px] px-10 rounded-bl-md hover:border-b-4 hover:border-b-pending">
+              <div className=" w-[100%]">Your Organization</div>
             </div>
-            <div class="hover:bg-shadow py-[8.5px] px-10 hover:border-b-4 hover:border-b-pending">
-              <div class="w-[100%]">Change Password</div>
+            <div className="hover:bg-shadow py-[8.5px] px-10 hover:border-b-4 hover:border-b-pending">
+              <div className="w-[100%]">Change Password</div>
             </div>
           </div>
         </div>
         {/* Card Button */}
         <div className="w-[99%] h-[418px] bg-white mx-auto mt-5 rounded-md relative ml-2.5 shadow-sm shadow-gray-light">
-          <div class="flex justify-evenly pt-6">
+          <div className="flex justify-evenly pt-6">
             <div className="card w-[220px] h-[370px] rounded-md shadow-gray-light shadow-md bg-white">
-              <div class="text-left ml-4 mt-3 text-text-color font-sp-pro-text-regular">
+              <div className="text-left ml-4 mt-3 text-text-color font-sp-pro-text-regular">
               
-<div class="flex">
-<div class="text-[14px] mb-3 font-sp-pro-text-semibold">
+<div className="flex">
+<div className="text-[14px] mb-3 font-sp-pro-text-semibold">
                   Office Manegement
                 </div>
 <label htmlFor="my-modal-1" className="bg-small-gray btn-sm btn-circle rounded-full absolute right-2 top-2  flex items-center justify-center">X</label>
@@ -185,23 +185,23 @@ export default function UpdateprofileComponent() {
 <div className="modal">
   <div className="w-[25%] h-[280px] bg-white rounded-md relative">
     <label htmlFor="my-modal-1" className="bg-small-gray btn-sm btn-circle rounded-full absolute right-2 top-2  flex items-center justify-center">✕</label>
-    <div class="w-[90%] mx-auto">
-    <div class=" w-[70px] h-[70px] bg-red bg-opacity-25 rounded-full mx-auto mt-5 mb-3"></div>
-    <div class="mb-5 text-center text-text-color">
-      <div class="font-sp-pro-text-semibold">You want to delete?</div>
-      <div class="text-sm mt-3">Do you really want to delete these organization? This process cannot be undone.</div>
+    <div className="w-[90%] mx-auto">
+    <div className=" w-[70px] h-[70px] bg-red bg-opacity-25 rounded-full mx-auto mt-5 mb-3"></div>
+    <div className="mb-5 text-center text-text-color">
+      <div className="font-sp-pro-text-semibold">You want to delete?</div>
+      <div className="text-sm mt-3">Do you really want to delete these organization? This process cannot be undone.</div>
     </div>
-    <hr class=" border-gray-light border-[1px] mx-auto " />
-      <div class="mt-6 mx-auto flex justify-evenly w-[85%] ">
+    <hr className=" border-gray-light border-[1px] mx-auto " />
+      <div className="mt-6 mx-auto flex justify-evenly w-[85%] ">
       <button
                     type="button"
-                    class=" py-1.5 rounded-sm text-text-color bg-small-gray border hover:bg-gray hover:bg-opacity-25 border-gray font-medium text-sm px-5 text-center "
+                    className=" py-1.5 rounded-sm text-text-color bg-small-gray border hover:bg-gray hover:bg-opacity-25 border-gray font-medium text-sm px-5 text-center "
                   >
                     Cancel
                   </button>
                   <button
                     type="button"
-                    class="py-1.5 rounded-sm text-red bg-red bg-opacity-20 font-medium border border-red text-sm px-5 text-center hover:bg-red hover:bg-opacity-25 "
+                    className="py-1.5 rounded-sm text-red bg-red bg-opacity-20 font-medium border border-red text-sm px-5 text-center hover:bg-red hover:bg-opacity-25 "
                   >
                     Delete
                   </button>
@@ -213,39 +213,39 @@ export default function UpdateprofileComponent() {
   </div>          
 
                
-                <div class="line-clamp-3 w-[95%] text-sm mb-3">
+                <div className="line-clamp-3 w-[95%] text-sm mb-3">
                   In literary theory, a text is any object that can be "read" It
                   is a coherent set of signs that transmits some kind of
                   informative message.
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium">
-                  Date of create: <div class="text-sm mb-3">05 Apri 2023</div>
+                <div className="text-[14px] font-sp-pro-text-medium">
+                  Date of create: <div className="text-sm mb-3">05 Apri 2023</div>
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium mb-2">
+                <div className="text-[14px] font-sp-pro-text-medium mb-2">
                   Organization Owner:
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   {" "}
-                  <img src={Image} alt="" class="w-[30px]" />
+                  <img src={Image} alt="" className="w-[30px]" />
                 </div>
 
-                <div class="text-[14px] font-sp-pro-text-medium">
+                <div className="text-[14px] font-sp-pro-text-medium">
                   Member: 12
                   <div className="flex rounded-full  relative">
                     <div className=" inline-flex rounded-full items-center w-8 h-8 object-cover bg-white z-40 top-[7%] right-[7%]">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-30 top-[6%] left-[10%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-20 top-[6%] left-[20%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-10 top-[7%] left-[30%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-shadow w-7 h-7 object-cover z-0 top-[7%] left-[40%] ">
-                      <p class="ml-[5px]">+8</p>
+                      <p className="ml-[5px]">+8</p>
                     </div>
                   </div>
                 </div>
@@ -254,50 +254,50 @@ export default function UpdateprofileComponent() {
               <div className="card-body items-center text-center">
                 <div className="card-actions">
                   <button className=" bg-pending px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
-                    <div class="w-20">Join</div>
+                    <div className="w-20">Join</div>
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="card w-[220px] h-[370px] rounded-md shadow-gray-light shadow-md bg-white">
-              <div class="text-left text-text-color ml-4 mt-3 font-sp-pro-text-regular">
-                <div class="text-[16px] mb-3 font-sp-pro-text-semibold">
+              <div className="text-left text-text-color ml-4 mt-3 font-sp-pro-text-regular">
+                <div className="text-[16px] mb-3 font-sp-pro-text-semibold">
                   Office Manegement
                 </div>
-                <div class="line-clamp-3 w-[95%] text-sm mb-3">
+                <div className="line-clamp-3 w-[95%] text-sm mb-3">
                   In literary theory, a text is any object that can be "read" It
                   is a coherent set of signs that transmits some kind of
                   informative message.
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium">
-                  Date of create: <div class="text-sm mb-3">05 Apri 2023</div>
+                <div className="text-[14px] font-sp-pro-text-medium">
+                  Date of create: <div className="text-sm mb-3">05 Apri 2023</div>
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium mb-2">
+                <div className="text-[14px] font-sp-pro-text-medium mb-2">
                   Organization Owner:
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   {" "}
-                  <img src={Image} alt="" class="w-[30px]" />
+                  <img src={Image} alt="" className="w-[30px]" />
                 </div>
 
-                <div class="text-[14px] font-sp-pro-text-medium">
+                <div className="text-[14px] font-sp-pro-text-medium">
                   Member: 12
                   <div className="flex rounded-full  relative">
                     <div className=" inline-flex rounded-full items-center w-8 h-8 object-cover bg-white z-40 top-[7%] right-[7%]">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-30 top-[6%] left-[10%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-20 top-[6%] left-[20%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-10 top-[7%] left-[30%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-shadow w-7 h-7 object-cover z-0 top-[7%] left-[40%] ">
-                      <p class="ml-[5px]">+8</p>
+                      <p className="ml-[5px]">+8</p>
                     </div>
                   </div>
                 </div>
@@ -306,50 +306,50 @@ export default function UpdateprofileComponent() {
               <div className="card-body items-center text-center">
                 <div className="card-actions">
                   <button className=" bg-pending px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
-                    <div class="w-20">Join</div>
+                    <div className="w-20">Join</div>
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="card w-[220px] h-[370px] rounded-md shadow-gray-light shadow-md bg-white">
-              <div class="text-left ml-4 text-text-color mt-3 font-sp-pro-text-regular">
-                <div class="text-[16px] mb-3 font-sp-pro-text-semibold">
+              <div className="text-left ml-4 text-text-color mt-3 font-sp-pro-text-regular">
+                <div className="text-[16px] mb-3 font-sp-pro-text-semibold">
                   Office Manegement
                 </div>
-                <div class="line-clamp-3 w-[95%] text-sm mb-3">
+                <div className="line-clamp-3 w-[95%] text-sm mb-3">
                   In literary theory, a text is any object that can be "read" It
                   is a coherent set of signs that transmits some kind of
                   informative message.
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium">
-                  Date of create: <div class="text-sm mb-3">05 Apri 2023</div>
+                <div className="text-[14px] font-sp-pro-text-medium">
+                  Date of create: <div className="text-sm mb-3">05 Apri 2023</div>
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium mb-2">
+                <div className="text-[14px] font-sp-pro-text-medium mb-2">
                   Organization Owner:
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   {" "}
-                  <img src={Image} alt="" class="w-[30px]" />
+                  <img src={Image} alt="" className="w-[30px]" />
                 </div>
 
-                <div class="text-[14px] font-sp-pro-text-medium">
+                <div className="text-[14px] font-sp-pro-text-medium">
                   Member: 12
                   <div className="flex rounded-full  relative">
                     <div className=" inline-flex rounded-full items-center w-8 h-8 object-cover bg-white z-40 top-[7%] right-[7%]">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-30 top-[6%] left-[10%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-20 top-[6%] left-[20%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-10 top-[7%] left-[30%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-shadow w-7 h-7 object-cover z-0 top-[7%] left-[40%] ">
-                      <p class="ml-[5px]">+8</p>
+                      <p className="ml-[5px]">+8</p>
                     </div>
                   </div>
                 </div>
@@ -358,50 +358,50 @@ export default function UpdateprofileComponent() {
               <div className="card-body items-center text-center">
                 <div className="card-actions">
                   <button className=" bg-pending px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
-                    <div class="w-20">Join</div>
+                    <div className="w-20">Join</div>
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="card w-[220px] h-[370px] rounded-md shadow-gray-light shadow-md bg-white">
-              <div class="text-left ml-4 mt-3 text-text-color font-sp-pro-text-regular">
-                <div class="text-[16px] mb-3 font-sp-pro-text-semibold">
+              <div className="text-left ml-4 mt-3 text-text-color font-sp-pro-text-regular">
+                <div className="text-[16px] mb-3 font-sp-pro-text-semibold">
                   Office Manegement
                 </div>
-                <div class="line-clamp-3 w-[95%] text-sm mb-3">
+                <div className="line-clamp-3 w-[95%] text-sm mb-3">
                   In literary theory, a text is any object that can be "read" It
                   is a coherent set of signs that transmits some kind of
                   informative message.
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium">
-                  Date of create: <div class="text-sm mb-3">05 Apri 2023</div>
+                <div className="text-[14px] font-sp-pro-text-medium">
+                  Date of create: <div className="text-sm mb-3">05 Apri 2023</div>
                 </div>
-                <div class="text-[14px] font-sp-pro-text-medium mb-2">
+                <div className="text-[14px] font-sp-pro-text-medium mb-2">
                   Organization Owner:
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   {" "}
-                  <img src={Image} alt="" class="w-[30px]" />
+                  <img src={Image} alt="" className="w-[30px]" />
                 </div>
 
-                <div class="text-[14px] font-sp-pro-text-medium">
+                <div className="text-[14px] font-sp-pro-text-medium">
                   Member: 12
                   <div className="flex rounded-full  relative">
                     <div className=" inline-flex rounded-full items-center w-8 h-8 object-cover bg-white z-40 top-[7%] right-[7%]">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-30 top-[6%] left-[10%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-20 top-[6%] left-[20%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-white w-8 h-8 object-cover z-10 top-[7%] left-[30%] ">
-                      <img src={Image} alt="" class="w-[40px]" />
+                      <img src={Image} alt="" className="w-[40px]" />
                     </div>
                     <div className=" inline-flex absolute rounded-full items-center bg-shadow w-7 h-7 object-cover z-0 top-[7%] left-[40%] ">
-                      <p class="ml-[5px]">+8</p>
+                      <p className="ml-[5px]">+8</p>
                     </div>
                   </div>
                 </div>
@@ -410,7 +410,7 @@ export default function UpdateprofileComponent() {
               <div className="card-body items-center text-center">
                 <div className="card-actions">
                   <button className=" bg-pending px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
-                    <div class="w-20">Join</div>
+                    <div className="w-20">Join</div>
                   </button>
                 </div>
               </div>

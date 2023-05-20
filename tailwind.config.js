@@ -47,7 +47,7 @@ export default {
         "bg-main" : "#F7F8FC",
         "custom-red" :  "#FF6D5C",
         "custom-blue" : "#B3E67B",
-        "gray-200" :"#edf2f7",
+        // "gray-200" :"#edf2f7",
         "white":"#FFFFFF",
         "shadow":"#FFD2B3",
         "hoveryellow": "#FFD300",
