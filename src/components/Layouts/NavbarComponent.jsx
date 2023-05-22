@@ -19,16 +19,16 @@ import '../../style/navbar.css'
 export default function NavbarComponent() {
     
     return (
-        <header className="bg-white p-8 h-[70px] flex flex-row items-center justify-between z-50 text-text-color">
+        <header className="bg-white px-8 h-[8vh] flex flex-row items-center justify-between text-text-color" style={{zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px"}}>
             <div className="flex items-center w-72 lg:flex-shrink-0 invisible lg:visible">
-                <img src={logo} alt="" className="w-16" />
-                <h1 className="text-center text-2xl font-sp-pro-text-bold">
+                <img src={logo} alt="" className="w-14" />
+                <h1 className="text-center text-xl font-sp-pro-text-bold">
                     Asset Tracer
                 </h1>
             </div>
 
             <div className="flex items-center w-full justify-between">
-                <div className="font-sp-pro-text-semibold text-2xl invisible lg:visible">
+                <div className="font-sp-pro-text-semibold text-xl invisible lg:visible">
                     Category
                 </div>
                 <nav className="flex items-center gap-2 ">

@@ -28,7 +28,6 @@ export default function SignInComponent() {
                         password: result._tokenResponse.idToken,
                     })
                         .then(res => {
-                            console.log("this", res);
                             setSuccess(true);
                             localStorage.setItem("token", res.data.payload.token)
                             if (localStorage.getItem("token")) {
@@ -36,13 +35,6 @@ export default function SignInComponent() {
                             }
 
                         })
-                        .catch(err => {
-                            console.log("Error occurred while registering user:", err);
-                        });
-                }
-                else {
-
-
                 }
             })
     }
@@ -64,16 +56,13 @@ export default function SignInComponent() {
                     <div className=' p-10 m-10 rounded-lg border-slate-100 border-2'>
 
                         <Formik initialValues={{ email: "", password: "" }} onSubmit={values => {
-                            // same shape as initial values
-                            console.log("Value from user input", values);
-                            // setUserInfo({...userInfo ,...values})
-
                             api.post("/users/login", values).then(
                                 res => {
-                                    console.log(res.data.payload);
-                                    localStorage.setItem("token", res.data.payload.token)
-                                    if (localStorage.getItem("token")) {
-                                        navigator("/organization");
+                                    if (res.data?.success) {
+                                        localStorage.setItem("token", res.data.payload.token)
+                                        if (localStorage.getItem("token")) {
+                                            navigator("/organization", {state : { organizations: res.data.payload.organizations }});
+                                        }
                                     }
                                     setIsShowErr(false)
                                 },

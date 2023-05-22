@@ -39,8 +39,8 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`h-[90vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
-                    } transition-all duration-300`}
+                className={`h-[92vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                    } transition-all duration-300`}  style={{boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px"}}
             >
                 <div>
                     <ul>
@@ -282,7 +282,7 @@ export default function SidebarComponent() {
             </div>
             <button
                 onClick={() => setShowMenu(!showMenu)}
-                className="lg:hidden fixed top-3 left-4 text-white rounded-full bg-primary outline-none p-3 z-50"
+                className="lg:hidden fixed top-3 left-4 text-white rounded-full bg-primary outline-none p-3" style={{zIndex: "200"}}
             >
                 {showMenu ? <RiCloseLine /> : <RiMenu3Line />}
             </button>
