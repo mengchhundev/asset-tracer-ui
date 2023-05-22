@@ -23,6 +23,7 @@ import DashboardComponent from './components/admin/dashboard/DashboardComponent'
 import AssetComponent from './components/admin/asset/AssetComponent'
 import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
 import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
+import ProfileComponent from './components/homepage/ProfileComponent'
 
 function App() {
 
@@ -38,6 +39,8 @@ function App() {
         <Route path='/email-sending' element={<EmailsendingComponent />} />
         <Route path='/reset-password' element={<ResetpasswordComponent />} />
         <Route path='/Success' element={<SuccessComponent />} />
+        <Route path='/profile' element={<ProfileComponent/>}/>
+        <Route path='/profile' element={<ProfileComponent/>}/>
         <Route element={<ProtectedRoute isLogged={true} />}>
           <Route path="/" element={<MainComponent />}>
             <Route path='/organization' element={<OrganizationListComponent />} />
@@ -49,6 +52,7 @@ function App() {
             <Route path='/asset' element={<AssetComponent />}></Route>
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
+            
           </Route>
         </Route>
       </Routes>
