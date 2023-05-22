@@ -11,7 +11,8 @@ import ResetpasswordComponent from './components/Authentication/ResetpasswordCom
 import SuccessComponent from './components/Authentication/SuccessComponent'
 import HomeComponent from './components/homepage/HomeComponent'
 import AboutPageComponent from './components/homepage/AboutPageComponent'
-import ContactUsComponent from './components/homepage/ContactUsComponent'
+// import ContactUsComponent from './components/homepage/ContactUsComponent'
+import ContactusComponent from './components/InsideComponent/ContactusComponent'
 import MainComponent from './components/Layouts/MainComponent'
 import OrganizationListComponent from './components/admin/organization/OrganizationListComponent'
 import OrganzationCreateOrJoinComponent from './components/admin/organization/OrganzationCreateOrJoinComponent'
@@ -21,6 +22,7 @@ import UsersAllComponent from './components/admin/user/UsersAllComponent'
 import DashboardComponent from './components/admin/dashboard/DashboardComponent'
 import AssetComponent from './components/admin/asset/AssetComponent'
 import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
+import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
 
 function App() {
 
@@ -28,13 +30,13 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<HomeComponent />} />
-        <Route path='/about' element={<AboutPageComponent />} />
-        <Route path='/contact' element={<ContactUsComponent />} />
+        <Route path='/about' element={<AboutpageComponent />} />
+        <Route path='/contact' element={<ContactusComponent />} />
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
-        <Route path='/forgetpassword' element={<Forgotpassword />} />
-        <Route path='/emailsending' element={<EmailsendingComponent />} />
-        <Route path='/resetpassword' element={<ResetpasswordComponent />} />
+        <Route path='/forget-password' element={<Forgotpassword />} />
+        <Route path='/email-sending' element={<EmailsendingComponent />} />
+        <Route path='/reset-password' element={<ResetpasswordComponent />} />
         <Route path='/Success' element={<SuccessComponent />} />
         <Route element={<ProtectedRoute isLogged={true} />}>
           <Route path="/" element={<MainComponent />}>

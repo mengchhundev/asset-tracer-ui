@@ -61,7 +61,7 @@ export default function SignInComponent() {
                                     if (res.data?.success) {
                                         localStorage.setItem("token", res.data.payload.token)
                                         if (localStorage.getItem("token")) {
-                                            navigator("/organization", {state : { organizations: res.data.payload.organizations }});
+                                            navigator("/organization");
                                         }
                                     }
                                     setIsShowErr(false)
