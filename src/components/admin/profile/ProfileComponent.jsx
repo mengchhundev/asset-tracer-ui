@@ -3,18 +3,53 @@ import hongmenng from "../../../assets/images/Iconteam/hongmenng.png";
 import { Tab } from '@headlessui/react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from "yup"
+import jwt_decode from "jwt-decode";
+import UserService from '../../../redux/services/UserService';
 
 
 export default function ProfileComponent() {
     const [dropdown, setDropdown] = useState(false);
+    const [newData, setNewData] = useState({
+        oldPassword: "", newPassword: "", confirmNewPasswrod: ""
+    })
+
+    const token = localStorage.getItem("token");
+    var decoded = jwt_decode(token);
+    var userId = decoded.id;
+
+    const handleInputChange = (e) => {
+        setNewData({ ...newData, [e.target.name]: e.target.value })
+    };
+
+    const formik = useFormik({
+        initialValues: newData,
+        validationSchema: Yup.object().shape({
+            oldPassword: Yup.string().required("Current password is required"),
+            newPassword: Yup.string().required("New password is required"),
+            // confirmNewPasswrod: Yup.string().required("Confirm new password is required"),
+        }),
+        onSubmit: (val, { resetForm }) => {
+            console.log(123)
+            handleChangePassword()
+        }
+    });
+
+    const handleChangePassword = () => {
+        UserService.updateUser(userId, newData).then(res => {
+            console.log(res)
+        }, err => {
+            console.log(res)
+        })
+    }
+
 
     return (
         <main className="overflow-y-auto pb-4 text-text-color">
             <h2 className="mx-5 text-2xl mt-5 text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
                 Account Settings
             </h2>
-
-
             <Tab.Group>
                 <div className="mx-5 mt-5 gap-6 bg-white rounded-xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                     <div className="overflow-x-auto p-5 shadow-sm relative">
@@ -125,45 +160,39 @@ export default function ProfileComponent() {
                             <div className='w-full md:w-6/12 lg:w-4/12 py-5 m-auto'>
                                 <h2 className='text-center text-2xl font-sp-pro-text-bold my-5 pt-5'>Change Password</h2>
                                 <p className='mb-5'>Your password must be at least 8 characters and should include a combination of numbers, letters and special characters &#40;!$@%&#41;</p>
-                                <form action="">
+                                <form onSubmit={formik.handleSubmit}>
                                     <div className="text-left mb-4 mt-2">
                                         <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Current Password</label>
                                         <div className="relative w-full  mt-1 focus-within:text-black border rounded-lg p-2 border-slate-200 bg-bg-main">
                                             <input
-                                                name="name"
+                                                onInput={handleInputChange}
+                                                onChange={formik.handleChange}
+                                                value={newData.oldPassword}
+                                                name="oldPassword"
                                                 className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                                 type="text"
                                                 placeholder="Input name..."
                                             />
                                         </div>
-                                        {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                                        {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
                                     </div>
                                     <div className="text-left mb-4 mt-2">
                                         <label className="block text-md ml-1 font-medium leading-6 text-gray-900">New Password</label>
                                         <div className="relative w-full  mt-1 focus-within:text-black border rounded-lg p-2 border-slate-200 bg-bg-main">
                                             <input
-                                                name="name"
+                                                onInput={handleInputChange}
+                                                onChange={formik.handleChange}
+                                                value={newData.newPassword}
+                                                name="newPassword"
                                                 className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                                 type="text"
                                                 placeholder="Input name..."
                                             />
                                         </div>
-                                        {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.name}</p> : null} */}
-                                    </div>
-                                    <div className="text-left mb-4 mt-2">
-                                        <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Confirm New Password</label>
-                                        <div className="relative w-full  mt-1 focus-within:text-black border rounded-lg p-2 border-slate-200 bg-bg-main">
-                                            <input
-                                                name="name"
-                                                className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="text"
-                                                placeholder="Input name..."
-                                            />
-                                        </div>
-                                        {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                                        {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
                                     </div>
                                     <div className="text-left mb-4 mt-2 py-3">
-                                        <button className='w-full bg-primary text-white rounded-md py-2'>Save Changes</button>
+                                        <button type='submit' className='w-full bg-primary text-white rounded-md py-2'>Save Changes</button>
                                     </div>
                                 </form>
                             </div>

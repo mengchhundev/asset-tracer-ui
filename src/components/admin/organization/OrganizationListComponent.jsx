@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { setAllOrganization, setItem } from '../../../redux/slices/OrganizationSlice';
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
@@ -14,6 +14,7 @@ export default function OrganizationListComponent() {
     const organizations = useSelector(state => state.organization.data)
     const item = useSelector(state => state.organization?.item)
     const organization = JSON.parse(sessionStorage.getItem("organization"))
+    const navigator = useNavigate()
 
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
@@ -32,6 +33,7 @@ export default function OrganizationListComponent() {
     const handleShowOrganization = (val) => {
         dispatch(setItem(val))
         sessionStorage.setItem("organization", JSON.stringify(val))
+        // navigator("/dashboard")
     }
 
     useState(() => {
