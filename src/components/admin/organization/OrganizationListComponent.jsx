@@ -3,16 +3,16 @@ import { useState } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { setAllOrganization, setItem } from '../../../redux/slices/OrganizationSlice';
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
 
 export default function OrganizationListComponent() {
-
+    const [dropdown, setDropdown] = useState(false);
     const dispatch = useDispatch();
-    const organizations = useSelector(state => state.organizaton.data)
-    const item = useSelector(state => state.organizaton?.item)
+    const organizations = useSelector(state => state.organization.data)
+    const item = useSelector(state => state.organization?.item)
     const organization = JSON.parse(sessionStorage.getItem("organization"))
 
     const token = localStorage.getItem("token")
@@ -31,12 +31,11 @@ export default function OrganizationListComponent() {
 
     const handleShowOrganization = (val) => {
         dispatch(setItem(val))
-        // sessionStorage.setItem("organization", JSON.stringify(val))
+        sessionStorage.setItem("organization", JSON.stringify(val))
     }
 
     useState(() => {
         getAllOrganizations()
-        console.log(item)
     }, [])
 
     return (
@@ -51,12 +50,31 @@ export default function OrganizationListComponent() {
                 <div className="overflow-x-auto">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 p-5">
                         {organizations.map(list => (
-                            <button type='button' onClick={() => handleShowOrganization(list)} key={list.id} className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
+                            <button type='button' onClick={() => handleShowOrganization(list)} key={list.id} className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
                                 <div className="px-6 py-4">
                                     <div className='flex flex-row justify-between items-center'>
                                         <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-                                        <div className='bg-bg-primary w-8 h-8 rounded-full flex justify-center items-center'>
-                                            <BiDotsHorizontalRounded className="w-6 h-6 text-gray" />
+
+                                        <div className="dropdown dropdown-bottom">
+                                            <button onClick={() => setDropdown(!dropdown)} tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
+                                                <BiDotsHorizontalRounded className="w-6 h-6" />
+                                            </button>
+                                            {dropdown ?
+                                                <ul
+                                                    tabIndex={0}
+                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
+                                                >
+
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                </ul>
+
+                                                : null}
+
                                         </div>
                                     </div>
                                     <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">

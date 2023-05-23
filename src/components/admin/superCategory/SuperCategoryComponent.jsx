@@ -23,11 +23,12 @@ export default function SuperCategoryComponent() {
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
     const [isShowError, setIsShowError] = useState(false)
     const [superCategoryId, setSuperCategoryId] = useState("")
+    const organization = JSON.parse(sessionStorage.getItem("organization"))
+
     const [newData, setNewData] = useState({
         id: "", name: ""
     })
 
-    console.log(getData);
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
         getAllSuperCategory(event.selected + 1)
@@ -161,13 +162,25 @@ export default function SuperCategoryComponent() {
                             />
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        onClick={openModalCreateSuperCategory}
-                        className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
-                    >
-                        Create New
-                    </button>
+                    {organization.role.name == "ADMIN" ?
+                        <>
+                            <button
+                                type="button"
+                                onClick={openModalCreateSuperCategory}
+                                className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
+                            >
+                                Create New
+                            </button>
+                        </> :
+                        <button
+                            type="button"
+                            disabled
+                            onClick={openModalCreateSuperCategory}
+                            className="bg-primary opacity-70 text-white py-2 px-4 rounded-lg max-w-max"
+                        >
+                            Create New
+                        </button>
+                    }
                 </div>
 
                 <div className="overflow-x-auto">

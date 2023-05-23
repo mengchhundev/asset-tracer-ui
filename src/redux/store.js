@@ -6,7 +6,7 @@ import roomSilce from "./slices/RoomSlice";
 export const store = configureStore({
     reducer: {
         superCategory: superCategorySlice,
-        organizaton: organizationSlice,
+        organization: organizationSlice,
         room: roomSilce
     }
 });
