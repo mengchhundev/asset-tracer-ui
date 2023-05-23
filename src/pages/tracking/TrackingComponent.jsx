@@ -37,7 +37,7 @@ export default function TrackingComponent() {
                 <div className="relative w-full max-w-md">
                   <select
                     id="countries"
-                    class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                    className="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   >
                     <option
                       selected
@@ -70,16 +70,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -88,7 +88,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                    <div className=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
                       <span></span>
                       <span className="text-green flex">
                         <BiCheck className="w-6 h-6 flex pr-1" />
@@ -97,16 +97,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -115,9 +115,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -129,16 +129,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -147,7 +147,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                    <div className=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
                       <span></span>
                       <span className="text-green flex">
                         <BiCheck className="w-6 h-6 flex pr-1" />
@@ -156,16 +156,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -174,9 +174,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -188,16 +188,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -206,7 +206,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-red-100 w-[70px] text-green rounded-lg p-1 flex items-center">
+                    <div className=" bg-red-100 w-[70px] text-green rounded-lg p-1 flex items-center">
                       <span className="flex pr-1">
                         <span>
                           <svg
@@ -223,7 +223,7 @@ export default function TrackingComponent() {
                               stroke="none"
                               stroke-width="1"
                               fill="none"
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                             >
                               <g
                                 id="work-case"
@@ -243,16 +243,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -261,9 +261,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -275,16 +275,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -293,7 +293,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                    <div className=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
                       <span></span>
                       <span className="text-green flex">
                         <BiCheck className="w-6 h-6 flex pr-1" />
@@ -302,16 +302,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -320,9 +320,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -334,16 +334,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -352,7 +352,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
+                    <div className=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
                       <span className="flex pr-1">
                         <span>
                           <svg
@@ -369,7 +369,7 @@ export default function TrackingComponent() {
                               stroke="none"
                               stroke-width="1"
                               fill="none"
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                             >
                               <g
                                 id="work-case"
@@ -389,16 +389,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -407,9 +407,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -421,16 +421,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -439,7 +439,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                    <div className=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
                       <span></span>
                       <span className="text-green flex">
                         <BiCheck className="w-6 h-6 flex pr-1" />
@@ -448,16 +448,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -466,9 +466,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -480,16 +480,16 @@ export default function TrackingComponent() {
                 <tr>
                   <td>1</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -498,7 +498,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
+                    <div className=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
                       <span className="flex pr-1">
                         <span>
                           <svg
@@ -515,7 +515,7 @@ export default function TrackingComponent() {
                               stroke="none"
                               stroke-width="1"
                               fill="none"
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                             >
                               <g
                                 id="work-case"
@@ -535,16 +535,16 @@ export default function TrackingComponent() {
                     </div>
                   </td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -553,9 +553,9 @@ export default function TrackingComponent() {
                   </td>
                   <td>Accounting</td>
                   <td>
-                    <div class="flex items-center space-x-4 w-20">
+                    <div className="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        className="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
@@ -567,74 +567,74 @@ export default function TrackingComponent() {
             </table>
           </div>
 
-          <div class="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            <span class="flex items-center col-span-3">
+          <div className="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <span className="flex items-center col-span-3">
               Showing 21-30 of 100
             </span>
-            <span class="col-span-2"></span>
-            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <span className="col-span-2"></span>
+            <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
               <nav aria-label="Table navigation">
-                <ul class="inline-flex items-center">
+                <ul className="inline-flex items-center">
                   <li>
                     <button
-                      class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                      className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                       aria-label="Previous"
                     >
                       <svg
-                        class="w-4 h-4 fill-current"
+                        className="w-4 h-4 fill-current"
                         aria-hidden="true"
                         viewBox="0 0 20 20"
                       >
                         <path
                           d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                          fill-rule="evenodd"
+                          clipRule="evenodd"
+                          fillRule="evenodd"
                         ></path>
                       </svg>
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2">
                       1
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       2
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       4
                     </button>
                   </li>
                   <li>
-                    <span class="p-2.5">...</span>
+                    <span className="p-2.5">...</span>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       8
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       9
                     </button>
                   </li>
                   <li>
                     <button
-                      class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                      className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                       aria-label="Next"
                     >
                       <svg
-                        class="w-4 h-4 fill-current"
+                        className="w-4 h-4 fill-current"
                         aria-hidden="true"
                         viewBox="0 0 20 20"
                       >
                         <path
                           d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clip-rule="evenodd"
-                          fill-rule="evenodd"
+                          clipRule="evenodd"
+                          fillRule="evenodd"
                         ></path>
                       </svg>
                     </button>

@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { BiExpandVertical } from "react-icons/bi";
 import ReactPaginate from "react-paginate";
 import '../../style/pagination.css'
+import { useSelector } from "react-redux";
 
 const fruits = ["Apple", "Orange", "Grape", "Lemon", "Lime", "Blueberry"];
 const people = [
@@ -16,6 +17,8 @@ const people = [
 ];
 
 export default function CategoryComponent() {
+
+    const data = useSelector((state) => console.log(state))
 
     // Modal 
     let [isOpen, setIsOpen] = useState(true)

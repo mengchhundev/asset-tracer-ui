@@ -85,9 +85,9 @@ export default function DashboardComponent() {
                                         viewBox="0 0 20 20"
                                     >
                                         <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"
+                                            clipRule="evenodd"
                                         ></path>
                                     </svg>
                                 </button>
@@ -313,9 +313,9 @@ export default function DashboardComponent() {
                                 viewBox="0 0 20 20"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 ></path>
                             </svg>
                         </button>
@@ -348,9 +348,9 @@ export default function DashboardComponent() {
                                             viewBox="0 0 20 20"
                                         >
                                             <path
-                                                fill-rule="evenodd"
+                                                fillRule="evenodd"
                                                 d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                                clip-rule="evenodd"
+                                                clipRule="evenodd"
                                             ></path>
                                         </svg>
                                     </template>
@@ -524,16 +524,16 @@ export default function DashboardComponent() {
                                 <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
                                     All Super Category
                                 </h2>
-                                <div class="relative w-full max-w-xl mr-6 focus-within:text-black border rounded-lg p-2 border-bg-primary bg-bg-primary">
-                                    <div class="absolute inset-y-0 flex items-center pl-2">
-                                        <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
+                                <div className="relative w-full max-w-xl mr-6 focus-within:text-black border rounded-lg p-2 border-bg-primary bg-bg-primary">
+                                    <div className="absolute inset-y-0 flex items-center pl-2">
+                                        <svg className="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd"
                                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd"></path>
+                                                clipRule="evenodd"></path>
                                         </svg>
                                     </div>
                                     <input
-                                        class="w-full pl-8 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                        className="w-full pl-8 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                         type="text" placeholder="Search..." aria-label="Search" />
                                 </div>
                                 <button className='outline p-1.5 px-5 outline-primary rounded-lg outline-2 text-primary'>
@@ -548,59 +548,59 @@ export default function DashboardComponent() {
 
 
 
-                                <div class="w-full overflow-hidden text-text-color">
-                                    <div class="w-full overflow-x-auto">
-                                        <table class="w-full whitespace-no-wrap">
+                                <div className="w-full overflow-hidden text-text-color">
+                                    <div className="w-full overflow-x-auto">
+                                        <table className="w-full whitespace-no-wrap">
                                             <thead>
                                                 <tr
-                                                    class="text-sm font-sp-pro-text-bold tracking-wide text-left text-gray-500 uppercase dark:text-gray-400 dark:bg-gray-800 bg-bg-primary"
+                                                    className="text-sm font-sp-pro-text-bold tracking-wide text-left text-gray-500 uppercase dark:text-gray-400 dark:bg-gray-800 bg-bg-primary"
                                                 >
-                                                    <th class="px-4 py-3">NO</th>
-                                                    <th class="px-4 py-3">Name</th>
-                                                    <th class="px-4 py-3">CREATED DATE</th>
-                                                    <th class="px-4 py-3">ACTION</th>
+                                                    <th className="px-4 py-3">NO</th>
+                                                    <th className="px-4 py-3">Name</th>
+                                                    <th className="px-4 py-3">CREATED DATE</th>
+                                                    <th className="px-4 py-3">ACTION</th>
                                                 </tr>
                                             </thead>
                                             <tbody
-                                                class="bg-white divide-y dark:divide-bg-primary dark:bg-gray-800 text-md font-sp-pro-text-regular"
+                                                className="bg-white divide-y dark:divide-bg-primary dark:bg-gray-800 text-md font-sp-pro-text-regular"
                                             >
-                                                <tr class="text-gray-700 dark:text-gray-400">
-                                                    <td class="px-4 py-5">
+                                                <tr className="text-gray-700 dark:text-gray-400">
+                                                    <td className="px-4 py-5">
                                                         1
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center">
                                                             <div
-                                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                                                className="relative hidden w-8 h-8 mr-3 rounded-full md:block"
                                                             >
                                                                 <img
-                                                                    class="object-cover w-full h-full rounded-full"
+                                                                    className="object-cover w-full h-full rounded-full"
                                                                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                                                                     alt=""
                                                                     loading="lazy"
                                                                 />
                                                                 <div
-                                                                    class="absolute inset-0 rounded-full shadow-inner"
+                                                                    className="absolute inset-0 rounded-full shadow-inner"
                                                                     aria-hidden="true"
                                                                 ></div>
                                                             </div>
                                                             <div>
-                                                                <p class="font-semibold">Electronic</p>
+                                                                <p className="font-semibold">Electronic</p>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                    <td class="px-4 py-5">
+                                                    <td className="px-4 py-5">
                                                         6/10/2020
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center space-x-4 w-20">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center space-x-4 w-20">
                                                             <button
-                                                                class="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Edit"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
@@ -613,19 +613,19 @@ export default function DashboardComponent() {
 
                                                             </button>
                                                             <button
-                                                                class="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Delete"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
                                                                 >
                                                                     <path
-                                                                        fill-rule="evenodd"
+                                                                        fillRule="evenodd"
                                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"
+                                                                        clipRule="evenodd"
                                                                     ></path>
                                                                 </svg>
                                                                 Delete
@@ -634,43 +634,43 @@ export default function DashboardComponent() {
                                                     </td>
                                                 </tr>
 
-                                                <tr class="text-gray-700 dark:text-gray-400">
-                                                    <td class="px-4 py-5">
+                                                <tr className="text-gray-700 dark:text-gray-400">
+                                                    <td className="px-4 py-5">
                                                         1
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center">
                                                             <div
-                                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                                                className="relative hidden w-8 h-8 mr-3 rounded-full md:block"
                                                             >
                                                                 <img
-                                                                    class="object-cover w-full h-full rounded-full"
+                                                                    className="object-cover w-full h-full rounded-full"
                                                                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                                                                     alt=""
                                                                     loading="lazy"
                                                                 />
                                                                 <div
-                                                                    class="absolute inset-0 rounded-full shadow-inner"
+                                                                    className="absolute inset-0 rounded-full shadow-inner"
                                                                     aria-hidden="true"
                                                                 ></div>
                                                             </div>
                                                             <div>
-                                                                <p class="font-semibold">Electronic</p>
+                                                                <p className="font-semibold">Electronic</p>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                    <td class="px-4 py-5">
+                                                    <td className="px-4 py-5">
                                                         6/10/2020
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center space-x-4 w-20">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center space-x-4 w-20">
                                                             <button
-                                                                class="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Edit"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
@@ -683,19 +683,19 @@ export default function DashboardComponent() {
 
                                                             </button>
                                                             <button
-                                                                class="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Delete"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
                                                                 >
                                                                     <path
-                                                                        fill-rule="evenodd"
+                                                                        fillRule="evenodd"
                                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"
+                                                                        clipRule="evenodd"
                                                                     ></path>
                                                                 </svg>
                                                                 Delete
@@ -704,43 +704,43 @@ export default function DashboardComponent() {
                                                     </td>
                                                 </tr>
 
-                                                <tr class="text-gray-700 dark:text-gray-400">
-                                                    <td class="px-4 py-5">
+                                                <tr className="text-gray-700 dark:text-gray-400">
+                                                    <td className="px-4 py-5">
                                                         1
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center">
                                                             <div
-                                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                                                className="relative hidden w-8 h-8 mr-3 rounded-full md:block"
                                                             >
                                                                 <img
-                                                                    class="object-cover w-full h-full rounded-full"
+                                                                    className="object-cover w-full h-full rounded-full"
                                                                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                                                                     alt=""
                                                                     loading="lazy"
                                                                 />
                                                                 <div
-                                                                    class="absolute inset-0 rounded-full shadow-inner"
+                                                                    className="absolute inset-0 rounded-full shadow-inner"
                                                                     aria-hidden="true"
                                                                 ></div>
                                                             </div>
                                                             <div>
-                                                                <p class="font-semibold">Electronic</p>
+                                                                <p className="font-semibold">Electronic</p>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                    <td class="px-4 py-5">
+                                                    <td className="px-4 py-5">
                                                         6/10/2020
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center space-x-4 w-20">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center space-x-4 w-20">
                                                             <button
-                                                                class="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Edit"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
@@ -753,19 +753,19 @@ export default function DashboardComponent() {
 
                                                             </button>
                                                             <button
-                                                                class="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Delete"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
                                                                 >
                                                                     <path
-                                                                        fill-rule="evenodd"
+                                                                        fillRule="evenodd"
                                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"
+                                                                        clipRule="evenodd"
                                                                     ></path>
                                                                 </svg>
                                                                 Delete
@@ -774,43 +774,43 @@ export default function DashboardComponent() {
                                                     </td>
                                                 </tr>
 
-                                                <tr class="text-gray-700 dark:text-gray-400">
-                                                    <td class="px-4 py-5">
+                                                <tr className="text-gray-700 dark:text-gray-400">
+                                                    <td className="px-4 py-5">
                                                         1
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center">
                                                             <div
-                                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                                                className="relative hidden w-8 h-8 mr-3 rounded-full md:block"
                                                             >
                                                                 <img
-                                                                    class="object-cover w-full h-full rounded-full"
+                                                                    className="object-cover w-full h-full rounded-full"
                                                                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                                                                     alt=""
                                                                     loading="lazy"
                                                                 />
                                                                 <div
-                                                                    class="absolute inset-0 rounded-full shadow-inner"
+                                                                    className="absolute inset-0 rounded-full shadow-inner"
                                                                     aria-hidden="true"
                                                                 ></div>
                                                             </div>
                                                             <div>
-                                                                <p class="font-semibold">Electronic</p>
+                                                                <p className="font-semibold">Electronic</p>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                    <td class="px-4 py-5">
+                                                    <td className="px-4 py-5">
                                                         6/10/2020
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center space-x-4 w-20">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center space-x-4 w-20">
                                                             <button
-                                                                class="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Edit"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
@@ -823,19 +823,19 @@ export default function DashboardComponent() {
 
                                                             </button>
                                                             <button
-                                                                class="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Delete"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
                                                                 >
                                                                     <path
-                                                                        fill-rule="evenodd"
+                                                                        fillRule="evenodd"
                                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"
+                                                                        clipRule="evenodd"
                                                                     ></path>
                                                                 </svg>
                                                                 Delete
@@ -844,43 +844,43 @@ export default function DashboardComponent() {
                                                     </td>
                                                 </tr>
 
-                                                <tr class="text-gray-700 dark:text-gray-400">
-                                                    <td class="px-4 py-5">
+                                                <tr className="text-gray-700 dark:text-gray-400">
+                                                    <td className="px-4 py-5">
                                                         1
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center">
                                                             <div
-                                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                                                className="relative hidden w-8 h-8 mr-3 rounded-full md:block"
                                                             >
                                                                 <img
-                                                                    class="object-cover w-full h-full rounded-full"
+                                                                    className="object-cover w-full h-full rounded-full"
                                                                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                                                                     alt=""
                                                                     loading="lazy"
                                                                 />
                                                                 <div
-                                                                    class="absolute inset-0 rounded-full shadow-inner"
+                                                                    className="absolute inset-0 rounded-full shadow-inner"
                                                                     aria-hidden="true"
                                                                 ></div>
                                                             </div>
                                                             <div>
-                                                                <p class="font-semibold">Electronic</p>
+                                                                <p className="font-semibold">Electronic</p>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                    <td class="px-4 py-5">
+                                                    <td className="px-4 py-5">
                                                         6/10/2020
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center space-x-4 w-20">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center space-x-4 w-20">
                                                             <button
-                                                                class="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Edit"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
@@ -893,19 +893,19 @@ export default function DashboardComponent() {
 
                                                             </button>
                                                             <button
-                                                                class="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Delete"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
                                                                 >
                                                                     <path
-                                                                        fill-rule="evenodd"
+                                                                        fillRule="evenodd"
                                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"
+                                                                        clipRule="evenodd"
                                                                     ></path>
                                                                 </svg>
                                                                 Delete
@@ -913,43 +913,43 @@ export default function DashboardComponent() {
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr class="text-gray-700 dark:text-gray-400">
-                                                    <td class="px-4 py-5">
+                                                <tr className="text-gray-700 dark:text-gray-400">
+                                                    <td className="px-4 py-5">
                                                         1
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center">
                                                             <div
-                                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                                                className="relative hidden w-8 h-8 mr-3 rounded-full md:block"
                                                             >
                                                                 <img
-                                                                    class="object-cover w-full h-full rounded-full"
+                                                                    className="object-cover w-full h-full rounded-full"
                                                                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                                                                     alt=""
                                                                     loading="lazy"
                                                                 />
                                                                 <div
-                                                                    class="absolute inset-0 rounded-full shadow-inner"
+                                                                    className="absolute inset-0 rounded-full shadow-inner"
                                                                     aria-hidden="true"
                                                                 ></div>
                                                             </div>
                                                             <div>
-                                                                <p class="font-semibold">Electronic</p>
+                                                                <p className="font-semibold">Electronic</p>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                    <td class="px-4 py-5">
+                                                    <td className="px-4 py-5">
                                                         6/10/2020
                                                     </td>
-                                                    <td class="px-4 py-5">
-                                                        <div class="flex items-center space-x-4 w-20">
+                                                    <td className="px-4 py-5">
+                                                        <div className="flex items-center space-x-4 w-20">
                                                             <button
-                                                                class="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-green text-green px-5 justify-between py-2 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Edit"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
@@ -962,19 +962,19 @@ export default function DashboardComponent() {
 
                                                             </button>
                                                             <button
-                                                                class="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                className="flex items-center border border-red-600 text-red-600 justify-between px-5 py-2 font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                                 aria-label="Delete"
                                                             >
                                                                 <svg
-                                                                    class="w-5 h-5"
+                                                                    className="w-5 h-5"
                                                                     aria-hidden="true"
                                                                     fill="currentColor"
                                                                     viewBox="0 0 20 20"
                                                                 >
                                                                     <path
-                                                                        fill-rule="evenodd"
+                                                                        fillRule="evenodd"
                                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"
+                                                                        clipRule="evenodd"
                                                                     ></path>
                                                                 </svg>
                                                                 Delete
@@ -988,92 +988,92 @@ export default function DashboardComponent() {
                                         </table>
                                     </div>
                                     <div
-                                        class="grid px-4 py-5 text-sm font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
+                                        className="grid px-4 py-5 text-sm font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
                                     >
-                                        <span class="flex items-center col-span-3">
+                                        <span className="flex items-center col-span-3">
                                             Showing 21-30 of 100
                                         </span>
-                                        <span class="col-span-2"></span>
-                                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                                        <span className="col-span-2"></span>
+                                        <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                                             <nav aria-label="Table navigation">
-                                                <ul class="inline-flex items-center">
+                                                <ul className="inline-flex items-center">
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                             aria-label="Previous"
                                                         >
                                                             <svg
-                                                                class="w-4 h-4 fill-current"
+                                                                className="w-4 h-4 fill-current"
                                                                 aria-hidden="true"
                                                                 viewBox="0 0 20 20"
                                                             >
                                                                 <path
                                                                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                                    clip-rule="evenodd"
-                                                                    fill-rule="evenodd"
+                                                                    clipRule="evenodd"
+                                                                    fillRule="evenodd"
                                                                 ></path>
                                                             </svg>
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2"
                                                         >
                                                             1
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                         >
                                                             2
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                         >
                                                             3
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                         >
                                                             4
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <span class="p-2.5">...</span>
+                                                        <span className="p-2.5">...</span>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                         >
                                                             8
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                         >
                                                             9
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button
-                                                            class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                                                            className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                                                             aria-label="Next"
                                                         >
                                                             <svg
-                                                                class="w-4 h-4 fill-current"
+                                                                className="w-4 h-4 fill-current"
                                                                 aria-hidden="true"
                                                                 viewBox="0 0 20 20"
                                                             >
                                                                 <path
                                                                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                                    clip-rule="evenodd"
-                                                                    fill-rule="evenodd"
+                                                                    clipRule="evenodd"
+                                                                    fillRule="evenodd"
                                                                 ></path>
                                                             </svg>
                                                         </button>
