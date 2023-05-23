@@ -25,6 +25,7 @@ import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
 import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
 import ProfileComponent from './components/admin/profile/ProfileComponent'
 // import ProfileComponent from './components/homepage/ProfileComponent'
+import RoomListComponent from './components/admin/Room/RoomListComponent'
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent/>}/>
+            <Route path='/roomlist' element={<RoomListComponent/>}></Route>
           </Route>
         </Route>
       </Routes>

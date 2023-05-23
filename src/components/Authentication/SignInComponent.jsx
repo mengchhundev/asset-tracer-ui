@@ -21,6 +21,7 @@ export default function SignInComponent() {
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
+                console.log(result)
                 if (result) {
                     api.post("/users/registerWithGoogle", {
                         name: result._tokenResponse.displayName,
@@ -166,10 +167,10 @@ export default function SignInComponent() {
                                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                                 ></path>
                             </svg>
-                            <span className="ml-2 font-semibold" onClick={SignInWithFirebase} >Sign up with Google</span>
+                            <span className="ml-2 font-semibold" onClick={SignInWithFirebase} >Google</span>
                         </button>
                     </div>
-                    <div className=" w-4/12 m-10 hidden md:block">
+                    <div className=" w-6/12 m-10 hidden md:block">
                         <img src={signin} alt="Signup Picture" className='w-full' />
                     </div>
                 </div>

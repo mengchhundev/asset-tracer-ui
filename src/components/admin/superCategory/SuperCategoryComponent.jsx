@@ -27,6 +27,7 @@ export default function SuperCategoryComponent() {
         id: "", name: ""
     })
 
+    console.log(getData);
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
         getAllSuperCategory(event.selected + 1)
