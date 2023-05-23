@@ -11,7 +11,7 @@ import ResetpasswordComponent from './components/Authentication/ResetpasswordCom
 import SuccessComponent from './components/Authentication/SuccessComponent'
 import HomeComponent from './components/homepage/HomeComponent'
 import AboutPageComponent from './components/homepage/AboutPageComponent'
-// import ContactUsComponent from './components/homepage/ContactUsComponent'
+import ContactUsComponent from './components/homepage/ContactUsComponent'
 import ContactusComponent from './components/InsideComponent/ContactusComponent'
 import MainComponent from './components/Layouts/MainComponent'
 import OrganizationListComponent from './components/admin/organization/OrganizationListComponent'
@@ -23,7 +23,8 @@ import DashboardComponent from './components/admin/dashboard/DashboardComponent'
 import AssetComponent from './components/admin/asset/AssetComponent'
 import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
 import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
-import ProfileComponent from './components/homepage/ProfileComponent'
+import ProfileComponent from './components/admin/profile/ProfileComponent'
+// import ProfileComponent from './components/homepage/ProfileComponent'
 
 function App() {
 
@@ -32,15 +33,14 @@ function App() {
       <Routes>
         <Route path='/' element={<HomeComponent />} />
         <Route path='/about' element={<AboutpageComponent />} />
-        <Route path='/contact' element={<ContactusComponent />} />
+        <Route path='/contact' element={<ContactUsComponent />} />
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
         <Route path='/forget-password' element={<Forgotpassword />} />
         <Route path='/email-sending' element={<EmailsendingComponent />} />
         <Route path='/reset-password' element={<ResetpasswordComponent />} />
-        <Route path='/Success' element={<SuccessComponent />} />
-        <Route path='/profile' element={<ProfileComponent/>}/>
-        <Route path='/profile' element={<ProfileComponent/>}/>
+        <Route path='/success' element={<SuccessComponent />} />
+        {/* <Route path='/profile' element={<ProfileComponent/>}/> */}
         <Route element={<ProtectedRoute isLogged={true} />}>
           <Route path="/" element={<MainComponent />}>
             <Route path='/organization' element={<OrganizationListComponent />} />
@@ -52,7 +52,7 @@ function App() {
             <Route path='/asset' element={<AssetComponent />}></Route>
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
-            
+            <Route path='/profile' element={<ProfileComponent/>}/>
           </Route>
         </Route>
       </Routes>

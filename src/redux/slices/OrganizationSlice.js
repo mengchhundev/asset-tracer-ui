@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    data: []
+    data: [],
+    item: null
 }
 
 export const organizationSlice = createSlice({
@@ -10,9 +11,12 @@ export const organizationSlice = createSlice({
     reducers: {
         setAllOrganization: (state, action) => {
             state.data = action.payload
+        },
+        setItem: (state, action) => {
+            state.item = action.payload
         }
     }
 })
 
-export const {setAllOrganization} = organizationSlice.actions
+export const {setAllOrganization, setItem} = organizationSlice.actions
 export default organizationSlice.reducer

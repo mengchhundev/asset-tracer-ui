@@ -53,7 +53,8 @@ export default {
         "secondary-yellow": "#F8C400",
         "bg-pink":"#FEFCFB",
         "text-black":"#111827",
-        "border-gray-light" : "#edf2f7"
+        "border-gray-light" : "#edf2f7",
+        "custom-yellow-showdow-light" : "#FEFAE8"
       },
       fontSize: {
         // md: '16px'
