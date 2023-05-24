@@ -6,8 +6,24 @@ import { HiOutlineQrcode } from "react-icons/hi";
 import { RiBarcodeFill } from "react-icons/ri";
 import { TbCalendarStats } from "react-icons/tb";
 import { BsHouseCheck } from "react-icons/bs";
-// import logo from "b"; 
+import { IoMdClose } from "react-icons/io";
+// import logo from;
 import logo from "../../../src/assets/images/A_Tracer_logo1.png"
+
+//import
+import { Fragment, useState } from 'react'
+import { Combobox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+const people = [
+  { id: 1, name: 'Room' },
+  { id: 2, name: 'Arlene Mccoy' },
+  { id: 3, name: 'Devon Webb' },
+  { id: 4, name: 'Tom Cook' },
+  { id: 5, name: 'Tanya Fox' },
+  { id: 6, name: 'Hellen Schmidt' },
+]
+// import
+
 
 
 
@@ -18,12 +34,25 @@ export default function TrackingComponent() {
     height:'80px',
     borderRight: '2px solid #ccc',
   }
+
+  // under  export 
+  const [selected, setSelected] = useState(people[0])
+  const [query, setQuery] = useState('')
+
+  const filteredPeople = query === '' ? people : people.filter((person) =>
+    person.name
+      .toLowerCase()
+      .replace(/\s+/g, '')
+      .includes(query.toLowerCase().replace(/\s+/g, ''))
+  )
+  // over return
+
   
   return (
     <div>
       {/* Tracking data table */}
       <main className="h-full overflow-y-auto">
-        <div className="mb-8 mt-3 p-10 bg-white rounded-3xl overflow-hidden">
+        <div className="mt-3 p-10 bg-white rounded-3xl overflow-hidden h-[690px]">
           <div className="flex justify-between mb-8 mt-3">
             <div>
               <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
@@ -32,114 +61,85 @@ export default function TrackingComponent() {
             </div>
           </div>
 
-          <div className="my-8">
+          <div className="mt-8">
             <form action="" method="">
               <div className="grid grid-cols-12 gap-5">
-                  <div className="col-span-2">
-                    {/* <div className="relative w-full max-w-md">
-                      <div className="relative w-full max-w-md mr-6 focus-within:text-black focus:border-0 rounded-lg p-2 border-slate-200 bg-bg-main">
-                        <div className="absolute inset-y-0 flex items-center pl-2">
-                          <AiOutlineSearch className="w-5 h-5 text-primary" />
-                        </div>
-                        <input
-                          className="w-full pl-10 pr-2 bg-transparent text-
-                          
-                          
-                          
-                          -700 placeholder-gray-600 border-0 rounded-md focus:border:none"
-                          type="text"
-                          placeholder="Search..."
-                          aria-label="Search"
+                <div className="col-span-2">
+                  <Combobox value={selected} onChange={setSelected}>
+                    <div className="relative mt-1 z-20">
+                      <div className="relative w-full cursor-default overflow-hidden text-left shadow-md rounded-md">
+                        <Combobox.Input
+                          className="w-full border border-slate-200 bg-bg-main rounded-md py-2 pl-3 pr-10 text-sm leading-5 text-text-color focus:outline-yellow"
+                          displayValue={(person) => person.name}
+                          onChange={(event) => setQuery(event.target.value)}
                         />
+                        <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                          <ChevronUpDownIcon
+                            className="h-5 w-5 text-text-color"
+                            aria-hidden="true"
+                          />
+                        </Combobox.Button>
                       </div>
-                    </div> */}
-                    <div className="col-span-2">
-                    <div className="relative w-full max-w-md">
-                      <select
-                        id="countries"
-                        class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                      <Transition
+                        as={Fragment}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                        afterLeave={() => setQuery('')}
                       >
-                        <option selected className="sp-pro-text-regular">
-                          Sort by :
-                        </option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                      </select>
+                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                          {filteredPeople.length === 0 && query !== '' ? (
+                            <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                              Nothing found.
+                            </div>
+                          ) : (
+                            filteredPeople.map((person) => (
+                              <Combobox.Option
+                                key={person.id}
+                                className={({ active }) =>
+                                  `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                    active ? 'bg-hover-yellow text-white' : 'text-gray-900'
+                                  }`
+                                }
+                                value={person}
+                              >
+                                {({ selected, active }) => (
+                                  <>
+                                    <span
+                                      className={`block truncate ${
+                                        selected ? 'font-medium' : 'font-normal'
+                                      }`}
+                                    >
+                                      {person.name}
+                                    </span>
+                                    {selected ? (
+                                      <span
+                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                          active ? 'text-white' : 'text-text-color'
+                                        }`}
+                                      >
+                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                      </span>
+                                    ) : null}
+                                  </>
+                                )}
+                              </Combobox.Option>
+                            ))
+                          )}
+                        </Combobox.Options>
+                      </Transition>
                     </div>
-                  </div>
-                  </div>
+                  </Combobox>
+                </div>
+              </div>
 
-                  <div className="col-span-2">
-                    <div className="relative w-full max-w-md">
-                      <select
-                        id="countries"
-                        class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                      >
-                        <option selected className="sp-pro-text-regular">
-                          Sort by :
-                        </option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2">
-                    <div className="relative w-full max-w-md">
-                      <select
-                        id="countries"
-                        class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                      >
-                        <option selected className="sp-pro-text-regular">
-                          Sort by :
-                        </option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2">
-                    <div className="relative w-full max-w-md">
-                      <select
-                        id="countries"
-                        class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                      >
-                        <option selected className="sp-pro-text-regular">
-                          Sort by :
-                        </option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2">
-                    <div className="relative w-full max-w-md">
-                      <select
-                        id="countries"
-                        class="border-slate-200 bg-bg-main bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                      >
-                        <option selected className="sp-pro-text-regular">
-                          Sort by :
-                        </option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2">
-                    <div className="relative w-full max-w-md">
-                      <button type="reset" class="border-slate-200 bg-gray border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 text-white">Clear All Filters</button>
-                      {/* <button type="reset" class="text-white bg-gray focus:ring-primary focus:border-primary  font-sp-pro-text-regular rounded-lg text-sm w-full px-5 py-2.5 text-center">Clear All Filters</button> */}
-                    </div>
-                  </div>
+              <div className="mt-7">
+                <button type="reset" class=" text-sm block text-blue-light">Clear All Filters</button>
               </div>
             </form>
           </div>
 
-          <div className="overflow-x-auto text-text-color">
+          <div className="overflow-x-auto text-text-color z-0 mt-3">
             <table className="table w-full">
               <thead>
                 <tr className="text-md tracking-wide text-left">
@@ -174,7 +174,7 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
+                    <div class="flex justify-between bg-light-green w-[85px] text-green rounded-lg p-1">
                       <span className="text-green flex">
                         <BiCheck className="w-6 h-6 flex pr-1" />
                         In use
@@ -233,66 +233,14 @@ export default function TrackingComponent() {
                   </td>
                   <td>Furniture</td>
                   <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
-                      <span></span>
-                      <span className="text-green flex">
-                        <BiCheck className="w-6 h-6 flex pr-1" />
+                  <div class="flex justify-between bg-reject-light w-[85px] text-reject rounded-lg p-1">
+                      <span className="text-reject flex items-center">
+                        <IoMdClose className="w-5 h-5 flex pr-1" />
                         In use
                       </span>
                     </div>
-                  </td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Mnor</div>
-                    </div>
-                  </td>
-                  <td>Accounting</td>
-                  <td>
-                    <div class="flex items-center space-x-4 w-20">
-                      <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                        aria-label="Edit"
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Electronic</div>
-                    </div>
-                  </td>
-                  <td>Furniture</td>
-                  <td className="">
-                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
+{/*                     
+                    <div class="bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
                       <span className="flex pr-1">
                         <span>
                           <svg
@@ -326,7 +274,7 @@ export default function TrackingComponent() {
                         </span>
                       </span>
                       <span className="text-red-500 flex">Issue</span>
-                    </div>
+                    </div> */}
                   </td>
                   <td>
                     <div class="flex items-center">
@@ -349,306 +297,14 @@ export default function TrackingComponent() {
                   <td>
                     <div class="flex items-center space-x-4 w-20">
                       <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-md dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         View Details
                       </button>
                     </div>
                   </td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Electronic</div>
-                    </div>
-                  </td>
-                  <td>Furniture</td>
-                  <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
-                      <span></span>
-                      <span className="text-green flex">
-                        <BiCheck className="w-6 h-6 flex pr-1" />
-                        In use
-                      </span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Mnor</div>
-                    </div>
-                  </td>
-                  <td>Accounting</td>
-                  <td>
-                    <div class="flex items-center space-x-4 w-20">
-                      <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                        aria-label="Edit"
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Electronic</div>
-                    </div>
-                  </td>
-                  <td>Furniture</td>
-                  <td className="">
-                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
-                      <span className="flex pr-1">
-                        <span>
-                          <svg
-                            width="15px"
-                            height="15px"
-                            viewBox="0 0 512 512"
-                            version="1.1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                          >
-                            <title>cancel</title>
-                            <g
-                              id="Page-1"
-                              stroke="none"
-                              stroke-width="1"
-                              fill="none"
-                              fill-rule="evenodd"
-                            >
-                              <g
-                                id="work-case"
-                                fill="red"
-                                transform="translate(91.520000, 91.520000)"
-                              >
-                                <polygon
-                                  id="Close"
-                                  points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"
-                                ></polygon>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                      </span>
-                      <span className="text-red-500 flex">Issue</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Mnor</div>
-                    </div>
-                  </td>
-                  <td>Accounting</td>
-                  <td>
-                    <div class="flex items-center space-x-4 w-20">
-                      <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                        aria-label="Edit"
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Electronic</div>
-                    </div>
-                  </td>
-                  <td>Furniture</td>
-                  <td className="">
-                    <div class=" bg-lightgreen w-[85px] text-green rounded-lg p-1">
-                      <span></span>
-                      <span className="text-green flex">
-                        <BiCheck className="w-6 h-6 flex pr-1" />
-                        In use
-                      </span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Mnor</div>
-                    </div>
-                  </td>
-                  <td>Accounting</td>
-                  <td>
-                    <div class="flex items-center space-x-4 w-20">
-                      <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                        aria-label="Edit"
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Electronic</div>
-                    </div>
-                  </td>
-                  <td>Furniture</td>
-                  <td className="">
-                    <div class=" bg-red-100 w-[85px] text-green rounded-lg p-1 flex items-center">
-                      <span className="flex pr-1">
-                        <span>
-                          <svg
-                            width="15px"
-                            height="15px"
-                            viewBox="0 0 512 512"
-                            version="1.1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                          >
-                            <title>cancel</title>
-                            <g
-                              id="Page-1"
-                              stroke="none"
-                              stroke-width="1"
-                              fill="none"
-                              fill-rule="evenodd"
-                            >
-                              <g
-                                id="work-case"
-                                fill="red"
-                                transform="translate(91.520000, 91.520000)"
-                              >
-                                <polygon
-                                  id="Close"
-                                  points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"
-                                ></polygon>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                      </span>
-                      <span className="text-red-500 flex">Issue</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          class="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          class="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div>Mnor</div>
-                    </div>
-                  </td>
-                  <td>Accounting</td>
-                  <td>
-                    <div class="flex items-center space-x-4 w-20">
-                      <button
-                        class="flex items-center border border-primary text-bg-secondary bg-primary px-3 justify-between py-1 font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                        aria-label="Edit"
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                </tr> 
               </tbody>
             </table>
           </div>
@@ -732,11 +388,9 @@ export default function TrackingComponent() {
         </div>
       </main>
 
-      
-      
       {/* Modol */}
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <div className="modal ">
+      <div className="modal">
         <div className="bg-bg-primary p-6 md:w-10/12 sm:w-1/2 rounded-lg relative">
           {/* header */}
           <div className="flex justify-between mb-5">
@@ -931,6 +585,8 @@ export default function TrackingComponent() {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 }
