@@ -22,7 +22,7 @@ export default function DashboardComponent() {
           {/* Card Box1 */}
           <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2  gap-5">
             {/* total user */}
-            <div class="border-gray-200 rounded-lg shadow-sm border p-5">
+            <div class="border-border-gray-light rounded-lg shadow-sm border p-5">
               <div>
                 <h1 className='text-gray font-sp-pro-text-regular text-sm uppercase'>total users</h1>
               </div>
@@ -33,7 +33,7 @@ export default function DashboardComponent() {
             </div>
 
             {/* total asset */}
-            <div class="border-gray-200 rounded-lg shadow-sm border p-5">
+            <div class="border-border-gray-light rounded-lg shadow-sm border p-5">
               <div>
                 <h1 className='text-gray font-sp-pro-text-regular text-sm uppercase'>total assets</h1>
               </div>
@@ -44,7 +44,7 @@ export default function DashboardComponent() {
             </div>
 
             {/* total room */}
-            <div class="border-gray-200 rounded-lg shadow-sm border p-5">
+            <div class="border-border-gray-light rounded-lg shadow-sm border p-5">
               <div>
                 <h1 className='text-gray font-sp-pro-text-regular text-base uppercase'>total rooms</h1>
               </div>
@@ -55,7 +55,7 @@ export default function DashboardComponent() {
             </div>
 
             {/* total invoice */}
-            <div class="border-gray-200 rounded-lg shadow-sm border p-5">
+            <div class="border-border-gray-light rounded-lg shadow-sm border p-5">
               <div>
                 <h1 className='text-gray font-sp-pro-text-regular text-base uppercase'>total user</h1>
               </div>
@@ -68,7 +68,7 @@ export default function DashboardComponent() {
 
           {/* Card Box2 */}
           <div class="grid md:grid-cols-12 sm:grid-cols-2 gap-5 mt-8">
-            <div class="lg:col-span-8 md:col-span-12 sm:col-span-12  border-gray-200 rounded-lg shadow-sm border p-5">
+            <div class="lg:col-span-8 md:col-span-12 sm:col-span-12  border-border-gray-light rounded-lg shadow-sm border p-5">
               {/* header */}
               <div className='flex md:justify-between md:flex-row flex-col'>
                 <div className='float-left flex'>
@@ -91,7 +91,7 @@ export default function DashboardComponent() {
               {/* Card  */}
               <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-8">
                 {/* 1 */}
-                <div class="border-gray-200 bg-red-100  rounded-lg shadow-sm border p-5">
+                <div class="border-border-gray-light bg-red-100  rounded-lg shadow-sm border p-5">
                   <div>
                     <img class="w-8 h-8 rounded-full " src="https://api.time.com/wp-content/uploads/2018/05/forest-bathing.jpg" alt="" />
                   </div>
@@ -103,7 +103,7 @@ export default function DashboardComponent() {
                 </div>
 
                 {/* 2 */}
-                <div class="border-gray-200 bg-amber-100  rounded-lg shadow-sm border p-5">
+                <div class="border-border-gray-light bg-amber-100  rounded-lg shadow-sm border p-5">
                   <div>
                     <img class="w-8 h-8 rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaw1JlRIUksyVhNsChhKSO00_CaV8YjwA-Cw&usqp=CAU" alt="" />
                   </div>
@@ -115,7 +115,7 @@ export default function DashboardComponent() {
                 </div>
 
                 {/* 3 */}
-                <div class="border-gray-200 bg-lime-100  rounded-lg shadow-sm border p-5">
+                <div class="border-border-gray-light bg-lime-100  rounded-lg shadow-sm border p-5">
                   <div>
                     <img class="w-8 h-8 rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwZrgMv-OIpXZmg3tbA4xJ48mWvYvDYMhNTw&usqp=CAU" alt="" />
                   </div>
@@ -127,7 +127,7 @@ export default function DashboardComponent() {
                 </div>
 
                 {/* 4 */}
-                <div class="border-gray-200 bg-indigo-200  rounded-lg shadow-sm border p-5">
+                <div class="border-border-gray-light bg-indigo-200  rounded-lg shadow-sm border p-5">
                   <div>
                     <img class="w-8 h-8 rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS66g4ybmDvkvLDa-2p_k9PQFmLXx1nyTo0_w&usqp=CAU" alt="" />
                   </div>
@@ -141,7 +141,7 @@ export default function DashboardComponent() {
             </div>
 
             {/* Recent Member */}
-            <div class="lg:col-span-4 md:col-span-12 sm:col-span-12 md:w-full border-gray-200 rounded-lg shadow-sm border relative h-72 p-5">
+            <div class="lg:col-span-4 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative h-72 p-5">
               <div className=''>
                 <div>
                   <h2 className='text-base font-sp-pro-text-regular text-text-color'>Recent Member</h2>
@@ -211,26 +211,26 @@ export default function DashboardComponent() {
 
 
           {/* Card Box3 */}
-          <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-5 mt-8 lg:mb-0 overflow-x-auto ">
-            <div class="border-gray-200 rounded-lg shadow-sm border p-5">
+          <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-5 mt-8 lg:mb-0 overflow-auto">
+            <div class="border-border-gray-light rounded-lg shadow-sm border p-5 w-[295px] sm:w-auto">
               <h1 className='text-base font-sp-pro-text-regular text-text-color'>3 lastest invoice</h1>
               {/* data table */}
-              <div className="overflow-x-auto text-text-color mt-3">
-                <table className="table w-full z-0 overflow-x-auto ">
+              <div className="text-text-color mt-3 overflow-auto ">
+                <table className="table w-full z-0 ">
                   <thead>
-                    <tr className="text-md tracking-wide text-left ">
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>No</th>
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>Supplier</th>
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>Qty</th>
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>Amount</th>
+                    <tr className="tracking-wide text-left ">
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>No</th>
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>Supplier</th>
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>Qty</th>
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>Amount</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>1</td>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>Electronic</td>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>100</td>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>$220</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>1</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>Electronic</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>100</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>$220</td>
                     </tr>
 
                     <tr>
@@ -251,25 +251,27 @@ export default function DashboardComponent() {
               </div>
             </div>
 
-            <div class="border-gray-200 rounded-lg shadow-sm border p-5">
+
+
+            <div class="border-border-gray-light rounded-lg shadow-sm border p-5 w-[295px] sm:w-auto">
               <h1 className='text-base font-sp-pro-text-regular text-text-color'>3 lastest invoice</h1>
               {/* data table */}
-              <div className="overflow-x-auto text-text-color mt-3">
-                <table className="table w-full z-0">
+              <div className="text-text-color mt-3 overflow-auto ">
+                <table className="table w-full z-0 ">
                   <thead>
-                    <tr className="text-md tracking-wide text-left ">
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>No</th>
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>Supplier</th>
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>Qty</th>
-                      <th className='text-text-color font-sp-pro-text-regular text-sm'>Amount</th>
+                    <tr className="tracking-wide text-left ">
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>No</th>
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>Name</th>
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>Purchase Date</th>
+                      <th className='text-text-color font-sp-pro-text-regular text-xs'>Price</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>1</td>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>Electronic</td>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>100</td>
-                      <td className='text-text-color font-sp-pro-text-regular text-sm'>$220</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>1</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>Electronic</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>100</td>
+                      <td className='text-text-color font-sp-pro-text-regular text-xs'>$220</td>
                     </tr>
 
                     <tr>
