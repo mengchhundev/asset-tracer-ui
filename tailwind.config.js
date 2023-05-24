@@ -54,7 +54,8 @@ export default {
         "bg-pink":"#FEFCFB",
         "text-black":"#111827",
         "border-gray-light" : "#edf2f7",
-        "custom-yellow-showdow-light" : "#FEFAE8"
+        "custom-yellow-showdow-light" : "#FEFAE8",
+        "bg-feature":"#F4F4F4"
       },
       fontSize: {
         // md: '16px'
@@ -65,6 +66,26 @@ export default {
         // '3xl': '1.953rem',
         // '4xl': '2.441rem',
         // '5xl': '3.052rem',
+      },
+
+      screens: {
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+  
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+  
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+  
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+  
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
+
+        '3xl': '1900px',
+        // => @media (min-width: 1900px) { ... }
       }
     },
 

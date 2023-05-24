@@ -17,8 +17,8 @@ export default function OrganizationListComponent() {
     const navigator = useNavigate()
 
     const token = localStorage.getItem("token")
-    var decoded = jwt_decode(token);
-    var userId = decoded.id;
+    // var decoded = jwt_decode(token);
+    // var userId = decoded.id;
 
     const getAllOrganizations = () => {
         OrganizationService.getAllOrganizations(userId).then(res => {
@@ -37,7 +37,7 @@ export default function OrganizationListComponent() {
     }
 
     useState(() => {
-        getAllOrganizations()
+        // getAllOrganizations()
     }, [])
 
     return (
@@ -101,7 +101,7 @@ export default function OrganizationListComponent() {
                                     </div>
                                 </div>
                                 <div className="pb-2 w-full px-8 mb-3 text-center">
-                                    <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-blue-100 text-blue-700">Joined</span>
+                                    <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-blue-100 text-blue-700">Joined</span>
                                 </div>
                             </button>
                         ))}

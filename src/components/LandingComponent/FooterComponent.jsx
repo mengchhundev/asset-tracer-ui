@@ -51,7 +51,7 @@ export default function FooterComponent() {
                     <div className="relative w-full">
                       <input
                         type="text"
-                        className="border-border-strock border-2 block w-full focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500 text-sm rounded-sm  py-2 px-3"
+                        className="border-border-strock border-2 block w-full focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500 text-sm rounded-sm  py-2 px-3"
                         placeholder="Your email Address"
                       />
                       <button
@@ -61,7 +61,7 @@ export default function FooterComponent() {
                     </div>
                     <button
                       type="submit"
-                      className="inline-flex items-center py-2.5 px-6 text-textwhite bg-pending hover:bg-hoveryellow font-medium text-sm text-center mr-10 shadow-lg shadow-shadow "
+                      className="inline-flex items-center py-2.5 px-6 text-white bg-pending hover:bg-hover-yellow font-medium text-sm text-center mr-10 shadow-lg shadow-shadow "
                     >
                       Subscribe
                     </button>

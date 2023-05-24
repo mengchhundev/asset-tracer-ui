@@ -9,10 +9,6 @@ import Forgotpassword from './components/Authentication/Forgotpassword'
 import EmailsendingComponent from './components/Authentication/EmailsendingComponent'
 import ResetpasswordComponent from './components/Authentication/ResetpasswordComponent'
 import SuccessComponent from './components/Authentication/SuccessComponent'
-import HomeComponent from './components/homepage/HomeComponent'
-import AboutPageComponent from './components/homepage/AboutPageComponent'
-import ContactUsComponent from './components/homepage/ContactUsComponent'
-import ContactusComponent from './components/InsideComponent/ContactusComponent'
 import MainComponent from './components/Layouts/MainComponent'
 import OrganizationListComponent from './components/admin/organization/OrganizationListComponent'
 import OrganzationCreateOrJoinComponent from './components/admin/organization/OrganzationCreateOrJoinComponent'
@@ -22,19 +18,22 @@ import UsersAllComponent from './components/admin/user/UsersAllComponent'
 import DashboardComponent from './components/admin/dashboard/DashboardComponent'
 import AssetComponent from './components/admin/asset/AssetComponent'
 import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
-import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
+//import AboutpageComponent from './components/InsideComponent/AboutpageComponent'
 import ProfileComponent from './components/admin/profile/ProfileComponent'
 // import ProfileComponent from './components/homepage/ProfileComponent'
 import RoomListComponent from './components/admin/Room/RoomListComponent'
+import HomeComponent from './components/homepage/HomeComponent'
+import ContactComponent from './components/homepage/ContactComponent'
+import AboutPageComponent from './components/homepage/AboutPageComponent'
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path='/' element={<HomeComponent />} />
-        <Route path='/about' element={<AboutpageComponent />} />
-        <Route path='/contact' element={<ContactUsComponent />} />
+        <Route path='/' element={<HomeComponent/>} />
+        <Route path='/contact' element={<ContactComponent/>}/>
+        <Route path='/about' element={<AboutPageComponent/>}/>
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
         <Route path='/forget-password' element={<Forgotpassword />} />

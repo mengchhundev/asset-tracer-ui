@@ -12,7 +12,7 @@ export default function DashboardComponent() {
                         <div className='flex items-center justify-center py-2'>
                             <img src={logo} alt="" className='w-20' />
                             <a
-                                className=" font-bold text-gray-800 dark:text-gray-200 text-2xl font-sp-pro-text-bold text-text-color"
+                                className=" font-bold text-gray-800 dark:text-border-gray-light text-2xl font-sp-pro-text-bold text-text-color"
                                 href="#"
                             >
                                 Asset Tracer
@@ -20,7 +20,7 @@ export default function DashboardComponent() {
                         </div>
                         <ul className='mt-12'>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -39,7 +39,7 @@ export default function DashboardComponent() {
                                 </a>
                             </li>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -59,7 +59,7 @@ export default function DashboardComponent() {
                             </li>
                             <li className="relative px-6 py-1">
                                 <button
-                                    className="inline-flex items-center justify-between w-full bg-primary px-4 py-3 text-white  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                                    className="inline-flex items-center justify-between w-full bg-primary px-4 py-3 text-white  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                                     aria-haspopup="true">
                                     <span className="inline-flex items-center">
                                         <svg
@@ -103,31 +103,31 @@ export default function DashboardComponent() {
                                         aria-label="submenu"
                                     >
                                         <li
-                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light"
                                         >
                                             <a className="w-full" href="pages/login.html">Login</a>
                                         </li>
                                         <li
-                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light"
                                         >
                                             <a className="w-full" href="pages/create-account.html">
                                                 Create account
                                             </a>
                                         </li>
                                         <li
-                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light"
                                         >
                                             <a className="w-full" href="pages/forgot-password.html">
                                                 Forgot password
                                             </a>
                                         </li>
                                         <li
-                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light"
                                         >
                                             <a className="w-full" href="pages/404.html">404</a>
                                         </li>
                                         <li
-                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                            className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light"
                                         >
                                             <a className="w-full" href="pages/blank.html">Blank</a>
                                         </li>
@@ -135,7 +135,7 @@ export default function DashboardComponent() {
                                 </template>
                             </li>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -155,7 +155,7 @@ export default function DashboardComponent() {
                                 </a>
                             </li>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -174,7 +174,7 @@ export default function DashboardComponent() {
                                 </a>
                             </li>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -193,7 +193,7 @@ export default function DashboardComponent() {
                                 </a>
                             </li>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -223,7 +223,7 @@ export default function DashboardComponent() {
                     <div className="text-gray-500 dark:text-gray-400">
                         <ul className='mt-12'>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -242,7 +242,7 @@ export default function DashboardComponent() {
                                 </a>
                             </li>
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -262,7 +262,7 @@ export default function DashboardComponent() {
                             </li>
 
                             <li className="relative px-6 py-1">
-                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a className="inline-flex items-center w-full bg-white px-4 py-2  text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-border-gray-light dark:text-gray-100 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -386,7 +386,7 @@ export default function DashboardComponent() {
                                     >
                                         <li className="flex">
                                             <a
-                                                className="inline-flex items-center justify-between w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                className="inline-flex items-center justify-between w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-border-gray-light"
                                                 href="#"
                                             >
                                                 <span>Messages</span>
@@ -399,7 +399,7 @@ export default function DashboardComponent() {
                                         </li>
                                         <li className="flex">
                                             <a
-                                                className="inline-flex items-center justify-between w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                className="inline-flex items-center justify-between w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-border-gray-light"
                                                 href="#"
                                             >
                                                 <span>Sales</span>
@@ -412,7 +412,7 @@ export default function DashboardComponent() {
                                         </li>
                                         <li className="flex">
                                             <a
-                                                className="inline-flex items-center justify-between w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                className="inline-flex items-center justify-between w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-border-gray-light"
                                                 href="#"
                                             >
                                                 <span>Alerts</span>
@@ -444,7 +444,7 @@ export default function DashboardComponent() {
                                     >
                                         <li className="flex">
                                             <a
-                                                className="inline-flex items-center w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                className="inline-flex items-center w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-border-gray-light"
                                                 href="#"
                                             >
                                                 <svg
@@ -466,7 +466,7 @@ export default function DashboardComponent() {
                                         </li>
                                         <li className="flex">
                                             <a
-                                                className="inline-flex items-center w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                className="inline-flex items-center w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-border-gray-light"
                                                 href="#"
                                             >
                                                 <svg
@@ -489,7 +489,7 @@ export default function DashboardComponent() {
                                         </li>
                                         <li className="flex">
                                             <a
-                                                className="inline-flex items-center w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                className="inline-flex items-center w-full px-2 py-1  transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-border-gray-light"
                                                 href="#"
                                             >
                                                 <svg
@@ -521,7 +521,7 @@ export default function DashboardComponent() {
 
                         <div className="my-10 p-10  gap-6 mb-8 bg-white shadow-gray-light shadow-xs rounded-2xl">
                             <div className='flex items-center justify-between'>
-                                <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
+                                <h2 className="text-2xl  text-gray-700 dark:text-border-gray-light font-sp-pro-text-semibold">
                                     All Super Category
                                 </h2>
                                 <div className="relative w-full max-w-xl mr-6 focus-within:text-black border rounded-lg p-2 border-bg-primary bg-bg-primary">
@@ -533,7 +533,7 @@ export default function DashboardComponent() {
                                         </svg>
                                     </div>
                                     <input
-                                        className="w-full pl-8 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                        className="w-full pl-8 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-border-gray-light focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                         type="text" placeholder="Search..." aria-label="Search" />
                                 </div>
                                 <button className='outline p-1.5 px-5 outline-primary rounded-lg outline-2 text-primary'>

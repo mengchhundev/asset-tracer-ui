@@ -26,7 +26,7 @@ export default function TrackingComponent() {
         <div className="mb-8 mt-3 p-10 bg-white rounded-3xl overflow-hidden">
           <div className="flex justify-between mb-8 mt-3">
             <div>
-              <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
+              <h2 className="text-2xl  text-gray-700 dark:text-border-gray-light font-sp-pro-text-semibold">
                 All Tracking
               </h2>
             </div>

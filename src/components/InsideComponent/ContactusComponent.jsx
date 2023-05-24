@@ -11,7 +11,7 @@ export default function ContactusComponent() {
   return (
     <>
     <NavbarComponent/>
-      <div className="bg-bgpink pt-[60px]">
+      <div className="bg-bg-pink pt-[60px]">
         <div className="grid lg:grid-cols-12 sm:grid-cols-1 gap-1">
           <div className=" col-span-6 ">
             <div className="relative w-[90%] mx-auto hidden md:block mt-14">
@@ -39,7 +39,7 @@ export default function ContactusComponent() {
                 <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">Full Name</label>
                 <input
                   type="email"
-                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
+                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500"
                   placeholder=" "
                 />
               </div>
@@ -47,7 +47,7 @@ export default function ContactusComponent() {
                 <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">Email</label>
                 <input
                   type="email"
-                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
+                  className="text-sm border-border-strock border-2 rounded-lg block w-[90%] py-2.5 px-4 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500"
                   placeholder=" "
                 />
               </div>
@@ -61,14 +61,14 @@ export default function ContactusComponent() {
                 </div>
                 <input
                   type="message"
-                  className="text-sm border-border-strock border-2 rounded-lg block w-full py-8 px-4 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
+                  className="text-sm border-border-strock border-2 rounded-lg block w-full py-8 px-4 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500"
                   placeholder=" "
                 />
               </div>
               </div>
               <button
                 type="message"
-                className="lg:mr-[400px] md:mr-[450px] sm:mr-[350px] mr-[250px] py-2.5 px-6 rounded-md text-textwhite bg-pending hover:bg-hoveryellow font-medium text-sm text-center shadow-lg shadow-shadow "
+                className="lg:mr-[400px] md:mr-[450px] sm:mr-[350px] mr-[250px] py-2.5 px-6 rounded-md text-white bg-pending hover:bg-hover-yellow font-medium text-sm text-center shadow-lg shadow-shadow "
               >
                 <div className="w-[90px]">
                 Send Massage

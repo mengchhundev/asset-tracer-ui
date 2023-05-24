@@ -21,7 +21,7 @@ export default function AboutpageComponent() {
   return (
     <>
     <NavbarComponent/>
-      <div className="bg-bgpink relative pt-[50px]">
+      <div className="bg-bg-pink relative pt-[50px]">
         <div className=" ">
           <img
             src={bgsideleft}
@@ -63,7 +63,7 @@ export default function AboutpageComponent() {
                 <div className="lg:pt-[40px] md:pt-[10px] sm:pt-[8px] pt-[5px]">
                   <button
                     type="button"
-                    className="text-textwhite rounded-md bg-pending font-medium text-md px-14 py-2 text-center shadow-lg hover:bg-hoveryellow shadow-shadow"
+                    className="text-white rounded-md bg-pending font-medium text-md px-14 py-2 text-center shadow-lg hover:bg-hover-yellow shadow-shadow"
                   >
                     See more
                   </button>
@@ -175,7 +175,7 @@ export default function AboutpageComponent() {
 
                                                           {/* Our Team Member */}
 
-      <div className="bg-bgpink relative">
+      <div className="bg-bg-pink relative">
         <div>
           <img
             src={Bgleftourteam}

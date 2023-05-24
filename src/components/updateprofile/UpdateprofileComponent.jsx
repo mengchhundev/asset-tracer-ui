@@ -44,7 +44,7 @@
 //                         </label>
 //                         <input
 //                           type="name"
-//                           className="text-sm border-border-strock border-2 rounded-md block  w-[250px] py-2 px-2 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
+//                           className="text-sm border-border-strock border-2 rounded-md block  w-[250px] py-2 px-2 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500"
 //                           placeholder="Leng Hongmeng "
 //                         />
 //                       </div>
@@ -54,7 +54,7 @@
 //                         </label>
 //                         <input
 //                           type="phone"
-//                           className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
+//                           className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500"
 //                           placeholder="010 443 789 "
 //                         />
 //                       </div>
@@ -62,7 +62,7 @@
 //                         <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">
 //                           Gender
 //                         </label>
-//                         <select className=" select-bordered text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white ">
+//                         <select className=" select-bordered text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white ">
 //                           <option>Male</option>
 //                           <option>Female</option>
 //                         </select>
@@ -78,7 +78,7 @@
 //                         </label>
 //                         <input
 //                           type="email"
-//                           className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white "
+//                           className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white "
 //                           placeholder=" hongmeng@gmail.com"
 //                         />
 //                       </div>
@@ -86,7 +86,7 @@
 //                         <label className="block mb-2 ml-1 text-sm font-sp-pro-text-medium text-text-color">
 //                           Role
 //                         </label>
-//                         <select className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white ">
+//                         <select className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white ">
 //                           <option>Admin</option>
 //                           <option>User</option>
 //                         </select>
@@ -97,7 +97,7 @@
 //                         </label>
 //                         <input
 //                           type="address"
-//                           className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500"
+//                           className="text-sm border-border-strock border-2 rounded-md block w-[250px] py-2 px-2 focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500"
 //                           placeholder="Chroy Changva, Phnom Penh"
 //                         />
 //                       </div>
@@ -107,7 +107,7 @@
 
 //                 <div className="card-body items-center text-center">
 //                   <div className="card-actions">
-//                     <button className=" bg-pending hover:bg-hoveryellow px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
+//                     <button className=" bg-pending hover:bg-hover-yellow px-7 py-1 -mt-2 font-sp-pro-text-semibold rounded-md text-white">
 //                       <div className="w-40">Submit</div>
 //                     </button>
 //                   </div>
