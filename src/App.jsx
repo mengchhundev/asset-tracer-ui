@@ -46,8 +46,7 @@ function App() {
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
             <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/asset' element={<AssetComponent />}></Route>
-            {/* <Route path='/tracking' element={<TrackingComponent />}></Route> */}
-            <Route path='/tracking' element={<TrackingComponent /> }> </Route>
+            <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent/>}/>

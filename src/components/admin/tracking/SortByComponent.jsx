@@ -11,7 +11,7 @@ const people = [
   { id: 5, name: "Newest - Olest" },
 ];
 
-export default function SortByFillterComponent() {
+export default function SortByComponent() {
   // under  export
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
