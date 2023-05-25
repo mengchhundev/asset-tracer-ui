@@ -69,7 +69,7 @@ export default function SignInComponent() {
                                 },
                                 err => {
                                     if (err.response.data.status == 404) {
-                                        setMessage(err.response.data.detail)
+                                        // setMessage(err.response.data.detail)
                                         setIsShowErr(true)
                                     }
                                     console.log(err);

@@ -4,7 +4,9 @@ import { setAllRoom } from '../../../redux/slices/RoomSlice';
 import RoomService from '../../../redux/services/RoomService';
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import DetailComponent from './popUpRoom/DetailComponent';
-import { Menu, Transition } from '@headlessui/react';
+import AddComponent from './popUpRoom/AddComponent';
+import ReactPaginate from 'react-paginate';
+import UpdateComponent from './popUpRoom/UpdateComponent';
 <EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
 
 
@@ -15,7 +17,7 @@ function RoomListComponent(props) {
     const startIndex = divClassName.indexOf("Showing ") + 8;
     const endIndex = divClassName.indexOf("-");
     const index = divClassName.substring(startIndex, endIndex).trim();
-    console.log(index);
+    const [pageCount, setPageCount] = useState(2);
     const getAllRoom = () => {
         RoomService.getAllRoom()
             .then((res) => {
@@ -37,13 +39,21 @@ function RoomListComponent(props) {
     function openDetail() {
         setIsOpen(true)
     }
+    const handlePageClick = (event) => {
+        getAllSuperCategory(event.selected + 1)
+        setI((event.selected * 10) + 1)
+    };
+
     return (
         <div>
             <div className="z-0 mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
+                    <div>
                     <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
                         All <span className='text-primary'>Room</span> Management
                     </h2>
+                    <p className='font-sp-pro-text-medium text-[14px] text-accept'>active Rooms</p>
+                    </div>
                     <div className="w-full sm:w-full md:w-6/12 xl:w-5/12">
                         <div className="relative w-full focus-within:text-black border rounded-xl p-2 border-slate-200 bg-bg-main">
                             <div className="absolute inset-y-0 flex items-center pl-2">
@@ -68,24 +78,19 @@ function RoomListComponent(props) {
                             />
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
-                    >
-                        Create New
-                    </button>
+                    <label htmlFor="my-modal-3" className="bg-primary text-white py-2 px-4 items-center flex rounded-lg max-w-max">Create New</label>
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className=" overflow-x-auto">
                     <table className="table w-full">
                         <thead>
                             <tr className="bg-bg-primary text-sidebar">
-                                <th className="">No</th>
-                                <th className="w-2/12">Room Name</th>
-                                <th className="w-2/12">Type</th>
-                                <th className="w-2/12">Floor</th>
-                                <th className="w-3/12">Description</th>
-                                <th className="w-1/12">Action</th>
+                                <th className="w-1/8 px-10">No</th>
+                                <th className="w-2/8">Room Name</th>
+                                <th className="w-1/8">Type</th>
+                                <th className="w-1/8">Floor</th>
+                                <th className="w-2/8">Description</th>
+                                <th className="w-1/8">Action</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y dark:divide-gray-700">
@@ -94,73 +99,64 @@ function RoomListComponent(props) {
                         <tbody>
                             {getData.map((item, index) => (
                                 <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
-                                    <td>{index + 1}</td>
-                                    <td className="w-2/12">{item.name}</td>
-                                    <td className="w-2/12">{item.type}</td>
-                                    <td className="w-2/12">{item.floor}</td>
-                                    <td className="w-3/12">{item.description}</td>
-                                    <td className="w-1/12">
-                                        <div className="">
-                                            <Menu as="div" className="">
-                                                <div>
-                                                    <Menu.Button className="justify-center">
-                                                        <EllipsisVerticalIcon className="h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
-                                                    </Menu.Button>
-                                                </div>
-                                                <Transition
-                                                    as={Fragment}
-                                                    enter="transition ease-out duration-100"
-                                                    enterFrom="transform opacity-0 scale-95"
-                                                    enterTo="transform opacity-100 scale-100"
-                                                    leave="transition ease-in duration-75"
-                                                    leaveFrom="transform opacity-100 scale-100"
-                                                    leaveTo="transform opacity-0 scale-95"
-                                                >
-                                                    <Menu.Items className="fixed right-[9%] mt-[0.5%] w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                        <div className="px-4 py-2 ">
-                                                            <Menu.Item>
-                                                                {({ active }) => (
-                                                                    <button
-                                                                        onClick={openDetail}
-                                                                        className="p-2 w-full text-start hover:bg-primary hover:bg-opacity-10"
-                                                                    >
-                                                                        View Room Detail
-                                                                    </button>
-                                                                )}
-                                                            </Menu.Item>
-                                                            <Menu.Item>
-                                                                {({ active }) => (
-                                                                    <button
-                                                                        className="hover:bg-primary hover:bg-opacity-10 group flex w-full items-center p-2"
-                                                                    >
-                                                                        Update Room
-                                                                    </button>
-                                                                )}
-                                                            </Menu.Item>
-                                                            <Menu.Item>
-                                                                {({ active }) => (
-                                                                    <button
-                                                                        className="p-2 w-full text-start hover:bg-primary hover:bg-opacity-10"
-                                                                    >
-                                                                        Download Invoice
-                                                                    </button>
-                                                                )}
-                                                            </Menu.Item>
-                                                        </div>
-                                                    </Menu.Items>
-                                                </Transition>
-                                            </Menu>
+                                    <td className="w-1/8 px-10">{index + 1}</td>
+                                    <td className="w-2/8"><span className={`bg-accept p-2 bg-opacity-20 text-accept rounded-full m-5`}>{item.name.substring(0, 2)}</span>{item.name}</td>
+                                    <td className="w-1/8">{item.type}</td>
+                                    <td className="w-1/8">{item.floor}</td>
+                                    <td className="w-2/8">{item.description}</td>
+                                    <td className="w-1/8">
+                                        <div className="dropdown dropdown-left">
+                                            <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
+                                            <ul tabIndex={0} className="z-50 dropdown-content menu p-2 shadow bg-base-100 rounded-sm w-52">
+                                                <li>
+                                                    <label htmlFor="my-modal" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
+                                                </li>
+                                                <li className=''>
+                                                    <label  htmlFor="my-modal-5" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label></li>
+                                                <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
+                                            </ul>
+
                                         </div>
+
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    <input type="checkbox" id="my-modal" className="modal-toggle" />
+                    <DetailComponent className="modal" />
+                    <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+                    <AddComponent className="modal"/>
+                    <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+                    <UpdateComponent className="modal"/>
+
+                
                 </div>
-                <DetailComponent setIsOpen={setIsOpen} isOpen={isOpen}/>
-                <div className="grid grid-cols-12 px-4 py-5 text-sm text-gray-500 uppercase">
-                    <div className="flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1">Showing {index} of </div>
-                    <div className="col-span-2"></div>
+                <DetailComponent setIsOpen={setIsOpen} isOpen={isOpen} />
+                <div className="z-0 grid grid-cols-12 px-4 py-5 text-sm text-gray-500 uppercase">
+                    <div className="flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1">Showing 1 to 2 of 2</div>
+                    <div id="react-paginate" className="col-span-12 md:col-span-7 ml-auto">
+                        <ReactPaginate
+                            nextLabel=" >"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={3}
+                            marginPagesDisplayed={2}
+                            pageCount={pageCount}
+                            previousLabel="< "
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            breakLabel="..."
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link"
+                            containerClassName="pagination"
+                            activeClassName="active"
+                            renderOnZeroPageCount={null}
+                        />
+                    </div>
                     <div id="react-paginate" className="col-span-12 md:col-span-7 ml-auto">
                     </div>
                 </div>
