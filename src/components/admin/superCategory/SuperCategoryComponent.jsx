@@ -134,7 +134,7 @@ export default function SuperCategoryComponent() {
         <main className="overflow-y-auto">
             <div className="mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
-                    <h2 className="text-2xl  text-gray-700 dark:text-border-gray-light font-sp-pro-text-semibold">
+                    <h2 className="text-2xl  text-text-color dark:text-border-gray-light font-sp-pro-text-semibold">
                         All Super Category
                     </h2>
                     <div className="w-full sm:w-full md:w-6/12 xl:w-5/12">

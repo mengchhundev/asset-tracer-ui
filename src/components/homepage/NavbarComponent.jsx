@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/images/PictureLanding/Logo.jpg";
 
 export default function NavbarComponent() {
@@ -48,12 +48,13 @@ export default function NavbarComponent() {
             </ul>
           </div>
           <div className="flex md:order-3 relative">
-            <button
+            <NavLink
+              to="/signin"
               type="button"
               className="text-white  hidden lg:block rounded-md bg-secondary-yellow font-medium text-sm px-10 py-3 text-center mr-14 hover:bg-hover-yellow shadow-lg shadow-shadow"
             >
-              Sign Up
-            </button>
+              Sign In
+            </NavLink>
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"

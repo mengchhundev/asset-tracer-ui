@@ -4,7 +4,7 @@ import key from '../../assets/images/forgotPassword/key.png'
 import vector from '../../assets/images/forgotPassword/vector.png'
 import { ErrorMessage, Field, Formik } from 'formik';
 import * as Yup from "yup";
-function Forgotpassword(props) {
+function ForgotPasswordComponent(props) {
 
     const handleSignUp = async (userInfo) => {
         try {
@@ -84,4 +84,4 @@ function Forgotpassword(props) {
     );
 }
 
-export default Forgotpassword;
+export default ForgotPasswordComponent;

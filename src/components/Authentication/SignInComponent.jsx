@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import signin from '../../assets/images/signin.png'
-import WarningPopUpComponents from '../WarningPopUpComponents';
+import WarningPopUpComponents from '../../components/Authentication/popup/WarningPopUpComponents';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
@@ -111,7 +111,7 @@ export default function SignInComponent() {
                                             href="#"
                                             className="text-primary"
                                         >
-                                            <Link to={"/resetpassword"}>Forgot password?</Link>
+                                            <Link to={"/forget-password"}>Forgot password?</Link>
                                         </a>
                                     </p>
 

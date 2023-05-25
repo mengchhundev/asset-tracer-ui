@@ -12,7 +12,16 @@ import {
 } from "react-icons/ri";
 import { BsGraphUp } from "react-icons/bs";
 import { useSelector } from "react-redux";
-
+import asset_pic from '../../assets/icons/Asset.png';
+import bell_pic from '../../assets/icons/Bell.png';
+import category_pic from '../../assets/icons/Category.png';
+import dashboard_pic from '../../assets/icons/Dashboard.png';
+import invoice_pic from '../../assets/icons/Invoice.png';
+import room_pic from '../../assets/icons/Room.png';
+import setting_pic from '../../assets/icons/Setting.png';
+import sign_out_pic from '../../assets/icons/Sign-Out.png'
+import tracking_pic from '../../assets/icons/Tracking.png'
+import user_pic from '../../assets/icons/Users.png'
 
 
 export default function SidebarComponent() {
@@ -37,7 +46,12 @@ export default function SidebarComponent() {
             setShowOrganization(true)
             setIsShowOrganization(true)
         }
-    }, [])
+
+        if (location?.state?.hideOrganizationBar) {
+            setIsShowOrganization(false)
+            setShowOrganization(false)
+        }
+    }, [location])
 
     return (
         <>
@@ -54,14 +68,7 @@ export default function SidebarComponent() {
                             >
                                 <span className="flex items-center justify-start">
 
-                                    <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                        <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                        <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                        <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                        <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                        <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                    </svg>
+                                    <img src={dashboard_pic} className="h-6" />
                                     <p className="ml-3">Organization</p>
                                 </span>
                                 <RiArrowRightSLine
@@ -107,14 +114,7 @@ export default function SidebarComponent() {
                                     onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                                 >
                                     <span className="flex items-center justify-start">
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={dashboard_pic} className="h-6" />
                                         <p className="ml-3">Dashboard</p>
                                     </span>
                                 </NavLink>
@@ -126,14 +126,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={category_pic} className="h-6" />
                                         <p className="ml-3">Category</p>
                                     </span>
                                     <RiArrowRightSLine
@@ -184,14 +177,7 @@ export default function SidebarComponent() {
 
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={invoice_pic} className="h-6" />
                                         <p className="ml-3">Invoice</p>
                                     </span>
                                 </NavLink>
@@ -205,14 +191,7 @@ export default function SidebarComponent() {
 
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={asset_pic} className="h-6" />
                                         <p className="ml-3">Asset</p>
                                     </span>
                                 </NavLink>
@@ -225,7 +204,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <BsGraphUp className="w-6 h-6" />
+                                    <img src={tracking_pic} className="h-6" />
                                         <p className="ml-3">Tracking</p>
                                     </span>
                                 </NavLink>
@@ -238,14 +217,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={user_pic} className="h-6" />
                                         <p className="ml-3">User</p>
                                     </span>
                                 </NavLink>

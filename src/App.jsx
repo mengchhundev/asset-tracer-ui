@@ -5,7 +5,7 @@ import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
 import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
-import Forgotpassword from './components/Authentication/Forgotpassword'
+import ForgotPasswordComponent from './components/Authentication/ForgotPasswordComponent'
 import EmailsendingComponent from './components/Authentication/EmailsendingComponent'
 import ResetpasswordComponent from './components/Authentication/ResetpasswordComponent'
 import SuccessComponent from './components/Authentication/SuccessComponent'
@@ -36,7 +36,7 @@ function App() {
         <Route path='/about' element={<AboutPageComponent/>}/>
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
-        <Route path='/forget-password' element={<Forgotpassword />} />
+        <Route path='/forget-password' element={<ForgotPasswordComponent />} />
         <Route path='/email-sending' element={<EmailsendingComponent />} />
         <Route path='/reset-password' element={<ResetpasswordComponent />} />
         <Route path='/success' element={<SuccessComponent />} />
