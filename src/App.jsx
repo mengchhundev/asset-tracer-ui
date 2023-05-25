@@ -3,7 +3,6 @@ import { Route, Routes, } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
-import TrackingComponent from './pages/tracking/TrackingComponent'
 import ListComponent from './pages/superCategory/ListComponent'
 import ForgotPasswordComponent from './components/Authentication/ForgotPasswordComponent'
 import SuccessComponent from './components/Authentication/SuccessComponent'
@@ -47,8 +46,10 @@ function App() {
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
             <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/asset' element={<AssetComponent />}></Route>
-            <Route path='/tracking' element={<TrackingComponent />}></Route>
+            {/* <Route path='/tracking' element={<TrackingComponent />}></Route> */}
+            <Route path='/tracking' element={<TrackingComponent /> }> </Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
+            <Route path='/request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent/>}/>
             <Route path='/roomlist' element={<RoomListComponent/>}></Route>
           </Route>
