@@ -40,29 +40,14 @@ export default function SignUpComponent() {
                             console.log("Error occurred while registering user:", err);
                         });
                 }
-                else {
-                    console.log("Sign-in result is undefined");
-                }
             })
-            .catch((error) => {
-                console.log(error);
-            });
     };
-
-
-    useEffect(() => {
-        console.log("User Infor", userInfo);
-    }, [userInfo])
-
-    console.log(userInfo)
 
     const handleSignUp = async (userInfo) => {
         try {
             const respone = await api.post("/users/register", userInfo);
             setIsShowSuc(true)
         } catch (e) {
-            console.log("Error", e);
-            console.log(e.response.data.detail);
             setIsShowErr(true)
         }
     };

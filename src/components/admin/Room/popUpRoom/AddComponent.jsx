@@ -14,10 +14,9 @@ function AddComponent(props) {
 
         <>
             <div className="modal">
-                <div className="bg-white rounded-lg p-6 w-[1423px] font-sp-pro-text-regular" >
+                <div className="bg-white rounded-lg p-6 font-sp-pro-text-regular" >
                     <div className="flex justify-between">
                         <div className="flex">
-
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
                             <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Room Information</p>
                         </div>
@@ -25,8 +24,8 @@ function AddComponent(props) {
                             <label htmlFor="my-modal-3" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
-                    <div className="flex">
-                        <div className="5/12">
+                    <div className="grid grid-cols-12">
+                        <div className="col-span-5">
                             <div className="p-5 m-5 item-center w-full shadow-sm rounded-lg ">
                                 <div className="m-5 rounded-md p-5 border-primary border-opacity-30 flex flex-col items-center" style={{ border: '1px dotted #F8C400' }}>
                                     
@@ -42,7 +41,7 @@ function AddComponent(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-7/12 ml-16">
+                        <div className="col-span-7">
                             <div className="">
                                 <h1 className="text-[22px] text-text-color font-sp-pro-text-semibold">Room Information</h1>
                             </div>

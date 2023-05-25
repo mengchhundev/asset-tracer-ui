@@ -1,21 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import key from '../../assets/images/forgotPassword/key.png'
 import vector from '../../assets/images/forgotPassword/vector.png'
-import { ErrorMessage, Field, Formik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
+import UserService from '../../redux/services/UserService';
 function ForgotPasswordComponent(props) {
 
-    const handleSignUp = async (userInfo) => {
-        try {
-            const respone = await api.post("/users/register", userInfo);
-            setIsShowSuc(true)
-        } catch (e) {
-            console.log("Error", e);
-            console.log(e.response.data.detail);
-            setIsShowErr(true)
-        }
-    };
+    const navigator = useNavigate()
 
     const SignupSchema = Yup.object().shape({
         email: Yup.string().email('Invalid email').required('Required').test('has-com', 'Email must end with .com', (value) =>
@@ -37,43 +29,47 @@ function ForgotPasswordComponent(props) {
                                 Please enter your email address.
                             </p>
                             <Formik
-                                initialValues={{ email: "", name: "", password: "" }}
-                                onSubmit={userInfo => {
-                                    handleSignUp(userInfo)
+                                initialValues={{
+                                    email: ''
                                 }}
-                                validationSchema={SignupSchema}>
+                                onSubmit={value => {
+                                    UserService.forgotPassword(value.email).then(res => {
+                                        if(res.data?.success) {
+                                            navigator("/email-sending", {state: {email: value.email}})
+                                        }
+                                    })
+                                }}
+                                validationSchema={SignupSchema}
+                            >
                                 {({ }) => (
-                                    <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5 pt-5" action="#">
-                                        <div className='relative'>
-                                            <label
-                                                for="email"
-                                                className=""
-                                            >
-                                                Email
-                                            </label>
-                                            <Field
-                                                type="email"
-                                                name="email"
-                                                className="border-[2px] border-primary text-text-color sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                required=""
-                                            />
-                                            <ErrorMessage name="email" component="div" className="text-red-400 text-sm" />
-                                        </div>
-                                        <div className='pt-3'>
-                                            <button
-                                                type="submit"
-                                                className="inline-block w-full rounded-lg bg-primary px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white"
-                                            >
-                                                Send
-                                            </button>
-                                        </div>
+                                    <Form>
+                                        <div className="mt-4 space-y-4 lg:mt-5 md:space-y-5 pt-5">
+                                            <div className='relative'>
+                                                <label>Email</label>
+                                                <Field
+                                                    type="email"
+                                                    name="email"
+                                                    className="border-[2px] border-primary text-text-color sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    required=""
+                                                />
+                                                <ErrorMessage name="email" component="div" className="text-red-400 text-sm" />
+                                            </div>
+                                            <div className='pt-3'>
+                                                <button
+                                                    type="submit"
+                                                    className="inline-block w-full rounded-lg bg-primary px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white"
+                                                >
+                                                    Send
+                                                </button>
+                                            </div>
 
-                                        <div className="mt-2 mb-0 pt-1 text-sm text-center text-text-color hover:text-text-color font-sp-pro-text-medium ">
-                                            <a className="ml-1">
-                                                <Link to={"/signin"}><img className='inline-block pr-2 pb-1' src={vector} width={20} />Back  to Sign in</Link>
-                                            </a>
+                                            <div className="mt-2 mb-0 pt-1 text-sm text-center text-text-color hover:text-text-color font-sp-pro-text-medium ">
+                                                <a className="ml-1">
+                                                    <Link to={"/signin"}><img className='inline-block pr-2 pb-1' src={vector} width={20} />Back  to Sign in</Link>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </form>
+                                    </Form>
                                 )}
                             </Formik>
                         </div>

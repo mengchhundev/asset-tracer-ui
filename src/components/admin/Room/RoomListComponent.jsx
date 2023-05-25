@@ -46,7 +46,7 @@ function RoomListComponent(props) {
 
     return (
         <div>
-            <div className="z-0 mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
+            <div className="z-0 mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-x-scroll">
                 <div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
                     <div>
                     <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
@@ -81,10 +81,10 @@ function RoomListComponent(props) {
                     <label htmlFor="my-modal-3" className="bg-primary text-white py-2 px-4 items-center flex rounded-lg max-w-max">Create New</label>
                 </div>
 
-                <div className=" overflow-x-auto">
+                <div className="w">
                     <table className="table w-full">
                         <thead>
-                            <tr className="bg-bg-primary text-sidebar">
+                            <tr className="bg-bg-primary text-sidebar ">
                                 <th className="w-1/8 px-10">No</th>
                                 <th className="w-2/8">Room Name</th>
                                 <th className="w-1/8">Type</th>

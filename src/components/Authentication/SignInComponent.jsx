@@ -56,28 +56,30 @@ export default function SignInComponent() {
                 <div className="flex h-full flex-wrap flex-row-reverse md:flex-nowrap  items-center justify-center px-10">
                     <div className=' p-10 m-10 rounded-lg border-slate-100 border-2'>
 
-                        <Formik initialValues={{ email: "", password: "" }} onSubmit={values => {
-                            api.post("/users/login", values).then(
-                                res => {
-                                    if (res.data?.success) {
-                                        localStorage.setItem("token", res.data.payload.token)
-                                        if (localStorage.getItem("token")) {
-                                            navigator("/organization");
+                        <Formik
+                            initialValues={{ email: "", password: "" }}
+                            onSubmit={values => {
+                                api.post("/users/login", values).then(
+                                    res => {
+                                        if (res.data?.success) {
+                                            localStorage.setItem("token", res.data.payload.token)
+                                            if (localStorage.getItem("token")) {
+                                                navigator("/organization");
+                                            }
                                         }
+                                        setIsShowErr(false)
+                                    },
+                                    err => {
+                                        if (err.response.data.status == 404) {
+                                            // setMessage(err.response.data.detail)
+                                            setIsShowErr(true)
+                                        }
+                                        console.log(err);
                                     }
-                                    setIsShowErr(false)
-                                },
-                                err => {
-                                    if (err.response.data.status == 404) {
-                                        // setMessage(err.response.data.detail)
-                                        setIsShowErr(true)
-                                    }
+                                ).catch(err => {
                                     console.log(err);
-                                }
-                            ).catch(err => {
-                                console.log(err);
-                            })
-                        }}
+                                })
+                            }}
                             validationSchema={SignupSchema}
                             validate={validate}>
                             {({ isSubmitting }) => (
@@ -111,7 +113,7 @@ export default function SignInComponent() {
                                             href="#"
                                             className="text-primary"
                                         >
-                                            <Link to={"/forget-password"}>Forgot password?</Link>
+                                            <Link to={"/forgot-password"}>Forgot password?</Link>
                                         </a>
                                     </p>
 

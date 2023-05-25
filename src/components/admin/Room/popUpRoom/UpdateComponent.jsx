@@ -14,37 +14,36 @@ function UpdateComponent(props) {
     return (
         <>
             <div className="modal">
-                <div className="bg-white rounded-lg p-6 w-2/3 font-sp-pro-text-regular" >
+                <div className="bg-white rounded-lg p-6 w-2/3 font-sp-pro-text-regular max-h-[100vh] overflow-scroll" >
                     <div className="flex justify-between">
                         <div className="flex">
-
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
-                            <p className="px-6  text-text-color text-[28px] font-sp-pro-text-bold">Room Information</p>
+                            <p className="px-6  text-text-color  items-center text-[20px] md:text-[28px] font-sp-pro-text-bold">Room Information</p>
                         </div>
                         <div className="">
                             <label htmlFor="my-modal-5" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
                     <div className="">
-                        <h1 className="text-[22px] flex justify-center text-text-color font-sp-pro-text-semibold">Update  Room Information</h1>
+                        <h1 className="md:text-[22px] text-[16px] ml-[5%] flex justify-center text-text-color font-sp-pro-text-semibold">Update  Room Information</h1>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-12">
-                        <div className="col-span-4  xl:grid-cols-1">
-                            <div className=" item-center p-[5%] w-full shadow-sm rounded-lg ">
-                                <div className="xl:m-5 grid grid-cols-2 rounded-md p-5 border-primary border-opacity-30 items-center" style={{ border: '1px dotted #F8C400' }}>
-                                    <img className="w-3/4 px-20 pt-20 p-5" src={upload} alt="" />
-                                    <p className="text-center">Upload Room picture, max size 2MB</p>
-                                    <button className="">Browse</button>
+                        <div className="col-span-5  xl:grid-cols-1">
+                            <div className=" item-center  w-full shadow-sm rounded-lg ">
+                                <div className="lg:m-5 grid lg:justify-center grid-cols-2 lg:grid-cols-1 rounded-md p-5 border-primary border-opacity-30 items-center" style={{ border: '1px dotted #F8C400' }}>
+                                    <img className="block mx-auto " src={upload} alt="" />
+                                    <p className="text-center mt-[10%]">Upload Room picture, max size 2MB</p>
+                                    <button className="shadow-lg my-[10%] rounded-lg p-2 text-text-color m-auto w-1/2">Browse</button>
                                 </div>
 
                             </div>
-                            <div className="xl:flex xl:justify-center text-it xl:m-[5%] w-full">
-                                <div className="bg-primary bg-opacity-10 w-full xl:w-9/12 p-3 rounded-lg flex justify-center">
+                            <div className="flex mx-auto justify-center m-[5%] w-full">
+                                <div className="bg-primary bg-opacity-10 w-2/3 p-[3%] rounded-lg flex justify-center">
                                     <button className="flex justify-around  text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon class="h-6 w-6 text-red-500" />Remove</button>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-8">
+                        <div className="col-span-7">
 
                             <div className="grid grid-cols-1  my-5 justify-center shadow-sm w-full">
                                 <div >
@@ -274,17 +273,17 @@ function UpdateComponent(props) {
                                             <textarea className="border border-text-color border-opacity-30 rounded-lg w-full" name="" id="" cols="15" rows="5"></textarea>
                                         </div>
                                     </div>
-                                    <div className="flex mt-5 justify-end flex-row w-full">
-                                        <div className="bg-slate-500   w-1/4 p-4  rounded-lg flex justify-center">
-                                            <button className="flex justify-around text-white font-sp-pro-text-regular items-center  text-[16px]"><XCircleIcon class="h-6 w-6 text-white" />Cancell</button>
-                                        </div>
-                                        <div className="bg-primary bg-opacity-20 ml-6 w-1/4 p-3 rounded-lg flex justify-center">
-                                            <button className="flex justify-around text-primary font-sp-pro-text-regular items-center text-[16px]"><BookmarkIcon class="h-6 w-6 text-primary" />Save</button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
-
+                            <div className="flex mt-5 justify-end flex-row w-full">
+                                        <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
+                                            <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
+                                        </div>
+                                        <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
+                                            <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                 </div>

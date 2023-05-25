@@ -8,9 +8,14 @@ const updateProfile = async (userId, data) => {
     return await api.put(`/users/${userId}/user`, data)
 }
 
+const forgotPassword = async (email) => {
+    return await api.get(`/users/forgot-password?userEmail=${email}`)
+}
+
 const UserService = {
     changeUserPassword,
-    updateProfile
+    updateProfile,
+    forgotPassword
 }
 
 export default UserService;
