@@ -30,12 +30,11 @@ export default {
         "bg-primary": "#F4F4F4",
         "bg-secondary": "#FEFCFB",
         "bg-primary-strock" : "#D0D5DD",
-        // 'blue': '#1fb6ff',
         'purple': '#7e5bef',
         'pink': '#ff49db',
         'orange': '#ff7849',
         'green': '#13ce66',
-        'lightgreen' : 'rgba(60, 179, 113, 20%)',
+        'light-green' : 'rgba(60, 179, 113, 20%)',
         'yellow': '#ffc82c',
         'gray-dark': '#273444',
         'gray': '#8492a6',
@@ -44,7 +43,19 @@ export default {
         "error" : "#EE1D52",
         "bg-color" : "#FAFBFC",
         "sidebar" : "#737791",
-        "bg-main" : "#F7F8FC"
+        "bg-main" : "#F7F8FC",
+        "custom-red" :  "#FF6D5C",
+        "custom-blue" : "#B3E67B",
+        "white":"#FFFFFF",
+        "shadow":"#FFD2B3",
+        "hover-yellow": "#FCE799",
+        "blue-light":"#2076FF",
+        "secondary-yellow": "#F8C400",
+        "bg-pink":"#FEFCFB",
+        "text-black":"#111827",
+        "border-gray-light" : "#edf2f7",
+        "custom-yellow-showdow-light" : "#FEFAE8",
+        "bg-feature":"#F4F4F4"
       },
       fontSize: {
         // md: '16px'
@@ -55,6 +66,26 @@ export default {
         // '3xl': '1.953rem',
         // '4xl': '2.441rem',
         // '5xl': '3.052rem',
+      },
+
+      screens: {
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+  
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+  
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+  
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+  
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
+
+        '3xl': '1900px',
+        // => @media (min-width: 1900px) { ... }
       }
     },
 

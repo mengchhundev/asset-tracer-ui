@@ -7,18 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signup from '../../assets/images/signup.png'
-import RegisterPopUpComponent from '../RegisterPopUpComponent';
-// import { GoogleLogin } from 'react-google-login';
-
+import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
+import api from '../../redux/services/api';
 export default function SignUpComponent() {
-
-    // useEffect(() => {
-    //     api.get("/users/register/verify").then(
-    //         res => {
-    //             console.log(res);
-    //         }
-    //     )
-    // }, [])
     const navigator = useNavigate();
     const provider = new GoogleAuthProvider();
     const [success, setSuccess] = useState(false);
@@ -94,7 +85,7 @@ export default function SignUpComponent() {
                 <RegisterPopUpComponent setIsShowSuc={setIsShowSuc} />
             )}
             <div className="h-screen w-full lg:container m-auto font-sp-pro-text-regular text-text-color">
-                <div className="flex h-full flex-wrap md:flex-nowrap items-center justify-center px-10">
+                <div className="flex h-full flex-wrap md:flex-nowrap items-center justify-around px-10">
                     <div className="p-10 m-10 rounded-lg border-slate-100 border-2">
                         <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                             Create Your Account
@@ -190,7 +181,7 @@ export default function SignUpComponent() {
                             )}
                         </Formik>
                     </div>
-                    <div className="m-10 w-4/12 hidden md:block">
+                    <div className="m-10 w-6/12 hidden md:block">
                         <img src={signup} alt="Signup Picture" className='w-full' />
                     </div>
                 </div>
