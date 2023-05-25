@@ -15,12 +15,12 @@ function EmailSendingComponent(props) {
 
   return (
     <div>
-      <section className="bg-gray-50">
+      <section className="bg-bg-primary">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full p-6 bg-white rounded-lg shadow  md:mt-0 sm:max-w-md sm:p-8">
+          <div className="w-full p-6 bg-white rounded-lg shadow-md  md:mt-0 sm:max-w-md sm:p-8">
             <div className="w-10/12 container m-auto">
               <div className='flex justify-center'>
-                <img src={message} width={50} height={50} alt="" />
+                <img src={message} width={80} height={80} alt="" />
               </div>
               <h2 className="mb-1 text-lg font-sp-pro-text-semibold text-primary leading-tight md:text-2xl text-center pt-4">
                 Check your email
@@ -51,8 +51,8 @@ function EmailSendingComponent(props) {
           </div>
         </div>
       </section>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default EmailSendingComponent;

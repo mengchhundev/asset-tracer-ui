@@ -70,19 +70,17 @@ export default function SignInComponent() {
                                         setIsShowErr(false)
                                     },
                                     err => {
-                                        if (err.response.data.status == 404) {
-                                            // setMessage(err.response.data.detail)
+                                        console.log(err.response.data)
+                                        if (err.response.data.status == 404 || err.response.data.status == 400) {
                                             setIsShowErr(true)
                                         }
                                         console.log(err);
                                     }
-                                ).catch(err => {
-                                    console.log(err);
-                                })
+                                )
                             }}
                             validationSchema={SignupSchema}
                             validate={validate}>
-                            {({ isSubmitting }) => (
+                            {({ }) => (
                                 <Form>
                                     <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                                         Login Into Your Account

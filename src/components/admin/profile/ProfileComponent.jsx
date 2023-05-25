@@ -41,7 +41,7 @@ export default function ProfileComponent() {
         validationSchema: Yup.object().shape({
             oldPassword: Yup.string().required("Current password is required"),
             newPassword: Yup.string().required("New password is required"),
-            // confirmNewPasswrod: Yup.string().required("Confirm new password is required"),
+            confirmNewPasswrod: Yup.string().required("Confirm new password is required").oneOf([Yup.ref('newPassword'), null], 'Password not match'),
         }),
         onSubmit: (val, { resetForm }) => {
             handleChangePassword()

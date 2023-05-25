@@ -20,11 +20,10 @@ import RoomListComponent from './components/admin/Room/RoomListComponent'
 import HomeComponent from './components/homepage/HomeComponent'
 import ContactComponent from './components/homepage/ContactComponent'
 import AboutPageComponent from './components/homepage/AboutPageComponent'
-import EmailSendingComponent from './components/Authentication/EmailsendingComponent'
+import EmailSendingComponent from './components/Authentication/EmailSendingComponent'
 import ResetPasswordComponent from './components/Authentication/ResetpasswordComponent'
 
 function App() {
-
   return (
     <>
       <Routes>
@@ -37,7 +36,7 @@ function App() {
         <Route path='/email-sending' element={<EmailSendingComponent />} />
         <Route path='/reset-password' element={<ResetPasswordComponent />} />
         <Route path='/success' element={<SuccessComponent />} />
-        <Route element={<ProtectedRoute isLogged={true} />}>
+        <Route element={<ProtectedRoute isLogged={localStorage.getItem("token") ? true : false} />}>
           <Route path="/" element={<MainComponent />}>
             <Route path='/organization' element={<OrganizationListComponent />} />
             <Route path='/organization-create' element={<OrganzationCreateOrJoinComponent />} />
@@ -47,9 +46,8 @@ function App() {
             <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/asset' element={<AssetComponent />}></Route>
             {/* <Route path='/tracking' element={<TrackingComponent />}></Route> */}
-            <Route path='/tracking' element={<TrackingComponent /> }> </Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
-            <Route path='/request' element={<UserRequestComponent />}></Route>
+            {/* <Route path='/request' element={<UserRequestComponent />}></Route> */}
             <Route path='/profile' element={<ProfileComponent/>}/>
             <Route path='/roomlist' element={<RoomListComponent/>}></Route>
           </Route>

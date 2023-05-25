@@ -12,16 +12,12 @@ import {
 } from "react-icons/ri";
 import { BsGraphUp } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import asset_pic from '../../assets/icons/Asset.png';
-import bell_pic from '../../assets/icons/Bell.png';
-import category_pic from '../../assets/icons/Category.png';
-import dashboard_pic from '../../assets/icons/Dashboard.png';
-import invoice_pic from '../../assets/icons/Invoice.png';
-import room_pic from '../../assets/icons/Room.png';
-import setting_pic from '../../assets/icons/Setting.png';
-import sign_out_pic from '../../assets/icons/Sign-Out.png'
-import tracking_pic from '../../assets/icons/Tracking.png'
-import user_pic from '../../assets/icons/Users.png'
+import dashboard_ico from '../../assets/icon/dashboard.svg';
+import category_ico from '../../assets/icon/Category.svg';
+import invoice_ico from '../../assets/icon/‌Invoice.svg';
+import asset_ico from '../../assets/icon/Asset.svg';
+import tracking_ico from '../../assets/icon/Tracking.svg';
+import user_ico from '../../assets/icon/Users.svg';
 
 
 export default function SidebarComponent() {
@@ -68,7 +64,7 @@ export default function SidebarComponent() {
                             >
                                 <span className="flex items-center justify-start">
 
-                                    <img src={dashboard_pic} className="h-6" />
+                                    <img src={dashboard_ico} className="h-5" />
                                     <p className="ml-3">Organization</p>
                                 </span>
                                 <RiArrowRightSLine
@@ -83,8 +79,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization"
-                                        className={({ isActive }) => isActive ? `text-text-color py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors` :
-                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Organization List
@@ -93,12 +89,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization-create"
-                                        className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
-                                        style={({ isActive }) => {
-                                            return {
-                                                color: isActive ? "#F8C400" : "",
-                                            };
-                                        }}
+                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Create or Join
@@ -114,7 +106,7 @@ export default function SidebarComponent() {
                                     onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                                 >
                                     <span className="flex items-center justify-start">
-                                        <img src={dashboard_pic} className="h-6" />
+                                        <img src={dashboard_ico} className="h-5" />
                                         <p className="ml-3">Dashboard</p>
                                     </span>
                                 </NavLink>
@@ -126,7 +118,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <img src={category_pic} className="h-6" />
+                                        <img src={category_ico} className="h-5" />
                                         <p className="ml-3">Category</p>
                                     </span>
                                     <RiArrowRightSLine
@@ -141,12 +133,8 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/super-category"
-                                            className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
-                                            style={({ isActive }) => {
-                                                return {
-                                                    color: isActive ? "#F8C400" : "",
-                                                };
-                                            }}
+                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                                `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                         >
                                             Type Super
@@ -155,12 +143,8 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/normal-category"
-                                            className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
-                                            style={({ isActive }) => {
-                                                return {
-                                                    color: isActive ? "#F8C400" : "",
-                                                };
-                                            }}
+                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                                `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                         >
                                             Type Normal
@@ -177,7 +161,7 @@ export default function SidebarComponent() {
 
                                     <span className="flex items-center justify-start">
 
-                                        <img src={invoice_pic} className="h-6" />
+                                        <img src={invoice_ico} className="h-5" />
                                         <p className="ml-3">Invoice</p>
                                     </span>
                                 </NavLink>
@@ -191,7 +175,7 @@ export default function SidebarComponent() {
 
                                     <span className="flex items-center justify-start">
 
-                                        <img src={asset_pic} className="h-6" />
+                                        <img src={asset_ico} className="h-5" />
                                         <p className="ml-3">Asset</p>
                                     </span>
                                 </NavLink>
@@ -204,7 +188,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                    <img src={tracking_pic} className="h-6" />
+                                        <img src={tracking_ico} className="h-5" />
                                         <p className="ml-3">Tracking</p>
                                     </span>
                                 </NavLink>
@@ -217,7 +201,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <img src={user_pic} className="h-6" />
+                                        <img src={user_ico} className="h-5" />
                                         <p className="ml-3">User</p>
                                     </span>
                                 </NavLink>
