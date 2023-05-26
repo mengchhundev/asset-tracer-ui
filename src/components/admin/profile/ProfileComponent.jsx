@@ -294,222 +294,224 @@ export default function ProfileComponent() {
                 <div className='my-5 p-5 gap-6 bg-white rounded-xl' style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                     <Tab.Panels>
                         <Tab.Panel>
-                            <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                <div className="px-6 py-4">
-                                    <div className='flex flex-row justify-between items-center'>
-                                        <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
+                            <div className='w-full flex gap-6'>
+                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
+                                    <div className="px-6 py-4">
+                                        <div className='flex flex-row justify-between items-center'>
+                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
 
-                                        <div className="dropdown dropdown-bottom">
-                                            <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                <BiDotsHorizontalRounded className="w-6 h-6" />
-                                            </button>
-                                            <ul
-                                                tabIndex={0}
-                                                className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                            >
+                                            <div className="dropdown dropdown-bottom">
+                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
+                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
+                                                </button>
+                                                <ul
+                                                    tabIndex={0}
+                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
+                                                >
 
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                            </ul>
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                </ul>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                        <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                            <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
+                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
+                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
+                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                    <p className="text-gray-700 text-sm text-center opacity-60">
-                                        Organization Owner
-                                    </p>
-                                    <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                        20 members
-                                    </p>
-                                    <div className='w-full flex flex-row justify-center my-2'>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
+                                        <p className="text-gray-700 text-sm text-center opacity-60">
+                                            Organization Owner
+                                        </p>
+                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
+                                            20 members
+                                        </p>
+                                        <div className='w-full flex flex-row justify-center my-2'>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
 
-                                        </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
 
-                                        </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                            <FiPlus />
-                                        </div>
-                                        {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
+                                                <FiPlus />
+                                            </div>
+                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
                                         <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                    </div>
-                                </div>
-                                <div className="pb-2 w-full px-8 mb-3 text-center">
-                                    <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                </div>
-                            </button>
-                            <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                <div className="px-6 py-4">
-                                    <div className='flex flex-row justify-between items-center'>
-                                        <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-
-                                        <div className="dropdown dropdown-bottom">
-                                            <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                <BiDotsHorizontalRounded className="w-6 h-6" />
-                                            </button>
-                                            <ul
-                                                tabIndex={0}
-                                                className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                            >
-
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                            </ul>
-
                                         </div>
                                     </div>
-                                    <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                        <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                            <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                        </div>
+                                    <div className="pb-2 w-full px-8 mb-3 text-center">
+                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
                                     </div>
-                                    <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                    <p className="text-gray-700 text-sm text-center opacity-60">
-                                        Organization Owner
-                                    </p>
-                                    <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                        20 members
-                                    </p>
-                                    <div className='w-full flex flex-row justify-center my-2'>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                </button>
+                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
+                                    <div className="px-6 py-4">
+                                        <div className='flex flex-row justify-between items-center'>
+                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
 
-                                        </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                            <div className="dropdown dropdown-bottom">
+                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
+                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
+                                                </button>
+                                                <ul
+                                                    tabIndex={0}
+                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
+                                                >
 
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
                                         </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                            <FiPlus />
+                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
+                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
+                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
+                                            </div>
                                         </div>
-                                        {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
+                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
+                                        <p className="text-gray-700 text-sm text-center opacity-60">
+                                            Organization Owner
+                                        </p>
+                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
+                                            20 members
+                                        </p>
+                                        <div className='w-full flex flex-row justify-center my-2'>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
+                                                <FiPlus />
+                                            </div>
+                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
                                         <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                    </div>
-                                </div>
-                                <div className="pb-2 w-full px-8 mb-3 text-center">
-                                    <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                </div>
-                            </button>
-                            <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                <div className="px-6 py-4">
-                                    <div className='flex flex-row justify-between items-center'>
-                                        <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-
-                                        <div className="dropdown dropdown-bottom">
-                                            <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                <BiDotsHorizontalRounded className="w-6 h-6" />
-                                            </button>
-                                            <ul
-                                                tabIndex={0}
-                                                className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                            >
-
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                            </ul>
-
                                         </div>
                                     </div>
-                                    <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                        <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                            <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                        </div>
+                                    <div className="pb-2 w-full px-8 mb-3 text-center">
+                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
                                     </div>
-                                    <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                    <p className="text-gray-700 text-sm text-center opacity-60">
-                                        Organization Owner
-                                    </p>
-                                    <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                        20 members
-                                    </p>
-                                    <div className='w-full flex flex-row justify-center my-2'>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                </button>
+                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
+                                    <div className="px-6 py-4">
+                                        <div className='flex flex-row justify-between items-center'>
+                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
 
-                                        </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                            <div className="dropdown dropdown-bottom">
+                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
+                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
+                                                </button>
+                                                <ul
+                                                    tabIndex={0}
+                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
+                                                >
 
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
                                         </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                            <FiPlus />
+                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
+                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
+                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
+                                            </div>
                                         </div>
-                                        {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
+                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
+                                        <p className="text-gray-700 text-sm text-center opacity-60">
+                                            Organization Owner
+                                        </p>
+                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
+                                            20 members
+                                        </p>
+                                        <div className='w-full flex flex-row justify-center my-2'>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
+                                                <FiPlus />
+                                            </div>
+                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
                                         <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                    </div>
-                                </div>
-                                <div className="pb-2 w-full px-8 mb-3 text-center">
-                                    <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                </div>
-                            </button>
-                            <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                <div className="px-6 py-4">
-                                    <div className='flex flex-row justify-between items-center'>
-                                        <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-
-                                        <div className="dropdown dropdown-bottom">
-                                            <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                <BiDotsHorizontalRounded className="w-6 h-6" />
-                                            </button>
-                                            <ul
-                                                tabIndex={0}
-                                                className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                            >
-
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                                <li>
-                                                    <a>Download invoice</a>
-                                                </li>
-                                            </ul>
-
                                         </div>
                                     </div>
-                                    <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                        <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                            <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                        </div>
+                                    <div className="pb-2 w-full px-8 mb-3 text-center">
+                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
                                     </div>
-                                    <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                    <p className="text-gray-700 text-sm text-center opacity-60">
-                                        Organization Owner
-                                    </p>
-                                    <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                        20 members
-                                    </p>
-                                    <div className='w-full flex flex-row justify-center my-2'>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                </button>
+                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
+                                    <div className="px-6 py-4">
+                                        <div className='flex flex-row justify-between items-center'>
+                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
 
-                                        </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+                                            <div className="dropdown dropdown-bottom">
+                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
+                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
+                                                </button>
+                                                <ul
+                                                    tabIndex={0}
+                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
+                                                >
 
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                    <li>
+                                                        <a>Download invoice</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
                                         </div>
-                                        <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                            <FiPlus />
+                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
+                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
+                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
+                                            </div>
                                         </div>
-                                        {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
+                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
+                                        <p className="text-gray-700 text-sm text-center opacity-60">
+                                            Organization Owner
+                                        </p>
+                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
+                                            20 members
+                                        </p>
+                                        <div className='w-full flex flex-row justify-center my-2'>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
+
+                                            </div>
+                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
+                                                <FiPlus />
+                                            </div>
+                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
                                         <div className='w-8 h-8 bg-purple rounded-full'></div> */}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="pb-2 w-full px-8 mb-3 text-center">
-                                    <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                </div>
-                            </button>
+                                    <div className="pb-2 w-full px-8 mb-3 text-center">
+                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
+                                    </div>
+                                </button>
+                            </div>
                         </Tab.Panel>
                         <Tab.Panel>
                             <div className='w-full md:w-6/12 lg:w-4/12 py-5 m-auto'>
@@ -525,8 +527,8 @@ export default function ProfileComponent() {
                                                 defaultValue={newData.oldPassword}
                                                 name="oldPassword"
                                                 className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="text"
-                                                placeholder="Input name..."
+                                                type="password"
+                                                placeholder="********"
                                             />
                                         </div>
                                         {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
@@ -540,8 +542,8 @@ export default function ProfileComponent() {
                                                 value={newData.newPassword}
                                                 name="newPassword"
                                                 className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="text"
-                                                placeholder="Input name..."
+                                                type="password"
+                                                placeholder="********"
                                             />
                                         </div>
                                         {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
@@ -555,8 +557,8 @@ export default function ProfileComponent() {
                                                 value={newData.confirmNewPassword}
                                                 name="newPassword"
                                                 className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="text"
-                                                placeholder="Input name..."
+                                                type="password"
+                                                placeholder="********"
                                             />
                                         </div>
                                         {formik.touched.confirmNewPassword && formik.errors?.confirmNewPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.confirmNewPassword}</p> : null}

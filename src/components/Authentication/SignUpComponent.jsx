@@ -29,7 +29,7 @@ export default function SignUpComponent() {
                             setSuccess(true);
                             localStorage.setItem("token", res.data.payload.token)
                             if (localStorage.getItem("token")) {
-                                navigator("/organization-create");
+                                navigator("/organization-create", {state: {isShowSubMenu: true}});
                             }
 
                         })

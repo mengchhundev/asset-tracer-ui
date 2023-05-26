@@ -53,64 +53,62 @@ function ResetPasswordComponent(props) {
 
 
   return (
-    <div>
-      <div>
-        <section className="bg-gray-50">
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div className="w-full p-6 bg-white rounded-lg shadow md:mt-0 sm:max-w-md  sm:p-8">
-              <div className="w-10/12 container m-auto">
-                <div className='flex justify-center'>
-                  <img src={key} width={80} height={80} alt="" />
-                </div>
-                <h2 className="mb-1 text-lg font-sp-pro-text-semibold leading-tight text-gray-900 md:text-2xl text-center text-primary pt-4">
-                  Set New Password
-                </h2>
-                <p className="text-center text-sm text-text-color font-sp-pro-text-medium pt-3">
-                  Your new password must be different to previously used password.
-                </p>
-                <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5 pt-5" onSubmit={formik.handleSubmit}>
-                  <div className='relative'>
-                    <label>
-                      Set new password
-                    </label>
-                    <input
-                      onInput={handleInputChange}
-                      onChange={formik.handleChange}
-                      value={newData.newPassword}
-                      name="newPassword"
-                      className="border-[2px] border-text-color border-opacity-20 text-text-color sm:text-sm rounded-lg focus:border-[2px] block w-full p-2.5"
-                      placeholder='Set new password'
-                    />
-                    {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
-                  </div>
-                  <div className='relative'>
-                    <label>
-                      Confirm password
-                    </label>
-                    <input
-                      onInput={handleInputChange}
-                      onChange={formik.handleChange}
-                      value={newData.confirmNewPasswrod}
-                      name="confirmNewPasswrod"
-                      className="border-[2px] border-text-color border-opacity-20 text-text-color sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full  p-2.5"
-                      placeholder='Confirm password'
-                    />
-                    {formik.touched.confirmNewPasswrod && formik.errors?.confirmNewPasswrod ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.confirmNewPasswrod}</p> : null}
-                  </div>
-                  <button type='submit' className='p-2 w-full text-center inline-block rounded bg-primary hover:bg-primary hover:text-primary hover:bg-opacity-10 px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white'> Reset Password</button>
-                  <p className="mt-2 mb-0 pt-1 text-sm text-text-color">
-                    Remember the password?
-                    <a className="ml-1 text-primary font-sp-pro-text-semibold">
-                      <Link to={"/signin"}>Sign in</Link>
-                    </a>
-                  </p>
-                </form>
-              </div>
+    <section className="bg-bg-primary">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="w-full p-6 bg-white rounded-lg shadow md:mt-0 sm:max-w-md  sm:p-8">
+          <div className="w-10/12 container m-auto">
+            <div className='flex justify-center'>
+              <img src={key} width={80} height={80} alt="" />
             </div>
+            <h2 className="mb-1 text-lg font-sp-pro-text-semibold leading-tight text-gray-900 md:text-2xl text-center text-primary pt-4">
+              Set New Password
+            </h2>
+            <p className="text-center text-sm text-text-color font-sp-pro-text-medium pt-3">
+              Your new password must be different to previously used password.
+            </p>
+            <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5 pt-5" onSubmit={formik.handleSubmit}>
+              <div className='relative'>
+                <label>
+                  Set new password
+                </label>
+                <input
+                  type='password'
+                  onInput={handleInputChange}
+                  onChange={formik.handleChange}
+                  value={newData.newPassword}
+                  name="newPassword"
+                  className="border-[2px] border-text-color border-opacity-20 text-text-color sm:text-sm rounded-lg focus:border-[2px] block w-full p-2.5"
+                  placeholder='********'
+                />
+                {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
+              </div>
+              <div className='relative'>
+                <label>
+                  Confirm password
+                </label>
+                <input
+                  type='password'
+                  onInput={handleInputChange}
+                  onChange={formik.handleChange}
+                  value={newData.confirmNewPasswrod}
+                  name="confirmNewPasswrod"
+                  className="border-[2px] border-text-color border-opacity-20 text-text-color sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full  p-2.5"
+                  placeholder='********'
+                />
+                {formik.touched.confirmNewPasswrod && formik.errors?.confirmNewPasswrod ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.confirmNewPasswrod}</p> : null}
+              </div>
+              <button type='submit' className='p-2 w-full text-center inline-block rounded bg-primary hover:bg-primary hover:text-primary hover:bg-opacity-10 px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white'> Reset Password</button>
+              <p className="mt-2 mb-0 pt-1 text-sm text-text-color">
+                Remember the password?
+                <a className="ml-1 text-primary font-sp-pro-text-semibold">
+                  <Link to={"/signin"}>Sign in</Link>
+                </a>
+              </p>
+            </form>
           </div>
-        </section>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
