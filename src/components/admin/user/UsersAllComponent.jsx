@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { HiOutlineCheck } from "react-icons/hi";
+import { BiCheck, BiDotsHorizontalRounded, BiHome } from "react-icons/bi";
+import { HiOutlineCheck, HiOutlineQrcode } from "react-icons/hi";
 import facebook from "../../../assets/images/user/fb.png";
 import linkin from "../../../assets/images/user/in.png";
 import instagram from "../../../assets/images/user/ig.png";
@@ -10,7 +10,9 @@ import SuperFillterComponent from "../tracking/SuperFillterComponent";
 import NormalFillterComponent from "../tracking/NormalFillterComponent";
 import OwnerFillterComponent from "../tracking/OwnerFillterComponent";
 import SortByComponent from "../tracking/SortByComponent";
-import { BsPlus } from "react-icons/bs";
+import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
+import { TbCalendarStats } from "react-icons/tb";
+import { AiFillGift } from "react-icons/ai";
 
 export default function UsersAllComponent() {
   const [user, setUser] = useState([
@@ -19,50 +21,53 @@ export default function UsersAllComponent() {
       profile: "S",
       name: "Senglorn",
       email: "hrdcenter@gamil.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
     {
       id: 2,
       profile: "H",
-      name: "Hong Meng",
+      name: "HongMeng",
       email: "hrdcenter@gamil.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
       profile: "M",
-      name: "Keo Mony",
+      name: "Mony",
       email: "hrdcenter@gamil.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 4,
-      profile: "C",
-      name: "Chheang Mengchhun",
+      profile: "M",
+      name: "Mnor",
       email: "hrdcenter@gamil.com",
-    },
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    }
   ]);
 
-  //featch images 
+  //featch images
   const socialImg = [
     {
       item: 1,
       title: "facebook",
-      src: facebook
+      src: facebook,
     },
     {
       item: 2,
       title: "linkin",
-      src: linkin
+      src: linkin,
     },
     {
       item: 3,
       title: "instagram",
-      src: instagram
+      src: instagram,
     },
     {
       item: 3,
       title: "twinter",
-      src: twinter
-    }
-    
+      src: twinter,
+    },
   ];
   const listOfImage = socialImg.map((image) => (
     <div key={image.id}>
@@ -117,12 +122,12 @@ export default function UsersAllComponent() {
           </div>
 
           <div className="">
-            <button
-              type="button"
+            <label
+              htmlFor="my-modal-3"
               className="border border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
             >
-              <BsPlus className="w-6 h-6" /> &nbsp; Create New
-            </button>
+              <BsPlus className="w-6 h-6" /> &nbsp; Invite User
+            </label>
           </div>
         </div>
 
@@ -193,6 +198,97 @@ export default function UsersAllComponent() {
                 </div>
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* Modol */}
+        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <div className="modal">
+          <div className="bg-bg-primary lg:w-1/3 md:w-3/4 sm:w-32 rounded-lg relative p-4">
+            {/* header */}
+            <div className="flex justify-between mb-5">
+              <div className="flex items-center">
+                <div className="flex items-center mt-2">
+                  <div className="bg-gray-light rounded-full p-3">
+                    <AiFillGift className="w-8 h-8" />
+                  </div>
+                  <div className="pl-4 flex flex-col space-y-1">
+                    <span className="text-text-color font-sp-pro-text-medium text-lg">
+                      Rotanakosal
+                    </span>
+                    <span className="text-sm text-text-color font-sp-pro-text-regular">
+                      Manage invitations and requests to join your team.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex">
+                <label
+                  htmlFor="my-modal-3"
+                  className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
+                >
+                  ✕
+                </label>
+              </div>
+            </div>
+
+            {/* data */}
+            <div>
+              <div className="w-full">
+                <div className="relative w-full border rounded-md border-slate-200 bg-bg-main p-[5px]">
+                  <div className="absolute inset-y-0 flex items-center pl-2">
+                    <svg
+                      className="w-5 h-5 text-primary"
+                      aria-hidden="true"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <input
+                    className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    type="text"
+                    name="search"
+                    placeholder="Search..."
+                  />
+                </div>
+              </div>
+
+              {/* modal data */}
+              <div className="w-full mt-5 border border-slate-200 bg-bg-main">
+                {user.map((users) => (
+                  <div className="w-full rounded-md">
+                    <div className="flex justify-between hover:bg-gray-light p-2">
+                      <div >
+                        <div className="flex items-center m-auto space-x-3">
+                          <span>
+                            <img
+                            src={users.src}
+                            alt={users.title}
+                            className="w-10 h-10 rounded-full"
+                          />
+                          </span>
+                          <span className="font-sp-pro-text-medium text-sm text-text-color">
+                            {users.name}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="bg-blue-light p-1 rounded-sm text-white text-sm cursor-pointer">
+                          Resend
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/*  */}
           </div>
         </div>
       </div>

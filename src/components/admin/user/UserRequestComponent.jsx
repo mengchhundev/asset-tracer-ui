@@ -23,7 +23,7 @@ export default function UserRequestComponent() {
       profile: "HO",
       name: "Hong Meng",
       email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
@@ -32,6 +32,20 @@ export default function UserRequestComponent() {
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
+    {
+      id: 4,
+      profile: "ME",
+      name: "Keo Mony",
+      email: "hrdcenter@gamil.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+    },
+    {
+      id: 5,
+      profile: "ME",
+      name: "Keo Mony",
+      email: "hrdcenter@gamil.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+    }
   ]);
 
   return (
@@ -81,77 +95,128 @@ export default function UserRequestComponent() {
           </div>
         </div>
 
-        <div className="overflow-x-auto px-16">
+        <div className="overflow-x-auto px-10">
           <h1 className="mb-2 text-text-color font-sp-pro-text-medium text-base">
             Organization A
           </h1>
-          <div className="rounded-xl border border-bg-main shadow p-5 ">
-            <div className="rounded-md px-5 flex-col space-y-2">
-              {user.map((users) => (
-                // console.log(users)
-                <ul
-                  key={users.id}
-                  class="hidden lg:flex lg:mx-auto py-2 px-8 border rounded-md border-bg-main bg-bg-main  lg:items-center lg:w-auto lg:space-x-6"
-                >
-                  <li className="w-[20%]">{users.id}</li>
-                  <li className="w-[30%]">
-                    <div className="flex items-center m-auto space-x-3">
-                      <span>
-                        <img
-                          src={users.src}
-                          alt={users.title}
-                          className="w-10 h-10 rounded-full"
-                        />
-                      </span>
-                      <span className="font-sp-pro-text-medium text-sm text-text-color">
-                        {users.name}
-                      </span>
-                    </div>
-                  </li>
+          <div className="rounded-xl border border-bg-main shadow">
+            <div className="rounded-md p-5 flex-col space-y-2">
+              {/*  */}
 
-                  <li className="w-[30%]">
-                    <div className="flex items-center m-auto space-x-3">
-                      <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                        {users.profile}
-                      </span>
-                      <span className="font-sp-pro-text-medium text-sm text-text-color">
-                        {users.name}
-                      </span>
-                    </div>
-                  </li>
+              <div className="overflow-x-auto h-[242px]">
+                {/* {user.map((users) => ( */}
+                <div className="p-1 overflow-y-scroll">
+                  {/* {user.map((users) => (
+                      <div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                      </div>
+                      ))} */}
+                  {/* <table className="table w-full rounded-sm overflow-hidden">
+                      <tbody className=" shadow rounded-sm">
+                        <tr>
+                          <td className="bg-bg-main">{users.id}</td>
+                          <td className="bg-bg-main">
+                            <div className="flex items-center space-x-3">
+                              <span>
+                                <img
+                                  src={users.src}
+                                  alt={users.title}
+                                  className="w-10 h-10 rounded-full"
+                                />
+                              </span>
+                              <span className="font-sp-pro-text-medium text-sm text-text-color">
+                                {users.name}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="bg-bg-main">
+                            <div className="flex items-center m-auto space-x-3">
+                              <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                                {users.profile}
+                              </span>
+                              <span className="font-sp-pro-text-medium text-sm text-text-color">
+                                {users.name}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="bg-bg-main">
+                            <div className="flex flex-rol space-x-3 justify-center items-center">
+                              <span className="w-6 h-6 bg-white border border-border-strock text-reject text-center font-sp-pro-text-medium">
+                                X
+                              </span>
+                              <span>
+                                <RxCheck className="w-6 h-6 bg-white border border-border-strock text-green" />
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table> */}
 
-                  <li className="w-[20%]">
-                    <div className="flex flex-rol space-x-8 justify-center items-center">
-                      {/* <span className="bg-white border border-border-strock px-2 text-red-500">x</span> */}
-                      <span className="w-6 h-6 bg-white border border-border-strock text-reject text-center font-sp-pro-text-medium">
-                        X
-                      </span>
-                      <span>
-                        <RxCheck className="w-6 h-6 bg-white border border-border-strock text-green" />
-                      </span>
-                    </div>
-                  </li>
-                </ul>
-              ))}
+                  <div className="overflow-x-auto">
+                    {/* {user.map((users) => ( */}
+                      <div className="p-1 overflow-y-scroll">
+                        <table className="table w-full">
+                          {/* <thead>
+                            <tr className="bg-bg-primary text-sidebar">
+                              <th className="w-1/6">No</th>
+                              <th className="w-4/12">Name</th>
+                              <th className="w-4/12">Created Date</th>
+                              <th className="w-1/6">Action</th>
+                            </tr>
+                          </thead> */}
+                          <tbody className="divide-y dark:divide-gray-700">
+                            {user.map((users) => (
+                              <tr className="font-md text-text-color border-none">
+                                <td className="bg-bg-main">{users.id}</td>
+                                <td className="bg-bg-main">
+                                  <div className="flex items-center">
+                                    <div className="relative  mr-3 ">
+                                      <img
+                                        src={users.src}
+                                        alt={users.title}
+                                        loading="lazy"
+                                        className="w-10 h-10 rounded-full"
+                                      />
+                                    </div>
+                                    <div>{users.name}</div>
+                                  </div>
+                                </td>
+                                <td className="bg-bg-main">
+                                  <div className="flex items-center m-auto space-x-3">
+                                    <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                                      {users.profile}
+                                    </span>
+                                    <span className="font-sp-pro-text-medium text-sm text-text-color">
+                                      {users.name}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td className="bg-bg-main">
+                                  <div className="flex flex-rol space-x-3 items-center">
+                                    <span className="w-6 h-6 bg-white border border-border-strock text-reject text-center font-sp-pro-text-medium">
+                                      X
+                                    </span>
+                                    <span>
+                                      <RxCheck className="w-6 h-6 bg-white border border-border-strock text-green" />
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    {/* ))} */}
+                  </div>
+                </div>
+                {/* ))} */}
+              </div>
+              {/*  */}
             </div>
           </div>
-        </div>
-
-        <div className="overflow-x-auto mt-3 px-5">
-          {user.map((users) => (
-            <div key={users.id} className="flex-rol space-y-5 mb-1">
-              <table className="table w-full">
-                <tbody className="border shadow">
-                  <tr className="z-20 rounded-sm border border-bg-main shadow">
-                    <td className="">1</td>
-                    <td>2</td>
-                    <td>Furniture</td>
-                    <td className="">2</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          ))}
         </div>
       </div>
     </main>

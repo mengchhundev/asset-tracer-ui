@@ -23,6 +23,8 @@ import EmailSendingComponent from './components/Authentication/EmailSendingCompo
 import ResetPasswordComponent from './components/Authentication/ResetPasswordComponent'
 import ViewInvoiceComponent from './components/admin/invoice/ViewInvoiceComponent'
 import UpdateInvoiceComponent from './components/admin/invoice/UpdateInvoiceComponent'
+import TrackingComponent from './components/admin/tracking/TrackingComponent'
+import UserRequestComponent from './components/admin/user/UserRequestComponent'
 
 function App() {
   return (
@@ -47,7 +49,7 @@ function App() {
             <Route path='/asset' element={<AssetComponent />}></Route>
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
-            {/* <Route path='/request' element={<UserRequestComponent />}></Route> */}
+            <Route path='/request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent/>}/>
             <Route path='/room-list' element={<RoomListComponent/>}></Route>
             <Route path='/invoice' element={<InvoiceComponent />} />
