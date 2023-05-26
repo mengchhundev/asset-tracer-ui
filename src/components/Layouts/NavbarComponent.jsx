@@ -15,6 +15,8 @@ import "@szhsin/react-menu/dist/transitions/slide.css";
 import { Link } from "react-router-dom";
 import logo from '../../assets/images/A_Tracer_logo1.png'
 import '../../style/navbar.css'
+import SignOutComponent from "./popUp/SignOutComponent";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 
 export default function NavbarComponent() {
 
@@ -159,15 +161,18 @@ export default function NavbarComponent() {
                             </Link>
                         </MenuItem>
                         <MenuItem className="p-0 hover:bg-transparent">
-                            <Link
+                            {/* <Link
                                 to="/cerrar-sesion"
                                 className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
                             >
-                                <RiLogoutCircleRLine /> Cerrar sesión
-                            </Link>
+                                 Cerrar sesión
+                            </Link> */}
+                            <label htmlFor="my-modal" className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"><ArrowRightOnRectangleIcon class="h-6 w-6 text-gray-500" />Singout</label>
                         </MenuItem>
                     </Menu>
                 </nav>
+                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                <SignOutComponent className="modal" />
             </div>
 
 

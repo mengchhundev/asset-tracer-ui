@@ -1,12 +1,18 @@
 import React from 'react'
 import { Combobox } from "@headlessui/react";
 import logo from '../../../../src/assets/images/A_Tracer_logo1.png';
-
+import * as Yup from "yup";
 // // combobox import
 import { Fragment, useState } from 'react';
 import { Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { ChevronUpDownIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { HiChevronDown, HiOutlineCheck } from 'react-icons/hi';
+import AddOrgnizaation from './popUp/AddOrgnizaation';
+import { useFormik } from 'formik';
+import OrganizationService from '../../../redux/services/OrganizationService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setItem } from '../../../redux/slices/OrganizationSlice';
+import { useNavigate } from 'react-router-dom';
 
 const people = [
   { id: 1, name: 'Short by' },
@@ -17,13 +23,41 @@ const people = [
 
 export default function OrganzationCreateOrJoinComponent() {
   const [selected, setSelected] = useState(people[0])
-  const [query, setQuery] = useState('')
-  const [code, setCode] = useState()
+  const [query, setQuery] = useState("")
+  const [message, setMessage] = useState()
+  const [newData, setNewData] = useState({ code: "" })
+  const dispatch = useDispatch()
+  const organizations = useSelector(state => state.organization.data)
+  const item = useSelector(state => state.organization?.item)
+  const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const navigator = useNavigate()
+
+  const handleJoinOrganization = () => {
+    OrganizationService.joinOrganization(newData, localStorage.getItem("token")).then(res => {
+      if (res.data?.success) {
+        dispatch(setItem(res.data.payload))
+        sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+        navigator("/dashboard", { state: { hideOrganizationBar: true } })
+      }
+    }, err => {
+      console.log(err)
+    })
+  }
 
   const handleInputChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value })
+    console.log(newData)
   };
 
+  const formik = useFormik({
+    initialValues: newData,
+    validationSchema: Yup.object().shape({
+      code: Yup.string().required("Code is required"),
+    }),
+    onSubmit: (val, { resetForm }) => {
+      handleJoinOrganization()
+    }
+  });
 
   const filteredPeople =
     query === ''
@@ -42,23 +76,26 @@ export default function OrganzationCreateOrJoinComponent() {
         <div className="mt-5 p-5 gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
           <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
             <div className='flex flex-nowrap justify-around w-full gap-6 mx-10 my-2'>
-              <div className='w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center'>
+              <label htmlFor="my-modal-3" className="w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center">
                 <div>
-                  <HiOutlineCheck className="w-8 h-8 bg-green text-white rounded-full m-auto mb-3" />
+                  <PlusCircleIcon class="w-12 h-12 text-green rounded-full m-auto mb-3" />
                   <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
                 </div>
-              </div>
+              </label>
               <div className='w-1/2 border border-bg-primary-strock mx-10 text-green text-center py-6 rounded-md px-8'>
-                <form className=''>
+                <form onSubmit={formik.handleSubmit}>
                   <div className="text-left mb-4 w-2/3 m-auto">
                     <label className="block text-md ml-1 font-medium leading-6 text-text-color">Join organization with a code</label>
                     <input
-                      name="name"
-                      type='text'
-                      placeholder='Name'
-                      className='relative w-full px-3 outline-none mt-1 border rounded-lg p-2 border-slate-200 bg-bg-main '
+                      onInput={handleInputChange}
+                      onChange={formik.handleChange}
+                      value={newData.code}
+                      name="code"
+                      type='number'
+                      placeholder='Enter code...'
+                      className='relative text-text-color w-full px-3 outline-none mt-1 border rounded-lg p-2 border-slate-200 bg-bg-main '
                     />
-                    {/* {updateProfileFormik.touched.name && updateProfileFormik.errors?.name ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{updateProfileFormik.errors.name}</p> : null} */}
+                    {formik.touched.code && formik.errors?.code ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.code}</p> : null}
                   </div>
                   <button type='submit' className="w-2/3 rounded text-center bg-primary px-7 py-2 text-sm font-sp-pro-text-medium text-white cursor-pointer">Join</button>
                 </form>
@@ -95,10 +132,10 @@ export default function OrganzationCreateOrJoinComponent() {
                       </svg>
                     </div>
                     <input
+
                       className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                       type="text"
-                      name="search"
-                      placeholder="Search..."
+                      placeholder="Enter code..."
                     />
                   </div>
                 </div>
@@ -173,7 +210,6 @@ export default function OrganzationCreateOrJoinComponent() {
               </div>
             </div>
           </div>
-
           {/* data table */}
           <div className="overflow-x-auto text-text-color">
             <table className="table w-full z-0">
@@ -307,6 +343,9 @@ export default function OrganzationCreateOrJoinComponent() {
         {/* table */}
 
       </main>
+
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <AddOrgnizaation className="modal" />
     </>
   )
 }

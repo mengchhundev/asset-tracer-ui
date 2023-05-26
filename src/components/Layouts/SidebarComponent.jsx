@@ -18,6 +18,8 @@ import invoice_ico from '../../assets/icon/‌Invoice.svg';
 import asset_ico from '../../assets/icon/Asset.svg';
 import tracking_ico from '../../assets/icon/Tracking.svg';
 import user_ico from '../../assets/icon/Users.svg';
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+import SignOutComponent from "./popUp/SignOutComponent";
 
 
 export default function SidebarComponent() {
@@ -229,12 +231,9 @@ export default function SidebarComponent() {
                     >
                         <RiLogoutCircleRLine className="mr-3" /> Setting
                     </NavLink>
-                    <button
-                        onClick={handleSignOut}
-                        className="flex items-center py-2.5 px-5 transition-colors"
-                    >
-                        <RiLogoutCircleRLine className="mr-3" /> Sign Out
-                    </button>
+                  
+                    <label htmlFor="my-modal" className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-2 px-4 flex-1"><ArrowRightOnRectangleIcon class="h-6 w-6 text-gray-500" />Singout</label>
+
                     <div className="flex items-center py-2.5 px-5 transition-colors">
                         <img
                             src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
@@ -257,7 +256,8 @@ export default function SidebarComponent() {
             {/* {showMenu ? <>
                 <div className="transition-all z-40 duration-200 w-full h-screen bg-black opacity-10 absolute top-0 left-0"></div>
             </> : null} */}
-
+            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <SignOutComponent className="modal" />
         </>
     )
 }
