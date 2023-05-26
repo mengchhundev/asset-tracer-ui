@@ -273,17 +273,17 @@ function UpdateComponent(props) {
                                             <textarea className="border border-text-color border-opacity-30 rounded-lg w-full" name="" id="" cols="15" rows="5"></textarea>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="flex mt-5 justify-end flex-row w-full">
-                                        <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
-                                            <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
-                                        </div>
-                                        <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
-                                            <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
-                                        </div>
-                                    </div>
+                                <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
+                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
+                                </div>
+                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
+                                    <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

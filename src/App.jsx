@@ -48,7 +48,7 @@ function App() {
             <Route path='/user' element={<UsersAllComponent />}></Route>
             {/* <Route path='/request' element={<UserRequestComponent />}></Route> */}
             <Route path='/profile' element={<ProfileComponent/>}/>
-            <Route path='/roomlist' element={<RoomListComponent/>}></Route>
+            <Route path='/room-list' element={<RoomListComponent/>}></Route>
           </Route>
         </Route>
       </Routes>

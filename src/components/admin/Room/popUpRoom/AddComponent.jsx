@@ -14,47 +14,47 @@ function AddComponent(props) {
 
         <>
             <div className="modal">
-                <div className="bg-white rounded-lg p-6 font-sp-pro-text-regular" >
+                <div className="bg-white rounded-lg p-[5%] font-sp-pro-text-regular max-h-[100vh] overflow-x-scroll" >
                     <div className="flex justify-between">
+
                         <div className="flex">
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
-                            <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Room Information</p>
+                            <p className="px-6 text-text-color text-[22px] item-center xl:text-[28px] font-sp-pro-text-bold">Room Information</p>
                         </div>
                         <div className="">
                             <label htmlFor="my-modal-3" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
-                    <div className="grid grid-cols-12">
-                        <div className="col-span-5">
-                            <div className="p-5 m-5 item-center w-full shadow-sm rounded-lg ">
+
+                    <div className="grid grid-cols-1 md:grid-cols-12">
+                        <div className="xl:col-span-5 col-span-4">
+                            <div className="md:p-[5%] md:m-[5%] item-center w-full shadow-sm rounded-lg ">
                                 <div className="m-5 rounded-md p-5 border-primary border-opacity-30 flex flex-col items-center" style={{ border: '1px dotted #F8C400' }}>
-                                    
+
                                     <img className="w-3/4 px-20 pt-20 pb-5" src={upload} alt="" />
                                     <p className="text-center">Upload Room picture, max size 2MB</p>
                                     <button className="p-4 m-10 center text-center w-28 shadow-md">Browse</button>
                                 </div>
 
                             </div>
-                            <div className="flex justify-center ml-5 w-full">
-                                <div className="bg-primary bg-opacity-10  w-9/12 p-3 rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon className="h-6 w-6 text-red-500" />Remove</button>
+                            <div className="flex justify-center w-full">
+                                <div className="bg-primary bg-opacity-10  w-1/2 p-3 rounded-lg flex justify-center">
+                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon class="h-6 w-6 text-red-500" />Remove</button>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-7">
-                            <div className="">
-                                <h1 className="text-[22px] text-text-color font-sp-pro-text-semibold">Room Information</h1>
-                            </div>
-                            <div className="flex p-10  my-5 justify-center shadow-sm w-full">
-                                <div>
-                                    <div>
+                        <div className="xl:col-span-7 xl:w-full xl:m-[10%] md:m-[0%] col-span-6">
+                            <div className=" p-[5%] shadow-sm w-full">
+
+                                <div >
+                                    <div className="w-full xl:p-[2.5%] md:p-[5%]" >
                                         <label htmlFor="">Room Name</label><br />
-                                        <input className="border mt-2 text-text-color px-3 border-text-color border-opacity-30 w-[625px] h-[39px] rounded-md p-2" type="text"
+                                        <input className="border mt-2 text-text-color px-3 border-text-color border-opacity-30 w-full h-[39px] rounded-md p-2" type="text"
                                             placeholder="Room Name"
                                         />
                                     </div>
-                                    <div className="flex mt-10 w-full justify-between">
-                                        <div className="w-5/12">
+                                    <div className="grid xl:grid-cols-2 grid-cols-1 w-full justify-between">
+                                        <div className="w-full pt-[3%] md:p-[5%] ">
                                             <label htmlFor="" className="" >Room Type</label>
                                             <Listbox as="div" className={"mt-2"} value={selectedRoom} onChange={setSelectedRoom}>
                                                 {({ open }) => (
@@ -121,16 +121,16 @@ function AddComponent(props) {
                                                 )}
                                             </Listbox>
                                         </div>
-                                        <div className="w-5/12">
-                                            
+                                        <div className="w-full pt-[3%] md:p-[5%]">
+
                                             <label htmlFor="" className="" >Creat Date</label> <br />
                                             <input className="border mt-2 text-text-color  px-3 border-text-color border-opacity-30 w-full rounded-md p-2" type="Date"
                                                 placeholder="Room Name"
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex mt-10 w-full justify-between">
-                                        <div className="w-5/12">
+                                    <div className="grid grid-cols-1 pt-[3%] xl:grid-cols-2 w-full justify-between">
+                                        <div className="w-full pt-[3%] md:p-[5%]">
                                             <label htmlFor="" className="" >Room Floor</label>
                                             <Listbox as="div" className={"mt-2"} value={selectedfloor} onChange={setSelectedfloor}>
                                                 {({ open }) => (
@@ -197,7 +197,7 @@ function AddComponent(props) {
                                                 )}
                                             </Listbox>
                                         </div>
-                                        <div className="w-5/12">
+                                        <div className="w-full pt-[3%] md:p-[5%]">
                                             <label htmlFor="" className="" >Create By</label>
                                             <Listbox as="div" className={"mt-2"} value={selectedCreate} onChange={setSelectedCreate}>
                                                 {({ open }) => (
@@ -267,21 +267,21 @@ function AddComponent(props) {
                                         </div>
                                     </div>
                                     <div className="
-                                     mt-10 w-full justify-between">
+                                      w-full xl:p-[2.5%] pt-[3%] md:p-[5%]">
                                         <h1 className="text-[18px]  text-text-color font-sp-pro-text-semibold">Room Information</h1>
                                         <textarea className="border border-text-color border-opacity-30 rounded-lg w-full" name="" id="" cols="20" rows="5"></textarea>
                                     </div>
-                                    <div className="flex mt-5 justify-end flex-row w-full">
-                                            <div className="bg-slate-500   w-1/4 p-4  rounded-lg flex justify-center">
-                                                <button className="flex justify-around text-white font-sp-pro-text-regular items-center  text-[16px]"><XCircleIcon className="h-6 w-6 text-white" />Cancell</button>
-                                            </div>
-                                            <div className="bg-primary bg-opacity-20 ml-6 w-1/4 p-3 rounded-lg flex justify-center">
-                                                <button className="flex justify-around text-primary font-sp-pro-text-regular items-center text-[16px]"><BookmarkIcon className="h-6 w-6 text-primary" />Save</button>
-                                            </div>
-                                        </div>
+                                    
                                 </div>
                             </div>
-
+                            <div className="flex mt-5 justify-end flex-row w-full">
+                                <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
+                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
+                                </div>
+                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
+                                    <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Update</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
