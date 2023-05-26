@@ -23,7 +23,7 @@ function DetailComponent() {
                             <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Room Details</p>
                         </div>
                         <div className="">
-                            <label htmlFor="my-modal" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
+                            <label htmlFor="my-modal-6" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
                     <div className="flex">

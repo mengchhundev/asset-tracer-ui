@@ -16,13 +16,11 @@ export default function SignUpComponent() {
     const [userInfo, setUserInfo] = useState({})
     const [isShowErr, setIsShowErr] = useState(false)
     const [isShowSuc, setIsShowSuc] = useState(false)
-
-
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 if (result) {
-                    api.post("/users/registerWithGoogle", {
+                    api.post("/users/register-with-google", {
                         name: result._tokenResponse.displayName,
                         email: result._tokenResponse.email,
                         password: result._tokenResponse.idToken,
@@ -31,7 +29,7 @@ export default function SignUpComponent() {
                             setSuccess(true);
                             localStorage.setItem("token", res.data.payload.token)
                             if (localStorage.getItem("token")) {
-                                navigator("/dashboard");
+                                navigator("/organization-create");
                             }
 
                         })
