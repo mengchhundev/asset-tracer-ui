@@ -27,33 +27,40 @@ export default function SignUpComponent() {
                         email: result._tokenResponse.email,
                         password: result._tokenResponse.idToken,
                     })
-                    .then(res => {
-                        setSuccess(true);
-                        localStorage.setItem("token", res.data.payload.token)
-                        if (localStorage.getItem("token")) {
-                            navigator("/dashboard");
-                        }
+                        .then(res => {
+                            setSuccess(true);
+                            localStorage.setItem("token", res.data.payload.token)
+                            if (localStorage.getItem("token")) {
+                                navigator("/dashboard");
+                            }
 
-                    })
+                        })
                 }
             })
     };
 
     const handleSignUp = async (userInfo) => {
         try {
-            const respone = await api.post("/users/register", userInfo);
-            setIsShowSuc(true)
+            await api.post("/users/register", userInfo).then(res => {
+                if (res.data?.success) {
+                    setIsShowSuc(true)
+                }
+            }, err => {
+                if (err.response.data.status == 404) {
+                    setIsShowErr(true)
+                }
+            });
         } catch (e) {
-            setIsShowErr(true)
+
         }
     };
 
     const SignupSchema = Yup.object().shape({
-        email: Yup.string().email('Invalid email').required('email Required').test('has-com', 'Email must end with .com', (value) =>
+        email: Yup.string().email('Invalid email').required('Email is required').test('has-com', 'Email must end with .com', (value) =>
             value.endsWith('.com')
         ),
-        password: Yup.string().required('password Required'),
-        name: Yup.string().required('Name Required'),
+        password: Yup.string().required('Password is Required'),
+        name: Yup.string().required('Name is Required'),
     });
 
 
@@ -62,6 +69,7 @@ export default function SignUpComponent() {
             {isShowErr && (
                 <RegisterPopUpComponent setIsShowErr={setIsShowErr} />
             )}
+
             {isShowSuc && (
                 <RegisterPopUpComponent setIsShowSuc={setIsShowSuc} />
             )}
