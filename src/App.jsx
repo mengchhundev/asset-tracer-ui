@@ -25,6 +25,7 @@ import ViewInvoiceComponent from './components/admin/invoice/ViewInvoiceComponen
 import UpdateInvoiceComponent from './components/admin/invoice/UpdateInvoiceComponent'
 import TrackingComponent from './components/admin/tracking/TrackingComponent'
 import UserRequestComponent from './components/admin/user/UserRequestComponent'
+import AssetAddComponent from './components/admin/asset/AssetAddComponent'
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
             <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/view-invoice' element={<ViewInvoiceComponent />}/>
             <Route path='/update-invoice' element={<UpdateInvoiceComponent/>}/>
+            <Route path='/assetAdd' element={<AssetAddComponent/>}/>
           </Route>
       </Routes>
     </>

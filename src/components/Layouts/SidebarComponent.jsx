@@ -20,6 +20,7 @@ import tracking_ico from '../../assets/icon/Tracking.svg';
 import user_ico from '../../assets/icon/Users.svg';
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import SignOutComponent from "./popUp/SignOutComponent";
+import { BuildingLibraryIcon } from "@heroicons/react/20/solid";
 
 
 export default function SidebarComponent() {
@@ -212,6 +213,19 @@ export default function SidebarComponent() {
 
                                         <img src={user_ico} className="h-5" />
                                         <p className="ml-3">User</p>
+                                    </span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/room-list"
+                                    className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
+                                >
+                                    <span className="flex items-center justify-start">
+
+                                    <BuildingLibraryIcon class="h-6 w-6 text-gray-500" />
+                                        <p className="ml-3">Room</p>
                                     </span>
                                 </NavLink>
                             </li>

@@ -10,6 +10,9 @@ import check from "../../../assets/images/user/check.png";
 import AssetFiltterComponent from "./AssetFiltterComponent";
 import { BsDot, BsGraphUp, BsPlus } from "react-icons/bs";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import DetailComponent from "./popUp/DetailComponent";
+import AddComponent from "./AssetAddComponent";
+import { Link } from "react-router-dom";
 
 export default function AssetComponent() {
   const [user, setUser] = useState([
@@ -110,12 +113,18 @@ export default function AssetComponent() {
 
             {/* add */}
             <div className="block ">
-              <label
-                htmlFor="my-modal-3"
-                className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
+
+              <Link
+                to={"/view-invoice"}
+                className="hover:bg-primary"
               >
-                <BsPlus className="w-6 h-6" /> &nbsp; Invite User
-              </label>
+                <label
+                  className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
+                >
+                  <BsPlus className="w-6 h-6" /> &nbsp; Invite User
+                </label>
+              </Link>
+
             </div>
           </div>
         </div>
@@ -231,7 +240,13 @@ export default function AssetComponent() {
                             </svg>
                           </span>
                           <span className="w-6 h-6 ">
-                            <EyeIcon class="h-6 w-6 text-gray-500" />
+                            <label
+                              htmlFor="my-modal-3"
+                            // className="border border-yellow text-yellow p-1 px-2 h-10 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
+                            ><EyeIcon class="h-6 w-6 text-gray-500" />
+
+                            </label>
+
                           </span>
                         </div>
                       </td>
@@ -388,6 +403,8 @@ export default function AssetComponent() {
         </div>
         {/*  */}
       </div>
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <DetailComponent className="modal" />
     </main>
   );
 }

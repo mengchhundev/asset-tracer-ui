@@ -1,7 +1,12 @@
 import { HomeIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useState } from 'react';
 import { XCircleIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
-
+import { TbCalendarStats } from "react-icons/tb";
+import { HiOutlineQrcode } from "react-icons/hi";
+import { RiBarcodeFill } from "react-icons/ri";
+import logo from "../../../../assets/images/A_Tracer_logo1.png"
+import { BiCheck, BiHome } from "react-icons/bi";
+import { BsHouseCheck } from "react-icons/bs";
 
 function DetailComponent(props) {
     const selectedImage = 'https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg';
@@ -9,6 +14,12 @@ function DetailComponent(props) {
 
     const handleImageClick = (newImage) => {
         setTopImage(newImage);
+    };
+    const myBorderStyle = {
+        display: "inline-block",
+        marginTop: "10px",
+        height: "85px",
+        borderRight: "2px solid #ccc",
     };
     return (
         <>
@@ -18,137 +29,348 @@ function DetailComponent(props) {
                         <div className="flex">
 
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
-                            <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Room Details</p>
+                            <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Asset Details</p>
                         </div>
                         <div className="">
                             <label htmlFor="my-modal-3" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
-                    <div className="flex">
-                        <div className="w-5/12 mr-14">
-                            <div className="w-[480px] justify-center mx-6 mt-6 pb-5 rounded-xl shadow-lg">
-                                <img
-                                    className="object-cover w-full h-full rounded-3xl p-7"
-                                    src={topImage}
-                                    alt=""
-                                    loading="lazy"
-                                />
-                                <h3 className="text-[24px] font-sp-pro-text-bold px-7">
-                                    Siemreap Room
-                                </h3>
-                                <span className="font-sp-pro-text-semibold px-7 text-[14] text-opacity-30 text-text-color ">Class</span>
+                    <div className="mt-5">
+                        <div className=" grid grid-cols-12 gap-10">
+                            {/* slide 1 */}
+                            <div className="col-span-6 rounded-lg border shadow-sm border-slate-200">
+                                <div className="carousel w-full flex top-1/2">
+                                    <div
+                                        id="slide1"
+                                        className="carousel-item relative w-full h-[300px] flex justify-center"
+                                    >
+                                        <img src={logo} className="" />
+                                        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                            <a
+                                                href="#slide4"
+                                                className="w-8 h-8 bg-yellow rounded-full flex items-center justify-center"
+                                            >
+                                                ❮
+                                            </a>
+                                            <a
+                                                href="#slide2"
+                                                className="w-8 h-8 bg-yellow rounded-full flex items-center justify-center"
+                                            >
+                                                ❯
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {/* slide 2 */}
+                                    <div
+                                        id="slide2"
+                                        className="carousel-item flex justify-center relative w-full h-[300px]"
+                                    >
+                                        <img src={logo} alt="" className="" />
+                                        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                            <a
+                                                href="#slide1"
+                                                className="w-8 h-8 bg-yellow rounded-full p-1 text-center"
+                                            >
+                                                ❮
+                                            </a>
+                                            <a
+                                                href="#slide3"
+                                                className="w-8 h-8 bg-yellow rounded-full p-1 text-center"
+                                            >
+                                                ❯
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex justify-start">
-                                <div className={`w-1/4 ml-6 mt-6 mb-6 transition ease-in-out delay-150 opacity-50 hover:opacity-100 duration-300 `}>
-                                    <img
-                                        className="object-cover rounded-lg cursor-pointer"
-                                        src={"https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg"}
-                                        alt=""
-                                        loading="lazy"
-                                        onClick={() =>
-                                            handleImageClick(
-                                                'https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg'
-                                            )
-                                        }
-                                    />
+
+                            {/* left content  */}
+                            <div className="col-span-6">
+                                {/* Identifiers */}
+                                <div className="mb-3">
+                                    <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
+                                        Identifiers
+                                    </h1>
+                                    <div className="grid grid-cols-12 rounded-lg border shadow-sm border-slate-200">
+                                        <div
+                                            className="col-span-6 p-4 border-r-2 border-gray"
+                                            style={{
+                                                height: "80px",
+                                                marginTop: "10px",
+                                                borderRight: "2px solid #ccc",
+                                            }}
+                                        >
+                                            <div className="mt-[-10px]">
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color"
+                                                >
+                                                    Label code
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="pr-3">
+                                                            <HiOutlineQrcode className="w-8 h-8  text-primary" />{" "}
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular">
+                                                            {" "}
+                                                            Y8R6E6N9Z3W
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-span-6 p-4">
+                                            <div>
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color"
+                                                >
+                                                    Serial code
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="pr-3">
+                                                            <RiBarcodeFill className="w-8 h-8 text-primary" />{" "}
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular">
+                                                            {" "}
+                                                            A8H9G6F5C5S4N9S2
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={`w-1/4 ml-6 mt-6 mb-6 transition ease-in-out delay-150 opacity-50 hover:opacity-100  duration-300`}>
-                                    <img
-                                        className="object-cover rounded-lg cursor-pointer"
-                                        src={"https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756_960_720.jpg"}
-                                        alt=""
-                                        loading="lazy"
-                                        onClick={() =>
-                                            handleImageClick(
-                                                'https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756_960_720.jpg'
-                                            )
-                                        }
-                                    />
-                                </div>
-                                <div className="w-1/4 ml-6 mt-6 mb-6">
-                                    <img
-                                        className="object-cover rounded-lg hover:scale-110 cursor-pointer opacity-50 hover:opacity-100 transition ease-in-out delay-150"
-                                        src="https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_960_720.jpg"
-                                        alt=""
-                                        loading="lazy"
-                                        onClick={() =>
-                                            handleImageClick(
-                                                'https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_960_720.jpg'
-                                            )
-                                        }
-                                    />
+
+                                {/* Usage */}
+                                <div className="mt-5">
+                                    <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
+                                        Usage
+                                    </h1>
+                                    <div className="grid grid-cols-12 rounded-lg border shadow-sm border-slate-200">
+                                        <div
+                                            className="col-span-6 p-4 border-r-2 border-gray"
+                                            style={{
+                                                height: "92px",
+                                                marginTop: "10px",
+                                                borderRight: "2px solid #ccc",
+                                            }}
+                                        >
+                                            <div className="mt-[-10px]">
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Status
+                                                </label>
+                                                <div className="mt-3">
+                                                    <div className=" bg-lightorange w-[85px] border border-yellow text-yellow rounded-lg p-1">
+                                                        <span className="text-yellow flex">
+                                                            <BiCheck className="w-6 h-6 flex pr-1" />
+                                                            In use
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-span-6 p-4">
+                                            <div>
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Owner
+                                                </label>
+                                                <div className="flex items-center mt-2">
+                                                    <img
+                                                        src={logo}
+                                                        alt="background image"
+                                                        className="h-12"
+                                                    />
+                                                    <div className="pl-2">
+                                                        <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                                            Rotanakosal
+                                                            <br />
+                                                        </span>
+                                                        <span className="text-xs text-text-color font-sp-pro-text-regular">
+                                                            Admin
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="w-7/12 mr-10">
-                            <div className="">
-                                <h1 className="text-[22px] text-text-color font-sp-pro-text-semibold">Room Information</h1>
-                            </div>
-                            <div className="flex justify-center shadow-xl w-full">
-                                <div className="w-full flex ">
-                                    <div className=" w-full m-10">
-                                        <div className="">
-                                            <div className="pt-10">
-                                                <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Room Name</label>
-                                                <div className=" mt-2 flex ">
-                                                    <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500">SR</span>
-                                                    <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">Siemreab class</p>
-                                                </div>
-                                            </div>
-                                            <div className="pt-5 ">
-                                                <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Organization</label>
-                                                <div className=" mt-2 flex ">
-                                                    <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><HomeIcon className="h-5 w-5 text-white" /></span>
-                                                    <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">KSHRD Center</p>
-                                                </div>
-                                            </div>
-                                            <div className="pt-5">
-                                                <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Room Type</label>
-                                                <div className=" mt-2 flex ">
-                                                    <label className="flex font-sp-pro-text-medium text-[14px] justify-center text-[#FA7436] bg-[#FA7436] bg-opacity-10 w-[118px] p-3 rounded-xl border-blue-200">Class</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className=" w-full flex border-l-2 border-opacity-30 border-text-color m-14 pl-14">
-                                    <div className="">
-                                        <div className="pt-10">
-                                            <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created Date</label>
-                                            <div className=" mt-2 flex ">
-                                                <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500"><CalendarDaysIcon className="h-6 w-6 text-gray-500" /></span>
-                                                <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2"> Thu-08-12-2013 : 12:00</p>
-                                            </div>
-                                        </div>
-                                        <div className="pt-5">
-                                            <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Create by</label>
-                                            <div className=" mt-2 flex ">
-                                                <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><UserCircleIcon className="h-6 w-6 text-white" /></span>
-                                                <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">KSHRD Center</p>
-                                            </div>
-                                        </div>
-                                        <div className="pt-5">
-                                            <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Room Floor</label>
-                                            <div className=" mt-2 flex ">
-                                                <label className="flex font-sp-pro-text-medium text-[14px] justify-center text-[#FA7436] bg-[#FA7436] bg-opacity-10 w-[118px] p-3 rounded-xl border-blue-200">A0001</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
 
+                        {/* second contect */}
+                        <div className=" grid grid-cols-12 gap-10 mt-10">
+                            {/* right content */}
+                            <div className="col-span-6">
+                                <div className="mt-5">
+                                    <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
+                                        Asset Information
+                                    </h1>
+                                    <div className="grid grid-cols-12 rounded-lg border shadow-sm border-slate-200">
+                                        <div
+                                            className="col-span-6 p-4 border-r-2 border-gray"
+                                            style={{
+                                                display: "inline-block",
+                                                height: "180px",
+                                                marginTop: "10px",
+                                                borderRight: "2px solid #ccc",
+                                            }}
+                                        >
+                                            <div className="mt-[-10px]">
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Category Type
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="bg-blue-400 rounded-full w-[40px] p-2 flex justify-center">
+                                                            <TbCalendarStats className="w-6 h-6 text-white" />
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
+                                                            Electronic
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="mt-3">
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Room Name
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
+                                                            <img src="https://purepng.com/public/uploads/large/purepng.com-apple-iphone-xappleapple-iphonephonesmartphonemobile-devicetouch-screeniphone-xiphone-10electronicsobjects-2515306895701eqxj.png" alt="" />
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
+                                                            Iphone
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-span-6 p-4">
+                                            <div>
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Organization
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
+                                                            <BiHome className="w-6 h-6 text-yellow" />
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
+                                                            KSHRD Center
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-3">
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Room Name
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
+                                                            <BsHouseCheck className="w-6 h-6 text-yellow" />
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
+                                                            Siemreap
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <h1 className="text-[22px] pt-4 text-text-color font-sp-pro-text-semibold">Room Information</h1>
-                                <p className="text-[16] text-text-color bg-zinc-50 rounded-lg font-sp-pro-text-regular p-5">We’re starting a new school year. I’m starting off with all the
-                                    vocabulary associated with schools.
-                                    vocabulary associated with schools.
-                                    The nouns: pencil, desk, teacher.
-                                    The verbs: stand up, raise your hand, read and writ…</p>
+
+                            {/* left */}
+                            <div className="col-span-6">
+                                <div className="mt-5">
+                                    <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
+                                        Admin Information
+                                    </h1>
+                                    <div className="grid grid-cols-12 rounded-lg border shadow-sm border-slate-200">
+                                        <div
+                                            className="col-span-6 p-4 border-r-2 border-gray"
+                                            style={myBorderStyle}
+                                        >
+                                            <div className="mt-[-10px]">
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Create by
+                                                </label>
+                                                <div className="flex items-center mt-3">
+                                                    <img
+                                                        src={logo}
+                                                        alt="background image"
+                                                        className="h-12"
+                                                    />
+                                                    <div className="pl-2">
+                                                        <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                                            Rotanakosal
+                                                            <br />
+                                                        </span>
+                                                        <span className="text-xs text-text-color font-sp-pro-text-regular">
+                                                            Admin
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-span-6 p-4">
+                                            <div>
+                                                <label
+                                                    htmlFor=""
+                                                    className="font-sp-pro-text-medium text-text-color text-base"
+                                                >
+                                                    Create date
+                                                </label>
+                                                <div className="mt-3">
+                                                    <p className="flex items-center">
+                                                        <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
+                                                            <TbCalendarStats className="w-6 h-6 text-yellow" />
+                                                        </span>
+                                                        <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
+                                                            Thu-08-12-2013 : 12:00
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
