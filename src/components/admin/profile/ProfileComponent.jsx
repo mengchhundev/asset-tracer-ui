@@ -30,10 +30,8 @@ export default function ProfileComponent() {
 
     const handleFile = (event) => {
         // setFile(event.target.file[0])
-        console.log(event.target)
     }
     const formData = new FormData();
-    console.log(formData)
 
     // Change Password
     const formik = useFormik({
@@ -80,7 +78,6 @@ export default function ProfileComponent() {
 
             }
         }, err => {
-            console.log(err)
         })
     }
 

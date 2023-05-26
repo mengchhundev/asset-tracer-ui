@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 // Icons
 import {
     RiBarChart2Line,
@@ -21,6 +21,7 @@ import user_ico from '../../assets/icon/Users.svg';
 
 
 export default function SidebarComponent() {
+    const navigator = useNavigate()
     const [showMenu, setShowMenu] = useState(false);
     const [showOrganization, setShowOrganization] = useState(false);
     const activeStyle = "flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary text-white bg-primary";
@@ -48,6 +49,12 @@ export default function SidebarComponent() {
             setShowOrganization(false)
         }
     }, [location])
+
+    const handleSignOut = () => {
+        localStorage.removeItem("token")
+        sessionStorage.removeItem("organization")
+        navigator("/signin")
+    }
 
     return (
         <>
@@ -222,12 +229,12 @@ export default function SidebarComponent() {
                     >
                         <RiLogoutCircleRLine className="mr-3" /> Setting
                     </NavLink>
-                    <NavLink
-                        to="/"
+                    <button
+                        onClick={handleSignOut}
                         className="flex items-center py-2.5 px-5 transition-colors"
                     >
                         <RiLogoutCircleRLine className="mr-3" /> Sign Out
-                    </NavLink>
+                    </button>
                     <div className="flex items-center py-2.5 px-5 transition-colors">
                         <img
                             src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"

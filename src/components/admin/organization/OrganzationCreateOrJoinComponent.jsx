@@ -37,59 +37,40 @@ export default function OrganzationCreateOrJoinComponent() {
     <>
       <main className="overflow-y-auto pb-4">
 
-        <div className="mx-5 mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
+        <div className="mt-5 p-5 gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5">
           <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
-            <div className='flex flex-row justify-around w-full gap-6 mx-10 my-2'>
-              <div className='w-1/2 border border-bg-primary-strock mx-10 text-green text-center py-6 rounded-md'>
-                <HiOutlineCheck className="w-8 h-8 bg-green text-white rounded-full m-auto mb-3" />
-                <p className='text-lg font-sp-pro-text-bold'>Add Organization</p>
-              </div>
-              <div className='w-1/2 border border-bg-primary-strock mx-10 text-green text-center py-6 rounded-md'>
-                
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div className="mb-5 p-10 bg-white rounded-lg overflow-hidden">
-          {/* Card Box */}
-          <div className="flex justify-center gap-14 text-center ">
-            {/* create */}
-            <div className="border-gray-200 rounded-lg shadow-sm py-8 pr-5 w-96 justify-center border">
-              <span className="flex justify-center mb-3"><HiOutlineCheck className="w-8 h-8 bg-green text-white rounded-full" /></span>
-              <span className="font-sp-pro-text-medium text-base text-green">Add Organization</span>
-            </div>
-
-            {/* Join */}
-            <div className="border border-gray-200 rounded-lg shadow-sm w-96">
-              <div className="flex items-center py-5 pl-2">
-                <img src={logo} alt="background image" className="h-24" />
-                <div className="pl-3">
-                  <span className="text-text-color font-sp-pro-text-regular text-sm">
-                    Join organization with a code
-                    <br />
-                  </span>
-                  <span>
-                    <form>
-                      <input type="text" id="first_name" className="my-2 text-sm rounded-sm block w-full p-2 border border-slate-200 focus:outline-primary" placeholder="Enter Code" required />
-                      <button type="submit" className="mt-2 text-white bg-primary rounded-md text-sm px-5 py-1 text-center float-left font-sp-pro-text-regular">Join</button>
-                    </form>
-                  </span>
+            <div className='flex flex-nowrap justify-around w-full gap-6 mx-10 my-2'>
+              <div className='w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center'>
+                <div>
+                  <HiOutlineCheck className="w-8 h-8 bg-green text-white rounded-full m-auto mb-3" />
+                  <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
                 </div>
               </div>
+              <div className='w-1/2 border border-bg-primary-strock mx-10 text-green text-center py-6 rounded-md px-8'>
+                <form className=''>
+                  <div className="text-left mb-4 w-2/3 m-auto">
+                    <label className="block text-md ml-1 font-medium leading-6 text-text-color">Join organization with a code</label>
+                    <input
+                      name="name"
+                      type='text'
+                      placeholder='Name'
+                      className='relative w-full px-3 outline-none mt-1 border rounded-lg p-2 border-slate-200 bg-bg-main '
+                    />
+                    {/* {updateProfileFormik.touched.name && updateProfileFormik.errors?.name ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{updateProfileFormik.errors.name}</p> : null} */}
+                  </div>
+                  <button type='submit' className="w-2/3 rounded text-center bg-primary px-7 py-2 text-sm font-sp-pro-text-medium text-white cursor-pointer">Join</button>
+                </form>
+              </div>
             </div>
           </div>
-          {/* Card Box */}
         </div>
 
         {/* table */}
-        <div className=" p-10 bg-white rounded-3xl overflow-hidden">
+        <div className=" p-10 bg-white rounded-xl overflow-hidden">
           <div className="flex justify-between mb-8 mt-3">
             <div className="flex">
-              <h2 className="text-base text-text-color font-sp-pro-text-semibold">
-                Organizatio Tracking
+              <h2 className="text-2xl  text-text-color font-sp-pro-text-semibold">
+                All Super Category
               </h2>
             </div>
 

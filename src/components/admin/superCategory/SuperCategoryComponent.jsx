@@ -60,12 +60,9 @@ export default function SuperCategoryComponent() {
                 dispatch(setAllSuperCategory(res.data.payload))
             }
         }, (err) => {
-            console.log(err)
             if (err.response.data.status == 400) {
                 dispatch(setAllSuperCategory([]))
             }
-        }).catch(error => {
-            console.log(error)
         })
     }
 
@@ -125,8 +122,6 @@ export default function SuperCategoryComponent() {
             if (res?.data?.success) {
                 getAllSuperCategory(1)
             }
-        }, err => {
-            console.log(err)
         })
     }
 

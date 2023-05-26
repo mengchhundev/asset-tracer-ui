@@ -27,18 +27,14 @@ export default function SignUpComponent() {
                         email: result._tokenResponse.email,
                         password: result._tokenResponse.idToken,
                     })
-                        .then(res => {
-                            console.log("this", res);
-                            setSuccess(true);
-                            localStorage.setItem("token", res.data.payload.token)
-                            if (localStorage.getItem("token")) {
-                                navigator("/dashboard");
-                            }
+                    .then(res => {
+                        setSuccess(true);
+                        localStorage.setItem("token", res.data.payload.token)
+                        if (localStorage.getItem("token")) {
+                            navigator("/dashboard");
+                        }
 
-                        })
-                        .catch(err => {
-                            console.log("Error occurred while registering user:", err);
-                        });
+                    })
                 }
             })
     };

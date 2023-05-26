@@ -3,7 +3,6 @@ import false1 from '../../../assets/images/false.png'
 import true1 from '../../../assets/images/success.png'
 
 function WarningPopUpComponents({ setIsShowErr }) {
-    console.log(setIsShowErr);
     return (
         <>
             <div>

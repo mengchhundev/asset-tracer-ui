@@ -29,12 +29,9 @@ function ResetPasswordComponent(props) {
 
   const handleSetNewPassword = () => {
     UserService.setNewPassword(id, code, newData).then(res => {
-      console.log(res)
       if (res.data?.success) {
         navigator("/signin")
       }
-    }, err => {
-      console.log(err)
     })
   }
 

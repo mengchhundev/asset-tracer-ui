@@ -23,12 +23,8 @@ function RoomListComponent(props) {
             .then((res) => {
                 if (res?.data?.success) {
                     dispatch(setAllRoom(res.data.payload))
-                    console.log("this data", res.data.payload);
                 }
 
-            })
-            .catch(e => {
-                console.log(e)
             })
     }
     useEffect(() => {

@@ -39,7 +39,6 @@ export default function OrganizationListComponent() {
 
     useState(() => {
         getAllOrganizations()
-        console.log(organizations)
     }, [])
 
     return (

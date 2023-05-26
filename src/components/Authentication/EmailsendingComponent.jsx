@@ -8,7 +8,6 @@ function EmailSendingComponent(props) {
   const location = useLocation()
 
   useEffect(() => {
-    console.log(location)
     setEmail(location.state?.email)
   }, [])
 

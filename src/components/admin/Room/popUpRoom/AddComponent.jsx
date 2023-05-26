@@ -37,7 +37,7 @@ function AddComponent(props) {
                             </div>
                             <div className="flex justify-center ml-5 w-full">
                                 <div className="bg-primary bg-opacity-10  w-9/12 p-3 rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon class="h-6 w-6 text-red-500" />Remove</button>
+                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon className="h-6 w-6 text-red-500" />Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ function AddComponent(props) {
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
                                                                 <Listbox.Button className="pl-3 py-2 w-full text-left  relative border border-slate-200  rounded-md text-text-color">
-                                                                    <span className="flex justify-between px-2 truncate">{selectedRoom}<ChevronDownIcon class="h-6 w-6 text-gray-500" /></span>
+                                                                    <span className="flex justify-between px-2 truncate">{selectedRoom}<ChevronDownIcon className="h-6 w-6 text-gray-500" /></span>
                                                                 </Listbox.Button>
                                                             </span>
                                                             <Transition
@@ -138,7 +138,7 @@ function AddComponent(props) {
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
                                                                 <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200  rounded-md text-gray-800">
-                                                                    <span className="flex justify-between px-2 truncate">{selectedfloor}<ChevronDownIcon class="h-6 w-6 text-gray-500" /></span>
+                                                                    <span className="flex justify-between px-2 truncate">{selectedfloor}<ChevronDownIcon className="h-6 w-6 text-gray-500" /></span>
                                                                 </Listbox.Button>
                                                             </span>
                                                             <Transition
@@ -205,7 +205,7 @@ function AddComponent(props) {
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
                                                                 <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200  rounded-md text-gray-800">
-                                                                    <span className=" flex justify-between px-2 truncate">{selectedCreate}<ChevronDownIcon class="h-6 w-6 text-gray-500" />
+                                                                    <span className=" flex justify-between px-2 truncate">{selectedCreate}<ChevronDownIcon className="h-6 w-6 text-gray-500" />
                                                                     </span>
                                                                 </Listbox.Button>
                                                             </span>
@@ -273,10 +273,10 @@ function AddComponent(props) {
                                     </div>
                                     <div className="flex mt-5 justify-end flex-row w-full">
                                             <div className="bg-slate-500   w-1/4 p-4  rounded-lg flex justify-center">
-                                                <button className="flex justify-around text-white font-sp-pro-text-regular items-center  text-[16px]"><XCircleIcon class="h-6 w-6 text-white" />Cancell</button>
+                                                <button className="flex justify-around text-white font-sp-pro-text-regular items-center  text-[16px]"><XCircleIcon className="h-6 w-6 text-white" />Cancell</button>
                                             </div>
                                             <div className="bg-primary bg-opacity-20 ml-6 w-1/4 p-3 rounded-lg flex justify-center">
-                                                <button className="flex justify-around text-primary font-sp-pro-text-regular items-center text-[16px]"><BookmarkIcon class="h-6 w-6 text-primary" />Save</button>
+                                                <button className="flex justify-around text-primary font-sp-pro-text-regular items-center text-[16px]"><BookmarkIcon className="h-6 w-6 text-primary" />Save</button>
                                             </div>
                                         </div>
                                 </div>
