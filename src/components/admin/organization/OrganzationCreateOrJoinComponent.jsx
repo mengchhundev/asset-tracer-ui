@@ -5,8 +5,9 @@ import logo from '../../../../src/assets/images/A_Tracer_logo1.png';
 // // combobox import
 import { Fragment, useState } from 'react';
 import { Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { ChevronUpDownIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { HiChevronDown, HiOutlineCheck } from 'react-icons/hi';
+import AddOrgnizaation from './popUp/AddOrgnizaation';
 
 const people = [
   { id: 1, name: 'Short by' },
@@ -42,12 +43,12 @@ export default function OrganzationCreateOrJoinComponent() {
         <div className="mt-5 p-5 gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
           <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
             <div className='flex flex-nowrap justify-around w-full gap-6 mx-10 my-2'>
-              <div className='w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center'>
+              <label htmlFor="my-modal-3" className="w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center">
                 <div>
-                  <HiOutlineCheck className="w-8 h-8 bg-green text-white rounded-full m-auto mb-3" />
+                  <PlusCircleIcon class="w-12 h-12 text-green rounded-full m-auto mb-3" />
                   <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
                 </div>
-              </div>
+              </label>
               <div className='w-1/2 border border-bg-primary-strock mx-10 text-green text-center py-6 rounded-md px-8'>
                 <form className=''>
                   <div className="text-left mb-4 w-2/3 m-auto">
@@ -173,7 +174,6 @@ export default function OrganzationCreateOrJoinComponent() {
               </div>
             </div>
           </div>
-
           {/* data table */}
           <div className="overflow-x-auto text-text-color">
             <table className="table w-full z-0">
@@ -307,6 +307,9 @@ export default function OrganzationCreateOrJoinComponent() {
         {/* table */}
 
       </main>
+
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <AddOrgnizaation className="modal" />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, HomeIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import upload from '../../../../assets/images/Room/Upload.png';
-import { useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
+import { useState } from "react";
 function AddComponent(props) {
     const Room = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
     const floor = ["GF", "F1", "F2", "F3", "F4"];
@@ -25,7 +25,6 @@ function AddComponent(props) {
                             <label htmlFor="my-modal-3" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-12">
                         <div className="col-span-5">
                             <div className="md:p-5 md:m-5 item-center w-full shadow-sm rounded-lg ">
