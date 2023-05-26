@@ -40,7 +40,7 @@ export default function SignInComponent() {
         signInWithPopup(auth, provider)
             .then((result) => {
                 if (result) {
-                    api.post("/users/registerWithGoogle", {
+                    api.post("/users/register-with-google", {
                         name: result._tokenResponse.displayName,
                         email: result._tokenResponse.email,
                         password: result._tokenResponse.idToken,
@@ -49,7 +49,7 @@ export default function SignInComponent() {
                             setSuccess(true);
                             localStorage.setItem("token", res.data.payload.token)
                             if (localStorage.getItem("token")) {
-                                navigator("/dashboard");
+                                navigator("/organization-create");
                             }
 
                         })
