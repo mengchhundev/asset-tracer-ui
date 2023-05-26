@@ -20,12 +20,17 @@ const setNewPassword = async (id, code, data) => {
     return await api.post(`/users/set-password/${id}/${code}`, data)
 }
 
+const verifyRegistration = async (code) => {
+    return await api.get(`/users/register/verify?code=${code}`)
+}
+
 const UserService = {
     changeUserPassword,
     updateProfile,
     forgotPassword,
     checkValidCode,
-    setNewPassword
+    setNewPassword,
+    verifyRegistration
 }
 
 export default UserService;

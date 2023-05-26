@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import signin from '../../assets/images/signin.png'
 import WarningPopUpComponents from '../../components/Authentication/popup/WarningPopUpComponents';
@@ -8,20 +8,33 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
 import api from '../../redux/services/api';
+import UserService from '../../redux/services/UserService';
+import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
 export default function SignInComponent() {
     const [message, setMessage] = useState('')
     const [isShowErr, setIsShowErr] = useState(false)
-    const [isShowSuc, setSuccess] = useState()
+    const [isShowSuc, setSuccess] = useState(false)
+    const [isSuccessSignUp, setIsSuccessSignUp] = useState(false)
     const [isRememberMe, setIsRememberMe] = useState()
     const navigator = useNavigate();
+    const location = useLocation()
+    const validate = () => { };
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
 
+    useEffect(() => {
+        if (code != null) {
+            UserService.verifyRegistration(code)
+        }
 
+        if(location.state?.isShowSuc) {
+            setIsSuccessSignUp(true)
+        } else {
+            setIsSuccessSignUp(false)
+        }
+    }, [])
 
-
-
-
-    const validate = () => {};
 
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)
@@ -59,11 +72,10 @@ export default function SignInComponent() {
             <div className="h-screen w-full lg:container m-auto font-sp-pro-text-regular text-text-color">
                 <div className="flex h-full flex-wrap flex-row-reverse md:flex-nowrap  items-center justify-center px-10">
                     <div className=' p-10 m-10 rounded-lg border-slate-100 border-2'>
-
                         <Formik
                             initialValues={{ email: "", password: "" }}
-                            onSubmit={values => {
-                                api.post("/users/login", values).then(
+                            onSubmit={value => {
+                                api.post("/users/login", value).then(
                                     res => {
                                         if (res.data?.success) {
                                             localStorage.setItem("token", res.data.payload.token)
