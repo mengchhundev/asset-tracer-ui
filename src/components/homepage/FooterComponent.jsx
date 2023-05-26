@@ -8,7 +8,7 @@ import Phone from "../../assets/images/Iconfooter/Phone.png";
 export default function FooterComponent() {
   return (
     <>
-      <footer className="bg-white rounded-lg shadow ">
+     <footer className="bg-white rounded-lg shadow ">
         <div className="w-full max-w-screen-3xl mx-auto p-4 md:py-14">
 
           <div className="flex flex-wrap-reverse items-center justify-between">
@@ -51,7 +51,7 @@ export default function FooterComponent() {
                     <div className="relative w-full">
                       <input
                         type="text"
-                        className="border-border-strock border-2 block w-full focus:border-2 focus:border-hoveryellow  focus:outline-0 focus:bg-white focus:border-purple-500 text-sm rounded-sm  py-2 px-3"
+                        className="border-border-strock border-2 block w-full focus:border-2 focus:border-hover-yellow  focus:outline-0 focus:bg-white focus:border-purple-500 text-sm rounded-l-md  py-2 px-5"
                         placeholder="Your email Address"
                       />
                       <button
@@ -61,7 +61,7 @@ export default function FooterComponent() {
                     </div>
                     <button
                       type="submit"
-                      className="inline-flex items-center py-2.5 px-6 text-textwhite bg-pending hover:bg-hoveryellow font-medium text-sm text-center mr-10 shadow-lg shadow-shadow "
+                      className="inline-flex items-center py-2.5 px-6 text-white bg-pending hover:bg-hover-yellow font-medium text-sm text-center mr-10 shadow-lg shadow-shadow rounded-r-md"
                     >
                       Subscribe
                     </button>
@@ -114,7 +114,7 @@ export default function FooterComponent() {
               </li>
             </ul>
           </div>
-          <span className="block text-sm text-text-color sm:text-center ">
+          <span className="block text-sm text-text-color sm:text-center text-center ">
             Copyright © 2023 Asset Tracer |All
             <div href=" " className="hover:underline">
               . All Rights Reserved.

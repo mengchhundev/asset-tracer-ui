@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/images/PictureLanding/Logo.jpg";
 
 export default function NavbarComponent() {
@@ -48,12 +48,13 @@ export default function NavbarComponent() {
             </ul>
           </div>
           <div className="flex md:order-3 relative">
-            <button
+            <NavLink
+              to="/signin"
               type="button"
-              className="text-textwhite  hidden lg:block rounded-md bg-secondaryyellow font-medium text-sm px-10 py-3 text-center mr-14 hover:bg-hoveryellow shadow-lg shadow-shadow"
+              className="text-white  hidden lg:block rounded-md bg-secondary-yellow font-medium text-sm px-10 py-3 text-center mr-14 hover:bg-hover-yellow shadow-lg shadow-shadow"
             >
-              Sign Up
-            </button>
+              Sign In
+            </NavLink>
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -86,27 +87,27 @@ export default function NavbarComponent() {
                 >
                  <ul className="flex flex-col text-lg p-4 md:p-0 mt-4 font-medium border rounded-lg md:border-0  ">
               <li>
-                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
+                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hover-yellow hover:bg-hover-yellow hover:text-white">
                   Home
                 </div>
               </li>
               <li>
-                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white ">
+                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hover-yellow hover:bg-hover-yellow hover:text-white ">
                   Feature
                 </div>
               </li>
               <li>
-                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
+                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hover-yellow hover:bg-hover-yellow hover:text-white">
                   Benefits
                 </div>
               </li>
               <li>
-                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
+                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hover-yellow hover:bg-hover-yellow hover:text-white">
                   Our team
                 </div>
               </li>
               <li>
-                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hoveryellow hover:bg-hoveryellow hover:text-white">
+                <div href="#" className="block py-2 px-3 text-text-color rounded-md hover:border-hover-yellow hover:bg-hover-yellow hover:text-white">
                   <Link to={"/about"} className="hover:text-white">About us</Link>
                 </div>
               </li>
@@ -114,7 +115,7 @@ export default function NavbarComponent() {
               <div href="#" className="block py-2 px-3 mx-auto ">
               <button
               type="button"
-              className="text-textwhite rounded-md bg-secondaryyellow font-medium text-sm px-10 py-1 text-center hover:bg-hoveryellow shadow-lg shadow-shadow"
+              className="text-white rounded-md bg-secondary-yellow font-medium text-sm px-10 py-1 text-center hover:bg-hover-yellow shadow-lg shadow-shadow"
             >
               Sign Up
             </button>

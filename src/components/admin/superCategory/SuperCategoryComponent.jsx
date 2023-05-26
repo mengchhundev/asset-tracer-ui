@@ -23,11 +23,12 @@ export default function SuperCategoryComponent() {
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
     const [isShowError, setIsShowError] = useState(false)
     const [superCategoryId, setSuperCategoryId] = useState("")
+    const organization = JSON.parse(sessionStorage.getItem("organization"))
+
     const [newData, setNewData] = useState({
         id: "", name: ""
     })
 
-    console.log(getData);
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
         getAllSuperCategory(event.selected + 1)
@@ -133,7 +134,7 @@ export default function SuperCategoryComponent() {
         <main className="overflow-y-auto">
             <div className="mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
-                    <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
+                    <h2 className="text-2xl  text-text-color dark:text-border-gray-light font-sp-pro-text-semibold">
                         All Super Category
                     </h2>
                     <div className="w-full sm:w-full md:w-6/12 xl:w-5/12">
@@ -153,7 +154,7 @@ export default function SuperCategoryComponent() {
                                 </svg>
                             </div>
                             <input
-                                className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-border-gray-light focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                 type="text"
                                 name="search"
                                 placeholder="Search..."
@@ -161,13 +162,25 @@ export default function SuperCategoryComponent() {
                             />
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        onClick={openModalCreateSuperCategory}
-                        className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
-                    >
-                        Create New
-                    </button>
+                    {organization.role.name == "ADMIN" ?
+                        <>
+                            <button
+                                type="button"
+                                onClick={openModalCreateSuperCategory}
+                                className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
+                            >
+                                Create New
+                            </button>
+                        </> :
+                        <button
+                            type="button"
+                            disabled
+                            onClick={openModalCreateSuperCategory}
+                            className="bg-primary opacity-70 text-white py-2 px-4 rounded-lg max-w-max"
+                        >
+                            Create New
+                        </button>
+                    }
                 </div>
 
                 <div className="overflow-x-auto">
@@ -301,7 +314,7 @@ export default function SuperCategoryComponent() {
                                                                 onInput={handleInputChange}
                                                                 onChange={formik.handleChange}
                                                                 value={newData.name}
-                                                                className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                                                className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-border-gray-light focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                                                 type="text"
                                                                 placeholder="Input name..."
                                                             />

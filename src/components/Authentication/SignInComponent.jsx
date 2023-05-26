@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import signin from '../../assets/images/signin.png'
-import WarningPopUpComponents from '../WarningPopUpComponents';
+import WarningPopUpComponents from '../../components/Authentication/popup/WarningPopUpComponents';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
@@ -56,31 +56,31 @@ export default function SignInComponent() {
                 <div className="flex h-full flex-wrap flex-row-reverse md:flex-nowrap  items-center justify-center px-10">
                     <div className=' p-10 m-10 rounded-lg border-slate-100 border-2'>
 
-                        <Formik initialValues={{ email: "", password: "" }} onSubmit={values => {
-                            api.post("/users/login", values).then(
-                                res => {
-                                    if (res.data?.success) {
-                                        localStorage.setItem("token", res.data.payload.token)
-                                        if (localStorage.getItem("token")) {
-                                            navigator("/organization");
+                        <Formik
+                            initialValues={{ email: "", password: "" }}
+                            onSubmit={values => {
+                                api.post("/users/login", values).then(
+                                    res => {
+                                        if (res.data?.success) {
+                                            localStorage.setItem("token", res.data.payload.token)
+                                            if (localStorage.getItem("token")) {
+                                                navigator("/organization");
+                                            }
                                         }
+                                        setIsShowErr(false)
+                                    },
+                                    err => {
+                                        console.log(err.response.data)
+                                        if (err.response.data.status == 404 || err.response.data.status == 400) {
+                                            setIsShowErr(true)
+                                        }
+                                        console.log(err);
                                     }
-                                    setIsShowErr(false)
-                                },
-                                err => {
-                                    if (err.response.data.status == 404) {
-                                        setMessage(err.response.data.detail)
-                                        setIsShowErr(true)
-                                    }
-                                    console.log(err);
-                                }
-                            ).catch(err => {
-                                console.log(err);
-                            })
-                        }}
+                                )
+                            }}
                             validationSchema={SignupSchema}
                             validate={validate}>
-                            {({ isSubmitting }) => (
+                            {({ }) => (
                                 <Form>
                                     <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                                         Login Into Your Account
@@ -111,7 +111,7 @@ export default function SignInComponent() {
                                             href="#"
                                             className="text-primary"
                                         >
-                                            <Link to={"/resetpassword"}>Forgot password?</Link>
+                                            <Link to={"/forgot-password"}>Forgot password?</Link>
                                         </a>
                                     </p>
 

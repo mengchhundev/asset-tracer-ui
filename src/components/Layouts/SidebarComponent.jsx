@@ -12,7 +12,12 @@ import {
 } from "react-icons/ri";
 import { BsGraphUp } from "react-icons/bs";
 import { useSelector } from "react-redux";
-
+import dashboard_ico from '../../assets/icon/dashboard.svg';
+import category_ico from '../../assets/icon/Category.svg';
+import invoice_ico from '../../assets/icon/‌Invoice.svg';
+import asset_ico from '../../assets/icon/Asset.svg';
+import tracking_ico from '../../assets/icon/Tracking.svg';
+import user_ico from '../../assets/icon/Users.svg';
 
 
 export default function SidebarComponent() {
@@ -37,7 +42,12 @@ export default function SidebarComponent() {
             setShowOrganization(true)
             setIsShowOrganization(true)
         }
-    }, [])
+
+        if (location?.state?.hideOrganizationBar) {
+            setIsShowOrganization(false)
+            setShowOrganization(false)
+        }
+    }, [location])
 
     return (
         <>
@@ -54,14 +64,7 @@ export default function SidebarComponent() {
                             >
                                 <span className="flex items-center justify-start">
 
-                                    <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                        <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                        <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                        <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                        <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                        <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                    </svg>
+                                    <img src={dashboard_ico} className="h-5" />
                                     <p className="ml-3">Organization</p>
                                 </span>
                                 <RiArrowRightSLine
@@ -76,8 +79,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization"
-                                        className={({ isActive }) => isActive ? `text-text-color py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors` :
-                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Organization List
@@ -86,12 +89,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization-create"
-                                        className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
-                                        style={({ isActive }) => {
-                                            return {
-                                                color: isActive ? "#F8C400" : "",
-                                            };
-                                        }}
+                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Create or Join
@@ -107,14 +106,7 @@ export default function SidebarComponent() {
                                     onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false) }}
                                 >
                                     <span className="flex items-center justify-start">
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={dashboard_ico} className="h-5" />
                                         <p className="ml-3">Dashboard</p>
                                     </span>
                                 </NavLink>
@@ -126,14 +118,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={category_ico} className="h-5" />
                                         <p className="ml-3">Category</p>
                                     </span>
                                     <RiArrowRightSLine
@@ -148,12 +133,8 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/super-category"
-                                            className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
-                                            style={({ isActive }) => {
-                                                return {
-                                                    color: isActive ? "#F8C400" : "",
-                                                };
-                                            }}
+                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                                `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                         >
                                             Type Super
@@ -162,12 +143,8 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/normal-category"
-                                            className="py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors"
-                                            style={({ isActive }) => {
-                                                return {
-                                                    color: isActive ? "#F8C400" : "",
-                                                };
-                                            }}
+                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
+                                                `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                         >
                                             Type Normal
@@ -184,14 +161,7 @@ export default function SidebarComponent() {
 
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={invoice_ico} className="h-5" />
                                         <p className="ml-3">Invoice</p>
                                     </span>
                                 </NavLink>
@@ -205,14 +175,7 @@ export default function SidebarComponent() {
 
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={asset_ico} className="h-5" />
                                         <p className="ml-3">Asset</p>
                                     </span>
                                 </NavLink>
@@ -225,7 +188,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <BsGraphUp className="w-6 h-6" />
+                                        <img src={tracking_ico} className="h-5" />
                                         <p className="ml-3">Tracking</p>
                                     </span>
                                 </NavLink>
@@ -238,14 +201,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <svg width="20" height="28" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0888 1.19602L28.6435 7.88748V25.8636L15.0888 32.554L1.5341 25.863V7.88695L15.0888 1.19602ZM15.0888 0L0.392578 7.25467V26.4953L15.0888 33.75L29.785 26.4953V7.25467L15.0888 0Z" fill="#324C5B" />
-                                            <path d="M15.7589 11.6562H14.4229V15.9517H15.7589V11.6562Z" fill="#324C5B" />
-                                            <path d="M8.26477 19.6357H7.07227V14.7266H23.1045V19.5501H21.912V15.859H8.26477V19.6357Z" fill="#324C5B" />
-                                            <path d="M11.749 6.75V11.6591H18.4291V6.75H11.749Z" fill="#324C5B" />
-                                            <path d="M18.5039 19.3848V24.0828H25.8875V19.3848H18.5039Z" fill="#324C5B" />
-                                            <path d="M4.2959 19.3848V24.0828H11.6795V19.3848H4.2959Z" fill="#324C5B" />
-                                        </svg>
+                                        <img src={user_ico} className="h-5" />
                                         <p className="ml-3">User</p>
                                     </span>
                                 </NavLink>
