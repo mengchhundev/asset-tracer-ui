@@ -15,12 +15,15 @@ const people = [
   { id: 4, name: 'Tom Cook' },
 ]
 
-
-
 export default function OrganzationCreateOrJoinComponent() {
-  //Combobox (Autocomplete)
   const [selected, setSelected] = useState(people[0])
   const [query, setQuery] = useState('')
+  const [code, setCode] = useState()
+
+  const handleInputChange = (e) => {
+    setNewData({ ...newData, [e.target.name]: e.target.value })
+  };
+
 
   const filteredPeople =
     query === ''
@@ -31,13 +34,12 @@ export default function OrganzationCreateOrJoinComponent() {
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
       )
-  //Combobox (Autocomplete)
 
   return (
     <>
       <main className="overflow-y-auto pb-4">
 
-        <div className="mt-5 p-5 gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5">
+        <div className="mt-5 p-5 gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
           <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
             <div className='flex flex-nowrap justify-around w-full gap-6 mx-10 my-2'>
               <div className='w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center'>
@@ -66,7 +68,7 @@ export default function OrganzationCreateOrJoinComponent() {
         </div>
 
         {/* table */}
-        <div className=" p-10 bg-white rounded-xl overflow-hidden">
+        <div className=" p-10 bg-white rounded-xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
           <div className="flex justify-between mb-8 mt-3">
             <div className="flex">
               <h2 className="text-2xl  text-text-color font-sp-pro-text-semibold">
@@ -210,79 +212,7 @@ export default function OrganzationCreateOrJoinComponent() {
                       <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://api.time.com/wp-content/uploads/2018/05/forest-bathing.jpg" alt="" />
                       <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ11rJ-R6DhFRerxO-IYOYXyrQy2_y2bojiUw&usqp=CAU" alt="" />
                       <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrOeLsKN5saZ4NETws6P8-9Gqhn28_wwmnLw&usqp=CAU" alt="" />
-                      <a className="flex items-center justify-center w-8 h-8 text-xs font-medium text-text-color font-sp-pro-text-regular bg-gray-700 border-[1px] border-gray rounded-full hover:bg-gray-600 dark:border-gray-800" href="#">+99</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div className=" bg-lightgreen w-[115px] text-green rounded-lg flex justify-between items-center py-1 px-3">
-                      <span className="text-green flex items-center">Accept</span>
-                      <span><HiChevronDown className="w-6 h-6 flex" /></span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className="text-center">1</td>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          className="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          className="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div className="text-red-500">KSHRD Center</div>
-                    </div>
-                  </td>
-                  <td>Sok Polen</td>
-                  <td>
-                    <div className="flex -space-x-3 mt-1">
-                      <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://api.time.com/wp-content/uploads/2018/05/forest-bathing.jpg" alt="" />
-                      <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ11rJ-R6DhFRerxO-IYOYXyrQy2_y2bojiUw&usqp=CAU" alt="" />
-                      <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrOeLsKN5saZ4NETws6P8-9Gqhn28_wwmnLw&usqp=CAU" alt="" />
-                      <a className="flex items-center justify-center w-8 h-8 text-xs font-medium text-text-color font-sp-pro-text-regular bg-gray-700 border-[1px] border-gray rounded-full hover:bg-gray-600 dark:border-gray-800" href="#">+99</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div className=" bg-lightgreen w-[115px] text-green rounded-lg flex justify-between items-center py-1 px-3">
-                      <span className="text-green flex items-center">Accept</span>
-                      <span><HiChevronDown className="w-6 h-6 flex" /></span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className="text-center">1</td>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                          className="object-cover w-full h-full rounded-full"
-                          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          loading="lazy"
-                        />
-                        <div
-                          className="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        ></div>
-                      </div>
-                      <div className="text-red-500">KSHRD Center</div>
-                    </div>
-                  </td>
-                  <td>Sok Polen</td>
-                  <td>
-                    <div className="flex -space-x-3 mt-1">
-                      <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://api.time.com/wp-content/uploads/2018/05/forest-bathing.jpg" alt="" />
-                      <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ11rJ-R6DhFRerxO-IYOYXyrQy2_y2bojiUw&usqp=CAU" alt="" />
-                      <img className="w-8 h-8 border-[1px] border-gray rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrOeLsKN5saZ4NETws6P8-9Gqhn28_wwmnLw&usqp=CAU" alt="" />
-                      <a className="flex items-center justify-center w-8 h-8 text-xs font-medium text-text-color font-sp-pro-text-regular bg-gray-700 border-[1px] border-gray rounded-full hover:bg-gray-600 dark:border-gray-800" href="#">+99</a>
+                      <a className="bg-white flex items-center justify-center w-8 h-8 text-xs font-medium text-text-color font-sp-pro-text-regular bg-gray-700 border-[1px] border-gray rounded-full hover:bg-gray-600 dark:border-gray-800" href="#">+99</a>
                     </div>
                   </td>
                   <td>
@@ -295,9 +225,7 @@ export default function OrganzationCreateOrJoinComponent() {
               </tbody>
             </table>
           </div>
-          {/* data table */}
 
-          {/* navigation  */}
           <div className="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
             <span className="flex items-center col-span-3">
               Showing 21-30 of 100

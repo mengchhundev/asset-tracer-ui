@@ -20,7 +20,7 @@ import HomeComponent from './components/homepage/HomeComponent'
 import ContactComponent from './components/homepage/ContactComponent'
 import AboutPageComponent from './components/homepage/AboutPageComponent'
 import EmailSendingComponent from './components/Authentication/EmailSendingComponent'
-import ResetPasswordComponent from './components/Authentication/ResetpasswordComponent'
+import ResetPasswordComponent from './components/Authentication/ResetPasswordComponent'
 import ViewInvoiceComponent from './components/admin/invoice/ViewInvoiceComponent'
 import UpdateInvoiceComponent from './components/admin/invoice/UpdateInvoiceComponent'
 

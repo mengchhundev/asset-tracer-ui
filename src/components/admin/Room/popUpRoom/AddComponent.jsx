@@ -39,7 +39,7 @@ function AddComponent(props) {
                             </div>
                             <div className="flex justify-center w-full">
                                 <div className="bg-primary bg-opacity-10  w-1/2 p-3 rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon class="h-6 w-6 text-red-500" />Remove</button>
+                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon className="h-6 w-6 text-red-500" />Remove</button>
                                 </div>
                             </div>
                         </div>

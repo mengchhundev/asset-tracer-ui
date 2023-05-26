@@ -11,17 +11,17 @@ const UpdateInvoiceComponent = () => {
             <div className='grid grid-cols-6 px-10'>
             <div className='col-span-4'>
             <hr className='pb-5'/>
-            <label class="block mb-2 text-sm pt-5 font-medium text-text-color">Supplier</label>
+            <label className="block mb-2 text-sm pt-5 font-medium text-text-color">Supplier</label>
                     <input
                       placeholder='Supplier'
                       type="text"
-                      class="border text-sm rounded-lg w-full py-2 px-3"
+                      className="border text-sm rounded-lg w-full py-2 px-3"
                     />
-            <label class="block mb-2 text-sm pt-5 font-medium text-text-color">Invoice Code</label>
+            <label className="block mb-2 text-sm pt-5 font-medium text-text-color">Invoice Code</label>
                     <input
                       placeholder='Invoice Code'
                       type="text"
-                      class="border text-sm rounded-lg py-2 px-3"
+                      className="border text-sm rounded-lg py-2 px-3"
                     />
             
             <p className='pt-5 pb-1'>Asset</p>

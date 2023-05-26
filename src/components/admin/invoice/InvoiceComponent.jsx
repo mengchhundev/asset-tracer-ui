@@ -8,7 +8,7 @@ const InvoiceComponent = () => {
   return (
     <div>
       <main className="h-full overflow-y-auto">
-        <div className="mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
+        <div className="mt-5 p-10  gap-6 bg-white rounded-3xl overflow-hidden">
           <div className="grid grid-flow-row grid-cols-12">
             <div className="col-span-3">
               <h2 className="text-xl text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
@@ -49,7 +49,7 @@ const InvoiceComponent = () => {
               <div className="col-span-6 text-right">
                 {/* Button Create */}
                 <label
-                  class="border-primary border-2 text-primary hover:text-text-color bg-bl py-2 px-4 uppercase rounded-xl"
+                  className="border-primary border-2 text-primary hover:text-text-color bg-bl py-2 px-4 uppercase rounded-xl"
                   aria-label="Edit"
                 >
                   Add Invoice
@@ -78,16 +78,16 @@ const InvoiceComponent = () => {
                   <td>1</td>
                   <td>phone</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -137,16 +137,16 @@ const InvoiceComponent = () => {
                   <td>1</td>
                   <td>Laptop</td>
                   <td>
-                    <div class="flex items-center">
-                      <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                    <div className="flex items-center">
+                      <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
-                          class="object-cover w-full h-full rounded-full"
+                          className="object-cover w-full h-full rounded-full"
                           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
                           alt=""
                           loading="lazy"
                         />
                         <div
-                          class="absolute inset-0 rounded-full shadow-inner"
+                          className="absolute inset-0 rounded-full shadow-inner"
                           aria-hidden="true"
                         ></div>
                       </div>
@@ -194,21 +194,21 @@ const InvoiceComponent = () => {
             </table>
           </div>
 
-          <div class="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            <span class="flex items-center col-span-3">
+          <div className="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase border-t dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <span className="flex items-center col-span-3">
               Showing 21-30 of 100
             </span>
-            <span class="col-span-2"></span>
-            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <span className="col-span-2"></span>
+            <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
               <nav aria-label="Table navigation">
-                <ul class="inline-flex items-center">
+                <ul className="inline-flex items-center">
                   <li>
                     <button
-                      class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                      className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                       aria-label="Previous"
                     >
                       <svg
-                        class="w-4 h-4 fill-current"
+                        className="w-4 h-4 fill-current"
                         aria-hidden="true"
                         viewBox="0 0 20 20"
                       >
@@ -221,40 +221,40 @@ const InvoiceComponent = () => {
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2">
                       1
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       2
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       4
                     </button>
                   </li>
                   <li>
-                    <span class="p-2.5">...</span>
+                    <span className="p-2.5">...</span>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       8
                     </button>
                   </li>
                   <li>
-                    <button class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
+                    <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
                       9
                     </button>
                   </li>
                   <li>
                     <button
-                      class="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
+                      className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
                       aria-label="Next"
                     >
                       <svg
-                        class="w-4 h-4 fill-current"
+                        className="w-4 h-4 fill-current"
                         aria-hidden="true"
                         viewBox="0 0 20 20"
                       >
