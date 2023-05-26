@@ -232,7 +232,7 @@ export default function SidebarComponent() {
                         <RiLogoutCircleRLine className="mr-3" /> Setting
                     </NavLink>
                   
-                    <label htmlFor="my-modal" className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"><ArrowRightOnRectangleIcon class="h-6 w-6 text-gray-500" />Singout</label>
+                    <label htmlFor="my-modal" className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-2 px-4 flex-1"><ArrowRightOnRectangleIcon class="h-6 w-6 text-gray-500" />Singout</label>
 
                     <div className="flex items-center py-2.5 px-5 transition-colors">
                         <img
