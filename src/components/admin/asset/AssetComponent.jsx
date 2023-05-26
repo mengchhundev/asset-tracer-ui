@@ -8,7 +8,7 @@ import linkin from "../../../assets/images/user/in.png";
 import cancel from "../../../assets/images/user/cancel.png";
 import check from "../../../assets/images/user/check.png";
 import AssetFiltterComponent from "./AssetFiltterComponent";
-import { BsDot, BsPlus } from "react-icons/bs";
+import { BsDot, BsGraphUp, BsPlus } from "react-icons/bs";
 import { EyeIcon } from "@heroicons/react/24/outline";
 
 export default function AssetComponent() {
@@ -108,6 +108,7 @@ export default function AssetComponent() {
               <AssetFiltterComponent />
             </div>
 
+            {/* add */}
             <div className="block ">
               <label
                 htmlFor="my-modal-3"
@@ -185,21 +186,26 @@ export default function AssetComponent() {
                       <td className="">
                         <div className="flex flex-rol space-x-1 items-center">
                           <span className="w-6 h-6 ">
-                            <svg
-                              width="20"
-                              height="21"
-                              viewBox="0 0 20 21"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <label
+                              htmlFor="deleteAsset"
+                              className="cursor-pointer"
                             >
-                              <path
-                                d="M2.5 5.49935H4.16667M4.16667 5.49935H17.5M4.16667 5.49935V17.166C4.16667 17.608 4.34226 18.032 4.65482 18.3445C4.96738 18.6571 5.39131 18.8327 5.83333 18.8327H14.1667C14.6087 18.8327 15.0326 18.6571 15.3452 18.3445C15.6577 18.032 15.8333 17.608 15.8333 17.166V5.49935H4.16667ZM6.66667 5.49935V3.83268C6.66667 3.39065 6.84226 2.96673 7.15482 2.65417C7.46738 2.34161 7.89131 2.16602 8.33333 2.16602H11.6667C12.1087 2.16602 12.5326 2.34161 12.8452 2.65417C13.1577 2.96673 13.3333 3.39065 13.3333 3.83268V5.49935M8.33333 9.66602V14.666M11.6667 9.66602V14.666"
-                                stroke="#667085"
-                                stroke-width="1.66667"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
+                              <svg
+                                width="20"
+                                height="21"
+                                viewBox="0 0 20 21"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M2.5 5.49935H4.16667M4.16667 5.49935H17.5M4.16667 5.49935V17.166C4.16667 17.608 4.34226 18.032 4.65482 18.3445C4.96738 18.6571 5.39131 18.8327 5.83333 18.8327H14.1667C14.6087 18.8327 15.0326 18.6571 15.3452 18.3445C15.6577 18.032 15.8333 17.608 15.8333 17.166V5.49935H4.16667ZM6.66667 5.49935V3.83268C6.66667 3.39065 6.84226 2.96673 7.15482 2.65417C7.46738 2.34161 7.89131 2.16602 8.33333 2.16602H11.6667C12.1087 2.16602 12.5326 2.34161 12.8452 2.65417C13.1577 2.96673 13.3333 3.39065 13.3333 3.83268V5.49935M8.33333 9.66602V14.666M11.6667 9.66602V14.666"
+                                  stroke="#667085"
+                                  stroke-width="1.66667"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </label>
                           </span>
                           <span className="w-6 h-6 ">
                             <svg
@@ -314,6 +320,73 @@ export default function AssetComponent() {
             </nav>
           </span>
         </div>
+
+        {/* Model Delete */}
+        <input type="checkbox" id="deleteAsset" className="modal-toggle" />
+        <div className="modal">
+          <div className="bg-bg-primary w-1/4 rounded-lg relative">
+            {/* header */}
+            <div className="mb-5">
+              <div>
+                <label
+                  htmlFor="deleteAsset"
+                  className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
+                >
+                  ✕
+                </label>
+              </div>
+            </div>
+
+            {/* content */}
+            <div className="">
+              <div className="flex-row">
+                <div className="md:w-12 md:h-12 lg:w-14 lg:h-14 bg-reject-light rounded-full flex justify-center items-center m-auto">
+                  <span>
+                    <svg
+                      width="25"
+                      height="25"
+                      viewBox="0 0 20 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.5 5.49935H4.16667M4.16667 5.49935H17.5M4.16667 5.49935V17.166C4.16667 17.608 4.34226 18.032 4.65482 18.3445C4.96738 18.6571 5.39131 18.8327 5.83333 18.8327H14.1667C14.6087 18.8327 15.0326 18.6571 15.3452 18.3445C15.6577 18.032 15.8333 17.608 15.8333 17.166V5.49935H4.16667ZM6.66667 5.49935V3.83268C6.66667 3.39065 6.84226 2.96673 7.15482 2.65417C7.46738 2.34161 7.89131 2.16602 8.33333 2.16602H11.6667C12.1087 2.16602 12.5326 2.34161 12.8452 2.65417C13.1577 2.96673 13.3333 3.39065 13.3333 3.83268V5.49935M8.33333 9.66602V14.666M11.6667 9.66602V14.666"
+                        stroke="#C52222"
+                        stroke-width="1.66667"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+
+                <div className="text-center px-5 my-5">
+                  <h1 className="text-text-color font-sp-pro-text-medium text-lg">
+                    You want to delete?
+                  </h1>
+                  <p className="text-text-color font-sp-pro-text-regular text-sm mt-1">
+                    Do you really want to delete these organization? This
+                    process cannot be undone.
+                  </p>
+                </div>
+
+                <div className="w-full">
+                  <hr className="border-gray-light" />
+                </div>
+
+                <div className="p-5 flex flex-row justify-center space-x-5">
+                  <span className="border border-slate-200 bg-bg-main text-text-color font-sp-pro-text-medium p-1.5 px-5 rounded-md">
+                    Cancel
+                  </span>
+                  <span className="border border-red-500 bg-reject-light text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
+                    Delete
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*  */}
       </div>
     </main>
   );
