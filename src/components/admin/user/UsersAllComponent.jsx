@@ -82,7 +82,7 @@ export default function UsersAllComponent() {
         className="mx-5 mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden h-[690px]"
         style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
       >
-        <div className="flex lg:flex-row md:flex-col sm:flex-col justify-between mb-8 gap-4 p-5 text">
+        <div className="flex lg:flex-row md:flex-col sm:flex-col justify-between mb-8 gap-4 pb-2 md:pb-3">
           <div>
             <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
               All <span className="text-primary">User</span> Management
