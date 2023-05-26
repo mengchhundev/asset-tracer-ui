@@ -30,10 +30,8 @@ export default function ProfileComponent() {
 
     const handleFile = (event) => {
         // setFile(event.target.file[0])
-        console.log(event.target)
     }
     const formData = new FormData();
-    console.log(formData)
 
     // Change Password
     const formik = useFormik({
@@ -41,7 +39,7 @@ export default function ProfileComponent() {
         validationSchema: Yup.object().shape({
             oldPassword: Yup.string().required("Current password is required"),
             newPassword: Yup.string().required("New password is required"),
-            // confirmNewPasswrod: Yup.string().required("Confirm new password is required"),
+            confirmNewPasswrod: Yup.string().required("Confirm new password is required").oneOf([Yup.ref('newPassword'), null], 'Password not match'),
         }),
         onSubmit: (val, { resetForm }) => {
             handleChangePassword()
@@ -80,7 +78,6 @@ export default function ProfileComponent() {
 
             }
         }, err => {
-            console.log(err)
         })
     }
 

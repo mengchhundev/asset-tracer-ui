@@ -60,12 +60,9 @@ export default function SuperCategoryComponent() {
                 dispatch(setAllSuperCategory(res.data.payload))
             }
         }, (err) => {
-            console.log(err)
             if (err.response.data.status == 400) {
                 dispatch(setAllSuperCategory([]))
             }
-        }).catch(error => {
-            console.log(error)
         })
     }
 
@@ -125,18 +122,22 @@ export default function SuperCategoryComponent() {
             if (res?.data?.success) {
                 getAllSuperCategory(1)
             }
-        }, err => {
-            console.log(err)
         })
     }
 
     return (
         <main className="overflow-y-auto">
-            <div className="mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
+            <div className="mt-5 p-10 gap-6 bg-white rounded-3xl overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
-                    <h2 className="text-2xl  text-text-color dark:text-border-gray-light font-sp-pro-text-semibold">
-                        All Super Category
-                    </h2>
+                    <div>
+                        <h2 className="text-2xl  text-text-color font-sp-pro-text-semibold">
+                            All <span className="text-pending">Super</span> Category
+                        </h2>
+                        <h4 className=" text-green dark:text-gray-300">
+                            Active categories
+                        </h4>
+                    </div>
+
                     <div className="w-full sm:w-full md:w-6/12 xl:w-5/12">
                         <div className="relative w-full focus-within:text-black border rounded-xl p-2 border-slate-200 bg-bg-main">
                             <div className="absolute inset-y-0 flex items-center pl-2">
@@ -164,22 +165,28 @@ export default function SuperCategoryComponent() {
                     </div>
                     {organization.role.name == "ADMIN" ?
                         <>
-                            <button
-                                type="button"
-                                onClick={openModalCreateSuperCategory}
-                                className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
-                            >
-                                Create New
-                            </button>
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={openModalCreateSuperCategory}
+                                    className="bg-primary text-white py-2 px-4 rounded-lg max-w-max"
+                                >
+                                    Create New
+                                </button>
+                            </div>
                         </> :
-                        <button
-                            type="button"
-                            disabled
-                            onClick={openModalCreateSuperCategory}
-                            className="bg-primary opacity-70 text-white py-2 px-4 rounded-lg max-w-max"
-                        >
-                            Create New
-                        </button>
+                        <>
+                            <div>
+                                <button
+                                    type="button"
+                                    disabled
+                                    onClick={openModalCreateSuperCategory}
+                                    className="bg-primary opacity-70 text-white py-2 px-4 rounded-lg max-w-max"
+                                >
+                                    Create New
+                                </button>
+                            </div>
+                        </>
                     }
                 </div>
 

@@ -7,10 +7,30 @@ import DetailComponent from './popUpRoom/DetailComponent';
 import AddComponent from './popUpRoom/AddComponent';
 import ReactPaginate from 'react-paginate';
 import UpdateComponent from './popUpRoom/UpdateComponent';
-<EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
+// import { Fragment, useState } from 'react'
+import { Combobox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+const people = [
+  { id: 1, name: 'Room' },
+  { id: 2, name: 'Arlene Mccoy' },
+  { id: 3, name: 'Devon Webb' },
+  { id: 4, name: 'Tom Cook' },
+  { id: 5, name: 'Tanya Fox' },
+  { id: 6, name: 'Hellen Schmidt' },
+]
+{/* <EllipsisVerticalIcon className="h-6 w-6 text-gray-500" /> */}
 
 
 function RoomListComponent(props) {
+    const [selected, setSelected] = useState(people[0])
+  const [query, setQuery] = useState('')
+
+  const filteredPeople = query === '' ? people : people.filter((person) =>
+    person.name
+      .toLowerCase()
+      .replace(/\s+/g, '')
+      .includes(query.toLowerCase().replace(/\s+/g, ''))
+  )
     const dispatch = useDispatch();
     const getData = useSelector(state => state.room.data);
     const divClassName = "flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1";
@@ -23,12 +43,8 @@ function RoomListComponent(props) {
             .then((res) => {
                 if (res?.data?.success) {
                     dispatch(setAllRoom(res.data.payload))
-                    console.log("this data", res.data.payload);
                 }
 
-            })
-            .catch(e => {
-                console.log(e)
             })
     }
     useEffect(() => {
@@ -49,10 +65,10 @@ function RoomListComponent(props) {
             <div className="z-0 mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-x-scroll">
                 <div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
                     <div>
-                    <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
-                        All <span className='text-primary'>Room</span> Management
-                    </h2>
-                    <p className='font-sp-pro-text-medium text-[14px] text-accept'>active Rooms</p>
+                        <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
+                            All <span className='text-primary'>Room</span> Management
+                        </h2>
+                        <p className='font-sp-pro-text-medium text-[14px] text-accept'>active Rooms</p>
                     </div>
                     <div className="w-full sm:w-full md:w-6/12 xl:w-5/12">
                         <div className="relative w-full focus-within:text-black border rounded-xl p-2 border-slate-200 bg-bg-main">
@@ -76,8 +92,76 @@ function RoomListComponent(props) {
                                 name="search"
                                 placeholder="Search..."
                             />
+
                         </div>
                     </div>
+                    <Combobox value={selected} onChange={setSelected}>
+                    <div className="relative mt-1 z-20">
+                      <div className="relative w-full cursor-default overflow-hidden text-left shadow-md rounded-md">
+                        <Combobox.Input
+                          className="w-full border border-slate-200 bg-bg-main rounded-md py-2 pl-3 pr-10 text-sm leading-5 text-text-color focus:outline-yellow"
+                          displayValue={(person) => person.name}
+                          onChange={(event) => setQuery(event.target.value)}
+                        />
+                        <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                          <ChevronUpDownIcon
+                            className="h-5 w-5 text-text-color"
+                            aria-hidden="true"
+                          />
+                        </Combobox.Button>
+                      </div>
+                      <Transition
+                        as={Fragment}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                        afterLeave={() => setQuery('')}
+                      >
+                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                          {filteredPeople.length === 0 && query !== '' ? (
+                            <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                              Nothing found.
+                            </div>
+                          ) : (
+                            filteredPeople.map((person) => (
+                              <Combobox.Option
+                                key={person.id}
+                                className={({ active }) =>
+                                  `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                    active ? 'bg-hover-yellow text-white' : 'text-gray-900'
+                                  }`
+                                }
+                                value={person}
+                              >
+                                {({ selected, active }) => (
+                                  <>
+                                    <span
+                                      className={`block truncate ${
+                                        selected ? 'font-medium' : 'font-normal'
+                                      }`}
+                                    >
+                                      {person.name}
+                                    </span>
+                                    {selected ? (
+                                      <span
+                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                          active ? 'text-white' : 'text-text-color'
+                                        }`}
+                                      >
+                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                      </span>
+                                    ) : null}
+                                  </>
+                                )}
+                              </Combobox.Option>
+                            ))
+                          )}
+                        </Combobox.Options>
+                      </Transition>
+                    </div>
+                  </Combobox>
+
+
                     <label htmlFor="my-modal-3" className="bg-primary text-white py-2 px-4 items-center flex rounded-lg max-w-max">Create New</label>
                 </div>
 
@@ -112,7 +196,7 @@ function RoomListComponent(props) {
                                                     <label htmlFor="my-modal" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
                                                 </li>
                                                 <li className=''>
-                                                    <label  htmlFor="my-modal-5" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label></li>
+                                                    <label htmlFor="my-modal-5" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label></li>
                                                 <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
                                             </ul>
 
@@ -126,11 +210,9 @@ function RoomListComponent(props) {
                     <input type="checkbox" id="my-modal" className="modal-toggle" />
                     <DetailComponent className="modal" />
                     <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-                    <AddComponent className="modal"/>
+                    <AddComponent className="modal" />
                     <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-                    <UpdateComponent className="modal"/>
-
-                
+                    <UpdateComponent className="modal" />
                 </div>
                 <DetailComponent setIsOpen={setIsOpen} isOpen={isOpen} />
                 <div className="z-0 grid grid-cols-12 px-4 py-5 text-sm text-gray-500 uppercase">

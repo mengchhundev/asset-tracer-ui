@@ -118,14 +118,14 @@ function DetailComponent() {
                                         <div className="pt-10">
                                             <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created Date</label>
                                             <div className=" mt-2 flex ">
-                                                <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500"><CalendarDaysIcon class="h-6 w-6 text-gray-500" /></span>
+                                                <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500"><CalendarDaysIcon className="h-6 w-6 text-gray-500" /></span>
                                                 <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2"> Thu-08-12-2013 : 12:00</p>
                                             </div>
                                         </div>
                                         <div className="pt-5">
                                             <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Create by</label>
                                             <div className=" mt-2 flex ">
-                                                <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><UserCircleIcon class="h-6 w-6 text-white" /></span>
+                                                <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><UserCircleIcon className="h-6 w-6 text-white" /></span>
                                                 <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">KSHRD Center</p>
                                             </div>
                                         </div>

@@ -12,16 +12,20 @@ export default function SignInComponent() {
     const [message, setMessage] = useState('')
     const [isShowErr, setIsShowErr] = useState(false)
     const [isShowSuc, setSuccess] = useState()
+    const [isRememberMe, setIsRememberMe] = useState()
     const navigator = useNavigate();
-    console.log(message)
-    const validate = () => {
 
-    };
+
+
+
+
+
+
+    const validate = () => {};
 
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log(result)
                 if (result) {
                     api.post("/users/registerWithGoogle", {
                         name: result._tokenResponse.displayName,
@@ -70,19 +74,15 @@ export default function SignInComponent() {
                                         setIsShowErr(false)
                                     },
                                     err => {
-                                        if (err.response.data.status == 404) {
-                                            // setMessage(err.response.data.detail)
+                                        if (err.response.data.status == 404 || err.response.data.status == 400) {
                                             setIsShowErr(true)
                                         }
-                                        console.log(err);
                                     }
-                                ).catch(err => {
-                                    console.log(err);
-                                })
+                                )
                             }}
                             validationSchema={SignupSchema}
                             validate={validate}>
-                            {({ isSubmitting }) => (
+                            {({ }) => (
                                 <Form>
                                     <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                                         Login Into Your Account
@@ -106,8 +106,8 @@ export default function SignInComponent() {
                                     </div>
                                     <p className="text-sm flex justify-between my-5">
                                         <div className="flex items-center">
-                                            <input type="checkbox" value="" className="w-3.5 h-3.5 text-blue-600 bg-gray-100 border-gray-300 rounded-lg" />
-                                            <label className="ml-2 text-sm font-sm">Remember me</label>
+                                            <input type="checkbox" value="" id='remember-me' onChange={setIsRememberMe} className="w-3.5 h-3.5 text-blue-600 bg-gray-100 border-gray-300 rounded-lg" />
+                                            <label className="ml-2 text-sm font-sm" htmlFor='remember-me'>Remember me</label>
                                         </div>
                                         <a
                                             href="#"
@@ -169,7 +169,7 @@ export default function SignInComponent() {
                                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                                 ></path>
                             </svg>
-                            <span className="ml-2 font-semibold" onClick={SignInWithFirebase} >Google</span>
+                            <span className="ml-2 font-semibold" onClick={SignInWithFirebase}>Google</span>
                         </button>
                     </div>
                     <div className=" w-6/12 m-10 hidden md:block">

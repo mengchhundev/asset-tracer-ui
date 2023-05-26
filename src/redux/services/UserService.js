@@ -12,10 +12,20 @@ const forgotPassword = async (email) => {
     return await api.get(`/users/forgot-password?userEmail=${email}`)
 }
 
+const checkValidCode = async (id, code) => {
+    return await api.get(`/users/reset-password?id=${id}&code=${code}`)
+}
+
+const setNewPassword = async (id, code, data) => {
+    return await api.post(`/users/set-password/${id}/${code}`, data)
+}
+
 const UserService = {
     changeUserPassword,
     updateProfile,
-    forgotPassword
+    forgotPassword,
+    checkValidCode,
+    setNewPassword
 }
 
 export default UserService;

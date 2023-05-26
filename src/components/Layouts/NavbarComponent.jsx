@@ -29,6 +29,7 @@ export default function NavbarComponent() {
 
             <div className="flex items-center w-full justify-between">
                 <div className="font-sp-pro-text-semibold text-xl invisible lg:visible">
+                    <p className="text-sm text-slate-400">Organization Name:</p>
                     KSHRD Center
                 </div>
                 <nav className="flex items-center gap-2 ">
