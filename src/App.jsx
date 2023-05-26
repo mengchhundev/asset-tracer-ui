@@ -3,7 +3,6 @@ import { Route, Routes, } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
-import ListComponent from './pages/superCategory/ListComponent'
 import ForgotPasswordComponent from './components/Authentication/ForgotPasswordComponent'
 import SuccessComponent from './components/Authentication/SuccessComponent'
 import MainComponent from './components/Layouts/MainComponent'
@@ -49,7 +48,7 @@ function App() {
             <Route path='/user' element={<UsersAllComponent />}></Route>
             {/* <Route path='/request' element={<UserRequestComponent />}></Route> */}
             <Route path='/profile' element={<ProfileComponent/>}/>
-            <Route path='/roomlist' element={<RoomListComponent/>}></Route>
+            <Route path='/room-list' element={<RoomListComponent/>}></Route>
           </Route>
         </Route>
       </Routes>
