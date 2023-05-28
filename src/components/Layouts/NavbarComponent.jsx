@@ -24,7 +24,7 @@ export default function NavbarComponent() {
 
     return (
         <header className="bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
-            <div className="flex items-center w-72 lg:flex-shrink-0 invisible lg:visible">
+            <div className="flex items-center w-[16rem] lg:flex-shrink-0 invisible lg:visible">
                 <img src={logo} alt="" className="w-14" />
                 <h1 className="text-center text-xl font-sp-pro-text-bold">
                     Asset Tracer
@@ -32,8 +32,9 @@ export default function NavbarComponent() {
             </div>
 
             <div className="flex items-center w-full justify-between">
-                <div className="font-sp-pro-text-semibold text-xl invisible lg:visible">
-                    <p className="text-sm text-slate-400">Organization Name:</p>
+                <div className="font-sp-pro-text-semibold text-lg invisible lg:visible">
+                    {/* <p className="text-xs text-slate-500 font-sp-pro-text-regular">Organization Name:</p> */}
+                    {/* <span className="text-slate-500 text-sm font-sp-pro-text-regular">ORG: </span> */}
                     KSHRD Center
                 </div>
                 <nav className="flex items-center gap-2 ">

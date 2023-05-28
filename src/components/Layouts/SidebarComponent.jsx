@@ -65,12 +65,14 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`flex-shrink-0 text-sidebar font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                className={`flex-shrink-0 text-sidebar font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-5 pt-6 px-5 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
             >
                 <div>
                     <ul>
                         <li>
+                            <label className="text-sm text-slate-400">Organization</label>
+                            <hr className="my-1 mb-4 text-gray-light"/>
                             <NavLink
                                 onClick={() => setShowOrganization(!showOrganization)}
                                 className={`${isShowOrganization ? "bg-primary hover:bg-primary" : ""} ${isShowOrganization ? activeStyleDropDown : inActiveStyleDropDown}`}
@@ -237,13 +239,13 @@ export default function SidebarComponent() {
                 </div>
                 <nav>
                     <NavLink
-                        to="/"
+                        // to="/"
                         className="flex items-center py-2.5 px-4 transition-colors"
                     >
                         <IoMdNotifications className="mr-3 text-lg" /> Notification
                     </NavLink>
                     <NavLink
-                        to="/"
+                        // to="/"
                         className="flex items-center py-2.5 px-4 transition-colors"
                     >
                         <RiSettings4Fill className="mr-3 text-lg" /> Setting
@@ -253,17 +255,18 @@ export default function SidebarComponent() {
                         <RiLogoutCircleRLine className="mr-3 text-lg" />
                         Singout
                     </label>
-
-                    <div className="flex items-center py-2.5 transition-colors">
+                    <NavLink
+                        to="/profile"
+                        className="flex items-center py-2.5 mt-3 transition-colors gap-2 justify-center bg-border-gray-light shadow-sm rounded-lg cursor-pointer">
                         <img
                             src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
-                            className="w-10 h-10 object-cover rounded-full"
+                            className="w-9 h-9 object-cover rounded-full"
                         />
-                        <span className="ml-3">
-                            Asset Tracer<br />
+                        <span>
+                            <p className="text-sm">Asset Tracer</p>
                             <small>assettracerteam@gmail.com</small>
                         </span>
-                    </div>
+                    </NavLink>
                 </nav>
             </div>
             <button

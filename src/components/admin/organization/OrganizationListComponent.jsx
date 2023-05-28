@@ -43,7 +43,7 @@ export default function OrganizationListComponent() {
     }, [])
 
     return (
-        <main className="overflow-y-auto pb-4 bg-white rounded-3xl" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
+        <main className="overflow-y-auto pb-4 bg-white rounded-2xl" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
             <div className="mt-5 px-5 gap-6  overflow-hidden">
                 <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
                     <h2 className="text-2xl  text-text-color dark:text-gray-200 font-sp-pro-text-semibold">
