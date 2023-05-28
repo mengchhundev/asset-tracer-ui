@@ -8,6 +8,7 @@ import { setAllOrganization, setItem } from '../../../redux/slices/OrganizationS
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
 import { FiPlus } from "react-icons/fi";
+import no_data_pic from '../../../assets/images/empty_box.png'
 
 export default function OrganizationListComponent() {
     const [dropdown, setDropdown] = useState(false);
@@ -111,7 +112,18 @@ export default function OrganizationListComponent() {
                             </button>
                         )) :
                             <div className='text-center w-full col-span-12 h-[68vh] flex justify-center items-center'>
-                                <h2 className='text-3xl text-text-color font-sp-pro-text-bold mb-20'>No Organization</h2>
+                                <div className='mt-[-6rem]'>
+                                    <img src={no_data_pic} className='w-2/5 m-auto pb-5' />
+                                    <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Organization</h2>
+                                    {/* <button
+                                        type="submit"
+                                        className="bg-primary hover:bg-pending-hover text-white font-sp-pro-text-regular py-2 px-4  rounded"
+                                    >
+                                        Create Organazation
+                                    </button> */}
+                                </div>
+
+                                
                             </div>
                         }
                     </div>
