@@ -146,7 +146,7 @@ export default function NavbarComponent() {
                             >
                                  Cerrar sesión
                             </Link> */}
-                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon class="w-5 text-gray-500" />Singout</label>
+                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Singout</label>
                         </MenuItem>
                     </Menu>
                 </nav>

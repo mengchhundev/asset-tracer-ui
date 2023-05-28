@@ -227,7 +227,7 @@ export default function AssetComponent() {
                               <path
                                 opacity="0.3"
                                 fill-rule="evenodd"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                                 d="M16.334 1.14809C15.4658 0.283508 14.0587 0.284038 13.1912 1.14927L6.48127 7.84251C5.94461 8.37774 5.62909 9.09424 5.59716 9.85021L5.50164 12.1116C5.45815 13.1414 6.28405 13.9999 7.31823 13.9999L9.54314 14C10.36 14 11.1423 13.6714 11.7127 13.0887L18.3685 6.26724C19.2182 5.39909 19.2093 4.01137 18.3485 3.15417L16.334 1.14809ZM14.0486 2.00316C14.443 1.60987 15.0826 1.60963 15.4772 2.00262L17.4917 4.0087C17.883 4.39834 17.887 5.02912 17.5008 5.42373C16.7644 6.17612 15.5558 6.18388 14.8099 5.441L14.0496 4.68396C13.3073 3.9447 13.3068 2.74298 14.0486 2.00316ZM13.5891 5.9331C12.6262 4.97424 11.0691 4.97494 10.1071 5.93466L7.33874 8.6964C7.01674 9.01754 6.82743 9.44744 6.80827 9.90102L6.71275 12.1624C6.69825 12.5057 6.97355 12.7918 7.31828 12.7919L9.54319 12.792C10.0333 12.792 10.5027 12.5948 10.8449 12.2452L13.6153 9.4016C14.5584 8.43356 14.5467 6.88677 13.5891 5.9331Z"
                                 fill="#667085"
                               />
@@ -243,7 +243,7 @@ export default function AssetComponent() {
                             <label
                               htmlFor="my-modal-3"
                             // className="border border-yellow text-yellow p-1 px-2 h-10 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
-                            ><EyeIcon class="h-6 w-6 text-gray-500" />
+                            ><EyeIcon className="h-6 w-6 text-gray-500" />
 
                             </label>
 
@@ -279,7 +279,7 @@ export default function AssetComponent() {
                     >
                       <path
                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                         fill-rule="evenodd"
                       ></path>
                     </svg>
@@ -325,7 +325,7 @@ export default function AssetComponent() {
                     >
                       <path
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                         fill-rule="evenodd"
                       ></path>
                     </svg>

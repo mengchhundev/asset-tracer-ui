@@ -17,7 +17,7 @@ function AddOrgnizaation(props) {
                 <div className="bg-white rounded-lg text-opacity-90 p-10 font-sp-pro-text-regular xl:w-[1344px] max-h-[100vh] overflow-x-scroll " >
                     <div className='flex justify-between'>
                         <div className='flex '>
-                            <HomeModernIcon class="h-10 rounded-lg w-10 text-white bg-primary p-2" />
+                            <HomeModernIcon className="h-10 rounded-lg w-10 text-white bg-primary p-2" />
                             <p className='flex items-center font-sp-pro-text-bold text-[20px] pl-5 text-text-color'>Organization Information</p>
                         </div>
                         <div>

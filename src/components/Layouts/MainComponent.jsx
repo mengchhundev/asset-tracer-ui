@@ -8,7 +8,7 @@ export default function MainComponent() {
   return (
     <div className='flex flex-col h-screen overflow-hidden bg-[#F7F8FC]'>
       <NavbarComponent />
-      <div class="flex flex-row flex-grow overflow-y-scroll">
+      <div className="flex flex-row flex-grow overflow-y-scroll">
         <SidebarComponent />
         <div className="md:p-5 flex-grow overflow-y-scroll">
           <ContentCompont />

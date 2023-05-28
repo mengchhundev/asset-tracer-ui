@@ -229,7 +229,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                        <BuildingLibraryIcon class="h-6 w-6 text-gray-500" />
+                                        <BuildingLibraryIcon className="h-6 w-6 text-gray-500" />
                                         <p className="ml-3">Room</p>
                                     </span>
                                 </NavLink>
