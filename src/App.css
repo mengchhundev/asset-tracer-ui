@@ -28,5 +28,6 @@
   margin: 0 auto;
   padding: 0;
   font-family: "sp-pro-text-regular";
-  font-size: 0.938rem;
+  /* font-size: 0.938rem; */
+  font-size: 14px;
 }

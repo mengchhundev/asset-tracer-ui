@@ -43,7 +43,7 @@ export default {
         "border-strock" : "#E1E9EE",
         "error" : "#EE1D52",
         "bg-color" : "#FAFBFC",
-        "sidebar" : "rgb(80 87 95)",
+        "sidebar" : "rgb(111 115 151)",
         "bg-main" : "#F7F8FC",
         "custom-red" :  "#FF6D5C",
         "custom-blue" : "#B3E67B",

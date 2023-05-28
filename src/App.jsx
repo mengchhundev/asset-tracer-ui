@@ -52,7 +52,7 @@ function App() {
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent/>}/>
-            <Route path='/room-list' element={<RoomListComponent/>}></Route>
+            <Route path='/room' element={<RoomListComponent/>}></Route>
             <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/view-invoice' element={<ViewInvoiceComponent />}/>
             <Route path='/update-invoice' element={<UpdateInvoiceComponent/>}/>
