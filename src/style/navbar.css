@@ -12,3 +12,12 @@
     }
 }
 
+.szh-menu__item {
+    border: none;
+    padding: 0;
+}
+
+.szh-menu {
+    border: 1px solid #ededed !important;
+    padding: 10px 0px !important;
+}

@@ -23,7 +23,7 @@ import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
 export default function NavbarComponent() {
 
     return (
-        <header className="bg-white px-8 h-[8vh] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
+        <header className="flex-grow bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
             <div className="flex items-center w-72 lg:flex-shrink-0 invisible lg:visible">
                 <img src={logo} alt="" className="w-14" />
                 <h1 className="text-center text-xl font-sp-pro-text-bold">
@@ -51,85 +51,62 @@ export default function NavbarComponent() {
                         arrow
                         transition
                         arrowClassName="bg-secondary-100"
-                        menuClassName="bg-secondary-100 p-4"
+                        menuClassName="bg-secondary-100 rounded-lg shadow-lg"
                     >
-                        <div className="flex justify-between">
-                            <h1 className="flex  text-gray-300  items-center font-medium">
-                            Notificaciones (3)
-                        </h1>
-                            <img src={logo} className="w-10" alt="" />
+                        <div className="flex justify-between px-3">
+                            <h1 className="flex  items-center ">
+                                <span className="text-lg text-text-color font-sp-pro-text-bold">Notification</span> <span className="text-sm ml-3 ">(3)</span>
+                            </h1>
                         </div>
-                        
-                        <hr className="my-4 border-text-color border-opacity-30" />
 
-                        <MenuItem className="p-0 hover:bg-transparent">
-                            <Link
-                                to="/"
-                                className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-secondary-900 transition-colors rounded-lg"
-                            >
-                                <img
-                                    src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
-                                    className="w-8 h-8 object-cover rounded-full"
-                                />
-                                <div className="text-sm flex flex-col">
-                                    <div className="flex items-center justify-between gap-4">
-                                        <span>Jorge Luis Trejo</span>{" "}
-                                        <span className="text-[8px]">21/10/2022</span>
-                                    </div>
-                                    <p className="text-gray-500 text-xs">
-                                        Lorem ipsum dolor sit amet...
-                                    </p>
-                                </div>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem className="p-0 hover:bg-transparent">
-                            <Link
-                                to="/"
-                                className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-secondary-900 transition-colors rounded-lg"
-                            >
-                                <RiThumbUpLine className="p-2 bg-blue-200 text-blue-700 box-content rounded-full" />
-                                <div className="text-sm flex flex-col">
-                                    <div className="flex items-center justify-between gap-4">
-                                        <span>Nuevo like</span>{" "}
-                                        <span className="text-[8px]">21/10/2022</span>
-                                    </div>
-                                    <p className="text-gray-500 text-xs">
-                                        A Jorge Trejo le gusta tu pub...
-                                    </p>
-                                </div>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem className="p-0 hover:bg-transparent">
-                            <Link
-                                to="/"
-                                className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-secondary-900 transition-colors rounded-lg"
-                            >
-                                <RiChat3Line className="p-2 bg-yellow-200 text-yellow-700 box-content rounded-full" />
-                                <div className="text-sm flex flex-col">
-                                    <div className="flex items-center justify-between gap-4">
-                                        <span>Nuevo comentario</span>{" "}
-                                        <span className="text-[8px]">21/10/2022</span>
-                                    </div>
-                                    <p className="text-gray-500 text-xs">
-                                        Jorge Trejo ha comentado tu...
-                                    </p>
-                                </div>
-                            </Link>
-                        </MenuItem>
-                        <hr className="my-4 border-text-color border-opacity-30" />
+                        <hr className="my-2 border-text-color border-opacity-20" />
 
-                        <MenuItem className="p-0  hover:bg-transparent flex justify-center cursor-default">
-                            <Link
-                                to="/"
-                                className="text-text-color  text-md hover:text-white transition-colors"
-                            >
-                                More
-                            </Link>
+                        <MenuItem className=" rounded-md py-3 my-2 hover:bg-bg-primary w-72">
+                            <div className="w-full">
+                                <Link
+                                    to="/"
+                                    className="text-gray-300 flex flex-1 items-center gap-3 py-2 px-4 hover:bg-secondary-900 transition-colors rounded-lg"
+                                >
+                                    <img
+                                        src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
+                                        className="w-8 h-8 object-cover rounded-full"
+                                    />
+                                    <div className="text-sm flex flex-col">
+                                        <div className="flex items-center justify-between gap-4">
+                                            <span className="font-sp-pro-text-medium">Asset Tracer</span>
+                                            <span className="text-[8px]">21/10/2022</span>
+                                        </div>
+                                        <p className="text-slate-600 text-xs">
+                                            assettracerteam@gmail.com
+                                        </p>
+
+                                    </div>
+
+                                </Link>
+
+                                <div className="pl-16 flex gap-3">
+                                    <button className="bg-green text-white p-1.5 px-2.5 text-xs rounded-md">Accept</button>
+                                    <button className="bg-white text-reject border border-reject p-1.5 px-2.5 text-xs rounded-md">Reject</button>
+                                </div>
+                            </div>
                         </MenuItem>
+
+                        <hr className="my-1 border-text-color border-opacity-10" />
+
+                        <div className="px-4 py-1">
+                            <MenuItem className="px-0 mt-3 py-1.5 flex bg-white rounded-md border justify-center cursor-pointer" style={{ border: "1px solid gainsboro" }}>
+                                <Link
+                                    to="/"
+                                    className="text-sm"
+                                >
+                                    View all notifications
+                                </Link>
+                            </MenuItem>
+                        </div>
                     </Menu>
                     <Menu
                         menuButton={
-                            <MenuButton className="flex items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
+                            <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
                                 <img
                                     src={hongmenng}
                                     className="w-6 h-6 object-cover rounded-full"
@@ -140,9 +117,9 @@ export default function NavbarComponent() {
                         }
                         align="end"
                         arrow
-                        arrowClassName="bg-secondary-100"
                         transition
-                        menuClassName="bg-secondary-100 p-4"
+                        arrowClassName="bg-secondary-100 "
+                        menuClassName="bg-secondary-100 px-4 rounded-lg border"
                     >
                         <MenuItem className="p-0 hover:bg-transparent">
                             <Link
@@ -154,13 +131,13 @@ export default function NavbarComponent() {
                                     className="w-8 h-8 object-cover rounded-full"
                                 />
                                 <div className="flex flex-col text-sm">
-                                    <span className="text-sm">Leng Hongmeng</span>
+                                    <span className="text-sm font-sp-pro-text-medium">Leng Hongmeng</span>
                                     <span className="text-xs text-gray-500">assettracerteam@gmail.com</span>
                                 </div>
                             </Link>
                         </MenuItem>
-                        <hr className="my-4 border-text-color border-opacity-30" />
-                       
+                        <hr className="my-4 border-text-color border-opacity-10" />
+
                         <MenuItem className="p-0 hover:bg-transparent">
                             {/* <Link
                                 to="/cerrar-sesion"
@@ -168,7 +145,7 @@ export default function NavbarComponent() {
                             >
                                  Cerrar sesión
                             </Link> */}
-                            <label htmlFor="my-modal" className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"><ArrowRightOnRectangleIcon class="h-6 w-6 text-gray-500" />Singout</label>
+                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon class="w-5 text-gray-500" />Singout</label>
                         </MenuItem>
                     </Menu>
                 </nav>

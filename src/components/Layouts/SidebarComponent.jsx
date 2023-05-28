@@ -9,6 +9,8 @@ import {
     RiArrowRightSLine,
     RiMenu3Line,
     RiCloseLine,
+    RiNotification3Line,
+    RiSettings4Fill,
 } from "react-icons/ri";
 import { BsGraphUp } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -21,18 +23,19 @@ import user_ico from '../../assets/icon/Users.svg';
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import SignOutComponent from "./popUp/SignOutComponent";
 import { BuildingLibraryIcon } from "@heroicons/react/20/solid";
+import { IoMdNotifications } from "react-icons/io";
 
 
 export default function SidebarComponent() {
     const navigator = useNavigate()
     const [showMenu, setShowMenu] = useState(false);
     const [showOrganization, setShowOrganization] = useState(false);
-    const activeStyle = "flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary text-white bg-primary";
-    const inActiveStyle = "flex items-center my-2 py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary";
+    const activeStyle = "flex items-center my-2 py-2.5 px-4 rounded-xl transition-colors hover:bg-bg-primary text-white bg-primary";
+    const inActiveStyle = "flex items-center my-2 py-2.5 px-4 rounded-xl transition-colors hover:bg-bg-primary";
 
     const [isShowOrganization, setIsShowOrganization] = useState(false)
-    const activeStyleDropDown = "flex items-center justify-between py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary text-white bg-primary";
-    const inActiveStyleDropDown = "flex items-center justify-between py-2.5 px-5 rounded-2xl transition-colors hover:bg-bg-primary";
+    const activeStyleDropDown = "flex items-center justify-between py-2.5 px-4 rounded-xl transition-colors hover:bg-bg-primary text-white bg-primary";
+    const inActiveStyleDropDown = "flex items-center justify-between py-2.5 px-4 rounded-xl transition-colors hover:bg-bg-primary";
 
     const [showCategory, setShowCategory] = useState(false);
     const [isShowCategory, setIsShowCategory] = useState(false);
@@ -62,8 +65,8 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`h-[92vh] flex-shrink-0 text-sidebar overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
-                    } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
+                className={`flex-shrink-0 text-sidebar font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-10 px-8 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                    } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
             >
                 <div>
                     <ul>
@@ -84,13 +87,13 @@ export default function SidebarComponent() {
                             </NavLink>
                             <ul
                                 className={` ${showOrganization ? "h-[80px]" : "h-0"
-                                    } overflow-y-hidden transition-all`}
+                                    } overflow-y-hidden transition-all mt-2`}
                             >
                                 <li>
                                     <NavLink
                                         to="/organization"
-                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
-                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
+                                            `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  font-sp-pro-text-medium`}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Organization List
@@ -99,8 +102,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization-create"
-                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
-                                            `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                        className={({ isActive }) => isActive ? `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
+                                            `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  font-sp-pro-text-medium`}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Create or Join
@@ -138,13 +141,13 @@ export default function SidebarComponent() {
                                 </NavLink>
                                 <ul
                                     className={` ${showCategory ? "h-[80px]" : "h-0"
-                                        } overflow-y-hidden transition-all`}
+                                        } overflow-y-hidden transition-all mt-2`}
                                 >
                                     <li>
                                         <NavLink
                                             to="/super-category"
-                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
-                                                `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
+                                                `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors font-sp-pro-text-medium`}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                         >
                                             Type Super
@@ -153,8 +156,8 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/normal-category"
-                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-semibold` :
-                                                `py-2.5 px-4 ml-14 block relative before:w-2.5 before:h-2.5 before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors`}
+                                            className={({ isActive }) => isActive ? `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-text-color before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
+                                                `py-2.5 px-4 ml-8 block relative before:w-[9px] before:h-[9px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors font-sp-pro-text-medium`}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                         >
                                             Type Normal
@@ -224,7 +227,7 @@ export default function SidebarComponent() {
                                 >
                                     <span className="flex items-center justify-start">
 
-                                    <BuildingLibraryIcon class="h-6 w-6 text-gray-500" />
+                                        <BuildingLibraryIcon class="h-6 w-6 text-gray-500" />
                                         <p className="ml-3">Room</p>
                                     </span>
                                 </NavLink>
@@ -235,20 +238,23 @@ export default function SidebarComponent() {
                 <nav>
                     <NavLink
                         to="/"
-                        className="flex items-center py-2.5 px-5 transition-colors"
+                        className="flex items-center py-2.5 px-4 transition-colors"
                     >
-                        <RiLogoutCircleRLine className="mr-3" /> Notification
+                        <IoMdNotifications className="mr-3 text-lg" /> Notification
                     </NavLink>
                     <NavLink
                         to="/"
-                        className="flex items-center py-2.5 px-5 transition-colors"
+                        className="flex items-center py-2.5 px-4 transition-colors"
                     >
-                        <RiLogoutCircleRLine className="mr-3" /> Setting
+                        <RiSettings4Fill className="mr-3 text-lg" /> Setting
                     </NavLink>
-                  
-                    <label htmlFor="my-modal" className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-2 px-4 flex-1"><ArrowRightOnRectangleIcon class="h-6 w-6 text-gray-500" />Singout</label>
 
-                    <div className="flex items-center py-2.5 px-5 transition-colors">
+                    <label htmlFor="my-modal" className="flex items-center py-2.5 px-4 transition-colors cursor-pointer">
+                        <RiLogoutCircleRLine className="mr-3 text-lg" />
+                        Singout
+                    </label>
+
+                    <div className="flex items-center py-2.5 transition-colors">
                         <img
                             src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
                             className="w-10 h-10 object-cover rounded-full"
