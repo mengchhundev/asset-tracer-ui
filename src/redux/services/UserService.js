@@ -1,5 +1,13 @@
 import api from "./api"
 
+const signin = async (data) => {
+    return await api.post(`/users/login`, data)
+}
+
+const singup = async (data) => {
+    return await api.post(`/users/register`, data)
+}
+
 const changeUserPassword = async (userId, data) => {
     return await api.put(`/users/change-password/${userId}`, data)
 }
@@ -24,13 +32,16 @@ const verifyRegistration = async (code) => {
     return await api.get(`/users/register/verify?code=${code}`)
 }
 
+
 const UserService = {
+    signin,
+    singup,
     changeUserPassword,
     updateProfile,
     forgotPassword,
     checkValidCode,
     setNewPassword,
-    verifyRegistration
+    verifyRegistration,
 }
 
 export default UserService;

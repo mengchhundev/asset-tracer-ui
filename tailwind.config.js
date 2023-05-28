@@ -20,6 +20,7 @@ export default {
       },
       colors: {
         "primary": "#F8C400",
+        "pending-hover": "#f2c005",
         "secondary": "#3A3A3A",
         "text-color": "#324C5B",
         "accept": "#6DB33F",

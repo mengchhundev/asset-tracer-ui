@@ -5,7 +5,7 @@ import Logo from "../../assets/images/PictureLanding/Logo.jpg";
 export default function NavbarComponent() {
   return (
     <>
-      <nav className="bg-white fixed w-full z-50 top-0 left-0 border-b border-white ">
+      <nav className="bg-white fixed w-full z-50 top-0 left-0 border-b border-white shadow-sm">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <ul>
             <li>

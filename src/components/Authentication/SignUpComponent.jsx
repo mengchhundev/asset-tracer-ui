@@ -2,20 +2,22 @@ import React from 'react'
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signup from '../../assets/images/signup.png'
 import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
 import api from '../../redux/services/api';
+import UserService from '../../redux/services/UserService';
+
 export default function SignUpComponent() {
     const navigator = useNavigate();
     const provider = new GoogleAuthProvider();
-    const [success, setSuccess] = useState(false);
-    const [userInfo, setUserInfo] = useState({})
     const [isShowErr, setIsShowErr] = useState(false)
     const [isShowSuc, setIsShowSuc] = useState(false)
+    const validate = () => { }
+    const [status, setStatus] = useState(false)
+
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
@@ -29,28 +31,12 @@ export default function SignUpComponent() {
                             setSuccess(true);
                             localStorage.setItem("token", res.data.payload.token)
                             if (localStorage.getItem("token")) {
-                                navigator("/organization-create", {state: {isShowSubMenu: true}});
+                                navigator("/organization-create", { state: { isShowSubMenu: true } });
                             }
 
                         })
                 }
             })
-    };
-
-    const handleSignUp = async (userInfo) => {
-        try {
-            await api.post("/users/register", userInfo).then(res => {
-                if (res.data?.success) {
-                    setIsShowSuc(true)
-                }
-            }, err => {
-                if (err.response.data.status == 404) {
-                    setIsShowErr(true)
-                }
-            });
-        } catch (e) {
-
-        }
     };
 
     const SignupSchema = Yup.object().shape({
@@ -65,15 +51,16 @@ export default function SignUpComponent() {
     return (
         <>
             {isShowErr && (
-                <RegisterPopUpComponent setIsShowErr={setIsShowErr} />
+                <RegisterPopUpComponent setIsShowErr={isShowErr} status={status}/>
             )}
 
             {isShowSuc && (
-                <RegisterPopUpComponent setIsShowSuc={setIsShowSuc} />
+                <RegisterPopUpComponent setIsShowSuc={isShowSuc} status={status}/>
             )}
-            <div className="h-screen w-full lg:container m-auto font-sp-pro-text-regular text-text-color">
-                <div className="flex h-full flex-wrap md:flex-nowrap items-center justify-around px-10">
-                    <div className="p-10 m-10 rounded-lg border-slate-100 border-2">
+
+            <div className="h-screen w-full m-auto font-sp-pro-text-regular md:w-full text-text-color relative">
+                <div className="flex h-full items-center justify-evenly px-10 md:justify-around z-10">
+                    <div className="p-10 m-10 rounded-2xl border-slate-100 border-1 bg-white shadow-md">
                         <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                             Create Your Account
                         </h2>
@@ -121,55 +108,70 @@ export default function SignUpComponent() {
                         </div>
                         <Formik
                             initialValues={{ email: "", name: "", password: "" }}
-                            onSubmit={userInfo => {
-                                handleSignUp(userInfo)
+                            onSubmit={(values, { resetForm }) => {
+                                UserService.singup(values).then(res => {
+                                    if (res.data?.success) {
+                                        setStatus(!status)
+                                        setIsShowSuc(true)
+                                        setIsShowErr(false)
+                                        resetForm({ email: "", name: "", password: "" })
+                                    }
+                                }, err => {
+
+                                    console.log(err)
+                                    if (err.response.data.title == "User Duplicate Exception") {
+                                        setStatus(!status)
+                                        setIsShowErr(true)
+                                        setIsShowSuc(false)
+                                    }
+                                })
+
                             }}
                             validationSchema={SignupSchema}
-                        // validate={validate}
+                            validate={validate}
                         >
                             {({ }) => (
                                 <Form>
                                     <div className="text-left mb-3">
                                         <label className="block mb-2 ml-1 text-sm">Name</label>
-                                        <Field name='name' type="text" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter your name" />
-                                        <ErrorMessage name="name" component="div" className="text-red-400 text-sm" />
+                                        <Field name='name' type="text" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter your name" />
+                                        <ErrorMessage name="name" component="div" className="text-reject text-xs ml-1" />
 
                                     </div>
 
                                     <div className="text-left mb-3">
                                         <label className="block mb-2 ml-1 text-sm">Email</label>
-                                        <Field name='email' type="email" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter you email" />
-                                        <ErrorMessage name="email" component="div" className="text-red-400 text-sm" />
+                                        <Field name='email' type="email" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter you email" />
+                                        <ErrorMessage name="email" component="div" className="text-reject text-xs ml-1" />
 
                                     </div>
                                     <div className="text-left mb-3">
                                         <label className="block mb-2 ml-1 text-sm">password</label>
-                                        <Field type="password" name='password' className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="********" />
-                                        <ErrorMessage name="password" component="div" className="text-red-400 text-sm" />
+                                        <Field type="password" name='password' className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="********" />
+                                        <ErrorMessage name="password" component="div" className="text-reject text-xs ml-1" />
                                     </div>
 
                                     <div className="my-6">
-                                        <button type="submit" className="bg-primary w-full text-white font-bold py-2 px-4 rounded">
+                                        <button type="submit" className="bg-primary w-full hover:bg-pending-hover text-white font-sp-pro-text-regular py-2 px-4 rounded" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
                                             Sign up
                                         </button>
                                     </div>
-                                    <p className="text-sm flex justify-between">
-                                        <span className='opacity-60'>
+                                    <div className="text-sm flex justify-between">
+                                        <span className='text-slate-500'>
                                             Already have an account?
                                         </span>
-                                        <a
-                                            href="#"
+                                        <div
                                             className="text-primary"
                                         >
                                             <Link to={"/signin"}>Sign In</Link>
-                                        </a>
-                                    </p>
+                                        </div>
+                                    </div>
                                 </Form>
                             )}
                         </Formik>
                     </div>
-                    <div className="m-10 w-6/12 hidden md:block">
-                        <img src={signup} alt="Signup Picture" className='w-full' />
+                    <div className="hidden w-0 md:block md:w-5/12 -z-10">
+                        <img src={signup} alt="Signup Picture" className='w-[35rem] z-0 lg:w-[39rem] absolute left-1/2 transform -translate-y-1/2 lg:ml-[-2rem] ' />
                     </div>
                 </div>
             </div>
