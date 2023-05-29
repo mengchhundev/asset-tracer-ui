@@ -60,7 +60,7 @@ export default function SignUpComponent() {
 
             <div className="h-screen w-full m-auto font-sp-pro-text-regular md:w-full text-text-color relative">
                 <div className="flex h-full items-center justify-evenly px-10 md:justify-around z-10">
-                    <div className="p-10 m-10 rounded-2xl border-slate-100 border bg-white" >style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
+                    <div className="p-10 m-10 rounded-2xl border-slate-100 border bg-white" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
                         <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                             Create Your Account
                         </h2>
