@@ -28,8 +28,8 @@ import Iconbackup from "../../assets/images/PictureLanding/Iconbackup.png";
 import Vector from "../../assets/images/PictureLanding/Vector.png";
 import { NavLink } from 'react-router-dom';
 
-export default function
-  () {
+export default function () {
+
   return (
     <div>
       <NavbarComponent />

@@ -10,9 +10,16 @@ const joinOrganization = async (data, token) => {
     })
 }
 
+const saveOrganization = (data, token) => {
+    return api.post(`/organizations`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 const OrganizationService = {
     getAllOrganizations,
-    joinOrganization
+    joinOrganization,
+    saveOrganization
 }
 
 export default OrganizationService;

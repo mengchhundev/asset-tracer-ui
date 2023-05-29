@@ -51,25 +51,23 @@ function ResetPasswordComponent(props) {
         }
     });
 
-
     return (
         <section className="bg-bg-primary">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <div className="w-full p-6 bg-white rounded-lg shadow md:mt-0 sm:max-w-md  sm:p-8">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+                <div className="w-full p-6 bg-white rounded-lg shadow sm:max-w-md  sm:p-8">
                     <div className="m-auto">
-
                         <div className='flex justify-center'>
                             <img src={key} width={80} height={80} alt="" />
                         </div>
-                        <h2 className="mb-1 text-xl font-sp-pro-text-semibold leading-tight text-primary md:text-2xl text-center pt-4">
+                        <h2 className="mb-1 text-xl font-sp-pro-text-semibold leading-tight text-primary text-center pt-4">
                             Set New Password
                         </h2>
                         <p className="text-center text-sm text-text-color font-sp-pro-text-regular pt-1">
                             Your password must be at least 8 characters, numbers, letters and special characters &#40;!$@%&#41;
                         </p>
 
-                        <form className="md:space-y-5 pt-5" onSubmit={formik.handleSubmit}>
-                            <div className='text-left'>
+                        <form className="space-y-5 pt-5" onSubmit={formik.handleSubmit}>
+                            <div className='text-left relative'>
                                 <label className="block mb-2 ml-1 text-sm">New password</label>
                                 <input
                                     type='password'
@@ -77,12 +75,12 @@ function ResetPasswordComponent(props) {
                                     onChange={formik.handleChange}
                                     value={newData.newPassword}
                                     name="newPassword"
-                                    className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary"
+                                    className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2 px-4 mb-1 outline-none focus:border-primary"
                                     placeholder='********'
                                 />
                                 {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
                             </div>
-                            <div className='relative'>
+                            <div className='text-left relative'>
                                 <label className="block mb-2 ml-1 text-sm">Confirm new password</label>
                                 <input
                                     type='password'
@@ -90,7 +88,7 @@ function ResetPasswordComponent(props) {
                                     onChange={formik.handleChange}
                                     value={newData.confirmNewPasswrod}
                                     name="confirmNewPasswrod"
-                                    className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary"
+                                    className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2 px-4 mb-1 outline-none focus:border-primary"
                                     placeholder='********'
                                 />
                                 {formik.touched.confirmNewPasswrod && formik.errors?.confirmNewPasswrod ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.confirmNewPasswrod}</p> : null}

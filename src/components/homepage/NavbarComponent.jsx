@@ -3,6 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/images/PictureLanding/Logo.jpg";
 
 export default function NavbarComponent() {
+
+  let token = localStorage.getItem("token")
+  
   return (
     <>
       <nav className="bg-white fixed w-full z-50 top-0 left-0 border-b border-white shadow-sm">
@@ -49,7 +52,7 @@ export default function NavbarComponent() {
           </div>
           <div className="flex md:order-3 relative">
             <NavLink
-              to="/signin"
+              to={`${token ? "organization" : "/signin"}`}
               type="button"
               className="text-white  hidden lg:block rounded-md bg-secondary-yellow font-medium text-sm px-10 py-3 text-center mr-14 hover:bg-hover-yellow shadow-lg shadow-shadow"
             >

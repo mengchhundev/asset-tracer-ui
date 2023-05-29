@@ -76,7 +76,7 @@ export default function SignInComponent() {
                     <div className="hidden w-0 md:block md:w-5/12 -z-10">
                         <img src={signin} alt="Signup Picture" className='w-[35rem] z-0 lg:w-[40rem] absolute right-1/2 transform -translate-y-1/2' />
                     </div>
-                    <div className="p-10 m-10 rounded-2xl border-slate-100 border-2 ml-0 md:ml-[-15rem] bg-white shadow-md">
+                    <div className="p-10 m-10 rounded-2xl border-slate-100 border ml-0 md:ml-[-15rem] bg-white" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
                         <Formik
                             initialValues={{ email: "", password: "" }}
                             onSubmit={values => {

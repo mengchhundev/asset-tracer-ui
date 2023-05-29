@@ -113,7 +113,7 @@ export default function OrganizationListComponent() {
                         )) :
                             <div className='text-center w-full col-span-12 h-[68vh] flex justify-center items-center'>
                                 <div className='mt-[-6rem]'>
-                                    <img src={no_data_pic} className='w-2/5 m-auto pb-5' />
+                                    <img src={no_data_pic} className='w-3/6 m-auto pb-5' />
                                     <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Organization</h2>
                                     {/* <button
                                         type="submit"

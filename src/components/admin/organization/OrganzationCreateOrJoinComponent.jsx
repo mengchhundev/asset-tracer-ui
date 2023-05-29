@@ -342,7 +342,6 @@ export default function OrganzationCreateOrJoinComponent() {
       {/* table */}
       <input type="checkbox" id="create-organization" className="modal-toggle" />
       <CreateOrganizatoinComponent className="modal" />
-      {/* <AddOrgnizaation className="modal" /> */}
     </main>
   )
 }
