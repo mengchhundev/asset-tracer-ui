@@ -18,9 +18,23 @@ import '../../style/navbar.css'
 import SignOutComponent from "./popUp/SignOutComponent";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 
 export default function NavbarComponent() {
+
+    const item = useSelector(state => state.organization?.item)
+
+    let session = sessionStorage.getItem("organization")
+    if (session) {
+        session = JSON.parse(session)
+    }
+
+
+    useEffect(() => {
+
+    }, [item])
 
     return (
         <header className="flex-shrink-0 bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
@@ -35,7 +49,7 @@ export default function NavbarComponent() {
                 <div className="font-sp-pro-text-semibold text-lg invisible lg:visible">
                     {/* <p className="text-xs text-slate-500 font-sp-pro-text-regular">Organization Name:</p> */}
                     {/* <span className="text-slate-500 text-sm font-sp-pro-text-regular">ORG: </span> */}
-                    KSHRD Center
+                    {session ? session.name : null}
                 </div>
                 <nav className="flex items-center gap-2 ">
 
