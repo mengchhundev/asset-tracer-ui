@@ -44,6 +44,13 @@ export default function SidebarComponent() {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const item = useSelector(state => state.organization?.item)
 
+    const [color, setColor] = useState("")
+    
+
+    const handleChangeColor = (key, val) => {
+        se
+    }
+
     useEffect(() => {
         if (location.pathname == "/organization") {
             setShowOrganization(true)
@@ -54,7 +61,8 @@ export default function SidebarComponent() {
             setIsShowOrganization(false)
             setShowOrganization(false)
         }
-    }, [])
+    }, [item])
+
 
     return (
         <>
@@ -118,7 +126,7 @@ export default function SidebarComponent() {
                             </ul>
                         </li>
 
-                        {/* {organization != null || item != null ? <> */}
+                        {organization != null || item != null ? <>
                         <label className="text-sm text-text-color opacity-50">Menus</label>
                         <hr className="my-1 mb-4 text-gray-light opacity-60" />
                         <li>
@@ -286,7 +294,7 @@ export default function SidebarComponent() {
                                 </span>
                             </NavLink>
                         </li>
-                        {/* </> : null} */}
+                        </> : null}
                     </ul>
                 </div>
                 <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-lg mt-3 shadow-sm py-3">
