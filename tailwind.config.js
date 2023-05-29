@@ -70,10 +70,10 @@ export default {
       },
 
       screens: {
-        'sm': '640px',
+        'sm': '390px',
         // => @media (min-width: 640px) { ... }
   
-        'md': '768px',
+        'md': '834px',
         // => @media (min-width: 768px) { ... }
   
         'lg': '1024px',
@@ -85,7 +85,7 @@ export default {
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
 
-        '3xl': '1900px',
+        '3xl': '1728px',
         // => @media (min-width: 1900px) { ... }
       }
     },
