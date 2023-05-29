@@ -59,7 +59,7 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`flex-shrink-0 text-sidebar font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-5 pt-6 px-5 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                className={`flex-shrink-0 text-sidebar medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-5 pt-6 px-5 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
             >
                 <div>
@@ -98,8 +98,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization"
-                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
-                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  font-sp-pro-text-medium`}
+                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color ` :
+                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Organization List
@@ -108,8 +108,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/organization-create"
-                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
-                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  font-sp-pro-text-medium`}
+                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color ` :
+                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
                                         onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
                                     >
                                         Create or Join
@@ -169,8 +169,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/super-category"
-                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
-                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  font-sp-pro-text-medium`}
+                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color ` :
+                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
                                         onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                     >
                                         Type Super
@@ -179,8 +179,8 @@ export default function SidebarComponent() {
                                 <li>
                                     <NavLink
                                         to="/normal-category"
-                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color font-sp-pro-text-medium` :
-                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  font-sp-pro-text-medium`}
+                                        className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color ` :
+                                            `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
                                         onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false) }}
                                     >
                                         Type Normal
@@ -289,10 +289,10 @@ export default function SidebarComponent() {
                         {/* </> : null} */}
                     </ul>
                 </div>
-                <nav className=" bg-border-gray-light rounded-lg mt-3 shadow-md py-3">
+                <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-lg mt-3 shadow-sm py-3">
                     <NavLink
                         // to="/"
-                        className="flex items-center py-2 px-4 transition-colors text-blue-600 hover:bg-white"
+                        className="flex items-center py-2 px-4 transition-colors hover:bg-white"
                     >
                         <IoMdNotifications className="mr-3 text-lg" /> Notification
                     </NavLink>
@@ -303,7 +303,7 @@ export default function SidebarComponent() {
                         <RiSettings4Fill className="mr-3 text-lg" /> Setting
                     </NavLink>
 
-                    <label htmlFor="my-modal" className="text-reject flex items-center py-2 px-4 transition-colors cursor-pointer hover:bg-white">
+                    <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer hover:bg-white">
                         <RiLogoutCircleRLine className="mr-3 text-lg" />
                         Singout
                     </label>

@@ -13,6 +13,7 @@ import OrganizationService from '../../../redux/services/OrganizationService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setItem } from '../../../redux/slices/OrganizationSlice';
 import { useNavigate } from 'react-router-dom';
+import CreateOrganizatoinComponent from './popUp/CreateOrganizatoinComponent';
 
 const people = [
   { id: 1, name: 'Short by' },
@@ -74,13 +75,13 @@ export default function OrganzationCreateOrJoinComponent() {
       <div className="gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
         <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
           <div className='flex flex-nowrap justify-around w-full gap-6 mx-10 my-2'>
-            <label htmlFor="my-modal-3" className="w-1/2 border border-bg-primary-strock mx-10 text-center py-6 rounded-xl flex justify-center cursor-pointer shadow-md items-center">
+            <label htmlFor="create-organization" className="w-1/2 mx-10 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
               <div>
-                <PlusCircleIcon className="w-12 h-12 text-green rounded-full m-auto mb-3" />
+                <PlusCircleIcon className="w-8 h-8 text-green rounded-full m-auto mb-2" />
                 <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
               </div>
             </label>
-            <div className='w-1/2 border border-bg-primary-strock mx-10 text-green text-center py-6 rounded-md px-8'>
+            <div className='w-1/2 border border-bg-primary outline-none mx-10 text-green text-center py-6 rounded-md shadow-md px-8'>
               <form onSubmit={formik.handleSubmit}>
                 <div className="text-left mb-4 w-2/3 m-auto">
                   <label className="block text-md ml-1 font-medium leading-6 text-text-color">Join organization with a code</label>
@@ -339,8 +340,9 @@ export default function OrganzationCreateOrJoinComponent() {
         {/* navigation  */}
       </div>
       {/* table */}
-      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <AddOrgnizaation className="modal" />
+      <input type="checkbox" id="create-organization" className="modal-toggle" />
+      <CreateOrganizatoinComponent className="modal" />
+      {/* <AddOrgnizaation className="modal" /> */}
     </main>
   )
 }

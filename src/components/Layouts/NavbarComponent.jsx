@@ -23,7 +23,7 @@ import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
 export default function NavbarComponent() {
 
     return (
-        <header className="bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
+        <header className="flex-shrink-0 bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
             <div className="flex items-center w-[16rem] lg:flex-shrink-0 invisible lg:visible">
                 <img src={logo} alt="" className="w-14" />
                 <h1 className="text-center text-xl font-sp-pro-text-bold">
