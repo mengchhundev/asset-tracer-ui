@@ -20,6 +20,7 @@ import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { HiOutlineBuildingLibrary } from "react-icons/hi2";
 
 
 export default function NavbarComponent() {
@@ -46,9 +47,10 @@ export default function NavbarComponent() {
             </div>
 
             <div className="flex items-center w-full justify-between">
-                <div className="font-sp-pro-text-semibold text-lg invisible lg:visible">
+                <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center">
                     {/* <p className="text-xs text-slate-500 font-sp-pro-text-regular">Organization Name:</p> */}
                     {/* <span className="text-slate-500 text-sm font-sp-pro-text-regular">ORG: </span> */}
+                    <HiOutlineBuildingLibrary className="mb-[2px] mr-1"/>
                     {session ? session.name : null}
                 </div>
                 <nav className="flex items-center gap-2 ">
