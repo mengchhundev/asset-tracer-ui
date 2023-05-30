@@ -31,16 +31,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<HomeComponent/>} />
-        <Route path='/contact' element={<ContactComponent/>}/>
-        <Route path='/about' element={<AboutPageComponent/>}/>
+        <Route path='/' element={<HomeComponent />} />
+        <Route path='/contact' element={<ContactComponent />} />
+        <Route path='/about' element={<AboutPageComponent />} />
         <Route path='/signup' element={<SignUpComponent />} />
         <Route path='/signin' element={<SignInComponent />} />
         <Route path='/forgot-password' element={<ForgotPasswordComponent />} />
         <Route path='/email-sending' element={<EmailSendingComponent />} />
         <Route path='/reset-password' element={<ResetPasswordComponent />} />
         <Route path='/success' element={<SuccessComponent />} />
-        {/* <Route element={<ProtectedRoute isLogged={localStorage.getItem("token") ? true : false} />}> */}
+        <Route element={<ProtectedRoute isLogged={localStorage.getItem("token") ? true : false} />}>
           <Route path="/" element={<MainComponent />}>
             <Route path='/organization' element={<OrganizationListComponent />} />
             <Route path='/organization-create' element={<OrganzationCreateOrJoinComponent />} />
@@ -52,13 +52,14 @@ function App() {
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>
-            <Route path='/profile' element={<ProfileComponent/>}/>
-            <Route path='/room' element={<RoomListComponent/>}></Route>
+            <Route path='/profile' element={<ProfileComponent />} />
+            <Route path='/room' element={<RoomListComponent />}></Route>
             <Route path='/invoice' element={<InvoiceComponent />} />
-            <Route path='/view-invoice' element={<ViewInvoiceComponent />}/>
-            <Route path='/update-invoice' element={<UpdateInvoiceComponent/>}/>
-            <Route path='/assetAdd' element={<AssetAddComponent/>}/>
+            <Route path='/view-invoice' element={<ViewInvoiceComponent />} />
+            <Route path='/update-invoice' element={<UpdateInvoiceComponent />} />
+            <Route path='/assetAdd' element={<AssetAddComponent />} />
           </Route>
+        </Route>
       </Routes>
     </>
   );
