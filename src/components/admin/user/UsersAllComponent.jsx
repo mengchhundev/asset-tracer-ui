@@ -43,7 +43,7 @@ export default function UsersAllComponent() {
       name: "Mnor",
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
-    }
+    },
   ]);
 
   //featch images
@@ -131,6 +131,7 @@ export default function UsersAllComponent() {
           </div>
         </div>
 
+        {/* card */}
         <div className="overflow-x-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 px-5 lg:mt-0">
             {user.map((list) => (
@@ -184,11 +185,6 @@ export default function UsersAllComponent() {
 
                   <div className="w-full flex flex-row justify-center space-x-2 my-2">
                     {listOfImage}
-
-                    {/* <img src={facebook} alt="" srcset="" />
-                    <img src={linkin} alt="" srcset="" />
-                    <img src={instagram} alt="" srcset="" />
-                    <img src={twinter} alt="" srcset="" /> */}
                   </div>
                 </div>
                 <div className="pb-2 w-full px-8 mb-3 text-center">
@@ -201,7 +197,7 @@ export default function UsersAllComponent() {
           </div>
         </div>
 
-        {/* Modol */}
+        {/* Modol invite user */}
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
           <div className="bg-bg-primary lg:w-1/3 md:w-3/4 sm:w-32 rounded-lg relative p-4">
@@ -259,19 +255,19 @@ export default function UsersAllComponent() {
                 </div>
               </div>
 
-              {/* modal data */}
+              {/* featch data invite user */}
               <div className="w-full mt-5 border border-slate-200 bg-bg-main">
                 {user.map((users) => (
                   <div className="w-full rounded-md">
                     <div className="flex justify-between hover:bg-gray-light p-2">
-                      <div >
+                      <div>
                         <div className="flex items-center m-auto space-x-3">
                           <span>
                             <img
-                            src={users.src}
-                            alt={users.title}
-                            className="w-10 h-10 rounded-full"
-                          />
+                              src={users.src}
+                              alt={users.title}
+                              className="w-10 h-10 rounded-full"
+                            />
                           </span>
                           <span className="font-sp-pro-text-medium text-sm text-text-color">
                             {users.name}
@@ -291,6 +287,27 @@ export default function UsersAllComponent() {
             {/*  */}
           </div>
         </div>
+        {/* modal invite user */}
+
+        {/* data more infor */}
+        <label htmlFor="my-modal-4" className="btn">
+          open modal
+        </label>
+
+        {/* Put this part before </body> tag */}
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+        <label htmlFor="my-modal-4" className="modal cursor-pointer">
+          <label className="modal-box relative" htmlFor="">
+            <h3 className="text-lg font-bold">
+              Congratulations random Internet user!
+            </h3>
+            <p className="py-4">
+              You've been selected for a chance to get one year of subscription
+              to use Wikipedia for free!
+            </p>
+          </label>
+        </label>
+        <label htmlFor="my-modal-4" className="btn">open modal</label>
       </div>
     </main>
   );

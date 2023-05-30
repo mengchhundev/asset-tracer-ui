@@ -48,6 +48,7 @@ function App() {
             <Route path='/super-category' element={<SuperCategoryComponent />} />
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
             <Route path='/asset' element={<AssetComponent />}></Route>
+            <Route path='/add-asset' element={<AssetAddComponent/>}></Route> 
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>

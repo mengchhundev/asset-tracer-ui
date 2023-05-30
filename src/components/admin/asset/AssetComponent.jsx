@@ -75,8 +75,7 @@ export default function AssetComponent() {
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
           <div>
             <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold pb-2 md:pb-3">
-              All <span className="text-primary">User</span> Request
-            </h2>
+              All <span className="text-primary">Asset</span> Items           </h2>
             <p className="font-sp-pro-text-regular text-green ">Active Asset</p>
           </div>
           {/* search */}
@@ -115,7 +114,7 @@ export default function AssetComponent() {
             <div className="block ">
 
               <Link
-                to={"/view-invoice"}
+                to={"/add-asset"}
                 className="hover:bg-primary"
               >
                 <label
@@ -389,13 +388,13 @@ export default function AssetComponent() {
                   <hr className="border-gray-light" />
                 </div>
 
-                <div className="p-5 flex flex-row justify-center space-x-5">
+               <div className="p-5 flex flex-row justify-center space-x-5">
                   <span className="border border-slate-200 bg-bg-main text-text-color font-sp-pro-text-medium p-1.5 px-5 rounded-md">
                     Cancel
                   </span>
-                  <span className="border border-red-500 bg-reject-light text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
+                  <spann className="border border-red-500 bg-reject-light text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
                     Delete
-                  </span>
+                  </spann>
                 </div>
               </div>
             </div>
