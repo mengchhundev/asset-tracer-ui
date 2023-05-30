@@ -104,7 +104,7 @@ export default function OrganizationListComponent() {
 
                                     </div>
                                     <div className="pb-2 w-full px-8 text-center cursor-pointer">
-                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-xs font-semibold text-gray-700 mr-2 mb-2 text-green bg-green bg-opacity-10">Joined</span>
+                                        <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-gray-700 mr-2 mb-2 text-green bg-green bg-opacity-10">Joined</span>
                                     </div>
                                 </label>
                             </label>

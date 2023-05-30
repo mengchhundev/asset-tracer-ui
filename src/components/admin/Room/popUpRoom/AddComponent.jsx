@@ -292,7 +292,7 @@ function AddComponent(props) {
                                     </div>
                                     <div className="
                                       w-full xl:p-3  md:p-3">
-                                        <h1 className="text-[18px]  text-text-color font-sp-pro-text-semibold">Descripction</h1>
+                                        <label htmlFor="" className="" >Description</label>
                                         <textarea className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2.5 px-4 w-full  p-2 outline-none focus:border-primary" type="text" name="" id="" cols="20" rows="4"></textarea>
                                     </div>
 
