@@ -71,7 +71,7 @@ function AssetAddComponent(props) {
             <div className="">
                 <div className="bg-white p-5 rounded-lg" >
                     <div className=' text-xl font-sp-pro-text-bold text-text-color text-opacity-90'>
-                        <p>Update Asset</p>
+                        <p>Add Asset</p>
                     </div>
                     <hr className='border border-text-color border-opacity-20 my-2' />
                     <div className='md:flex sm:flex-row'>

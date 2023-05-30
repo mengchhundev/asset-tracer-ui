@@ -229,7 +229,7 @@ function RoomListComponent(props) {
                       <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
                       <ul tabIndex={0} className="z-50 dropdown-content menu p-2 shadow bg-base-100 rounded-sm w-52">
                         <li>
-                          <label htmlFor="my-modal" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
+                          <label htmlFor="my-modal-6" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
                         </li>
                         <li className=''>
                           <label htmlFor="my-modal-5" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label>

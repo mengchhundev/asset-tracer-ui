@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiCheck, BiDotsHorizontalRounded, BiEdit } from "react-icons/bi";
 import { RxCheck } from "react-icons/rx";
 
 // image
@@ -16,6 +16,7 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import AddComponent from "../Room/popUpRoom/AddComponent";
 import UpdateComponent from "../Room/popUpRoom/UpdateComponent";
 import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 const people = [
   { id: 1, name: "Asset" },
   { id: 2, name: "HDMI" },
@@ -32,11 +33,11 @@ export default function AssetComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
   const [user, setUser] = useState([
     {
       id: 1,
@@ -168,10 +169,9 @@ export default function AssetComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -179,17 +179,15 @@ export default function AssetComponent() {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -210,12 +208,13 @@ export default function AssetComponent() {
 
             {/* add */}
             <div className="block ">
-              <label
-                htmlFor="my-modal-3"
-                className="border ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center uppercase"
-              >
-                <BsPlus className="w-6 h-6" /> &nbsp; Add asset
-              </label>
+              <Link to={"/add-asset"}>
+                <label
+                  className="border ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center uppercase"
+                >
+                  <BsPlus className="w-6 h-6" /> &nbsp; Add asset
+                </label>
+              </Link>
             </div>
           </div>
         </div>
@@ -309,7 +308,7 @@ export default function AssetComponent() {
                           </svg>
                         </label>
                       </span>
-                      <span className="w-6 h-6 ">
+                      {/* <span className="w-6 h-6 ">
                         <svg
                           width="19"
                           height="20"
@@ -331,10 +330,18 @@ export default function AssetComponent() {
                             strokeLinecap="round"
                           />
                         </svg>
-                      </span>
+                      </span> */}
+                      <Link to={"/update-asset"}>
+                        <span className="w-6 h-6 ">
+                          <label htmlFor="my-modal-2">
+                            <BiEdit className="cursor-pointer h-6 rua w-6 text-gray-500" />
+                          </label>
+                        </span>
+                      </Link>
+
                       <span className="w-6 h-6 ">
-                        <label htmlFor="my-modal-3">
-                          <EyeIcon className="h-6 w-6 text-gray-500" />
+                        <label htmlFor="my-modal-6">
+                          <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500" />
                         </label>
                       </span>
                     </div>
@@ -414,7 +421,7 @@ export default function AssetComponent() {
           {/* view */}
           <input type="checkbox" id="my-modal-6" className="modal-toggle" />
           <DetailComponent className="modal" />
-          
+
           {/* add */}
           <input type="checkbox" id="my-modal-3" className="modal-toggle" />
           <AddComponent className="modal" />
