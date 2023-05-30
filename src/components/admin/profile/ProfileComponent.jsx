@@ -12,8 +12,10 @@ import verifyIcon from '../../../assets/images/false.png'
 import { FaUserEdit } from "react-icons/fa";
 import { FiPlus } from 'react-icons/fi';
 import { HiOutlineCheck } from 'react-icons/hi';
+import FormProfileComponent from './FormProfileComponent';
 
 export default function ProfileComponent() {
+    cosnt [showForm, setShowForm] = useState(false)
     const [isShowSuccess, setIsShowSuccess] = useState(false)
     const [isShowErr, setIsShowErr] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
@@ -107,116 +109,16 @@ export default function ProfileComponent() {
                 <div className="mt-5 gap-6 bg-white rounded-xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                     <div className="overflow-x-auto p-5 shadow-sm relative">
                         <label
-                            onClick={() => setIsShowUpdateProfile(!isShowUpdateProfile)}
+                            onClick={() => setShowForm(true)}
                             id='profile-troggle'
                             htmlFor="update-profile"
                             className="absolute flex-row right-5 top-5 bg-bg-primary w-9 h-9 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
                         >
                             <FaUserEdit />
                         </label>
-
                         <input type="checkbox" id="update-profile" className="modal-toggle" />
-                        {isShowUpdateProfile ?
-                            <div className={`modal ${isShowUpdateProfile ? "modal-open" : ""}`}>
-                                <div className="bg-white p-6 w-1/2 rounded-lg relative">
-                                    <div className="flex justify-between mb-5">
-                                        <div className="flex">
-                                            <span className="pl-3 text-text-color text-xl font-sp-pro-text-semibold">Update Profile</span>
-                                        </div>
-                                        <div className="flex">
-                                            <label
-                                                onClick={() => setIsShowUpdateProfile(false)}
-                                                htmlFor="update-profile"
-                                                className="btn bg-transparent hover:bg-bg-primary-strock border-none hover text-text-color btn-sm btn-circle absolute right-4 top-4"
-                                            >
-                                                ✕
-                                            </label>
-                                        </div>
-                                    </div>
+                        <FormProfileComponent className="modal" isShowUpdateForm={showForm}/>
 
-                                    <div className='m-3'>
-                                        <h3 className='text-center font-sp-pro-text-bold text-lg my-3'>My Profile</h3>
-                                        <div className='w-32 h-32 bg-blue-600 rounded-full m-auto relative overflow-hidden'>
-                                            <label htmlFor='updateProfile' type='file' className='w-full absolute bg-gray bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
-                                            <input type="file"
-                                                id='updateProfile'
-                                                name="file"
-                                                multiple
-                                                accept="image/*"
-                                                onChange={handleFile} className='hidden' />
-                                        </div>
-
-                                        <form onSubmit={updateProfileFormik.handleSubmit}>
-                                            <div className='w-full flex flex-wrap mt-5'>
-
-                                                <div className="text-left mb-4 w-full mt-2 md:w-1/2 px-3">
-                                                    <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Name</label>
-                                                    <input
-                                                        onInput={handleInputChangeProfile}
-                                                        onChange={updateProfileFormik.handleChange}
-                                                        value={profile.name}
-                                                        name="name"
-                                                        type='text'
-                                                        placeholder='Name'
-                                                        className='relative w-full px-3 outline-none mt-1 border rounded-lg p-2 border-slate-200 bg-bg-main '
-                                                    />
-                                                    {updateProfileFormik.touched.name && updateProfileFormik.errors?.name ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{updateProfileFormik.errors.name}</p> : null}
-                                                </div>
-                                                <div className="text-left mb-4 w-full mt-2 md:w-1/2 px-3">
-                                                    <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Gender</label>
-                                                    <select
-                                                        onInput={handleInputChangeProfile}
-                                                        onChange={updateProfileFormik.handleChange}
-                                                        value={profile.gender}
-                                                        name="gender"
-                                                        placeholder='Gender'
-                                                        className='relative w-full  mt-1 border rounded-lg p-2.5 border-slate-200 bg-bg-main '
-                                                    >
-                                                        <option value="" disabled>Select Gender</option>
-                                                        <option value="male">Male</option>
-                                                        <option value="female">Female</option>
-                                                    </select>
-                                                    {updateProfileFormik.touched.gender && updateProfileFormik.errors?.gender ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{updateProfileFormik.errors.gender}</p> : null}
-                                                </div>
-                                            </div>
-                                            <div className='w-full flex flex-wrap'>
-
-                                                <div className="text-left mb-4 w-full mt-2 md:w-1/2 px-3">
-                                                    <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Phone</label>
-                                                    <input
-                                                        onInput={handleInputChangeProfile}
-                                                        onChange={updateProfileFormik.handleChange}
-                                                        value={profile.phone}
-                                                        name="phone"
-                                                        type='number'
-                                                        placeholder='Phone'
-                                                        className='relative w-full px-3 outline-none mt-1 border rounded-lg p-2 border-slate-200 bg-bg-main '
-                                                    />
-                                                    {updateProfileFormik.touched.phone && updateProfileFormik.errors?.phone ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{updateProfileFormik.errors.phone}</p> : null}
-                                                </div>
-                                                <div className="text-left mb-4 w-full mt-2 md:w-1/2 px-3">
-                                                    <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Address</label>
-                                                    <textarea
-                                                        rows={1}
-                                                        onInput={handleInputChangeProfile}
-                                                        onChange={updateProfileFormik.handleChange}
-                                                        value={profile.address}
-                                                        name="address"
-                                                        placeholder='Address'
-                                                        className='relative w-full  mt-1 border rounded-lg p-2.5 border-slate-200 bg-bg-main '
-                                                    >
-                                                    </textarea>
-                                                    {updateProfileFormik.touched.address && updateProfileFormik.errors?.address ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{updateProfileFormik.errors.address}</p> : null}
-                                                </div>
-                                            </div>
-                                            <div className='w-full md:w-1/3 m-auto mt-5'>
-                                                <button type='submit' className="inline-block w-full m-auto rounded text-center bg-primary px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white cursor-pointer">Save Changes</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            : null}
                         <div className='px-5 py-4'>
                             <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                 <img src={hongmenng} alt="" className="w-36 h-36 md:w-28 md:h-28" />
