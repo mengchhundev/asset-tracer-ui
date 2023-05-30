@@ -8,7 +8,7 @@ import ReactPaginate from "react-paginate";
 import UpdateComponent from "./popUpRoom/UpdateComponent";
 // import { Fragment, useState } from 'react'
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronUpDownIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { BsPlus } from "react-icons/bs";
 const people = [
   { id: 1, name: "Room" },
@@ -30,11 +30,11 @@ function RoomListComponent(props) {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
   const dispatch = useDispatch();
   const getData = useSelector((state) => state.room.data);
   const divClassName =
@@ -148,10 +148,9 @@ function RoomListComponent(props) {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -159,17 +158,15 @@ function RoomListComponent(props) {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -219,15 +216,30 @@ function RoomListComponent(props) {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide divide-slate-800">
-              <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
+            <tbody className="">
+              {getData.map((item, index) => (
+                <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
+                  <td className="w-1/8 px-10">{index + 1}</td>
+                  <td className="w-2/8"><span className={`bg-accept p-2 bg-opacity-20 text-accept rounded-full m-5`}>{item.name.substring(0, 2)}</span>{item.name}</td>
+                  <td className="w-1/8">{item.type}</td>
+                  <td className="w-1/8">{item.floor}</td>
+                  <td className="w-2/8">{item.description}</td>
+                  <td className="w-1/8">
+                    <div className="dropdown dropdown-left">
+                      <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
+                      <ul tabIndex={0} className="z-50 dropdown-content menu p-2 shadow bg-base-100 rounded-sm w-52">
+                        <li>
+                          <label htmlFor="my-modal" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
+                        </li>
+                        <li className=''>
+                          <label htmlFor="my-modal-5" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label>
+                          </li> 
+                      <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
+                    </ul>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <input type="checkbox" id="my-modal-6" className="modal-toggle" />
@@ -265,7 +277,7 @@ function RoomListComponent(props) {
           </div>
         </div>
       </div>
-    </main>
+    </main >
   );
 }
 
