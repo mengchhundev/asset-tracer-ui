@@ -69,18 +69,18 @@ function AssetAddComponent(props) {
     return (
         <>
             <div className="">
-                <div className="bg-white p-10 rounded-lg " >
+                <div className="bg-white p-5 rounded-lg" >
                     <div className=' text-xl font-sp-pro-text-bold text-text-color text-opacity-90'>
                         <p>Update Asset</p>
                     </div>
-                    <hr className='border border-text-color border-opacity-30 my-5' />
+                    <hr className='border border-text-color border-opacity-20 my-2' />
                     <div className='md:flex sm:flex-row'>
                         <div className='xl:w-7/12 md:w-6/12 sm:w-full'>
-                            <div className='xl:flex mt-3 w-full​ flex-row'>
+                            <div className='xl:flex mt-1 w-full​ flex-row'>
                                 <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
                                     <label htmlFor="" className="" >Select Item</label>
                                     <Combobox value={selecteditem} onChange={setSelecteditem}>
-                                        <div className="relative mt-1 z-20">
+                                        <div className="relative z-20">
                                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                                 <Combobox.Input
                                                     className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
@@ -151,7 +151,6 @@ function AssetAddComponent(props) {
                                     />
                                 </div>
                             </div>
-
                             <div className='xl:flex mt-3 w-full​ md:flex-row'>
                                 <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3" >
                                     <label htmlFor="">Label Code</label><br />
@@ -170,7 +169,7 @@ function AssetAddComponent(props) {
                                 <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
                                     <label htmlFor="" className="" >Select Category</label>
                                     <Combobox value={selectedCategory} onChange={setSelectedCategory}>
-                                        <div className="relative mt-1 z-40">
+                                        <div className="relative z-40">
                                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                                 <Combobox.Input
                                                     className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
@@ -237,7 +236,7 @@ function AssetAddComponent(props) {
                                 <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
                                     <label htmlFor="" className="" >Select Status</label>
                                     <Combobox value={selectedStatus} onChange={setSelectedsStatus}>
-                                        <div className="relative mt-1 z-20">
+                                        <div className="relative  z-20">
                                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                                 <Combobox.Input
                                                     className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
@@ -303,11 +302,11 @@ function AssetAddComponent(props) {
                                 </div>
 
                             </div>
-                            <div className='xl:flex mt-3 w-full​ md:flex-row'>
+                            <div className='xl:flex w-full​ md:flex-row'>
                                 <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
                                     <label htmlFor="" className="" >Selected Room</label>
                                     <Combobox value={selectedRoom} onChange={setSelectedRoom}>
-                                        <div className="relative mt-1 z-20">
+                                        <div className="relative  z-20">
                                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                                 <Combobox.Input
                                                     className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
@@ -374,14 +373,14 @@ function AssetAddComponent(props) {
                             </div>
                          
                             <div className="md:p-3 sm:pt-3 w-full">
-                                <h1 className="text-[18px]  text-text-color font-sp-pro-text-regular">Room Information</h1>
-                                <textarea className="w-full bg-bg-main rounded-md  pl-3 pr-3 text-sm leading-5 text-text-color focus:outline-yellow " rows="7" cols="50"></textarea>
+                                <h1 className="text-[14px]  text-text-color font-sp-pro-text-regular">Descripction</h1>
+                                <textarea className="w-full bg-bg-main rounded-md  pl-3 pr-3 text-sm leading-5 text-text-color focus:outline-yellow " rows="5" cols="50"></textarea>
                             </div>
                         </div>
                         <div className='xl:w-5/12 md:w-6/12 sm:full'>
                             <div className="w-full">
                                 <div className="md:p-3 md:m-5 item-center w-full ">
-                                    <div className='space-y-5 shadow px-10 md:py-36 py-10 rounded-md mb-1'>
+                                    <div className='space-y-5 shadow px-10 md:py-20 py-5 rounded-md mb-1'>
                                         <div className='border border-dashed items-center block justify-center text-center p-3 border-bg-primary-strock rounded-lg'>
                                             <div>
                                                 <img className="block m-auto " src={upload} alt="" />
@@ -395,11 +394,11 @@ function AssetAddComponent(props) {
                                     </div>
                                 </div>
                                 <div className="flex mt-3 justify-end flex-row w-full">
-                                    <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
-                                        <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px] ">Cancel</button>
+                                    <div className="bg-slate-500 cursor-pointer  w-3/12 p-2  rounded-lg flex justify-center">
+                                        <button className="flex justify-around text-white font-sp-pro-text-regular items-center  text-[14px] ">Cancel</button>
                                     </div>
-                                    <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
-                                        <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
+                                    <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-2 rounded-lg flex justify-center">
+                                        <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[14px]">Save</button>
                                     </div>
                                 </div>
                             </div>

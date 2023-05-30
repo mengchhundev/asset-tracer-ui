@@ -13,6 +13,7 @@ import SortByComponent from "../tracking/SortByComponent";
 import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
 import { TbCalendarStats } from "react-icons/tb";
 import { AiFillGift } from "react-icons/ai";
+import UserDetail from "./userPopup/UserDetail";
 
 export default function UsersAllComponent() {
   const [user, setUser] = useState([
@@ -185,15 +186,18 @@ export default function UsersAllComponent() {
                   </div>
                 </div>
                 <div className="pb-2 w-full px-8 mb-3 text-center">
-                  <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
+                  {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
                     More Info
-                  </span>
+                  </span> */}
+                  <label htmlFor="my-modal-5" className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">More Info</label>
                 </div>
               </button>
             ))}
           </div>
         </div>
-
+        {/* popupDetaile */}
+        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+        <UserDetail className="modal" />
         {/* Modol invite user */}
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
@@ -283,28 +287,10 @@ export default function UsersAllComponent() {
             </div>
             {/*  */}
           </div>
+
         </div>
         {/* modal invite user */}
-
-        {/* data more infor */}
-        <label htmlFor="my-modal-4" className="btn">
-          open modal
-        </label>
-
         {/* Put this part before </body> tag */}
-        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-        <label htmlFor="my-modal-4" className="modal cursor-pointer">
-          <label className="modal-box relative" htmlFor="">
-            <h3 className="text-lg font-bold">
-              Congratulations random Internet user!
-            </h3>
-            <p className="py-4">
-              You've been selected for a chance to get one year of subscription
-              to use Wikipedia for free!
-            </p>
-          </label>
-        </label>
-        <label htmlFor="my-modal-4" className="btn">open modal</label>
       </div>
     </main>
   );
