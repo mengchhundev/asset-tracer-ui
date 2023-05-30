@@ -109,7 +109,7 @@ export default function NavbarComponent() {
                         <hr className="my-1 border-text-color border-opacity-10" />
 
                         <div className="px-4 py-1">
-                            <MenuItem className="px-0 mt-3 py-1.5 flex bg-white rounded-md border justify-center cursor-pointer" style={{ border: "1px solid gainsboro" }}>
+                            <MenuItem className="px-0 mt-3 py-1.5 flex hover:bg-blue-700 hover:text-white hover:border-blue-700 bg-white rounded-md border justify-center cursor-pointer" style={{ border: "1px solid gainsboro" }}>
                                 <Link
                                     to="/"
                                     className="text-sm"
@@ -127,7 +127,7 @@ export default function NavbarComponent() {
                                     className="w-6 h-6 object-cover rounded-full"
                                 />
                                 <span className="header">Leng Hongmeng</span>
-                                <RiArrowDownSLine className="w-14" />
+                                <RiArrowDownSLine className="w-5" />
                             </MenuButton>
                         }
                         align="end"
@@ -139,7 +139,7 @@ export default function NavbarComponent() {
                         <MenuItem className="p-0 hover:bg-transparent">
                             <Link
                                 to="/profile"
-                                className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
+                                className="rounded-lg hover:bg-bg-primary mx-2 transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-3 px-6 flex-1"
                             >
                                 <img
                                     src={hongmenng}
@@ -160,7 +160,7 @@ export default function NavbarComponent() {
                             >
                                  Cerrar sesión
                             </Link> */}
-                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Singout</label>
+                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject hover:border-reject hover:bg-reject hover:text-white border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Singout</label>
                         </MenuItem>
                     </Menu>
                 </nav>

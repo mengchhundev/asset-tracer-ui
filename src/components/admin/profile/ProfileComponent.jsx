@@ -13,22 +13,24 @@ import { FaUserEdit } from "react-icons/fa";
 import { FiPlus } from 'react-icons/fi';
 import { HiOutlineCheck } from 'react-icons/hi';
 import FormProfileComponent from './FormProfileComponent';
+import { useDispatch } from 'react-redux';
 
 export default function ProfileComponent() {
-    
+
+    const dispatch = useDispatch()
+    const [isShow, setIsShow] = useState(false)
     const [isShowSuccess, setIsShowSuccess] = useState(false)
     const [isShowErr, setIsShowErr] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
-    const [newData, setNewData] = useState({
-        oldPassword: "", newPassword: "", confirmNewPassword: ""
-    })
     const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false)
-    console.log(isShowUpdateProfile)
     const [file, setFile] = useState()
-
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
+
+    const [newData, setNewData] = useState({
+        oldPassword: "", newPassword: "", confirmNewPassword: ""
+    })
 
     const handleInputChange = (e) => {
         setNewData({ ...newData, [e.target.name]: e.target.value })
@@ -102,7 +104,7 @@ export default function ProfileComponent() {
 
     return (
         <main className="overflow-y-auto pb-4 text-text-color">
-            <h2 className="text-2xl mt-5 text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
+            <h2 className="text-2xl text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
                 Account Settings
             </h2>
             <Tab.Group>
@@ -115,8 +117,9 @@ export default function ProfileComponent() {
                         >
                             <FaUserEdit />
                         </label>
+
                         <input type="checkbox" id="update-profile" className="modal-toggle" />
-                        <FormProfileComponent className="modal"/>
+                        <FormProfileComponent className="modal" />
 
                         <div className='px-5 py-4'>
                             <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
@@ -196,273 +199,51 @@ export default function ProfileComponent() {
                     <Tab.Panels>
                         <Tab.Panel>
                             <div className='w-full flex gap-6'>
-                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                    <div className="px-6 py-4">
-                                        <div className='flex flex-row justify-between items-center'>
-                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
 
-                                            <div className="dropdown dropdown-bottom">
-                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
-                                                </button>
-                                                <ul
-                                                    tabIndex={0}
-                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                                >
-
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                            </div>
-                                        </div>
-                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                        <p className="text-gray-700 text-sm text-center opacity-60">
-                                            Organization Owner
-                                        </p>
-                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                            20 members
-                                        </p>
-                                        <div className='w-full flex flex-row justify-center my-2'>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                                <FiPlus />
-                                            </div>
-                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
-                                        <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                        </div>
-                                    </div>
-                                    <div className="pb-2 w-full px-8 mb-3 text-center">
-                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                    </div>
-                                </button>
-                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                    <div className="px-6 py-4">
-                                        <div className='flex flex-row justify-between items-center'>
-                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-
-                                            <div className="dropdown dropdown-bottom">
-                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
-                                                </button>
-                                                <ul
-                                                    tabIndex={0}
-                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                                >
-
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                            </div>
-                                        </div>
-                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                        <p className="text-gray-700 text-sm text-center opacity-60">
-                                            Organization Owner
-                                        </p>
-                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                            20 members
-                                        </p>
-                                        <div className='w-full flex flex-row justify-center my-2'>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                                <FiPlus />
-                                            </div>
-                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
-                                        <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                        </div>
-                                    </div>
-                                    <div className="pb-2 w-full px-8 mb-3 text-center">
-                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                    </div>
-                                </button>
-                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                    <div className="px-6 py-4">
-                                        <div className='flex flex-row justify-between items-center'>
-                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-
-                                            <div className="dropdown dropdown-bottom">
-                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
-                                                </button>
-                                                <ul
-                                                    tabIndex={0}
-                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                                >
-
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                            </div>
-                                        </div>
-                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                        <p className="text-gray-700 text-sm text-center opacity-60">
-                                            Organization Owner
-                                        </p>
-                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                            20 members
-                                        </p>
-                                        <div className='w-full flex flex-row justify-center my-2'>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                                <FiPlus />
-                                            </div>
-                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
-                                        <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                        </div>
-                                    </div>
-                                    <div className="pb-2 w-full px-8 mb-3 text-center">
-                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                    </div>
-                                </button>
-                                <button type='button' className='border border-bg-primary rounded-xl min-w-max cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-200' style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px" }}>
-                                    <div className="px-6 py-4">
-                                        <div className='flex flex-row justify-between items-center'>
-                                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full" />
-
-                                            <div className="dropdown dropdown-bottom">
-                                                <button tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white">
-                                                    <BiDotsHorizontalRounded className="w-6 h-6" />
-                                                </button>
-                                                <ul
-                                                    tabIndex={0}
-                                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                                                >
-
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>Download invoice</a>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                                            <div className='w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto'>
-                                                <p className='font-sp-pro-text-bold text-3xl lg:text-2xl text-white'>k</p>
-                                            </div>
-                                        </div>
-                                        <p className='font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize'>Leng Hongmeng</p>
-                                        <p className="text-gray-700 text-sm text-center opacity-60">
-                                            Organization Owner
-                                        </p>
-                                        <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                                            20 members
-                                        </p>
-                                        <div className='w-full flex flex-row justify-center my-2'>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-purple rounded-full z-50 outline outline-3 outline-white'>
-
-                                            </div>
-                                            <div className='w-9 h-9 md:w-7 md:h-7 lg:w-8 lg:h-8 ml-[-9px] bg-gray-light rounded-full outline outline-3 outline-white z-10 flex justify-center items-center'>
-                                                <FiPlus />
-                                            </div>
-                                            {/* <div className='w-8 h-8 bg-purple rounded-full'></div>
-                                        <div className='w-8 h-8 bg-purple rounded-full'></div> */}
-                                        </div>
-                                    </div>
-                                    <div className="pb-2 w-full px-8 mb-3 text-center">
-                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
-                                    </div>
-                                </button>
                             </div>
                         </Tab.Panel>
                         <Tab.Panel>
                             <div className='w-full md:w-6/12 lg:w-4/12 py-5 m-auto'>
                                 <h2 className='text-center text-2xl font-sp-pro-text-bold my-5 pt-5'>Change Password</h2>
                                 <p className='mb-5'>Your password must be at least 8 characters, numbers, letters and special characters &#40;!$@%&#41;</p>
-                                <form onSubmit={formik.handleSubmit}>
-                                    <div className="text-left mb-4 mt-2">
-                                        <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Current Password</label>
-                                        <div className="relative w-full  mt-1 focus-within:text-black border rounded-lg p-2 border-slate-200 bg-bg-main">
-                                            <input
-                                                onInput={handleInputChange}
-                                                onChange={formik.handleChange}
-                                                defaultValue={newData.oldPassword}
-                                                name="oldPassword"
-                                                className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="password"
-                                                placeholder="********"
-                                            />
-                                        </div>
-                                        {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
+                                <form onSubmit={formik.handleSubmit} className='space-y-5 bg-bg-primary px-5 py-8 rounded-lg'>
+                                    <div className='text-left  w-full '>
+                                        <label className="block mb-2 ml-1 text-sm">Current Password</label>
+                                        <input
+                                            type='number'
+                                            onInput={handleInputChange}
+                                            onChange={formik.handleChange}
+                                            defaultValue={newData.oldPassword}
+                                            name="password"
+                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                            placeholder="********"
+                                        />
+                                        {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
                                     </div>
-                                    <div className="text-left mb-4 mt-2">
-                                        <label className="block text-md ml-1 font-medium leading-6 text-gray-900">New Password</label>
-                                        <div className="relative w-full  mt-1 focus-within:text-black border rounded-lg p-2 border-slate-200 bg-bg-main">
-                                            <input
-                                                onInput={handleInputChange}
-                                                onChange={formik.handleChange}
-                                                value={newData.newPassword}
-                                                name="newPassword"
-                                                className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="password"
-                                                placeholder="********"
-                                            />
-                                        </div>
-                                        {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
+                                    <div className='text-left  w-full '>
+                                        <label className="block mb-2 ml-1 text-sm">Current Password</label>
+                                        <input
+                                            type='number'
+                                            onInput={handleInputChange}
+                                            onChange={formik.handleChange}
+                                            defaultValue={newData.newPassword}
+                                            name="newPassword"
+                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                            placeholder="********"
+                                        />
+                                        {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.newPassword}</p> : null}
                                     </div>
-                                    <div className="text-left mb-4 mt-2">
-                                        <label className="block text-md ml-1 font-medium leading-6 text-gray-900">Confirm New Password</label>
-                                        <div className="relative w-full  mt-1 focus-within:text-black border rounded-lg p-2 border-slate-200 bg-bg-main">
-                                            <input
-                                                onInput={handleInputChange}
-                                                onChange={formik.handleChange}
-                                                value={newData.confirmNewPassword}
-                                                name="newPassword"
-                                                className="w-full px-2 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                                type="password"
-                                                placeholder="********"
-                                            />
-                                        </div>
-                                        {formik.touched.confirmNewPassword && formik.errors?.confirmNewPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.confirmNewPassword}</p> : null}
+                                    <div className='text-left  w-full '>
+                                        <label className="block mb-2 ml-1 text-sm">Current Password</label>
+                                        <input
+                                            onInput={handleInputChange}
+                                            onChange={formik.handleChange}
+                                            value={newData.confirmNewPassword}
+                                            name="confirmNewPassword"
+                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                            placeholder="********"
+                                        />
+                                        {formik.touched.confirmNewPassword && formik.errors?.confirmNewPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.confirmNewPassword}</p> : null}
                                     </div>
                                     <div className="text-left mb-4 mt-2 py-3">
                                         <button type='submit' className='w-full bg-primary text-white rounded-md py-2'>Save Changes</button>
@@ -495,19 +276,6 @@ export default function ProfileComponent() {
                         <p className="mt-3 text-sm text-gray-500 text-center">Your old password is incorrect. Please check again!</p>
                         <div className="modal-action mt-[70px]">
                             <button onClick={() => setIsShowErr(false)} htmlFor="my-modal" className="inline-block w-full rounded text-center bg-primary px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white cursor-pointer">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </> : null}
-
-            {isSuccessUpdateProfile ? <>
-                <div className={`${isSuccessUpdateProfile ? "modal rounded-sm modal-open" : ""}`}>
-                    <div className="modal-box">
-                        <div className="flex justify-center"> <img src={successIcon} width={80} alt="" /></div>
-                        <h2 className="mb-1 text-xl font-sp-pro-text-semibold leading-tight text-primary sm:text-2xl text-center pt-[25px]">Profile Updated!</h2>
-                        <p className="mt-3 text-sm text-gray-500 text-center">Your profile has been updated successfully</p>
-                        <div className="modal-action mt-[70px]">
-                            <button onClick={() => setIsSuccessUpdateProfile(false)} htmlFor="my-modal" className="inline-block w-full rounded text-center bg-primary px-7 pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white cursor-pointer">OK</button>
                         </div>
                     </div>
                 </div>

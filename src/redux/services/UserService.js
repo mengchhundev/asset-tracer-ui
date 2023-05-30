@@ -32,6 +32,9 @@ const verifyRegistration = async (code) => {
     return await api.get(`/users/register/verify?code=${code}`)
 }
 
+const getProfileUser = async (userId) => {
+    return await api.get(`users/${userId}`)
+}
 
 const UserService = {
     signin,
@@ -42,6 +45,7 @@ const UserService = {
     checkValidCode,
     setNewPassword,
     verifyRegistration,
+    getProfileUser
 }
 
 export default UserService;

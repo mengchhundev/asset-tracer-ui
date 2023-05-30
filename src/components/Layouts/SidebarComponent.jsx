@@ -47,7 +47,12 @@ export default function SidebarComponent() {
             setIsShowOrganization(false)
             setShowOrganization(false)
         }
-    }, [item])
+
+        if(window.location.pathname == "/profile") {
+            setIsShowOrganization(false)
+            setShowOrganization(false)
+        }
+    }, [item, window.location.pathname])
 
 
     return (
@@ -86,7 +91,7 @@ export default function SidebarComponent() {
                                 />
                             </NavLink>
                             <ul
-                                className={` ${showOrganization ? "h-[80px] pt-2" : "h-0"
+                                className={` ${showOrganization ? "h-[80px] pt-1 mt-1 bg-bg-primary bg-opacity-70 rounded-md" : "h-0"
                                     } overflow-y-hidden transition-all`}
                             >
                                 <li>
@@ -157,7 +162,7 @@ export default function SidebarComponent() {
                                     />
                                 </NavLink>
                                 <ul
-                                    className={` ${showCategory ? "h-[80px] pt-2" : "h-0"
+                                    className={` ${showCategory ? "h-[80px] pt-1 mt-1 bg-bg-primary bg-opacity-70 rounded-md" : "h-0"
                                         } overflow-y-hidden transition-all`}
                                 >
                                     <li>
@@ -292,12 +297,12 @@ export default function SidebarComponent() {
                     >
                         <IoMdNotifications className="mr-3 text-lg" /> Notification
                     </NavLink>
-                    <NavLink
+                    {/* <NavLink
                         // to="/"
                         className="flex items-center py-2 px-4 transition-colors hover:bg-white"
                     >
                         <RiSettings4Fill className="mr-3 text-lg" /> Setting
-                    </NavLink>
+                    </NavLink> */}
 
                     <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer hover:bg-white">
                         <RiLogoutCircleRLine className="mr-3 text-lg" />
