@@ -15,7 +15,7 @@ import { HiOutlineCheck } from 'react-icons/hi';
 import FormProfileComponent from './FormProfileComponent';
 
 export default function ProfileComponent() {
-    cosnt [showForm, setShowForm] = useState(false)
+    
     const [isShowSuccess, setIsShowSuccess] = useState(false)
     const [isShowErr, setIsShowErr] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
@@ -109,7 +109,6 @@ export default function ProfileComponent() {
                 <div className="mt-5 gap-6 bg-white rounded-xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                     <div className="overflow-x-auto p-5 shadow-sm relative">
                         <label
-                            onClick={() => setShowForm(true)}
                             id='profile-troggle'
                             htmlFor="update-profile"
                             className="absolute flex-row right-5 top-5 bg-bg-primary w-9 h-9 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
@@ -117,7 +116,7 @@ export default function ProfileComponent() {
                             <FaUserEdit />
                         </label>
                         <input type="checkbox" id="update-profile" className="modal-toggle" />
-                        <FormProfileComponent className="modal" isShowUpdateForm={showForm}/>
+                        <FormProfileComponent className="modal"/>
 
                         <div className='px-5 py-4'>
                             <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>

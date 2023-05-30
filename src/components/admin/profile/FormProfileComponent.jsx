@@ -7,9 +7,9 @@ import jwt_decode from "jwt-decode";
 import successIcon from '../../../assets/images/success.png'
 import UserService from '../../../redux/services/UserService';
 
-export default function FormProfileComponent(props) {
+export default function FormProfileComponent() {
 
-    const [showForm, setShowForm] = useState(props.isShowUpdateForm)
+    const [showForm, setShowForm] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
     const [isShowSuccess, setIsShowSuccess] = useState(false)
     const token = localStorage.getItem("token");
