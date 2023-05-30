@@ -1,24 +1,66 @@
 import React from 'react'
 import { auth, provider } from '../../redux/services/googleAuth/firebase';
-import { signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
-import { useEffect } from 'react';
-import api from '../../redux/services/config/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
-import { useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signup from '../../assets/images/signup.png'
+import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
+import api from '../../redux/services/api';
+import UserService from '../../redux/services/UserService';
 
 export default function SignUpComponent() {
+    const navigator = useNavigate();
+    const provider = new GoogleAuthProvider();
+    const [isShowErr, setIsShowErr] = useState(false)
+    const [isShowSuc, setIsShowSuc] = useState(false)
+    const validate = () => { }
+    const [status, setStatus] = useState(false)
 
+    const SignInWithFirebase = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                if (result) {
+                    api.post("/users/register-with-google", {
+                        name: result._tokenResponse.displayName,
+                        email: result._tokenResponse.email,
+                        password: result._tokenResponse.idToken,
+                    })
+                        .then(res => {
+                            setSuccess(true);
+                            localStorage.setItem("token", res.data.payload.token)
+                            if (localStorage.getItem("token")) {
+                                navigator("/organization-create", { state: { isShowSubMenu: true } });
+                            }
 
+                        })
+                }
+            })
+    };
+
+    const SignupSchema = Yup.object().shape({
+        email: Yup.string().required('Email is required').email('Invalid email').test('has-com', 'Email must end with .com', (value) =>
+            value.endsWith('.com')
+        ),
+        password: Yup.string().required('Password is Required'),
+        name: Yup.string().required('Name is Required'),
+    });
 
 
     return (
         <>
-            <div className="h-screen w-full lg:container m-auto font-sp-pro-text-regular text-text-color">
-                <div className="flex h-full flex-wrap md:flex-nowrap items-center justify-around px-10">
-                    <div class="">
+            {isShowErr && (
+                <RegisterPopUpComponent setIsShowErr={isShowErr} status={status}/>
+            )}
+
+            {isShowSuc && (
+                <RegisterPopUpComponent setIsShowSuc={isShowSuc} status={status}/>
+            )}
+
+            <div className="h-screen w-full m-auto font-sp-pro-text-regular md:w-full text-text-color relative">
+                <div className="flex h-full items-center justify-evenly px-10 md:justify-around z-10">
+                    <div className="p-10 m-10 rounded-2xl border-slate-100 border bg-white" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
                         <h2 className="text-3xl text-center font-sp-pro-text-bold text-text-color">
                             Create Your Account
                         </h2>
@@ -54,57 +96,80 @@ export default function SignUpComponent() {
                                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                                 ></path>
                             </svg>
-                            <span className="ml-2 font-semibold">Sign up with Google</span>
+                            <span className="ml-2 font-semibold" onClick={SignInWithFirebase}>Sign up with Google</span>
+
+
+
                         </button>
                         <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t-2 before:border-gray-light after:mt-0.5 after:flex-1 after:border-t-2 after:border-gray-light">
                             <p className="mx-4 mb-0 text-center text-sm text-text-color ">
                                 OR
                             </p>
                         </div>
-                        <div className="text-left mb-3">
-                            <label className="block mb-2 ml-1 text-sm">Name</label>
-                            <input type="text" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter your name" />
-                            {/* <span className="block text-left text-error text-sm px-1 mt-1">
-                                Error
-                            </span> */}
-                        </div>
-                        <div className="text-left mb-3">
-                            <label className="block mb-2 ml-1 text-sm">Email</label>
-                            <input type="email" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="Enter you email" />
-                            {/* <span className="block text-left text-error text-sm px-1 mt-1">
-                                Error
-                            </span> */}
-                        </div>
-                        <div className="text-left mb-3">
-                            <label className="block mb-2 ml-1 text-sm">Name</label>
-                            <input type="password" className="text-sm border-border-strock border-2 rounded-lg block w-full py-2.5 px-4 focus:border-2 focus:border-gray  focus:outline-0 focus:bg-white focus:border-purple-500" placeholder="********" />
-                            {/* <span className="block text-left text-error text-sm px-1 mt-1">
-                                Error
-                            </span> */}
-                        </div>
+                        <Formik
+                            initialValues={{ email: "", name: "", password: "" }}
+                            onSubmit={(values, { resetForm }) => {
+                                UserService.singup(values).then(res => {
+                                    if (res.data?.success) {
+                                        setStatus(!status)
+                                        setIsShowSuc(true)
+                                        setIsShowErr(false)
+                                        resetForm({ email: "", name: "", password: "" })
+                                    }
+                                }, err => {
+                                    if (err.response.data.title == "User Duplicate Exception") {
+                                        setStatus(!status)
+                                        setIsShowErr(true)
+                                        setIsShowSuc(false)
+                                    }
+                                })
 
-                        <div className="my-6">
-                            <button class="bg-primary w-full text-white font-bold py-2 px-4 rounded">
-                                Sign up
-                            </button>
-                        </div>
+                            }}
+                            validationSchema={SignupSchema}
+                            validate={validate}
+                        >
+                            {({ }) => (
+                                <Form>
+                                    <div className="text-left mb-3">
+                                        <label className="block mb-2 ml-1 text-sm">Name</label>
+                                        <Field name='name' type="text" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter your name" />
+                                        <ErrorMessage name="name" component="div" className="text-reject text-xs ml-1" />
 
+                                    </div>
 
+                                    <div className="text-left mb-3">
+                                        <label className="block mb-2 ml-1 text-sm">Email</label>
+                                        <Field name='email' type="email" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter you email" />
+                                        <ErrorMessage name="email" component="div" className="text-reject text-xs ml-1" />
 
-                        <p class="text-sm flex justify-between">
-                            <span className='opacity-60'>
-                                Already have an account?
-                            </span>
-                            <a
-                                href="#"
-                                class="text-primary"
-                            >
-                                <Link to={"/signin"}>Sign In</Link>
-                            </a>
-                        </p>
+                                    </div>
+                                    <div className="text-left mb-3">
+                                        <label className="block mb-2 ml-1 text-sm">password</label>
+                                        <Field type="password" name='password' className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="********" />
+                                        <ErrorMessage name="password" component="div" className="text-reject text-xs ml-1" />
+                                    </div>
+
+                                    <div className="my-6">
+                                        <button type="submit" className="bg-primary w-full hover:bg-pending-hover text-white font-sp-pro-text-regular py-2 px-4 rounded" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
+                                            Sign up
+                                        </button>
+                                    </div>
+                                    <div className="text-sm flex justify-between">
+                                        <span className='text-slate-500'>
+                                            Already have an account?
+                                        </span>
+                                        <div
+                                            className="text-primary"
+                                        >
+                                            <Link to={"/signin"}>Sign In</Link>
+                                        </div>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
-                    <div className="relative w-6/12 hidden md:block">
-                        <img src={signup} alt="Signup Picture" className='w-full' />
+                    <div className="hidden w-0 md:block md:w-5/12 -z-10">
+                        <img src={signup} alt="Signup Picture" className='w-[35rem] z-0 lg:w-[39rem] absolute left-1/2 transform -translate-y-1/2 lg:ml-[-2rem] ' />
                     </div>
                 </div>
             </div>
