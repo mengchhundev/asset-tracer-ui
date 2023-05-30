@@ -221,7 +221,7 @@ export default function ProfileComponent() {
                                         {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
                                     </div>
                                     <div className='text-left  w-full '>
-                                        <label className="block mb-2 ml-1 text-sm">Current Password</label>
+                                        <label className="block mb-2 ml-1 text-sm">New Password</label>
                                         <input
                                             type='number'
                                             onInput={handleInputChange}
@@ -234,7 +234,7 @@ export default function ProfileComponent() {
                                         {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.newPassword}</p> : null}
                                     </div>
                                     <div className='text-left  w-full '>
-                                        <label className="block mb-2 ml-1 text-sm">Current Password</label>
+                                        <label className="block mb-2 ml-1 text-sm">Confirm New Password</label>
                                         <input
                                             onInput={handleInputChange}
                                             onChange={formik.handleChange}
