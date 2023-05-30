@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllRoom } from "../../../redux/slices/RoomSlice";
 import RoomService from "../../../redux/services/RoomService";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import DetailComponent from "./popUpRoom/DetailComponent";
 import AddComponent from "./popUpRoom/AddComponent";
 import ReactPaginate from "react-paginate";
@@ -11,7 +10,6 @@ import UpdateComponent from "./popUpRoom/UpdateComponent";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { BsPlus } from "react-icons/bs";
-import { Link } from "react-router-dom";
 const people = [
   { id: 1, name: "Room" },
   { id: 2, name: "Arlene Mccoy" },
@@ -66,21 +64,27 @@ function RoomListComponent(props) {
   };
 
   return (
-    <div>
-      <div className="z-0 p-10 mt-5 gap-6 bg-white rounded-3xl overflow-x-scroll" style={{height: "calc(100vh - 8rem)"}}>
+    <main className="overflow-y-auto p-5 bg-white rounded-xl relative"
+      style={{
+        boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
+        minHeight: "calc(100vh - 6.3rem)",
+      }}
+    >
+      <div className="gap-6 overflow-hidden z-10">
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
-          <div className="md:pb-0 sm:pb-2">
-            <h2 className="text-2xl text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold md:pb-3">
+          <div className="md:pb-0 sm:pb-2 text-text-colors">
+            <h2 className="text-2xl font-sp-pro-text-semibold">
               All <span className="text-primary">Room</span> Management
             </h2>
-            <p className="font-sp-pro-text-regular text-green">
+            <p className="font-sp-pro-text-regular text-sm text-green">
               Active Categories
             </p>
           </div>
+          
           {/* search */}
           <div className="flex flex-row justify-center gap-5">
             <div>
-              <div className="relative w-full border rounded-md border-slate-200 p-[6px] mt-[2px]">
+              <div className="relative text-sm border-[#E1E9EE] border rounded-lg block w-full py-1.5 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"
@@ -105,12 +109,12 @@ function RoomListComponent(props) {
             </div>
 
             {/* filter */}
-            <div className="md:mt-[-6px] sm:mt-[-12px]">
-              <Combobox value={selected} onChange={setSelected}>
-                <div className="relative mt-1 z-20">
+            <div className="z-20">
+              <Combobox value={selected} onChange={setSelected} className="z-20">
+                <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
-                      className="w-full border-text-color border-opacity-30 border rounded-md py-1.5 mt-1 pl-3 pr-10 text-sm leading-5 text-text-color focus:outline-yellow"
+                      className="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                       displayValue={(person) => person.name}
                       onChange={(event) => setQuery(event.target.value)}
                     />
@@ -180,81 +184,47 @@ function RoomListComponent(props) {
 
             {/* add */}
             <div className="block ">
-             
-                <label htmlFor="my-modal-3" className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center">
-                  <BsPlus className="w-6 h-6" /> &nbsp; Add Room
-                </label>
-              
+              <label
+                htmlFor="my-modal-3"
+                className="border ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
+              >
+                <BsPlus className="w-6 h-6" /> &nbsp; Add Room
+              </label>
             </div>
           </div>
         </div>
 
-        <div className="w">
+        <div className="overflow-x-auto px-5">
           <table className="table w-full">
             <thead>
-              <tr className="bg-bg-primary text-sidebar ">
-                <th className="w-1/8 px-10">No</th>
-                <th className="w-2/8">Room Name</th>
-                <th className="w-1/8">Type</th>
-                <th className="w-1/8">Floor</th>
-                <th className="w-2/8">Description</th>
-                <th className="w-1/8">Action</th>
+              <tr>
+                <th className="w-1/8 bg-bg-primary rounded-none py-3">No</th>
+                <th className="w-2/8 bg-bg-primary py-3">Room Name</th>
+                <th className="w-1/8 bg-bg-primary py-3">Type</th>
+                <th className="w-1/8 bg-bg-primary py-3">Floor</th>
+                <th className="w-2/8 bg-bg-primary py-3">Description</th>
+                <th className="w-1/8 bg-bg-primary rounded-none py-3">
+                  Action
+                </th>
               </tr>
             </thead>
-            <tbody className="divide-y dark:divide-gray-700"></tbody>
-
-            <tbody>
-              {getData.map((item, index) => (
-                <tr
-                  className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20"
-                  key={index}
-                >
-                  <td className="w-1/8 px-10">{index + 1}</td>
-                  <td className="w-2/8">
-                    <span
-                      className={`bg-accept p-2 bg-opacity-20 text-accept rounded-full m-5`}
-                    >
-                      {item.name.substring(0, 2)}
-                    </span>
-                    {item.name}
-                  </td>
-                  <td className="w-1/8">{item.type}</td>
-                  <td className="w-1/8">{item.floor}</td>
-                  <td className="w-2/8">{item.description}</td>
-                  <td className="w-1/8">
-                    <div className="dropdown dropdown-left">
-                      <EllipsisVerticalIcon
-                        tabIndex={0}
-                        className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full"
-                      />
-                      <ul
-                        tabIndex={0}
-                        className="z-50 dropdown-content menu p-2 shadow bg-base-100 rounded-sm w-52"
-                      >
-                        <li>
-                          <label
-                            htmlFor="my-modal-6"
-                            className="hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4"
-                          >
-                            View Room Detail
-                          </label>
-                        </li>
-                        <li className="">
-                          <label
-                            htmlFor="my-modal-5"
-                            className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer"
-                          >
-                            Update Room
-                          </label>
-                        </li>
-                        <li className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">
-                          Delete Room
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+            <tbody className="divide divide-slate-800">
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
             </tbody>
           </table>
           <input type="checkbox" id="my-modal-6" className="modal-toggle" />
@@ -265,14 +235,10 @@ function RoomListComponent(props) {
           <UpdateComponent className="modal" />
         </div>
         <DetailComponent setIsOpen={setIsOpen} isOpen={isOpen} />
-        <div className="z-0 grid grid-cols-12 px-4 py-5 text-sm text-gray-500 uppercase">
-          <div className="flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1">
-            Showing 1 to 2 of 2
-          </div>
-          <div
-            id="react-paginate"
-            className="col-span-12 md:col-span-7 ml-auto"
-          >
+
+        <div className="w-full flex justify-between items-center px-8 py-5 text-sm text-gray-500 uppercase absolute bottom-0 left-0">
+          <div className="">Showing 21-30 of 100</div>
+          <div id="react-paginate" className="">
             <ReactPaginate
               nextLabel=" >"
               onPageChange={handlePageClick}
@@ -294,13 +260,9 @@ function RoomListComponent(props) {
               renderOnZeroPageCount={null}
             />
           </div>
-          <div
-            id="react-paginate"
-            className="col-span-12 md:col-span-7 ml-auto"
-          ></div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
