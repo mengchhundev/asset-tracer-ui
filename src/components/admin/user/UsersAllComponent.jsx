@@ -77,7 +77,7 @@ export default function UsersAllComponent() {
   return (
     <main className="overflow-y-auto">
       <div
-        className="mx-5 mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden h-[690px]"
+        className="p-10 gap-6 bg-white rounded-xl overflow-hidden h-[690px]"
         style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
       >
         <div className="flex lg:flex-row md:flex-col sm:flex-col justify-between mb-8 gap-4 pb-2 md:pb-3">
@@ -122,7 +122,7 @@ export default function UsersAllComponent() {
           <div className="">
             <label
               htmlFor="my-modal-3"
-              className="border border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
+              className="border border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center uppercase"
             >
               <BsPlus className="w-6 h-6" /> &nbsp; Invite User
             </label>

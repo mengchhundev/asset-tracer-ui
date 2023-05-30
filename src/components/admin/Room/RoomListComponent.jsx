@@ -54,6 +54,7 @@ function RoomListComponent(props) {
     getAllRoom();
   }, []);
 
+  // pagination
   let [isOpen, setIsOpen] = useState(false);
   function openDetail() {
     setIsOpen(true);
@@ -64,7 +65,8 @@ function RoomListComponent(props) {
   };
 
   return (
-    <main className="overflow-y-auto p-5 bg-white rounded-xl relative"
+    <main
+      className="overflow-y-auto p-5 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
         minHeight: "calc(100vh - 6.3rem)",
@@ -80,7 +82,7 @@ function RoomListComponent(props) {
               Active Categories
             </p>
           </div>
-          
+
           {/* search */}
           <div className="flex flex-row justify-center gap-5">
             <div>
@@ -110,7 +112,11 @@ function RoomListComponent(props) {
 
             {/* filter */}
             <div className="z-20">
-              <Combobox value={selected} onChange={setSelected} className="z-20">
+              <Combobox
+                value={selected}
+                onChange={setSelected}
+                className="z-20"
+              >
                 <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
@@ -186,7 +192,7 @@ function RoomListComponent(props) {
             <div className="block ">
               <label
                 htmlFor="my-modal-3"
-                className="border ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
+                className="border ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center uppercase"
               >
                 <BsPlus className="w-6 h-6" /> &nbsp; Add Room
               </label>
@@ -194,7 +200,12 @@ function RoomListComponent(props) {
           </div>
         </div>
 
-        <div className="overflow-x-auto px-5">
+        <div
+          className="overflow-x-auto px-5 z-0"
+          style={{
+            minHeight: "calc(100vh - 15rem)",
+          }}
+        >
           <table className="table w-full">
             <thead>
               <tr>
@@ -209,14 +220,6 @@ function RoomListComponent(props) {
               </tr>
             </thead>
             <tbody className="divide divide-slate-800">
-              <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
               <tr>
                 <td>1</td>
                 <td>1</td>

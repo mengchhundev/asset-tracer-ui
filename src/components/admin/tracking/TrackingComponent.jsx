@@ -34,7 +34,13 @@ export default function TrackingComponent() {
     <div>
       {/* Tracking data table */}
       <main className="h-full overflow-y-auto">
-        <div className="mt-3 p-10 bg-white rounded-3xl overflow-hidden h-[690px]">
+        <div
+          className="p-10 bg-white rounded-xl overflow-hidden h-[690px]"
+          style={{
+            boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
+            height: "calc(100vh - 6rem)",
+          }}
+        >
           <div className="flex justify-between mb-8 mt-3">
             <div>
               <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
@@ -327,7 +333,7 @@ export default function TrackingComponent() {
           </div>
 
           {/* frist contect */}
-          <div className="lg:flex space-x-6 sm:flex-row">
+          <div className="lg:flex lg:space-x-6 md:space-x-0 sm:flex-row">
             <div className="">
               <div className=" ">
                 {/* slide 1 */}
@@ -450,7 +456,7 @@ export default function TrackingComponent() {
               </div>
             </div>
 
-            <div>
+            <div className="lg:mt-0 md:mt-4">
               <div className="col-span-6">
                 {/* Identifiers */}
                 <div className="mb-3">

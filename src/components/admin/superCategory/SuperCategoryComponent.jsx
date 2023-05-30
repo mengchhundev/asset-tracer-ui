@@ -203,7 +203,7 @@ export default function SuperCategoryComponent() {
 
             {/* filter */}
             <div className="z-50">
-              <Combobox value={selected} onChange={setSelected} >
+              <Combobox value={selected} onChange={setSelected}>
                 <div className="relative z-50">
                   <div className="z-50 relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
@@ -225,7 +225,10 @@ export default function SuperCategoryComponent() {
                     leaveTo="opacity-0"
                     afterLeave={() => setQuery("")}
                   >
-                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" style={{zIndex: "10000000"}}>
+                    <Combobox.Options
+                      className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                      style={{ zIndex: "10000000" }}
+                    >
                       {filteredPeople.length === 0 && query !== "" ? (
                         <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                           Nothing found.
@@ -296,8 +299,8 @@ export default function SuperCategoryComponent() {
                     <button
                       type="button"
                       disabled
-                      onClick={openModalCreateSuperCategory}
-                      className="bg-primary opacity-70 text-white py-2 px-4 rounded-lg max-w-max"
+                      // onClick={openModalCreateSuperCategory}
+                      className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
                     >
                       <BsPlus className="w-6 h-6" /> &nbsp; Create New
                     </button>
