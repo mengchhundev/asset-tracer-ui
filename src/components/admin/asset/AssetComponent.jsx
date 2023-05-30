@@ -69,17 +69,21 @@ export default function AssetComponent() {
   return (
     <main className="overflow-y-auto pb-4 ">
       <div
-        className="mx-5 mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden h-[690px]"
-        style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
+        className="mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden h-[690px]"
+        style={{
+          boxShadow:
+            "rgba(149, 157, 165, 0.2) 0px 1px 10px, height:calc(100vh - 8rem)",
+        }}
       >
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
           <div>
-            <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold pb-2 md:pb-3">
-              All <span className="text-primary">Asset</span> Items           </h2>
-            <p className="font-sp-pro-text-regular text-green ">Active Asset</p>
+            <h2 className="text-2xl  text-text-color font-sp-pro-text-semibold">
+              All <span className="text-pending">Asset</span> Items
+            </h2>
+            <h4 className=" text-green dark:text-gray-300">Active Asset</h4>
           </div>
           {/* search */}
-          <div className="flex flex-row justify-center gap-5">
+          <div className="flex md:flex-row sm:flex-col sm:m-1 justify-center gap-5 ">
             <div>
               <div className="relative w-full border rounded-md border-slate-200  p-[5px]">
                 <div className="absolute inset-y-0 flex items-center pl-2">
@@ -111,19 +115,12 @@ export default function AssetComponent() {
             </div>
 
             {/* add */}
-            <div className="block ">
-
-              <Link
-                to={"/add-asset"}
-                className="hover:bg-primary"
-              >
-                <label
-                  className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
-                >
-                  <BsPlus className="w-6 h-6" /> &nbsp; Invite User
+            <div className="block sm:float-left">
+              <Link to={"/add-asset"} className="hover:bg-primary">
+                <label ht className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  sm:min-w-mix sm:justify-center flex items-center">
+                  <BsPlus className="w-6 h-6" /> &nbsp; Add Asset 
                 </label>
               </Link>
-
             </div>
           </div>
         </div>
@@ -241,11 +238,10 @@ export default function AssetComponent() {
                           <span className="w-6 h-6 ">
                             <label
                               htmlFor="my-modal-3"
-                            // className="border border-yellow text-yellow p-1 px-2 h-10 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
-                            ><EyeIcon className="h-6 w-6 text-gray-500" />
-
+                              // className="border border-yellow text-yellow p-1 px-2 h-10 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
+                            >
+                              <EyeIcon className="h-6 w-6 text-gray-500" />
                             </label>
-
                           </span>
                         </div>
                       </td>
@@ -388,7 +384,7 @@ export default function AssetComponent() {
                   <hr className="border-gray-light" />
                 </div>
 
-               <div className="p-5 flex flex-row justify-center space-x-5">
+                <div className="p-5 flex flex-row justify-center space-x-5">
                   <span className="border border-slate-200 bg-bg-main text-text-color font-sp-pro-text-medium p-1.5 px-5 rounded-md">
                     Cancel
                   </span>

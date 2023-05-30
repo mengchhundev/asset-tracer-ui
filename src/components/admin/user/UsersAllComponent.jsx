@@ -20,28 +20,24 @@ export default function UsersAllComponent() {
       id: 1,
       profile: "S",
       name: "Senglorn",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
     {
       id: 2,
       profile: "H",
       name: "HongMeng",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
       profile: "M",
       name: "Mony",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 4,
       profile: "M",
       name: "Mnor",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
   ]);
@@ -69,6 +65,7 @@ export default function UsersAllComponent() {
       src: twinter,
     },
   ];
+
   const listOfImage = socialImg.map((image) => (
     <div key={image.id}>
       <img src={image.src} alt={image.title} />
@@ -77,7 +74,7 @@ export default function UsersAllComponent() {
   //featch images
 
   return (
-    <main className="overflow-y-auto pb-4 ">
+    <main className="overflow-y-auto">
       <div
         className="mx-5 mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden h-[690px]"
         style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
@@ -87,7 +84,7 @@ export default function UsersAllComponent() {
             <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
               All <span className="text-primary">User</span> Management
             </h2>
-            <p className="text-green font-sp-pro-text-regular text-sm mt-2">
+            <p className="text-green font-sp-pro-text-regular text-sm">
               Active users
             </p>
           </div>

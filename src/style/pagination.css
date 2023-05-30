@@ -1,13 +1,14 @@
 #react-paginate ul {
   display: inline-block;
   padding-left: 0;
+  cursor: pointer !important;
 }
 
 #react-paginate li {
   display: inline-block;
   border: 1px solid rgb(224, 224, 224);
   color: #000;
-  cursor: pointer;
+  cursor: pointer !important;
   margin-right: 3px;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -15,21 +16,25 @@
 }
 
 #react-paginate li a {
-
+  cursor: pointer  !important;
   font-size: 16px;
-  padding: 8px 13px;
+  padding: 4px 9px;
   display: inline-block;
-  color: #000;
+  color: rgb(74, 74, 74);
   outline: none;
 }
 
 #react-paginate li.active {
+  cursor: pointer;
   background: #F8C400;
+  border-radius: 5px !important;
   outline: none;
   color: white !important;
 }
 
 #react-paginate li.active>a {
+  border-radius: 5px !important;
+  cursor: pointer !important;
   background: #F8C400;
   outline: none;
   color: white !important;
