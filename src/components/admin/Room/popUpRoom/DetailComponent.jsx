@@ -15,10 +15,9 @@ function DetailComponent() {
     return (
         <>
             <div className="modal">
-                <div className="bg-white rounded-lg p-6 w-[1423px]" >
-                    <div className="flex justify-between">
+                <div className="bg-white rounded-lg p-6 modal-box max-w-7xl" >
+                    <div className="flex  justify-between ">
                         <div className="flex">
-
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
                             <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Room Details</p>
                         </div>
@@ -26,9 +25,9 @@ function DetailComponent() {
                             <label htmlFor="my-modal-6" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
-                    <div className="flex">
-                        <div className="w-5/12 mr-14">
-                            <div className="w-[480px] justify-center mx-6 mt-6 pb-5 rounded-xl shadow-lg">
+                    <div className="md:flex">
+                        <div className="xl:w-5/12 md:w-10/12">
+                            <div className="w-full justify-center lg:mx-6 lg:mt-6 lg:pb-2 rounded-xl shadow-lg">
                                 <img
                                     className="object-cover w-full h-full rounded-3xl p-7"
                                     src={topImage}
@@ -82,15 +81,15 @@ function DetailComponent() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-7/12 mr-10">
+                        <div className="xl:w-7/12 lg:ml-10 sm:w-full rounded-lg">
                             <div className="">
                                 <h1 className="text-[22px] text-text-color font-sp-pro-text-semibold">Room Information</h1>
                             </div>
-                            <div className="flex justify-center shadow-xl w-full">
+                            <div className="xl:flex lg:flex-row justify-center shadow-xl w-full py-10">
                                 <div className="w-full flex ">
-                                    <div className=" w-full m-10">
+                                    <div className="pl-14">
                                         <div className="">
-                                            <div className="pt-10">
+                                            <div className="pt-5">
                                                 <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Room Name</label>
                                                 <div className=" mt-2 flex ">
                                                     <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500">SR</span>
@@ -113,9 +112,9 @@ function DetailComponent() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className=" w-full flex border-l-2 border-opacity-30 border-text-color m-14 pl-14">
+                                <div className=" w-full flex xl:border-l-2 border-opacity-30 border-text-color pl-14">
                                     <div className="">
-                                        <div className="pt-10">
+                                        <div className="pt-5">
                                             <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created Date</label>
                                             <div className=" mt-2 flex ">
                                                 <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500"><CalendarDaysIcon className="h-6 w-6 text-gray-500" /></span>

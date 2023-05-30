@@ -14,7 +14,7 @@ function UpdateComponent(props) {
     return (
         <>
             <div className="modal">
-                <div className="bg-white rounded-lg p-6 w-2/3 font-sp-pro-text-regular max-h-[100vh] overflow-scroll" >
+                <div className="bg-white rounded-lg p-6 w-2/3 font-sp-pro-text-regular max-h-[90vh] overflow-scroll" >
                     <div className="flex justify-between">
                         <div className="flex">
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
@@ -28,28 +28,27 @@ function UpdateComponent(props) {
                         <h1 className="md:text-[22px] text-[16px] ml-[5%] flex justify-center text-text-color font-sp-pro-text-semibold">Update  Room Information</h1>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-12">
-                        <div className="col-span-5  xl:grid-cols-1">
-                            <div className=" item-center  w-full shadow-sm rounded-lg ">
-                                <div className="lg:m-5 grid lg:justify-center grid-cols-2 lg:grid-cols-1 rounded-md p-5 border-primary border-opacity-30 items-center" style={{ border: '1px dotted #F8C400' }}>
-                                    <img className="block mx-auto " src={upload} alt="" />
-                                    <p className="text-center mt-[10%]">Upload Room picture, max size 2MB</p>
-                                    <button className="shadow-lg my-[10%] rounded-lg p-2 text-text-color m-auto w-1/2">Browse</button>
+                    <div className='col-span-5 '>
+                                <div className="md:p-5 md:m-5 item-center w-full  shadow-sm rounded-lg">
+                                    <div className='space-y-5 shadow px-10 py-16 rounded-md mb-1'>
+                                        <div className='border border-dashed items-center h-[300px] block justify-center text-center p-3 border-bg-primary-strock rounded-lg'>
+                                            <img className="block m-auto " src={upload} alt="" />
+                                            <p className='mt-5 text-xs'>Upload Invoice picture, max size 20MB</p>
+                                            <button className='shadow-sm rounded-md border border-bg-primary px-5 py-1.5 my-2 '>Browse</button>
+                                        </div>
+                                    </div>
+                                    <div className='mt-3'>
+                                        <button className='shadow-sm rounded-md border border-none bg-reject-light w-full text-reject px-5 py-1.5 my-2 '>Remove</button>
+                                    </div>
                                 </div>
-
                             </div>
-                            <div className="flex mx-auto justify-center m-[5%] w-full">
-                                <div className="bg-primary bg-opacity-10 w-2/3 p-[3%] rounded-lg flex justify-center">
-                                    <button className="flex justify-around  text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon className="h-6 w-6 text-red-500" />Remove</button>
-                                </div>
-                            </div>
-                        </div>
                         <div className="col-span-7">
 
                             <div className="grid grid-cols-1  my-5 justify-center shadow-sm w-full">
                                 <div >
                                     <div className='xl:p-[2.5%] p-[5%]'>
                                         <label htmlFor="">Room Name</label><br />
-                                        <input className="border mt-2 text-text-color md:px-3 px-1 border-text-color border-opacity-30 w-full rounded-md p-2" type="text"
+                                        <input className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2  px-4 w-full p-2 outline-none focus:border-primary" type="text"
                                             placeholder="SeimReap Class"
                                         />
                                     </div>
@@ -61,7 +60,7 @@ function UpdateComponent(props) {
                                                     <>
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
-                                                                <Listbox.Button className="pl-3 py-2 w-full text-left  relative border border-slate-200  rounded-md text-text-color">
+                                                                <Listbox.Button className="border-[#E1E9EE] border rounded-lg py-2 ext-text-color w-full outline-none focus:border-primary">
                                                                     <span className="flex justify-between px-2 truncate">{selectedRoom}<ChevronDownIcon className="h-6 w-6 text-gray-500" /></span>
                                                                 </Listbox.Button>
                                                             </span>
@@ -124,7 +123,7 @@ function UpdateComponent(props) {
                                         <div className="p-[5%]">
 
                                             <label htmlFor="" className="" >Creat Date</label> <br />
-                                            <input className="border mt-2 text-text-color  px-3 border-text-color border-opacity-30 w-full rounded-md p-2" type="Date"
+                                            <input className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2  px-4 w-full p-2 outline-none focus:border-primary" type="Date"
                                                 placeholder="Room Name"
                                             />
                                         </div>
@@ -137,7 +136,7 @@ function UpdateComponent(props) {
                                                     <>
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
-                                                                <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200  rounded-md text-gray-800">
+                                                                <Listbox.Button className="border-[#E1E9EE] border rounded-lg py-2 ext-text-color w-full outline-none focus:border-primary">
                                                                     <span className="flex justify-between px-2 truncate">{selectedfloor}<ChevronDownIcon className="h-6 w-6 text-gray-500" /></span>
                                                                 </Listbox.Button>
                                                             </span>
@@ -204,7 +203,7 @@ function UpdateComponent(props) {
                                                     <>
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
-                                                                <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200  rounded-md text-gray-800">
+                                                                <Listbox.Button className="border-[#E1E9EE] border rounded-lg py-2 ext-text-color w-full outline-none focus:border-primary">
                                                                     <span className=" flex justify-between px-2 truncate">{selectedCreate}<ChevronDownIcon className="h-6 w-6 text-gray-500" />
                                                                     </span>
                                                                 </Listbox.Button>
@@ -270,7 +269,7 @@ function UpdateComponent(props) {
                                  grid grid-cols-1  w-full justify-between">
                                         <div className='xl:p-[2.5%] p-[5%]'>
                                             <h1 className="text-[18px]  text-text-color font-sp-pro-text-semibold">Room Information</h1>
-                                            <textarea className="border border-text-color border-opacity-30 rounded-lg w-full" name="" id="" cols="15" rows="5"></textarea>
+                                            <textarea className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2.5 px-4 w-full  p-2 outline-none focus:border-primary" type="text" name="" id="" cols="20" rows="5"></textarea>
                                         </div>
                                     </div>
 
@@ -278,10 +277,10 @@ function UpdateComponent(props) {
                             </div>
                             <div className="flex mt-5 justify-end flex-row w-full">
                                 <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
+                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancel</button>
                                 </div>
                                 <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
-                                    <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
+                                    <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Update</button>
                                 </div>
                             </div>
                         </div>

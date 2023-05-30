@@ -63,7 +63,7 @@ function RoomListComponent(props) {
 
   return (
     <div>
-      <div className="z-0 mx-5 mt-5 p-10 gap-6 bg-white rounded-3xl overflow-x-scroll">
+      <div className="z-0 p-10 gap-6 bg-white rounded-3xl overflow-x-scroll">
         <div className="flex flex-col  sm:flex-row justify-between mb-8 gap-4">
           <div>
             <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
@@ -161,7 +161,7 @@ function RoomListComponent(props) {
           </Combobox>
           <label
             htmlFor="my-modal-3"
-            className="border border-yellow text-yellow p-1 px-2 h-10 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
+            className="cursor-pointer border border-yellow text-yellow p-1 px-2 h-10 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
           >
             <BsPlus className="w-6 h-6" /> &nbsp; Add Room
           </label>

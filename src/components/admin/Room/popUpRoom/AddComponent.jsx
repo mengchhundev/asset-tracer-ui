@@ -1,7 +1,7 @@
 import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, HomeIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import upload from '../../../../assets/images/Room/Upload.png';
 import { Listbox, Transition } from "@headlessui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function AddComponent(props) {
     const Room = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
     const floor = ["GF", "F1", "F2", "F3", "F4"];
@@ -9,14 +9,41 @@ function AddComponent(props) {
     const [selectedfloor, setSelectedfloor] = useState("Room floor");
     const [selectedCreate, setSelectedCreate] = useState("Room By");
     const [selectedRoom, setSelectedRoom] = useState("Room type");
+    const [data, setData] = useState();
 
+    useEffect(() => {
+        setData((prevData) => ({
+          ...prevData,
+          
+          selectedfloor,
+          selectedCreate,
+          selectedRoom
+        }));
+      }, [selectedfloor, selectedCreate, selectedRoom]);
+      
+      const handleChang = (event) => {
+        const { name, value } = event.target;
+        setData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+        setSelectedfloor(name === "floor" ? value : selectedfloor);
+        setSelectedCreate(name === "createBy" ? value : selectedCreate);
+        setSelectedRoom(name === "room" ? value : selectedRoom);
+        
+      };
+
+    console.log("this is data", data); // Log the updated data state
+    const handlesubmit = () => {
+
+    }
     return (
 
         <>
-            <div className="modal">
-                <div className="bg-white rounded-lg p-5 font-sp-pro-text-regular max-h-[100vh] overflow-x-scroll " >
+            <div className="modal" >
+                {/* <div className="modal-box" > */}
+                <div className="modal-box max-w-7xl bg-white rounded-lg p-5 font-sp-pro-text-regular" >
                     <div className="flex justify-between">
-
                         <div className="flex">
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
                             <p className="px-6 text-text-color text-[22px] item-center xl:text-[28px] font-sp-pro-text-bold">Room Information</p>
@@ -25,20 +52,18 @@ function AddComponent(props) {
                             <label htmlFor="my-modal-3" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-12">
-                        <div className="col-span-5">
-                            <div className="md:p-5 md:m-5 item-center w-full shadow-sm rounded-lg ">
-                                <div className="m-5 rounded-md p-5 border-primary border-opacity-30 flex flex-col items-center" style={{ border: '1px dotted #F8C400' }}>
-
-                                    <img className="w-3/4 px-20 pt-20 pb-5" src={upload} alt="" />
-                                    <p className="text-center">Upload Room picture, max size 2MB</p>
-                                    <button className="p-4 m-10 center text-center w-28 shadow-md">Browse</button>
+                    <div className="grid grid-cols-1 md:grid-cols-12 ">
+                        <div className='col-span-5 '>
+                            <div className="md:p-5 md:m-5 item-center w-full  shadow-sm rounded-lg">
+                                <div className='space-y-5 shadow px-10 py-16 rounded-md mb-1'>
+                                    <div className='border border-dashed items-center h-[300px] block justify-center text-center p-3 border-bg-primary-strock rounded-lg'>
+                                        <img className="block m-auto " src={upload} alt="" />
+                                        <p className='mt-5 text-xs'>Upload Invoice picture, max size 20MB</p>
+                                        <button className='shadow-sm rounded-md border border-bg-primary px-5 py-1.5 my-2 '>Browse</button>
+                                    </div>
                                 </div>
-
-                            </div>
-                            <div className="flex justify-center w-full">
-                                <div className="bg-primary bg-opacity-10  w-1/2 p-3 rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-red-500 font-sp-pro-text-regular text-[20px]"><TrashIcon className="h-6 w-6 text-red-500" />Remove</button>
+                                <div className='mt-3'>
+                                    <button className='shadow-sm rounded-md border border-none bg-reject-light w-full text-reject px-5 py-1.5 my-2 '>Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -48,19 +73,19 @@ function AddComponent(props) {
                                 <div className="" >
                                     <div className="w-full xl:p-5 md:p-5 " >
                                         <label htmlFor="">Room Name</label><br />
-                                        <input className="border mt-2 text-text-color px-3 border-text-color border-opacity-30 w-full h-[39px] rounded-md p-2" type="text"
+                                        <input onChange={handleChang} name="name" className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2 px-4 w-full p-2 outline-none focus:border-primary" type="text"
                                             placeholder="Room Name"
                                         />
                                     </div>
-                                    <div className="grid xl:grid-cols-2 grid-cols-1 w-full justify-between">
-                                        <div className="w-full pt-3 md:p-5 ">
+                                    <div className="grid grid-cols-1 pt-3 xl:grid-cols-2 w-full justify-between">
+                                        <div className="w-full pt-3 md:p-5  ">
                                             <label htmlFor="" className="" >Room Type</label>
                                             <Listbox as="div" className={"mt-2"} value={selectedRoom} onChange={setSelectedRoom}>
                                                 {({ open }) => (
                                                     <>
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
-                                                                <Listbox.Button className="pl-3 py-2 w-full text-left  relative border border-slate-200  rounded-md text-text-color">
+                                                                <Listbox.Button className="border-[#E1E9EE] border rounded-lg py-2 ext-text-color w-full outline-none focus:border-primary">
                                                                     <span className="flex justify-between px-2 truncate">{selectedRoom}<ChevronDownIcon className="h-6 w-6 text-gray-500" /></span>
                                                                 </Listbox.Button>
                                                             </span>
@@ -123,20 +148,20 @@ function AddComponent(props) {
                                         <div className="w-full pt-3 md:p-5">
 
                                             <label htmlFor="" className="" >Creat Date</label> <br />
-                                            <input className="border mt-2 text-text-color  px-3 border-text-color border-opacity-30 w-full rounded-md p-2" type="Date"
-                                                placeholder="Room Name"
+                                            <input className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2  px-4 w-full p-2 outline-none focus:border-primary" type="Date"
+                                                placeholder=""
                                             />
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-1 pt-3 xl:grid-cols-2 w-full justify-between">
                                         <div className="w-full pt-3 md:p-5">
                                             <label htmlFor="" className="" >Room Floor</label>
-                                            <Listbox as="div" className={"mt-2"} value={selectedfloor} onChange={setSelectedfloor}>
+                                            <Listbox as="div" className={"mt-2"} name="floor" value={selectedfloor} onChange={setSelectedfloor}>
                                                 {({ open }) => (
                                                     <>
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
-                                                                <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200  rounded-md text-gray-800">
+                                                                <Listbox.Button className="border-[#E1E9EE] border rounded-lg py-2 ext-text-color w-full outline-none focus:border-primary">
                                                                     <span className="flex justify-between px-2 truncate">{selectedfloor}<ChevronDownIcon className="h-6 w-6 text-gray-500" /></span>
                                                                 </Listbox.Button>
                                                             </span>
@@ -203,7 +228,7 @@ function AddComponent(props) {
                                                     <>
                                                         <div className="relative">
                                                             <span className="inline-block w-full ">
-                                                                <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200  rounded-md text-gray-800">
+                                                                <Listbox.Button className="border-[#E1E9EE] border rounded-lg py-2 text-text-color w-full outline-none focus:border-primary">
                                                                     <span className=" flex justify-between px-2 truncate">{selectedCreate}<ChevronDownIcon className="h-6 w-6 text-gray-500" />
                                                                     </span>
                                                                 </Listbox.Button>
@@ -267,23 +292,24 @@ function AddComponent(props) {
                                     </div>
                                     <div className="
                                       w-full xl:p-5 pt-3 md:p-5">
-                                        <h1 className="text-[18px]  text-text-color font-sp-pro-text-semibold">Room Information</h1>
-                                        <textarea className="border border-text-color border-opacity-30 rounded-lg w-full" name="" id="" cols="20" rows="5"></textarea>
+                                        <h1 className="text-[18px]  text-text-color font-sp-pro-text-semibold">Descripction</h1>
+                                        <textarea className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2.5 px-4 w-full  p-2 outline-none focus:border-primary" type="text" name="" id="" cols="20" rows="5"></textarea>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="flex mt-5 justify-end flex-row w-full">
-                                <div className="bg-slate-500 cursor-pointer  p-3  rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
+                                <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
+                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px] ">Cancel</button>
                                 </div>
-                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6  p-3 rounded-lg flex justify-center">
-                                    <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Update</button>
+                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
+                                    <button onClick={handlesubmit} className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/* </div> */}
             </div>
         </>
 
