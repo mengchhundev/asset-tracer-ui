@@ -42,7 +42,7 @@ function AddComponent(props) {
         <>
             <div className="modal" >
                 {/* <div className="modal-box" > */}
-                <div className="modal-box max-w-7xl bg-white rounded-lg p-5 font-sp-pro-text-regular" >
+                <div className="modal-box max-w-5xl bg-white rounded-lg p-5 font-sp-pro-text-regular" >
                     <div className="flex justify-between">
                         <div className="flex">
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
@@ -54,7 +54,7 @@ function AddComponent(props) {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 ">
                         <div className='col-span-5 '>
-                            <div className="md:p-5 md:m-5 item-center w-full  shadow-sm rounded-lg">
+                            <div className="md:p-3 md:m-3 item-center w-full  shadow-sm rounded-lg">
                                 <div className='space-y-5 shadow px-10 py-16 rounded-md mb-1'>
                                     <div className='border border-dashed items-center h-[300px] block justify-center text-center p-3 border-bg-primary-strock rounded-lg'>
                                         <img className="block m-auto " src={upload} alt="" />
@@ -67,18 +67,18 @@ function AddComponent(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-7 w-full xl:p-10">
+                        <div className="col-span-7 w-full xl:p-3">
                             <div className=" shadow-sm w-full">
 
                                 <div className="" >
-                                    <div className="w-full xl:p-5 md:p-5 " >
+                                    <div className="w-full xl:p-3 md:p-3 " >
                                         <label htmlFor="">Room Name</label><br />
                                         <input onChange={handleChang} name="name" className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2 px-4 w-full p-2 outline-none focus:border-primary" type="text"
                                             placeholder="Room Name"
                                         />
                                     </div>
-                                    <div className="grid grid-cols-1 pt-3 xl:grid-cols-2 w-full justify-between">
-                                        <div className="w-full pt-3 md:p-5  ">
+                                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full justify-between">
+                                        <div className="w-full md:p-3  ">
                                             <label htmlFor="" className="" >Room Type</label>
                                             <Listbox as="div" className={"mt-2"} value={selectedRoom} onChange={setSelectedRoom}>
                                                 {({ open }) => (
@@ -145,7 +145,7 @@ function AddComponent(props) {
                                                 )}
                                             </Listbox>
                                         </div>
-                                        <div className="w-full pt-3 md:p-5">
+                                        <div className="w-full md:p-3">
 
                                             <label htmlFor="" className="" >Creat Date</label> <br />
                                             <input className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2  px-4 w-full p-2 outline-none focus:border-primary" type="Date"
@@ -153,8 +153,8 @@ function AddComponent(props) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="grid grid-cols-1 pt-3 xl:grid-cols-2 w-full justify-between">
-                                        <div className="w-full pt-3 md:p-5">
+                                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full justify-between">
+                                        <div className="w-full md:p-3">
                                             <label htmlFor="" className="" >Room Floor</label>
                                             <Listbox as="div" className={"mt-2"} name="floor" value={selectedfloor} onChange={setSelectedfloor}>
                                                 {({ open }) => (
@@ -221,7 +221,7 @@ function AddComponent(props) {
                                                 )}
                                             </Listbox>
                                         </div>
-                                        <div className="w-full pt-3 md:p-5">
+                                        <div className="w-full md:p-3">
                                             <label htmlFor="" className="" >Create By</label>
                                             <Listbox as="div" className={"mt-2"} value={selectedCreate} onChange={setSelectedCreate}>
                                                 {({ open }) => (
@@ -291,18 +291,18 @@ function AddComponent(props) {
                                         </div>
                                     </div>
                                     <div className="
-                                      w-full xl:p-5 pt-3 md:p-5">
+                                      w-full xl:p-3  md:p-3">
                                         <h1 className="text-[18px]  text-text-color font-sp-pro-text-semibold">Descripction</h1>
-                                        <textarea className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2.5 px-4 w-full  p-2 outline-none focus:border-primary" type="text" name="" id="" cols="20" rows="5"></textarea>
+                                        <textarea className="border-[#E1E9EE] border rounded-lg mt-2 text-text-color py-2.5 px-4 w-full  p-2 outline-none focus:border-primary" type="text" name="" id="" cols="20" rows="4"></textarea>
                                     </div>
 
                                 </div>
                             </div>
                             <div className="flex mt-5 justify-end flex-row w-full">
-                                <div className="bg-slate-500 cursor-pointer  w-3/12 p-3  rounded-lg flex justify-center">
+                                <div className="bg-slate-500 cursor-pointer  w-3/12 p-2  rounded-lg flex justify-center">
                                     <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px] ">Cancel</button>
                                 </div>
-                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-3 rounded-lg flex justify-center">
+                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-2 rounded-lg flex justify-center">
                                     <button onClick={handlesubmit} className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Save</button>
                                 </div>
                             </div>
