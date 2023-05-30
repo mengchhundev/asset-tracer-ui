@@ -280,7 +280,7 @@ export default function SuperCategoryComponent() {
 
             {/* add */}
             <div className="block ">
-              {organization.role.name == "ADMIN" ? (
+              {organization.role?.name == "ADMIN" ? (
                 <>
                   <div>
                     <button

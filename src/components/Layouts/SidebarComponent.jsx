@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import SignOutComponent from "./popUp/SignOutComponent";
 import { IoMdNotifications } from "react-icons/io";
+import logo from '../../assets/images/A_Tracer_logo1.png'
 
 
 export default function SidebarComponent() {
@@ -290,13 +291,13 @@ export default function SidebarComponent() {
                         </> : null}
                     </ul>
                 </div>
-                <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-lg mt-3 shadow-sm py-3">
-                    <NavLink
+                <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
+                    {/* <NavLink
                         // to="/"
-                        className="flex items-center py-2 px-4 transition-colors hover:bg-white"
+                        className="flex items-center py-2 px-4 transition-colors"
                     >
                         <IoMdNotifications className="mr-3 text-lg" /> Notification
-                    </NavLink>
+                    </NavLink> */}
                     {/* <NavLink
                         // to="/"
                         className="flex items-center py-2 px-4 transition-colors hover:bg-white"
@@ -304,16 +305,16 @@ export default function SidebarComponent() {
                         <RiSettings4Fill className="mr-3 text-lg" /> Setting
                     </NavLink> */}
 
-                    <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer hover:bg-white">
+                    <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer">
                         <RiLogoutCircleRLine className="mr-3 text-lg" />
-                        Singout
+                        Sign Out
                     </label>
                     <NavLink
                         to="/profile"
                         className="flex items-center py-2.5 mt-3 transition-colors gap-2 justify-center cursor-pointer">
                         <img
-                            src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
-                            className="w-9 h-9 object-cover rounded-full"
+                            src={logo}
+                            className="w-12 h-12 object-cover rounded-full"
                         />
                         <span>
                             <p className="text-sm">Asset Tracer</p>

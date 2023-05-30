@@ -9,7 +9,7 @@ export default function NavbarComponent() {
   return (
     <>
       <nav className="bg-white fixed w-full z-50 top-0 left-0 border-b border-white shadow-sm">
-        <div className="flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="flex flex-wrap items-center justify-between mx-auto p-3">
           <ul>
             <li>
             <div className="items-center inline-flex">
@@ -22,28 +22,28 @@ export default function NavbarComponent() {
             className="items-center justify-between hidden w-full lg:block md:w-auto md:order-1"
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-light rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
-              <li>
+            <ul className="flex flex-col p-4 text-base md:p-0 mt-4 font-medium border border-gray-light rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
+              <li className="cursor-pointer">
                 <div href="#" className="block py-2 px-3 text-textblack mx-auto">
                 <Link to={"/"}>Home</Link>
                 </div>
               </li>
-              <li>
+              <li className="cursor-pointer">
                 <div href="#" className="block py-2 px-3 text-textblack ">
                   Feature
                 </div>
               </li>
-              <li>
+              <li className="cursor-pointer">
                 <div href="#" className="block py-2 px-3 text-textblack ">
                   Benefits
                 </div>
               </li>
-              <li>
+              <li className="cursor-pointer">
                 <div href="#" className="block py-2 px-3 text-textblack ">
                   Our team
                 </div>
               </li>
-              <li>
+              <li className="cursor-pointer">
                 <div href="#" className="block py-2 px-3 text-textblack ">
                   <Link to={"/about"}>About us</Link>
                 </div>
@@ -52,7 +52,7 @@ export default function NavbarComponent() {
           </div>
           <div className="flex md:order-3 relative">
             <NavLink
-              to={`${token ? "organization" : "/signin"}`}
+              to={`${token ? "/organization" : "/signin"}`}
               type="button"
               className="text-white  hidden lg:block rounded-md bg-secondary-yellow font-medium text-sm px-10 py-3 text-center mr-14 hover:bg-hover-yellow shadow-lg shadow-shadow"
             >

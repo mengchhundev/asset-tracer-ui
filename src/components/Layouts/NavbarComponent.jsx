@@ -21,6 +21,7 @@ import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineBuildingLibrary } from "react-icons/hi2";
+import { HomeModernIcon } from "@heroicons/react/20/solid";
 
 
 export default function NavbarComponent() {
@@ -47,18 +48,16 @@ export default function NavbarComponent() {
             </div>
 
             <div className="flex items-center w-full justify-between">
-                <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center">
-                    {/* <p className="text-xs text-slate-500 font-sp-pro-text-regular">Organization Name:</p> */}
-                    {/* <span className="text-slate-500 text-sm font-sp-pro-text-regular">ORG: </span> */}
-                    <HiOutlineBuildingLibrary className="mb-[2px] mr-1"/>
-                    {session ? session.name : null}
+                <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center rounded-md">
+                    <HiOutlineBuildingLibrary className="h-7 rounded-md w-7 text-white bg-primary p-1 mr-2"/>
+                    {session ? session.name : "No Organzation"}
                 </div>
                 <nav className="flex items-center gap-2 ">
 
                     <Menu
                         menuButton={
                             <MenuButton className="relative hover:bg-secondary-100 p-2 rounded-lg transition-colors">
-                                <RiNotification3Line />
+                                <RiNotification3Line className="text-primary "/>
                                 <span className="absolute -top-0.5 right-0 bg-primary py-0.5 px-[5px] box-content text-black rounded-full text-[8px] font-bold">
                                     2
                                 </span>
@@ -85,8 +84,8 @@ export default function NavbarComponent() {
                                     className="text-gray-300 flex flex-1 items-center gap-3 py-2 px-4 hover:bg-secondary-900 transition-colors rounded-lg"
                                 >
                                     <img
-                                        src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
-                                        className="w-8 h-8 object-cover rounded-full"
+                                        src={logo}
+                                        className="w-10 h-10 object-cover rounded-full"
                                     />
                                     <div className="text-sm flex flex-col">
                                         <div className="flex items-center justify-between gap-4">
@@ -125,10 +124,10 @@ export default function NavbarComponent() {
                         menuButton={
                             <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
                                 <img
-                                    src={hongmenng}
-                                    className="w-6 h-6 object-cover rounded-full"
+                                    src={logo}
+                                    className="w-8 h-8 object-cover rounded-full"
                                 />
-                                <span className="header">Leng Hongmeng</span>
+                                <span className="header">Asset Tracer</span>
                                 <RiArrowDownSLine className="w-5" />
                             </MenuButton>
                         }
@@ -144,11 +143,11 @@ export default function NavbarComponent() {
                                 className="rounded-lg hover:bg-bg-primary mx-2 transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-3 px-6 flex-1"
                             >
                                 <img
-                                    src={hongmenng}
-                                    className="w-8 h-8 object-cover rounded-full"
+                                    src={logo}
+                                    className="w-12 h-12 object-cover rounded-full"
                                 />
                                 <div className="flex flex-col text-sm">
-                                    <span className="text-sm font-sp-pro-text-medium">Leng Hongmeng</span>
+                                    <span className="text-sm font-sp-pro-text-medium">Asset Tracer</span>
                                     <span className="text-xs text-gray-500">assettracerteam@gmail.com</span>
                                 </div>
                             </Link>
@@ -162,7 +161,7 @@ export default function NavbarComponent() {
                             >
                                  Cerrar sesión
                             </Link> */}
-                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject hover:border-reject hover:bg-reject hover:text-white border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Singout</label>
+                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject hover:border-reject hover:bg-reject hover:text-white border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Sign Out</label>
                         </MenuItem>
                     </Menu>
                 </nav>

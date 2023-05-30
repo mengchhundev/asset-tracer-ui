@@ -58,43 +58,9 @@ export default function OrganizationListComponent() {
                         {organizations.length != 0 ? organizations.map(list => (
                             <label key={list.id} className='border relative shadow-sm border-slate-200 rounded-xl min-w-max cursor-pointer'>
                                 <div className='absolute top-3 right-3 cursor-pointer'>
-{/* 
-                                    <Menu
-                                        menuButton={
-                                            <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
-                                                <img
-                                                    src={hongmenng}
-                                                    className="w-6 h-6 object-cover rounded-full"
-                                                />
-                                                <span className="header">Leng Hongmeng</span>
-                                            </MenuButton>
-                                        }
-                                        align="end"
-                                        arrow
-                                        transition
-                                        arrowClassName="bg-secondary-100 "
-                                        menuClassName="bg-secondary-100 px-4 rounded-lg border"
-                                    >
-                                        <MenuItem className="p-0 hover:bg-transparent">
-                                            <Link
-                                                to="/profile"
-                                                className="rounded-lg hover:bg-bg-primary mx-2 transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-3 px-6 flex-1"
-                                            >
-                                                <div className="flex flex-col text-sm">
-                                                    <span className="text-sm font-sp-pro-text-medium">Leng Hongmeng</span>
-                                                    <span className="text-xs text-gray-500">assettracerteam@gmail.com</span>
-                                                </div>
-                                            </Link>
-                                        </MenuItem>
-                                        <hr className="my-4 border-text-color border-opacity-10" />
-
-                                        <MenuItem className="p-0 hover:bg-transparent">
-                                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject hover:border-reject hover:bg-reject hover:text-white border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Singout</label>
-                                        </MenuItem>
-                                    </Menu> */}
-                                    {/*                                     
+                                                                        
                                     <div className="dropdown dropdown-bottom cursor-pointer">
-                                        <button onClick={() => setDropdown(!dropdown)} tabIndex={0} className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray ">
+                                        <button onClick={() => setDropdown(!dropdown)} tabIndex={0} className="hover:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray ">
                                             <BiDotsHorizontalRounded className="w-6 h-6" />
                                         </button>
                                         {dropdown ?
@@ -110,7 +76,7 @@ export default function OrganizationListComponent() {
 
                                             : null}
 
-                                    </div> */}
+                                    </div>
                                 </div>
                                 <label className="px-6 py-4" onClick={() => handleShowOrganization(list)}>
                                     <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
@@ -138,7 +104,7 @@ export default function OrganizationListComponent() {
 
                                     </div>
                                     <div className="pb-2 w-full px-8 text-center cursor-pointer">
-                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-1.5 px-3 text-xs font-semibold text-gray-700 mr-2 mb-2 text-blue-700">Joined</span>
+                                        <span className="inline-block w-full bg-border-gray-light rounded-md py-2 px-3 text-xs font-semibold text-gray-700 mr-2 mb-2 text-green bg-green bg-opacity-10">Joined</span>
                                     </div>
                                 </label>
                             </label>
