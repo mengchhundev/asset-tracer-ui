@@ -192,19 +192,19 @@ export default function AssetComponent() {
           }}
         >
           <table className="table w-full">
-            <thead className="text-md tracking-wide text-center">
+            <thead >
               <tr>
-                <th className="bg-white">No</th>
-                <th className="bg-white">Invoice</th>
-                <th className="bg-white">Suplier</th>
-                <th className="bg-white">Purchase</th>
-                <th className="bg-white">Date</th>
-                <th className="bg-white">Quantity</th>
-                <th className="bg-white">Total Price</th>
-                <th className="bg-white">More</th>
+                <th className="bg-bg-primary rounded-none py-3">No</th>
+                <th className="bg-bg-primary py-3">Invoice</th>
+                <th className="bg-bg-primary py-3 ">Suplier</th>
+                <th className="bg-bg-primary py-3 ">Purchase</th>
+                <th className="bg-bg-primary py-3 ">Date</th>
+                <th className="bg-bg-primary py-3 ">Quantity</th>
+                <th className="bg-bg-primary py-3 ">Total Price</th>
+                <th className="bg-bg-primary rounded-none py-3">More</th>
               </tr>
             </thead>
-            <tbody className="text-md tracking-wide text-center">
+            <tbody className="divide divide-slate-800">
               <tr>
                 <td>1</td>
                 <td>1</td>
