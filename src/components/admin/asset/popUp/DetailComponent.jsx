@@ -24,15 +24,14 @@ function DetailComponent(props) {
     return (
         <>
             <div className="modal">
-                <div className="bg-white rounded-lg p-6 xl:w-[1423px]" >
+                <div className="bg-white rounded-lg p-6 xl:w-5xl" >
                     <div className="flex justify-between">
                         <div className="flex">
-
                             <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
                             <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Asset Details</p>
                         </div>
                         <div className="">
-                            <label htmlFor="my-modal-3" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
+                            <label htmlFor="my-modal-6" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
                         </div>
                     </div>
                     <div className="mt-5">

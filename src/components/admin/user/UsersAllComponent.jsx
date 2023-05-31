@@ -13,6 +13,7 @@ import SortByComponent from "../tracking/SortByComponent";
 import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
 import { TbCalendarStats } from "react-icons/tb";
 import { AiFillGift } from "react-icons/ai";
+import UserDetail from "./userPopup/UserDetail";
 
 export default function UsersAllComponent() {
   const [user, setUser] = useState([
@@ -20,28 +21,24 @@ export default function UsersAllComponent() {
       id: 1,
       profile: "S",
       name: "Senglorn",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
     {
       id: 2,
       profile: "H",
       name: "HongMeng",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
       profile: "M",
       name: "Mony",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 4,
       profile: "M",
       name: "Mnor",
-      email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
   ]);
@@ -69,6 +66,7 @@ export default function UsersAllComponent() {
       src: twinter,
     },
   ];
+
   const listOfImage = socialImg.map((image) => (
     <div key={image.id}>
       <img src={image.src} alt={image.title} />
@@ -77,9 +75,9 @@ export default function UsersAllComponent() {
   //featch images
 
   return (
-    <main className="overflow-y-auto pb-4 ">
+    <main className="overflow-y-auto">
       <div
-        className="mx-5 mt-5 p-5 gap-6 bg-white rounded-3xl overflow-hidden h-[690px]"
+        className="p-10 gap-6 bg-white rounded-xl overflow-hidden h-[690px]"
         style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
       >
         <div className="flex lg:flex-row md:flex-col sm:flex-col justify-between mb-8 gap-4 pb-2 md:pb-3">
@@ -87,7 +85,7 @@ export default function UsersAllComponent() {
             <h2 className="text-2xl  text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
               All <span className="text-primary">User</span> Management
             </h2>
-            <p className="text-green font-sp-pro-text-regular text-sm mt-2">
+            <p className="text-green font-sp-pro-text-regular text-sm">
               Active users
             </p>
           </div>
@@ -124,7 +122,7 @@ export default function UsersAllComponent() {
           <div className="">
             <label
               htmlFor="my-modal-3"
-              className="border border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center"
+              className="border border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  max-w-max flex items-center uppercase"
             >
               <BsPlus className="w-6 h-6" /> &nbsp; Invite User
             </label>
@@ -188,15 +186,18 @@ export default function UsersAllComponent() {
                   </div>
                 </div>
                 <div className="pb-2 w-full px-8 mb-3 text-center">
-                  <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
+                  {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
                     More Info
-                  </span>
+                  </span> */}
+                  <label htmlFor="my-modal-5" className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">More Info</label>
                 </div>
               </button>
             ))}
           </div>
         </div>
-
+        {/* popupDetaile */}
+        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+        <UserDetail className="modal" />
         {/* Modol invite user */}
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
@@ -286,28 +287,10 @@ export default function UsersAllComponent() {
             </div>
             {/*  */}
           </div>
+
         </div>
         {/* modal invite user */}
-
-        {/* data more infor */}
-        <label htmlFor="my-modal-4" className="btn">
-          open modal
-        </label>
-
         {/* Put this part before </body> tag */}
-        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-        <label htmlFor="my-modal-4" className="modal cursor-pointer">
-          <label className="modal-box relative" htmlFor="">
-            <h3 className="text-lg font-bold">
-              Congratulations random Internet user!
-            </h3>
-            <p className="py-4">
-              You've been selected for a chance to get one year of subscription
-              to use Wikipedia for free!
-            </p>
-          </label>
-        </label>
-        <label htmlFor="my-modal-4" className="btn">open modal</label>
       </div>
     </main>
   );

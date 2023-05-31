@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import SignOutComponent from "./popUp/SignOutComponent";
 import { IoMdNotifications } from "react-icons/io";
+import logo from '../../assets/images/A_Tracer_logo1.png'
 
 
 export default function SidebarComponent() {
@@ -47,7 +48,12 @@ export default function SidebarComponent() {
             setIsShowOrganization(false)
             setShowOrganization(false)
         }
-    }, [item])
+
+        if(window.location.pathname == "/profile") {
+            setIsShowOrganization(false)
+            setShowOrganization(false)
+        }
+    }, [item, window.location.pathname])
 
 
     return (
@@ -86,7 +92,7 @@ export default function SidebarComponent() {
                                 />
                             </NavLink>
                             <ul
-                                className={` ${showOrganization ? "h-[80px] pt-2" : "h-0"
+                                className={` ${showOrganization ? "h-[80px] pt-1 mt-1 bg-bg-primary bg-opacity-70 rounded-md" : "h-0"
                                     } overflow-y-hidden transition-all`}
                             >
                                 <li>
@@ -157,7 +163,7 @@ export default function SidebarComponent() {
                                     />
                                 </NavLink>
                                 <ul
-                                    className={` ${showCategory ? "h-[80px] pt-2" : "h-0"
+                                    className={` ${showCategory ? "h-[80px] pt-1 mt-1 bg-bg-primary bg-opacity-70 rounded-md" : "h-0"
                                         } overflow-y-hidden transition-all`}
                                 >
                                     <li>
@@ -285,30 +291,30 @@ export default function SidebarComponent() {
                         </> : null}
                     </ul>
                 </div>
-                <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-lg mt-3 shadow-sm py-3">
-                    <NavLink
+                <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
+                    {/* <NavLink
                         // to="/"
-                        className="flex items-center py-2 px-4 transition-colors hover:bg-white"
+                        className="flex items-center py-2 px-4 transition-colors"
                     >
                         <IoMdNotifications className="mr-3 text-lg" /> Notification
-                    </NavLink>
-                    <NavLink
+                    </NavLink> */}
+                    {/* <NavLink
                         // to="/"
                         className="flex items-center py-2 px-4 transition-colors hover:bg-white"
                     >
                         <RiSettings4Fill className="mr-3 text-lg" /> Setting
-                    </NavLink>
+                    </NavLink> */}
 
-                    <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer hover:bg-white">
+                    <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer">
                         <RiLogoutCircleRLine className="mr-3 text-lg" />
-                        Singout
+                        Sign Out
                     </label>
                     <NavLink
                         to="/profile"
                         className="flex items-center py-2.5 mt-3 transition-colors gap-2 justify-center cursor-pointer">
                         <img
-                            src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
-                            className="w-9 h-9 object-cover rounded-full"
+                            src={logo}
+                            className="w-12 h-12 object-cover rounded-full"
                         />
                         <span>
                             <p className="text-sm">Asset Tracer</p>

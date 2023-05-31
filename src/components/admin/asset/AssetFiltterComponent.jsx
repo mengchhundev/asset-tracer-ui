@@ -2,7 +2,7 @@ import React from "react";
 //import
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 const people = [
   { id: 1, name: "Sort by" },
   { id: 2, name: "A - Z" },
@@ -31,12 +31,12 @@ export default function AssetFiltterComponent() {
         <div className="relative mt-1 z-20">
           <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
             <Combobox.Input
-              className="w-full bg-bg-main rounded-md py-2 pl-3 pr-10 text-sm leading-5 text-text-color focus:outline-yellow"
+              className="w-full bg-bg-main rounded-md py-2.5 pl-3 pr-10 text-sm leading-5 text-text-color focus:outline-yellow"
               displayValue={(person) => person.name}
               onChange={(event) => setQuery(event.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
+              <ChevronDownIcon
                 className="h-5 w-5 text-text-color"
                 aria-hidden="true"
               />
