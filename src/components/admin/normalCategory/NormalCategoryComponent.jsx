@@ -1,8 +1,5 @@
-import { Listbox, Transition } from "@headlessui/react";
 import axios from "axios";
-import { Container } from "postcss";
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, Fragment } from "react";
 import trash from "../../../assets/images/trash.png";
 import pc from "../../../assets/images/pc.png";
 import furniture from "../../../assets/images/furniture.png";
@@ -75,7 +72,9 @@ export default function CategoryComponent() {
               All <span className="text-pending">Normal</span> Category
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
+            <p className="font-sp-pro-text-regular text-sm text-green">
               Active categories
+            </p>
             </p>
           </div>
 
