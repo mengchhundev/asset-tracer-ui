@@ -593,5 +593,6 @@ export default function SuperCategoryComponent() {
         </Dialog>
       </Transition>
     </main>
+
   );
 }
