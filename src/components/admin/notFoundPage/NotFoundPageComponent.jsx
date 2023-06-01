@@ -21,7 +21,7 @@ export default function NotFoundPageComponent() {
         or possibly never existed.
       </div>
       <Link to={'/'}>
-      <button class="m-10 flex  mx-auto bg-transparent hover:bg-yellow text-yellow font-semibold hover:text-white py-2 px-4 border border-yellow hover:border-transparent rounded">
+      <button className="m-10 flex  mx-auto bg-transparent hover:bg-yellow text-yellow font-semibold hover:text-white py-2 px-4 border border-yellow hover:border-transparent rounded">
         Go Back !
       </button>
       </Link>

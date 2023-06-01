@@ -6,13 +6,26 @@ import { ChevronUpDownIcon, EyeIcon } from "@heroicons/react/20/solid";
 import { Combobox, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 
+const people = [
+  { id: 1, name: "Sort By" },
+  { id: 2, name: "Arlene Mccoy" },
+  { id: 3, name: "Devon Webb" },
+];
+
 export default function NotificationComponent() {
-  const people = [
-    { id: 1, name: "Sort By" },
-    { id: 2, name: "Arlene Mccoy" },
-    { id: 3, name: "Devon Webb" },
-  ];
+  const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(people[0]);
+
+  const filteredPeople =
+    query === ""
+      ? people
+      : people.filter((person) =>
+          person.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
+
   const [notifications, setNotification] = useState([
     {
       id: 1,
@@ -23,7 +36,7 @@ export default function NotificationComponent() {
       src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
     },
     {
-      id: 1,
+      id: 2,
       profile: "SE",
       name: "jiso",
       number: "09464",
@@ -31,7 +44,7 @@ export default function NotificationComponent() {
       src: "https://i.pinimg.com/564x/18/40/f1/1840f18b87198ab3b79198979e491b39.jpg",
     },
     {
-      id: 1,
+      id: 3,
       profile: "SE",
       name: "jiso",
       number: "09464",
@@ -39,7 +52,7 @@ export default function NotificationComponent() {
       src: "https://i.pinimg.com/564x/a9/e0/45/a9e045a4cc1e78022ca1b4a275938142.jpg",
     },
     {
-      id: 1,
+      id: 4,
       profile: "SE",
       name: "jiso",
       number: "09464",
@@ -47,7 +60,7 @@ export default function NotificationComponent() {
       src: "https://i.pinimg.com/564x/db/84/6c/db846c57d050b6916fa09ca4773f3ad2.jpg",
     },
     {
-      id: 1,
+      id: 5,
       profile: "SE",
       name: "jiso",
       number: "09464",
@@ -55,12 +68,44 @@ export default function NotificationComponent() {
       src: "https://i.pinimg.com/564x/c9/f2/4c/c9f24c35ec99e28a50dc158abf68e5b8.jpg",
     },
     {
-      id: 1,
+      id: 6,
       profile: "SE",
       name: "jiso",
       number: "09464",
       email: "hrdcenter@gamil.com",
       src: "https://i.pinimg.com/564x/2c/a7/95/2ca7954afb804e926221a5f364f7a9fb.jpg",
+    },
+    {
+      id: 7,
+      profile: "SE",
+      name: "jiso",
+      number: "09464",
+      email: "hrdcenter@gamil.com",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
+    },
+    {
+      id: 8,
+      profile: "SE",
+      name: "jiso",
+      number: "09464",
+      email: "hrdcenter@gamil.com",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
+    },
+    {
+      id: 9,
+      profile: "SE",
+      name: "jiso",
+      number: "09464",
+      email: "hrdcenter@gamil.com",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
+    },
+    {
+      id: 10,
+      profile: "SE",
+      name: "jiso",
+      number: "09464",
+      email: "hrdcenter@gamil.com",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
     },
   ]);
   return (
@@ -68,18 +113,20 @@ export default function NotificationComponent() {
       className="overflow-y-auto p-5 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        height: "calc(100vh - 6rem)",
+        minHeight: "calc(100vh - 6.3rem)",
       }}
     >
-      <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
-        <div className="md:pb-0 sm:pb-2 text-text-colors">
-          <h2 className="text-2xl font-sp-pro-text-semibold">
-            List<span className="text-pending"> All</span> Notification
-          </h2>
-          <p className="font-sp-pro-text-regular text-sm text-green">
-            Active notification
-          </p>
-        </div>
+      <div className="gap-6 overflow-hidden z-10">
+        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
+          {/* header */}
+          <div className="md:pb-0 sm:pb-2 text-text-colors">
+            <h2 className="text-2xl font-sp-pro-text-semibold">
+              All <span className="text-pending">List</span> Notification
+            </h2>
+            <p className="font-sp-pro-text-regular text-sm text-green">
+              Active notification
+            </p>
+          </div>
 
         {/* search */}
         <div className="flex flex-row justify-center gap-5">
@@ -107,8 +154,126 @@ export default function NotificationComponent() {
               />
             </div>
           </div>
+          {/* filter */}
+          <div className="z-50">
+            <div className="relative z-50">
+              <div className="z-50 relative w-full cursor-default overflow-hidden text-left rounded-md">
+                <input
+                  className="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                  id="headlessui-combobox-input-:r19:"
+                  role="combobox"
+                  type="text"
+                  aria-expanded="false"
+                  aria-autocomplete="list"
+                  data-headlessui-state=""
+                />
+                <button
+                  className="absolute inset-y-0 right-0 flex items-center pr-2"
+                  id="headlessui-combobox-button-:r1b:"
+                  type="button"
+                  tabIndex="-1"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  data-headlessui-state=""
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                    className="h-5 w-5 text-text-color"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
 
-          <div class="z-50"><div class="relative z-50"><div class="z-50 relative w-full cursor-default overflow-hidden text-left rounded-md"><input class="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary" id="headlessui-combobox-input-:r19:" role="combobox" type="text" aria-expanded="false" aria-autocomplete="list" data-headlessui-state="" value=""/><button class="absolute inset-y-0 right-0 flex items-center pr-2" id="headlessui-combobox-button-:r1b:" type="button" tabindex="-1" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5 text-text-color"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path></svg></button></div></div></div>
+          {/* DropDown filter */}
+
+          {/* <div className="z-20">
+            <Combobox
+                value={selected}
+                onChange={setSelected}
+                className="z-20"
+              >
+                <div className="relative z-20">
+                  <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                    <Combobox.Input
+                      className="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      displayValue={(person) => person.name}
+                      onChange={(event) => setQuery(event.target.value)}
+                    />
+                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-text-color"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    afterLeave={() => setQuery("")}
+                  >
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {filteredPeople.length === 0 && query !== "" ? (
+                        <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                          Nothing found.
+                        </div>
+                      ) : (
+                        filteredPeople.map((person) => (
+                          <Combobox.Option
+                            key={person.id}
+                            className={({ active }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-hover-yellow text-text-color"
+                                  : "text-text-color"
+                              }`
+                            }
+                            value={person}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
+                                >
+                                  {person.name}
+                                </span>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-text-color"
+                                    }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Combobox.Option>
+                        ))
+                      )}
+                    </Combobox.Options>
+                  </Transition>
+                </div>
+              </Combobox>
+          </div> */}
 
           {/* add */}
           <div className="block ">
@@ -126,80 +291,94 @@ export default function NotificationComponent() {
       </div>
 
       {/* table for list notification */}
-
-      <div className="overflow-x-auto px-5">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th className="w-1/12 bg-bg-primary rounded-none py-3">No</th>
-                <th className="w-3/12 bg-bg-primary py-3">Normal Category Name</th>
-                <th className="w-3/12 bg-bg-primary py-3">Super Category Name</th>
-                <th className="w-3/12 bg-bg-primary py-3">Created Date</th>
-                <th className="w-2/12 bg-bg-primary rounded-none py-3">
-                  Action
-                </th>
-              </tr>
-            </thead>
-
-            <tbody className="divide-y dark:divide-gray-700">
-              {notifications.map((notification)=>(
-                <tr className="font-md text-text-color">
-                <th className="bg-white">1</th>
-                <td>
+      <div
+        className="overflow-x-auto px-5 flex-grow"
+        style={
+          {
+            // minHeight: "calc(100vh - 12rem)",
+          }
+        }
+      >
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th className="w-1/12 bg-bg-primary rounded-none py-3">No</th>
+              <th className="w-3/12 bg-bg-primary py-3">
+                Normal Category Name
+              </th>
+              <th className="w-3/12 bg-bg-primary py-3">Super Category Name</th>
+              <th className="w-3/12 bg-bg-primary py-3">Created Date</th>
+              <th className="w-2/12 bg-bg-primary rounded-none py-3">Action</th>
+            </tr>
+          </thead>
+          <tbody className="divide divide-slate-800">
+            {notifications.map((users) => (
+              <tr
+                key={users.id}
+                className="font-md text-text-color border-none"
+              >
+                <td className="p-2.5">{users.id}</td>
+                <td className="p-2.5">
                   <div className="flex items-center">
-                    <div className="relative  w-8 h-8 mr-3 rounded-full">
+                    <div className="relative  mr-3 w-8">
                       <img
-                        className="object-cover w-full h-full rounded-full"
-                        src={notifications}
-                        alt=""
+                        src={users.src}
+                        alt={users.title}
                         loading="lazy"
+                        className="rounded-full h-8"
                       />
-                      <div
-                        className="absolute inset-0 rounded-full shadow-inner"
-                        aria-hidden="true"
-                      ></div>
                     </div>
-                    <div>Phone</div>
+                    <div>{users.name}</div>
                   </div>
                 </td>
-                <td>
-                  <div className="flex items-center">
-                    <div className="relative  w-8 h-8 mr-3 rounded-full">
-                      <img
-                        className="object-cover w-full h-full rounded-full"
-                        src={notifications}
-                        alt=""
-                        loading="lazy"
-                      />
-                      <div
-                        className="absolute inset-0 rounded-full shadow-inner"
-                        aria-hidden="true"
-                      ></div>
-                    </div>
-                    <div>Album</div>
+                <td className="p-2.5">
+                  <div className="flex items-center m-auto space-x-3">
+                    <span className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                      {users.profile}
+                    </span>
+                    <span className="font-sp-pro-text-medium text-sm text-text-color">
+                      {users.name}
+                    </span>
                   </div>
                 </td>
-                <td></td>
-                <td>
-                  <div className="flex flex-row gap-4">
-                    <button
-                      className="mt-3 inline-flex w-full justify-center rounded-md border px-3 py-1.5 text-md text-gray-900 shadow-sm border-accept hover:bg-gray-50 sm:mt-0 sm:w-auto text-accept"
+                <td className=" text-text-color p-2.5">
+                  <div className="flex items-center">
+                    <div className="relative  mr-3 w-8 ">
+                      <img
+                        src={users.src}
+                        alt={users.title}
+                        loading="lazy"
+                        className="rounded-full h-8"
+                      />
+                    </div>
+                    <div>{users.name}</div>
+                  </div>
+                </td>
+                <td className="p-2.5">
+                  <div className="flex items-center space-x-4">
+                    {/* Edit */}
+                    <label
+                      htmlFor="modalEdit"
+                      className="flex items-center border border-accept text-accept min-w-min px-5 py-1 leading-5 rounded-md"
+                      aria-label="Edit"
                     >
                       Edit
-                    </button>
-                    <button
-                      className="mt-3 inline-flex w-full justify-center rounded-md border px-3 py-1.5 text-md text-gray-900 shadow-sm border-reject hover:bg-gray-50 sm:mt-0 sm:w-auto text-reject"
+                    </label>
+                    {/* Delete */}
+                    <label
+                      htmlFor="modalDelete"
+                      className="flex items-center border border-reject text-reject min-w-min px-5 py-1 leading-5 rounded-md"
+                      aria-label="Delete"
                     >
                       Delete
-                    </button>
+                    </label>
                   </div>
                 </td>
               </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* pagination */}
 
       <div className="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
@@ -277,6 +456,7 @@ export default function NotificationComponent() {
             </ul>
           </nav>
         </span>
+      </div>
       </div>
     </main>
   );
