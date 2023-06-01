@@ -9,6 +9,7 @@ import signup from '../../assets/images/signup.png'
 import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
 import api from '../../redux/services/api';
 import UserService from '../../redux/services/UserService';
+import LoadingComponent from '../LoadingComponent';
 
 export default function SignUpComponent() {
     const navigator = useNavigate();
@@ -17,6 +18,7 @@ export default function SignUpComponent() {
     const [isShowSuc, setIsShowSuc] = useState(false)
     const validate = () => { }
     const [status, setStatus] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const SignInWithFirebase = () => {
         signInWithPopup(auth, provider)
@@ -56,6 +58,8 @@ export default function SignUpComponent() {
             {isShowSuc && (
                 <RegisterPopUpComponent setIsShowSuc={isShowSuc} status={status}/>
             )}
+
+            {loading && <LoadingComponent/>}
 
             <div className="h-screen w-full m-auto font-sp-pro-text-regular md:w-full text-text-color relative">
                 <div className="flex h-full items-center justify-evenly px-10 md:justify-around z-10">
@@ -108,12 +112,14 @@ export default function SignUpComponent() {
                         <Formik
                             initialValues={{ email: "", name: "", password: "" }}
                             onSubmit={(values, { resetForm }) => {
+                                setLoading(true)
                                 UserService.singup(values).then(res => {
                                     if (res.data?.success) {
                                         setStatus(!status)
                                         setIsShowSuc(true)
                                         setIsShowErr(false)
                                         resetForm({ email: "", name: "", password: "" })
+                                        setLoading(false)
                                     }
                                 }, err => {
                                     if (err.response.data.title == "User Duplicate Exception") {
@@ -121,6 +127,7 @@ export default function SignUpComponent() {
                                         setIsShowErr(true)
                                         setIsShowSuc(false)
                                     }
+                                    setLoading(false)
                                 })
 
                             }}

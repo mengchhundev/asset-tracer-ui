@@ -10,6 +10,8 @@ import { auth, provider } from '../../redux/services/googleAuth/firebase';
 import api from '../../redux/services/api';
 import UserService from '../../redux/services/UserService';
 import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
+import SpinnerComponent from '../admin/spinner/SpinnerComponent';
+import LoadingComponent from '../LoadingComponent';
 export default function SignInComponent() {
     const [message, setMessage] = useState()
     const [isShowErr, setIsShowErr] = useState(false)
@@ -18,6 +20,7 @@ export default function SignInComponent() {
     const [isRememberMe, setIsRememberMe] = useState()
     const navigator = useNavigate();
     const location = useLocation()
+    const [loading, setLoading] = useState(false)
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -71,6 +74,9 @@ export default function SignInComponent() {
             {isShowErr && (
                 <WarningPopUpComponents setIsShowErr={setIsShowErr} message={message} />
             )}
+
+            {loading && <LoadingComponent/>}
+
             <div className="h-screen w-full m-auto font-sp-pro-text-regular md:w-full text-text-color">
                 <div className="flex h-full items-center justify-center px-10 md:justify-around z-10">
                     <div className="hidden w-0 md:block md:w-5/12 -z-10">
@@ -80,12 +86,17 @@ export default function SignInComponent() {
                         <Formik
                             initialValues={{ email: "", password: "" }}
                             onSubmit={values => {
+                                setLoading(true)
                                 UserService.signin(values).then(res => {
                                     localStorage.setItem("token", res.data.payload.token)
                                     if (localStorage.getItem("token")) {
-                                        navigator("/organization");
+                                        setTimeout(() => {
+                                            setLoading(false)
+                                            navigator("/organization");
+                                        }, 2000)
                                     }
                                 }, err => {
+                                    setLoading(false)
                                     setIsShowErr(true)
                                     if (err.response.data.title == "User is disabled") {
                                         setMessage("Please confirm your acount before signin")
@@ -138,6 +149,7 @@ export default function SignInComponent() {
                                         type="submit"
                                         className="bg-primary hover:bg-pending-hover w-full text-white font-sp-pro-text-regular py-2 px-4 my-6 rounded"
                                     >
+                                        
                                         Sign in
                                     </button>
                                     {/* </div> */}
@@ -188,8 +200,6 @@ export default function SignInComponent() {
                             </span>
                         </button>
                     </div>
-
-
                 </div>
             </div>
         </>

@@ -281,7 +281,7 @@ export default function CategoryComponent() {
           >
             <table className="table w-full">
               <tbody className="divide divide-slate-800">
-                <tr className="text-base font-sp-pro-text-semibold text-text-color">
+                <tr className="text-sm font-sp-pro-text-semibold text-text-color">
                   <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
                   <td className="w-3/12 bg-bg-main py-3">
                     Normal Category Name
