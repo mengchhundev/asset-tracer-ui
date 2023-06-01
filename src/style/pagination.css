@@ -7,12 +7,12 @@
 #react-paginate li {
   display: inline-block;
   border: 1px solid rgb(224, 224, 224);
-  color: #000;
+  color: #324C5B;
   cursor: pointer !important;
   margin-right: 3px;
   border-radius: 5px;
   margin-bottom: 5px;
-  margin: 5px 5px;
+  margin: 5px 6px !important;
 }
 
 #react-paginate li a {

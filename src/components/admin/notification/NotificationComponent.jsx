@@ -110,7 +110,7 @@ export default function NotificationComponent() {
   ]);
   return (
     <main
-      className="overflow-y-auto p-5 bg-white rounded-xl relative"
+      className="overflow-y-auto p-5 px-8 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
         minHeight: "calc(100vh - 6.3rem)",

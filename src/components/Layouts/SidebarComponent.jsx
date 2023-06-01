@@ -17,12 +17,12 @@ export default function SidebarComponent() {
     const navigator = useNavigate()
     const [showMenu, setShowMenu] = useState(false);
     const [showOrganization, setShowOrganization] = useState(false);
-    const activeStyle = "flex items-center my-2 py-2.5 px-4 rounded-lg transition-colors hover:bg-bg-primary text-white bg-primary";
-    const inActiveStyle = "flex items-center my-2 py-2.5 px-4 rounded-lg transition-colors hover:bg-bg-primary";
+    const activeStyle = "flex items-center my-2 py-2.5 px-5 rounded-xl transition-colors hover:bg-bg-primary text-white bg-primary";
+    const inActiveStyle = "flex items-center my-2 py-2.5 px-5 rounded-xl transition-colors hover:bg-bg-primary";
 
     const [isShowOrganization, setIsShowOrganization] = useState(false)
-    const activeStyleDropDown = "flex items-center justify-between py-2.5 px-4 rounded-lg transition-colors hover:bg-bg-primary text-white bg-primary";
-    const inActiveStyleDropDown = "flex items-center justify-between py-2.5 px-4 rounded-lg transition-colors hover:bg-bg-primary";
+    const activeStyleDropDown = "flex items-center justify-between py-2.5 px-5 rounded-xl transition-colors hover:bg-bg-primary text-white bg-primary";
+    const inActiveStyleDropDown = "flex items-center justify-between py-2.5 px-5 rounded-xl transition-colors hover:bg-bg-primary";
 
     const [showCategory, setShowCategory] = useState(false);
     const [isShowCategory, setIsShowCategory] = useState(false);
@@ -59,7 +59,7 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`flex-shrink-0 text-sidebar medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-5 pt-6 px-5 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-[17rem] bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
             >
                 <div>
@@ -92,7 +92,7 @@ export default function SidebarComponent() {
                                 />
                             </NavLink>
                             <ul
-                                className={` ${showOrganization ? "h-[80px] pt-1 mt-1 bg-bg-primary bg-opacity-70 rounded-md" : "h-0"
+                                className={` ${showOrganization ? "h-[80px] pt-1 mt-1" : "h-0"
                                     } overflow-y-hidden transition-all`}
                             >
                                 <li>
@@ -169,7 +169,7 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/super-category"
-                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color ` :
+                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-primary ` :
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("category") }}
                                         >
@@ -179,7 +179,7 @@ export default function SidebarComponent() {
                                     <li>
                                         <NavLink
                                             to="/normal-category"
-                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-text-color before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-text-color ` :
+                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-primary ` :
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
                                             onClick={() => { setIsShowCategory(true), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("category") }}
                                         >
@@ -291,7 +291,7 @@ export default function SidebarComponent() {
                         </> : null}
                     </ul>
                 </div>
-                <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
+                <nav className="font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
                     <NavLink
                         to="/notification"
                         className="flex items-center py-2 px-4 transition-colors"
