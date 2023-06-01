@@ -9,8 +9,8 @@ import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
 import { FiPlus } from "react-icons/fi";
 import no_data_pic from '../../../assets/images/empty_box.png'
-import { Menu } from '@headlessui/react';
-import { MenuButton, MenuItem } from '@szhsin/react-menu';
+import SpinnerComponent from '../spinner/SpinnerComponent'
+import LoadingComponent from '../../LoadingComponent';
 
 export default function OrganizationListComponent() {
     const [dropdown, setDropdown] = useState(false);
@@ -45,7 +45,7 @@ export default function OrganizationListComponent() {
     }, [])
 
     return (
-        <main className="overflow-y-auto p-5 bg-white rounded-xl" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
+        <main className="overflow-y-auto p-5 bg-white rounded-xl" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>       
             <div className="gap-6 overflow-hidden">
                 <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
                     <h2 className="text-2xl  text-text-color dark:text-gray-200 font-sp-pro-text-semibold">
@@ -58,7 +58,7 @@ export default function OrganizationListComponent() {
                         {organizations.length != 0 ? organizations.map(list => (
                             <label key={list.id} className='border relative shadow-sm border-slate-200 rounded-xl min-w-max cursor-pointer'>
                                 <div className='absolute top-3 right-3 cursor-pointer'>
-                                                                        
+
                                     <div className="dropdown dropdown-bottom cursor-pointer">
                                         <button onClick={() => setDropdown(!dropdown)} tabIndex={0} className="hover:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray ">
                                             <BiDotsHorizontalRounded className="w-6 h-6" />
