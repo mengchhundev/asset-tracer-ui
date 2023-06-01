@@ -99,6 +99,7 @@ export default function CategoryComponent() {
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
+    
     {
       id: 6,
       profile: "ME",
@@ -115,25 +116,8 @@ export default function CategoryComponent() {
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
-  
     {
       id: 8,
-      profile: "ME",
-      name: "Keo Mony",
-      number: "09464",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 9,
-      profile: "ME",
-      name: "Keo Mony",
-      number: "09464",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 10,
       profile: "ME",
       name: "Keo Mony",
       number: "09464",
@@ -145,10 +129,9 @@ export default function CategoryComponent() {
   return (
     
     <main
-      className="overflow-y-auto p-8 bg-white rounded-xl relative"
+      className="overflow-y-auto px-11 py-6 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        minHeight: "calc(100vh - 6.3rem)",
       }}
     >
       <div className="gap-6 overflow-hidden z-10">
@@ -272,7 +255,7 @@ export default function CategoryComponent() {
             <div className="block ">
               <label
                 htmlFor="normalCategory"
-                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
+                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[3px] px-3 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
               >
                 <BsPlus className="w-6 h-6" /> &nbsp; Add Normal Category
               </label>
@@ -283,7 +266,7 @@ export default function CategoryComponent() {
         <div
           className="flex flex-col justify-between"
           style={{
-            minHeight: "calc(100vh - 12rem)",
+            minHeight: "calc(100vh - 18rem)",
           }}
         >
           {/* table */}
@@ -299,15 +282,15 @@ export default function CategoryComponent() {
             <table className="table w-full">
               <tbody className="divide divide-slate-800">
               <tr className="text-text-color ">
-                  <td className="w-1/12 bg-[#F9FAFB]">No</td>
-                  <td className="w-3/12 bg-[#F9FAFB]">
+                  <td className="w-1/12 bg-[#F9FAFB] py-3">No</td>
+                  <td className="w-3/12 bg-[#F9FAFB] py-3">
                     Normal Category Name
                   </td>
-                  <td className="w-3/12 bg-[#F9FAFB]">
+                  <td className="w-3/12 bg-[#F9FAFB] py-3">
                     Super Category Name
                   </td>
-                  <td className="w-3/12 bg-[#F9FAFB]">Created Date</td>
-                  <td className="w-2/12 bg-[#F9FAFB]">
+                  <td className="w-3/12 bg-[#F9FAFB] py-3">Created Date</td>
+                  <td className="w-2/12 bg-[#F9FAFB] py-3">
                     Action
                   </td>
                 </tr>
@@ -316,12 +299,12 @@ export default function CategoryComponent() {
                     <td className="p-2.5">{users.id}</td>
                     <td className="p-2.5">
                       <div className="flex items-center">
-                        <div className="relative  mr-3 w-8">
+                        <div className="relative mr-3 w-7 h-7 overflow-hidden">
                           <img
                             src={users.src}
                             alt={users.title}
                             loading="lazy"
-                            className="rounded-full h-8"
+                            className="rounded-full w-full h-full"
                           />
                         </div>
                         <div>{users.name}</div>
@@ -329,7 +312,7 @@ export default function CategoryComponent() {
                     </td>
                     <td className="p-2.5">
                       <div className="flex items-center m-auto space-x-3">
-                        <span className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                        <span className="w-7 h-7 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                           {users.profile}
                         </span>
                         <span className="font-sp-pro-text-medium text-sm text-text-color">
@@ -339,12 +322,12 @@ export default function CategoryComponent() {
                     </td>
                     <td className=" text-text-color p-2.5">
                       <div className="flex items-center">
-                        <div className="relative  mr-3 w-8 ">
+                        <div className="relative  mr-3 w-7 h-7 overflow-hidden ">
                           <img
                             src={users.src}
                             alt={users.title}
                             loading="lazy"
-                            className="rounded-full h-8"
+                            className="rounded-full w-full h-full"
                           />
                         </div>
                         <div>{users.name}</div>
@@ -377,7 +360,7 @@ export default function CategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center px-8 text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0">
+          <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0">
             <div className="">Showing data 1 to 8 of  256K entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate

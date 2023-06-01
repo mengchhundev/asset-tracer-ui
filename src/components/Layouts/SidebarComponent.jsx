@@ -35,7 +35,6 @@ export default function SidebarComponent() {
 
     const handleChangeColor = (key) => {
         setKey(key)
-        console.log(key)
     }
 
     useEffect(() => {
@@ -49,7 +48,7 @@ export default function SidebarComponent() {
             setShowOrganization(false)
         }
 
-        if(window.location.pathname == "/profile") {
+        if (window.location.pathname == "/profile") {
             setIsShowOrganization(false)
             setShowOrganization(false)
         }
@@ -64,9 +63,9 @@ export default function SidebarComponent() {
             >
                 <div>
                     <ul>
-                        <li className="mb-6">
-                            <label className="text-sm text-text-color opacity-50">Organization</label>
-                            <hr className="my-1 mb-4 text-gray-light opacity-60" />
+                        <li>
+                            {/* <label className="text-sm text-text-color opacity-50">Organization</label>
+                            <hr className="my-1 mb-4 text-gray-light opacity-60" /> */}
 
                             <NavLink
                                 onClick={() => setShowOrganization(!showOrganization)}
@@ -119,8 +118,9 @@ export default function SidebarComponent() {
                         </li>
 
                         {organization != null || item != null ? <>
-                            <label className="text-sm text-text-color opacity-50">Menus</label>
-                            <hr className="my-1 mb-4 text-gray-light opacity-60" />
+                            {/* <label className="text-sm text-text-color opacity-50">Menus</label>
+                            <hr className="my-1 mb-4 text-gray-light opacity-60" /> */}
+
                             <li>
                                 <NavLink
                                     to="/dashboard"
@@ -293,10 +293,21 @@ export default function SidebarComponent() {
                 </div>
                 <nav className="font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
                     <NavLink
+                        // onClick={() => setKey("")}
                         to="/notification"
-                        className="flex items-center py-2 px-4 transition-colors"
+                        // className="flex items-center py-2 px-4 transition-colors"
+                        className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
+                        onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("user") }}
                     >
-                        <IoMdNotifications className="mr-3 text-lg" /> Notification
+                        <span className="flex items-center justify-start">
+                            <div className="w-5 h-5 relative">
+                                <svg width="100%" height="100%" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.49205 22.5533L5.63921 21.492H5.63921L5.49205 22.5533ZM18.508 22.5533L18.6551 23.6146L18.508 22.5533ZM2.59616 16.2969L1.67598 15.748L2.59616 16.2969ZM5.2942 9.77777C5.2942 6.07396 8.29673 3.07143 12.0005 3.07143V0.928571C7.11327 0.928571 3.15134 4.89049 3.15134 9.77777H5.2942ZM5.2942 12.4532V9.77777H3.15134V12.4532H5.2942ZM3.07143 18.4666C3.07143 17.8723 3.23395 17.3192 3.51635 16.8457L1.67598 15.748C1.20111 16.5442 0.928571 17.4752 0.928571 18.4666H3.07143ZM5.63921 21.492C4.16486 21.2876 3.07143 20.0051 3.07143 18.4666H0.928571C0.928571 21.0244 2.76176 23.2564 5.34489 23.6146L5.63921 21.492ZM12 22.0422C10.1018 22.0422 7.64517 21.7702 5.63921 21.492L5.34489 23.6146C7.36825 23.8952 9.94644 24.1851 12 24.1851V22.0422ZM18.3608 21.4921C16.3548 21.7702 13.8982 22.0422 12 22.0422V24.1851C14.0536 24.1851 16.6318 23.8952 18.6551 23.6146L18.3608 21.4921ZM20.9286 18.4666C20.9286 20.0051 19.8351 21.2876 18.3608 21.4921L18.6551 23.6146C21.2382 23.2564 23.0714 21.0244 23.0714 18.4666H20.9286ZM20.4838 16.846C20.7661 17.3194 20.9286 17.8724 20.9286 18.4666H23.0714C23.0714 17.4754 22.799 16.5446 22.3243 15.7485L20.4838 16.846ZM18.7069 9.77778V12.4545H20.8498V9.77778H18.7069ZM12.0005 3.07143C15.7044 3.07143 18.7069 6.07396 18.7069 9.77778H20.8498C20.8498 4.89049 16.8878 0.928571 12.0005 0.928571V3.07143ZM22.3243 15.7485C21.9256 15.0799 21.5729 14.559 21.2799 13.9718C21.0009 13.4128 20.8498 12.9251 20.8498 12.4545H18.7069C18.7069 13.3898 19.0087 14.2197 19.3626 14.9287C19.7024 15.6097 20.1626 16.3072 20.4838 16.846L22.3243 15.7485ZM3.15134 12.4532C3.15134 12.9238 3.00014 13.4117 2.72098 13.9709C2.42776 14.5582 2.07486 15.0793 1.67598 15.748L3.51635 16.8457C3.83778 16.3068 4.29818 15.6091 4.63819 14.928C4.99225 14.2188 5.2942 13.3887 5.2942 12.4532H3.15134Z" fill="#2B3F6C" />
+                                    <path opacity="0.3" d="M14.7776 26.0645C14.1804 26.9626 13.1592 27.5546 11.9998 27.5546C10.8404 27.5546 9.81922 26.9626 9.22204 26.0645" stroke="#2B3F6C" stroke-width="2.14286" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <p className="ml-3">Notification</p>
+                        </span>
                     </NavLink>
                     <NavLink
                         // to="/"
@@ -310,6 +321,7 @@ export default function SidebarComponent() {
                         Sign Out
                     </label>
                     <NavLink
+                        onClick={() => setKey("")}
                         to="/profile"
                         className="flex items-center py-2.5 mt-3 transition-colors gap-2 justify-center cursor-pointer">
                         <img
