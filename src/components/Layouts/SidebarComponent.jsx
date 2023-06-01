@@ -169,7 +169,7 @@ export default function SidebarComponent() {
                                     />
                                 </NavLink>
                                 <ul
-                                    className={` ${showCategory ? "h-[80px] pt-1 mt-1 bg-bg-primary bg-opacity-70 rounded-md" : "h-0"
+                                    className={` ${showCategory ? "h-[80px] pt-1 mt-1 bg-[#f7fbff] bg-opacity-70 rounded-md" : "h-0"
                                         } overflow-y-hidden transition-all`}
                                 >
                                     <li>

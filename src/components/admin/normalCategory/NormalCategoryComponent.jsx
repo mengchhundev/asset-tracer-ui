@@ -18,8 +18,6 @@ const people = [
   { id: 3, name: "Devon Webb" },
 ];
 
-
-
 export default function CategoryComponent() {
   const [selected, setSelected] = useState(people[0]);
   const [state, setState] = useState([]);
@@ -32,11 +30,11 @@ export default function CategoryComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
+          person.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
@@ -63,7 +61,8 @@ export default function CategoryComponent() {
       id: 1,
       profile: "SE",
       name: "Senglorn",
-      number: "09464",
+      date: "09 June 2023",
+
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
@@ -71,7 +70,7 @@ export default function CategoryComponent() {
       id: 2,
       profile: "HO",
       name: "Hong Meng",
-      number: "09464",
+      date: "09 June 2023",
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
@@ -79,7 +78,8 @@ export default function CategoryComponent() {
       id: 3,
       profile: "ME",
       name: "Keo Mony",
-      number: "09464",
+      date: "09 June 2023",
+
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
@@ -87,7 +87,8 @@ export default function CategoryComponent() {
       id: 4,
       profile: "ME",
       name: "Keo Mony",
-      number: "09464",
+      date: "09 June 2023",
+
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
@@ -95,16 +96,16 @@ export default function CategoryComponent() {
       id: 5,
       profile: "ME",
       name: "Keo Mony",
-      number: "09464",
+      date: "09 June 2023",
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
-    
+
     {
       id: 6,
       profile: "ME",
       name: "Keo Mony",
-      number: "09464",
+      date: "09 June 2023",
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
@@ -112,7 +113,7 @@ export default function CategoryComponent() {
       id: 7,
       profile: "ME",
       name: "Keo Mony",
-      number: "09464",
+      date: "09 June 2023",
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
@@ -120,16 +121,15 @@ export default function CategoryComponent() {
       id: 8,
       profile: "ME",
       name: "Keo Mony",
-      number: "09464",
+      date: "09 June 2023",
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
   ]);
 
   return (
-    
     <main
-      className="overflow-y-auto px-11 py-6 bg-white rounded-xl relative"
+      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
       }}
@@ -149,7 +149,7 @@ export default function CategoryComponent() {
           {/* search */}
           <div className="flex flex-row justify-center gap-10">
             <div>
-              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-1.5 px-1 mb-1  focus:border-primary">
+              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"
@@ -183,7 +183,7 @@ export default function CategoryComponent() {
                 <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
-                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                       displayValue={(person) => person.name}
                       onChange={(event) => setQuery(event.target.value)}
                     />
@@ -255,7 +255,7 @@ export default function CategoryComponent() {
             <div className="block ">
               <label
                 htmlFor="normalCategory"
-                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[3px] px-3 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
+                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] px-3 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
               >
                 <BsPlus className="w-6 h-6" /> &nbsp; Add Normal Category
               </label>
@@ -281,76 +281,70 @@ export default function CategoryComponent() {
           >
             <table className="table w-full">
               <tbody className="divide divide-slate-800">
-              <tr className="text-text-color ">
-                  <td className="w-1/12 bg-[#F9FAFB] py-3">No</td>
-                  <td className="w-3/12 bg-[#F9FAFB] py-3">
+                <tr className="text-base font-sp-pro-text-semibold text-text-color">
+                  <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
+                  <td className="w-3/12 bg-bg-main py-3">
                     Normal Category Name
                   </td>
-                  <td className="w-3/12 bg-[#F9FAFB] py-3">
+                  <td className="w-2/12 bg-bg-main py-3">
                     Super Category Name
                   </td>
-                  <td className="w-3/12 bg-[#F9FAFB] py-3">Created Date</td>
-                  <td className="w-2/12 bg-[#F9FAFB] py-3 text-center">
+                  <td className="w-2/12 bg-bg-main py-3 text-center">
+                    Created Date
+                  </td>
+                  <td className="w-2/12 bg-bg-main py-3 text-center">
                     Action
                   </td>
                 </tr>
                 {user.map((users) => (
-                  <tr className="font-md text-text-color border-none">
-                    <td className="p-2.5">{users.id}</td>
-                    <td className="p-2.5">
+                  <tr className="text-sm font-sp-pro-text-semibold text-text-color text-center">
+                    <td className="w-1/12 py-3 text-center text-text-color">
+                      {users.id}
+                    </td>
+                    <td className="w-3/12 py-3">
                       <div className="flex items-center">
-                        <div className="relative mr-3 w-7 h-7 overflow-hidden">
+                        <div className="relative  mr-3 w-8 h-8 ">
                           <img
                             src={users.src}
                             alt={users.title}
                             loading="lazy"
-                            className="rounded-full w-full h-full"
+                            className="rounded-full h-full w-full"
                           />
                         </div>
                         <div>{users.name}</div>
                       </div>
                     </td>
-                    <td className="p-2.5">
+                    <td className="w-2/12 py-3">
                       <div className="flex items-center m-auto space-x-3">
-                        <span className="w-7 h-7 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                        <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                           {users.profile}
                         </span>
-                        <span className="font-sp-pro-text-medium text-sm text-text-color">
+                        <span className="text-sm text-text-color">
                           {users.name}
                         </span>
                       </div>
                     </td>
-                    <td className=" text-text-color p-2.5">
-                      <div className="flex items-center">
-                        <div className="relative  mr-3 w-7 h-7 overflow-hidden ">
-                          <img
-                            src={users.src}
-                            alt={users.title}
-                            loading="lazy"
-                            className="rounded-full w-full h-full"
-                          />
-                        </div>
-                        <div>{users.name}</div>
-                      </div>
+                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-medium text-text-color p-2.5">
+                      {users.date}
                     </td>
-                    <td className="p-2.5">
-                      <div className="flex items-center space-x-4">
+                    <td className="w-2/12 py-3">
+                      <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
-                        htmlFor="modalEdit"
-                        className="flex items-center border border-accept text-accept min-w-min px-5 py-1 leading-5 rounded-md"
-                        aria-label="Edit"
-                      >
-                        Edit
-                      </label>
+                          htmlFor="modalEdit"
+                          className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
+                          aria-label="Edit"
+                        >
+                          Edit
+                        </label>
                         {/* Delete */}
                         <label
-                        htmlFor="modalDelete"
-                        className="flex items-center border border-reject text-reject min-w-min px-5 py-1 leading-5 rounded-md"
-                        aria-label="Delete"
-                      >
-                        Delete
-                      </label>
+                          htmlFor="modalDelete"
+                          className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
+                          aria-label="Delete"
+                        >
+                          Delete
+                        </label>
                       </div>
                     </td>
                   </tr>
@@ -361,7 +355,7 @@ export default function CategoryComponent() {
 
           {/* pagination */}
           <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-            <div className="">Showing data 1 to 8 of  256K entries</div>
+            <div className="">Showing data 1 to 8 of 256K entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate
                 nextLabel=" >"
@@ -386,7 +380,7 @@ export default function CategoryComponent() {
             </div>
           </div>
         </div>
-        
+
         {/* Modal Add normal category */}
         <input type="checkbox" id="normalCategory" className="modal-toggle" />
         <div className="modal">
