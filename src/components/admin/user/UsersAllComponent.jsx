@@ -75,10 +75,10 @@ export default function UsersAllComponent() {
   //featch images
 
   return (
-    <main className="overflow-y-auto">
+    <main className="overflow-y-auto p-10 ">
       <div
-        className="p-10 gap-6 bg-white rounded-xl overflow-hidden h-[690px]"
-        style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}
+        className="p-10 gap-6 bg-white rounded-[30px] overflow-hidden h-[951px]"
+        style={{ boxShadow: "rgba(226, 236, 249, 0.5) 0px 10px 60px" }}
       >
         <div className="flex lg:flex-row md:flex-col sm:flex-col justify-between mb-8 gap-4 pb-2 md:pb-3">
           <div>
@@ -130,14 +130,19 @@ export default function UsersAllComponent() {
         </div>
 
         {/* card */}
-        <div className="overflow-x-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 px-5 lg:mt-0">
+        <div className="overflow-x-auto p-5 "   
+         >
+         
+          <div className=" space-x-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 lg:mt-0"
+               
+          >
             {user.map((list) => (
               <button
                 type="button"
                 onClick={() => handleShowOrganization(list)}
                 key={list.id}
-                className="border border-bg-primary rounded-xl min-w-max cursor-pointer shadow-sm"
+                className="border border-bg-primary rounded-[5px] min-w-max cursor-pointer"
+                style={{boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)"}}
               >
                 <div className="px-6 py-4">
                   <div className="flex flex-row justify-end items-center">
