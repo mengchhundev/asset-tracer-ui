@@ -290,7 +290,7 @@ export default function CategoryComponent() {
                     Super Category Name
                   </td>
                   <td className="w-3/12 bg-[#F9FAFB] py-3">Created Date</td>
-                  <td className="w-2/12 bg-[#F9FAFB] py-3">
+                  <td className="w-2/12 bg-[#F9FAFB] py-3 text-center">
                     Action
                   </td>
                 </tr>
@@ -360,7 +360,7 @@ export default function CategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0">
+          <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
             <div className="">Showing data 1 to 8 of  256K entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate
