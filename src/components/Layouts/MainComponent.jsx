@@ -10,7 +10,7 @@ export default function MainComponent() {
       <NavbarComponent />
       <div className="flex flex-row flex-grow overflow-y-scroll">
         <SidebarComponent />
-        <div className="p-5 flex-grow overflow-y-scroll">
+        <div className="px-14 py-8 flex-grow overflow-y-scroll">
           <ContentCompont />
         </div>
       </div>

@@ -49,7 +49,7 @@ export default function NavbarComponent() {
 
             <div className="flex items-center w-full justify-between">
                 <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center rounded-md">
-                    <HiOutlineBuildingLibrary className="h-7 rounded-md w-7 text-white bg-primary p-1 mr-2"/>
+                    {/* <HiOutlineBuildingLibrary className="h-7 rounded-md w-7 text-white bg-primary p-1 mr-2"/> */}
                     {session ? session.name : "No Organzation"}
                 </div>
                 <nav className="flex items-center gap-2 ">
@@ -69,11 +69,16 @@ export default function NavbarComponent() {
                         arrowClassName="bg-secondary-100"
                         menuClassName="bg-secondary-100 rounded-lg shadow-lg"
                     >
+                        {/* router by menghout */}
+                        <Link to="/"
+                        >
                         <div className="flex justify-between px-3">
                             <h1 className="flex  items-center ">
                                 <span className="text-lg text-text-color font-sp-pro-text-bold">Notification</span> <span className="text-sm ml-3 ">(3)</span>
                             </h1>
                         </div>
+                        </Link>
+                        
 
                         <hr className="my-2 border-text-color border-opacity-20" />
 
@@ -112,7 +117,7 @@ export default function NavbarComponent() {
                         <div className="px-4 py-1">
                             <MenuItem className="px-0 mt-3 py-1.5 flex hover:bg-blue-700 hover:text-white hover:border-blue-700 bg-white rounded-md border justify-center cursor-pointer" style={{ border: "1px solid gainsboro" }}>
                                 <Link
-                                    to="/"
+                                    to="notification"
                                     className="text-sm"
                                 >
                                     View all notifications

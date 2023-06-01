@@ -27,6 +27,8 @@ import TrackingComponent from './components/admin/tracking/TrackingComponent'
 import UserRequestComponent from './components/admin/user/UserRequestComponent'
 import AssetAddComponent from './components/admin/asset/AssetAddComponent'
 import AssetUpdate from './components/admin/asset/AssetUpdate'
+import NotificationComponent from './components/admin/notification/NotificationComponent'
+import NotFoundPageComponent from './components/admin/notFoundPage/NotFoundPageComponent'
 
 function App() {
   return (
@@ -41,6 +43,7 @@ function App() {
         <Route path='/email-sending' element={<EmailSendingComponent />} />
         <Route path='/reset-password' element={<ResetPasswordComponent />} />
         <Route path='/success' element={<SuccessComponent />} />
+        <Route path='*' element={<NotFoundPageComponent/>}/>
         <Route element={<ProtectedRoute isLogged={localStorage.getItem("token") ? true : false} />}>
           <Route path="/" element={<MainComponent />}>
             <Route path='/organization' element={<OrganizationListComponent />} />
@@ -60,6 +63,8 @@ function App() {
             <Route path='/update-invoice' element={<UpdateInvoiceComponent />} />
             <Route path='/assetAdd' element={<AssetAddComponent />} />
             <Route path='/update-asset' element={<AssetUpdate />} />
+            <Route path='/notification' element={<NotificationComponent/>}/>
+            
           </Route>
         </Route>
       </Routes>

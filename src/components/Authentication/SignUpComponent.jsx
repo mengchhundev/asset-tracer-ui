@@ -28,7 +28,6 @@ export default function SignUpComponent() {
                         password: result._tokenResponse.idToken,
                     })
                         .then(res => {
-                            setSuccess(true);
                             localStorage.setItem("token", res.data.payload.token)
                             if (localStorage.getItem("token")) {
                                 navigator("/organization-create", { state: { isShowSubMenu: true } });
