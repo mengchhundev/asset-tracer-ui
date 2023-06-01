@@ -6,7 +6,7 @@
 
 #react-paginate li {
   display: inline-block;
-  border: 1px solid rgb(224, 224, 224);
+  border: 2px solid #EEEEEE;
   color: #324C5B;
   background-color: #F5F5F5;
   cursor: pointer !important;

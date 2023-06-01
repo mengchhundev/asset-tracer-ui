@@ -297,7 +297,7 @@ export default function CategoryComponent() {
                   </td>
                 </tr>
                 {user.map((users) => (
-                  <tr className="text-sm font-sp-pro-text-semibold text-text-color text-center">
+                  <tr className="text-sm font-sp-pro-text-regular text-text-color text-center">
                     <td className="w-1/12 py-3 text-center text-text-color">
                       {users.id}
                     </td>
