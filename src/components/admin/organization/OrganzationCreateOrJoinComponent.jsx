@@ -99,21 +99,25 @@ export default function OrganzationCreateOrJoinComponent() {
               <div className='flex gap-6'>
                 <img src={organization_pic} className='w-20 h-20 mt-2' />
 
-                <form onSubmit={formik.handleSubmit} className='flex flex-wrap gap-4'>
-                  <div className="text-left">
-                    <label className="block text-md ml-1 font-semibold leading-6 text-text-color">Join organization with a code</label>
-                    <input
-                      onInput={handleInputChange}
-                      onChange={formik.handleChange}
-                      value={newData.code}
-                      name="code"
-                      type='number'
-                      placeholder='Enter code...'
-                      className='relative text-text-color w-full px-3 outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
-                    />
-                    {formik.touched.code && formik.errors?.code ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.code}</p> : null}
+                <form onSubmit={formik.handleSubmit}>
+                  <div className='w-full '>
+                    <div className="text-left w-full">
+                      <label className="block text-md ml-1 font-semibold leading-6 text-text-color">Join organization with a code</label>
+                      <input
+                        onInput={handleInputChange}
+                        onChange={formik.handleChange}
+                        value={newData.code}
+                        name="code"
+                        type='number'
+                        placeholder='Enter code...'
+                        className='relative text-text-color w-full px-3 outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
+                      />
+                      {formik.touched.code && formik.errors?.code ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.code}</p> : null}
+                    </div>
+                    <div>
+                      <button type='submit' className=" rounded text-center bg-primary px-7 py-2 text-sm font-sp-pro-text-medium text-white cursor-pointer">Join</button>
+                    </div>
                   </div>
-                  <button type='submit' className=" rounded text-center bg-primary px-7 py-2 text-sm font-sp-pro-text-medium text-white cursor-pointer">Join</button>
                 </form>
               </div>
             </div>

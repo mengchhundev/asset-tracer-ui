@@ -255,9 +255,9 @@ export default function CategoryComponent() {
             <div className="block ">
               <label
                 htmlFor="normalCategory"
-                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] px-3 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
+                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
-                <BsPlus className="w-6 h-6" /> &nbsp; Add Normal Category
+                <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
               </label>
             </div>
           </div>
