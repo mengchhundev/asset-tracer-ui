@@ -292,18 +292,18 @@ export default function SidebarComponent() {
                     </ul>
                 </div>
                 <nav className=" bg-bg-primary font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
-                    {/* <NavLink
-                        // to="/"
+                    <NavLink
+                        to="/notification"
                         className="flex items-center py-2 px-4 transition-colors"
                     >
                         <IoMdNotifications className="mr-3 text-lg" /> Notification
-                    </NavLink> */}
-                    {/* <NavLink
+                    </NavLink>
+                    <NavLink
                         // to="/"
                         className="flex items-center py-2 px-4 transition-colors hover:bg-white"
                     >
                         <RiSettings4Fill className="mr-3 text-lg" /> Setting
-                    </NavLink> */}
+                    </NavLink>
 
                     <label htmlFor="my-modal" className="flex items-center py-2 px-4 transition-colors cursor-pointer">
                         <RiLogoutCircleRLine className="mr-3 text-lg" />
