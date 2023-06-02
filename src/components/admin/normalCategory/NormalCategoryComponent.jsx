@@ -6,7 +6,7 @@ import furniture from "../../../assets/images/furniture.png";
 import gift from "../../../assets/images/gift.png";
 import book from "../../../assets/images/book.png";
 import cross from "../../../assets/images/cross.png";
-import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import ReactPaginate from "react-paginate";

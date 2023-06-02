@@ -1,6 +1,4 @@
-import { HomeIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useState } from "react";
-import { XCircleIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
+import React, { useState } from "react";
 import { TbCalendarStats } from "react-icons/tb";
 import { HiOutlineQrcode } from "react-icons/hi";
 import { RiBarcodeFill } from "react-icons/ri";
@@ -38,7 +36,7 @@ function AssetViewComponent(props) {
             </div>
             <div className="flex">
               <label
-                htmlFor="my-modal-3"
+                htmlFor="normalModal"
                 className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
               >
                 ✕
@@ -338,7 +336,6 @@ function AssetViewComponent(props) {
           </div>
         </div>
       </div>
-      {/****/}
     </>
   );
 }

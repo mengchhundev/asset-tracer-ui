@@ -58,18 +58,21 @@ function App() {
             <Route path='/dashboard' element={<DashboardComponent />} />
             <Route path='/super-category' element={<SuperCategoryComponent />} />
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
+            <Route path='/invoice' element={<InvoiceComponent />} />
+            <Route path='/view-invoice' element={<ViewInvoiceComponent />} />
+            <Route path='/update-invoice' element={<UpdateInvoiceComponent />} />
+
+            {/* asset page */}
             <Route path='/asset' element={<AssetComponent />}></Route>
-            <Route path='/add-asset' element={<AssetAddComponent/>}></Route> 
+            <Route path='/asset/add' element={<AssetAddComponent/>}></Route>
+            <Route path='/asset/update' element={<AssetUpdate />} />
+
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent />} />
             <Route path='/room' element={<RoomListComponent />}></Route>
-            <Route path='/invoice' element={<InvoiceComponent />} />
-            <Route path='/view-invoice' element={<ViewInvoiceComponent />} />
-            <Route path='/update-invoice' element={<UpdateInvoiceComponent />} />
-            <Route path='/assetAdd' element={<AssetAddComponent />} />
-            <Route path='/update-asset' element={<AssetUpdate />} />
+            
             <Route path='/notification' element={<NotificationComponent/>}/>
             
           </Route>
