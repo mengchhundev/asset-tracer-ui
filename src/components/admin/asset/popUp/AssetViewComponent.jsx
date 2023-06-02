@@ -138,7 +138,7 @@ function AssetViewComponent(props) {
                               <BiHome className="w-6 h-6 text-yellow" />
                             </span>
                             <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              KSHRD =Center
+                              KSHRD Center
                             </span>
                           </p>
                         </div>

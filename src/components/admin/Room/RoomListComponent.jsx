@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAllRoom } from "../../../redux/slices/RoomSlice";
+import { setAllRoom, setRoomDetail } from "../../../redux/slices/RoomSlice";
 import RoomService from "../../../redux/services/RoomService";
 import DetailComponent from "./popUpRoom/DetailComponent";
 import AddComponent from "./popUpRoom/AddComponent";
@@ -66,27 +66,26 @@ function RoomListComponent(props) {
 
   return (
     <main
-      className="overflow-y-auto p-5 bg-white rounded-xl relative"
-      style={{
-        boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        minHeight: "calc(100vh - 6.3rem)",
-      }}
+    className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
+    style={{
+      boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
+    }}
     >
       <div className="gap-6 overflow-hidden z-10">
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
-          <div className="md:pb-0 sm:pb-2 text-text-colors">
+        <div className="md:pb-0 sm:pb-2 text-text-colors">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-primary">Room</span> Management
+              All <span className="text-pending">Room</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-              Active Categories
+              Active Room
             </p>
           </div>
 
           {/* search */}
-          <div className="flex flex-row justify-center gap-5">
+          <div className="flex flex-row justify-center gap-10">
             <div>
-              <div className="relative text-sm border-[#E1E9EE] border rounded-lg block w-full py-1.5 px-1 mb-1  focus:border-primary">
+              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"
@@ -120,7 +119,7 @@ function RoomListComponent(props) {
                 <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
-                      className="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                       displayValue={(person) => person.name}
                       onChange={(event) => setQuery(event.target.value)}
                     />
@@ -148,9 +147,10 @@ function RoomListComponent(props) {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                ? "bg-hover-yellow text-text-color"
-                                : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-hover-yellow text-text-color"
+                                  : "text-text-color"
                               }`
                             }
                             value={person}
@@ -158,15 +158,17 @@ function RoomListComponent(props) {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                    }`}
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                      }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-text-color"
+                                    }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -188,52 +190,63 @@ function RoomListComponent(props) {
             {/* add */}
             <div className="block ">
               <label
-                htmlFor="my-modal-3"
-                className="border ml-auto cursor-pointer border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center uppercase"
+                htmlFor="addroom"
+                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
-                <BsPlus className="w-6 h-6" /> &nbsp; Add Room
+                <BsPlus className="w-6 h-6" />&nbsp;Add Room
               </label>
             </div>
           </div>
         </div>
 
         <div
-          className="overflow-x-auto px-5 z-0"
+          // className="overflow-x-auto px-5 z-0"
           style={{
             minHeight: "calc(100vh - 15rem)",
           }}
         >
-          <table className="table w-full">
+          <table className="table w-full text-sm font-sp-pro-text-semibold text-text-color">
             <thead>
-              <tr>
-                <th className="w-1/8 bg-bg-primary rounded-none py-3">No</th>
-                <th className="w-2/8 bg-bg-primary py-3">Room Name</th>
-                <th className="w-1/8 bg-bg-primary py-3">Type</th>
-                <th className="w-1/8 bg-bg-primary py-3">Floor</th>
-                <th className="w-2/8 bg-bg-primary py-3">Description</th>
-                <th className="w-1/8 bg-bg-primary rounded-none py-3">
-                  Action
-                </th>
-              </tr>
+            <tr className="text-sm font-sp-pro-text-semibold text-text-color">
+                  <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
+                  <td className="w-3/12 bg-bg-main py-3">
+                    Room Name
+                  </td>
+                  <td className="w-2/12 bg-bg-main py-3">
+                    Type
+                  </td>
+                  <td className="w-2/12 bg-bg-main py-3 text-center">
+                    Floor
+                  </td>
+                  <td className="w-3/12 bg-bg-main py-3 text-center">
+                    Description
+                  </td>
+                  <td className="w-1/12 bg-bg-main py-3 text-center">
+                    Action
+                  </td>
+                </tr>
             </thead>
             <tbody className="">
               {getData.map((item, index) => (
                 <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
-                  <td className="w-1/8 px-10">{index + 1}</td>
-                  <td className="w-2/8"><span className={`bg-accept p-2 bg-opacity-20 text-accept rounded-full m-5`}>{item.name.substring(0, 2)}</span>{item.name}</td>
-                  <td className="w-1/8">{item.type}</td>
-                  <td className="w-1/8">{item.floor}</td>
-                  <td className="w-2/8">{item.description}</td>
-                  <td className="w-1/8">
+                  <td className="w-1/12 px-10">{index + 1}</td>
+                  <td className="w-3/12">
+                    <span className={`bg-accept bg-opacity-20 p-2 text-accept rounded-full mr-5`}>{item.name.substring(0, 2)}</span>
+                    {item.name}
+                    </td>
+                  <td className="w-2/12">{item.type}</td>
+                  <td className="w-2/12">{item.floor}</td>
+                  <td className="w-3/12">{item.description}</td>
+                  <td className="w-1/12">
                     <div className="dropdown dropdown-left">
                       <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
-                      <ul tabIndex={0} className="z-50 dropdown-content menu p-2 shadow bg-base-100 rounded-sm w-52">
-                        <li>
-                          <label htmlFor="my-modal-6" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
+                      <ul tabIndex={0} className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-52">
+                        <li  onClick={() => dispatch(setRoomDetail(item))}>
+                          <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
                         </li>
                         <li className=''>
-                          <label htmlFor="my-modal-5" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label>
-                          </li> 
+                          <label htmlFor="update" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label>
+                          </li>
                       <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
                     </ul>
                     </div>
@@ -242,40 +255,41 @@ function RoomListComponent(props) {
               ))}
             </tbody>
           </table>
-          <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+          <input type="checkbox" id="detail" className="modal-toggle" />
           <DetailComponent className="modal" />
-          <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+          <input type="checkbox" id="addroom" className="modal-toggle" />
           <AddComponent className="modal" />
-          <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+          <input type="checkbox" id="update" className="modal-toggle" />
           <UpdateComponent className="modal" />
         </div>
         <DetailComponent setIsOpen={setIsOpen} isOpen={isOpen} />
 
-        <div className="w-full flex justify-between items-center px-8 py-5 text-sm text-gray-500 uppercase absolute bottom-0 left-0">
-          <div className="">Showing 21-30 of 100</div>
-          <div id="react-paginate" className="">
-            <ReactPaginate
-              nextLabel=" >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={3}
-              marginPagesDisplayed={2}
-              pageCount={pageCount}
-              previousLabel="< "
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              nextLinkClassName="page-link"
-              breakLabel="..."
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              containerClassName="pagination"
-              activeClassName="active"
-              renderOnZeroPageCount={null}
-            />
+       {/* pagination */}
+       <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+            <div className="">Showing data 1 to 8 of 256K entries</div>
+            <div id="react-paginate" className="">
+              <ReactPaginate
+                nextLabel=" >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={pageCount}
+                previousLabel="< "
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
+              />
+            </div>
           </div>
-        </div>
       </div>
     </main >
   );

@@ -88,7 +88,7 @@ export default function SignInComponent() {
                             onSubmit={values => {
                                 setLoading(true)
                                 UserService.signin(values).then(res => {
-                                    localStorage.setItem("token", res.data.payload.token)
+                                    localStorage.setItem("token", res.data.payload.token)                 
                                     if (localStorage.getItem("token")) {
                                         setTimeout(() => {
                                             setLoading(false)
