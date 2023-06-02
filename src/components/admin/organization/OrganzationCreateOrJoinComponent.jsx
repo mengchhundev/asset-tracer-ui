@@ -28,6 +28,49 @@ const people = [
   { id: 4, name: 'Tom Cook' },
 ]
 
+let organizationList = [
+  {
+    id: 1,
+    name: "HRD Center",
+    owner: "Sok Polen",
+    memebers: [
+
+    ]
+  },
+  {
+    id: 1,
+    name: "HRD Center",
+    owner: "Sok Polen",
+    memebers: [
+
+    ]
+  },
+  {
+    id: 1,
+    name: "HRD Center",
+    owner: "Sok Polen",
+    memebers: [
+
+    ]
+  },
+  {
+    id: 1,
+    name: "HRD Center",
+    owner: "Sok Polen",
+    memebers: [
+
+    ]
+  },
+  {
+    id: 1,
+    name: "HRD Center",
+    owner: "Sok Polen",
+    memebers: [
+
+    ]
+  }
+]
+
 export default function OrganzationCreateOrJoinComponent() {
   const [selected, setSelected] = useState(people[0])
   const [query, setQuery] = useState("")
@@ -91,17 +134,17 @@ export default function OrganzationCreateOrJoinComponent() {
 
     <>
       <main className="overflow-y-auto pb-4 ">
-        <div className="mt-5 gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-20 con-Shadow">
-          <div className='flex flex-col md:flex-row relative justify-center w-full gap-10 py-4'>
-            <label htmlFor="create-organization" className="min-h-[9rem] md:w-1/2 w-full mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
+        <div className="gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-5 md:px-10 lg:px-20 con-Shadow">
+          <div className='grid grid-cols-2 w-full gap-3 md:gap-8 py-4'>
+            <label htmlFor="create-organization" className="min-h-[9rem] col-span-2 xl:col-span-1 lg:col-span-2 md:col-span-1 px-10 w-full mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
               <div>
                 <PlusCircleIcon className="w-12 h-12 text-green rounded-full m-auto mb-2" />
                 <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
               </div>
             </label>
-            <div className='md:w-1/2 w-full border border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
+            <div className='w-full col-span-2 xl:col-span-1 lg:col-span-2 md:col-span-1 border border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
               <div className='flex gap-6'>
-                <img src={organization_pic} className='w-20 h-20 mt-2' />
+                <img src={organization_pic} className='w-16 h-16 mt-2' />
 
                 <form onSubmit={formik.handleSubmit} className='flex-grow justify-start'>
                   <div className="text-left">
@@ -113,7 +156,7 @@ export default function OrganzationCreateOrJoinComponent() {
                       name="code"
                       type='number'
                       placeholder='Enter code...'
-                      className='relative text-secondary px-3 w-full outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
+                      className='relative text-secondary focus:border-primary px-3 w-full outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
                     />
                     {formik.touched.code && formik.errors?.code ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.code}</p> : null}
                   </div>
@@ -130,20 +173,20 @@ export default function OrganzationCreateOrJoinComponent() {
         <CreateOrganizatoinComponent className="modal" />
       </main>
 
-      <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative overflow-hidden">
+      <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden">
         <div className="gap-6 overflow-hidden z-10">
-          <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+          <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
 
             {/* header */}
-            <div className="md:pb-0 sm:pb-2 text-secondary">
+            <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
               <h2 className="text-2xl font-sp-pro-text-semibold">
                 All Organization Invited
               </h2>
             </div>
 
             {/* search */}
-            <div className="flex flex-row justify-center gap-10">
-              <div>
+            <div className="md:flex md:flex-row justify-start gap-10">
+              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                 <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                   <div className="absolute inset-y-0 flex items-center pl-2">
                     <svg
@@ -169,7 +212,7 @@ export default function OrganzationCreateOrJoinComponent() {
               </div>
 
               {/* filter */}
-              {/* <div className="z-20">
+              <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                 <Combobox
                   value={selected}
                   onChange={setSelected}
@@ -241,12 +284,127 @@ export default function OrganzationCreateOrJoinComponent() {
                     </Transition>
                   </div>
                 </Combobox>
-              </div> */}
-
+              </div>
             </div>
           </div>
 
+          <div className="flex flex-col justify-between ">
+            {/* table */}
 
+            <div
+              className="overflow-scroll px-5 flex-grow"
+            // style={
+            //   {
+            //     minHeight: "calc(100vh - 40rem)",
+            //   }
+            // }
+            >
+              <table className="table w-full">
+                <tbody className="">
+                  <tr className="text-sm font-sp-pro-text-regular text-opacity-90  divide-none">
+                    <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
+                    <td className="w-3/12 bg-bg-main py-3 text-center">
+                      Organization Name
+                    </td>
+                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                      Owner
+                    </td>
+                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                      Member
+                    </td>
+                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                      Action
+                    </td>
+                  </tr>
+                  {organizationList.map(list => (
+                    <tr className="text-sm font-sp-pro-text-regular text-center">
+                      <td className="w-1/12 py-3 text-center ">
+                        1
+                      </td>
+                      <td className="w-3/12 py-3 pl-20">
+                        <div className="flex items-center">
+                          <div className="relative  mr-3 w-8 h-8 ">
+                            <img
+                              loading="lazy"
+                              className="rounded-full h-full w-full"
+                            />
+                          </div>
+                          <div>Electronic</div>
+                        </div>
+                      </td>
+                      <td className="w-2/12 py-3">
+                        Sok polen
+                      </td>
+
+                      <td className="w-2/12 py-3 p-2.5 m-auto">
+                        <div className='w-full flex justify-center'>
+                          <div className="relative  w-8 h-8 ">
+                            <img
+                              loading="lazy"
+                              className="rounded-full h-full w-full"
+                            />
+                          </div>
+                          <div className="relative  w-8 h-8 ">
+                            <img
+                              loading="lazy"
+                              className="rounded-full h-full w-full"
+                            />
+                          </div>
+                          <div className="relative  w-8 h-8 ">
+                            <img
+                              loading="lazy"
+                              className="rounded-full h-full w-full"
+                            />
+                          </div>
+                        </div>
+                      </td>
+                      <td className="w-2/12 py-3">
+                        <div className="flex items-center space-x-4 justify-center">
+                          {/* Edit */}
+                          <label
+                            htmlFor="modalEdit"
+                            className="flex items-center border bg-accept bg-opacity-10 border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"
+                            aria-label="Edit"
+                          >
+                            Accept
+                          </label>
+
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+
+                </tbody>
+              </table>
+            </div>
+
+            {/* pagination */}
+            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+              <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
+              <div id="react-paginate" className="">
+                <ReactPaginate
+                  nextLabel=" >"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel="< "
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  renderOnZeroPageCount={null}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </>

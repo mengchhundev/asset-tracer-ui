@@ -30,11 +30,11 @@ export default function CategoryComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
@@ -128,12 +128,12 @@ export default function CategoryComponent() {
   ]);
 
   return (
-    <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative overflow-hidden">
+    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden">
       <div className="gap-6 overflow-hidden z-10">
-        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
-          
+        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+
           {/* header */}
-          <div className="md:pb-0 sm:pb-2 text-text-colors">
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
               All <span className="text-pending">Normal</span> Management
             </h2>
@@ -143,8 +143,8 @@ export default function CategoryComponent() {
           </div>
 
           {/* search */}
-          <div className="flex flex-row justify-center gap-10">
-            <div>
+          <div className="md:flex md:flex-row justify-start gap-10">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -170,7 +170,7 @@ export default function CategoryComponent() {
             </div>
 
             {/* filter */}
-            <div className="z-20">
+            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <Combobox
                 value={selected}
                 onChange={setSelected}
@@ -207,10 +207,9 @@ export default function CategoryComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -218,17 +217,15 @@ export default function CategoryComponent() {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -248,10 +245,11 @@ export default function CategoryComponent() {
             </div>
 
             {/* add */}
-            <div className="block ">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+
               <label
                 htmlFor="normalCategory"
-                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+                className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
                 <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
               </label>
@@ -263,16 +261,16 @@ export default function CategoryComponent() {
           {/* table */}
 
           <div
-            className="overflow-x-auto px-5 flex-grow"
-            style={
-              {
-                // minHeight: "calc(100vh - 12rem)",
-              }
-            }
+            className="overflow-scroll px-5 flex-grow"
+            // style={
+            //   {
+            //     minHeight: "calc(100vh - 40rem)",
+            //   }
+            // }
           >
             <table className="table w-full">
-              <tbody className="divide divide-slate-800">
-                <tr className="text-sm font-sp-pro-text-semibold text-text-color">
+              <tbody className="">
+                <tr className="text-sm font-sp-pro-text-regular text-opacity-90  divide-none">
                   <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
                   <td className="w-3/12 bg-bg-main py-3">
                     Normal Category Name
@@ -288,8 +286,8 @@ export default function CategoryComponent() {
                   </td>
                 </tr>
                 {user.map((users) => (
-                  <tr className="text-sm font-sp-pro-text-regular text-text-color text-center">
-                    <td className="w-1/12 py-3 text-center text-text-color">
+                  <tr className="text-sm font-sp-pro-text-regular text-center">
+                    <td className="w-1/12 py-3 text-center ">
                       {users.id}
                     </td>
                     <td className="w-3/12 py-3">
@@ -310,12 +308,12 @@ export default function CategoryComponent() {
                         <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                           {users.profile}
                         </span>
-                        <span className="text-sm text-text-color">
+                        <span className="text-sm ">
                           {users.name}
                         </span>
                       </div>
                     </td>
-                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-medium text-text-color p-2.5">
+                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-medium  p-2.5">
                       {users.date}
                     </td>
                     <td className="w-2/12 py-3">
@@ -323,7 +321,7 @@ export default function CategoryComponent() {
                         {/* Edit */}
                         <label
                           htmlFor="modalEdit"
-                          className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
+                          className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
                           aria-label="Edit"
                         >
                           Edit
@@ -331,7 +329,7 @@ export default function CategoryComponent() {
                         {/* Delete */}
                         <label
                           htmlFor="modalDelete"
-                          className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
+                          className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
                           aria-label="Delete"
                         >
                           Delete
@@ -345,8 +343,8 @@ export default function CategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-            <div className="">Showing data 1 to 8 of 256K entries</div>
+          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+            <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate
                 nextLabel=" >"
@@ -384,7 +382,7 @@ export default function CategoryComponent() {
             </label>
             <div className="flex justify-start items-center pb-8">
               <img src={gift} width={50} />
-              <h3 className="text-lg font-bold text-text-color pl-5">
+              <h3 className="text-lg font-bold  pl-5">
                 Create Normal Category
               </h3>
             </div>
@@ -417,7 +415,7 @@ export default function CategoryComponent() {
               <option>Normal Tomato</option>
             </select>
             <div className="mb-6">
-              <label className="block mb-2 text-lg mt-4 font-medium text-text-color float-left">
+              <label className="block mb-2 text-lg mt-4 font-medium  float-left">
                 Name
               </label>
               <input
@@ -430,7 +428,7 @@ export default function CategoryComponent() {
               <div className="modal-action">
                 <label
                   htmlFor="normalCategory"
-                  className="bg-[#F4F4F4] text-text-color font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
+                  className="bg-[#F4F4F4]  font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
                 >
                   Cancel
                 </label>
@@ -456,7 +454,7 @@ export default function CategoryComponent() {
             </label>
             <div className="flex justify-start items-center pb-8">
               <img src={gift} width={50} />
-              <h3 className="text-lg font-bold text-text-color pl-5">
+              <h3 className="text-lg font-bold  pl-5">
                 Update Normal Category
               </h3>
             </div>
@@ -481,7 +479,7 @@ export default function CategoryComponent() {
               </div>
             </div>
             <div className="mb-6">
-              <label className="block mb-2 text-lg pt-5 font-medium text-text-color">
+              <label className="block mb-2 text-lg pt-5 font-medium ">
                 Name
               </label>
               <input
@@ -493,7 +491,7 @@ export default function CategoryComponent() {
               <div className="modal-action">
                 <label
                   htmlFor="modalEdit"
-                  className="bg-[#F4F4F4] text-text-color font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
+                  className="bg-[#F4F4F4]  font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
                 >
                   Cancel
                 </label>
@@ -514,8 +512,8 @@ export default function CategoryComponent() {
             <div className="flex justify-start">
               <img src={trash} width={50} className="inline-block" />
               <div className="pl-2">
-                <h3 className="text-lg font-bold text-text-color">Delete</h3>
-                <p className="pt-1 text-text-color">
+                <h3 className="text-lg font-bold ">Delete</h3>
+                <p className="pt-1 ">
                   Are you sure want to delete this post?
                 </p>
               </div>

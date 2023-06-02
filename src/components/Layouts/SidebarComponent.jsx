@@ -68,7 +68,7 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-64 xl:w-72 bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
                     aria-label="Tabs"
             >
@@ -328,12 +328,12 @@ export default function SidebarComponent() {
                     <NavLink
                         onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("") }}
                         to="/profile"
-                        className="flex items-center py-2.5 mt-3 transition-colors gap-2 justify-center cursor-pointer">
+                        className="flex hover:bg-slate-100 mt-2 rounded-xl items-center py-2 ml-[-5px]  transition-colors gap-1 justify-center cursor-pointer">
                         <img
                             src={logo}
                             className="w-12 h-12 object-cover rounded-full"
                         />
-                        <span>
+                        <span className="leading-3">
                             <p className="text-sm">Asset Tracer</p>
                             <small>assettracerteam@gmail.com</small>
                         </span>
