@@ -117,7 +117,7 @@ function DetailComponent() {
                                         <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created Date</label>
                                         <div className=" mt-2 flex ">
                                             <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500"><CalendarDaysIcon className="h-6 w-6 text-gray-500" /></span>
-                                            <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2"> {roomDetail?.createdAt.split("T")[0]}</p>
+                                            <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2"> {roomDetail && roomDetail.createdAt ? roomDetail.createdAt.split("T")[0] : ""}</p>
                                         </div>
                                     </div>
                                     <div className="pt-5">
