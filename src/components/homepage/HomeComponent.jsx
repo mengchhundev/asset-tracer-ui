@@ -32,10 +32,11 @@ export default function () {
 
   return (
     <div>
+      <main id='Home'>
       <NavbarComponent />
       <div className="bg-bg-pink pt-[90px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-1 ">
-          <div className="text-left md:col-span-6 3xl:mt-[55px] 2xl:mt-[60px] xl:mt-14 mt-14">
+          <div className="text-left md:col-span-6 3xl:mt-[55px] 2xl:mt-[60px] xl:mt-14 mt-4">
             <div className="w-[90%] 3xl:ml-[250px] 2xl:ml-[220px] xl:ml-[170px] lg:ml-[140px] md:ml-[30px] sm:ml-[40px] ml-6">
               <div className="3xl:text-[65px] 2xl:text-[55px] xl:text-5xl lg:text-4xl md:text-3xl text-3xl my-3 font-sp-pro-text-bold text-text-color">
                 Make assets
@@ -192,8 +193,8 @@ export default function () {
       </div>
       {/* FeatureComponent */}
 
-      <div className="bg-bg-feature py-0 relative">
-        <img src={Ellipseside} alt="" className="w-[200px] absolute " />
+      <div className="bg-bg-feature py-0 relative" id='Feature'>
+        <img src={Ellipseside} alt="" className="w-[200px] absolute hidden md:block" />
 
         <img
           src={Ellipse}
@@ -203,9 +204,9 @@ export default function () {
         <img
           src={Element}
           alt=""
-          className="absolute hidden md:block 3xl:ml-[1400px] 2xl:ml-[1100px] xl:ml-[900px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
+          className="absolute hidden lg:block 3xl:ml-[1400px] 2xl:ml-[1100px] xl:ml-[900px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
         />
-        <div className="pt-[70px]">
+        <div className="pt-[40px]">
           <div className="3xl:text-6xl 2xl:text-[53px] xl:text-5xl text-4xl font-sp-pro-text-bold text-text-color text-center">
             This is Our
             <span className="text-pending px-3">Feature</span>
@@ -234,7 +235,7 @@ export default function () {
               </p>
             </div>
           </div>
-          <div className="mb-3 text-text-color text-left 3xl:ml-8 2xl:ml-5 xl:ml-0 md:ml-[0px] sm:ml-[80px] -ml-3">
+          <div className="mb-3 text-text-color text-left 3xl:ml-10 2xl:ml-5 xl:ml-0 md:ml-[0px] sm:ml-[80px] -ml-3">
             <div
               href="#"
               className="block 3xl:w-[350px] 2xl:w-[300px] w-[280px] h-[250px] px-6 pb-6 bg-white border border-border-gray-light rounded-lg shadow "
@@ -289,7 +290,7 @@ export default function () {
             <img
               src={Elementleft}
               alt=""
-              className="absolute -top-[100px] w-[120px] ml-[480px] z-40 hidden sm:block"
+              className="absolute -top-[100px] w-[120px] 3xl:ml-[600px] xl:ml-[480px] z-40 hidden lg:block"
             />
             <div className="relative">
               <img
@@ -301,7 +302,7 @@ export default function () {
               <div className="mb-3 text-left text-text-color 3xl:ml-[250px] 2xl:ml-[200px] xl:ml-[150px] md:ml-[150px] sm:ml-[100px]  ml-9 relative z-20 ">
                 <div
                   href="#"
-                  className="block px-6 py-6  lg:w-[390px] md:w-[385px] sm:w-[385px] w-[300px] lg:h-[250px] md:h-[260px] sm:h-[240px] h-[300px] bg-white border border-border-gray-light rounded-lg shadow-2xl shadow-[#cbc6c6] "
+                  className="block px-6 py-6  lg:w-[390px] md:w-[385px] sm:w-[385px] w-[300px] lg:h-[250px] md:h-[260px] sm:h-[240px] h-[250px] bg-white border border-border-gray-light rounded-lg shadow-2xl shadow-[#cbc6c6] "
                 >
                   <div className="font-sp-pro-text-medium text-text-color ">
                     “Asset Tracer can help organizations optimize their asset
@@ -345,7 +346,7 @@ export default function () {
 
       {/* BenefitComponent */}
 
-      <div className="bg-bg-pink relative py-8 3xl:h-[950px] 2xl:h-[880px] xl:h-[780px] h-[770px]">
+      <div className="bg-bg-pink relative py-8 3xl:h-[950px] 2xl:h-[880px] xl:h-[780px] h-[770px]" id='Benefits'>
         <div>
           <img
             src={Ellipsesidebenefit}
@@ -545,9 +546,9 @@ export default function () {
             </div>
           </div>
           <div className="col-span-5 ">
-            <div className=" 3xl:w-[750px] 2xl:w-[550px] xl:w-[475px] lg:w-[475px] md:w-[690px] sm:w-[570px] w-[375px] 3xl:h-[375px] 2xl:h-[340px] lg:h-[315px] md:h-[315px] sm:h-[315px] h-[400px] mx-auto 3xl:-ml-[120px] 2xl:-ml-[20px] lg:ml-0 md:ml-10 sm:ml-9 ml-0 bg-white mr-[90px] relative ">
-              <div className="w-[500px] mx-auto lg:ml-0 md:ml-14 sm:ml-14 ml-10">
-                <div className="3xl:text-4xl text-3xl 3xl:w-[600px] 2xl:w-[500px] xl:w-[100%] md:w-[100%] sm:w-[100%] w-[60%] text-left font-sp-pro-text-bold text-text-color 3xl:pt-[65px] 2xl:pt-[70px] xl:pt-[45px] pt-[45px] ">
+            <div className=" 3xl:w-[750px] 2xl:w-[550px] xl:w-[475px] lg:w-[475px] md:w-[690px] sm:w-[570px] w-[370px] 3xl:h-[375px] 2xl:h-[340px] lg:h-[315px] md:h-[315px] sm:h-[315px] h-[350px] mx-auto bg-white relative 3xl:-ml-[125px] 2xl:-ml-[30px] xl:-ml-[0px]">
+              <div className="mx-auto lg:ml-0 md:ml-14 sm:ml-14 ml-8">
+                <div className="3xl:text-4xl text-3xl 3xl:w-[600px] 2xl:w-[500px] xl:w-[100%] md:w-[100%] sm:w-[100%] w-[100%] text-left font-sp-pro-text-bold text-text-color 3xl:pt-[65px] 2xl:pt-[70px] xl:pt-[45px] pt-[45px] ">
                   Create your accounted today and get started for free!
                 </div>
                 <div className="text-text-color py-3 text-left 3xl:text-lg text-base">
@@ -574,7 +575,7 @@ export default function () {
                     type="button"
                     className="py-2 rounded-md text-pending bg-white font-medium border border-pending text-sm px-8 text-center mr-10 shadow"
                   >
-                    Sign Up
+                    Sign In
                   </NavLink>
                 </div>
               </div>
@@ -583,6 +584,7 @@ export default function () {
         </div>
       </div>
       <FooterComponent />
+      </main>
     </div>
   )
 }

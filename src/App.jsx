@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes, } from 'react-router-dom'
+import { Route, Routes, useLocation, } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SignUpComponent from './components/Authentication/SignUpComponent'
 import SignInComponent from './components/Authentication/SignInComponent'
@@ -27,10 +27,17 @@ import TrackingComponent from './components/admin/tracking/TrackingComponent'
 import UserRequestComponent from './components/admin/user/UserRequestComponent'
 import AssetAddComponent from './components/admin/asset/AssetAddComponent'
 import AssetUpdate from './components/admin/asset/AssetUpdate'
-import NotificationComponent from './components/admin/notification/NotificationComponent'
 import NotFoundPageComponent from './components/admin/notFoundPage/NotFoundPageComponent'
+import NotificationComponent from './components/admin/notification/NotificationComponent'
+import { useLayoutEffect } from 'react'
 
 function App() {
+   const {pathname}= useLocation();
+
+   useLayoutEffect(()=>{
+    window.scrollTo({top:0, behavior:"auto"});
+   },[pathname]);
+
   return (
     <>
       <Routes>

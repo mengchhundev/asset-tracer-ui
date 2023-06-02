@@ -49,16 +49,28 @@ export default {
         "custom-blue" : "#B3E67B",
         "white":"#FFFFFF",
         "shadow":"#FFD2B3",
-        "hover-yellow": "#FCE799",
+        "hover-yellow": "#FFD300",
         "blue-light":"#2076FF",
         "secondary-yellow": "#F8C400",
         "bg-pink":"#FEFCFB",
         "text-black":"#111827",
         "border-gray-light" : "#edf2f7",
         "custom-yellow-showdow-light" : "#FEFAE8",
-        "bg-feature":"#F4F4F4",
-        "custom-menu" : "#737791",
-        "custom-required" : "#EE1D52"
+        "bg-feature":"#F4F4F4"
+      },
+      fontSize: {
+        // md: '16px'
+        // sm: '0.8rem',
+        // base: '1rem',
+        // xl: '1.25rem',
+        // '2xl': '1.563rem',
+        // '3xl': '1.953rem',
+        // '4xl': '2.441rem',
+        // '5xl': '3.052rem',
+      },
+      screens:{
+        '3xl':'1900px',
+        // => @media (min-width: 1900px) { ... }
       }
     },
 
