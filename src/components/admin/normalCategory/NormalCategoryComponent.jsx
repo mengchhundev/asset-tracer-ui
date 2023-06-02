@@ -139,7 +139,7 @@ export default function CategoryComponent() {
           {/* header */}
           <div className="md:pb-0 sm:pb-2 text-text-colors">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-pending">Normal</span> Category
+              All <span className="text-pending">Normal</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
               Active categories
