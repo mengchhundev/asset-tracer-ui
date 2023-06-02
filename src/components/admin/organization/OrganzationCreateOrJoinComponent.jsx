@@ -100,8 +100,8 @@ export default function OrganzationCreateOrJoinComponent() {
                 <img src={organization_pic} className='w-20 h-20 mt-2' />
 
                 <form onSubmit={formik.handleSubmit}>
-                  <div className='w-full '>
-                    <div className="text-left w-full">
+                  <div>
+                    <div className="text-left">
                       <label className="block text-md ml-1 font-semibold leading-6 text-text-color">Join organization with a code</label>
                       <input
                         onInput={handleInputChange}
@@ -110,7 +110,7 @@ export default function OrganzationCreateOrJoinComponent() {
                         name="code"
                         type='number'
                         placeholder='Enter code...'
-                        className='relative text-text-color w-full px-3 outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
+                        className='relative text-text-color px-3 outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
                       />
                       {formik.touched.code && formik.errors?.code ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.code}</p> : null}
                     </div>
