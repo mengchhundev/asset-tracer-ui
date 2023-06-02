@@ -260,6 +260,337 @@ export default function AssetComponent() {
                   </div>
                 </td>
               </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>phone</td>
+                <td>
+                  <div className="flex items-center">
+                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                      <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                        alt=""
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full shadow-inner"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    <div>khjkgj</div>
+                  </div>
+                </td>
+                <td>6/10/2020</td>
+                <td>4</td>
+                <td>2000$</td>
+                <td>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-text-color text-text-color hover:text-text-color"
+                    >
+                      <BiDotsHorizontalRounded className="w-6 h-6 rotate-90" />
+                    </label>
+                    <ul className="dropdown-content right-3 menu p-2 shadow bg-base-100 rounded-md mt-2 w-52">
+                      <li>
+                        <Link to={"/view-invoice"} className="hover:bg-primary">
+                          View invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-invoice"}
+                          className="hover:bg-primary"
+                        >
+                          Update invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="hover:bg-primary">
+                          Download invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>phone</td>
+                <td>
+                  <div className="flex items-center">
+                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                      <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                        alt=""
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full shadow-inner"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    <div>khjkgj</div>
+                  </div>
+                </td>
+                <td>6/10/2020</td>
+                <td>4</td>
+                <td>2000$</td>
+                <td>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-text-color text-text-color hover:text-text-color"
+                    >
+                      <BiDotsHorizontalRounded className="w-6 h-6 rotate-90" />
+                    </label>
+                    <ul className="dropdown-content right-3 menu p-2 shadow bg-base-100 rounded-md mt-2 w-52">
+                      <li>
+                        <Link to={"/view-invoice"} className="hover:bg-primary">
+                          View invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-invoice"}
+                          className="hover:bg-primary"
+                        >
+                          Update invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="hover:bg-primary">
+                          Download invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>phone</td>
+                <td>
+                  <div className="flex items-center">
+                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                      <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                        alt=""
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full shadow-inner"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    <div>khjkgj</div>
+                  </div>
+                </td>
+                <td>6/10/2020</td>
+                <td>4</td>
+                <td>2000$</td>
+                <td>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-text-color text-text-color hover:text-text-color"
+                    >
+                      <BiDotsHorizontalRounded className="w-6 h-6 rotate-90" />
+                    </label>
+                    <ul className="dropdown-content right-3 menu p-2 shadow bg-base-100 rounded-md mt-2 w-52">
+                      <li>
+                        <Link to={"/view-invoice"} className="hover:bg-primary">
+                          View invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-invoice"}
+                          className="hover:bg-primary"
+                        >
+                          Update invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="hover:bg-primary">
+                          Download invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>phone</td>
+                <td>
+                  <div className="flex items-center">
+                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                      <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                        alt=""
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full shadow-inner"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    <div>khjkgj</div>
+                  </div>
+                </td>
+                <td>6/10/2020</td>
+                <td>4</td>
+                <td>2000$</td>
+                <td>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-text-color text-text-color hover:text-text-color"
+                    >
+                      <BiDotsHorizontalRounded className="w-6 h-6 rotate-90" />
+                    </label>
+                    <ul className="dropdown-content right-3 menu p-2 shadow bg-base-100 rounded-md mt-2 w-52">
+                      <li>
+                        <Link to={"/view-invoice"} className="hover:bg-primary">
+                          View invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-invoice"}
+                          className="hover:bg-primary"
+                        >
+                          Update invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="hover:bg-primary">
+                          Download invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>phone</td>
+                <td>
+                  <div className="flex items-center">
+                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                      <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                        alt=""
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full shadow-inner"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    <div>khjkgj</div>
+                  </div>
+                </td>
+                <td>6/10/2020</td>
+                <td>4</td>
+                <td>2000$</td>
+                <td>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-text-color text-text-color hover:text-text-color"
+                    >
+                      <BiDotsHorizontalRounded className="w-6 h-6 rotate-90" />
+                    </label>
+                    <ul className="dropdown-content right-3 menu p-2 shadow bg-base-100 rounded-md mt-2 w-52">
+                      <li>
+                        <Link to={"/view-invoice"} className="hover:bg-primary">
+                          View invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-invoice"}
+                          className="hover:bg-primary"
+                        >
+                          Update invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="hover:bg-primary">
+                          Download invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>phone</td>
+                <td>
+                  <div className="flex items-center">
+                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                      <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                        alt=""
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full shadow-inner"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    <div>khjkgj</div>
+                  </div>
+                </td>
+                <td>6/10/2020</td>
+                <td>4</td>
+                <td>2000$</td>
+                <td>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-text-color text-text-color hover:text-text-color"
+                    >
+                      <BiDotsHorizontalRounded className="w-6 h-6 rotate-90" />
+                    </label>
+                    <ul className="dropdown-content right-3 menu p-2 shadow bg-base-100 rounded-md mt-2 w-52">
+                      <li>
+                        <Link to={"/view-invoice"} className="hover:bg-primary">
+                          View invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-invoice"}
+                          className="hover:bg-primary"
+                        >
+                          Update invoice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="hover:bg-primary">
+                          Download invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+
             </tbody>
           </table>
 

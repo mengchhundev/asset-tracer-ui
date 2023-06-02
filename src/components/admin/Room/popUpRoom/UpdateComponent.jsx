@@ -48,7 +48,7 @@ function UpdateComponent(props) {
                             <p className="px-6 text-text-color text-[22px] item-center xl:text-[28px] font-sp-pro-text-bold">Updat Room</p>
                         </div>
                         <div className="">
-                            <label htmlFor="my-modal-5" ><XCircleIcon className="cursor-pointer h-10 w-10 text-[#F90000] text-opacity-40 ml-[-60px]" /></label>
+                            <label htmlFor="update" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 ml-[-60px]" /></label>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 ">
