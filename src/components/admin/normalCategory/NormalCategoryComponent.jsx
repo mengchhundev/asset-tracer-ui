@@ -128,12 +128,7 @@ export default function CategoryComponent() {
   ]);
 
   return (
-    <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
-      style={{
-        boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-      }}
-    >
+    <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative overflow-hidden">
       <div className="gap-6 overflow-hidden z-10">
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
           {/* header */}
@@ -263,12 +258,7 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        <div
-          className="flex flex-col justify-between"
-          style={{
-            minHeight: "calc(100vh - 18rem)",
-          }}
-        >
+        <div className="flex flex-col justify-between ">
           {/* table */}
 
           <div

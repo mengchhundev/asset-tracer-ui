@@ -19,6 +19,7 @@ import { BsPlus } from 'react-icons/bs';
 import ReactPaginate from 'react-paginate';
 import gift from "../../../assets/images/gift.png";
 import book from "../../../assets/images/book.png";
+import '../../../style/shadow.css';
 
 const people = [
   { id: 1, name: 'Short by' },
@@ -37,6 +38,7 @@ export default function OrganzationCreateOrJoinComponent() {
   const item = useSelector(state => state.organization?.item)
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const navigator = useNavigate()
+
 
   const [pageCount, setPageCount] = useState(2);
 
@@ -85,7 +87,7 @@ export default function OrganzationCreateOrJoinComponent() {
 
 
   return (
-    <main className="overflow-y-auto pb-4">
+    <main className="overflow-y-auto pb-4 con-Shadow">
       <div className="mt-5 gap-6 bg-white rounded-xl overflow-hidden shadow-sm mb-5" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>
         <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
           <div className='flex md:flex-row justify-around w-full mx-10 my-2 py-4'>

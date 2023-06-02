@@ -56,7 +56,8 @@ export default {
         "text-black":"#111827",
         "border-gray-light" : "#edf2f7",
         "custom-yellow-showdow-light" : "#FEFAE8",
-        "bg-feature":"#F4F4F4"
+        "bg-feature":"#F4F4F4",
+        "custom-menu" : "#737791"
       },
       fontSize: {
         // md: '16px'
