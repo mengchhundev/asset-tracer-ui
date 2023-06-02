@@ -651,9 +651,9 @@ export default function AssetComponent() {
                     <span className="border border-slate-200 bg-bg-main text-text-color font-sp-pro-text-medium p-1.5 px-5 rounded-md">
                       Cancel
                     </span>
-                    <spann className="border border-red-500 bg-reject-light text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
+                    <span className="border border-red-500 bg-reject-light text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
                       Delete
-                    </spann>
+                    </span>
                   </div>
                 </div>
               </div>

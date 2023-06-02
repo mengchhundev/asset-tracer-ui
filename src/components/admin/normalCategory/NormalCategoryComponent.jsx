@@ -131,6 +131,7 @@ export default function CategoryComponent() {
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative overflow-hidden">
       <div className="gap-6 overflow-hidden z-10">
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+          
           {/* header */}
           <div className="md:pb-0 sm:pb-2 text-text-colors">
             <h2 className="text-2xl font-sp-pro-text-semibold">

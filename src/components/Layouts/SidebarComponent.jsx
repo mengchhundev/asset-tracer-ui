@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import SignOutComponent from "./popUp/SignOutComponent";
 import { IoMdNotifications } from "react-icons/io";
 import logo from '../../assets/images/A_Tracer_logo1.png'
+import '../../style/scrollbar.css'
 
 
 export default function SidebarComponent() {
@@ -30,7 +31,7 @@ export default function SidebarComponent() {
 
     const location = useLocation();
     const organization = JSON.parse(sessionStorage.getItem("organization"))
-    const item = useSelector(state => state.organization?.item)
+    const item = useSelector(state => state?.organization?.item)
 
     const [key, setKey] = useState("")
 
@@ -39,9 +40,13 @@ export default function SidebarComponent() {
     }
 
     useEffect(() => {
-        if (location.pathname == "/organization" || path == "/organization-create") {
+        if (path == "/organization" || path == "/organization-create") {
             setShowOrganization(true)
             setIsShowOrganization(true)
+        } else {
+            setShowOrganization(false)
+            setIsShowOrganization(false)
+            setKey("")
         }
 
         if (location?.state?.hideOrganizationBar) {
@@ -49,14 +54,13 @@ export default function SidebarComponent() {
             setShowOrganization(false)
         }
 
-        if (window.location.pathname == "/profile") {
-            setIsShowOrganization(false)
-            setShowOrganization(false)
-        }
-
         if (path == "/super-category" || path == "/normal-category") {
             setShowCategory(true)
             setIsShowCategory(true)
+        } else {
+            setShowCategory(false)
+            setIsShowCategory(false)
+            setKey("")
         }
     }, [item, path])
 
@@ -66,13 +70,11 @@ export default function SidebarComponent() {
             <div
                 className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-72 bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
+                    aria-label="Tabs"
             >
                 <div>
                     <ul>
                         <li>
-                            {/* <label className="text-sm text-text-color opacity-50">Organization</label>
-                            <hr className="my-1 mb-4 text-gray-light opacity-60" /> */}
-
                             <NavLink
                                 onClick={() => setShowOrganization(!showOrganization)}
                                 className={`${isShowOrganization ? "bg-primary hover:bg-primary" : ""} ${isShowOrganization ? activeStyleDropDown : inActiveStyleDropDown}`}
@@ -81,12 +83,12 @@ export default function SidebarComponent() {
 
                                     <div className="w-5 h-5 relative">
                                         <svg width="100%" height="100%" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.0883 1.19602L28.643 7.88748V25.8636L15.0883 32.554L1.53361 25.863V7.88695L15.0883 1.19602ZM15.0883 0L0.39209 7.25467V26.4953L15.0883 33.75L29.7845 26.4953V7.25467L15.0883 0Z" fill={`${isShowOrganization || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
-                                            <path d="M15.7579 11.6562H14.4219V15.9517H15.7579V11.6562Z" fill={`${isShowOrganization || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
-                                            <path d="M8.26428 19.6347H7.07178V14.7256H23.104V19.5491H21.9115V15.858H8.26428V19.6347Z" fill={`${isShowOrganization || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
-                                            <path d="M11.7485 6.75V11.6591H18.4286V6.75H11.7485Z" fill={`${isShowOrganization || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
-                                            <path d="M18.5024 19.3838V24.0819H25.886V19.3838H18.5024Z" fill={`${isShowOrganization || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
-                                            <path d="M4.29492 19.3838V24.0819H11.6785V19.3838H4.29492Z" fill={`${isShowOrganization || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
+                                            <path d="M15.0883 1.19602L28.643 7.88748V25.8636L15.0883 32.554L1.53361 25.863V7.88695L15.0883 1.19602ZM15.0883 0L0.39209 7.25467V26.4953L15.0883 33.75L29.7845 26.4953V7.25467L15.0883 0Z" fill={`${key == "organization" || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
+                                            <path d="M15.7579 11.6562H14.4219V15.9517H15.7579V11.6562Z" fill={`${key == "organization" || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
+                                            <path d="M8.26428 19.6347H7.07178V14.7256H23.104V19.5491H21.9115V15.858H8.26428V19.6347Z" fill={`${key == "organization" || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
+                                            <path d="M11.7485 6.75V11.6591H18.4286V6.75H11.7485Z" fill={`${key == "organization" || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
+                                            <path d="M18.5024 19.3838V24.0819H25.886V19.3838H18.5024Z" fill={`${key == "organization" || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
+                                            <path d="M4.29492 19.3838V24.0819H11.6785V19.3838H4.29492Z" fill={`${key == "organization" || path == "/organization" || path == "/organization-create" ? "#FFFFFF" : "#737791"}`} />
                                         </svg>
                                     </div>
                                     <p className="ml-3">Organization</p>
@@ -105,7 +107,7 @@ export default function SidebarComponent() {
                                         to="/organization"
                                         className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-primary ` :
                                             `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
-                                        onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
+                                        onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("organization") }}
                                     >
                                         Organization List
                                     </NavLink>
@@ -115,7 +117,7 @@ export default function SidebarComponent() {
                                         to="/organization-create"
                                         className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors text-primary ` :
                                             `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2  before:border-secondary-100 transition-colors  `}
-                                        onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false) }}
+                                        onClick={() => { setIsShowOrganization(true), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("organization") }}
                                     >
                                         Create or Join
                                     </NavLink>
@@ -124,9 +126,6 @@ export default function SidebarComponent() {
                         </li>
 
                         {organization != null || item != null ? <>
-                            {/* <label className="text-sm text-text-color opacity-50">Menus</label>
-                            <hr className="my-1 mb-4 text-gray-light opacity-60" /> */}
-
                             <li>
                                 <NavLink
                                     to="/dashboard"
@@ -225,10 +224,10 @@ export default function SidebarComponent() {
                                         <div className="w-5 h-5 relative">
                                             <svg width="100%" height="100%" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M1.66675 8.73698C1.66675 7.26422 2.86066 6.07031 4.33341 6.07031H25.6668C27.1395 6.07031 28.3334 7.26422 28.3334 8.73698V10.9433C28.3334 12.121 27.561 13.1591 26.433 13.4975L16.5326 16.4676C15.5329 16.7675 14.4672 16.7675 13.4676 16.4676L3.56716 13.4975C2.4392 13.1591 1.66675 12.121 1.66675 10.9433V8.73698Z"
-                                                    stroke={`${key == "asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M15 12.9302L15 10.6445" stroke={`${key == "asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                <path d="M2.77808 12.9297L2.77808 20.1677C2.77808 23.1132 5.16589 25.501 8.11141 25.501H21.8892C24.8347 25.501 27.2225 23.1132 27.2225 20.1677V12.9297" stroke={`${key == "asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M19.4446 6.0714V4.16667C19.4446 2.69391 18.2506 1.5 16.7779 1.5H13.2223C11.7496 1.5 10.5557 2.69391 10.5557 4.16667L10.5557 6.0714" stroke={`${key == "asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                    stroke={`${key == "asset" || path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                <path d="M15 12.9302L15 10.6445" stroke={`${key == "asset" || path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M2.77808 12.9297L2.77808 20.1677C2.77808 23.1132 5.16589 25.501 8.11141 25.501H21.8892C24.8347 25.501 27.2225 23.1132 27.2225 20.1677V12.9297" stroke={`${path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                <path d="M19.4446 6.0714V4.16667C19.4446 2.69391 18.2506 1.5 16.7779 1.5H13.2223C11.7496 1.5 10.5557 2.69391 10.5557 4.16667L10.5557 6.0714" stroke={`${path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
                                             </svg>
                                         </div>
                                         <p className="ml-3">Asset</p>
@@ -241,7 +240,6 @@ export default function SidebarComponent() {
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
                                     onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("room") }}
                                 >
-
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
                                             <svg width="100%" height="100%" viewBox="0 0 29 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -282,12 +280,12 @@ export default function SidebarComponent() {
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
                                             <svg width="100%" height="100%" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="4.53901" cy="4.53901" r="4.53901" transform="matrix(-1 0 0 1 19.8228 1.16797)" stroke={`${key == "user" || path == "/user"? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M7.34106 16.9805C7.34106 16.0042 7.9548 15.1333 8.87422 14.8049V14.8049C13.0194 13.3245 17.5492 13.3245 21.6944 14.8049V14.8049C22.6139 15.1333 23.2276 16.0042 23.2276 16.9805V18.4733C23.2276 19.8207 22.0342 20.8558 20.7003 20.6652L20.2555 20.6017C16.9581 20.1306 13.6105 20.1306 10.3131 20.6017L9.86839 20.6652C8.53449 20.8558 7.34106 19.8207 7.34106 18.4733V16.9805Z" stroke={`${key == "user" || path == "/user"? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M22.0899 10.371C24.0595 10.371 25.6562 8.77429 25.6562 6.80464C25.6562 4.835 24.0595 3.23828 22.0899 3.23828" stroke={`${key == "user" || path == "/user"? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                                <path d="M25.9961 18.5074L26.3455 18.5573C27.3936 18.707 28.3313 17.8938 28.3313 16.8351V15.6622C28.3313 14.8951 27.849 14.2108 27.1266 13.9528C26.406 13.6955 25.6706 13.495 24.927 13.3516" stroke={`${key == "user" || path == "/user"? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                                <path d="M7.91133 10.371C5.94169 10.371 4.34497 8.77429 4.34497 6.80464C4.34497 4.835 5.94169 3.23828 7.91133 3.23828" stroke={`${key == "user" || path == "/user"? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                                <path d="M4.00516 18.5074L3.65572 18.5573C2.60766 18.707 1.66996 17.8938 1.66996 16.8351V15.6622C1.66996 14.8951 2.15218 14.2108 2.87458 13.9528C3.59518 13.6955 4.33058 13.495 5.07422 13.3516" stroke={`${key == "user" || path == "/user"? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                <circle cx="4.53901" cy="4.53901" r="4.53901" transform="matrix(-1 0 0 1 19.8228 1.16797)" stroke={`${key == "user" || path == "/user" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                <path d="M7.34106 16.9805C7.34106 16.0042 7.9548 15.1333 8.87422 14.8049V14.8049C13.0194 13.3245 17.5492 13.3245 21.6944 14.8049V14.8049C22.6139 15.1333 23.2276 16.0042 23.2276 16.9805V18.4733C23.2276 19.8207 22.0342 20.8558 20.7003 20.6652L20.2555 20.6017C16.9581 20.1306 13.6105 20.1306 10.3131 20.6017L9.86839 20.6652C8.53449 20.8558 7.34106 19.8207 7.34106 18.4733V16.9805Z" stroke={`${key == "user" || path == "/user" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                <path d="M22.0899 10.371C24.0595 10.371 25.6562 8.77429 25.6562 6.80464C25.6562 4.835 24.0595 3.23828 22.0899 3.23828" stroke={`${key == "user" || path == "/user" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                <path d="M25.9961 18.5074L26.3455 18.5573C27.3936 18.707 28.3313 17.8938 28.3313 16.8351V15.6622C28.3313 14.8951 27.849 14.2108 27.1266 13.9528C26.406 13.6955 25.6706 13.495 24.927 13.3516" stroke={`${key == "user" || path == "/user" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                <path d="M7.91133 10.371C5.94169 10.371 4.34497 8.77429 4.34497 6.80464C4.34497 4.835 5.94169 3.23828 7.91133 3.23828" stroke={`${key == "user" || path == "/user" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                <path d="M4.00516 18.5074L3.65572 18.5573C2.60766 18.707 1.66996 17.8938 1.66996 16.8351V15.6622C1.66996 14.8951 2.15218 14.2108 2.87458 13.9528C3.59518 13.6955 4.33058 13.495 5.07422 13.3516" stroke={`${key == "user" || path == "/user" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
                                             </svg>
                                         </div>
                                         <p className="ml-3">User</p>
@@ -308,7 +306,7 @@ export default function SidebarComponent() {
                                 <svg width="100%" height="100%" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.49205 22.5533L5.63921 21.492H5.63921L5.49205 22.5533ZM18.508 22.5533L18.6551 23.6146L18.508 22.5533ZM2.59616 16.2969L1.67598 15.748L2.59616 16.2969ZM5.2942 9.77777C5.2942 6.07396 8.29673 3.07143 12.0005 3.07143V0.928571C7.11327 0.928571 3.15134 4.89049 3.15134 9.77777H5.2942ZM5.2942 12.4532V9.77777H3.15134V12.4532H5.2942ZM3.07143 18.4666C3.07143 17.8723 3.23395 17.3192 3.51635 16.8457L1.67598 15.748C1.20111 16.5442 0.928571 17.4752 0.928571 18.4666H3.07143ZM5.63921 21.492C4.16486 21.2876 3.07143 20.0051 3.07143 18.4666H0.928571C0.928571 21.0244 2.76176 23.2564 5.34489 23.6146L5.63921 21.492ZM12 22.0422C10.1018 22.0422 7.64517 21.7702 5.63921 21.492L5.34489 23.6146C7.36825 23.8952 9.94644 24.1851 12 24.1851V22.0422ZM18.3608 21.4921C16.3548 21.7702 13.8982 22.0422 12 22.0422V24.1851C14.0536 24.1851 16.6318 23.8952 18.6551 23.6146L18.3608 21.4921ZM20.9286 18.4666C20.9286 20.0051 19.8351 21.2876 18.3608 21.4921L18.6551 23.6146C21.2382 23.2564 23.0714 21.0244 23.0714 18.4666H20.9286ZM20.4838 16.846C20.7661 17.3194 20.9286 17.8724 20.9286 18.4666H23.0714C23.0714 17.4754 22.799 16.5446 22.3243 15.7485L20.4838 16.846ZM18.7069 9.77778V12.4545H20.8498V9.77778H18.7069ZM12.0005 3.07143C15.7044 3.07143 18.7069 6.07396 18.7069 9.77778H20.8498C20.8498 4.89049 16.8878 0.928571 12.0005 0.928571V3.07143ZM22.3243 15.7485C21.9256 15.0799 21.5729 14.559 21.2799 13.9718C21.0009 13.4128 20.8498 12.9251 20.8498 12.4545H18.7069C18.7069 13.3898 19.0087 14.2197 19.3626 14.9287C19.7024 15.6097 20.1626 16.3072 20.4838 16.846L22.3243 15.7485ZM3.15134 12.4532C3.15134 12.9238 3.00014 13.4117 2.72098 13.9709C2.42776 14.5582 2.07486 15.0793 1.67598 15.748L3.51635 16.8457C3.83778 16.3068 4.29818 15.6091 4.63819 14.928C4.99225 14.2188 5.2942 13.3887 5.2942 12.4532H3.15134Z"
                                         fill={`${key == "notification" || path == "/notification" ? "#FFFFFF" : "#737791"}`} />
-                                    <path opacity="0.3" d="M14.7776 26.0645C14.1804 26.9626 13.1592 27.5546 11.9998 27.5546C10.8404 27.5546 9.81922 26.9626 9.22204 26.0645" stroke={`${key == "notification" ? "#FFFFFF" : "#737791"}`} strokeWidth="2.14286" strokeLinecap="round" />
+                                    <path opacity="0.3" d="M14.7776 26.0645C14.1804 26.9626 13.1592 27.5546 11.9998 27.5546C10.8404 27.5546 9.81922 26.9626 9.22204 26.0645" stroke={`${key == "notification" || path == "/notification" ? "#FFFFFF" : "#737791"}`} strokeWidth="2.14286" strokeLinecap="round" />
                                 </svg>
                             </div>
                             <p className="ml-3">Notification</p>
@@ -326,7 +324,7 @@ export default function SidebarComponent() {
                             <p className="ml-3">Sign Out</p>
                         </span>
                     </label>
-                    
+
                     <NavLink
                         onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("") }}
                         to="/profile"

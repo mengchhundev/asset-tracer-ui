@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "sp-pro-text-light";
+  src: url(../src/assets/fonts/sfwin-master/SFPro/OpenType/SF-Pro-Text-Light.otf);
+}
+
 
 @font-face {
   font-family: "sp-pro-text-regular";
@@ -28,6 +33,5 @@
   margin: 0 auto;
   padding: 0;
   font-family: "sp-pro-text-regular";
-  /* font-size: 0.938rem; */
   font-size: 14px;
 }
