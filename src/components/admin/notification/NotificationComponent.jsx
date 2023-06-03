@@ -1,19 +1,28 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import AssetFiltterComponent from "../asset/AssetFiltterComponent";
 import { BsDot, BsPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import trash from "../../../assets/images/trash.png";
+import pc from "../../../assets/images/pc.png";
+import furniture from "../../../assets/images/furniture.png";
+import gift from "../../../assets/images/gift.png";
+import book from "../../../assets/images/book.png";
+import cross from "../../../assets/images/cross.png";
 import { ChevronUpDownIcon, EyeIcon } from "@heroicons/react/20/solid";
 import { Combobox, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import ReactPaginate from "react-paginate";
 
 const people = [
-  { id: 1, name: "Sort By" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
+  { id: 1, name: "Newest" },
+  { id: 2, name: "Latest" },
+  { id: 3, name: "A-Z" },
+  { id: 4, name: "Z-A" },
 ];
 
 export default function NotificationComponent() {
   const [query, setQuery] = useState("");
+  const [pageCount, setPageCount] = useState(2);
   const [selected, setSelected] = useState(people[0]);
 
   const filteredPeople =
@@ -26,180 +35,141 @@ export default function NotificationComponent() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    getAllSuperCategory(event.selected + 1);
+    setI(event.selected * 10 + 1);
+  };
+
+  // useEffect(() => {
+  //   getMethod();
+  // }, []);
+
+  // const getMethod = () => {
+  //   axios
+  //     .get("http://localhost:8080/api/v1/normal-categories?page=1&size=4")
+  //     .then((data) => {
+  //       console.log(data.data.payload);
+  //       console.log("state", state);
+  //       setState(data.data.payload[0]);
+  //     });
+  // };
+
   const [notifications, setNotification] = useState([
     {
       id: 1,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "KPS",
+      name: "Olivia",
+      date: "12-27-2023",
       email: "hrdcenter@gamil.com",
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
+      src: "https://i.pinimg.com/474x/0f/b2/97/0fb2975d18129966010c0f58366b8ade.jpg",
     },
     {
       id: 2,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "PP",
+      name: "Jiso",
+      date: "11-14-2023",
       email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/564x/18/40/f1/1840f18b87198ab3b79198979e491b39.jpg",
+      src: "https://i.pinimg.com/474x/a6/d3/e7/a6d3e70fea9bdd7be1788393cc6b782c.jpg",
     },
     {
       id: 3,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "RK",
+      name: "Gin",
+      date: "09-12-2023",
       email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/564x/a9/e0/45/a9e045a4cc1e78022ca1b4a275938142.jpg",
+      src: "https://i.pinimg.com/474x/7f/c9/ff/7fc9ff3043b463345310170aed59517d.jpg",
     },
     {
       id: 4,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "KT",
+      name: "Meng",
+      date: "03-12-2023",
       email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/564x/db/84/6c/db846c57d050b6916fa09ca4773f3ad2.jpg",
+      src: "https://i.pinimg.com/474x/52/cb/81/52cb81eddd24d627b6cc602b02f0ef5d.jpg",
     },
     {
       id: 5,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "TK",
+      name: "Benten",
+      date: "06-16-2003",
       email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/564x/c9/f2/4c/c9f24c35ec99e28a50dc158abf68e5b8.jpg",
+      src: "https://i.pinimg.com/474x/f0/18/67/f01867dc61744df68b618409995916d1.jpg",
     },
     {
       id: 6,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "KK",
+      name: "Amelia",
+      date: "12-17-2003",
       email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/564x/2c/a7/95/2ca7954afb804e926221a5f364f7a9fb.jpg",
+      src: "https://i.pinimg.com/474x/d1/f8/1c/d1f81c56679d70c555373d2e889e0f30.jpg",
     },
     {
       id: 7,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "KPC",
+      name: "James",
+      date: "12-17-2003",
       email: "hrdcenter@gamil.com",
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
+      src: "https://i.pinimg.com/474x/3e/bb/0e/3ebb0e52632194dfbaceaaca80be2841.jpg",
     },
     {
       id: 8,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
+      location: "PP",
+      name: "Laxy",
+      date: "12-17-2003",
       email: "hrdcenter@gamil.com",
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
-    },
-    {
-      id: 9,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
-      email: "hrdcenter@gamil.com",
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
-    },
-    {
-      id: 10,
-      profile: "SE",
-      name: "jiso",
-      number: "09464",
-      email: "hrdcenter@gamil.com",
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Compact_disc_album.jpg/800px-Compact_disc_album.jpg",
+      src: "https://i.pinimg.com/474x/f2/a7/65/f2a765fa1f498a9cc4c64e08d1e893fa.jpg",
     },
   ]);
   return (
     <main
-      className="overflow-y-auto p-5 px-8 bg-white rounded-xl relative"
+      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        minHeight: "calc(100vh - 6.3rem)",
       }}
     >
       <div className="gap-6 overflow-hidden z-10">
-        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
+        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
           {/* header */}
           <div className="md:pb-0 sm:pb-2 text-text-colors">
-            <h2 className="text-2xl font-sp-pro-text-semibold">
+            <h2 className="text-2xl font-sp-pro-text-semibold text-text-color">
               All <span className="text-pending">List</span> Notification
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-              Active notification
+              Active categories
             </p>
           </div>
 
-        {/* search */}
-        <div className="flex flex-row justify-center gap-5">
-          <div>
-            <div className="relative text-sm border-[#E1E9EE] border rounded-lg block w-full py-1.5 px-1 mb-1  focus:border-primary">
-              <div className="absolute inset-y-0 flex items-center pl-2">
-                <svg
-                  className="w-5 h-5 text-primary"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-              <input
-                className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                type="text"
-                name="search"
-                placeholder="Search..."
-              />
-            </div>
-          </div>
-          {/* filter */}
-          <div className="z-50">
-            <div className="relative z-50">
-              <div className="z-50 relative w-full cursor-default overflow-hidden text-left rounded-md">
-                <input
-                  className="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                  id="headlessui-combobox-input-:r19:"
-                  role="combobox"
-                  type="text"
-                  aria-expanded="false"
-                  aria-autocomplete="list"
-                  data-headlessui-state=""
-                />
-                <button
-                  className="absolute inset-y-0 right-0 flex items-center pr-2"
-                  id="headlessui-combobox-button-:r1b:"
-                  type="button"
-                  tabIndex="-1"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                  data-headlessui-state=""
-                >
+          {/* search */}
+          <div className="flex flex-row justify-center gap-10">
+            <div>
+              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+                <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
+                    className="w-5 h-5 text-primary"
                     aria-hidden="true"
-                    className="h-5 w-5 text-text-color"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                      fillRule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
-                </button>
+                </div>
+                <input
+                  className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  type="text"
+                  name="search"
+                  placeholder="Search..."
+                />
               </div>
             </div>
-          </div>
 
-          {/* DropDown filter */}
-
-          {/* <div className="z-20">
-            <Combobox
+            {/* filter */}
+            <div className="z-20">
+              <Combobox
                 value={selected}
                 onChange={setSelected}
                 className="z-20"
@@ -207,7 +177,7 @@ export default function NotificationComponent() {
                 <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
-                      className="w-full border-[#E1E9EE] border rounded-md py-1.5  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                       displayValue={(person) => person.name}
                       onChange={(event) => setQuery(event.target.value)}
                     />
@@ -273,190 +243,304 @@ export default function NotificationComponent() {
                   </Transition>
                 </div>
               </Combobox>
-          </div> */}
+            </div>
 
-          {/* add */}
-          <div className="block ">
-            <div>
-              <button
-                type="button"
-                className="border ml-auto border-yellow text-yellow p-1 px-2 rounded-md font-sp-pro-text-regular text-sm  w-32 flex items-center"
-                //   {/* className="bg-primary text-white py-2 px-4 rounded-md max-w-max" */}
+            {/* add */}
+            <div className="block ">
+              <label
+                htmlFor="my-modal-3"
+                className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
               >
-                <BsPlus className="w-6 h-6" /> &nbsp; Create New
-              </button>
+                <BsPlus className="w-6 h-6" />
+                &nbsp;Add User
+              </label>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* table for list notification */}
-      <div
-        className="overflow-x-auto px-5 flex-grow"
-        style={
-          {
-            // minHeight: "calc(100vh - 12rem)",
-          }
-        }
-      >
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th className="w-1/12 bg-bg-primary rounded-none py-3">No</th>
-              <th className="w-3/12 bg-bg-primary py-3">
-                Normal Category Name
-              </th>
-              <th className="w-3/12 bg-bg-primary py-3">Super Category Name</th>
-              <th className="w-3/12 bg-bg-primary py-3">Created Date</th>
-              <th className="w-2/12 bg-bg-primary rounded-none py-3">Action</th>
-            </tr>
-          </thead>
-          <tbody className="divide divide-slate-800">
-            {notifications.map((users) => (
-              <tr
-                key={users.id}
-                className="font-md text-text-color border-none"
-              >
-                <td className="p-2.5">{users.id}</td>
-                <td className="p-2.5">
-                  <div className="flex items-center">
-                    <div className="relative  mr-3 w-8">
-                      <img
-                        src={users.src}
-                        alt={users.title}
-                        loading="lazy"
-                        className="rounded-full h-8"
-                      />
-                    </div>
-                    <div>{users.name}</div>
-                  </div>
-                </td>
-                <td className="p-2.5">
-                  <div className="flex items-center m-auto space-x-3">
-                    <span className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                      {users.profile}
-                    </span>
-                    <span className="font-sp-pro-text-medium text-sm text-text-color">
-                      {users.name}
-                    </span>
-                  </div>
-                </td>
-                <td className=" text-text-color p-2.5">
-                  <div className="flex items-center">
-                    <div className="relative  mr-3 w-8 ">
-                      <img
-                        src={users.src}
-                        alt={users.title}
-                        loading="lazy"
-                        className="rounded-full h-8"
-                      />
-                    </div>
-                    <div>{users.name}</div>
-                  </div>
-                </td>
-                <td className="p-2.5">
-                  <div className="flex items-center space-x-4">
-                    {/* Edit */}
-                    <label
-                      htmlFor="modalEdit"
-                      className="flex items-center border border-accept text-accept min-w-min px-5 py-1 leading-5 rounded-md"
-                      aria-label="Edit"
-                    >
-                      Edit
-                    </label>
-                    {/* Delete */}
-                    <label
-                      htmlFor="modalDelete"
-                      className="flex items-center border border-reject text-reject min-w-min px-5 py-1 leading-5 rounded-md"
-                      aria-label="Delete"
-                    >
-                      Delete
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {/* pagination */}
+        <div
+          className="flex flex-col justify-between"
+          style={{
+            minHeight: "calc(100vh - 18rem)",
+          }}
+        >
+          {/* table */}
+          <div
+            className="overflow-x-auto px-5 flex-grow"
+            style={
+              {
+                // minHeight: "calc(100vh - 12rem)",
+              }
+            }
+          >
+            <table className="table w-full">
+              <tbody className="divide divide-slate-800">
+                <tr className="text-sm font-sp-pro-text-semibold text-text-color">
+                  <td className="w-2/12  bg-bg-main py-3">No</td>
+                  <td className="w-4/12 bg-bg-main py-3">User Name</td>
+                  <td className="w-2/12 bg-bg-main py-3">Location</td>
+                  <td className="w-4/12 bg-bg-main py-3 text-center">
+                    Created Date
+                  </td>
+                  <td className="w-4/12 bg-bg-main py-3 text-center">Action</td>
+                </tr>
+                {notifications.map((users) => (
+                  <tr className="text-sm font-sp-pro-text-regular text-text-color text-center">
+                    <td className="w-2/12 py-3 text-text-color text-left">
+                      {users.id}
+                    </td>
+                    <td className="w-3/12 py-3">
+                      <div className="flex items-center">
+                        <div className="relative  mr-4 w-8 h-8 ">
+                          <img
+                            src={users.src}
+                            alt={users.title}
+                            loading="lazy"
+                            className="rounded-full h-full w-full"
+                          />
+                        </div>
+                        <div>{users.name}</div>
+                      </div>
+                    </td>
+                    <td className="w-2/12 py-3">
+                      <div className="flex items-center">
+                        <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-xs">
+                          {users.location}
+                        </span>
+                        <span className="text-sm text-text-color">
+                          {users.locationName}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
+                      {users.date}
+                    </td>
+                    <td className="w-2/12 py-3">
+                      <div className="flex items-center space-x-4 justify-center">
+                        {/* Edit */}
+                        <label
+                          htmlFor="modalEdit"
+                          className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
+                          aria-label="Edit"
+                        >
+                          Accept
+                        </label>
+                        {/* Delete */}
+                        <label
+                          htmlFor="modalDelete"
+                          className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
+                          aria-label="Delete"
+                        >
+                          Reject
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-      <div className="grid px-4 py-5 text-sm tracking-wide text-gray-500 uppercase dark:border-y-bg-primary bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-        <span className="flex items-center col-span-3">
-          Showing 21-30 of 100
-        </span>
-        <span className="col-span-2"></span>
-        <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-          <nav aria-label="Table navigation">
-            <ul className="inline-flex items-center">
-              <li>
-                <button
-                  className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
-                  aria-label="Previous"
+          {/* pagination */}
+          <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+            <div className="">Showing data 1 to 8 of 256K entries</div>
+            <div id="react-paginate" className="">
+              <ReactPaginate
+                nextLabel=" >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={pageCount}
+                previousLabel="< "
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Add notification */}
+        <input type="checkbox" id="normalCategory" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box relative">
+            <label
+              htmlFor="normalCategory"
+              className="font-semibold text-xl absolute right-8 top-8"
+            >
+              ✕
+            </label>
+            <div className="flex justify-start items-center pb-8">
+              <img src={gift} width={50} />
+              <h3 className="text-lg font-bold text-text-color pl-5">
+                Invite user
+              </h3>
+            </div>
+            <div className="border py-5 px-5 flex justify-start items-center">
+              <img src={furniture} width={70} />
+              <div className="flex pl-5 flex-col justify-start">
+                <p className="pb-3">Choose Icon</p>
+                <div className="flex space-x-5">
+                  <button>
+                    <img src={pc} width={50} />
+                  </button>
+                  <button>
+                    <img src={furniture} width={50} />
+                  </button>
+                  <button>
+                    <img src={book} width={50} />
+                  </button>
+                  <button>
+                    <img src={cross} width={50} />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <select className="select select-bordered w-full ">
+              <option disabled selected>
+                Super Category
+              </option>
+              <option>Normal Apple</option>
+              <option>Normal Orange</option>
+              <option>Normal Tomato</option>
+            </select>
+            <div className="mb-6">
+              <label className="block mb-2 text-lg mt-4 font-medium text-text-color float-left">
+                Name
+              </label>
+              <input
+                type="text"
+                id="base-input"
+                className="bg-gray-50 border text-sm rounded-lg  block w-full p-2.5"
+              />
+            </div>
+            <div className="flex justify-end space-x-4">
+              <div className="modal-action">
+                <label
+                  htmlFor="normalCategory"
+                  className="bg-[#F4F4F4] text-text-color font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
                 >
-                  <svg
-                    className="w-4 h-4 fill-current"
-                    aria-hidden="true"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </li>
-              <li>
-                <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-primary border text-white border-slate-200 mx-2">
-                  1
-                </button>
-              </li>
-              <li>
-                <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
-                  2
-                </button>
-              </li>
-              <li>
-                <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
-                  4
-                </button>
-              </li>
-              <li>
-                <span className="p-2.5">...</span>
-              </li>
-              <li>
-                <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
-                  8
-                </button>
-              </li>
-              <li>
-                <button className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2">
-                  9
-                </button>
-              </li>
-              <li>
-                <button
-                  className="w-9 h-9 flex justify-center items-center rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple bg-bg-primary border border-slate-200 mx-2"
-                  aria-label="Next"
+                  Cancel
+                </label>
+              </div>
+              <div className="modal-action">
+                <label className="bg-pending text-[#F4F4F4] font-light border-2 border-pending hover:bg-pending btn">
+                  Save
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Edit Popup */}
+        <input type="checkbox" id="modalEdit" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box relative">
+            <label
+              htmlFor="modalEdit"
+              className="font-semibold text-xl absolute right-8 top-8"
+            >
+              ✕
+            </label>
+            <div className="flex justify-start items-center pb-8">
+              <img src={gift} width={50} />
+              <h3 className="text-lg font-bold text-text-color pl-5">
+                Update Normal Category
+              </h3>
+            </div>
+            <div className="border py-5 px-5 flex justify-start items-center">
+              <img src={furniture} width={70} />
+              <div className="flex pl-5 flex-col justify-start">
+                <p className="pb-3">Choose Icon</p>
+                <div className="flex space-x-5">
+                  <button>
+                    <img src={pc} width={50} />
+                  </button>
+                  <button>
+                    <img src={furniture} width={50} />
+                  </button>
+                  <button>
+                    <img src={book} width={50} />
+                  </button>
+                  <button>
+                    <img src={cross} width={50} />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="mb-6">
+              <label className="block mb-2 text-lg pt-5 font-medium text-text-color">
+                Name
+              </label>
+              <input
+                type="text"
+                className="border text-lg rounded-lg w-full py-3 px-3"
+              />
+            </div>
+            <div className="flex justify-end space-x-4">
+              <div className="modal-action">
+                <label
+                  htmlFor="modalEdit"
+                  className="bg-[#F4F4F4] text-text-color font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
                 >
-                  <svg
-                    className="w-4 h-4 fill-current"
-                    aria-hidden="true"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </span>
-      </div>
+                  Cancel
+                </label>
+              </div>
+              <div className="modal-action">
+                <label className="bg-accept text-[#F4F4F4] font-light border-2 border-accept hover:bg-accept btn">
+                  Save Change
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Delete Popup */}
+        <input type="checkbox" id="modalDelete" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box relative">
+            <div className="flex justify-start">
+              <img src={trash} width={50} className="inline-block" />
+              <div className="pl-2">
+                <h3 className="text-lg font-bold text-text-color">Delete</h3>
+                <p className="pt-1 text-text-color">
+                  Are you sure want to delete this post?
+                </p>
+              </div>
+            </div>
+            <label
+              htmlFor="modalDelete"
+              className="font-semibold text-xl absolute right-8 top-6"
+            >
+              ✕
+            </label>
+
+            <div className="flex justify-end space-x-4">
+              <div className="modal-action">
+                <label
+                  htmlFor="modalDelete"
+                  className="bg-[#F4F4F4] font-light text-text-color hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
+                >
+                  Cancel
+                </label>
+              </div>
+              <div className="modal-action">
+                <label className="bg-[#FFC5C5] font-light text-reject border-2 border-reject hover:bg-[#FFC5C5] btn">
+                  Delete
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
