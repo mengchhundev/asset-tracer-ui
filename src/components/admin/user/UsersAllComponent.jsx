@@ -212,13 +212,13 @@ export default function UsersAllComponent() {
                   boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
                 }}
               >
-                <div className="px-6 py-4 ">
+                <div className="px-6 py-4">
                   <div className="flex flex-row justify-end items-center">
                     <div className="dropdown dropdown-bottom">
                       <button
                         // onClick={() => setDropdown(!dropdown)}
                         // tabIndex={0}
-                        className="bg-bg-primary  w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
+                        className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
                       >
                         <BiDotsHorizontalRounded className="w-6 h-6" />
                       </button>
