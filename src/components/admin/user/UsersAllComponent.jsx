@@ -268,8 +268,7 @@ export default function UsersAllComponent() {
 
         {/* card */}
         <div
-          className=" p-6  lt-16:p-4 lt-16:pt-8 lt-14:p-4 overflow-y-scroll relative "
-          style={{ height: "71vh" }}
+          className=" p-6  lt-16:p-4 lt-16:pt-8 lt-14:p-4 overflow-y-scroll relative h-[calc(100vh-16rem)]"
         >
           <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 gap-y-8  w-full">
             {user.map((list) => (
