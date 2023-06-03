@@ -14,7 +14,7 @@ import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
 import { TbCalendarStats } from "react-icons/tb";
 import { AiFillGift } from "react-icons/ai";
 import UserDetail from "./userPopup/UserDetail";
-import '../../../style/shadow.css';
+import "../../../style/shadow.css";
 
 export default function UsersAllComponent() {
   const [user, setUser] = useState([
@@ -102,7 +102,6 @@ export default function UsersAllComponent() {
       email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
-    
   ]);
 
   //featch images
@@ -138,17 +137,16 @@ export default function UsersAllComponent() {
 
   return (
     <main
-      className="px-10 py-6 overflow-hidden bg-white rounded-xl con-Shadow  "
-      style={
-        {
-          height: "calc(100vh - 8rem)",
-        }}
+      className="lt-14:px-5 lt-14:py-2 lt-16:px-10 lt-16:py-6 overflow-hidden bg-white rounded-xl con-Shadow  "
+      style={{
+        height: "calc(100vh - 8rem)",
+      }}
     >
       <div className="gap-6 overflow-hidden z-10 ">
-        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 ">
+        <div className="flex lt-14:flex lt-14:flex-row md:flex-row sm:flex-col justify-between gap-4 p-5 ">
           {/* header */}
           <div className="md:pb-0 sm:pb-2 text-text-colors">
-            <h2 className="text-2xl font-sp-pro-text-semibold">
+            <h2 className="lt-16:text-2xl lt-14:text-[20px] font-sp-pro-text-semibold">
               All <span className="text-pending">User</span> Managment
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
@@ -156,8 +154,8 @@ export default function UsersAllComponent() {
             </p>
           </div>
 
-          <div className=" flex flex-row justify-center gap-10">
-            <div >
+          <div className=" flex flex-row justify-center lt-16:gap-10 lt-14:gap-5 gap-3">
+            <div>
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -195,30 +193,31 @@ export default function UsersAllComponent() {
           {/* <div className="lg:mt-[-6px] md:mt-[-4px] w-full sm:w-full lg:w-1/4 md:w-1/3">
             <SortByComponent />
           </div> */}
-
-         
         </div>
 
         {/* card */}
-        <div className="p-6 overflow-y-scroll relative " style={{height: "74vh"}}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 lg:mt-0">
+        <div
+          className=" p-6  lt-16:p-4 lt-16:pt-8 lt-14:p-4 overflow-y-scroll relative "
+          style={{ height: "71vh" }}
+        >
+          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 gap-y-8  w-full">
             {user.map((list) => (
               <button
                 type="button"
                 onClick={() => handleShowOrganization(list)}
                 key={list.id}
-                className="border border-bg-primary rounded-[5px] min-w-max cursor-pointer"
+                className="border lt-14:w-52  border-bg-primary rounded-xl w-auto cursor-pointer"
                 style={{
                   boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
                 }}
               >
-                <div className="px-6 py-4">
-                  <div className="flex flex-row justify-end items-center">
+                <div className="relative ">
+                  <div className="absolute top-1 right-3 cursor-pointer">
                     <div className="dropdown dropdown-bottom">
                       <button
                         // onClick={() => setDropdown(!dropdown)}
                         // tabIndex={0}
-                        className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
+                        className=" w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
                       >
                         <BiDotsHorizontalRounded className="w-6 h-6" />
                       </button>
@@ -237,31 +236,33 @@ export default function UsersAllComponent() {
                       ) : null} */}
                     </div>
                   </div>
-                  <div className="font-bold text-xl mx-auto text-center w-full ">
-                    <div className="w-[74px] h-[74px]  bg-green rounded-full flex justify-center items-center m-auto">
-                      <p className="font-sp-pro-text-bold text-3xl lg:text-2xl text-white">
+
+                  <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full ">
+                    <div className=" lt-14:w-[56px] w-[40px] h-[40px] lt-14:h-[56px] lt-16:w-[74px] lt-16:h-[74px] con-pro-color rounded-full flex justify-center items-center m-auto">
+                      <p className="font-sp-pro-text-bold lt-16:text-3xl lt-14:text-xl text-green ">
                         {list.profile}
                       </p>
                     </div>
                   </div>
-                  <p className=" font-sp-pro-text-bold text-lg w-full text-center text-text-color capitalize">
+                  <p className="pt-2 font-sp-pro-text-bold lt-16:text-lg lt-14:text-sm lt-14:pt-2 w-full text-center text-text-color capitalize">
                     {list.name}
-                  </p>  
-                  <p className="text-gray-700 text-sm text-center opacity-60 space-y-5 pt-2">
+                  </p>
+                  
+                  <p className="text-gray-700 lt-14: text-[12px] text-center opacity-60 pt-1">
                     {list.email}
                   </p>
-
-                  <div className="w-full flex flex-row justify-center space-x-2 pt-5 ">
+                  <div className="lt-16:w-full lt-14:w-24 m-auto  flex flex-row justify-center space-x-1 pt-3">
                     {listOfImage}
                   </div>
+                  
                 </div>
-                <div className="p-6 w-48 text-center mx-auto  ">
-                    {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
+                <div className="p-6 w-48  text-center mx-auto  ">
+                  {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
                     More Info
                   </span> */}
                   <label
                     htmlFor="my-modal-5"
-                    className="inline-block w-full bg-gray- shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-3 text-sm font-sp-pro-text-regular text-gray-700 mr-2 mb-2 bg-yellow text-white"
+                    className="inline-block lt-16:w-full lt-14:w-28 text-xs cursor-pointer  shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-4 lt-16:text-sm lt-14:text-xs font-sp-pro-text-regular text-gray-700 mr-2  bg-yellow text-white"
                   >
                     More Info
                   </label>
@@ -269,7 +270,6 @@ export default function UsersAllComponent() {
               </button>
             ))}
           </div>
-          
         </div>
         {/* popupDetaile */}
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />
