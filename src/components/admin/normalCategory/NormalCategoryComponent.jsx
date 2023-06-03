@@ -128,8 +128,8 @@ export default function CategoryComponent() {
   ]);
 
   return (
-    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden">
-      <div className="gap-6 overflow-hidden z-10">
+    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-y-scroll h-[84vh]">
+      <div className="gap-6 z-10">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
 
           {/* header */}

@@ -25,6 +25,7 @@ import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
 import avatar05 from "../../../assets/images/organization/organization.png";
 import '../../../style/shadow.css';
+import { FiPlus } from 'react-icons/fi';
 
 const people = [
   { id: 1, name: 'Short by' },
@@ -135,19 +136,17 @@ export default function OrganzationCreateOrJoinComponent() {
 
 
   return (
-
-
     <>
       <main className="overflow-y-auto pb-4 ">
         <div className="gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-5 md:px-10 lg:px-20 con-Shadow">
-          <div className='grid grid-cols-2 w-full gap-3 md:gap-8 py-4'>
-            <label htmlFor="create-organization" className="min-h-[9rem] col-span-2 xl:col-span-1 lg:col-span-2 md:col-span-1 px-10 w-full mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
+          <div className='flex fe'>
+            <label htmlFor="create-organization" className="min-h-[9rem] px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
               <div>
                 <PlusCircleIcon className="w-12 h-12 text-green rounded-full m-auto mb-2" />
                 <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
               </div>
             </label>
-            <div className='w-full col-span-2 xl:col-span-1 lg:col-span-2 md:col-span-1 border border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
+            <div className='border border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
               <div className='flex gap-6'>
                 <img src={organization_pic} className='w-16 h-16 mt-2' />
 
@@ -330,7 +329,7 @@ export default function OrganzationCreateOrJoinComponent() {
                         <div className="flex items-center">
                           <div className="relative  mr-3 w-8 h-8 ">
                             <img
-                            src={avatar05}
+                              src={avatar05}
                               loading="lazy"
                             />
                           </div>
@@ -343,33 +342,36 @@ export default function OrganzationCreateOrJoinComponent() {
 
                       <td className="w-2/12 py-3 p-2.5 m-auto">
                         <div className='w-full flex justify-center'>
-                          <div className="relative  w-8 h-8 ">
+                          <div className="relative  w-8 h-8 mr-[-14px] z-10">
                             <img
                               src={avatar01}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
-                          <div className="relative  w-8 h-8 ">
+                          <div className="relative  w-8 h-8 mr-[-14px] z-20">
                             <img
                               src={avatar02}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
-                          <div className="relative  w-8 h-8 ">
+                          <div className="relative  w-8 h-8 mr-[-14px] z-30">
                             <img
                               src={avatar03}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
-                          <div className="relative  w-8 h-8 ">
+                          <div className="relative  w-8 h-8 mr-[-14px] z-40">
                             <img
-                              src={avatar04}
+                              src={avatar04}  
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
+                          </div>
+                          <div className="relative  w-8 h-8 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
+                            8 <FiPlus/>
                           </div>
                         </div>
                       </td>

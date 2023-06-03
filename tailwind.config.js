@@ -76,7 +76,7 @@ export default {
     },
 
   },
-  plugins: [require("daisyui"), require('@headlessui/tailwindcss'),],
+  plugins: [require("daisyui"), require('@headlessui/tailwindcss'), require('tailwind-scrollbar')({ nocompatible: true })],
   daisyui: {
     styled: true,
     themes: false,
