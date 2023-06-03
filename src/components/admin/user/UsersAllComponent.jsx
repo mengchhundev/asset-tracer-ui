@@ -128,7 +128,7 @@ export default function UsersAllComponent() {
   ]);
 
   return (
-    <main className="px-4 lg:px-10 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-8.2rem)]">
+    <main className="px-4 lg:px-10 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-8.3rem)]">
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="flex lg:flex-row flex-wrap justify-between gap-4 py-5 w-full">
           {/* header */}
