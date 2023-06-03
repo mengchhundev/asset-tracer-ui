@@ -139,14 +139,14 @@ export default function OrganzationCreateOrJoinComponent() {
     <>
       <main className="overflow-y-auto pb-4 ">
         <div className="gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-5 md:px-10 lg:px-20 con-Shadow">
-          <div className='flex fe'>
-            <label htmlFor="create-organization" className="min-h-[9rem] px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
+          <div className='grid grid-cols-2 w-full gap-3 md:gap-8 py-4'>
+            <label htmlFor="create-organization" className="min-h-[9rem] col-span-2 md:col-span-1 px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
               <div>
                 <PlusCircleIcon className="w-12 h-12 text-green rounded-full m-auto mb-2" />
                 <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
               </div>
             </label>
-            <div className='border border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
+            <div className='border col-span-2 md:col-span-1 border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
               <div className='flex gap-6'>
                 <img src={organization_pic} className='w-16 h-16 mt-2' />
 
