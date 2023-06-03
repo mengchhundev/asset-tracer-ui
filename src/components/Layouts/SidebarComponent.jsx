@@ -68,8 +68,8 @@ export default function SidebarComponent() {
     return (
         <>
             <div
-                className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium overflow-y-scroll fixed lg:static z-50 w-64 xl:w-72 bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
-                    } transition-all duration-200`} style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}
+                className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium h-[calc(100vh-3.8rem)] lg:h-auto con-Shadow overflow-y-scroll fixed lg:static z-50 w-64 xl:w-72 bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
+                    } transition-all duration-200 z-100`}
                     aria-label="Tabs"
             >
                 <div>
@@ -130,7 +130,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/dashboard"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("dashboard") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("dashboard") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -197,7 +197,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/invoice"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("invoice") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("invoice") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -217,7 +217,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/asset"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("asset") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("asset") }}
                                 >
 
                                     <span className="flex items-center justify-start">
@@ -238,7 +238,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/room"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("room") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("room") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -256,7 +256,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/tracking"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("tracking") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("tracking") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -275,7 +275,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/user"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("user") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("user") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -299,7 +299,7 @@ export default function SidebarComponent() {
                     <NavLink
                         to="/notification"
                         className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                        onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("notification") }}
+                        onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("notification") }}
                     >
                         <span className="flex items-center justify-start">
                             <div className="w-5 h-5 relative">
@@ -326,7 +326,7 @@ export default function SidebarComponent() {
                     </label>
 
                     <NavLink
-                        onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), handleChangeColor("") }}
+                        onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("") }}
                         to="/profile"
                         className="flex hover:bg-slate-100 mt-2 rounded-xl items-center py-2 ml-[-5px]  transition-colors gap-1 justify-center cursor-pointer">
                         <img
@@ -348,6 +348,12 @@ export default function SidebarComponent() {
             </button>
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             <SignOutComponent className="modal" />
+
+            {showMenu && 
+            
+            <div className=" lg:hidden fixed bg-black w-full bg-opacity-30 h-screen transition-all duration-200 z-90">
+            </div>
+            }
         </>
     )
 }

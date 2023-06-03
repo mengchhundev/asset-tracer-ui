@@ -11,6 +11,7 @@ import { FiPlus } from "react-icons/fi";
 import no_data_pic from '../../../assets/images/empty_box.png'
 import SpinnerComponent from '../spinner/SpinnerComponent'
 import LoadingComponent from '../../LoadingComponent';
+import '../../../style/shadow.css';
 
 export default function OrganizationListComponent() {
     const [dropdown, setDropdown] = useState(false);
@@ -45,7 +46,7 @@ export default function OrganizationListComponent() {
     }, [])
 
     return (
-        <main className="overflow-y-auto p-5 bg-white rounded-xl" style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px" }}>       
+        <main className="overflow-y-auto p-5 con-Shadow  bg-white rounded-xl">       
             <div className="gap-6 overflow-hidden">
                 <div className="flex flex-col px-5 pt-5 sm:flex-row justify-between mb-5 gap-4">
                     <h2 className="text-2xl  text-text-color dark:text-gray-200 font-sp-pro-text-semibold">
