@@ -54,7 +54,7 @@ export default function OrganizationListComponent() {
 
     return (
         <main className="overflow-y-scroll p-5 con-Shadow h-[calc(100vh-7.8rem)] bg-white rounded-xl overflow-x-hidden">
-            <div className="flex flex-wrap justify-evenly gap-12 p-5 w-full">
+            <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full">
                 {organizations.length != 0 ? organizations.map(list => (
                     <div key={list.id} className='relative con-Shadow-Card rounded-xl min-w-max w-56 cursor-pointer'>
                         <div className='absolute top-3 right-3 cursor-pointer'>
