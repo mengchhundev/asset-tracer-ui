@@ -22,7 +22,6 @@ export default function ProfileComponent() {
     const [isShowErr, setIsShowErr] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
     const [isShowFormUpdateProfile, setIsShowFormUpdateProfile] = useState(false)
-    const [file, setFile] = useState()
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
@@ -46,11 +45,6 @@ export default function ProfileComponent() {
     const handleInputChange = (e) => {
         setNewData({ ...newData, [e.target.name]: e.target.value })
     };
-
-    const handleFile = (event) => {
-        // setFile(event.target.file[0])
-    }
-    const formData = new FormData();
 
     // Change Password
     const formik = useFormik({
@@ -117,6 +111,12 @@ export default function ProfileComponent() {
         }
     })
 
+    const [file, setFile] = useState();
+    function handleChange(e) {
+        console.log(e.target.files);
+        setFile(URL.createObjectURL(e.target.files[0]));
+    }
+
     return (
         <main className="overflow-y-auto pb-4 text-text-color">
             <h2 className="text-2xl text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
@@ -138,17 +138,18 @@ export default function ProfileComponent() {
                         {isShowFormUpdateProfile ?
                             <div className="modal bg-opacity-20">
                                 <div className="modal-box max-w-2xl">
-                                    <label htmlFor="update-profile" className='absolute top-3 right-3' ><XCircleIcon className="cursor-pointer h-8 w-8 text-bg-primary-strock hover:text-gray" /></label>
+                                    <label htmlFor="update-profile" className='absolute top-3 right-3' ><XCircleIcon className="cursor-pointer h-9 w-9 text-bg-primary-strock hover:text-gray" /></label>
                                     <div>
                                         <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
                                         <div className='w-28 h-28 border border-bg-primary-strock bg-slate-500 rounded-full m-auto relative overflow-hidden'>
-                                            <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black shadow-sm bg-opacity-20 bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
+                                            <img src={file} className='w-full '/>
+                                            <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
                                             <input type="file"
                                                 id='updateProfile'
                                                 name="file"
-                                                multiple
                                                 accept="image/*"
-                                                className='hidden' />
+                                                className='hidden' 
+                                                onChange={handleChange}/>
                                         </div>
                                     </div>
                                     <div>
