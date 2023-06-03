@@ -132,14 +132,14 @@ function AssetAddComponent(props) {
                 <div className="md:w-full">
                   <label
                     for="message"
-                    class="block mb-1 text-sm text-text-color font-sp-pro-text-medium"
+                    className="block mb-1 text-sm text-text-color font-sp-pro-text-medium"
                   >
                     Your message
                   </label>
                   <textarea
                     id="message"
                     rows="5"
-                    class="block p-2.5 w-full text-sm text-gray-900 border-[#E1E9EE] rounded-lg border text-text-color outline-none focus:border-primary"
+                    className="block p-2.5 w-full text-sm text-gray-900 border-[#E1E9EE] rounded-lg border text-text-color outline-none focus:border-primary"
                     placeholder="Description..."
                   ></textarea>
                 </div>

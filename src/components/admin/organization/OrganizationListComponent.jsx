@@ -53,7 +53,7 @@ export default function OrganizationListComponent() {
     console.log(document.location)
 
     return (
-        <main className="overflow-y-scroll p-5 con-Shadow h-[calc(100vh-7.8rem)] bg-white rounded-xl overflow-x-hidden">
+        <main className="overflow-y-scroll p-5 con-Shadow h-[calc(100vh-8.3rem)] bg-white rounded-xl overflow-x-hidden">
             <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full">
                 {organizations.length != 0 ? organizations.map(list => (
                     <div key={list.id} className='relative con-Shadow-Card rounded-xl min-w-max w-56 cursor-pointer'>
@@ -76,8 +76,7 @@ export default function OrganizationListComponent() {
 
                             </div>
                         </div>
-                        <label>
-                            <label className="px-6" onClick={() => handleShowOrganization(list)}>
+                        <label className="px-6" onClick={() => handleShowOrganization(list)}>
                                 <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
                                 <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
                                     <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
@@ -91,7 +90,7 @@ export default function OrganizationListComponent() {
                                 <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
                                     20 members
                                 </p>
-                                <div className='w-full flex flex-row justify-center my-3 cursor-pointer'>
+                                <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                     {/* {list.users.map(user => ( */}
                                
                                         <div className='w-full flex justify-center'>
@@ -130,10 +129,9 @@ export default function OrganizationListComponent() {
                                     {/* ))} */}
                                 </div>
                                 <div className="w-full px-8 text-center cursor-pointer">
-                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-gray-700 mr-2 mb-2 text-green bg-green bg-opacity-10">Joined</span>
+                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>
                                 </div>
                             </label>
-                        </label>
                     </div>
 
                 )) :

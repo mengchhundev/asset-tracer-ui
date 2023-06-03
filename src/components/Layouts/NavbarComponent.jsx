@@ -39,9 +39,9 @@ export default function NavbarComponent() {
     }, [item])
 
     return (
-        <header className="flex-shrink-0 bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
+        <header className="flex-shrink-0 bg-white px-8 h-[4.3rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
             <div className="flex items-center w-[16rem] lg:flex-shrink-0 invisible lg:visible">
-                <img src={logo} alt="" className="w-14" />
+                <img src={logo} alt="" className="w-16 h-16" />
                 <h1 className="text-center text-xl font-sp-pro-text-bold">
                     Asset Tracer
                 </h1>
@@ -130,7 +130,7 @@ export default function NavbarComponent() {
                             <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
                                 <img
                                     src={logo}
-                                    className="w-8 h-8 object-cover rounded-full"
+                                    className="w-12 h-12 object-cover rounded-full"
                                 />
                                 <span className="header">Asset Tracer</span>
                                 <RiArrowDownSLine className="w-5" />
