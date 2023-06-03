@@ -19,6 +19,11 @@ import { BsPlus } from 'react-icons/bs';
 import ReactPaginate from 'react-paginate';
 import gift from "../../../assets/images/gift.png";
 import book from "../../../assets/images/book.png";
+import avatar01 from "../../../assets/images/organization/avatar01.png";
+import avatar02 from "../../../assets/images/organization/avatar02.png";
+import avatar03 from "../../../assets/images/organization/avatar03.png";
+import avatar04 from "../../../assets/images/organization/avatar04.png";
+import avatar05 from "../../../assets/images/organization/organization.png";
 import '../../../style/shadow.css';
 
 const people = [
@@ -321,12 +326,12 @@ export default function OrganzationCreateOrJoinComponent() {
                       <td className="w-1/12 py-3 text-center ">
                         1
                       </td>
-                      <td className="w-3/12 py-3 pl-20">
+                      <td className="w-3/12 py-3 pl-24">
                         <div className="flex items-center">
                           <div className="relative  mr-3 w-8 h-8 ">
                             <img
+                            src={avatar05}
                               loading="lazy"
-                              className="rounded-full h-full w-full"
                             />
                           </div>
                           <div>Electronic</div>
@@ -340,18 +345,28 @@ export default function OrganzationCreateOrJoinComponent() {
                         <div className='w-full flex justify-center'>
                           <div className="relative  w-8 h-8 ">
                             <img
+                              src={avatar01}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
                           <div className="relative  w-8 h-8 ">
                             <img
+                              src={avatar02}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
                           <div className="relative  w-8 h-8 ">
                             <img
+                              src={avatar03}
+                              loading="lazy"
+                              className="rounded-full h-full w-full"
+                            />
+                          </div>
+                          <div className="relative  w-8 h-8 ">
+                            <img
+                              src={avatar04}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
