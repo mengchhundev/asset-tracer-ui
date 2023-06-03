@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded, BiHome } from "react-icons/bi";
 import { HiOutlineCheck, HiOutlineQrcode } from "react-icons/hi";
 import facebook from "../../../assets/images/user/fb.png";
@@ -15,8 +15,31 @@ import { TbCalendarStats } from "react-icons/tb";
 import { AiFillGift } from "react-icons/ai";
 import UserDetail from "./userPopup/UserDetail";
 import "../../../style/shadow.css";
+import { Combobox, Transition } from "@headlessui/react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+
+const people = [
+  { id: 1, name: "Sort By" },
+  { id: 2, name: "Arlene Mccoy" },
+  { id: 3, name: "Devon Webb" },
+];
+
 
 export default function UsersAllComponent() {
+  const [selected, setSelected] = useState(people[0]);
+  const [query, setQuery] = useState("");
+
+  const filteredPeople =
+    query === ""
+      ? people
+      : people.filter((person) =>
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
+
+
   const [user, setUser] = useState([
     {
       id: 1,
@@ -104,91 +127,139 @@ export default function UsersAllComponent() {
     },
   ]);
 
-  //featch images
-  const socialImg = [
-    {
-      item: 1,
-      title: "facebook",
-      src: facebook,
-    },
-    {
-      item: 2,
-      title: "linkin",
-      src: linkin,
-    },
-    {
-      item: 3,
-      title: "instagram",
-      src: instagram,
-    },
-    {
-      item: 3,
-      title: "twinter",
-      src: twinter,
-    },
-  ];
-
-  const listOfImage = socialImg.map((image) => (
-    <div key={image.id}>
-      <img src={image.src} alt={image.title} />
-    </div>
-  ));
-  //featch images
-
   return (
-    <main
-      className="lt-14:px-5 lt-14:py-2 lt-16:px-10 lt-16:py-6 overflow-hidden bg-white rounded-xl con-Shadow  "
-      style={{
-        height: "calc(100vh - 8rem)",
-      }}
-    >
+    <main className="px-4 lg:px-10 bg-white rounded-2xl relative overflow-hidden h-[83vh]">
       <div className="gap-6 overflow-hidden z-10 ">
-        <div className="flex lt-14:flex lt-14:flex-row md:flex-row sm:flex-col justify-between gap-4 p-5 ">
+        <div className="flex lg:flex-row flex-wrap justify-between gap-4 py-5 w-full">
           {/* header */}
-          <div className="md:pb-0 sm:pb-2 text-text-colors">
-            <h2 className="lt-16:text-2xl lt-14:text-[20px] font-sp-pro-text-semibold">
-              All <span className="text-pending">User</span> Managment
-            </h2>
-            <p className="font-sp-pro-text-regular text-sm text-green">
-              Active categories
-            </p>
-          </div>
+          <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 pt-5 w-full">
 
-          <div className=" flex flex-row justify-center lt-16:gap-10 lt-14:gap-5 gap-3">
-            <div>
-              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
-                <div className="absolute inset-y-0 flex items-center pl-2">
-                  <svg
-                    className="w-5 h-5 text-primary"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
+            {/* header */}
+            <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
+              <h2 className="text-2xl font-sp-pro-text-semibold">
+                All <span className="text-pending">User</span> Management 
+              </h2>
+              <p className="hidden xl:block font-sp-pro-text-regular text-sm text-green">
+                Active Users
+              </p>
+            </div>
+
+            {/* search */}
+            <div className="md:flex md:flex-row justify-start gap-10">
+              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+                  <div className="absolute inset-y-0 flex items-center pl-2">
+                    <svg
+                      className="w-5 h-5 text-primary"
+                      aria-hidden="true"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <input
+                    className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    type="text"
+                    name="search"
+                    placeholder="Search..."
+                  />
                 </div>
-                <input
-                  className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                  type="text"
-                  name="search"
-                  placeholder="Search..."
-                />
+              </div>
+
+              {/* filter */}
+              <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                <Combobox
+                  value={selected}
+                  onChange={setSelected}
+                  className="z-20"
+                >
+                  <div className="relative z-20">
+                    <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                      <Combobox.Input
+                        className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                        displayValue={(person) => person.name}
+                        onChange={(event) => setQuery(event.target.value)}
+                      />
+                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                        <ChevronUpDownIcon
+                          className="h-5 w-5 text-text-color"
+                          aria-hidden="true"
+                        />
+                      </Combobox.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                      afterLeave={() => setQuery("")}
+                    >
+                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        {filteredPeople.length === 0 && query !== "" ? (
+                          <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                            Nothing found.
+                          </div>
+                        ) : (
+                          filteredPeople.map((person) => (
+                            <Combobox.Option
+                              key={person.id}
+                              className={({ active }) =>
+                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                  ? "bg-hover-yellow text-text-color"
+                                  : "text-text-color"
+                                }`
+                              }
+                              value={person}
+                            >
+                              {({ selected, active }) => (
+                                <>
+                                  <span
+                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                      }`}
+                                  >
+                                    {person.name}
+                                  </span>
+                                  {selected ? (
+                                    <span
+                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                        }`}
+                                    >
+                                      <CheckIcon
+                                        className="h-5 w-5"
+                                        aria-hidden="true"
+                                      />
+                                    </span>
+                                  ) : null}
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))
+                        )}
+                      </Combobox.Options>
+                    </Transition>
+                  </div>
+                </Combobox>
+              </div>
+
+              {/* add */}
+              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+
+                <label
+                  htmlFor="normalCategory"
+                  className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+                >
+                  <BsPlus className="w-6 h-6" />&nbsp; Invite User
+                </label>
               </div>
             </div>
-            <SortByComponent />
-            <div className="block ">
-              <label
-                htmlFor="normalCategory"
-                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] px-3 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
-              >
-                <BsPlus className="w-6 h-6" /> &nbsp; Invite User
-              </label>
-            </div>
           </div>
+
+      
 
           {/* <div className="lg:mt-[-6px] md:mt-[-4px] w-full sm:w-full lg:w-1/4 md:w-1/3">
             <SortByComponent />
@@ -238,8 +309,8 @@ export default function UsersAllComponent() {
                   </div>
 
                   <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full ">
-                    <div className=" lt-14:w-[56px] w-[40px] h-[40px] lt-14:h-[56px] lt-16:w-[74px] lt-16:h-[74px] con-pro-color rounded-full flex justify-center items-center m-auto">
-                      <p className="font-sp-pro-text-bold lt-16:text-3xl lt-14:text-xl text-green ">
+                    <div className="w-[55px] h-[55px] con-pro-color rounded-full flex justify-center items-center m-auto">
+                      <p className="font-sp-pro-text-bold text-xl text-green ">
                         {list.profile}
                       </p>
                     </div>
@@ -247,14 +318,25 @@ export default function UsersAllComponent() {
                   <p className="pt-2 font-sp-pro-text-bold lt-16:text-lg lt-14:text-sm lt-14:pt-2 w-full text-center text-text-color capitalize">
                     {list.name}
                   </p>
-                  
-                  <p className="text-gray-700 lt-14: text-[12px] text-center opacity-60 pt-1">
+
+                  <p className="text-gray-700 text-[12px] text-center opacity-60">
                     {list.email}
                   </p>
-                  <div className="lt-16:w-full lt-14:w-24 m-auto  flex flex-row justify-center space-x-1 pt-3">
-                    {listOfImage}
+                  <div className="m-auto gap-1 flex flex-row justify-center space-x-1 pt-4">
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={facebook} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={instagram} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={instagram} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={twinter} alt="" />
+                    </div>
                   </div>
-                  
+
                 </div>
                 <div className="p-6 w-48  text-center mx-auto  ">
                   {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
