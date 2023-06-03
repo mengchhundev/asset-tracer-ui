@@ -11,8 +11,7 @@ function SignOutComponent(props) {
     }
 
     return (
-        <>
-            <div className="modal">
+        <div className="modal" style={{zIndex: "200"}}>
                 <div className="bg-white rounded-lg p-4" >
                     <div className='px-6 py-3'>
                         <h1 className='block  font-sp-pro-text-bold text-[18px] text-text-color'>Sign Out</h1>
@@ -26,7 +25,6 @@ function SignOutComponent(props) {
                 </div>
 
             </div>
-        </>
     );
 }
 

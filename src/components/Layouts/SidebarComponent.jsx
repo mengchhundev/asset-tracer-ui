@@ -71,7 +71,7 @@ export default function SidebarComponent() {
                 className={`flex-shrink-0 text-custom-menu font-sp-pro-text-medium h-[calc(100vh-4.3rem)] lg:h-auto con-Shadow overflow-y-scroll fixed lg:static z-50 w-64 xl:w-72 bg-secondary-100 py-5 pt-6 px-7 flex flex-col justify-between bg-white ${showMenu ? "left-0" : "-left-full"
                     } transition-all duration-200 z-100`}
                     aria-label="Tabs"
-                    style={{zIndex: "200"}}
+                    style={{zIndex: "99"}}
             >
                 <div>
                     <ul>
