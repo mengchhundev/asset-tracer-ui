@@ -21,18 +21,21 @@ export default function UsersAllComponent() {
     {
       id: 1,
       profile: "S",
+      email: "mengchhun232@gmail.com",
       name: "Senglorn",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
     {
       id: 2,
       profile: "H",
+      email: "mengchhun232@gmail.com",
       name: "HongMeng",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
       profile: "M",
+      email: "mengchhun232@gmail.com",
       name: "Mony",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
@@ -40,11 +43,13 @@ export default function UsersAllComponent() {
       id: 4,
       profile: "M",
       name: "Mnor",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 5,
       profile: "M",
+      email: "mengchhun232@gmail.com",
       name: "Mengchhun",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
@@ -52,20 +57,52 @@ export default function UsersAllComponent() {
       id: 6,
       profile: "K",
       name: "KONG",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 7,
       profile: "J",
       name: "JONG",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 8,
       profile: "K",
       name: "KIM",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
+    {
+      id: 9,
+      profile: "M",
+      name: "Mengchhun",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 10,
+      profile: "K",
+      name: "KONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 11,
+      profile: "J",
+      name: "JONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 12,
+      profile: "K",
+      name: "KIM",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    
   ]);
 
   //featch images
@@ -101,13 +138,14 @@ export default function UsersAllComponent() {
 
   return (
     <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative con-Shadow"
-      // style={{
-      //   boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-      // }}
+      className="px-10 py-6 overflow-hidden bg-white rounded-xl con-Shadow  "
+      style={
+        {
+          height: "calc(100vh - 8rem)",
+        }}
     >
-      <div className="gap-6 overflow-hidden z-10">
-        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+      <div className="gap-6 overflow-hidden z-10 ">
+        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 ">
           {/* header */}
           <div className="md:pb-0 sm:pb-2 text-text-colors">
             <h2 className="text-2xl font-sp-pro-text-semibold">
@@ -118,8 +156,8 @@ export default function UsersAllComponent() {
             </p>
           </div>
 
-          <div className="flex flex-row justify-center gap-10">
-            <div>
+          <div className=" flex flex-row justify-center gap-10">
+            <div >
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -162,8 +200,8 @@ export default function UsersAllComponent() {
         </div>
 
         {/* card */}
-        <div className="overflow-x-auto p-5 ">
-          <div className=" space-x-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 lg:mt-0">
+        <div className="p-6 overflow-y-scroll relative " style={{height: "74vh"}}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 lg:mt-0">
             {user.map((list) => (
               <button
                 type="button"
@@ -199,34 +237,31 @@ export default function UsersAllComponent() {
                       ) : null} */}
                     </div>
                   </div>
-                  <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                    <div className="w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto">
+                  <div className="font-bold text-xl mx-auto text-center w-full ">
+                    <div className="w-[74px] h-[74px]  bg-green rounded-full flex justify-center items-center m-auto">
                       <p className="font-sp-pro-text-bold text-3xl lg:text-2xl text-white">
                         {list.profile}
                       </p>
                     </div>
                   </div>
-                  <p className="font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize">
+                  <p className=" font-sp-pro-text-bold text-lg w-full text-center text-text-color capitalize">
                     {list.name}
-                  </p>
-                  <p className="text-gray-700 text-sm text-center opacity-60">
+                  </p>  
+                  <p className="text-gray-700 text-sm text-center opacity-60 space-y-5 pt-2">
                     {list.email}
                   </p>
-                  <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                    20 members
-                  </p>
 
-                  <div className="w-full flex flex-row justify-center space-x-2 my-2">
+                  <div className="w-full flex flex-row justify-center space-x-2 pt-5 ">
                     {listOfImage}
                   </div>
                 </div>
-                <div className="pb-2 w-full px-8 mb-3 text-center">
-                  {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
+                <div className="p-6 w-48 text-center mx-auto  ">
+                    {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
                     More Info
                   </span> */}
                   <label
                     htmlFor="my-modal-5"
-                    className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white"
+                    className="inline-block w-full bg-gray- shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-3 text-sm font-sp-pro-text-regular text-gray-700 mr-2 mb-2 bg-yellow text-white"
                   >
                     More Info
                   </label>
