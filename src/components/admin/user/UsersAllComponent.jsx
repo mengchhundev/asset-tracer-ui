@@ -128,7 +128,7 @@ export default function UsersAllComponent() {
   ]);
 
   return (
-    <main className="px-4 lg:px-10 bg-white rounded-2xl relative overflow-hidden h-[83vh]">
+    <main className="px-4 lg:px-10 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-8.2rem)]">
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="flex lg:flex-row flex-wrap justify-between gap-4 py-5 w-full">
           {/* header */}
@@ -227,7 +227,7 @@ export default function UsersAllComponent() {
                                   {selected ? (
                                     <span
                                       className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                        }`}
+                                        }`} 
                                     >
                                       <CheckIcon
                                         className="h-5 w-5"
