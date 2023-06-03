@@ -61,6 +61,7 @@ export default {
         "custom-menu": "#737791"
       },
       screens: {
+        '2xl' : '1536px',
         '3xl': '1900px',
         'lt-14' : '1366px',
         'lt-15' : '1440px',
