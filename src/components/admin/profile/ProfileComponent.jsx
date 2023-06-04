@@ -13,6 +13,10 @@ import { FaUserEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 import { setProfileDetail } from '../../../redux/slices/UserSlice';
+import coconut_tree from '../../../assets/images/profile/coconut_tree.svg'
+import coconut_trees from '../../../assets/images/profile/coconut_trees.svg'
+import plan from '../../../assets/images/profile/plan.svg'
+import plans from '../../../assets/images/profile/plans.svg'
 
 export default function ProfileComponent() {
 
@@ -312,7 +316,7 @@ export default function ProfileComponent() {
                         </Tab>
                     </Tab.List>
                 </div>
-                <div className='my-5 p-5 gap-6 bg-white rounded-xl' style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
+                <div className='my-5 p-5 relative gap-6 bg-white rounded-xl' style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                     <Tab.Panels>
                         <Tab.Panel>
                             <div className='w-full flex gap-6'>
@@ -320,10 +324,10 @@ export default function ProfileComponent() {
                             </div>
                         </Tab.Panel>
                         <Tab.Panel>
-                            <div className='w-full md:w-6/12 lg:w-4/12 py-5 m-auto'>
+                            <div className='w-full md:w-6/12 lg:w-4/12 m-auto'>
                                 <h2 className='text-center text-2xl font-sp-pro-text-bold my-5 pt-5'>Change Password</h2>
                                 <p className='mb-5'>Your password must be at least 8 characters, numbers, letters and special characters &#40;!$@%&#41;</p>
-                                <form onSubmit={formik.handleSubmit} className='space-y-5 bg-bg-primary px-5 py-8 rounded-lg'>
+                                <form onSubmit={formik.handleSubmit} className='space-y-5 py-8 rounded-lg'>
                                     <div className='text-left  w-full '>
                                         <label className="block mb-2 ml-1 text-sm">Current Password</label>
                                         <input
@@ -332,7 +336,7 @@ export default function ProfileComponent() {
                                             onChange={formik.handleChange}
                                             defaultValue={newData.oldPassword}
                                             name="password"
-                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                            className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder="********"
                                         />
                                         {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
@@ -345,7 +349,7 @@ export default function ProfileComponent() {
                                             onChange={formik.handleChange}
                                             defaultValue={newData.newPassword}
                                             name="newPassword"
-                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                            className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder="********"
                                         />
                                         {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.newPassword}</p> : null}
@@ -357,7 +361,7 @@ export default function ProfileComponent() {
                                             onChange={formik.handleChange}
                                             value={newData.confirmNewPassword}
                                             name="confirmNewPassword"
-                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                            className="text-sm border-[#E1E9EE] focus:border-primary     w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder="********"
                                         />
                                         {formik.touched.confirmNewPassword && formik.errors?.confirmNewPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.confirmNewPassword}</p> : null}
@@ -366,6 +370,17 @@ export default function ProfileComponent() {
                                         <button type='submit' className='w-full bg-primary text-white rounded-md py-2'>Save Changes</button>
                                     </div>
                                 </form>
+
+                                <div className='absolute top-14 left-14'>
+                                    <img src={plans} />
+                                </div>
+                                <div className='absolute bottom-14 right-14'>
+                                    <img src={coconut_trees} />
+                                </div>
+                                <div className='absolute top-14 rounded-full right-14 w-32 h-32 bg-primary bg-opacity-20'>
+                                </div>
+                                <div className='absolute bottom-14 rounded-full left-14 w-32 h-32 bg-primary bg-opacity-20'>
+                                </div>
                             </div>
                         </Tab.Panel>
                     </Tab.Panels>
