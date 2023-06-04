@@ -7,28 +7,28 @@ import { setRoomById } from "../../../../redux/slices/RoomSlice";
 
 
 function DetailComponent() {
-    const selectedImage = 'https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg';
+    const roomDetail = useSelector(state => state.room.roomDetail)
+    const selectedImage = `http://localhost:8080/api/v1/files/getFile/{fileName}?fileName=${roomDetail.image}`;
+    console.log(roomDetail.image);
     const [topImage, setTopImage] = useState(selectedImage);
-
     const handleImageClick = (newImage) => {
         setTopImage(newImage);
     };
-    const roomDetail = useSelector(state => state.room.roomDetail)
 
     return (
         <div className="modal">
             <div className="bg-white rounded-lg p-6 modal-box max-w-5xl" >
                 <div className="flex justify-between ">
                     <div className="flex">
-                        <HomeIcon className="h-10 w-10 text-white bg-primary p-2 rounded-lg" />
-                        <p className="px-6 text-text-color text-[28px] font-sp-pro-text-bold">Room Details</p>
+                        <HomeIcon className="h-8 w-8 text-white bg-primary p-1 rounded-lg" />
+                        <p className="px-6 text-text-color text-xl font-sp-pro-text-bold">Room Details</p>
                     </div>
                     <div className="">
-                    <label htmlFor="detail" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 ml-[-60px]" /></label>
+                    <label htmlFor="detail" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 " /></label>
                     </div>
                 </div>
-                <div className="md:flex">
-                    <div className="xl:w-5/12 md:w-10/12">
+                <div className="flex">
+                    <div className="xl:w-5/12 md:w-6/12">
                         <div className="w-full justify-center lg:mx-6 lg:mt-6 lg:pb-2 rounded-xl shadow-lg">
                             <img
                                 className="object-cover w-full h-full rounded-3xl p-7"
@@ -83,9 +83,9 @@ function DetailComponent() {
                             </div>
                         </div>
                     </div>
-                    <div className="xl:w-7/12 lg:ml-10 sm:w-full rounded-lg">
-                        <div className="xl:flex lg:flex-row justify-center shadow-xl w-full py-10">
-                            <div className="w-full flex ">
+                    <div className="xl:w-7/12 md:ml-10 md:w-1/2 rounded-lg">
+                        <div className="xl:flex lg:flex-row  justify-center shadow-xl w-full py-10">
+                            <div className="w-full flex sm:w-1/2 ">
                                 <div className="pl-14">
                                     <div className="">
                                         <div className="pt-5">
@@ -111,7 +111,7 @@ function DetailComponent() {
                                     </div>
                                 </div>
                             </div>
-                            <div className=" w-full flex xl:border-l-2 border-opacity-30 border-text-color pl-14">
+                            <div className=" w-full flex xl:border-l-2 sm:w-1/2 border-opacity-30 border-text-color pl-14">
                                 <div className="">
                                     <div className="pt-5">
                                         <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created Date</label>
@@ -135,7 +135,6 @@ function DetailComponent() {
                                     </div>
                                 </div>
                                 <div>
-
                                 </div>
                             </div>
                         </div>

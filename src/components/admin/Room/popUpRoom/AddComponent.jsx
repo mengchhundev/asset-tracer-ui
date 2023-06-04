@@ -1,8 +1,11 @@
-import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, HomeIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, CloudArrowUpIcon, HomeIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import upload from '../../../../assets/images/Room/Upload.png';
 import { Listbox, Transition } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
+// import firebase from 'firebase/app';
+import 'firebase/storage';
+import { FirebaseError } from "firebase/app";
 function AddComponent(props) {
     const createType = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
     const createFloor = ["GF", "F1", "F2", "F3", "F4"];
@@ -10,12 +13,75 @@ function AddComponent(props) {
     const [floor, setSelectedfloor] = useState("Room floor");
     // const [selectedCreate, setSelectedCreate] = useState("Room By");
     const [type, setSelectedRoom] = useState("Room type");
+    const [selectedFile, setSelectedFile] = useState("");
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+    useEffect(() => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const image = new Image();
+                image.onload = () => {
+                    setImageDimensions({
+                        width: image.width,
+                        height: image.height,
+                    });
+                };
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    }, [selectedFile]);
+    const handleUpload = () => {
+        if (selectedFile) {
+            const storageRef = FirebaseError.storage().ref();
+            const fileRef = storageRef.child(selectedFile.name);
+            fileRef.put(selectedFile);
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    // You can track the upload progress here if needed
+                },
+                (error) => {
+                    // Handle any errors during the upload
+                },
+                () => {
+                    // Handle successful upload
+                    console.log('Image uploaded successfully!');
+                }
+            );
+        }
+    };
+    // useEffect(() => {
+    //     if (selectedFile) {
+    //         const uploadTask = Storage.ref(`images/${selectedFile.name}`).put(selectedFile);
+    //         uploadTask.on(
+    //             'state_changed',
+    //             (snapshot) => {
+    //                 // You can track the upload progress here if needed
+    //             },
+    //             (error) => {
+    //                 // Handle any errors during the upload
+    //             },
+    //             () => {
+    //                 // Handle successful upload
+    //                 console.log('Image uploaded successfully!');
+    //             }
+    //         );
+    //     }
+    // }, [selectedFile]);
+
+
+
     const id = localStorage.getItem("id");
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
     const [data, setData] = useState();
-    console.log("this is", userId)
+    console.log("this is", userId);
+
     useEffect(() => {
         setData((prevData) => ({
             ...prevData,
@@ -60,13 +126,37 @@ function AddComponent(props) {
                         <div className='xl:w-1/3 md:w-1/2'>
                             <div className="item-center w-full rounded-xl   ">
                                 <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className='block items-center space-y-5 mx-5 p-[21px] rounded-md mb-1'>
-                                    <div className='border border-dashed items-center border-primary block md:h-[255px] justify-center text-center p-3 rounded-lg'>
-                                        <img className="block m-auto md:mt-5 4 w-20" src={upload} alt="" />
-                                        <p className='md:mt-2 sm:mt-1 text-xs'>Upload Invoice picture, max size 20MB</p>
-                                        <button className='shadow-sm sm:mt-2 md:mt-5 rounded-md border border-bg-primary px-5 py-1.5 my-2 '>Browse</button>
-                                    </div>
+                                    <label htmlFor="fileInput" className="browseButton">
+                                        <div className=" flex cursor-pointer border border-dashed items-center border-primary h-[255px] justify-center text-center p-3 rounded-lg m-auto">
+                                            <div className="">
+                                                {selectedFile && (
+                                                    <img
+                                                        src={URL.createObjectURL(selectedFile)}
+                                                        alt="Selected File"
+                                                        className={`${imageDimensions.width > imageDimensions.height ? 'w-[300px]' : 'h-auto'} ${imageDimensions.width < imageDimensions.height ? 'h-[230px] ' : 'w-auto'} block rounded-md object-center justify-center  items-center`}
+
+                                                    />
+                                                )}
+                                                {!selectedFile && (
+                                                    <>
+                                                        <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
+                                                        <p className="fileInfo py-4">Upload Invoice picture, max size 20MB</p>
+                                                        <p className="p-2 mt-5 shadow-md">Browse</p>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <input
+                                            id="fileInput"
+                                            type="file"
+                                            onChange={handleFileSelect}
+                                            accept="image/*"
+                                            style={{ display: 'none' }}
+                                        />
+                                    </label>
                                 </div>
                             </div>
+                            <button onClick={handleUpload}>Upload</button>
                         </div>
                         <div className="xl:w-2/3 md:w-1/2 ">
                             <div className="  item-center w-full rounded-xl">
@@ -231,14 +321,9 @@ function AddComponent(props) {
 
                                 </div>
                             </div>
-                            <div className="flex p-5 justify-end flex-row w-full">
-                                <div className="border-primary border cursor-pointer w-1/6 p-[6px]  rounded-lg flex justify-center">
-                                    <label htmlFor="addroom" className="cursor-pointer flex justify-around text-primary font-sp-pro-text-regular items-center  text-xs " >Cancel</label>
-                                    {/* <button className="flex justify-around text-primary font-sp-pro-text-regular items-center  text-xs ">Cancel</button> */}
-                                </div>
-                                <div className="bg-primary cursor-pointer ml-6 w-1/6 p-[6px] rounded-lg flex justify-center">
-                                    <button onClick={handlesubmit} className="flex  justify-around text-white font-sp-pro-text-regular items-center text-xs ">Save</button>
-                                </div>
+                            <div className="flex space-x-5 p-5 justify-end flex-row w-full">
+                                <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Cancel</label>
+                                <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary bg-primary '>Save</label>
                             </div>
                         </div>
                     </div>
