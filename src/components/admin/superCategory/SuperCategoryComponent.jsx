@@ -211,7 +211,7 @@ export default function SuperCategoryComponent() {
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-pending">Normal</span> Management
+              All <span className="text-pending">Super</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
               Active categories
@@ -327,7 +327,7 @@ export default function SuperCategoryComponent() {
                 htmlFor="normalCategory"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
-                <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
+                <BsPlus className="w-6 h-6" />&nbsp;Add Super Category
               </label>
             </div>
           </div>

@@ -7,16 +7,17 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { setAllOrganization, setItem } from '../../../redux/slices/OrganizationSlice';
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
 import no_data_pic from '../../../assets/images/empty_box.png'
-import SpinnerComponent from '../spinner/SpinnerComponent'
-import LoadingComponent from '../../LoadingComponent';
 import '../../../style/shadow.css';
+import '../../../style/dropdown.css';
 import avatar01 from "../../../assets/images/organization/avatar01.png";
 import avatar02 from "../../../assets/images/organization/avatar02.png";
 import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
-import avatar05 from "../../../assets/images/organization/organization.png";
+import trash_ico from "../../../assets/images/trash.png"
+import { Listbox, Transition } from '@headlessui/react';
+import { RiCloseFill } from 'react-icons/ri';
 
 export default function OrganizationListComponent() {
     const [dropdown, setDropdown] = useState(false);
@@ -50,32 +51,90 @@ export default function OrganizationListComponent() {
         getAllOrganizations()
     }, [])
 
-    console.log(document.location)
-
     return (
         <main className="overflow-y-scroll p-5 con-Shadow bg-white rounded-xl">
+
+            <input type="checkbox" id="delete_org" className="modal-toggle" />
+
+            <div className="modal">
+                <div className="modal-box relative">
+                    <div className='absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer'>
+                        <label
+                            htmlFor="delete_org"
+                            className="font-bold text-lg cursor-pointer"
+                        >
+                            ✕
+                        </label>
+                    </div>
+                    <div className="flex justify-start">
+                        <div>
+                            <img src={trash_ico} width={55} height={55} className="inline-block" />
+                        </div>
+                        <div className="pl-3 leading-none">
+                            <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
+                            <p className="pt-1 py-5">
+                                Are you sure want to delete this post?
+                            </p>
+                        </div>
+                    </div>
+                    <br />
+                    <div className="flex justify-end space-x-4">
+                        <label
+                            htmlFor='delete_org'
+                            className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-90 border border-[#D0D5DD] flex justify-center items-center gap-1"
+                        >
+                            Cancel
+                        </label>
+                        <button
+                            type="submit"
+                            className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
             {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 gap-y-8 p-5 w-full">
                 {organizations.length != 0 ? organizations.map(list => (
                     <div key={list.id} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
                         <div className='absolute top-3 right-3 cursor-pointer'>
+                            <Listbox as="div">
+                                {({ open }) => (
+                                    <>
+                                        <div className="relative">
+                                            <span className="">
+                                                <Listbox.Button className="hover:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
+                                                    <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
+                                                </Listbox.Button>
+                                            </span>
+                                            <Transition
+                                                show={open}
+                                                leave=""
+                                                leaveFrom="opacity-100"
+                                                leaveTo="opacity-0"
+                                            >
+                                                <Listbox.Options
+                                                    static
+                                                    className="border-none mt-2 border-slate-200 bg-white shadow-md rounded-md absolute z-50 w-40 p-3"
+                                                >
+                                                    <Listbox.Option>
+                                                        <label
+                                                            htmlFor='delete_org'
+                                                            className={`cursor-pointer inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md hover:bg-bg-primary`}
+                                                        >
+                                                            Delete
+                                                        </label>
+                                                    </Listbox.Option>
+                                                </Listbox.Options>
+                                            </Transition>
+                                        </div>
+                                    </>
+                                )}
+                            </Listbox>
 
-                            <div className="dropdown dropdown-bottom cursor-pointer">
-                                <button onClick={() => setDropdown(!dropdown)} tabIndex={0} className="hover:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray">
-                                    <BiDotsHorizontalRounded className="w-6 h-6" />
-                                </button>
-                                {dropdown ?
-                                    <ul
-                                        tabIndex={0}
-                                        className="dropdown-content transition-all duration-200 menu p-2 shadow-md focus:bg-none rounded-md mt-2 w-40 z-50 bg-white border border-bg-primary"
-                                    >
-                                        <li>
-                                            <button className='bg-transparent py-2 hover:bg-bg-primary text-text-color'>Delete</button>
-                                        </li>
-                                    </ul>
-                                    : null}
-
-                            </div>
                         </div>
                         <label className="px-6" onClick={() => handleShowOrganization(list)}>
                             <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />

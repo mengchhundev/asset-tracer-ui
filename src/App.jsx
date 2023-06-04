@@ -70,6 +70,7 @@ function App() {
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>
+            <Route path='/user-request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent />} />
             <Route path='/room' element={<RoomListComponent />}></Route>
             

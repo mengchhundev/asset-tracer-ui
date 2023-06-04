@@ -365,13 +365,13 @@ export default function OrganzationCreateOrJoinComponent() {
                           </div>
                           <div className="relative  w-8 h-8 mr-[-14px] z-40">
                             <img
-                              src={avatar04}  
+                              src={avatar04}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
                           <div className="relative  w-8 h-8 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                            8 <FiPlus/>
+                            8 <FiPlus />
                           </div>
                         </div>
                       </td>

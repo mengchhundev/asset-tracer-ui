@@ -62,7 +62,7 @@ function AddOrgnizaation(props) {
                                     </div>
                                     <div className="flex mt-5 justify-end flex-row w-full">
                                         <div className="bg-slate-500 cursor-pointer px-7 p-3  rounded-lg flex justify-center">
-                                            <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancell</button>
+                                            <button className="flex justify-around text-white font-sp-pro-text-regular items-center xl:text-[16px] text-[12px]">Cancel</button>
                                         </div>
                                         <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 px-7 p-3 rounded-lg flex justify-center">
                                             <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[12px] xl:text-[16px]">Update</button>
