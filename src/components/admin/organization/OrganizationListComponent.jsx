@@ -59,12 +59,7 @@ export default function OrganizationListComponent() {
             <div className="modal">
                 <div className="modal-box relative">
                     <div className='absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer'>
-                        <label
-                            htmlFor="delete_org"
-                            className="font-bold text-lg cursor-pointer"
-                        >
-                            ✕
-                        </label>
+                        <label htmlFor="delete_org" ><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
                     </div>
                     <div className="flex justify-start">
                         <div>

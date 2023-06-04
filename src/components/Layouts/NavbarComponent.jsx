@@ -50,7 +50,7 @@ export default function NavbarComponent() {
             <div className="flex items-center w-full justify-between">
                 <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center rounded-md">
                     {/* <HiOutlineBuildingLibrary className="h-7 rounded-md w-7 text-white bg-primary p-1 mr-2"/> */}
-                    {session ? session.name : "No Organzation"}
+                    {/* {session ? session.name : "No Organzation"} */}
                 </div>
                 <nav className="flex items-center gap-2 ">
 
@@ -144,7 +144,6 @@ export default function NavbarComponent() {
                     >
                         <MenuItem className="p-0 hover:bg-transparent">
                             <Link
-                                to="/profile"
                                 className="rounded-lg hover:bg-bg-primary mx-2 transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-1 px-6 flex-1"
                             >
                                 <img
