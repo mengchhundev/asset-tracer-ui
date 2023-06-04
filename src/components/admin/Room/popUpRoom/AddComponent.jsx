@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { storage } from "../../../../redux/services/googleAuth/firebase";
 import {ref,uploadBytes} from 'firebase/storage'
+import { v4 as uuid } from 'uuid';
+
 function AddComponent(props) {
     const createType = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
     const createFloor = ["GF", "F1", "F2", "F3", "F4"];
@@ -17,6 +19,9 @@ function AddComponent(props) {
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0]);
     };
+    let unique_id = "";
+    
+
     useEffect(() => {
         if (selectedFile) {
             const reader = new FileReader();
@@ -34,14 +39,16 @@ function AddComponent(props) {
         }
     }, [selectedFile]);
     const handleUpload = () => {
+
+        unique_id = uuid();
+        
         if (selectedFile) {
-            const uploadTask = ref(storage, `images/${selectedFile.name}`);
-            uploadBytes(uploadTask, selectedFile).then(() => {
-                console.log("su");
+            const uploadTask = ref(storage, `images/${unique_id}`);
+            uploadBytes(uploadTask, selectedFile).then((res) => {
+                console.log(res);
             });
         }
     };
-    console.log("selectedFile.name",selectedFile.name);
 
     // useEffect(() => {
     //     if (selectedFile) {
@@ -69,7 +76,6 @@ function AddComponent(props) {
     var decoded = jwt_decode(token);
     var userId = decoded.id;
     const [data, setData] = useState();
-    console.log("this is", userId);
 
     useEffect(() => {
         setData((prevData) => ({
@@ -91,7 +97,6 @@ function AddComponent(props) {
 
     };
 
-    console.log("this is data", data); // Log the updated data state
     const handlesubmit = () => {
 
     }

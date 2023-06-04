@@ -34,6 +34,12 @@ export default function ProfileComponent() {
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
+    const [selectedFile, setSelectedFile] = useState('')
+
+    const handleFileSelect = (event) => {
+        console.log(event.target.files[0])
+        setSelectedFile(event.target.files[0]);
+    };
 
     const handleGetProfileDetail = () => {
         UserService.getProfileUser(userId).then(res => {
@@ -163,7 +169,7 @@ export default function ProfileComponent() {
                                             name="file"
                                             accept="image/*"
                                             className='hidden'
-                                            onChange={handleChange} />
+                                            onChange={handleFileSelect} />
                                     </div>
                                 </div>
                                 <div>
