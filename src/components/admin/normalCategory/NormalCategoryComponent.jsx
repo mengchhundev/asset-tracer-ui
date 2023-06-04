@@ -128,7 +128,7 @@ export default function CategoryComponent() {
   ]);
 
   return (
-    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[83vh]">
+    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-8.3rem)]">
       <div className="gap-6 z-10">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5">
 
@@ -257,16 +257,11 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between h-[64vh] relative">
+        <div className="flex flex-col justify-between relative">
           {/* table */}
 
           <div
-            className="overflow-scroll px-5 flex-grow"
-            // style={
-            //   {
-            //     minHeight: "calc(100vh - 40rem)",
-            //   }
-            // }
+            className="overflow-y-scroll px-5 flex-grow h-[calc(100vh-20rem)]"
           >
             <table className="table w-full">
               <tbody className="">
@@ -343,7 +338,7 @@ export default function CategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
+          <div className="w-full flex justify-between items-center text-sm py-2 font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
             <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate

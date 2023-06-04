@@ -53,7 +53,7 @@ export default function OrganizationListComponent() {
     console.log(document.location)
 
     return (
-        <main className="overflow-y-scroll p-5 con-Shadow h-[calc(100vh-8.3rem)] bg-white rounded-xl overflow-x-hidden">
+        <main className="overflow-y-scroll p-5 con-Shadow bg-white rounded-xl">
             {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 gap-y-8 p-5 w-full">
                 {organizations.length != 0 ? organizations.map(list => (
@@ -78,65 +78,65 @@ export default function OrganizationListComponent() {
                             </div>
                         </div>
                         <label className="px-6" onClick={() => handleShowOrganization(list)}>
-                                <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
-                                <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
-                                    <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
-                                        <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
+                            <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                                <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
+                                    <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+                                </div>
+                            </div>
+                            <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
+                            <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
+                                Organization Owner
+                            </p>
+                            <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
+                                20 members
+                            </p>
+                            <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
+                                {/* {list.users.map(user => ( */}
+
+                                <div className='w-full flex justify-center'>
+                                    <div className="relative  w-7 h-7 mr-[-14px] z-10">
+                                        <img
+                                            src={avatar01}
+                                            loading="lazy"
+                                            className="rounded-full h-full w-full"
+                                        />
+                                    </div>
+                                    <div className="relative  w-7 h-7 mr-[-14px] z-20">
+                                        <img
+                                            src={avatar02}
+                                            loading="lazy"
+                                            className="rounded-full h-full w-full"
+                                        />
+                                    </div>
+                                    <div className="relative  w-7 h-7 mr-[-14px] z-30">
+                                        <img
+                                            src={avatar03}
+                                            loading="lazy"
+                                            className="rounded-full h-full w-full"
+                                        />
+                                    </div>
+                                    <div className="relative  w-7 h-7 mr-[-14px] z-40">
+                                        <img
+                                            src={avatar04}
+                                            loading="lazy"
+                                            className="rounded-full h-full w-full"
+                                        />
+                                    </div>
+                                    <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
+                                        8 <FiPlus />
                                     </div>
                                 </div>
-                                <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
-                                <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                    Organization Owner
-                                </p>
-                                <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
-                                    20 members
-                                </p>
-                                <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
-                                    {/* {list.users.map(user => ( */}
-                               
-                                        <div className='w-full flex justify-center'>
-                                            <div className="relative  w-7 h-7 mr-[-14px] z-10">
-                                                <img
-                                                    src={avatar01}
-                                                    loading="lazy"
-                                                    className="rounded-full h-full w-full"
-                                                />
-                                            </div>
-                                            <div className="relative  w-7 h-7 mr-[-14px] z-20">
-                                                <img
-                                                    src={avatar02}
-                                                    loading="lazy"
-                                                    className="rounded-full h-full w-full"
-                                                />
-                                            </div>
-                                            <div className="relative  w-7 h-7 mr-[-14px] z-30">
-                                                <img
-                                                    src={avatar03}
-                                                    loading="lazy"
-                                                    className="rounded-full h-full w-full"
-                                                />
-                                            </div>
-                                            <div className="relative  w-7 h-7 mr-[-14px] z-40">
-                                                <img
-                                                    src={avatar04}
-                                                    loading="lazy"
-                                                    className="rounded-full h-full w-full"
-                                                />
-                                            </div>
-                                            <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                                8 <FiPlus />
-                                            </div>
-                                        </div>
-                                    {/* ))} */}
-                                </div>
-                                <div className="w-full px-8 text-center cursor-pointer">
-                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>
-                                </div>
-                            </label>
+                                {/* ))} */}
+                            </div>
+                            <div className="w-full px-8 text-center cursor-pointer">
+                                <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>
+                            </div>
+                        </label>
                     </div>
 
                 )) :
-                    <div className='text-center w-full col-span-12 h-[68vh] flex justify-center items-center'>
+                    <div className='text-center w-full col-span-12 h-[calc(100vh-14rem)] flex justify-center items-center'>
                         <div className='mt-[-6rem]'>
                             <img src={no_data_pic} className='w-3/6 m-auto pb-5' />
                             <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Organization</h2>

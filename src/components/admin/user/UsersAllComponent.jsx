@@ -128,149 +128,140 @@ export default function UsersAllComponent() {
   ]);
 
   return (
-    <main className="px-4 lg:px-10 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-8.3rem)]">
+    <main className="p-5 con-Shadow px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
-        <div className="flex lg:flex-row flex-wrap justify-between gap-4 py-5 w-full">
+        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
+
           {/* header */}
-          <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 pt-5 w-full">
-
-            {/* header */}
-            <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
-              <h2 className="text-2xl font-sp-pro-text-semibold">
-                All <span className="text-pending">User</span> Management 
-              </h2>
-              <p className="hidden xl:block font-sp-pro-text-regular text-sm text-green">
-                Active Users
-              </p>
-            </div>
-
-            {/* search */}
-            <div className="md:flex md:flex-row justify-start gap-10">
-              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
-                  <div className="absolute inset-y-0 flex items-center pl-2">
-                    <svg
-                      className="w-5 h-5 text-primary"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                  <input
-                    className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                    type="text"
-                    name="search"
-                    placeholder="Search..."
-                  />
-                </div>
-              </div>
-
-              {/* filter */}
-              <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                <Combobox
-                  value={selected}
-                  onChange={setSelected}
-                  className="z-20"
-                >
-                  <div className="relative z-20">
-                    <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                      <Combobox.Input
-                        className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                        displayValue={(person) => person.name}
-                        onChange={(event) => setQuery(event.target.value)}
-                      />
-                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon
-                          className="h-5 w-5 text-text-color"
-                          aria-hidden="true"
-                        />
-                      </Combobox.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                      afterLeave={() => setQuery("")}
-                    >
-                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {filteredPeople.length === 0 && query !== "" ? (
-                          <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                            Nothing found.
-                          </div>
-                        ) : (
-                          filteredPeople.map((person) => (
-                            <Combobox.Option
-                              key={person.id}
-                              className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
-                                }`
-                              }
-                              value={person}
-                            >
-                              {({ selected, active }) => (
-                                <>
-                                  <span
-                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                      }`}
-                                  >
-                                    {person.name}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                        }`} 
-                                    >
-                                      <CheckIcon
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                      />
-                                    </span>
-                                  ) : null}
-                                </>
-                              )}
-                            </Combobox.Option>
-                          ))
-                        )}
-                      </Combobox.Options>
-                    </Transition>
-                  </div>
-                </Combobox>
-              </div>
-
-              {/* add */}
-              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-
-                <label
-                  htmlFor="normalCategory"
-                  className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
-                >
-                  <BsPlus className="w-6 h-6" />&nbsp; Invite User
-                </label>
-              </div>
-            </div>
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
+            <h2 className="text-2xl font-sp-pro-text-semibold">
+              All <span className="text-pending">User</span> Management
+            </h2>
+            <p className="font-sp-pro-text-regular text-sm text-green">
+            Active Users
+            </p>
           </div>
 
-      
+          {/* search */}
+          <div className="md:flex md:flex-row justify-start gap-10">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+                <div className="absolute inset-y-0 flex items-center pl-2">
+                  <svg
+                    className="w-5 h-5 text-primary"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <input
+                  className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  type="text"
+                  name="search"
+                  placeholder="Search..."
+                />
+              </div>
+            </div>
 
-          {/* <div className="lg:mt-[-6px] md:mt-[-4px] w-full sm:w-full lg:w-1/4 md:w-1/3">
-            <SortByComponent />
-          </div> */}
+            {/* filter */}
+            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <Combobox
+                value={selected}
+                onChange={setSelected}
+                className="z-20"
+              >
+                <div className="relative z-20">
+                  <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                    <Combobox.Input
+                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      displayValue={(person) => person.name}
+                      onChange={(event) => setQuery(event.target.value)}
+                    />
+                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-text-color"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    afterLeave={() => setQuery("")}
+                  >
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {filteredPeople.length === 0 && query !== "" ? (
+                        <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                          Nothing found.
+                        </div>
+                      ) : (
+                        filteredPeople.map((person) => (
+                          <Combobox.Option
+                            key={person.id}
+                            className={({ active }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
+                              }`
+                            }
+                            value={person}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
+                                >
+                                  {person.name}
+                                </span>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Combobox.Option>
+                        ))
+                      )}
+                    </Combobox.Options>
+                  </Transition>
+                </div>
+              </Combobox>
+            </div>
+
+            {/* add */}
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+
+              <label
+                htmlFor="normalCategory"
+                className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+              >
+                <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
+              </label>
+            </div>
+          </div>
         </div>
 
         {/* card */}
         <div
-          className=" p-6  lt-16:p-4 lt-16:pt-8 lt-14:p-4 overflow-y-scroll relative h-[calc(100vh-16rem)]"
+          className=" py-6 relative"
         >
-          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 gap-y-8  w-full">
+          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 justify-items-center  gap-y-6  w-full">
             {user.map((list) => (
               <button
                 type="button"

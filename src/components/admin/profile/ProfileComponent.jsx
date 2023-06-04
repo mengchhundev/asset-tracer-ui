@@ -126,101 +126,98 @@ export default function ProfileComponent() {
                 <div className="mt-5 gap-6 bg-white rounded-xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                     <div className="overflow-x-auto p-5 shadow-sm relative">
                         <label
-                            onClick={() => setIsShowFormUpdateProfile(true)}
                             id='profile-troggle'
                             htmlFor="update-profile"
+                            onClick={() => setIsShowFormUpdateProfile(true)}
                             className="absolute flex-row right-5 top-5 bg-bg-primary w-9 h-9 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
                         >
                             <FaUserEdit />
                         </label>
 
                         <input type="checkbox" id="update-profile" className="modal-toggle" />
-                        {isShowFormUpdateProfile ?
-                            <div className="modal bg-opacity-20">
-                                <div className="modal-box max-w-2xl">
-                                    <label htmlFor="update-profile" className='absolute top-3 right-3' ><XCircleIcon className="cursor-pointer h-9 w-9 text-bg-primary-strock hover:text-gray" /></label>
-                                    <div>
-                                        <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
-                                        <div className='w-28 h-28 border border-bg-primary-strock bg-slate-500 rounded-full m-auto relative overflow-hidden'>
-                                            <img src={file} className='w-full '/>
-                                            <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
-                                            <input type="file"
-                                                id='updateProfile'
-                                                name="file"
-                                                accept="image/*"
-                                                className='hidden' 
-                                                onChange={handleChange}/>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <form className='space-y-5 pt-5' onSubmit={formikProfile.handleSubmit}>
-                                            <div className='flex md:flex-row gap-6'>
-                                                <div className='text-left w-full md:w-1/2'>
-                                                    <label className="block mb-2 ml-1 text-sm">Name</label>
-                                                    <input
-                                                        type='text'
-                                                        onInput={handleInputChangeProfile}
-                                                        onChange={formikProfile.handleChange}
-                                                        value={profile.name}
-                                                        name="name"
-                                                        className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                                                        placeholder='Enter name'
-                                                    />
-                                                    {formikProfile.touched.name && formikProfile.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formikProfile.errors.name}</p> : null}
-                                                </div>
-                                                <div className="text-left  w-full md:w-1/2">
-                                                    <label className="block mb-2 ml-1 text-sm">Gender</label>
-                                                    <select
-                                                        onInput={handleInputChangeProfile}
-                                                        onChange={formikProfile.handleChange}
-                                                        value={profile.gender}
-                                                        name="gender"
-                                                        placeholder='Gender'
-                                                        className='text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none'
-                                                    >
-                                                        <option value="" disabled>Select Gender</option>
-                                                        <option value="male">Male</option>
-                                                        <option value="female">Female</option>
-                                                    </select>
-                                                    {formikProfile.touched.gender && formikProfile.errors?.gender ? <p className="text-reject font-sp-pro-text-regular text-xs mt-2 pl-1">{formikProfile.errors.gender}</p> : null}
-                                                </div>
-                                            </div>
-                                            <div className='text-left  w-full '>
-                                                <label className="block mb-2 ml-1 text-sm">Phone Number</label>
-                                                <input
-                                                    type='number'
-                                                    onInput={handleInputChangeProfile}
-                                                    onChange={formikProfile.handleChange}
-                                                    value={profile.phone}
-                                                    name="phone"
-                                                    className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                                                    placeholder='Enter phone number'
-                                                />
-                                                {formikProfile.touched.phone && formikProfile.errors?.phone ? <p className="text-reject text-xs mt-2 pl-1">{formikProfile.errors.phone}</p> : null}
-                                            </div>
-
-                                            <div className='text-left'>
-                                                <label className="block mb-2 ml-1 text-sm">Address</label>
-                                                <textarea
-                                                    onInput={handleInputChangeProfile}
-                                                    onChange={formikProfile.handleChange}
-                                                    value={profile.address}
-                                                    rows={4}
-                                                    name="address"
-                                                    className="text-sm border-[#E1E9EE] border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
-                                                    placeholder='Enter address'
-                                                >
-                                                </textarea>
-                                            </div>
-                                            <div className='w-1/3 m-auto'>
-                                                <button type='submit' className="inline-block w-full rounded text-center bg-primary pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white cursor-pointer hover:bg-pending-hover">Save Changes</button>
-                                            </div>
-                                        </form>
+                        <div className={`modal ${isShowFormUpdateProfile ? "modal-open" : ""}`} >
+                            <div className="modal-box max-w-2xl">
+                                <label htmlFor="update-profile" className='absolute top-3 right-3' onClick={() => setIsShowFormUpdateProfile(false)} ><XCircleIcon className="cursor-pointer h-9 w-9 text-bg-primary-strock hover:text-gray" /></label>
+                                <div>
+                                    <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
+                                    <div className='w-28 h-28 border border-bg-primary-strock rounded-full m-auto relative overflow-hidden'>
+                                        <img src={file} className='w-full ' />
+                                        <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
+                                        <input type="file"
+                                            id='updateProfile'
+                                            name="file"
+                                            accept="image/*"
+                                            className='hidden'
+                                            onChange={handleChange} />
                                     </div>
                                 </div>
-                            </div>
-                            : null}
+                                <div>
+                                    <form className='space-y-5 pt-5' onSubmit={formikProfile.handleSubmit}>
+                                        <div className='flex md:flex-row gap-6'>
+                                            <div className='text-left w-full md:w-1/2'>
+                                                <label className="block mb-2 ml-1 text-sm">Name</label>
+                                                <input
+                                                    type='text'
+                                                    onInput={handleInputChangeProfile}
+                                                    onChange={formikProfile.handleChange}
+                                                    value={profile.name}
+                                                    name="name"
+                                                    className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                    placeholder='Enter name'
+                                                />
+                                                {formikProfile.touched.name && formikProfile.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formikProfile.errors.name}</p> : null}
+                                            </div>
+                                            <div className="text-left  w-full md:w-1/2">
+                                                <label className="block mb-2 ml-1 text-sm">Gender</label>
+                                                <select
+                                                    onInput={handleInputChangeProfile}
+                                                    onChange={formikProfile.handleChange}
+                                                    value={profile.gender}
+                                                    name="gender"
+                                                    placeholder='Gender'
+                                                    className='text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none'
+                                                >
+                                                    <option value="" disabled>Select Gender</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                </select>
+                                                {formikProfile.touched.gender && formikProfile.errors?.gender ? <p className="text-reject font-sp-pro-text-regular text-xs mt-2 pl-1">{formikProfile.errors.gender}</p> : null}
+                                            </div>
+                                        </div>
+                                        <div className='text-left  w-full '>
+                                            <label className="block mb-2 ml-1 text-sm">Phone Number</label>
+                                            <input
+                                                type='number'
+                                                onInput={handleInputChangeProfile}
+                                                onChange={formikProfile.handleChange}
+                                                value={profile.phone}
+                                                name="phone"
+                                                className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                placeholder='Enter phone number'
+                                            />
+                                            {formikProfile.touched.phone && formikProfile.errors?.phone ? <p className="text-reject text-xs mt-2 pl-1">{formikProfile.errors.phone}</p> : null}
+                                        </div>
 
+                                        <div className='text-left'>
+                                            <label className="block mb-2 ml-1 text-sm">Address</label>
+                                            <textarea
+                                                onInput={handleInputChangeProfile}
+                                                onChange={formikProfile.handleChange}
+                                                value={profile.address}
+                                                rows={4}
+                                                name="address"
+                                                className="text-sm border-[#E1E9EE] border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                placeholder='Enter address'
+                                            >
+                                            </textarea>
+                                        </div>
+                                        <div className='w-1/3 m-auto'>
+                                            <button type='submit' className="inline-block w-full rounded text-center bg-primary pt-3 pb-2.5 text-sm font-sp-pro-text-medium text-white cursor-pointer hover:bg-pending-hover">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                         {isSuccessUpdateProfile ? <>
                             <div className={`${isSuccessUpdateProfile ? "modal rounded-sm modal-open" : ""}`}>
@@ -245,7 +242,7 @@ export default function ProfileComponent() {
                                         {profileDetail?.name != null &&
                                             <div className='flex'>
                                                 <p className='w-32'>Name</p>
-                                                <p className='break-all w-full font-sp-pro-text-bold capitalize'>: {profileDetail?.name}</p>
+                                                <p className='break-all w-full font-sp-pro-text-bold capitalize'>: {profileDetail?.name != "" && profileDetail?.name != null ? profileDetail?.name : "..."}</p>
                                             </div>
                                         }
 
@@ -257,7 +254,7 @@ export default function ProfileComponent() {
                                         {profileDetail?.gender != null &&
                                             <div className='flex'>
                                                 <p className='w-32'>Gender</p>
-                                                <p className='break-all w-full capitalize'>: {profileDetail?.gender}</p>
+                                                <p className='break-all w-full capitalize'>: {profileDetail?.gender != "" && profileDetail?.gender != null ? profileDetail?.gender : "..."}</p>
                                             </div>
                                         }
 
@@ -271,33 +268,28 @@ export default function ProfileComponent() {
                                             {profileDetail?.phone != null &&
                                                 <div className='flex'>
                                                     <p className='w-32'>Phone</p>
-                                                    <p className='break-all w-full'>: {profileDetail?.phone}</p>
+                                                    <p className='break-all w-full'>: {profileDetail?.phone != "" && profileDetail?.phone != null ? profileDetail?.phone : "..."}</p>
                                                 </div>
                                             }
 
                                             {profileDetail?.address != null &&
                                                 <div className='flex'>
                                                     <p className='w-32'>Address</p>
-                                                    <p className='break-all w-full'>: {profileDetail?.address}</p>
+                                                    <p className='break-all w-full'>: {profileDetail?.address != "" && profileDetail?.address != null ? profileDetail?.address : "..."}</p>
                                                 </div>
                                             }
 
                                         </span>
                                     </div>
                                     <div className='leading-8 pl-10 border-l-2 border-dashed w-2/3 border-gray-light md:block hidden'>
-                                        {profileDetail?.phone != null &&
-                                            <div className='flex'>
-                                                <p className='w-24'>Phone</p>
-                                                <p className='break-all w-1/2'>: {profileDetail?.phone}</p>
-                                            </div>
-                                        }
-
-                                        {profileDetail?.address != null &&
-                                            <div className='flex'>
-                                                <p className='w-24'>Address</p>
-                                                <p className='break-all w-1/2'>: {profileDetail?.address}</p>
-                                            </div>
-                                        }
+                                        <div className='flex'>
+                                            <p className='w-24'>Phone</p>
+                                            <p className='break-all w-1/2'>: {profileDetail?.phone != "" && profileDetail?.phone != null ? profileDetail?.phone : "..."}</p>
+                                        </div>
+                                        <div className='flex'>
+                                            <p className='w-24'>Address</p>
+                                            <p className='break-all w-1/2'>: {profileDetail?.address != "" && profileDetail?.address != null ? profileDetail?.address : "..."}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
