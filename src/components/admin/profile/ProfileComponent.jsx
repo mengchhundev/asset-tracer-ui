@@ -22,8 +22,13 @@ import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
 import { FiPlus } from 'react-icons/fi';
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
+import { ref, uploadBytes } from 'firebase/storage'
+import { storage } from "../../../redux/services/googleAuth/firebase";
+import { v4 as uuid } from 'uuid';
+
 
 export default function ProfileComponent() {
+
 
     const dispatch = useDispatch()
     const profileDetail = useSelector(state => state.user?.profileDetail)
@@ -34,13 +39,44 @@ export default function ProfileComponent() {
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
-    const [selectedFile, setSelectedFile] = useState('')
+    var [fileName, setFileName] = useState('')
 
+    // Upload file
+    let unique_id = "";
+    const [selectedFile, setSelectedFile] = useState('')
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
     const handleFileSelect = (event) => {
-        console.log(event.target.files[0])
         setSelectedFile(event.target.files[0]);
     };
 
+    useEffect(() => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const image = new Image();
+                image.onload = () => {
+                    setImageDimensions({
+                        width: image.width,
+                        height: image.height,
+                    });
+                };
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    }, [selectedFile]);
+
+    const handleUploadFile = () => {
+        unique_id = uuid();
+        if (selectedFile) {
+            const uploadTask = ref(storage, `images/${unique_id}`);
+            uploadBytes(uploadTask, selectedFile).then((res) => {
+                setProfile({ ...profile, image: res.metadata.name })
+            });
+        }
+    };
+
+    // Get profile detail
     const handleGetProfileDetail = () => {
         UserService.getProfileUser(userId).then(res => {
             if (res.data?.success) {
@@ -92,7 +128,7 @@ export default function ProfileComponent() {
 
     // Update Profile
     const [profile, setProfile] = useState({
-        name: "", gender: "", phone: "", address: ""
+        name: "", gender: "", phone: "", address: "", image: ""
     })
 
 
@@ -101,14 +137,16 @@ export default function ProfileComponent() {
     };
 
     const handleUpdateProfile = () => {
+
+        if (selectedFile) {
+            handleUploadFile()
+        }
+
         UserService.updateProfile(userId, profile).then(res => {
-            console.log(res)
             if (res.data?.success) {
                 setIsSuccessUpdateProfile(true)
                 handleGetProfileDetail()
             }
-        }, err => {
-            console.log(err)
         })
     }
 
@@ -120,17 +158,27 @@ export default function ProfileComponent() {
         }),
         onSubmit: (val, { resetForm }) => {
             handleUpdateProfile()
-            resetForm(val = {})
-            setProfile({ name: "", gender: "", phone: "", address: "" })
+            // resetForm(val = {})
+            // setProfile({ name: "", gender: "", phone: "", address: "" })
             setIsShowFormUpdateProfile(false)
         }
     })
 
-    const [file, setFile] = useState();
-    function handleChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
+
+    // var storageRef = firebase.storage().ref("images");
+    // console.log(storageRef)
+
+    //load pictures
+    const fetchImages = async () => {
+
+        // let result = await storageRef.child('cabinPictures').listAll();
+        // let urlPromises = result.items.map(imageRef => imageRef.getDownloadURL());
+        // return Promise.all(urlPromises);
     }
+
+    // const urls = await fetchImages()
+    // setPictureURLs(urls);
+    // console.log("inside .then() ", urls)
 
     return (
         <main className="overflow-y-auto pb-4 text-text-color">
@@ -161,7 +209,7 @@ export default function ProfileComponent() {
                                 <div>
                                     <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
                                     <div className='w-28 h-28 border border-bg-primary-strock rounded-full m-auto relative overflow-hidden'>
-                                        {file ? <img src={file} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
+                                        {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
 
                                         <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black bg-opacity-30 shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
                                         <input type="file"
