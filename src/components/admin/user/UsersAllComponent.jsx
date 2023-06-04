@@ -128,7 +128,7 @@ export default function UsersAllComponent() {
   ]);
 
   return (
-    <main className="p-5 con-Shadow px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
+    <main className="p-6 con-Shadow px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
 
@@ -143,7 +143,7 @@ export default function UsersAllComponent() {
           </div>
 
           {/* search */}
-          <div className="md:flex md:flex-row justify-start gap-10">
+          <div className="md:flex md:flex-row justify-start gap-6 ">
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
@@ -251,7 +251,7 @@ export default function UsersAllComponent() {
                 htmlFor="normalCategory"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
-                <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
+                <BsPlus className="w-6 h-6" />&nbsp;Invite user
               </label>
             </div>
           </div>
