@@ -118,14 +118,16 @@ export default function OrganizationListComponent() {
                                             >
                                                 <Listbox.Options
                                                     static
-                                                    className="border-none mt-2 border-slate-200 bg-white shadow-md rounded-md absolute z-50 w-40 p-3"
+                                                    className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-[-2.5rem] z-50 w-40 p-3"
                                                 >
                                                     <Listbox.Option>
                                                         <label
                                                             htmlFor='delete_org'
-                                                            className={`cursor-pointer inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md hover:bg-bg-primary`}
+                                                            className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
                                                         >
-                                                            Delete
+                                                            <span className='flex justify-start text-[16px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                <FiTrash2 /> Delete
+                                                            </span>
                                                         </label>
                                                     </Listbox.Option>
                                                 </Listbox.Options>
