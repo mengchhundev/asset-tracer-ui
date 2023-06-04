@@ -305,7 +305,7 @@ export default function OrganzationCreateOrJoinComponent() {
             >
               <table className="table w-full">
                 <tbody className="">
-                  <tr className="text-sm font-sp-pro-text-regular text-opacity-90  divide-none">
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none">
                     <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
                     <td className="w-3/12 bg-bg-main py-3 text-center">
                       Organization Name
@@ -365,19 +365,18 @@ export default function OrganzationCreateOrJoinComponent() {
                           </div>
                           <div className="relative  w-8 h-8 mr-[-14px] z-40">
                             <img
-                              src={avatar04}  
+                              src={avatar04}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
                           </div>
                           <div className="relative  w-8 h-8 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                            8 <FiPlus/>
+                            8 <FiPlus />
                           </div>
                         </div>
                       </td>
                       <td className="w-2/12 py-3">
                         <div className="flex items-center space-x-4 justify-center">
-                          {/* Edit */}
                           <label
                             htmlFor="modalEdit"
                             className="flex items-center border bg-accept bg-opacity-10 border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"

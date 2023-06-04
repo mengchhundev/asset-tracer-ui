@@ -343,7 +343,7 @@ export default function AssetComponent() {
                         fill="currentColor"
                         stroke-width="0"
                         viewBox="0 0 24 24"
-                        class="w-6 h-6"
+                        className="w-6 h-6"
                         height="1em"
                         width="1em"
                         xmlns="http://www.w3.org/2000/svg"

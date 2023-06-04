@@ -4,7 +4,7 @@ import true1 from '../../../assets/images/success.png'
 
 function WarningPopUpComponents({ setIsShowErr, message }) {
     return (
-        <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular right-0 bg-black transition-all duration-300 bg-opacity-5 bottom-0 flex items-center justify-center">
+        <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular right-0  bottom-0 flex items-center justify-center">
             <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
                 <div className="flex flex-col justify-end">
                     <div className="relative w-40 m-auto pb-7">

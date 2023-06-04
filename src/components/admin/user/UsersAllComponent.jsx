@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded, BiHome } from "react-icons/bi";
 import { HiOutlineCheck, HiOutlineQrcode } from "react-icons/hi";
 import facebook from "../../../assets/images/user/fb.png";
@@ -14,25 +14,51 @@ import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
 import { TbCalendarStats } from "react-icons/tb";
 import { AiFillGift } from "react-icons/ai";
 import UserDetail from "./userPopup/UserDetail";
-import '../../../style/shadow.css';
+import "../../../style/shadow.css";
+import { Combobox, Transition } from "@headlessui/react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+
+const people = [
+  { id: 1, name: "Sort By" },
+  { id: 2, name: "Arlene Mccoy" },
+  { id: 3, name: "Devon Webb" },
+];
+
 
 export default function UsersAllComponent() {
+  const [selected, setSelected] = useState(people[0]);
+  const [query, setQuery] = useState("");
+
+  const filteredPeople =
+    query === ""
+      ? people
+      : people.filter((person) =>
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
+
+
   const [user, setUser] = useState([
     {
       id: 1,
       profile: "S",
+      email: "mengchhun232@gmail.com",
       name: "Senglorn",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
     {
       id: 2,
       profile: "H",
+      email: "mengchhun232@gmail.com",
       name: "HongMeng",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
       profile: "M",
+      email: "mengchhun232@gmail.com",
       name: "Mony",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
@@ -40,11 +66,13 @@ export default function UsersAllComponent() {
       id: 4,
       profile: "M",
       name: "Mnor",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 5,
       profile: "M",
+      email: "mengchhun232@gmail.com",
       name: "Mengchhun",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
@@ -52,74 +80,71 @@ export default function UsersAllComponent() {
       id: 6,
       profile: "K",
       name: "KONG",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 7,
       profile: "J",
       name: "JONG",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 8,
       profile: "K",
       name: "KIM",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 9,
+      profile: "M",
+      name: "Mengchhun",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 10,
+      profile: "K",
+      name: "KONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 11,
+      profile: "J",
+      name: "JONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 12,
+      profile: "K",
+      name: "KIM",
+      email: "mengchhun232@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
   ]);
 
-  //featch images
-  const socialImg = [
-    {
-      item: 1,
-      title: "facebook",
-      src: facebook,
-    },
-    {
-      item: 2,
-      title: "linkin",
-      src: linkin,
-    },
-    {
-      item: 3,
-      title: "instagram",
-      src: instagram,
-    },
-    {
-      item: 3,
-      title: "twinter",
-      src: twinter,
-    },
-  ];
-
-  const listOfImage = socialImg.map((image) => (
-    <div key={image.id}>
-      <img src={image.src} alt={image.title} />
-    </div>
-  ));
-  //featch images
-
   return (
-    <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative con-Shadow"
-      // style={{
-      //   boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-      // }}
-    >
-      <div className="gap-6 overflow-hidden z-10">
-        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+    <main className="p-5 con-Shadow px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
+      <div className="gap-6 overflow-hidden z-10 ">
+        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
+
           {/* header */}
-          <div className="md:pb-0 sm:pb-2 text-text-colors">
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-pending">User</span> Managment
+              All <span className="text-pending">User</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-              Active categories
+            Active Users
             </p>
           </div>
 
-          <div className="flex flex-row justify-center gap-10">
-            <div>
+          {/* search */}
+          <div className="md:flex md:flex-row justify-start gap-10">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -143,44 +168,117 @@ export default function UsersAllComponent() {
                 />
               </div>
             </div>
-            <SortByComponent />
-            <div className="block ">
+
+            {/* filter */}
+            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <Combobox
+                value={selected}
+                onChange={setSelected}
+                className="z-20"
+              >
+                <div className="relative z-20">
+                  <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                    <Combobox.Input
+                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      displayValue={(person) => person.name}
+                      onChange={(event) => setQuery(event.target.value)}
+                    />
+                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-text-color"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    afterLeave={() => setQuery("")}
+                  >
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {filteredPeople.length === 0 && query !== "" ? (
+                        <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                          Nothing found.
+                        </div>
+                      ) : (
+                        filteredPeople.map((person) => (
+                          <Combobox.Option
+                            key={person.id}
+                            className={({ active }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
+                              }`
+                            }
+                            value={person}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
+                                >
+                                  {person.name}
+                                </span>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Combobox.Option>
+                        ))
+                      )}
+                    </Combobox.Options>
+                  </Transition>
+                </div>
+              </Combobox>
+            </div>
+
+            {/* add */}
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+
               <label
                 htmlFor="normalCategory"
-                className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] px-3 rounded-lg font-sp-pro-text-regular text-sm flex items-center uppercase"
+                className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
-                <BsPlus className="w-6 h-6" /> &nbsp; Invite User
+                <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
               </label>
             </div>
           </div>
-
-          {/* <div className="lg:mt-[-6px] md:mt-[-4px] w-full sm:w-full lg:w-1/4 md:w-1/3">
-            <SortByComponent />
-          </div> */}
-
-         
         </div>
 
         {/* card */}
-        <div className="overflow-x-auto p-5 ">
-          <div className=" space-x-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 lg:mt-0">
+        <div
+          className=" py-6 relative"
+        >
+          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 justify-items-center  gap-y-6  w-full">
             {user.map((list) => (
               <button
                 type="button"
                 onClick={() => handleShowOrganization(list)}
                 key={list.id}
-                className="border border-bg-primary rounded-[5px] min-w-max cursor-pointer"
+                className="border lt-14:w-52  border-bg-primary rounded-xl w-auto cursor-pointer"
                 style={{
                   boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
                 }}
               >
-                <div className="px-6 py-4">
-                  <div className="flex flex-row justify-end items-center">
+                <div className="relative ">
+                  <div className="absolute top-1 right-3 cursor-pointer">
                     <div className="dropdown dropdown-bottom">
                       <button
                         // onClick={() => setDropdown(!dropdown)}
                         // tabIndex={0}
-                        className="bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
+                        className=" w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
                       >
                         <BiDotsHorizontalRounded className="w-6 h-6" />
                       </button>
@@ -199,34 +297,44 @@ export default function UsersAllComponent() {
                       ) : null} */}
                     </div>
                   </div>
-                  <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2">
-                    <div className="w-[70px] h-[70px] md:w-12 md:h-12 lg:w-14 lg:h-14 bg-green rounded-full flex justify-center items-center m-auto">
-                      <p className="font-sp-pro-text-bold text-3xl lg:text-2xl text-white">
+
+                  <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full ">
+                    <div className="w-[55px] h-[55px] con-pro-color rounded-full flex justify-center items-center m-auto">
+                      <p className="font-sp-pro-text-bold text-xl text-green ">
                         {list.profile}
                       </p>
                     </div>
                   </div>
-                  <p className="font-sp-pro-text-semibold text-lg w-full text-center text-text-color capitalize">
+                  <p className="pt-2 font-sp-pro-text-bold lt-16:text-lg lt-14:text-sm lt-14:pt-2 w-full text-center text-text-color capitalize">
                     {list.name}
                   </p>
-                  <p className="text-gray-700 text-sm text-center opacity-60">
+
+                  <p className="text-gray-700 text-[12px] text-center opacity-60">
                     {list.email}
                   </p>
-                  <p className="text-gray-700 text-sm lg:text-md mt-4 text-center text-text-color">
-                    20 members
-                  </p>
-
-                  <div className="w-full flex flex-row justify-center space-x-2 my-2">
-                    {listOfImage}
+                  <div className="m-auto gap-1 flex flex-row justify-center space-x-1 pt-4">
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={facebook} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={instagram} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={instagram} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={twinter} alt="" />
+                    </div>
                   </div>
+
                 </div>
-                <div className="pb-2 w-full px-8 mb-3 text-center">
+                <div className="p-6 w-48  text-center mx-auto  ">
                   {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
                     More Info
                   </span> */}
                   <label
                     htmlFor="my-modal-5"
-                    className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white"
+                    className="inline-block lt-16:w-full lt-14:w-28 text-xs cursor-pointer  shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-4 lt-16:text-sm lt-14:text-xs font-sp-pro-text-regular text-gray-700 mr-2  bg-yellow text-white"
                   >
                     More Info
                   </label>
@@ -234,7 +342,6 @@ export default function UsersAllComponent() {
               </button>
             ))}
           </div>
-          
         </div>
         {/* popupDetaile */}
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />

@@ -128,9 +128,9 @@ export default function CategoryComponent() {
   ]);
 
   return (
-    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-y-scroll h-[84vh]">
+    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 z-10">
-        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5">
 
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
@@ -257,20 +257,15 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between ">
+        <div className="flex flex-col justify-between relative">
           {/* table */}
 
           <div
-            className="overflow-scroll px-5 flex-grow"
-            // style={
-            //   {
-            //     minHeight: "calc(100vh - 40rem)",
-            //   }
-            // }
+            className="px-5 flex-grow"
           >
             <table className="table w-full">
               <tbody className="">
-                <tr className="text-sm font-sp-pro-text-regular text-opacity-90  divide-none">
+                <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
                   <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
                   <td className="w-3/12 bg-bg-main py-3">
                     Normal Category Name
@@ -343,7 +338,7 @@ export default function CategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+          <div className="w-full flex justify-between items-center text-sm py-2 font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
             <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate

@@ -39,9 +39,9 @@ export default function NavbarComponent() {
     }, [item])
 
     return (
-        <header className="flex-shrink-0 bg-white px-8 h-[3.8rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
+        <header className="flex-shrink-0 bg-white px-8 h-[4.3rem] flex flex-row items-center justify-between text-text-color" style={{ zIndex: "100", boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 5px" }}>
             <div className="flex items-center w-[16rem] lg:flex-shrink-0 invisible lg:visible">
-                <img src={logo} alt="" className="w-14" />
+                <img src={logo} alt="" className="w-16 h-16" />
                 <h1 className="text-center text-xl font-sp-pro-text-bold">
                     Asset Tracer
                 </h1>
@@ -50,14 +50,14 @@ export default function NavbarComponent() {
             <div className="flex items-center w-full justify-between">
                 <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center rounded-md">
                     {/* <HiOutlineBuildingLibrary className="h-7 rounded-md w-7 text-white bg-primary p-1 mr-2"/> */}
-                    {session ? session.name : "No Organzation"}
+                    {/* {session ? session.name : "No Organzation"} */}
                 </div>
                 <nav className="flex items-center gap-2 ">
 
                     <Menu
                         menuButton={
                             <MenuButton className="relative hover:bg-secondary-100 p-2 rounded-lg transition-colors">
-                                <RiNotification3Line className="text-primary "/>
+                                <RiNotification3Line className="text-primary " />
                                 <span className="absolute -top-0.5 right-0 bg-primary py-0.5 px-[5px] box-content text-black rounded-full text-[8px] font-bold">
                                     2
                                 </span>
@@ -72,13 +72,13 @@ export default function NavbarComponent() {
                         {/* router by menghout */}
                         <Link to="/"
                         >
-                        <div className="flex justify-between px-3">
-                            <h1 className="flex  items-center ">
-                                <span className="text-lg text-text-color font-sp-pro-text-bold">Notification</span> <span className="text-sm ml-3 ">(3)</span>
-                            </h1>
-                        </div>
+                            <div className="flex justify-between px-3">
+                                <h1 className="flex  items-center ">
+                                    <span className="text-lg text-text-color font-sp-pro-text-bold">Notification</span> <span className="text-sm ml-3 ">(3)</span>
+                                </h1>
+                            </div>
                         </Link>
-                        
+
 
                         <hr className="my-2 border-text-color border-opacity-20" />
 
@@ -130,7 +130,7 @@ export default function NavbarComponent() {
                             <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
                                 <img
                                     src={logo}
-                                    className="w-8 h-8 object-cover rounded-full"
+                                    className="w-12 h-12 object-cover rounded-full"
                                 />
                                 <span className="header">Asset Tracer</span>
                                 <RiArrowDownSLine className="w-5" />
@@ -144,29 +144,16 @@ export default function NavbarComponent() {
                     >
                         <MenuItem className="p-0 hover:bg-transparent">
                             <Link
-                                to="/profile"
-                                className="rounded-lg hover:bg-bg-primary mx-2 transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-3 px-6 flex-1"
+                                className="rounded-lg hover:bg-bg-primary mx-2 transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-1 px-6 flex-1"
                             >
                                 <img
                                     src={logo}
                                     className="w-12 h-12 object-cover rounded-full"
                                 />
-                                <div className="flex flex-col text-sm">
-                                    <span className="text-sm font-sp-pro-text-medium">Asset Tracer</span>
-                                    <span className="text-xs text-gray-500">assettracerteam@gmail.com</span>
+                                <div className="flex flex-col">
+                                    <span className="text-md font-sp-pro-text-medium py-2">Asset Tracer</span>
                                 </div>
                             </Link>
-                        </MenuItem>
-                        <hr className="my-4 border-text-color border-opacity-10" />
-
-                        <MenuItem className="p-0 hover:bg-transparent">
-                            {/* <Link
-                                to="/cerrar-sesion"
-                                className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
-                            >
-                                 Cerrar sesión
-                            </Link> */}
-                            <label htmlFor="my-modal" className="bg-white cursor-pointer justify-center my-1 border mx-3 text-reject hover:border-reject hover:bg-reject hover:text-white border-gray-light rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 font-sp-pro-text-medium py-1.5  flex-1"><ArrowRightOnRectangleIcon className="w-5 text-gray-500" />Sign Out</label>
                         </MenuItem>
                     </Menu>
                 </nav>

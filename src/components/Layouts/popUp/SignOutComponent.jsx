@@ -27,7 +27,7 @@ function SignOutComponent(props) {
                 </div>
 
             </div>
-        </>
+            </>
     );
 }
 
