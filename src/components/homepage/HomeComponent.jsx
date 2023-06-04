@@ -571,7 +571,7 @@ export default function () {
                     Sign Up
                   </NavLink>
                   <NavLink
-                    to="/signup"
+                    to="/signin"
                     type="button"
                     className="py-2 rounded-md text-pending bg-white font-medium border border-pending text-sm px-8 text-center mr-10 shadow"
                   >
