@@ -26,7 +26,7 @@ export default function AssetFiltterComponent() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
   return (
-    <div>
+    <>
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative mt-1 z-20">
           <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
@@ -94,6 +94,6 @@ export default function AssetFiltterComponent() {
           </Transition>
         </div>
       </Combobox>
-    </div>
+    </>
   );
 }

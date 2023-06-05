@@ -87,27 +87,22 @@ export default function AssetComponent() {
   };
 
   return (
-    <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
-      style={{
-        boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-      }}
-    >
-      <div className="gap-6 overflow-hidden z-10">
-        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
+      <div className="gap-6 z-10">
+        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5">
           {/* header */}
-          <div className="md:pb-0 sm:pb-2 text-text-colors">
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-primary">Asset</span> Items
+              All <span className="text-pending">Normal</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-              Active Assets
+              Active categories
             </p>
           </div>
 
-          <div className="flex flex-row justify-center gap-10">
-            {/* search */}
-            <div>
+          {/* search */}
+          <div className="md:flex md:flex-row justify-start gap-10">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -133,7 +128,7 @@ export default function AssetComponent() {
             </div>
 
             {/* filter */}
-            <div className="z-20">
+            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <Combobox
                 value={selected}
                 onChange={setSelected}
@@ -211,170 +206,186 @@ export default function AssetComponent() {
             </div>
 
             {/* add */}
-            <div className="block ">
+              {/* add */}
+              <div className="block ">
               <Link to={"/asset/add"}>
                 <label className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase">
                   <BsPlus className="w-6 h-6" />
-                  &nbsp;Add Normal Category
+                  &nbsp;Add Asset
                 </label>
               </Link>
             </div>
           </div>
         </div>
 
-        <div
-          className="flex flex-col justify-between"
-          style={{
-            minHeight: "calc(100vh - 18rem)",
-          }}
-        >
+        <div className="flex flex-col justify-between relative">
           {/* table */}
-          <div className="overflow-x-auto px-5 flex-grow">
-            <div>
-              <table className="table w-full">
-                <tbody className="divide divide-slate-800">
-                  <tr className="text-sm font-sp-pro-text-semibold text-text-color">
-                    <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
-                    <td className="w-3/12 bg-bg-main py-3">Name</td>
-                    <td className="w-2/12 bg-bg-main py-3">Category</td>
-                    <td className="w-2/12 bg-bg-main py-3">Owner</td>
-                    <td className="w-2/12 bg-bg-main py-3">Status</td>
-                    <td className="w-2/12 bg-bg-main py-3 text-center">
-                      Action
-                    </td>
-                  </tr>
-
-                  {user.map((users) => (
-                    <tr className="text-sm font-sp-pro-text-regular text-text-color">
-                      <td className="w-1/12 py-3 text-center text-text-color">
-                        {users.id}
-                      </td>
-
-                      <td className="w-3/12 py-3">
-                        <div className="flex items-center">
-                          <div className="relative  mr-3 w-8 h-8 ">
-                            <img
-                              src={users.src}
-                              alt={users.title}
-                              loading="lazy"
-                              className="rounded-full h-full w-full"
-                            />
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-text-color font-sp-pro-text-regular text-sm">
-                              {users.name}
-                            </span>
-                            <span className="text-[11px] text-text-color font-sp-pro-text-regular">
-                              {users.type}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td className="w-2/12 py-3">
-                        <div className="flex items-center m-auto space-x-3">
-                          <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                            {users.profile}
-                          </span>
-                          <span className="text-sm text-text-color">
-                            {users.name}
-                          </span>
-                        </div>
-                      </td>
-
-                      <td className="w-2/12 py-3">
-                        <div className="flex items-center m-auto space-x-3">
-                          <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                            {users.profile}
-                          </span>
-                          <span className="text-sm text-text-color">
-                            {users.name}
-                          </span>
-                        </div>
-                      </td>
-
-                      <td className="w-2/12 text-sm font-sp-pro-text-medium text-text-color">
-                        <div className="flex flex-row bg-gray-light w-[95px] rounded-lg ">
-                          <label className="ml-auto bg-gray-light pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center justify-center">
-                            <BsDot className="w-6 h-6" /> Damaged
-                          </label>
-                        </div>
-                      </td>
-                      <td className="w-2/12 py-3">
-                        <div className="flex flex-rol space-x-1 items-center justify-center">
-                          <span className="w-6 h-6 ">
-                            <label
-                              htmlFor="modalDelete"
-                              className="cursor-pointer"
-                            >
-                              <svg
-                                width="20"
-                                height="21"
-                                viewBox="0 0 20 21"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M2.5 5.49935H4.16667M4.16667 5.49935H17.5M4.16667 5.49935V17.166C4.16667 17.608 4.34226 18.032 4.65482 18.3445C4.96738 18.6571 5.39131 18.8327 5.83333 18.8327H14.1667C14.6087 18.8327 15.0326 18.6571 15.3452 18.3445C15.6577 18.032 15.8333 17.608 15.8333 17.166V5.49935H4.16667ZM6.66667 5.49935V3.83268C6.66667 3.39065 6.84226 2.96673 7.15482 2.65417C7.46738 2.34161 7.89131 2.16602 8.33333 2.16602H11.6667C12.1087 2.16602 12.5326 2.34161 12.8452 2.65417C13.1577 2.96673 13.3333 3.39065 13.3333 3.83268V5.49935M8.33333 9.66602V14.666M11.6667 9.66602V14.666"
-                                  stroke="#667085"
-                                  strokeWidth="1.66667"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </label>
-                          </span>
-
-                          <span>
-                            <Link to={"/asset/update"}>
-                              <svg
-                                width="24"
-                                height="20"
-                                viewBox="0 0 22 21"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  opacity="0.3"
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M16.334 1.14809C15.4658 0.283508 14.0587 0.284038 13.1912 1.14927L6.48127 7.84251C5.94461 8.37774 5.62909 9.09424 5.59716 9.85021L5.50164 12.1116C5.45815 13.1414 6.28405 13.9999 7.31823 13.9999L9.54314 14C10.36 14 11.1423 13.6714 11.7127 13.0887L18.3685 6.26724C19.2182 5.39909 19.2093 4.01137 18.3485 3.15417L16.334 1.14809ZM14.0486 2.00316C14.443 1.60987 15.0826 1.60963 15.4772 2.00262L17.4917 4.0087C17.883 4.39834 17.887 5.02912 17.5008 5.42373C16.7644 6.17612 15.5558 6.18388 14.8099 5.441L14.0496 4.68396C13.3073 3.9447 13.3068 2.74298 14.0486 2.00316ZM13.5891 5.9331C12.6262 4.97424 11.0691 4.97494 10.1071 5.93466L7.33874 8.6964C7.01674 9.01754 6.82743 9.44744 6.80827 9.90102L6.71275 12.1624C6.69825 12.5057 6.97355 12.7918 7.31828 12.7919L9.54319 12.792C10.0333 12.792 10.5027 12.5948 10.8449 12.2452L13.6153 9.4016C14.5584 8.43356 14.5467 6.88677 13.5891 5.9331Z"
-                                  fill="#667085"
-                                />
-                                <path
-                                  d="M17.2 10.4008V15.5008C17.2 17.1576 15.8569 18.5008 14.2 18.5008H4C2.34314 18.5008 1 17.1576 1 15.5008V5.30078C1 3.64393 2.34315 2.30078 4 2.30078H9.1"
-                                  stroke="#667085"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                />
-                              </svg>
-                            </Link>
-                          </span>
-
-                          <span className="w-6 h-6 ">
-                            <label htmlFor="normalModal">
-                              <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500" />
-                            </label>
-                          </span>
-                        </div>
+          <div
+            className="flex flex-col justify-between"
+            style={{
+              minHeight: "calc(100vh - 18rem)",
+            }}
+          >
+            {/* table */}
+            <div className="overflow-x-auto px-5 flex-grow">
+              <div>
+                <table className="table w-full">
+                  <tbody className="divide divide-slate-800">
+                    <tr className="text-sm font-sp-pro-text-semibold text-text-color">
+                      <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
+                      <td className="w-3/12 bg-bg-main py-3">Name</td>
+                      <td className="w-2/12 bg-bg-main py-3">Category</td>
+                      <td className="w-2/12 bg-bg-main py-3">Owner</td>
+                      <td className="w-2/12 bg-bg-main py-3">Status</td>
+                      <td className="w-2/12 bg-bg-main py-3 text-center">
+                        Action
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+
+                    {user.map((users) => (
+                      <tr className="text-sm font-sp-pro-text-regular text-text-color">
+                        <td className="w-1/12 py-3 text-center text-text-color">
+                          {users.id}
+                        </td>
+
+                        <td className="w-3/12 py-3">
+                          <div className="flex items-center">
+                            <div className="relative  mr-3 w-8 h-8 ">
+                              <img
+                                src={users.src}
+                                alt={users.title}
+                                loading="lazy"
+                                className="rounded-full h-full w-full"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                {users.name}
+                              </span>
+                              <span className="text-[11px] text-text-color font-sp-pro-text-regular">
+                                {users.type}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="w-2/12 py-3">
+                          <div className="flex items-center m-auto space-x-3">
+                            <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                              {users.profile}
+                            </span>
+                            <span className="text-sm text-text-color">
+                              {users.name}
+                            </span>
+                          </div>
+                        </td>
+
+                        <td className="w-2/12 py-3">
+                          <div className="flex items-center m-auto space-x-3">
+                            <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                              {users.profile}
+                            </span>
+                            <span className="text-sm text-text-color">
+                              {users.name}
+                            </span>
+                          </div>
+                        </td>
+
+                        <td className="w-2/12 text-sm font-sp-pro-text-medium text-text-color">
+                          <div className="flex flex-row bg-gray-light w-[95px] rounded-lg ">
+                            <label className="ml-auto bg-gray-light pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center justify-center">
+                              <BsDot className="w-6 h-6" /> Damaged
+                            </label>
+                          </div>
+                        </td>
+                        <td className="w-2/12 py-3">
+                          <div className="flex flex-rol space-x-1 items-center justify-center">
+                            <span className="w-6 h-6 ">
+                              <label
+                                htmlFor="modalDelete"
+                                className="cursor-pointer"
+                              >
+                                <svg
+                                  width="20"
+                                  height="21"
+                                  viewBox="0 0 20 21"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.5 5.49935H4.16667M4.16667 5.49935H17.5M4.16667 5.49935V17.166C4.16667 17.608 4.34226 18.032 4.65482 18.3445C4.96738 18.6571 5.39131 18.8327 5.83333 18.8327H14.1667C14.6087 18.8327 15.0326 18.6571 15.3452 18.3445C15.6577 18.032 15.8333 17.608 15.8333 17.166V5.49935H4.16667ZM6.66667 5.49935V3.83268C6.66667 3.39065 6.84226 2.96673 7.15482 2.65417C7.46738 2.34161 7.89131 2.16602 8.33333 2.16602H11.6667C12.1087 2.16602 12.5326 2.34161 12.8452 2.65417C13.1577 2.96673 13.3333 3.39065 13.3333 3.83268V5.49935M8.33333 9.66602V14.666M11.6667 9.66602V14.666"
+                                    stroke="#667085"
+                                    strokeWidth="1.66667"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </label>
+                            </span>
+
+                            <span>
+                              <Link to={"/asset/update"}>
+                                <svg
+                                  width="24"
+                                  height="20"
+                                  viewBox="0 0 22 21"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    opacity="0.3"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M16.334 1.14809C15.4658 0.283508 14.0587 0.284038 13.1912 1.14927L6.48127 7.84251C5.94461 8.37774 5.62909 9.09424 5.59716 9.85021L5.50164 12.1116C5.45815 13.1414 6.28405 13.9999 7.31823 13.9999L9.54314 14C10.36 14 11.1423 13.6714 11.7127 13.0887L18.3685 6.26724C19.2182 5.39909 19.2093 4.01137 18.3485 3.15417L16.334 1.14809ZM14.0486 2.00316C14.443 1.60987 15.0826 1.60963 15.4772 2.00262L17.4917 4.0087C17.883 4.39834 17.887 5.02912 17.5008 5.42373C16.7644 6.17612 15.5558 6.18388 14.8099 5.441L14.0496 4.68396C13.3073 3.9447 13.3068 2.74298 14.0486 2.00316ZM13.5891 5.9331C12.6262 4.97424 11.0691 4.97494 10.1071 5.93466L7.33874 8.6964C7.01674 9.01754 6.82743 9.44744 6.80827 9.90102L6.71275 12.1624C6.69825 12.5057 6.97355 12.7918 7.31828 12.7919L9.54319 12.792C10.0333 12.792 10.5027 12.5948 10.8449 12.2452L13.6153 9.4016C14.5584 8.43356 14.5467 6.88677 13.5891 5.9331Z"
+                                    fill="#667085"
+                                  />
+                                  <path
+                                    d="M17.2 10.4008V15.5008C17.2 17.1576 15.8569 18.5008 14.2 18.5008H4C2.34314 18.5008 1 17.1576 1 15.5008V5.30078C1 3.64393 2.34315 2.30078 4 2.30078H9.1"
+                                    stroke="#667085"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                  />
+                                </svg>
+                              </Link>
+                            </span>
+
+                            <span className="w-6 h-6 ">
+                              <label htmlFor="normalModal">
+                                <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500" />
+                              </label>
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Model Delete */}
+              <input
+                type="checkbox"
+                id="modalDelete"
+                className="modal-toggle"
+              />
+              <DeleteComponent className="modal" />
+              
+              {/* view */}
+              <input
+                type="checkbox"
+                id="normalModal"
+                className="modal-toggle"
+              />
+              <AssetViewComponent className="modal" />
             </div>
 
-            {/* Model Delete */}
-            <input type="checkbox" id="modalDelete" className="modal-toggle" />
-            <DeleteComponent className="modal" />
-            {/* view */}
-            <input type="checkbox" id="normalModal" className="modal-toggle" />
-            <AssetViewComponent className="modal" />
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-            <div className="">Showing data 1 to 8 of 256K entries</div>
+          <div className="w-full flex justify-between items-center text-sm py-2 font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
+            <div className="font-sp-pro-text-regular opacity-90">
+              Showing data 1 to 8 of 256K entries
+            </div>
             <div id="react-paginate" className="">
               <ReactPaginate
                 nextLabel=" >"
