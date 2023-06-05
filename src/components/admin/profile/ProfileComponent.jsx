@@ -22,13 +22,38 @@ import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
 import { FiPlus } from 'react-icons/fi';
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
-import { ref, uploadBytes } from 'firebase/storage'
+import { ref, list, listAll, getDownloadURL, uploadBytes } from 'firebase/storage'
 import { storage } from "../../../redux/services/googleAuth/firebase";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import { v4 as uuid } from 'uuid';
-
 
 export default function ProfileComponent() {
 
+    const [img, setImg] = useState()
+
+    const getPofileImg = async (fileName) => {
+        let imgRef = ref(storage, `images/${fileName}`);
+        let res = await getDownloadURL(imgRef);
+        res ? setImg(res) : setImg("")
+    };
+
+    // useEffect(() => {
+    //     const fetchImages = async () => {
+    //         const storageRef = ref(storage, 'images/');
+    //         const result = await listAll(storageRef);
+    //         const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
+    //         return Promise.all(urlPromises);
+    //     };
+
+    //     const loadImages = async () => {
+    //         const urls = await fetchImages();
+    //         setFiles(urls);
+    //     };
+    //     loadImages();
+
+    // }, []);
 
     const dispatch = useDispatch()
     const profileDetail = useSelector(state => state.user?.profileDetail)
@@ -72,14 +97,19 @@ export default function ProfileComponent() {
             const uploadTask = ref(storage, `images/${unique_id}`);
             uploadBytes(uploadTask, selectedFile).then((res) => {
                 setProfile({ ...profile, image: res.metadata.name })
+                return true;
             });
         }
+        return false;
     };
 
     // Get profile detail
     const handleGetProfileDetail = () => {
         UserService.getProfileUser(userId).then(res => {
             if (res.data?.success) {
+                if (res.data.payload?.image != null) {
+                    getPofileImg(res.data.payload.image)
+                }
                 dispatch(setProfileDetail(res.data.payload))
             }
         })
@@ -137,17 +167,18 @@ export default function ProfileComponent() {
     };
 
     const handleUpdateProfile = () => {
-
         if (selectedFile) {
             handleUploadFile()
+
+            console.log(handleUploadFile())
         }
 
-        UserService.updateProfile(userId, profile).then(res => {
-            if (res.data?.success) {
-                setIsSuccessUpdateProfile(true)
-                handleGetProfileDetail()
-            }
-        })
+        // UserService.updateProfile(userId, profile).then(res => {
+        //     if (res.data?.success) {
+        //         setIsSuccessUpdateProfile(true)
+        //         handleGetProfileDetail()
+        //     }
+        // })
     }
 
     const formikProfile = useFormik({
@@ -163,22 +194,6 @@ export default function ProfileComponent() {
             setIsShowFormUpdateProfile(false)
         }
     })
-
-
-    // var storageRef = firebase.storage().ref("images");
-    // console.log(storageRef)
-
-    //load pictures
-    const fetchImages = async () => {
-
-        // let result = await storageRef.child('cabinPictures').listAll();
-        // let urlPromises = result.items.map(imageRef => imageRef.getDownloadURL());
-        // return Promise.all(urlPromises);
-    }
-
-    // const urls = await fetchImages()
-    // setPictureURLs(urls);
-    // console.log("inside .then() ", urls)
 
     return (
         <main className="overflow-y-auto pb-4 text-text-color">
@@ -209,7 +224,16 @@ export default function ProfileComponent() {
                                 <div>
                                     <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
                                     <div className='w-28 h-28 border border-bg-primary-strock rounded-full m-auto relative overflow-hidden'>
+
+                                        {/* {profileDetail?.image != null ?
+                                            <img src={profileDetail.image} className='w-full rounded-full' />
+                                            :
+                                            <>
+                                            </>
+                                        } */}
+
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
+
 
                                         <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black bg-opacity-30 shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
                                         <input type="file"
@@ -304,7 +328,11 @@ export default function ProfileComponent() {
 
                         <div className='px-5 py-4'>
                             <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
-                                <img src={hongmenng} alt="" className="w-36 h-36 md:w-28 md:h-28" />
+                                <div>
+                                    <div className='w-36 h-36 md:w-28 md:h-28 rounded-full overflow-hidden'>
+                                        {img ? <img src={img} alt="" className="w-ful" /> : <img src={user_placeholder} alt="" className="w-36 h-36 md:w-28 md:h-28" />}
+                                    </div>
+                                </div>
                                 <div className='flex flex-row justify-start w-full'>
                                     <div className='leading-8 w-full md:w-1/3'>
 
