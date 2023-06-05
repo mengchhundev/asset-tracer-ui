@@ -261,13 +261,13 @@ export default function UsersAllComponent() {
         <div
           className=" py-6 relative"
         >
-          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 justify-items-center  gap-y-6  w-full">
+          <div className="  grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-4 justify-items-center  gap-y-6  w-full">
             {user.map((list) => (
               <button
                 type="button"
                 onClick={() => handleShowOrganization(list)}
                 key={list.id}
-                className="border lt-14:w-52  border-bg-primary rounded-xl w-auto cursor-pointer"
+                className="border lt-14:w-52 lg:w-44 border-bg-primary rounded-xl w-auto cursor-pointer"
                 style={{
                   boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
                 }}
@@ -305,11 +305,12 @@ export default function UsersAllComponent() {
                       </p>
                     </div>
                   </div>
+                  
                   <p className="pt-2 font-sp-pro-text-bold lt-16:text-lg lt-14:text-sm lt-14:pt-2 w-full text-center text-text-color capitalize">
                     {list.name}
                   </p>
 
-                  <p className="text-gray-700 text-[12px] text-center opacity-60">
+                  <p className="text-gray-700 lt-14:text-[12px]  lg:text-[10px] text-[12px] text-center opacity-60">
                     {list.email}
                   </p>
                   <div className="m-auto gap-1 flex flex-row justify-center space-x-1 pt-4">
