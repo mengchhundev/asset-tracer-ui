@@ -97,19 +97,19 @@ export default function ProfileComponent() {
             const uploadTask = ref(storage, `images/${unique_id}`);
             uploadBytes(uploadTask, selectedFile).then((res) => {
                 setProfile({ ...profile, image: res.metadata.name })
-                return true;
             });
         }
-        return false;
     };
 
     // Get profile detail
     const handleGetProfileDetail = () => {
         UserService.getProfileUser(userId).then(res => {
             if (res.data?.success) {
+
                 if (res.data.payload?.image != null) {
-                    getPofileImg(res.data.payload.image)
+                    console.log(res.data.payload)
                 }
+
                 dispatch(setProfileDetail(res.data.payload))
             }
         })
@@ -167,18 +167,17 @@ export default function ProfileComponent() {
     };
 
     const handleUpdateProfile = () => {
+
         if (selectedFile) {
             handleUploadFile()
-
-            console.log(handleUploadFile())
         }
 
-        // UserService.updateProfile(userId, profile).then(res => {
-        //     if (res.data?.success) {
-        //         setIsSuccessUpdateProfile(true)
-        //         handleGetProfileDetail()
-        //     }
-        // })
+        UserService.updateProfile(userId, profile).then(res => {
+            if (res.data?.success) {
+                setIsSuccessUpdateProfile(true)
+                handleGetProfileDetail()
+            }
+        })
     }
 
     const formikProfile = useFormik({
@@ -224,17 +223,7 @@ export default function ProfileComponent() {
                                 <div>
                                     <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
                                     <div className='w-28 h-28 border border-bg-primary-strock rounded-full m-auto relative overflow-hidden'>
-
-                                        {/* {profileDetail?.image != null ?
-                                            <img src={profileDetail.image} className='w-full rounded-full' />
-                                            :
-                                            <>
-                                            </>
-                                        } */}
-
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
-
-
                                         <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black bg-opacity-30 shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
                                         <input type="file"
                                             id='updateProfile'
