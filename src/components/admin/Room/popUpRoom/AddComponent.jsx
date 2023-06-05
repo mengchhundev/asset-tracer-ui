@@ -1,8 +1,12 @@
-import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, HomeIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, CloudArrowUpIcon, HomeIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import upload from '../../../../assets/images/Room/Upload.png';
 import { Listbox, Transition } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
+import { storage } from "../../../../redux/services/googleAuth/firebase";
+import {ref,uploadBytes} from 'firebase/storage'
+import { v4 as uuid } from 'uuid';
+
 function AddComponent(props) {
     const createType = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
     const createFloor = ["GF", "F1", "F2", "F3", "F4"];
@@ -10,12 +14,69 @@ function AddComponent(props) {
     const [floor, setSelectedfloor] = useState("Room floor");
     // const [selectedCreate, setSelectedCreate] = useState("Room By");
     const [type, setSelectedRoom] = useState("Room type");
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+    const [selectedFile, setSelectedFile] = useState("");
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+    let unique_id = "";
+    
+
+    useEffect(() => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const image = new Image();
+                image.onload = () => {
+                    setImageDimensions({
+                        width: image.width,
+                        height: image.height,
+                    });
+                };
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    }, [selectedFile]);
+    const handleUpload = () => {
+
+        unique_id = uuid();
+        
+        if (selectedFile) {
+            const uploadTask = ref(storage, `images/${unique_id}`);
+            uploadBytes(uploadTask, selectedFile).then((res) => {
+                console.log(res);
+            });
+        }
+    };
+
+    // useEffect(() => {
+    //     if (selectedFile) {
+    //         const uploadTask = Storage.ref(`images/${selectedFile.name}`).put(selectedFile);
+    //         uploadTask.on(
+    //             'state_changed',
+    //             (snapshot) => {
+    //                 // You can track the upload progress here if needed
+    //             },
+    //             (error) => {
+    //                 // Handle any errors during the upload
+    //             },
+    //             () => {
+    //                 // Handle successful upload
+    //                 console.log('Image uploaded successfully!');
+    //             }
+    //         );
+    //     }
+    // }, [selectedFile]);
+
+
+
     const id = localStorage.getItem("id");
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
     const [data, setData] = useState();
-    console.log("this is", userId)
+
     useEffect(() => {
         setData((prevData) => ({
             ...prevData,
@@ -36,7 +97,6 @@ function AddComponent(props) {
 
     };
 
-    console.log("this is data", data); // Log the updated data state
     const handlesubmit = () => {
 
     }
@@ -52,21 +112,58 @@ function AddComponent(props) {
                             <p className="px-4 text-text-color text-[16px] text-opacity-90 item-center xl:text-[20px] font-sp-pro-text-bold">Room Information</p>
                         </div>
                         <div className="">
-                            <label htmlFor="addroom" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 " /></label>
+                            <label htmlFor="addroom" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-bg-primary rounded-full p-1 " /></label>
                             {/* <label htmlFor="addroom" ><XCircleIcon className="cursor-pointer h-7 w-7 text-[#F90000] text-opacity-40 " /></label> */}
                         </div>
                     </div>
                     <div className="md:flex mt-5 sm:flex-row">
                         <div className='xl:w-1/3 md:w-1/2'>
                             <div className="item-center w-full rounded-xl   ">
-                                <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className='block items-center space-y-5 mx-5 p-[21px] rounded-md mb-1'>
-                                    <div className='border border-dashed items-center border-primary block md:h-[255px] justify-center text-center p-3 rounded-lg'>
-                                        <img className="block m-auto md:mt-5 4 w-20" src={upload} alt="" />
-                                        <p className='md:mt-2 sm:mt-1 text-xs'>Upload Invoice picture, max size 20MB</p>
-                                        <button className='shadow-sm sm:mt-2 md:mt-5 rounded-md border border-bg-primary px-5 py-1.5 my-2 '>Browse</button>
-                                    </div>
+                                <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className='block items-center space-y-5 mx-5 p-5 pb-3 rounded-md mb-1'>
+                                    <label htmlFor="fileInput" className="browseButton">
+                                        <div className=" flex cursor-pointer border border-dashed items-center border-primary h-[210px] justify-center text-center p-3 rounded-lg m-auto">
+                                            <div className="">
+                                                {selectedFile && (
+                                                    <img
+                                                        src={URL.createObjectURL(selectedFile)}
+                                                        alt="Selected File"
+                                                        className={`${imageDimensions.width > imageDimensions.height ? 'w-[300px]' : 'h-auto'} ${imageDimensions.width < imageDimensions.height ? 'h-[195px]' : 'w-auto'} block rounded-md object-center justify-center  items-center`}
+
+                                                    />
+                                                )}
+                                                {!selectedFile && (
+                                                    <>
+                                                        <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
+                                                        <p className="fileInfo py-4">Upload Invoice picture, max size 20MB</p>
+                                                        
+                                                    </>
+                                                )}
+                                        
+                                            </div>
+                                        </div>
+                                        <input
+                                            id="fileInput"
+                                            type="file"
+                                            onChange={handleFileSelect}
+                                            accept="image/*"
+                                            style={{ display: 'none' }}
+                                        />
+                                    </label>
+                                    <label htmlFor="fileInput" className="browseButton">
+                                        <p className='border w-full p-2 px-4 mt-3 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Browse</p>
+                                        <input
+                                            id="fileInput"
+                                            type="file"
+                                            onChange={handleFileSelect}
+                                            accept="image/*"
+                                            style={{ display: 'none' }}
+                                        />
+                                    </label>
                                 </div>
+
                             </div>
+                         
+                            <button className="flex w-5/6 py-2 mt-3 shadow-md m-auto bg-blue-200 rounded-sm text-white justify-center" onClick={handleUpload}>Upload</button>
                         </div>
                         <div className="xl:w-2/3 md:w-1/2 ">
                             <div className="  item-center w-full rounded-xl">
@@ -74,7 +171,7 @@ function AddComponent(props) {
                                     <div className="xl:flex lg:flex-row justify-between">
                                         <div className="w-full xl:p-2 lg:py-2 p-2" >
                                             <label className="text-xs" htmlFor="">Room Name</label><br />
-                                            <input onChange={handleChang} name="name" className="border-[#E1E9EE] h-8 font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2  outline-none focus:border-primary placeholder-text-color placeholder-opacity-20 text-xs"
+                                            <input onChange={handleChang} name="name" className="border-[#E1E9EE] h-8 font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2  outline-none focus:border-primary placeholder-text-color placeholder-opacity-30 text-xs"
                                                 type="text"
                                                 placeholder="Room Name"
                                             />
@@ -82,12 +179,13 @@ function AddComponent(props) {
                                         <div className="w-full xl:p-2 lg:py-2 p-2">
                                             <label htmlFor="" className="" >Creat Date</label> <br />
                                             <input onChange={handleChang} name="createdAt" className="border-[#E1E9EE]  font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2 h-8 outline-none focus:border-primary text-xs" type="date"
+                                             
                                             />
                                         </div>
 
                                     </div>
                                     <div className="xl:flex justify-between">
-                                        <div className="w-full xl:p-3 lg:py-2 p-2">
+                                        <div className="w-full xl:p-2 lg:py-2 p-2">
                                             <label htmlFor="" className="" >Room Type</label>
                                             <Listbox as="div" className={"mt-1"} value={type} onChange={setSelectedRoom}>
                                                 {({ open }) => (
@@ -154,7 +252,7 @@ function AddComponent(props) {
                                                 )}
                                             </Listbox>
                                         </div>
-                                        <div className="w-full xl:p-3 lg:py-2 p-2">
+                                        <div className="w-full xl:p-2 lg:py-2 p-2">
                                             <label htmlFor="" className="" >Room Floor</label>
                                             <Listbox as="div" className={"mt-1"} name="floor" value={floor} onChange={setSelectedfloor}>
                                                 {({ open }) => (
@@ -231,14 +329,9 @@ function AddComponent(props) {
 
                                 </div>
                             </div>
-                            <div className="flex p-5 justify-end flex-row w-full">
-                                <div className="border-primary border cursor-pointer w-1/6 p-[6px]  rounded-lg flex justify-center">
-                                    <label htmlFor="addroom" className="cursor-pointer flex justify-around text-primary font-sp-pro-text-regular items-center  text-xs " >Cancel</label>
-                                    {/* <button className="flex justify-around text-primary font-sp-pro-text-regular items-center  text-xs ">Cancel</button> */}
-                                </div>
-                                <div className="bg-primary cursor-pointer ml-6 w-1/6 p-[6px] rounded-lg flex justify-center">
-                                    <button onClick={handlesubmit} className="flex  justify-around text-white font-sp-pro-text-regular items-center text-xs ">Save</button>
-                                </div>
+                            <div className="flex space-x-5 p-5 justify-end flex-row w-full">
+                                <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Cancel</label>
+                                <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer text-white  bg-primary '>Save</label>
                             </div>
                         </div>
                     </div>

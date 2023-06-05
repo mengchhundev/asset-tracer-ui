@@ -240,7 +240,7 @@ function RoomListComponent(props) {
                   <td className="w-1/12">
                     <div className="dropdown dropdown-left">
                       <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
-                      <ul tabIndex={0} className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-52">
+                      <ul tabIndex={0} className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-44">
                         <li  onClick={() => dispatch(setRoomDetail(item))}>
                           <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
                         </li>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import question from "../../../assets/images/auth/Exclamation-Mark-Symbol.png"
+import { ExclamationCircleIcon, KeyIcon, LockClosedIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
+import { AiOutlineWarning } from 'react-icons/ai';
 
 function SignOutComponent(props) {
     const navigator = useNavigate()
@@ -11,20 +13,21 @@ function SignOutComponent(props) {
     }
 
     return (
-        <div className="modal" style={{zIndex: "200"}}>
-                <div className="bg-white rounded-lg p-4" >
-                    <div className='px-6 py-3'>
-                        <h1 className='block  font-sp-pro-text-bold text-[18px] text-text-color'>Sign Out</h1>
-                        < hr className='my-2 border-text-color border-opacity-20' />
-                        <p className=' text-center font-sp-pro-text-regular text-text-color'>Are you sure you want to sign out?</p>
-                    </div>
-                    <div className='flex w-full p-2 space-x-4 justify-center'>
-                        <label htmlFor='my-modal' className='border w-1/2 p-2  border-black border-opacity-20 rounded-md text-center cursor-pointer'>Cancel</label>
-                        <div onClick={handleSignOut} className='border w-1/2 p-2 text-white bg-reject border-text-color border-opacity-20 rounded-md text-center'><button>Sign out</button></div>
+        <>
+            <div className="modal">
+                <div className="bg-white modal-box max-w-md rounded-lg " >
+                <ExclamationCircleIcon className='flex w-28 h-28 p-2 rounded-full border-primary justify-center m-auto' />
+                    {/* <img src={question} alt="" className='flex w-28 h-28 border p-3 rounded-full border-primary justify-center m-auto' /> */}
+                    <h1 className='block  font-sp-pro-text-bold text-xl text-reject text-center m-2'>Are you sure you want to sign out?</h1>
+                    <p className='text-center font-sp-pro-text-regular px-4 p-2 leading-6 text-[16px]'>The action you are going to perform is irreversible please confirm!</p>
+                    <div className='flex w-full pt-2 space-x-14 justify-center'>
+                        <label htmlFor='my-modal' className='border w-1/3 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Cancel</label>
+                        <div onClick={handleSignOut} className='border w-1/3 p-2 px-4 text-white bg-reject border-text-color border-opacity-20 rounded-md text-center'><button>Sign out</button></div>
                     </div>
                 </div>
 
             </div>
+            </>
     );
 }
 
