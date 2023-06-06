@@ -23,6 +23,7 @@ import { FiPlus } from 'react-icons/fi';
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
 import LoadingComponent from '../../LoadingComponent';
 import FileUploadService from '../../../redux/services/FileUploadService';
+import axios from 'axios';
 
 export default function ProfileComponent() {
     const [isShowLoading, setIsShowLoading] = useState(false)
@@ -86,10 +87,13 @@ export default function ProfileComponent() {
             if (res.data?.success) {
                 dispatch(setProfileDetail(res.data.payload))
                 if (res.data.payload?.image) {
-                    FileUploadService.getFile(res.data.payload?.image, localStorage.getItem("token")).then(res => {
-                        blobToBase64(res.data).then(res => {
-                            setFile(res)
-                        })
+                    console.log(res.data.payload.image)
+                    FileUploadService.getFile(res.data.payload?.image).then(res => {
+                        if (res?.data) {
+                            blobToBase64(res.data).then(res => {
+                                setFile(res)
+                            })
+                        }
                     })
                 }
             }
@@ -142,7 +146,7 @@ export default function ProfileComponent() {
     };
 
     const handleUpdateProfile = () => {
-        if (selectedFile != null) {
+        if (selectedFile) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
                 UserService.updateProfile(userId, {
@@ -310,7 +314,7 @@ export default function ProfileComponent() {
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
                                         <div className='w-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
-                                            <img src={file} alt="" className="w-full" />
+                                            <img src={file ?? user_placeholder} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>

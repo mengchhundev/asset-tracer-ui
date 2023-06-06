@@ -158,7 +158,7 @@ export default function OrganzationCreateOrJoinComponent() {
                       onChange={formik.handleChange}
                       value={newData.code}
                       name="code"
-                      type='number'
+                      type='text'
                       placeholder='Enter code...'
                       className='relative text-secondary focus:border-primary px-3 w-full outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
                     />

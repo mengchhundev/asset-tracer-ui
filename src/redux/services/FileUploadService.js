@@ -1,4 +1,5 @@
 import api from "./api"
+import apiFile from "./apiFile"
 
 const storeFile = async (file, token) => {
     return await api.post(`/files/file`, file, {
@@ -9,19 +10,8 @@ const storeFile = async (file, token) => {
     })
 }
 
-const getFile = async (fileName, token) => {
-    try {
-        const repsone = await api.get(`files/getFile/{fileName}?fileName=${fileName}`, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`
-            },
-            responseType: 'blob',
-        })
-    return repsone;
-    } catch (e) {
-        console.log("Error", e);
-    }
+const getFile = async (fileName) => {
+    return await apiFile.get(`files/getFile?fileName=${fileName}`)
 }
 
 const FileUploadService = { storeFile, getFile }
