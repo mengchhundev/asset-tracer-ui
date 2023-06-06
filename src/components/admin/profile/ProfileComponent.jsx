@@ -10,7 +10,7 @@ import successIcon from '../../../assets/images/success.png'
 import verifyIcon from '../../../assets/images/false.png'
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfileDetail } from '../../../redux/slices/UserSlice';
+import { setProfileDetail, setProfileImage } from '../../../redux/slices/UserSlice';
 import coconut_trees from '../../../assets/images/profile/coconut_trees.svg'
 import plans from '../../../assets/images/profile/plans.svg'
 import user_placeholder from '../../../assets/images/placeholder/user_placeholder.jpg'
@@ -23,11 +23,12 @@ import { FiPlus } from 'react-icons/fi';
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
 import LoadingComponent from '../../LoadingComponent';
 import FileUploadService from '../../../redux/services/FileUploadService';
+import axios from 'axios';
 
 export default function ProfileComponent() {
     const [isShowLoading, setIsShowLoading] = useState(false)
     const dispatch = useDispatch()
-    const profileDetail = useSelector(state => state.user?.profileDetail)
+    const profileDetail = useSelector(state => state.user.profileDetail)
     const [isShowSuccess, setIsShowSuccess] = useState(false)
     const [isShowErr, setIsShowErr] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
@@ -78,18 +79,20 @@ export default function ProfileComponent() {
         });
     }
 
-    var reader = new FileReader();
     // Get profile detail
     const handleGetProfileDetail = () => {
-        setIsShowLoading(true)
         UserService.getProfileUser(userId).then(res => {
             if (res.data?.success) {
                 dispatch(setProfileDetail(res.data.payload))
+                setProfile(res.data.payload)
                 if (res.data.payload?.image) {
-                    FileUploadService.getFile(res.data.payload?.image, localStorage.getItem("token")).then(res => {
-                        blobToBase64(res.data).then(res => {
-                            setFile(res)
-                        })
+                    FileUploadService.getFile(res.data.payload?.image).then(res => {
+                        if (res?.data) {
+                            blobToBase64(res.data).then(res => {
+                                setFile(res)
+                                dispatch(setProfileImage(res))
+                            })
+                        }
                     })
                 }
             }
@@ -142,7 +145,7 @@ export default function ProfileComponent() {
     };
 
     const handleUpdateProfile = () => {
-        if (selectedFile != null) {
+        if (selectedFile) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
                 UserService.updateProfile(userId, {
@@ -166,6 +169,7 @@ export default function ProfileComponent() {
                 if (res.data?.success) {
                     setIsSuccessUpdateProfile(true)
                     handleGetProfileDetail()
+                    document.getElementById("modal-profile").click()
                 }
             })
         }
@@ -179,11 +183,14 @@ export default function ProfileComponent() {
         }),
         onSubmit: (val, { resetForm }) => {
             handleUpdateProfile()
-            resetForm(val = {})
-            setProfile({ name: "", gender: "", phone: "", address: "" })
             setIsShowFormUpdateProfile(false)
         }
     })
+
+    const handleShowProfile = () => {
+        formikProfile.setValues(profile);
+        
+    }
 
     return (
         <>
@@ -195,6 +202,7 @@ export default function ProfileComponent() {
                     <div className="mt-5 gap-6 bg-white rounded-xl overflow-hidden" style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                         <div className="overflow-x-auto px-5 shadow-sm relative">
                             <label
+                                onClick={handleShowProfile}
                                 id='profile-troggle'
                                 htmlFor="update-profile"
                                 className="absolute flex-row right-5 top-5 bg-bg-primary w-9 h-9 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
@@ -214,7 +222,7 @@ export default function ProfileComponent() {
                                     <div>
                                         <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
                                         <div className='w-28 h-28 border border-bg-primary-strock rounded-full m-auto relative overflow-hidden'>
-                                            {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
+                                            {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : file ? <img src={file} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
                                             <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black bg-opacity-30 shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
                                             <input type="file"
                                                 id='updateProfile'
@@ -248,7 +256,7 @@ export default function ProfileComponent() {
                                                         value={profile.gender}
                                                         name="gender"
                                                         placeholder='Gender'
-                                                        className='text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none'
+                                                        className={`text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none ${profile.gender == "" ? "text-gray" : ""}`}
                                                     >
                                                         <option value="" disabled>Select Gender</option>
                                                         <option value="male">Male</option>
@@ -310,7 +318,7 @@ export default function ProfileComponent() {
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
                                         <div className='w-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
-                                            <img src={file} alt="" className="w-full" />
+                                            <img src={file ?? user_placeholder} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>

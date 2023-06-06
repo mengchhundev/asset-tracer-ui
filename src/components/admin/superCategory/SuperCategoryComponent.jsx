@@ -36,41 +36,7 @@ export default function SuperCategoryComponent() {
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
-    },
-    {
-      id: 3,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
 
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 4,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 5,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    }
   ]);
 
   const [selected, setSelected] = useState(people[0]);
@@ -434,72 +400,9 @@ export default function SuperCategoryComponent() {
         {/* Modal Add normal category */}
         <input type="checkbox" id="normalCategory" className="modal-toggle" />
         <div className="modal">
-          <div className="modal-box relative">
-            <label
-              htmlFor="normalCategory"
-              className="font-semibold text-xl absolute right-8 top-8"
-            >
-              ✕
-            </label>
-            <div className="flex justify-start items-center pb-8">
-              {/* <img src={gift} width={50} /> */}
-              <h3 className="text-lg font-bold  pl-5">
-                Create Normal Category
-              </h3>
-            </div>
-            <div className="border py-5 px-5 flex justify-start items-center">
-              {/* <img src={furniture} width={70} /> */}
-              <div className="flex pl-5 flex-col justify-start">
-                <p className="pb-3">Choose Icon</p>
-                <div className="flex space-x-5">
-                  {/* <button>
-                    <img src={pc} width={50} />
-                  </button>
-                  <button>
-                    <img src={furniture} width={50} />
-                  </button>
-                  <button>
-                    <img src={book} width={50} />
-                  </button>
-                  <button>
-                    <img src={cross} width={50} />
-                  </button> */}
-                </div>
-              </div>
-            </div>
-            <select className="select select-bordered w-full ">
-              <option disabled selected>
-                Super Category
-              </option>
-              <option>Normal Apple</option>
-              <option>Normal Orange</option>
-              <option>Normal Tomato</option>
-            </select>
-            <div className="mb-6">
-              <label className="block mb-2 text-lg mt-4 font-medium  float-left">
-                Name
-              </label>
-              <input
-                type="text"
-                id="base-input"
-                className="bg-gray-50 border text-sm rounded-lg  block w-full p-2.5"
-              />
-            </div>
-            <div className="flex justify-end space-x-4">
-              <div className="modal-action">
-                <label
-                  htmlFor="normalCategory"
-                  className="bg-[#F4F4F4]  font-light hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
-                >
-                  Cancel
-                </label>
-              </div>
-              <div className="modal-action">
-                <label className="bg-pending text-[#F4F4F4] font-light border-2 border-pending hover:bg-pending btn">
-                  Save
-                </label>
-              </div>
-            </div>
+          <div className="modal-box relative rounded-lg">
+
+
           </div>
         </div>
 

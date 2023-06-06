@@ -4,6 +4,7 @@ import { HiOutlineQrcode } from "react-icons/hi";
 import { RiBarcodeFill } from "react-icons/ri";
 import logo from "../../../../assets/images/A_Tracer_logo1.png";
 import { BiCheck, BiHome } from "react-icons/bi";
+
 import { BsGraphUp, BsHouseCheck } from "react-icons/bs";
 
 function AssetViewComponent(props) {
@@ -44,11 +45,10 @@ function AssetViewComponent(props) {
             </div>
           </div>
 
-          {/* frist contect */}
           <div className="lg:flex lg:space-x-6 md:space-x-0 sm:flex-row">
             <div className="">
+              {/* slide */}
               <div className=" ">
-                {/* slide 1 */}
                 <div className="col-span-6 rounded-lg border shadow-sm border-slate-200">
                   <div className="carousel w-full flex top-1/2">
                     <div
@@ -71,23 +71,23 @@ function AssetViewComponent(props) {
                         </a>
                       </div>
                     </div>
+                    
 
-                    {/* slide 2 */}
                     <div
                       id="slide2"
-                      className="carousel-item flex justify-center relative w-full h-[300px]"
+                      className="carousel-item relative w-full flex justify-center"
                     >
-                      <img src={logo} alt="" className="" />
+                      <img src={logo} className="md:h-[300px] sm:h-[200px]" />
                       <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                         <a
                           href="#slide1"
-                          className="w-8 h-8 bg-yellow rounded-full p-1 text-center"
+                          className="w-8 h-8 bg-yellow rounded-full flex items-center justify-center"
                         >
                           ❮
                         </a>
                         <a
                           href="#slide3"
-                          className="w-8 h-8 bg-yellow rounded-full p-1 text-center"
+                          className="w-8 h-8 bg-yellow rounded-full flex items-center justify-center"
                         >
                           ❯
                         </a>
@@ -97,6 +97,7 @@ function AssetViewComponent(props) {
                 </div>
               </div>
 
+              {/* Asset Information */}
               <div className="">
                 <div className="mt-5">
                   <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
@@ -124,7 +125,7 @@ function AssetViewComponent(props) {
                       </div>
                     </div>
 
-                    <div className="p-4 lg:mt-0 md:mt-[-90px]">
+                    <div className="p-4 lg:mt-0 mt-[-90px]">
                       <div>
                         <label
                           htmlFor=""
@@ -168,9 +169,9 @@ function AssetViewComponent(props) {
               </div>
             </div>
 
-            <div className="lg:mt-0 md:mt-4">
+            {/* Identifiers */}
+            <div className="lg:mt-0 md:mt-4 mt-5">
               <div className="col-span-6">
-                {/* Identifiers */}
                 <div className="mb-3">
                   <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
                     Identifiers

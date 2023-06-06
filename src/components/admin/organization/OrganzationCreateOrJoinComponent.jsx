@@ -152,13 +152,13 @@ export default function OrganzationCreateOrJoinComponent() {
 
                 <form onSubmit={formik.handleSubmit} className='flex-grow justify-start'>
                   <div className="text-left">
-                    <label className="block text-md ml-1 leading-6 text-secondary font-sp-pro-text-semibold">Join organization with a code</label>
+                    <label className="block text-md ml-1 leading-6 text-secondary font-sp-pro-text-regular">Join organization with a code</label>
                     <input
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
                       value={newData.code}
                       name="code"
-                      type='number'
+                      type='text'
                       placeholder='Enter code...'
                       className='relative text-secondary focus:border-primary px-3 w-full outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
                     />

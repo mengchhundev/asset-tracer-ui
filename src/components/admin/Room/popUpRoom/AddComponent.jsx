@@ -2,26 +2,25 @@ import { BookmarkIcon, BookmarkSquareIcon, ChevronDownIcon, CloudArrowUpIcon, Ho
 import upload from '../../../../assets/images/Room/Upload.png';
 import { Listbox, Transition } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
 import { storage } from "../../../../redux/services/googleAuth/firebase";
-import {ref,uploadBytes} from 'firebase/storage'
+import { ref, uploadBytes } from 'firebase/storage'
 import { v4 as uuid } from 'uuid';
+import RoomService from "../../../../redux/services/RoomService";
+import FileUploadService from "../../../../redux/services/FileUploadService";
 
 function AddComponent(props) {
     const createType = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
     const createFloor = ["GF", "F1", "F2", "F3", "F4"];
-    // const createBy = ["Hong meng", "Meng hout", "MnoR"];
+
     const [floor, setSelectedfloor] = useState("Room floor");
     // const [selectedCreate, setSelectedCreate] = useState("Room By");
     const [type, setSelectedRoom] = useState("Room type");
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
     const [selectedFile, setSelectedFile] = useState("");
+    const [selectUi, setSelectUui] = useState("")
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0]);
     };
-    let unique_id = "";
-    
-
     useEffect(() => {
         if (selectedFile) {
             const reader = new FileReader();
@@ -38,53 +37,36 @@ function AddComponent(props) {
             reader.readAsDataURL(selectedFile);
         }
     }, [selectedFile]);
-    const handleUpload = () => {
-
-        unique_id = uuid();
-        
-        if (selectedFile) {
-            const uploadTask = ref(storage, `images/${unique_id}`);
-            uploadBytes(uploadTask, selectedFile).then((res) => {
+    console.log(selectedFile);
+    let formData = new FormData()
+    const handleimage = () => {
+        if (selectedFile != null) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
                 console.log(res);
+            }).catch((err) => {
+                console.error(err);
             });
         }
-    };
-
-    // useEffect(() => {
-    //     if (selectedFile) {
-    //         const uploadTask = Storage.ref(`images/${selectedFile.name}`).put(selectedFile);
-    //         uploadTask.on(
-    //             'state_changed',
-    //             (snapshot) => {
-    //                 // You can track the upload progress here if needed
-    //             },
-    //             (error) => {
-    //                 // Handle any errors during the upload
-    //             },
-    //             () => {
-    //                 // Handle successful upload
-    //                 console.log('Image uploaded successfully!');
-    //             }
-    //         );
-    //     }
-    // }, [selectedFile]);
+    }
 
 
 
-    const id = localStorage.getItem("id");
-    const token = localStorage.getItem("token");
-    var decoded = jwt_decode(token);
-    var userId = decoded.id;
+
+    // console.log("selectUi", selectUi);
+    const organization = sessionStorage.getItem("organization");
+    const getOrganizationDetail = JSON.parse(organization)
+    const organizationId = getOrganizationDetail.id;
     const [data, setData] = useState();
 
     useEffect(() => {
         setData((prevData) => ({
             ...prevData,
+            organizationId,
             floor,
             type,
-            id
         }));
-    }, [floor, type]);
+    }, [floor, type, selectUi]);
 
     const handleChang = (event) => {
         const { name, value } = event.target;
@@ -92,16 +74,28 @@ function AddComponent(props) {
             ...prevData,
             [name]: value
         }));
+        organizationId;
         setSelectedfloor(name === "floor" ? value : floor);
         setSelectedRoom(name === "room" ? value : type);
-
     };
 
     const handlesubmit = () => {
-
+        if (selectedFile != null) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+                RoomService.addRoom({...data, image: res.data.payload})
+                    .then((res) => {
+                        console.log(res);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }).catch((err) => {
+                console.error(err);
+            });
+        }
     }
     return (
-
         <>
             <div className="modal" >
                 {/* <div className="modal-box" > */}
@@ -129,16 +123,15 @@ function AddComponent(props) {
                                                         alt="Selected File"
                                                         className={`${imageDimensions.width > imageDimensions.height ? 'w-[300px]' : 'h-auto'} ${imageDimensions.width < imageDimensions.height ? 'h-[195px]' : 'w-auto'} block rounded-md object-center justify-center  items-center`}
 
+
                                                     />
                                                 )}
                                                 {!selectedFile && (
                                                     <>
                                                         <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
                                                         <p className="fileInfo py-4">Upload Invoice picture, max size 20MB</p>
-                                                        
                                                     </>
                                                 )}
-                                        
                                             </div>
                                         </div>
                                         <input
@@ -159,11 +152,10 @@ function AddComponent(props) {
                                             style={{ display: 'none' }}
                                         />
                                     </label>
+                                    {/* <button onClick={handleimage} className="bg-primary p-5">upload</button> */}
                                 </div>
-
                             </div>
-                         
-                            <button className="flex w-5/6 py-2 mt-3 shadow-md m-auto bg-blue-200 rounded-sm text-white justify-center" onClick={handleUpload}>Upload</button>
+
                         </div>
                         <div className="xl:w-2/3 md:w-1/2 ">
                             <div className="  item-center w-full rounded-xl">
@@ -171,6 +163,7 @@ function AddComponent(props) {
                                     <div className="xl:flex lg:flex-row justify-between">
                                         <div className="w-full xl:p-2 lg:py-2 p-2" >
                                             <label className="text-xs" htmlFor="">Room Name</label><br />
+
                                             <input onChange={handleChang} name="name" className="border-[#E1E9EE] h-8 font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2  outline-none focus:border-primary placeholder-text-color placeholder-opacity-30 text-xs"
                                                 type="text"
                                                 placeholder="Room Name"
@@ -179,12 +172,11 @@ function AddComponent(props) {
                                         <div className="w-full xl:p-2 lg:py-2 p-2">
                                             <label htmlFor="" className="" >Creat Date</label> <br />
                                             <input onChange={handleChang} name="createdAt" className="border-[#E1E9EE]  font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2 h-8 outline-none focus:border-primary text-xs" type="date"
-                                             
                                             />
                                         </div>
-
                                     </div>
                                     <div className="xl:flex justify-between">
+
                                         <div className="w-full xl:p-2 lg:py-2 p-2">
                                             <label htmlFor="" className="" >Room Type</label>
                                             <Listbox as="div" className={"mt-1"} value={type} onChange={setSelectedRoom}>
@@ -318,26 +310,27 @@ function AddComponent(props) {
                                                     </>
                                                 )}
                                             </Listbox>
-                                        </div>
-                                    </div>
-                                    <div className="xl:p-3 lg:py-2 p-2">
-                                        <div>
-                                            <label htmlFor="" className="" >Description</label>
-                                            <textarea onChange={handleChang} name="description" className="border-[#E1E9EE] border rounded-md mt-1 text-text-color p-2 w-full  outline-none focus:border-primary" type="text" id="" cols="20" rows="3"></textarea>
-                                        </div>
-                                    </div>
 
+                                        </div>
+                                    </div>
+                                    <div className="">
+                                        <div className="xl:p-3 lg:py-2 p-2">
+                                            <div>
+                                                <label htmlFor="" className="" >Description</label>
+                                                <textarea onChange={handleChang} name="description" className="border-[#E1E9EE] border rounded-md mt-1 text-text-color p-2 w-full  outline-none focus:border-primary" type="text" id="" cols="20" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex space-x-5 p-5 justify-end flex-row w-full">
+                                        <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Cancel</label>
+                                        <label className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer text-white  bg-primary  ' onClick={handlesubmit}>Save</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex space-x-5 p-5 justify-end flex-row w-full">
-                                <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Cancel</label>
-                                <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer text-white  bg-primary '>Save</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* </div> */}
-            </div>
+            </div >
         </>
 
     );

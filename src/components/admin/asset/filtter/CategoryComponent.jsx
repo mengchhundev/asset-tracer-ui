@@ -31,12 +31,12 @@ export default function CategoryComponent() {
         );
   return (
     <div className="mt-1">
-      <div className="z-20">
-        <Combobox value={selected} onChange={setSelected} className="z-20">
-          <div className="relative z-20">
+      <div className="">
+        <Combobox value={selected} onChange={setSelected} className="">
+          <div className="relative z-10">
             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
               <Combobox.Input
-                className="w-full border-[#E1E9EE] border rounded-lg py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                className="w-full border-[#E1E9EE] border rounded-lg py-2.5  pl-3 pr-10 text-xs outline-none focus:border-primary text-text-color text-opacity-50"
                 displayValue={(person) => person.name}
                 onChange={(event) => setQuery(event.target.value)}
               />

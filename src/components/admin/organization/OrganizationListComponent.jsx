@@ -138,6 +138,7 @@ export default function OrganizationListComponent() {
                             <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
                                 <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
                                     <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+                                    {/* <p>{list.id}</p> */}
                                 </div>
                             </div>
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>

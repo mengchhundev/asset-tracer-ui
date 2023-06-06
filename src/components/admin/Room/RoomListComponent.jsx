@@ -10,6 +10,7 @@ import UpdateComponent from "./popUpRoom/UpdateComponent";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { BsPlus } from "react-icons/bs";
+import jwt_decode from "jwt-decode";
 const people = [
   { id: 1, name: "Room" },
   { id: 2, name: "Arlene Mccoy" },
@@ -25,6 +26,15 @@ const people = [
 function RoomListComponent(props) {
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
+  // userid
+  const token = localStorage.getItem("token")
+  const decodedToken = jwt_decode(token);
+  const id = decodedToken.id;
+  console.log(id);
+  // organization id
+  const organization = sessionStorage.getItem("organization");
+  const getOrganizationDetail = JSON.parse(organization)
+  const organizationId = getOrganizationDetail.id;
 
   const filteredPeople =
     query === ""
@@ -37,8 +47,7 @@ function RoomListComponent(props) {
       );
   const dispatch = useDispatch();
   const getData = useSelector((state) => state.room.data);
-  const divClassName =
-    "flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1";
+  const divClassName = "flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1";
   const startIndex = divClassName.indexOf("Showing ") + 8;
   const endIndex = divClassName.indexOf("-");
   const index = divClassName.substring(startIndex, endIndex).trim();
@@ -66,14 +75,14 @@ function RoomListComponent(props) {
 
   return (
     <main
-    className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
-    style={{
-      boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-    }}
+      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
+      style={{
+        boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
+      }}
     >
       <div className="gap-6 overflow-hidden z-10">
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 text">
-        <div className="md:pb-0 sm:pb-2 text-text-colors">
+          <div className="md:pb-0 sm:pb-2 text-text-colors">
             <h2 className="text-2xl font-sp-pro-text-semibold">
               All <span className="text-pending">Room</span> Management
             </h2>
@@ -147,10 +156,9 @@ function RoomListComponent(props) {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -158,17 +166,15 @@ function RoomListComponent(props) {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -207,33 +213,36 @@ function RoomListComponent(props) {
         >
           <table className="table w-full text-sm font-sp-pro-text-semibold text-text-color">
             <thead>
-            <tr className="text-sm font-sp-pro-text-semibold text-text-color">
-                  <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
-                  <td className="w-3/12 bg-bg-main py-3">
-                    Room Name
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3">
-                    Type
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3 text-center">
-                    Floor
-                  </td>
-                  <td className="w-3/12 bg-bg-main py-3 text-center">
-                    Description
-                  </td>
-                  <td className="w-1/12 bg-bg-main py-3 text-center">
-                    Action
-                  </td>
-                </tr>
+              <tr className="text-sm font-sp-pro-text-semibold text-text-color">
+                <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
+                <td className="w-3/12 bg-bg-main py-3">
+                  Room Name
+                </td>
+                <td className="w-2/12 bg-bg-main py-3">
+                  Type
+                </td>
+                <td className="w-2/12 bg-bg-main py-3 text-center">
+                  Floor
+                </td>
+                <td className="w-3/12 bg-bg-main py-3 text-center">
+                  Description
+                </td>
+                <td className="w-1/12 bg-bg-main py-3 text-center">
+                  Action
+                </td>
+              </tr>
             </thead>
             <tbody className="">
-              {getData.map((item, index) => (
+
+              {getData.map((item, index) => {
+                  if(item.organization.id == organizationId ){
+                    return(
                 <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
                   <td className="w-1/12 px-10">{index + 1}</td>
                   <td className="w-3/12">
                     <span className={`bg-accept bg-opacity-20 p-2 text-accept rounded-full mr-5`}>{item.name.substring(0, 2)}</span>
                     {item.name}
-                    </td>
+                  </td>
                   <td className="w-2/12">{item.type}</td>
                   <td className="w-2/12">{item.floor}</td>
                   <td className="w-3/12">{item.description}</td>
@@ -241,18 +250,23 @@ function RoomListComponent(props) {
                     <div className="dropdown dropdown-left">
                       <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
                       <ul tabIndex={0} className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-44">
-                        <li  onClick={() => dispatch(setRoomDetail(item))}>
+                        <li onClick={() => dispatch(setRoomDetail(item))}>
                           <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
                         </li>
                         <li className=''>
                           <label htmlFor="update" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label>
-                          </li>
-                      <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
-                    </ul>
+                        </li>
+                        <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
+                      </ul>
                     </div>
                   </td>
                 </tr>
-              ))}
+             ) }
+              else{
+
+              }
+               
+            })}
             </tbody>
           </table>
           <input type="checkbox" id="detail" className="modal-toggle" />
@@ -264,32 +278,32 @@ function RoomListComponent(props) {
         </div>
         <DetailComponent setIsOpen={setIsOpen} isOpen={isOpen} />
 
-       {/* pagination */}
-       <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-            <div className="">Showing data 1 to 8 of 256K entries</div>
-            <div id="react-paginate" className="">
-              <ReactPaginate
-                nextLabel=" >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="< "
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-              />
-            </div>
+        {/* pagination */}
+        <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+          <div className="">Showing data 1 to 8 of 256K entries</div>
+          <div id="react-paginate" className="">
+            <ReactPaginate
+              nextLabel=" >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={pageCount}
+              previousLabel="< "
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              previousLinkClassName="page-link"
+              nextClassName="page-item"
+              nextLinkClassName="page-link"
+              breakLabel="..."
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination"
+              activeClassName="active"
+              renderOnZeroPageCount={null}
+            />
           </div>
+        </div>
       </div>
     </main >
   );
