@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Combobox } from "@headlessui/react";
 import logo from '../../../../src/assets/images/A_Tracer_logo1.png';
 import * as Yup from "yup";
@@ -89,23 +89,25 @@ export default function OrganzationCreateOrJoinComponent() {
   const item = useSelector(state => state.organization?.item)
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const navigator = useNavigate()
-  const [isSuccessJoin, setIsSuccessJoin] = useState(false)
-
+  const [isShowJoinPopup, setIsShowJoinPopup] = useState(false)
+  const [isJoinSuccess, setIsJoinSuccess] = useState(false)
   const [pageCount, setPageCount] = useState(2);
 
   const handleJoinOrganization = () => {
     OrganizationService.joinOrganization(newData, localStorage.getItem("token")).then(res => {
       if (res.data?.success) {
-        setIsSuccessJoin(true)
+        setIsShowJoinPopup(true)
+        setIsJoinSuccess(true)
       }
     }, err => {
       console.log(err)
+      setIsShowJoinPopup(true)
+      setIsJoinSuccess(false)
     })
   }
 
   const handleInputChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value })
-    console.log(newData)
   };
 
   const formik = useFormik({
@@ -115,6 +117,8 @@ export default function OrganzationCreateOrJoinComponent() {
     }),
     onSubmit: (val, { resetForm }) => {
       handleJoinOrganization()
+      resetForm((val = { code: "" }));
+      setNewData({ code: "" });
     }
   });
 
@@ -132,7 +136,6 @@ export default function OrganzationCreateOrJoinComponent() {
     getAllSuperCategory(event.selected + 1);
     setI(event.selected * 10 + 1);
   };
-
 
   return (
     <>
@@ -175,24 +178,26 @@ export default function OrganzationCreateOrJoinComponent() {
         <input type="checkbox" id="create-organization" className="modal-toggle" />
         <CreateOrganizatoinComponent className="modal" />
       </main>
-      {isSuccessJoin &&
+      {isShowJoinPopup &&
         <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
           <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
             <div className="flex flex-col justify-end">
               <div className="relative w-40 m-auto pb-7">
-                <img src={suc_pic} alt="Signup Picture" className="w-28 m-auto" />
+                <img src={isJoinSuccess ? suc_pic : err_pic} alt="Signup Picture" className="w-28 m-auto" />
               </div>
-              <p className={`text-2xl text-center font-sp-pro-text-semibold ${setIsShowErr ? 'text-custom-red' : 'text-custom-blue'}`}>
-                Success
+              <p className={`text-2xl text-center font-sp-pro-text-semibold ${isJoinSuccess ? 'text-custom-blue' : 'text-custom-red'}`}>
+                {isJoinSuccess ? 'Success' : ''}
               </p>
               <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
-                {setIsShowErr ? 'This email is already registered' : <>
-                  You have joined successfully! <span className='text-blue-700'> Please wait admin approving </span>
+                {!isJoinSuccess ? <>
+                  You already joined! <br /> <span className='text-blue-700'> Please wait admin approving </span>
+                </> : <>
+                  You have joined successfully!  <br /> <span className='text-blue-700'> Please wait admin approving </span>
                 </>}
               </p>
               <button
-                onClick={() => setIsSuccessJoin(false)}
-                className={`bg-custom-blue text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
+                onClick={() => setIsShowJoinPopup(false)}
+                className={`${isJoinSuccess ? 'bg-custom-blue' : 'bg-custom-red'} text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
               >
                 <span>Close</span>
               </button>

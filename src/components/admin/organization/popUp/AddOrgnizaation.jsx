@@ -11,6 +11,9 @@ function AddOrgnizaation(props) {
     const [selectedfloor, setSelectedfloor] = useState("Room floor");
     const [selectedCreate, setSelectedCreate] = useState("Room By");
     const [selectedRoom, setSelectedRoom] = useState("Room type");
+
+
+
     return (
         <>
             <div className="modal">
@@ -28,9 +31,16 @@ function AddOrgnizaation(props) {
                         <div className='col-span-4'>
                             <div className='shadow-md py-5'>
                                 <div className='border border-dotted block justify-center text-center m-10  p-5  border-primary rounded-lg'>
-                                    <img className="block m-auto mt-5" src={upload} alt="" />
+                                    <img className="block m-auto mt-5" src={selectedFile != null ? selectedFile : upload} />
                                     <p className='mt-5'>Upload Invoice picture, max size 20MB</p>
-                                    <button className='shadow-md px-5 py-2 text-12 mt-10'>Browse</button>
+                                    <label htmlFor='updateLogo' className='shadow-md px-5 py-2 text-12 mt-10'>Browse</label>
+                                    <input type="file"
+                                        id='updateLogo'
+                                        name="file"
+                                        accept="image/*"
+                                        className='hidden'
+                                        onChange={handleFileSelect}
+                                    />
                                 </div>
                             </div>
                             <div className="flex justify-center pt-5 w-full">
