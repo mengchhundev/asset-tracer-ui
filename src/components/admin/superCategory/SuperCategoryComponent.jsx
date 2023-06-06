@@ -36,41 +36,7 @@ export default function SuperCategoryComponent() {
       email: "hrdcenter@gamil.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
-    },
-    {
-      id: 3,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 4,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 5,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    }
+  
   ]);
 
   const [selected, setSelected] = useState(people[0]);

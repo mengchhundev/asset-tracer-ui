@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // Icons
 import {
-    RiLogoutCircleRLine,
     RiArrowRightSLine,
     RiMenu3Line,
-    RiSettings4Fill,
 } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SignOutComponent from "./popUp/SignOutComponent";
-import { IoMdNotifications } from "react-icons/io";
-import logo from '../../assets/images/A_Tracer_logo1.png'
 import '../../style/scrollbar.css'
 import user_placeholder from '../../assets/images/placeholder/user_placeholder.jpg'
+import jwt_decode from "jwt-decode";
+import FileUploadService from "../../redux/services/FileUploadService";
+import { setProfileDetail, setProfileImage } from "../../redux/slices/UserSlice";
 
 export default function SidebarComponent() {
     let path = window.location.pathname;
@@ -34,6 +33,31 @@ export default function SidebarComponent() {
     const item = useSelector(state => state?.organization?.item)
     const profileDetail = useSelector(state => state.user.profileDetail)
     const profileImage = useSelector(state => state.user.profileImage)
+    const token = localStorage.getItem("token")
+    var getToken = jwt_decode(token);
+
+    const dispatch = useDispatch()
+
+    function blobToBase64(blob) {
+        return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    useEffect(() => {
+        if (getToken?.image) {
+            FileUploadService.getFile(getToken.image).then(res => {
+                if (res?.data) {
+                    blobToBase64(res.data).then(res => {
+                        dispatch(setProfileImage(res))
+                    })
+                }
+            })
+        }
+        dispatch(setProfileDetail(getToken))
+    }, [])
 
     const [key, setKey] = useState("")
 
@@ -374,7 +398,7 @@ export default function SidebarComponent() {
                         onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("") }}
                         to="/profile"
                         className="flex hover:bg-slate-100 mt-2 rounded-xl items-center py-2 ml-[-5px]  transition-colors gap-1 justify-center cursor-pointer">
-                        <div className="w-12 h-12 overflow-hidden rounded-full">
+                        <div className="w-10 h-10 mr-2 overflow-hidden rounded-full">
                             <img
                                 src={profileImage != null ? profileImage : user_placeholder}
                                 className="w-full rounded-full"
