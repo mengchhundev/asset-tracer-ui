@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     profile: {},
-    profileDetail: {}
+    profileDetail: {
+        name: "", gender: "", phone: "", address: "", image: ""
+    }
 }
 
 export const userSlice = createSlice({
