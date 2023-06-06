@@ -142,27 +142,25 @@ export default function ProfileComponent() {
     };
 
     const handleUpdateProfile = () => {
-        if (selectedFile) {
-            if (selectedFile != null) {
-                formData.append("file", selectedFile)
-                FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-                    UserService.updateProfile(userId, {
-                        name: profile.name,
-                        gender: profile.gender,
-                        phone: profile.phone,
-                        address: profile.address,
-                        image: res.data.payload
-                    }).then(res => {
-                        if (res.data?.success) {
-                            setIsSuccessUpdateProfile(true)
-                            handleGetProfileDetail()
-                            setTimeout(() => {
-                                document.getElementById("modal-profile").click()
-                            }, 100)
-                        }
-                    })
+        if (selectedFile != null) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+                UserService.updateProfile(userId, {
+                    name: profile.name,
+                    gender: profile.gender,
+                    phone: profile.phone,
+                    address: profile.address,
+                    image: res.data.payload
+                }).then(res => {
+                    if (res.data?.success) {
+                        setIsSuccessUpdateProfile(true)
+                        handleGetProfileDetail()
+                        setTimeout(() => {
+                            document.getElementById("modal-profile").click()
+                        }, 100)
+                    }
                 })
-            }
+            })
         } else {
             UserService.updateProfile(userId, profile).then(res => {
                 if (res.data?.success) {
