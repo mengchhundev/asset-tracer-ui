@@ -11,7 +11,10 @@ import api from '../../redux/services/api';
 import UserService from '../../redux/services/UserService';
 import RegisterPopUpComponent from './popup/RegisterPopUpComponent';
 import SpinnerComponent from '../admin/spinner/SpinnerComponent';
+import jwt_decode from "jwt-decode";
+
 import LoadingComponent from '../LoadingComponent';
+import FileUploadService from '../../redux/services/FileUploadService';
 export default function SignInComponent() {
     const [message, setMessage] = useState()
     const [isShowErr, setIsShowErr] = useState(false)
@@ -69,13 +72,21 @@ export default function SignInComponent() {
         password: Yup.string().required("Required"),
     });
 
+    function blobToBase64(blob) {
+        return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    }
+
     return (
         <>
             {isShowErr && (
                 <WarningPopUpComponents setIsShowErr={setIsShowErr} message={message} />
             )}
 
-            {loading && <LoadingComponent/>}
+            {loading && <LoadingComponent />}
 
             <div className="h-screen w-full m-auto font-sp-pro-text-regular md:w-full text-text-color">
                 <div className="flex h-full items-center justify-center px-10 md:justify-around z-10">
@@ -88,12 +99,22 @@ export default function SignInComponent() {
                             onSubmit={values => {
                                 setLoading(true)
                                 UserService.signin(values).then(res => {
-                                    localStorage.setItem("token", res.data.payload.token)                 
+                                    localStorage.setItem("token", res.data.payload.token)
+                                    let getToken = jwt_decode(res.data.payload.token)
                                     if (localStorage.getItem("token")) {
+                                        if (getToken?.image) {
+                                            FileUploadService.getFileV2(getToken.image, res.data.payload.token).then(res => {
+                                                if (res?.data) {
+                                                    blobToBase64(res.data).then(res => {
+                                                        localStorage.setItem("profileImage", res)
+                                                    })
+                                                }
+                                            })
+                                        }
                                         setTimeout(() => {
                                             setLoading(false)
                                             navigator("/organization");
-                                        }, 2000)
+                                        }, 1000)
                                     }
                                 }, err => {
                                     setLoading(false)
@@ -104,7 +125,7 @@ export default function SignInComponent() {
                                     else if (err.response.data.title == "Not Found Exception") {
                                         setMessage("Account does not exist! Please register your account.")
                                     }
-                                    else if(err.response.data.title = "Password not correct") {
+                                    else if (err.response.data.title = "Password not correct") {
                                         setMessage("Your email or password is incorrect")
                                     }
                                 })
@@ -149,7 +170,7 @@ export default function SignInComponent() {
                                         type="submit"
                                         className="bg-primary hover:bg-pending-hover w-full text-white font-sp-pro-text-regular py-2 px-4 my-6 rounded"
                                     >
-                                        
+
                                         Sign in
                                     </button>
                                     {/* </div> */}

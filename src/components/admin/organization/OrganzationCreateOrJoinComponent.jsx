@@ -26,6 +26,8 @@ import avatar04 from "../../../assets/images/organization/avatar04.png";
 import avatar05 from "../../../assets/images/organization/organization.png";
 import '../../../style/shadow.css';
 import { FiPlus } from 'react-icons/fi';
+import err_pic from '../../../assets/images/false.png'
+import suc_pic from '../../../assets/images/success.png'
 
 const people = [
   { id: 1, name: 'Short by' },
@@ -44,7 +46,7 @@ let organizationList = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     name: "HRD Center",
     owner: "Sok Polen",
     memebers: [
@@ -52,7 +54,7 @@ let organizationList = [
     ]
   },
   {
-    id: 1,
+    id: 3,
     name: "HRD Center",
     owner: "Sok Polen",
     memebers: [
@@ -60,7 +62,7 @@ let organizationList = [
     ]
   },
   {
-    id: 1,
+    id: 4,
     name: "HRD Center",
     owner: "Sok Polen",
     memebers: [
@@ -68,7 +70,7 @@ let organizationList = [
     ]
   },
   {
-    id: 1,
+    id: 5,
     name: "HRD Center",
     owner: "Sok Polen",
     memebers: [
@@ -87,16 +89,14 @@ export default function OrganzationCreateOrJoinComponent() {
   const item = useSelector(state => state.organization?.item)
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const navigator = useNavigate()
-
+  const [isSuccessJoin, setIsSuccessJoin] = useState(false)
 
   const [pageCount, setPageCount] = useState(2);
 
   const handleJoinOrganization = () => {
     OrganizationService.joinOrganization(newData, localStorage.getItem("token")).then(res => {
       if (res.data?.success) {
-        dispatch(setItem(res.data.payload))
-        sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-        navigator("/dashboard", { state: { hideOrganizationBar: true } })
+        setIsSuccessJoin(true)
       }
     }, err => {
       console.log(err)
@@ -127,7 +127,6 @@ export default function OrganzationCreateOrJoinComponent() {
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
       )
-
 
   const handlePageClick = (event) => {
     getAllSuperCategory(event.selected + 1);
@@ -176,7 +175,31 @@ export default function OrganzationCreateOrJoinComponent() {
         <input type="checkbox" id="create-organization" className="modal-toggle" />
         <CreateOrganizatoinComponent className="modal" />
       </main>
-
+      {isSuccessJoin &&
+        <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
+          <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
+            <div className="flex flex-col justify-end">
+              <div className="relative w-40 m-auto pb-7">
+                <img src={suc_pic} alt="Signup Picture" className="w-28 m-auto" />
+              </div>
+              <p className={`text-2xl text-center font-sp-pro-text-semibold ${setIsShowErr ? 'text-custom-red' : 'text-custom-blue'}`}>
+                Success
+              </p>
+              <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
+                {setIsShowErr ? 'This email is already registered' : <>
+                  You have joined successfully! <span className='text-blue-700'> Please wait admin approving </span>
+                </>}
+              </p>
+              <button
+                onClick={() => setIsSuccessJoin(false)}
+                className={`bg-custom-blue text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
+              >
+                <span>Close</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
       <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden">
         <div className="gap-6 overflow-hidden z-10">
           <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
@@ -321,7 +344,7 @@ export default function OrganzationCreateOrJoinComponent() {
                     </td>
                   </tr>
                   {organizationList.map(list => (
-                    <tr className="text-sm font-sp-pro-text-regular text-center">
+                    <tr key={list.id} className="text-sm font-sp-pro-text-regular text-center">
                       <td className="w-1/12 py-3 text-center ">
                         1
                       </td>

@@ -35,7 +35,8 @@ export default function SidebarComponent() {
     const profileImage = useSelector(state => state.user.profileImage)
     const token = localStorage.getItem("token")
     var getToken = jwt_decode(token);
-
+    const [file, setFile] = useState()
+    
     const dispatch = useDispatch()
 
     function blobToBase64(blob) {
@@ -48,16 +49,17 @@ export default function SidebarComponent() {
 
     useEffect(() => {
         if (getToken?.image) {
-            FileUploadService.getFile(getToken.image).then(res => {
-                if (res?.data) {
-                    blobToBase64(res.data).then(res => {
-                        dispatch(setProfileImage(res))
-                    })
-                }
-            })
+            // FileUploadService.getFile(getToken.image).then(res => {
+            //     if (res?.data) {
+            //         blobToBase64(res.data).then(res => {
+            //             dispatch(setProfileImage(res))
+            //         })
+            //     }
+            // })
+            setFile(FileUploadService.getImage(getToken.image))
         }
         dispatch(setProfileDetail(getToken))
-    }, [])
+    }, [token])
 
     const [key, setKey] = useState("")
 
@@ -399,8 +401,12 @@ export default function SidebarComponent() {
                         to="/profile"
                         className="flex hover:bg-slate-100 mt-2 rounded-xl items-center py-2 ml-[-5px]  transition-colors gap-1 justify-center cursor-pointer">
                         <div className="w-10 h-10 mr-2 overflow-hidden rounded-full">
+                            {/* <img
+                                src={profileImageToken != null ? profileImageToken : profileImage != null ? profileImage : user_placeholder}
+                                className="w-full rounded-full"
+                            /> */}
                             <img
-                                src={profileImage != null ? profileImage : user_placeholder}
+                                src={file}
                                 className="w-full rounded-full"
                             />
                         </div>

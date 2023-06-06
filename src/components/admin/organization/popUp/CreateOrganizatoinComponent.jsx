@@ -89,9 +89,6 @@ export default function CreateOrganizatoinComponent(props) {
                                         <input type="file" className='hidden' id='image' onChange={handleChange} />
                                     </div>
                                 </div>
-                                {/* <div className='mt-3'>
-                                    <button className='shadow-sm rounded-md border border-none bg-reject-light w-full text-reject px-5 py-1.5 my-2 flex justify-center items-center gap-1'><BsTrash /> Remove</button>
-                                </div> */}
                             </div>
                         </div>
                         <div className='flex-grow mt-10 lg:mt-0'>
