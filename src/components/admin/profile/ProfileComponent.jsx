@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import hongmenng from "../../../assets/images/Iconteam/hongmenng.png";
 import { Tab } from '@headlessui/react';
 import { useState } from 'react';
 import { useFormik } from 'formik';
@@ -22,110 +21,25 @@ import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
 import { FiPlus } from 'react-icons/fi';
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
-import { ref, list, listAll, getDownloadURL, uploadBytes, getStorage } from 'firebase/storage'
-import { storage } from "../../../redux/services/googleAuth/firebase";
-import { v4 as uuid } from 'uuid';
 import LoadingComponent from '../../LoadingComponent';
+import FileUploadService from '../../../redux/services/FileUploadService';
 
 export default function ProfileComponent() {
     const [isShowLoading, setIsShowLoading] = useState(false)
-    const [img, setImg] = useState("")
-    const storage = getStorage();
-    const getImage = async (fileName) => {
-        return await getDownloadURL(ref(storage, `images/${fileName}`));
-    }
-
-    // useEffect(() => {
-    //     const fetchImages = async () => {
-    //         const storageRef = ref(storage, 'images/');
-    //         const result = await listAll(storageRef);
-    //         const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
-    //         return Promise.all(urlPromises);
-    //     };
-
-    //     const loadImages = async () => {
-    //         const urls = await fetchImages();
-    //         setFiles(urls);
-    //     };
-    //     loadImages();
-
-    // }, []);
-
     const dispatch = useDispatch()
     const profileDetail = useSelector(state => state.user?.profileDetail)
     const [isShowSuccess, setIsShowSuccess] = useState(false)
     const [isShowErr, setIsShowErr] = useState(false)
     const [isSuccessUpdateProfile, setIsSuccessUpdateProfile] = useState(false)
     const [isShowFormUpdateProfile, setIsShowFormUpdateProfile] = useState(false)
+    const [fileName, setFileName] = useState()
+    const [file, setFile] = useState()
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
-    var [fileName, setFileName] = useState('')
-    const [uniqueId, setUniqueId] = useState("")
-    // Upload file
-    var unique_id = "";
-    const [selectedFile, setSelectedFile] = useState('')
-    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
-    const handleFileSelect = (event) => {
-        setSelectedFile(event.target.files[0]);
-    };
-
-    useEffect(() => {
-        if (selectedFile) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const image = new Image();
-                image.onload = () => {
-                    setImageDimensions({
-                        width: image.width,
-                        height: image.height,
-                    });
-                };
-                image.src = event.target.result;
-            };
-            reader.readAsDataURL(selectedFile);
-        }
-    }, [selectedFile]);
-
-    const handleUploadFile = () => {
-        setUniqueId(uuid())
-        if (selectedFile) {
-            const uploadTask = ref(storage, `images/${uniqueId}`);
-            uploadBytes(uploadTask, selectedFile)
-        }
-    };
-
-    // Get profile detail
-    const handleGetProfileDetail = () => {
-        setIsShowLoading(true)
-        UserService.getProfileUser(userId).then(res => {
-            if (res.data?.success) {
-                if (res.data?.payload?.image) {
-                    getImage(res.data.payload.image).then(res => {
-                        setImg(res)
-                        setIsShowLoading(false)
-                    }, err => {
-                        setIsShowLoading(false)
-                    })
-                    dispatch(setProfileDetail(res.data.payload))
-                } else {
-                    setIsShowLoading(false)
-                }
-            }
-        })
-    }
-
-    useEffect(() => {
-        handleGetProfileDetail()
-    }, [])
-
     const [newData, setNewData] = useState({
         oldPassword: "", newPassword: "", confirmNewPassword: ""
     })
-
-    const handleInputChange = (e) => {
-        setNewData({ ...newData, [e.target.name]: e.target.value })
-    };
 
     // Change Password
     const formik = useFormik({
@@ -133,12 +47,12 @@ export default function ProfileComponent() {
         validationSchema: Yup.object().shape({
             oldPassword: Yup.string().required("Current password is required"),
             newPassword: Yup.string().required("New password is required"),
-            confirmNewPasswrod: Yup.string().required("Confirm new password is required").oneOf([Yup.ref('newPassword'), null], 'Password not match'),
+            confirmNewPassword: Yup.string().required("Confirm new password is required").oneOf([Yup.ref('newPassword'), null], 'Password not match'),
         }),
         onSubmit: (val, { resetForm }) => {
-            handleChangePassword()
             resetForm(val = { oldPassword: "", newPassword: "", confirmNewPasswrod: "" })
-            setNewData({ oldPassword: "", newPassword: "", confirmNewPasswrod: "" })
+            setNewData({ oldPassword: "", newPassword: "", confirmNewPassword: "" })
+            handleChangePassword()
         }
     });
 
@@ -156,34 +70,105 @@ export default function ProfileComponent() {
         })
     }
 
+    function blobToBase64(blob) {
+        return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    var reader = new FileReader();
+    // Get profile detail
+    const handleGetProfileDetail = () => {
+        setIsShowLoading(true)
+        UserService.getProfileUser(userId).then(res => {
+            if (res.data?.success) {
+                dispatch(setProfileDetail(res.data.payload))
+                if (res.data.payload?.image) {
+                    FileUploadService.getFile(res.data.payload?.image, localStorage.getItem("token")).then(res => {
+                        blobToBase64(res.data).then(res => {
+                            setFile(res)
+                        })
+                    })
+                }
+            }
+        })
+    }
+
+    useEffect(() => {
+        handleGetProfileDetail()
+    }, [])
+
+    let formData = new FormData()
+
+    // Upload file
+    const [selectedFile, setSelectedFile] = useState('')
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
+    useEffect(() => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                console.log(event)
+                const image = new Image();
+                image.onload = () => {
+                    setImageDimensions({
+                        width: image.width,
+                        height: image.height,
+                    });
+                };
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    }, [selectedFile]);
+
+    const handleInputChange = (e) => {
+        setNewData({ ...newData, [e.target.name]: e.target.value })
+    };
+
     // Update Profile
     const [profile, setProfile] = useState({
         name: "", gender: "", phone: "", address: "", image: ""
     })
-
 
     const handleInputChangeProfile = (e) => {
         setProfile({ ...profile, [e.target.name]: e.target.value })
     };
 
     const handleUpdateProfile = () => {
-        handleUploadFile()
-        console.log(uniqueId)
-        UserService.updateProfile(userId, {
-            name: profile.name,
-            gender: profile.gender,
-            phone: profile.phone,
-            address: profile.address,
-            image: uniqueId
-        }).then(res => {
-            if (res.data?.success) {
-                if (res.data.payload?.image) {
-                    setImg(res.data.payload.image)
+        if (selectedFile != null) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+                UserService.updateProfile(userId, {
+                    name: profile.name,
+                    gender: profile.gender,
+                    phone: profile.phone,
+                    address: profile.address,
+                    image: res.data.payload
+                }).then(res => {
+                    if (res.data?.success) {
+                        setIsSuccessUpdateProfile(true)
+                        handleGetProfileDetail()
+                        setTimeout(() => {
+                            document.getElementById("modal-profile").click()
+                        }, 100)
+                    }
+                })
+            })
+        } else {
+            UserService.updateProfile(userId, profile).then(res => {
+                if (res.data?.success) {
+                    setIsSuccessUpdateProfile(true)
+                    handleGetProfileDetail()
                 }
-                setIsSuccessUpdateProfile(true)
-                handleGetProfileDetail()
-            }
-        })
+            })
+        }
     }
 
     const formikProfile = useFormik({
@@ -194,17 +179,14 @@ export default function ProfileComponent() {
         }),
         onSubmit: (val, { resetForm }) => {
             handleUpdateProfile()
-            // resetForm(val = {})
-            // setProfile({ name: "", gender: "", phone: "", address: "" })
+            resetForm(val = {})
+            setProfile({ name: "", gender: "", phone: "", address: "" })
             setIsShowFormUpdateProfile(false)
         }
     })
 
     return (
         <>
-            {isShowLoading &&
-                <LoadingComponent />
-            }
             <main className="overflow-y-auto pb-4 text-text-color">
                 <h2 className="text-2xl text-gray-700 dark:text-gray-200 font-sp-pro-text-semibold">
                     Account Settings
@@ -215,18 +197,17 @@ export default function ProfileComponent() {
                             <label
                                 id='profile-troggle'
                                 htmlFor="update-profile"
-                                onClick={() => setIsShowFormUpdateProfile(true)}
                                 className="absolute flex-row right-5 top-5 bg-bg-primary w-9 h-9 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
                             >
                                 <FaUserEdit />
                             </label>
 
                             <input type="checkbox" id="update-profile" className="modal-toggle" />
-                            <div className={`modal ${isShowFormUpdateProfile ? "modal-open" : ""}`} >
-                                <div className="modal-box max-w-2xl">
+                            <div className="modal">
+                                <div className="modal-box max-w-2xl rounded-lg">
                                     <div className='absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer'>
                                         <label
-                                            onClick={() => setIsShowFormUpdateProfile(false)}
+                                            id="modal-profile"
                                             htmlFor="update-profile"
                                         ><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
                                     </div>
@@ -312,7 +293,7 @@ export default function ProfileComponent() {
                             </div>
 
                             {isSuccessUpdateProfile ? <>
-                                <div className={`${isSuccessUpdateProfile ? "modal rounded-sm modal-open" : ""}`}>
+                                <div className={`${isSuccessUpdateProfile ? "modal rounded-sm modal-open" : ""} bg-opacity-0`}>
                                     <div className="modal-box max-w-md">
                                         <div className="flex justify-center"> <img src={successIcon} width={80} alt="" /></div>
                                         <h2 className="mb-1 text-xl font-sp-pro-text-semibold leading-tight text-primary text-center mt-5">Profile Updated!</h2>
@@ -328,8 +309,8 @@ export default function ProfileComponent() {
                             <div className='px-5 py-4'>
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
-                                        <div className='w-36 h-36 md:w-28 md:h-28 rounded-full overflow-hidden'>
-                                            {img ? <img src={img} alt="" className="w-ful" /> : <img src={user_placeholder} alt="" className="w-36 h-36 md:w-28 md:h-28" />}
+                                        <div className='w-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
+                                            <img src={file} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>
@@ -423,14 +404,14 @@ export default function ProfileComponent() {
                                             <p className='break-all text-sm w-64 px-5 text-secondary text-opacity-80'>
                                                 Lorem Ipsum is simply dummy text of the ...
                                             </p>
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
+                                            <div className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
                                                 Date of create :
                                                 <div className='font-sp-pro-text-light'>
                                                     <small>05 Apr 2023</small>
                                                 </div>
-                                            </p>
+                                            </div>
 
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
+                                            <div className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
                                                 Organization Owner :
                                                 <div className="relative my-1 w-6 h-6 mr-[-10px] z-10">
                                                     <img
@@ -439,9 +420,9 @@ export default function ProfileComponent() {
                                                         className="rounded-full h-full w-full"
                                                     />
                                                 </div>
-                                            </p>
+                                            </div>
 
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold'>
+                                            <div className='px-5 mt-3 font-sp-pro-text-semibold'>
                                                 Member : 12
                                                 <div className='w-full flex justify-start my-1'>
                                                     <div className="relative  w-6 h-6 mr-[-10px] z-10">
@@ -476,7 +457,7 @@ export default function ProfileComponent() {
                                                         8 <FiPlus />
                                                     </div>
                                                 </div>
-                                            </p>
+                                            </div>
                                             <label className="px-6">
                                                 <div className="w-full px-8 text-center cursor-pointer">
                                                     <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-white bg-primary">Joined</span>
@@ -494,85 +475,14 @@ export default function ProfileComponent() {
                                             <p className='break-all text-sm w-64 px-5 text-secondary text-opacity-80'>
                                                 Lorem Ipsum is simply dummy text of the ...
                                             </p>
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
+                                            <div className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
                                                 Date of create :
                                                 <div className='font-sp-pro-text-light'>
                                                     <small>05 Apr 2023</small>
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Organization Owner :
-                                                <div className="relative my-1 w-6 h-6 mr-[-10px] z-10">
-                                                    <img
-                                                        src={avatar01}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold'>
-                                                Member : 12
-                                                <div className='w-full flex justify-start my-1'>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-10">
-                                                        <img
-                                                            src={avatar01}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-20">
-                                                        <img
-                                                            src={avatar02}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-30">
-                                                        <img
-                                                            src={avatar03}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-40">
-                                                        <img
-                                                            src={avatar04}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                                        8 <FiPlus />
-                                                    </div>
-                                                </div>
-                                            </p>
-                                            <label className="px-6">
-                                                <div className="w-full px-8 text-center cursor-pointer">
-                                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-white bg-primary">Joined</span>
-                                                </div>
-                                            </label>
-                                        </div>
-
-                                        <div className='relative con-Shadow-Card rounded-xl min-w-max w-64 cursor-pointer'>
-                                            <div className='flex flex-row justify-between items-center p-3'>
-                                                <p className='font-sp-pro-text-bold text-lg text-text-color capitalize cursor-pointer'>KSHRD</p>
-                                                <div>
-                                                    <PlusCircleIcon className="w-8 h-8 text-green rounded-full" />
                                                 </div>
                                             </div>
-                                            <p className='break-all text-sm w-64 px-5 text-secondary text-opacity-80'>
-                                                Lorem Ipsum is simply dummy text of the ...
-                                            </p>
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Date of create :
-                                                <div className='font-sp-pro-text-light'>
-                                                    <small>05 Apr 2023</small>
-                                                </div>
-                                            </p>
 
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
+                                            <div className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
                                                 Organization Owner :
                                                 <div className="relative my-1 w-6 h-6 mr-[-10px] z-10">
                                                     <img
@@ -580,81 +490,10 @@ export default function ProfileComponent() {
                                                         loading="lazy"
                                                         className="rounded-full h-full w-full"
                                                     />
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold'>
-                                                Member : 12
-                                                <div className='w-full flex justify-start my-1'>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-10">
-                                                        <img
-                                                            src={avatar01}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-20">
-                                                        <img
-                                                            src={avatar02}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-30">
-                                                        <img
-                                                            src={avatar03}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-40">
-                                                        <img
-                                                            src={avatar04}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                                        8 <FiPlus />
-                                                    </div>
-                                                </div>
-                                            </p>
-                                            <label className="px-6">
-                                                <div className="w-full px-8 text-center cursor-pointer">
-                                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-white bg-primary">Joined</span>
-                                                </div>
-                                            </label>
-                                        </div>
-
-                                        <div className='relative con-Shadow-Card rounded-xl min-w-max w-64 cursor-pointer'>
-                                            <div className='flex flex-row justify-between items-center p-3'>
-                                                <p className='font-sp-pro-text-bold text-lg text-text-color capitalize cursor-pointer'>KSHRD</p>
-                                                <div>
-                                                    <PlusCircleIcon className="w-8 h-8 text-green rounded-full" />
                                                 </div>
                                             </div>
-                                            <p className='break-all text-sm w-64 px-5 text-secondary text-opacity-80'>
-                                                Lorem Ipsum is simply dummy text of the ...
-                                            </p>
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Date of create :
-                                                <div className='font-sp-pro-text-light'>
-                                                    <small>05 Apr 2023</small>
-                                                </div>
-                                            </p>
 
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Organization Owner :
-                                                <div className="relative my-1 w-6 h-6 mr-[-10px] z-10">
-                                                    <img
-                                                        src={avatar01}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold'>
+                                            <div className='px-5 mt-3 font-sp-pro-text-semibold'>
                                                 Member : 12
                                                 <div className='w-full flex justify-start my-1'>
                                                     <div className="relative  w-6 h-6 mr-[-10px] z-10">
@@ -688,79 +527,8 @@ export default function ProfileComponent() {
                                                     <div className="relative  w-6 h-6 mr-[-10px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                                                         8 <FiPlus />
                                                     </div>
-                                                </div>
-                                            </p>
-                                            <label className="px-6">
-                                                <div className="w-full px-8 text-center cursor-pointer">
-                                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-white bg-primary">Joined</span>
-                                                </div>
-                                            </label>
-                                        </div>
-
-                                        <div className='relative con-Shadow-Card rounded-xl min-w-max w-64 cursor-pointer'>
-                                            <div className='flex flex-row justify-between items-center p-3'>
-                                                <p className='font-sp-pro-text-bold text-lg text-text-color capitalize cursor-pointer'>KSHRD</p>
-                                                <div>
-                                                    <PlusCircleIcon className="w-8 h-8 text-green rounded-full" />
                                                 </div>
                                             </div>
-                                            <p className='break-all text-sm w-64 px-5 text-secondary text-opacity-80'>
-                                                Lorem Ipsum is simply dummy text of the ...
-                                            </p>
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Date of create :
-                                                <div className='font-sp-pro-text-light'>
-                                                    <small>05 Apr 2023</small>
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Organization Owner :
-                                                <div className="relative my-1 w-6 h-6 mr-[-10px] z-10">
-                                                    <img
-                                                        src={avatar01}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold'>
-                                                Member : 12
-                                                <div className='w-full flex justify-start my-1'>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-10">
-                                                        <img
-                                                            src={avatar01}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-20">
-                                                        <img
-                                                            src={avatar02}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-30">
-                                                        <img
-                                                            src={avatar03}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-40">
-                                                        <img
-                                                            src={avatar04}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                                        8 <FiPlus />
-                                                    </div>
-                                                </div>
-                                            </p>
                                             <label className="px-6">
                                                 <div className="w-full px-8 text-center cursor-pointer">
                                                     <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-white bg-primary">Joined</span>
@@ -768,76 +536,6 @@ export default function ProfileComponent() {
                                             </label>
                                         </div>
 
-                                        <div className='relative con-Shadow-Card rounded-xl min-w-max w-64 cursor-pointer'>
-                                            <div className='flex flex-row justify-between items-center p-3'>
-                                                <p className='font-sp-pro-text-bold text-lg text-text-color capitalize cursor-pointer'>KSHRD</p>
-                                                <div>
-                                                    <PlusCircleIcon className="w-8 h-8 text-green rounded-full" />
-                                                </div>
-                                            </div>
-                                            <p className='break-all text-sm w-64 px-5 text-secondary text-opacity-80'>
-                                                Lorem Ipsum is simply dummy text of the ...
-                                            </p>
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Date of create :
-                                                <div className='font-sp-pro-text-light'>
-                                                    <small>05 Apr 2023</small>
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold text-sm'>
-                                                Organization Owner :
-                                                <div className="relative my-1 w-6 h-6 mr-[-10px] z-10">
-                                                    <img
-                                                        src={avatar01}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                            </p>
-
-                                            <p className='px-5 mt-3 font-sp-pro-text-semibold'>
-                                                Member : 12
-                                                <div className='w-full flex justify-start my-1'>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-10">
-                                                        <img
-                                                            src={avatar01}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-20">
-                                                        <img
-                                                            src={avatar02}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-30">
-                                                        <img
-                                                            src={avatar03}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-40">
-                                                        <img
-                                                            src={avatar04}
-                                                            loading="lazy"
-                                                            className="rounded-full h-full w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="relative  w-6 h-6 mr-[-10px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                                        8 <FiPlus />
-                                                    </div>
-                                                </div>
-                                            </p>
-                                            <label className="px-6">
-                                                <div className="w-full px-8 text-center cursor-pointer">
-                                                    <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-white bg-primary">Joined</span>
-                                                </div>
-                                            </label>
-                                        </div>
                                     </div>
                                 </div>
                             </Tab.Panel>
@@ -849,11 +547,11 @@ export default function ProfileComponent() {
                                         <div className='text-left  w-full '>
                                             <label className="block mb-2 ml-1 text-sm">Current Password</label>
                                             <input
-                                                type='number'
+                                                type='password'
                                                 onInput={handleInputChange}
                                                 onChange={formik.handleChange}
-                                                defaultValue={newData.oldPassword}
-                                                name="password"
+                                                value={newData.oldPassword}
+                                                name="oldPassword"
                                                 className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
                                             />
@@ -862,10 +560,10 @@ export default function ProfileComponent() {
                                         <div className='text-left  w-full '>
                                             <label className="block mb-2 ml-1 text-sm">New Password</label>
                                             <input
-                                                type='number'
+                                                type='password'
                                                 onInput={handleInputChange}
                                                 onChange={formik.handleChange}
-                                                defaultValue={newData.newPassword}
+                                                value={newData.newPassword}
                                                 name="newPassword"
                                                 className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
@@ -875,6 +573,7 @@ export default function ProfileComponent() {
                                         <div className='text-left  w-full '>
                                             <label className="block mb-2 ml-1 text-sm">Confirm New Password</label>
                                             <input
+                                                type='password'
                                                 onInput={handleInputChange}
                                                 onChange={formik.handleChange}
                                                 value={newData.confirmNewPassword}
@@ -889,10 +588,10 @@ export default function ProfileComponent() {
                                         </div>
                                     </form>
 
-                                    <div className='absolute top-14 left-14'>
+                                    <div className='absolute top-8 left-8 w-36'>
                                         <img src={plans} />
                                     </div>
-                                    <div className='absolute bottom-14 right-14'>
+                                    <div className='absolute bottom-8 right-8 w-36'>
                                         <img src={coconut_trees} />
                                     </div>
                                     <div className='absolute top-14 rounded-full right-14 w-32 h-32 bg-primary bg-opacity-20'>
@@ -906,7 +605,7 @@ export default function ProfileComponent() {
                 </Tab.Group>
 
                 {isShowSuccess ? <>
-                    <div className={`${isShowSuccess ? "modal rounded-sm modal-open" : ""}`}>
+                    <div className={`${isShowSuccess ? "modal rounded-sm modal-open" : ""} bg-opacity-0`}>
                         <div className="modal-box">
                             <div className="flex justify-center"> <img src={successIcon} width={80} alt="" /></div>
                             <h2 className="mb-1 text-xl font-sp-pro-text-semibold leading-tight text-primary sm:text-2xl text-center pt-[25px]">Password Changed!</h2>
