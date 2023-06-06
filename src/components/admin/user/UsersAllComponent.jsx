@@ -44,21 +44,21 @@ export default function UsersAllComponent() {
     {
       id: 1,
       profile: "S",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       name: "Senglorn",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
     },
     {
       id: 2,
       profile: "H",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       name: "HongMeng",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
     },
     {
       id: 3,
       profile: "M",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       name: "Mony",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
@@ -66,13 +66,13 @@ export default function UsersAllComponent() {
       id: 4,
       profile: "M",
       name: "Mnor",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 5,
       profile: "M",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       name: "Mengchhun",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
@@ -80,55 +80,55 @@ export default function UsersAllComponent() {
       id: 6,
       profile: "K",
       name: "KONG",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 7,
       profile: "J",
       name: "JONG",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 8,
       profile: "K",
       name: "KIM",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 9,
       profile: "M",
       name: "Mengchhun",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 10,
       profile: "K",
       name: "KONG",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 11,
       profile: "J",
       name: "JONG",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
     {
       id: 12,
       profile: "K",
       name: "KIM",
-      email: "mengchhun232@gmail.com",
+      email: "hrdcenter@gmail.com",
       src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
     },
   ]);
 
   return (
-    <main className="p-6 con-Shadow px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
+    <main className="p-5 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
 
@@ -261,13 +261,13 @@ export default function UsersAllComponent() {
         <div
           className=" py-6 relative"
         >
-          <div className="  grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-4 justify-items-center  gap-y-6  w-full">
+          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-x-10  gap-y-8 p-5 w-full">
             {user.map((list) => (
               <button
                 type="button"
                 onClick={() => handleShowOrganization(list)}
                 key={list.id}
-                className="border lt-14:w-52 lg:w-44 border-bg-primary rounded-xl w-auto cursor-pointer"
+                className="relative con-Shadow-Card rounded-[5px] min-w-max w-52 cursor-pointer"
                 style={{
                   boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
                 }}

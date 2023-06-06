@@ -1,0 +1,445 @@
+import React, { Fragment, useState } from "react";
+import { BiCheck, BiDotsHorizontalRounded, BiHome } from "react-icons/bi";
+import { HiOutlineCheck, HiOutlineQrcode } from "react-icons/hi";
+import facebook from "../../../assets/images/user/fb.png";
+import linkin from "../../../assets/images/user/in.png";
+import instagram from "../../../assets/images/user/ig.png";
+import twinter from "../../../assets/images/user/tw.png";
+import RoomFillterComponent from "../tracking/RoomFillterComponent";
+import SuperFillterComponent from "../tracking/SuperFillterComponent";
+import NormalFillterComponent from "../tracking/NormalFillterComponent";
+import OwnerFillterComponent from "../tracking/OwnerFillterComponent";
+import SortByComponent from "../tracking/SortByComponent";
+import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
+import { TbCalendarStats } from "react-icons/tb";
+import { AiFillGift } from "react-icons/ai";
+import UserDetail from "./userPopup/UserDetail";
+import "../../../style/shadow.css";
+import { Combobox, Transition } from "@headlessui/react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+
+const people = [
+  { id: 1, name: "Sort By" },
+  { id: 2, name: "Arlene Mccoy" },
+  { id: 3, name: "Devon Webb" },
+];
+
+
+export default function UsersAllComponent() {
+  const [selected, setSelected] = useState(people[0]);
+  const [query, setQuery] = useState("");
+
+  const filteredPeople =
+    query === ""
+      ? people
+      : people.filter((person) =>
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
+
+
+  const [user, setUser] = useState([
+    {
+      id: 1,
+      profile: "S",
+      email: "mengchhun232@gmail.com",
+      name: "Senglorn",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+    },
+    {
+      id: 2,
+      profile: "H",
+      email: "mengchhun232@gmail.com",
+      name: "HongMeng",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
+    },
+    {
+      id: 3,
+      profile: "M",
+      email: "mengchhun232@gmail.com",
+      name: "Mony",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 4,
+      profile: "M",
+      name: "Mnor",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 5,
+      profile: "M",
+      email: "mengchhun232@gmail.com",
+      name: "Mengchhun",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 6,
+      profile: "K",
+      name: "KONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 7,
+      profile: "J",
+      name: "JONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 8,
+      profile: "K",
+      name: "KIM",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 9,
+      profile: "M",
+      name: "Mengchhun",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 10,
+      profile: "K",
+      name: "KONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 11,
+      profile: "J",
+      name: "JONG",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+    {
+      id: 12,
+      profile: "K",
+      name: "KIM",
+      email: "mengchhun232@gmail.com",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+    },
+  ]);
+
+  return (
+    <main className="p-6 con-Shadow px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
+      <div className="gap-6 overflow-hidden z-10 ">
+        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
+
+          {/* header */}
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
+            <h2 className="text-2xl font-sp-pro-text-semibold">
+              All <span className="text-pending">User</span> Management
+            </h2>
+            <p className="font-sp-pro-text-regular text-sm text-green">
+            Active Users
+            </p>
+          </div>
+
+          {/* search */}
+          <div className="md:flex md:flex-row justify-start gap-6 ">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+                <div className="absolute inset-y-0 flex items-center pl-2">
+                  <svg
+                    className="w-5 h-5 text-primary"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <input
+                  className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  type="text"
+                  name="search"
+                  placeholder="Search..."
+                />
+              </div>
+            </div>
+
+            {/* filter */}
+            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <Combobox
+                value={selected}
+                onChange={setSelected}
+                className="z-20"
+              >
+                <div className="relative z-20">
+                  <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                    <Combobox.Input
+                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                      displayValue={(person) => person.name}
+                      onChange={(event) => setQuery(event.target.value)}
+                    />
+                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-text-color"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    afterLeave={() => setQuery("")}
+                  >
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {filteredPeople.length === 0 && query !== "" ? (
+                        <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                          Nothing found.
+                        </div>
+                      ) : (
+                        filteredPeople.map((person) => (
+                          <Combobox.Option
+                            key={person.id}
+                            className={({ active }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
+                              }`
+                            }
+                            value={person}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
+                                >
+                                  {person.name}
+                                </span>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Combobox.Option>
+                        ))
+                      )}
+                    </Combobox.Options>
+                  </Transition>
+                </div>
+              </Combobox>
+            </div>
+
+            {/* add */}
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+
+              <label
+                htmlFor="normalCategory"
+                className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+              >
+                <BsPlus className="w-6 h-6" />&nbsp;Invite user
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {/* card */}
+        <div
+          className=" py-6 relative"
+        >
+          <div className="  grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-4 justify-items-center  gap-y-6  w-full">
+            {user.map((list) => (
+              <button
+                type="button"
+                onClick={() => handleShowOrganization(list)}
+                key={list.id}
+                className="border  lt-14:w-52 lg:w-44 border-bg-primary rounded-xl  cursor-pointer"
+                style={{
+                  boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
+                }}
+              >
+                <div className="relative ">
+                  <div className="absolute top-1 right-3 cursor-pointer">
+                    <div className="dropdown dropdown-bottom">
+                      <button
+                        // onClick={() => setDropdown(!dropdown)}
+                        // tabIndex={0}
+                        className=" w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
+                      >
+                        <BiDotsHorizontalRounded className="w-6 h-6" />
+                      </button>
+                      {/* {dropdown ? (
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
+                        >
+                          <li>
+                            <a>Download invoice</a>
+                          </li>
+                          <li>
+                            <a>Download invoice</a>
+                          </li>
+                        </ul>
+                      ) : null} */}
+                    </div>
+                  </div>
+
+                  <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full ">
+                    <div className="w-[55px] h-[55px] con-pro-color rounded-full flex justify-center items-center m-auto">
+                      <p className="font-sp-pro-text-bold text-xl text-green ">
+                        {list.profile}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <p className="pt-2 font-sp-pro-text-bold lt-16:text-lg lt-14:text-sm lt-14:pt-2 w-full text-center text-text-color capitalize">
+                    {list.name}
+                  </p>
+
+                  <p className="text-gray-700 lt-14:text-[12px]  lg:text-[10px] text-[12px] text-center opacity-60">
+                    {list.email}
+                  </p>
+                  <div className="m-auto gap-1 flex flex-row justify-center space-x-1 pt-4">
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={facebook} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={instagram} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={instagram} alt="" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full">
+                      <img src={twinter} alt="" />
+                    </div>
+                  </div>
+
+                </div>
+                <div className="p-6 w-48  text-center mx-auto  ">
+                  {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
+                    More Info
+                  </span> */}
+                  <label
+                    htmlFor="my-modal-5"
+                    className="inline-block lt-16:w-full lt-14:w-28 text-xs cursor-pointer  shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-4 lt-16:text-sm lt-14:text-xs font-sp-pro-text-regular text-gray-700 mr-2  bg-yellow text-white"
+                  >
+                    More Info
+                  </label>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* popupDetaile */}
+        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+        <UserDetail className="modal" />
+        {/* Modol invite user */}
+        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <div className="modal">
+          <div className="bg-bg-primary lg:w-1/3 md:w-3/4 sm:w-32 rounded-lg relative p-4">
+            {/* header */}
+            <div className="flex justify-between mb-5">
+              <div className="flex items-center">
+                <div className="flex items-center mt-2">
+                  <div className="bg-gray-light rounded-full p-3">
+                    <AiFillGift className="w-8 h-8" />
+                  </div>
+                  <div className="pl-4 flex flex-col space-y-1">
+                    <span className="text-text-color font-sp-pro-text-medium text-lg">
+                      Rotanakosal
+                    </span>
+                    <span className="text-sm text-text-color font-sp-pro-text-regular">
+                      Manage invitations and requests to join your team.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex">
+                <label
+                  htmlFor="my-modal-3"
+                  className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
+                >
+                  ✕
+                </label>
+              </div>
+            </div>
+
+            {/* data */}
+            <div>
+              <div className="w-full">
+                <div className="relative w-full border rounded-md border-slate-200 bg-bg-main p-[5px]">
+                  <div className="absolute inset-y-0 flex items-center pl-2">
+                    <svg
+                      className="w-5 h-5 text-primary"
+                      aria-hidden="true"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <input
+                    className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    type="text"
+                    name="search"
+                    placeholder="Search..."
+                  />
+                </div>
+              </div>
+
+              {/* featch data invite user */}
+              <div className="w-full mt-5 border border-slate-200 bg-bg-main">
+                {user.map((users) => (
+                  <div className="w-full rounded-md">
+                    <div className="flex justify-between hover:bg-gray-light p-2">
+                      <div>
+                        <div className="flex items-center m-auto space-x-3">
+                          <span>
+                            <img
+                              src={users.src}
+                              alt={users.title}
+                              className="w-10 h-10 rounded-full"
+                            />
+                          </span>
+                          <span className="font-sp-pro-text-medium text-sm text-text-color">
+                            {users.name}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="bg-blue-light p-1 rounded-sm text-white text-sm cursor-pointer">
+                          Resend
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/*  */}
+          </div>
+        </div>
+        {/* modal invite user */}
+        {/* Put this part before </body> tag */}
+      </div>
+    </main>
+  );
+}
