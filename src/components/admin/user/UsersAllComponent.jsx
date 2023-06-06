@@ -128,7 +128,7 @@ export default function UsersAllComponent() {
   ]);
 
   return (
-    <main className="p-5 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
+    <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
 
@@ -261,7 +261,7 @@ export default function UsersAllComponent() {
         <div
           className=" py-6 relative"
         >
-          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-x-10  gap-y-8 p-5 w-full">
+          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  justify-items-center gap-10 lg:gap-x-10  gap-y-8 p-5 w-full">
             {user.map((list) => (
               <button
                 type="button"
@@ -306,15 +306,15 @@ export default function UsersAllComponent() {
                     </div>
                   </div>
                   
-                  <p className="pt-2 font-sp-pro-text-bold lt-16:text-lg lt-14:text-sm lt-14:pt-2 w-full text-center text-text-color capitalize">
+                  <p className="pt-2 font-sp-pro-text-semibold 2xl:text-[15px]  w-full text-center text-text-color capitalize">
                     {list.name}
                   </p>
 
-                  <p className="text-gray-700 lt-14:text-[12px]  lg:text-[10px] text-[12px] text-center opacity-60">
+                  <p className="text-gray-700  lg:text-[12px] text-[12px] text-center opacity-60">
                     {list.email}
                   </p>
-                  <div className="m-auto gap-1 flex flex-row justify-center space-x-1 pt-4">
-                    <div className="w-6 h-6 rounded-full">
+                  <div className="m-auto gap-1 flex flex-row justify-center space-x-1 pt-4 2xl:pb-5 pb-3">
+                    <div className="w-6 h-6  rounded-full">
                       <img src={facebook} alt="" />
                     </div>
                     <div className="w-6 h-6 rounded-full">
@@ -335,9 +335,10 @@ export default function UsersAllComponent() {
                   </span> */}
                   <label
                     htmlFor="my-modal-5"
-                    className="inline-block lt-16:w-full lt-14:w-28 text-xs cursor-pointer  shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-4 lt-16:text-sm lt-14:text-xs font-sp-pro-text-regular text-gray-700 mr-2  bg-yellow text-white"
+                    className="inline-block mb-1 2xl:mb-2 lt-16:w-full lt-14:w-28 cursor-pointer  shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-4 lt-16:text-sm lt-14:text-xs font-sp-pro-text-regular text-gray-700 mr-2  bg-yellow text-white"
                   >
-                    More Info
+                    <p className=" text-xs ">More Info</p>
+                    
                   </label>
                 </div>
               </button>

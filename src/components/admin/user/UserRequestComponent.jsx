@@ -104,7 +104,7 @@ export default function UserRequestComponent() {
                 <div className="p-1 overflow-y-scroll">
                   <div className="overflow-x-auto">
                     <div className="p-1 overflow-y-scroll">
-                      <table className="table w-full">
+                      <table className="table border-spacing-y-3 border-separate w-full">
                         {/* <thead>
                             <tr className="bg-bg-primary text-sidebar">
                               <th className="w-1/6">No</th>
@@ -115,8 +115,8 @@ export default function UserRequestComponent() {
                           </thead> */}
                         <tbody className="divide-y dark:divide-gray-700">
                           {user.map((users) => (
-                            <tr className="font-md text-text-color border-none">
-                              <td className="bg-bg-main">{users.id}</td>
+                            <tr className="font-md text-text-color  border-none">
+                              <td className="bg-bg-main rounded-[5px]">{users.id}</td>
                               <td className="bg-bg-main">
                                 <div className="flex items-center">
                                   <div className="relative  mr-3 w-10 ">
@@ -130,7 +130,7 @@ export default function UserRequestComponent() {
                                   <div>{users.name}</div>
                                 </div>
                               </td>
-                              <td className="bg-bg-main">
+                              <td className="bg-bg-main rounded-[5px]">
                                 <div className="flex items-center m-auto space-x-3">
                                   <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                                     {users.profile}
@@ -140,7 +140,7 @@ export default function UserRequestComponent() {
                                   </span>
                                 </div>
                               </td>
-                              <td className="bg-bg-main">
+                              <td className="bg-bg-main rounded-[5px]">
                                 <div className="flex flex-rol space-x-3 items-center">
                                   <span className="w-6 h-6 bg-white border border-border-strock text-reject text-center font-sp-pro-text-medium">
                                     X

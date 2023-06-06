@@ -55,6 +55,7 @@ export default function OrganizationListComponent() {
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl">
 
             <input type="checkbox" id="delete_org" className="modal-toggle" />
+
             <div className="modal">
                 <div className="modal-box relative">
                     <div className='absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer'>
@@ -88,6 +89,7 @@ export default function OrganizationListComponent() {
                     </div>
                 </div>
             </div>
+
 
             {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
@@ -138,7 +140,7 @@ export default function OrganizationListComponent() {
                                     <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
                                 </div>
                             </div>
-                            <p className='font-sp-pro-text-semibold text-md text-center text-text-color capitalize cursor-pointer line-clamp-1 w-52'>{list.name}</p>
+                            <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
                             <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
                                 Organization Owner
                             </p>
