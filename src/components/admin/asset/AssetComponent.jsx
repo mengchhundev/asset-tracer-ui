@@ -18,6 +18,7 @@ import UpdateComponent from "../Room/popUpRoom/UpdateComponent";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import DeleteComponent from "../../modalDelete/DeleteComponent";
+
 const people = [
   { id: 1, name: "Asset" },
   { id: 2, name: "HDMI" },
@@ -206,8 +207,8 @@ export default function AssetComponent() {
             </div>
 
             {/* add */}
-              {/* add */}
-              <div className="block ">
+            {/* add */}
+            <div className="block ">
               <Link to={"/asset/add"}>
                 <label className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase">
                   <BsPlus className="w-6 h-6" />
@@ -217,6 +218,10 @@ export default function AssetComponent() {
             </div>
           </div>
         </div>
+
+
+        
+
 
         <div className="flex flex-col justify-between relative">
           {/* table */}
@@ -314,7 +319,7 @@ export default function AssetComponent() {
                                 >
                                   <path
                                     d="M2.5 5.49935H4.16667M4.16667 5.49935H17.5M4.16667 5.49935V17.166C4.16667 17.608 4.34226 18.032 4.65482 18.3445C4.96738 18.6571 5.39131 18.8327 5.83333 18.8327H14.1667C14.6087 18.8327 15.0326 18.6571 15.3452 18.3445C15.6577 18.032 15.8333 17.608 15.8333 17.166V5.49935H4.16667ZM6.66667 5.49935V3.83268C6.66667 3.39065 6.84226 2.96673 7.15482 2.65417C7.46738 2.34161 7.89131 2.16602 8.33333 2.16602H11.6667C12.1087 2.16602 12.5326 2.34161 12.8452 2.65417C13.1577 2.96673 13.3333 3.39065 13.3333 3.83268V5.49935M8.33333 9.66602V14.666M11.6667 9.66602V14.666"
-                                    stroke="#667085"
+                                    stroke="#C52222"
                                     strokeWidth="1.66667"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -322,7 +327,7 @@ export default function AssetComponent() {
                                 </svg>
                               </label>
                             </span>
-
+                            {/* update */}
                             <span>
                               <Link to={"/asset/update"}>
                                 <svg
@@ -333,15 +338,15 @@ export default function AssetComponent() {
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
-                                    opacity="0.3"
+                                    // opacity="0.3"
                                     fillRule="evenodd"
                                     clipRule="evenodd"
                                     d="M16.334 1.14809C15.4658 0.283508 14.0587 0.284038 13.1912 1.14927L6.48127 7.84251C5.94461 8.37774 5.62909 9.09424 5.59716 9.85021L5.50164 12.1116C5.45815 13.1414 6.28405 13.9999 7.31823 13.9999L9.54314 14C10.36 14 11.1423 13.6714 11.7127 13.0887L18.3685 6.26724C19.2182 5.39909 19.2093 4.01137 18.3485 3.15417L16.334 1.14809ZM14.0486 2.00316C14.443 1.60987 15.0826 1.60963 15.4772 2.00262L17.4917 4.0087C17.883 4.39834 17.887 5.02912 17.5008 5.42373C16.7644 6.17612 15.5558 6.18388 14.8099 5.441L14.0496 4.68396C13.3073 3.9447 13.3068 2.74298 14.0486 2.00316ZM13.5891 5.9331C12.6262 4.97424 11.0691 4.97494 10.1071 5.93466L7.33874 8.6964C7.01674 9.01754 6.82743 9.44744 6.80827 9.90102L6.71275 12.1624C6.69825 12.5057 6.97355 12.7918 7.31828 12.7919L9.54319 12.792C10.0333 12.792 10.5027 12.5948 10.8449 12.2452L13.6153 9.4016C14.5584 8.43356 14.5467 6.88677 13.5891 5.9331Z"
-                                    fill="#667085"
+                                    fill="#6DB33F"
                                   />
                                   <path
                                     d="M17.2 10.4008V15.5008C17.2 17.1576 15.8569 18.5008 14.2 18.5008H4C2.34314 18.5008 1 17.1576 1 15.5008V5.30078C1 3.64393 2.34315 2.30078 4 2.30078H9.1"
-                                    stroke="#667085"
+                                    stroke="#6DB33F"
                                     strokeWidth="1.5"
                                     strokeLinecap="round"
                                   />
@@ -351,7 +356,7 @@ export default function AssetComponent() {
 
                             <span className="w-6 h-6 ">
                               <label htmlFor="normalModal">
-                                <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500" />
+                                <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500 text-[#2076FF]" />
                               </label>
                             </span>
                           </div>
@@ -369,7 +374,7 @@ export default function AssetComponent() {
                 className="modal-toggle"
               />
               <DeleteComponent className="modal" />
-              
+
               {/* view */}
               <input
                 type="checkbox"
@@ -378,7 +383,6 @@ export default function AssetComponent() {
               />
               <AssetViewComponent className="modal" />
             </div>
-
           </div>
 
           {/* pagination */}

@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
 const people = [
-  { id: 1, name: "Room" },
+  { id: 1, name: "Status" },
   { id: 2, name: "SR Class" },
   { id: 3, name: "BTB Class" },
   { id: 4, name: "PP Class" },
@@ -36,7 +36,7 @@ export default function StatusComponent() {
           <div className="relative z-20">
             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
               <Combobox.Input
-                className="w-full border-[#E1E9EE] border rounded-lg py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                className="w-full border-[#E1E9EE] border rounded-lg py-2.5  pl-3 pr-10 text-xs outline-none focus:border-primary text-text-color text-opacity-50"
                 displayValue={(person) => person.name}
                 onChange={(event) => setQuery(event.target.value)}
               />

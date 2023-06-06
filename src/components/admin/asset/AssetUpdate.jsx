@@ -1,415 +1,290 @@
-import { ChevronDownIcon, HomeIcon, XCircleIcon } from '@heroicons/react/20/solid';
-import React, { Fragment, useState } from 'react';
-import upload from '../../../assets/images/Room/Upload.png';
-import { Combobox, Listbox, Transition } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronDownIcon,
+  HomeIcon,
+  XCircleIcon,
+} from "@heroicons/react/20/solid";
+import React, { Fragment, useEffect, useState } from "react";
+import upload from "../../../assets/images/Room/Upload.png";
+import { Combobox, Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import ItemComponent from "./filtter/ItemComponent";
+import CategoryComponent from "./filtter/CategoryComponent";
+import StatusComponent from "./filtter/StatusComponent";
+import RoomComponent from "./filtter/RoomComponent";
+import { BiSave } from "react-icons/bi";
+import { MdClear } from "react-icons/md";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 function AssetUpdate(props) {
-    const room = [
-        { id: 1, name: "Sr Room" },
-        { id: 1, name: "Admin Room" },
-        { id: 1, name: "PP Room" },
-        { id: 1, name: "BTB Room" },
-        { id: 1, name: "Koskhobg Room" }]
-    const category = [
-        { id: 1, name: "Electronic" },
-        { id: 2, name: "Vehicle" },
-        { id: 3, name: "Furniture" }]
-    const status = [
-        { id: 1, name: "in stock" },
-        { id: 1, name: "donete" },
-        { id: 1, name: "in use" },]
-    const item = [
-        { id: 1, name: "Computer" },
-        { id: 2, name: "Table" },
-        { id: 3, name: "char" },
-    ];
-    const [selectedRoom, setSelectedRoom] = useState(room[0]);
-    const [selectedfloor, setSelectedfloor] = useState("Room floor");
-    const [selecteditem, setSelecteditem] = useState(item[0]);
-    const [selectedCategory, setSelectedCategory] = useState(category[0]);
-    const [selectedStatus, setSelectedsStatus] = useState(status[0]);
-    const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");
+  //Upload image
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
+  const [selectedFile, setSelectedFile] = useState("");
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  let unique_id = "";
+  useEffect(() => {
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const image = new Image();
+        image.onload = () => {
+          setImageDimensions({
+            width: image.width,
+            height: image.height,
+          });
+        };
+        image.src = event.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  }, [selectedFile]);
+  const handleUpload = () => {
+    unique_id = uuid();
 
-    const filteredItem =
-        query === ""
-            ? item
-            : item.filter((person) =>
-                person.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "")
-                    .includes(query.toLowerCase().replace(/\s+/g, ""))
-            );
-    const filteredCategory =
-        query === ""
-            ? category
-            : category.filter((c) =>
-                c.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "")
-                    .includes(query.toLowerCase().replace(/\s+/g, ""))
-            );
-    const filteredRoom =
-        query === ""
-            ? room
-            : room.filter((r) =>
-                r.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "")
-                    .includes(query.toLowerCase().replace(/\s+/g, ""))
-            );
-    const filteredStatus =
-        query === ""
-            ? status
-            : status.filter((r) =>
-                r.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "")
-                    .includes(query.toLowerCase().replace(/\s+/g, ""))
-            );
-    return (
-        <div className="">
-            <div className="bg-white p-5 rounded-lg" >
-                <div className=' text-xl font-sp-pro-text-bold text-text-color text-opacity-90'>
-                    <p>Update Asset</p>
+    if (selectedFile) {
+      const uploadTask = ref(storage, `images/${unique_id}`);
+      uploadBytes(uploadTask, selectedFile).then((res) => {
+        console.log(res);
+      });
+    }
+  };
+
+  return (
+    <>
+      <main
+        className="overflow-y-auto  bg-white rounded-xl relative"
+        style={{
+          boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
+          minHeight: "calc(100vh - 6.3rem)",
+        }}
+      >
+        <div className="bg-white rounded-lg">
+          <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
+            <h1 className="flex items-center">
+              <span>
+                <Link to={"/asset/update"}>
+                  <svg
+                    width="24"
+                    height="20"
+                    viewBox="0 0 22 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      // opacity="0.3"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M16.334 1.14809C15.4658 0.283508 14.0587 0.284038 13.1912 1.14927L6.48127 7.84251C5.94461 8.37774 5.62909 9.09424 5.59716 9.85021L5.50164 12.1116C5.45815 13.1414 6.28405 13.9999 7.31823 13.9999L9.54314 14C10.36 14 11.1423 13.6714 11.7127 13.0887L18.3685 6.26724C19.2182 5.39909 19.2093 4.01137 18.3485 3.15417L16.334 1.14809ZM14.0486 2.00316C14.443 1.60987 15.0826 1.60963 15.4772 2.00262L17.4917 4.0087C17.883 4.39834 17.887 5.02912 17.5008 5.42373C16.7644 6.17612 15.5558 6.18388 14.8099 5.441L14.0496 4.68396C13.3073 3.9447 13.3068 2.74298 14.0486 2.00316ZM13.5891 5.9331C12.6262 4.97424 11.0691 4.97494 10.1071 5.93466L7.33874 8.6964C7.01674 9.01754 6.82743 9.44744 6.80827 9.90102L6.71275 12.1624C6.69825 12.5057 6.97355 12.7918 7.31828 12.7919L9.54319 12.792C10.0333 12.792 10.5027 12.5948 10.8449 12.2452L13.6153 9.4016C14.5584 8.43356 14.5467 6.88677 13.5891 5.9331Z"
+                      fill="#6DB33F"
+                    />
+                    <path
+                      d="M17.2 10.4008V15.5008C17.2 17.1576 15.8569 18.5008 14.2 18.5008H4C2.34314 18.5008 1 17.1576 1 15.5008V5.30078C1 3.64393 2.34315 2.30078 4 2.30078H9.1"
+                      stroke="#6DB33F"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </Link>
+              </span>
+              &nbsp;Update
+            </h1>
+          </div>
+
+          <div className="w-full">
+            <hr className="border-[#E1E9EE] border-1" />
+          </div>
+
+          <div className="md:flex mt-1 sm:flex-row">
+            <div className="xl:w-2/3 md:w-1/2 ">
+              <div className="lg:mx-5 mx-0 p-5 rounded-md mb-1 text-text-color text-opacity-90 text-xs font-sp-pro-text-regular">
+                <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Select Item <span className="text-[11px]">*</span>
+                    </label>
+                    <ItemComponent className="z-60" />
+                  </div>
+
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Owner <span className="text-[11px]">*</span>
+                    </label>
+                    <input
+                      className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10 text-xs text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50"
+                      type="text"
+                      placeholder="Room Name"
+                    />
+                  </div>
                 </div>
-                <hr className='border border-text-color border-opacity-20 my-2' />
-                <div className='md:flex sm:flex-row'>
-                    <div className='xl:w-7/12 md:w-6/12 sm:w-full'>
-                        <div className='xl:flex mt-1 w-full​ flex-row'>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
-                                <label htmlFor="" className="" >Select Item</label>
-                                <Combobox value={selecteditem} onChange={setSelecteditem}>
-                                    <div className="relative z-20">
-                                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                                            <Combobox.Input
-                                                className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
-                                                displayValue={(person) => person.name}
-                                                onChange={(event) => setQuery(event.target.value)}
-                                            />
-                                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                                <ChevronDownIcon
-                                                    className="h-5 w-5 text-text-color"
-                                                    aria-hidden="true"
-                                                />
-                                            </Combobox.Button>
-                                        </div>
-                                        <Transition
-                                            as={Fragment}
-                                            leave="transition ease-in duration-100"
-                                            leaveFrom="opacity-100"
-                                            leaveTo="opacity-0"
-                                            afterLeave={() => setQuery("")}
-                                        >
-                                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                {filteredItem.length === 0 && query !== "" ? (
-                                                    <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                                                        Nothing found.
-                                                    </div>
-                                                ) : (
-                                                    filteredItem.map((person) => (
-                                                        <Combobox.Option
-                                                            key={person.id}
-                                                            className={({ active }) =>
-                                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                                    ? "bg-hover-yellow text-text-color"
-                                                                    : "text-text-color"
-                                                                }`
-                                                            }
-                                                            value={person}
-                                                        >
-                                                            {({ selected, active }) => (
-                                                                <>
-                                                                    <span
-                                                                        className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                                                            }`}
-                                                                    >
-                                                                        {person.name}
-                                                                    </span>
-                                                                    {selected ? (
-                                                                        <span
-                                                                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                                                                }`}
-                                                                        >
-                                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                        </span>
-                                                                    ) : null}
-                                                                </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                    ))
-                                                )}
-                                            </Combobox.Options>
-                                        </Transition>
-                                    </div>
-                                </Combobox>
-                            </div>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3" >
-                                <label htmlFor="">Owner</label><br />
-                                <input className="border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary" type="text"
-                                    placeholder="Room Name"
-                                />
-                            </div>
-                        </div>
-                        <div className='xl:flex mt-3 w-full​ md:flex-row'>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3" >
-                                <label htmlFor="">Label Code</label><br />
-                                <input className="border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary" type="text"
-                                    placeholder="Label code"
-                                />
-                            </div>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3" >
-                                <label htmlFor="">Serial Code</label><br />
-                                <input className="border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary" type="text"
-                                    placeholder="Serial Code"
-                                />
-                            </div>
-                        </div>
-                        <div className='xl:flex mt-3 w-full​ md:flex-row'>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
-                                <label htmlFor="" className="" >Select Category</label>
-                                <Combobox value={selectedCategory} onChange={setSelectedCategory}>
-                                    <div className="relative z-40">
-                                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                                            <Combobox.Input
-                                                className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
-                                                displayValue={(person) => person.name}
-                                                onChange={(event) => setQuery(event.target.value)}
-                                            />
-                                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                                <ChevronDownIcon
-                                                    className="h-5 w-5 text-text-color"
-                                                    aria-hidden="true"
-                                                />
-                                            </Combobox.Button>
-                                        </div>
-                                        <Transition
-                                            as={Fragment}
-                                            leave="transition ease-in duration-100"
-                                            leaveFrom="opacity-100"
-                                            leaveTo="opacity-0"
-                                            afterLeave={() => setQuery("")}
-                                        >
-                                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                {filteredCategory.length === 0 && query !== "" ? (
-                                                    <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                                                        Nothing found.
-                                                    </div>
-                                                ) : (
-                                                    filteredCategory.map((person) => (
-                                                        <Combobox.Option
-                                                            key={person.id}
-                                                            className={({ active }) =>
-                                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                                    ? "bg-hover-yellow text-text-color"
-                                                                    : "text-text-color"
-                                                                }`
-                                                            }
-                                                            value={person}
-                                                        >
-                                                            {({ selected, active }) => (
-                                                                <>
-                                                                    <span
-                                                                        className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                                                            }`}
-                                                                    >
-                                                                        {person.name}
-                                                                    </span>
-                                                                    {selected ? (
-                                                                        <span
-                                                                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                                                                }`}
-                                                                        >
-                                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                        </span>
-                                                                    ) : null}
-                                                                </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                    ))
-                                                )}
-                                            </Combobox.Options>
-                                        </Transition>
-                                    </div>
-                                </Combobox>
-                            </div>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
-                                <label htmlFor="" className="" >Select Status</label>
-                                <Combobox value={selectedStatus} onChange={setSelectedsStatus}>
-                                    <div className="relative  z-20">
-                                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                                            <Combobox.Input
-                                                className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
-                                                displayValue={(person) => person.name}
-                                                onChange={(event) => setQuery(event.target.value)}
-                                            />
-                                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                                <ChevronDownIcon
-                                                    className="h-5 w-5 text-text-color"
-                                                    aria-hidden="true"
-                                                />
-                                            </Combobox.Button>
-                                        </div>
-                                        <Transition
-                                            as={Fragment}
-                                            leave="transition ease-in duration-100"
-                                            leaveFrom="opacity-100"
-                                            leaveTo="opacity-0"
-                                            afterLeave={() => setQuery("")}
-                                        >
-                                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                {filteredStatus.length === 0 && query !== "" ? (
-                                                    <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                                                        Nothing found.
-                                                    </div>
-                                                ) : (
-                                                    filteredStatus.map((person) => (
-                                                        <Combobox.Option
-                                                            key={person.id}
-                                                            className={({ active }) =>
-                                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                                    ? "bg-hover-yellow text-text-color"
-                                                                    : "text-text-color"
-                                                                }`
-                                                            }
-                                                            value={person}
-                                                        >
-                                                            {({ selected, active }) => (
-                                                                <>
-                                                                    <span
-                                                                        className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                                                            }`}
-                                                                    >
-                                                                        {person.name}
-                                                                    </span>
-                                                                    {selected ? (
-                                                                        <span
-                                                                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                                                                }`}
-                                                                        >
-                                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                        </span>
-                                                                    ) : null}
-                                                                </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                    ))
-                                                )}
-                                            </Combobox.Options>
-                                        </Transition>
-                                    </div>
-                                </Combobox>
-                            </div>
 
-                        </div>
-                        <div className='xl:flex w-full​ md:flex-row'>
-                            <div className="xl:w-1/2 md:w-full md:p-3 sm:pt-3">
-                                <label htmlFor="" className="" >Selected Room</label>
-                                <Combobox value={selectedRoom} onChange={setSelectedRoom}>
-                                    <div className="relative  z-20">
-                                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                                            <Combobox.Input
-                                                className="bg-bg-main border-[#E1E9EE] border rounded-lg mt-1 text-text-color py-2 px-4 w-full outline-none focus:border-primary"
-                                                displayValue={(person) => person.name}
-                                                onChange={(event) => setQuery(event.target.value)}
-                                            />
-                                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                                <ChevronDownIcon
-                                                    className="h-5 w-5 text-text-color"
-                                                    aria-hidden="true"
-                                                />
-                                            </Combobox.Button>
-                                        </div>
-                                        <Transition
-                                            as={Fragment}
-                                            leave="transition ease-in duration-100"
-                                            leaveFrom="opacity-100"
-                                            leaveTo="opacity-0"
-                                            afterLeave={() => setQuery("")}
-                                        >
-                                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                {filteredRoom.length === 0 && query !== "" ? (
-                                                    <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                                                        Nothing found.
-                                                    </div>
-                                                ) : (
-                                                    filteredRoom.map((person) => (
-                                                        <Combobox.Option
-                                                            key={person.id}
-                                                            className={({ active }) =>
-                                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                                    ? "bg-hover-yellow text-text-color"
-                                                                    : "text-text-color"
-                                                                }`
-                                                            }
-                                                            value={person}
-                                                        >
-                                                            {({ selected, active }) => (
-                                                                <>
-                                                                    <span
-                                                                        className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                                                            }`}
-                                                                    >
-                                                                        {person.name}
-                                                                    </span>
-                                                                    {selected ? (
-                                                                        <span
-                                                                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                                                                }`}
-                                                                        >
-                                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                        </span>
-                                                                    ) : null}
-                                                                </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                    ))
-                                                )}
-                                            </Combobox.Options>
-                                        </Transition>
-                                    </div>
-                                </Combobox>
-                            </div>
-                        </div>
+                <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Label Code <span className="text-[11px]">*</span>
+                    </label>
+                    <input
+                      className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10 text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
+                      type="text"
+                      placeholder="Label Code"
+                    />
+                  </div>
 
-                        <div className="md:p-3 sm:pt-3 w-full">
-                            <h1 className="text-[14px]  text-text-color font-sp-pro-text-regular">Descripction</h1>
-                            <textarea className="w-full bg-bg-main rounded-md  pl-3 pr-3 text-sm leading-5 text-text-color focus:outline-yellow " rows="5" cols="50"></textarea>
-                        </div>
-                    </div>
-                    <div className='xl:w-5/12 md:w-6/12 sm:full'>
-                        <div className="w-full">
-                            <div className="md:p-3 md:m-5 item-center w-full ">
-                                <div className='space-y-5 shadow px-10 md:py-20 py-5 rounded-md mb-1'>
-                                    <div className='border border-dashed items-center block justify-center text-center p-3 border-bg-primary-strock rounded-lg'>
-                                        <div>
-                                            <img className="block m-auto " src={upload} alt="" />
-                                            <p className='mt-3 text-xs'>Upload Invoice picture, max size 20MB</p>
-                                            <button className='shadow-sm rounded-md border border-bg-primary px-5 py-1.5 my-2 '>Browse</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='mt-3'>
-                                    <button className='shadow-sm rounded-md border border-none bg-reject-light w-full text-reject px-5 py-1.5 my-2 '>Remove</button>
-                                </div>
-                            </div>
-                            <div className="flex mt-3 justify-end flex-row w-full">
-                                <div className="bg-slate-500 cursor-pointer  w-3/12 p-2  rounded-lg flex justify-center">
-                                    <button className="flex justify-around text-white font-sp-pro-text-regular items-center  text-[14px] ">Cancel</button>
-                                </div>
-                                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-3/12 p-2 rounded-lg flex justify-center">
-                                    <button className="flex  justify-around text-primary font-sp-pro-text-regular items-center text-[14px]">Save</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Serial Code <span className="text-[11px]">*</span>
+                    </label>
+                    <input
+                      className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10  text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
+                      type="text"
+                      placeholder="Serial Code"
+                    />
+                  </div>
                 </div>
+
+                <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Select Category <span className="text-[11px]">*</span>
+                    </label>
+                    <CategoryComponent />
+                  </div>
+
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Select Status <span className="text-[11px]">*</span>
+                    </label>
+                    <StatusComponent />
+                  </div>
+                </div>
+
+                <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
+                  <div className="w-full xl:p-2 lg:py-2 p-2">
+                    <label
+                      htmlFor=""
+                      className="text-sm text-text-color font-sp-pro-text-regular"
+                    >
+                      Select Room <span className="text-[11px]">*</span>
+                    </label>
+                    <RoomComponent />
+                  </div>
+
+                  <div className="w-full xl:p-2 lg:py-2 p-2"></div>
+                </div>
+
+                <div className="w-full p-2 lg:mt-0 mt-[-15px]">
+                  <label
+                    for="message"
+                    className="block mb-1 text-sm text-text-color font-sp-pro-text-regular"
+                  >
+                    Your message <span className="text-[11px]">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    rows="4"
+                    className="block p-2.5 w-full border-[#E1E9EE] rounded-lg border text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
+                    placeholder="Description..."
+                  ></textarea>
+                </div>
+              </div>
             </div>
 
+            <div className="xl:w-1/3 md:w-1/2 md:mt-6 mt-[-24px]">
+              <div className="item-center w-full rounded-xl   ">
+                <div className="block lg:mx-5 p-7">
+                  <div className=" flex items-center justify-center text-center rounded-lg md:h-[430px] h-[250px] border border-dashed border-yellow">
+                    <div className="">
+                      <label
+                        htmlFor="fileInput"
+                        className="browseButton cursor-pointer"
+                      >
+                        {selectedFile && (
+                          <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected File"
+                            className={`${
+                              imageDimensions.width > imageDimensions.height
+                                ? "w-[300px]"
+                                : "h-auto"
+                            } ${
+                              imageDimensions.width < imageDimensions.height
+                                ? "h-[195px]"
+                                : "w-auto"
+                            } block rounded-md object-center justify-center  items-center`}
+                          />
+                        )}
+                        {!selectedFile && (
+                          <>
+                            <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
+                          </>
+                        )}
+                      </label>
+                      <div className="flex justify-center">
+                        <label
+                          htmlFor="fileInput"
+                          className="browseButton text-text-color font-sp-pro-text-regular"
+                        >
+                          <p className="border w-min p-2 px-12 mt-3 border-[#E1E9EE] shadow-sm rounded-md text-text-color font-sp-pro-text-regular cursor-pointer hover:bg-bg-primary">
+                            Browse
+                          </p>
+                          <input
+                            id="fileInput"
+                            type="file"
+                            onChange={handleFileSelect}
+                            accept="image/*"
+                            style={{ display: "none" }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
 
+                  {/* button */}
+                  <div className="flex justify-end flex-row space-x-6 mt-5">
+                    <div className="">
+                      <Link to={"/asset"}>
+                        <button class="text-white py-1.5 px-2 bg-slate-500 hover:bg-slate-500 hover:opacity-90 cursor-pointer p-1.5 rounded-md text-sm w-full flex items-center">
+                          <MdClear className="w-4 h4" /> &nbsp; Cancel
+                        </button>
+                      </Link>
+                    </div>
+                    <div className="">
+                      <button class="text-white py-1.5 px-4 bg-primary cursor-pointer hover:bg-primary hover:opacity-90 p-1.5 rounded-md text-sm w-full flex items-center">
+                        <BiSave className="w-4 h4" /> &nbsp; Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </main>
+    </>
+  );
 }
 
 export default AssetUpdate;
