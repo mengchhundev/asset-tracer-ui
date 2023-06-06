@@ -1,14 +1,12 @@
 import React from 'react'
-import { ChevronDownIcon, HomeModernIcon, TrashIcon, XCircleIcon } from '@heroicons/react/20/solid';
-import upload from '../../../../assets/images/Room/Upload.png';
+import { HomeModernIcon } from '@heroicons/react/20/solid';
+import upload_placeholder from '../../../../assets/images/placeholder/upload_placeholder.svg';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import OrganizationService from '../../../../redux/services/OrganizationService';
 import { useNavigate } from 'react-router';
 import { RiCloseFill } from 'react-icons/ri';
-import { BsTrash } from 'react-icons/bs';
-import { AiOutlineSave } from 'react-icons/ai';
 import { FiSave } from 'react-icons/fi';
 
 export default function CreateOrganizatoinComponent(props) {
@@ -77,12 +75,12 @@ export default function CreateOrganizatoinComponent(props) {
                     <div className='flex flex-wrap md:flex-row mt-5 justify-center'>
                         <div className=''>
                             <div className="px-6">
-                                <div className='space-y-5 shadow px-10 py-9 rounded-md mb-1 relative'>
-                                    <div className='border border-dashed border-primary block justify-center text-center p-4 rounded-lg'>
-                                        <div className='w-[220px] relative'>
+                                <div className='space-y-5 shadow p-10 rounded-md mb-1 relative'>
+                                    <div className='border border-dashed py-8 border-primary block justify-center text-center p-4 rounded-lg'>
+                                        <div className='w-44 relative'>
                                             {
                                                 file ? <img src={file} className='w-220px' />
-                                                    : <img className="block m-auto" src={upload} alt="" />
+                                                    : <img className="block m-auto " src={upload_placeholder} alt="" />
                                             }
                                         </div>
                                         <p className='mt-5 text-xs'>Upload Organzation Picture</p>
@@ -100,7 +98,7 @@ export default function CreateOrganizatoinComponent(props) {
                             <div className="px-6">
                                 <div className='space-y-5 shadow px-10 py-8 rounded-md'>
                                     <div className='text-left'>
-                                        <label className="block mb-2 ml-1 text-sm">Organization Name</label>
+                                        <label className="block mb-2 ml-1 text-sm">Organization Name <span className='text-reject'>*</span></label>
                                         <input
                                             type='text'
                                             onInput={handleInputChange}
@@ -108,7 +106,7 @@ export default function CreateOrganizatoinComponent(props) {
                                             value={newData.name}
                                             name="name"
                                             className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                                            placeholder='Enter organization name'
+                                            placeholder='Enter organization name...'
                                         />
                                         {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
                                     </div>
@@ -122,7 +120,7 @@ export default function CreateOrganizatoinComponent(props) {
                                             rows={5}
                                             name="address"
                                             className="text-sm border-[#E1E9EE] border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
-                                            placeholder='Enter address'
+                                            placeholder='Enter address...'
                                         >
                                         </textarea>
                                     </div>
