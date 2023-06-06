@@ -12,7 +12,7 @@ import SignOutComponent from "./popUp/SignOutComponent";
 import { IoMdNotifications } from "react-icons/io";
 import logo from '../../assets/images/A_Tracer_logo1.png'
 import '../../style/scrollbar.css'
-
+import user_placeholder from '../../assets/images/placeholder/user_placeholder.jpg'
 
 export default function SidebarComponent() {
     let path = window.location.pathname;
@@ -32,6 +32,8 @@ export default function SidebarComponent() {
     const location = useLocation();
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const item = useSelector(state => state?.organization?.item)
+    const profileDetail = useSelector(state => state.user.profileDetail)
+    const profileImage = useSelector(state => state.user.profileImage)
 
     const [key, setKey] = useState("")
 
@@ -372,13 +374,16 @@ export default function SidebarComponent() {
                         onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("") }}
                         to="/profile"
                         className="flex hover:bg-slate-100 mt-2 rounded-xl items-center py-2 ml-[-5px]  transition-colors gap-1 justify-center cursor-pointer">
-                        <img
-                            src={logo}
-                            className="w-12 h-12 object-cover rounded-full"
-                        />
+                        <div className="w-12 h-12 overflow-hidden rounded-full">
+                            <img
+                                src={profileImage != null ? profileImage : user_placeholder}
+                                className="w-full rounded-full"
+                            />
+                        </div>
+
                         <span className="leading-3">
-                            <p className="text-sm">Asset Tracer</p>
-                            <small>assettracerteam@gmail.com</small>
+                            <p className="text-sm">{profileDetail.name}</p>
+                            <small>{profileDetail.email}</small>
                         </span>
                     </NavLink>
                 </nav>

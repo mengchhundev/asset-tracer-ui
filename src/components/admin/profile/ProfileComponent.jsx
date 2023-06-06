@@ -10,7 +10,7 @@ import successIcon from '../../../assets/images/success.png'
 import verifyIcon from '../../../assets/images/false.png'
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfileDetail } from '../../../redux/slices/UserSlice';
+import { setProfileDetail, setProfileImage } from '../../../redux/slices/UserSlice';
 import coconut_trees from '../../../assets/images/profile/coconut_trees.svg'
 import plans from '../../../assets/images/profile/plans.svg'
 import user_placeholder from '../../../assets/images/placeholder/user_placeholder.jpg'
@@ -81,7 +81,6 @@ export default function ProfileComponent() {
 
     // Get profile detail
     const handleGetProfileDetail = () => {
-        setIsShowLoading(true)
         UserService.getProfileUser(userId).then(res => {
             if (res.data?.success) {
                 dispatch(setProfileDetail(res.data.payload))
@@ -91,6 +90,7 @@ export default function ProfileComponent() {
                         if (res?.data) {
                             blobToBase64(res.data).then(res => {
                                 setFile(res)
+                                dispatch(setProfileImage(res))
                             })
                         }
                     })
