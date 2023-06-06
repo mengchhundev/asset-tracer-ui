@@ -33,10 +33,11 @@ export default function SidebarComponent() {
     const item = useSelector(state => state?.organization?.item)
     const profileDetail = useSelector(state => state.user.profileDetail)
     const profileImage = useSelector(state => state.user.profileImage)
+    var profileImageToken = localStorage.getItem("profileImage")
     const token = localStorage.getItem("token")
     var getToken = jwt_decode(token);
     const [file, setFile] = useState()
-    
+
     const dispatch = useDispatch()
 
     function blobToBase64(blob) {
@@ -48,16 +49,6 @@ export default function SidebarComponent() {
     }
 
     useEffect(() => {
-        if (getToken?.image) {
-            // FileUploadService.getFile(getToken.image).then(res => {
-            //     if (res?.data) {
-            //         blobToBase64(res.data).then(res => {
-            //             dispatch(setProfileImage(res))
-            //         })
-            //     }
-            // })
-            setFile(FileUploadService.getImage(getToken.image))
-        }
         dispatch(setProfileDetail(getToken))
     }, [token])
 
@@ -401,12 +392,8 @@ export default function SidebarComponent() {
                         to="/profile"
                         className="flex hover:bg-slate-100 mt-2 rounded-xl items-center py-2 ml-[-5px]  transition-colors gap-1 justify-center cursor-pointer">
                         <div className="w-10 h-10 mr-2 overflow-hidden rounded-full">
-                            {/* <img
-                                src={profileImageToken != null ? profileImageToken : profileImage != null ? profileImage : user_placeholder}
-                                className="w-full rounded-full"
-                            /> */}
                             <img
-                                src={file}
+                                src={profileImageToken != null ? profileImageToken : user_placeholder}
                                 className="w-full rounded-full"
                             />
                         </div>

@@ -43,8 +43,6 @@ export default function ProfileComponent() {
         oldPassword: "", newPassword: "", confirmNewPassword: ""
     })
 
-    const {id, name, gender, phone, address, image} = profileDetail ? profileDetail : {id: "", name: "", gender: "", phone: "", address: "", image: ""} 
-
     // Change Password
     const formik = useFormik({
         initialValues: newData,
@@ -88,14 +86,7 @@ export default function ProfileComponent() {
             if (res.data?.success) {
                 dispatch(setProfileDetail(res.data.payload))
                 if (res.data.payload?.image) {
-                    FileUploadService.getFile(res.data.payload?.image).then(res => {
-                        if (res?.data) {
-                            blobToBase64(res.data).then(res => {
-                                setFile(res)
-                                dispatch(setProfileImage(res))
-                            })
-                        }
-                    })
+                    setFile(FileUploadService.getImage(res.data.payload.image))
                 }
             }
         })
@@ -160,6 +151,11 @@ export default function ProfileComponent() {
                     if (res.data?.success) {
                         setIsSuccessUpdateProfile(true)
                         handleGetProfileDetail()
+                        if(res.data.payload?.image) {
+                            setFile(FileUploadService.getImage(res.data.payload.image))
+                            dispatch(setProfileImage(FileUploadService.getImage(res.data.payload.image)))
+                            localStorage.setItem("profileImage", FileUploadService.getImage(res.data.payload.image))
+                        }
                         setTimeout(() => {
                             document.getElementById("modal-profile").click()
                         }, 100)
@@ -190,8 +186,17 @@ export default function ProfileComponent() {
     })
 
     const handleShowProfile = () => {
-        formikProfile.setValues(profile);
+        UserService.getProfileUser(userId).then(res => {
+            if(res.data.success) {
+                setProfile(res.data.payload)
+            }
+        })
+        
     }
+
+    useEffect(() => {
+        formikProfile.setValues(profile);
+    }, [profile])
 
     return (
         <>
@@ -223,7 +228,7 @@ export default function ProfileComponent() {
                                     <div>
                                         <h3 className='text-center font-sp-pro-text-bold text-lg my-3 mb-5'>My Profile</h3>
                                         <div className='w-28 h-28 border border-bg-primary-strock rounded-full m-auto relative overflow-hidden'>
-                                            {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : file ? <img src={file} className='w-full rounded-full' /> : profileImageToken ? <img src={profileImageToken} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
+                                            {selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='w-full rounded-full' /> : file ? <img src={file} className='w-full rounded-full' /> : <img src={user_placeholder} className='w-full rounded-full' />}
                                             <label htmlFor='updateProfile' type='file' className='w-full absolute bg-black bg-opacity-30 shadow-sm bottom-0 py-1.5 text-xs cursor-pointer text-white text-center'>Upload</label>
                                             <input type="file"
                                                 id='updateProfile'
@@ -319,7 +324,7 @@ export default function ProfileComponent() {
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
                                         <div className='w-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
-                                            <img src={profileImageToken != null ? profileImageToken : file != null ? file : user_placeholder} alt="" className="w-full" />
+                                            <img src={file != null ? file : user_placeholder} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>
