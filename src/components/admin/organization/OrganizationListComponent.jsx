@@ -55,7 +55,6 @@ export default function OrganizationListComponent() {
         <main className="overflow-y-scroll p-5 con-Shadow bg-white rounded-xl">
 
             <input type="checkbox" id="delete_org" className="modal-toggle" />
-
             <div className="modal">
                 <div className="modal-box relative">
                     <div className='absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer'>

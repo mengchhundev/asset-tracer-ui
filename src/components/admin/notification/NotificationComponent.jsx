@@ -8,7 +8,7 @@ import furniture from "../../../assets/images/furniture.png";
 import gift from "../../../assets/images/gift.png";
 import book from "../../../assets/images/book.png";
 import cross from "../../../assets/images/cross.png";
-import { ChevronUpDownIcon, EyeIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronUpDownIcon, EyeIcon } from "@heroicons/react/20/solid";
 import { Combobox, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
@@ -123,7 +123,7 @@ export default function NotificationComponent() {
   ]);
   return (
     <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
+      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
       }}
@@ -131,7 +131,7 @@ export default function NotificationComponent() {
       <div className="gap-6 overflow-hidden z-10">
         <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
           {/* header */}
-          <div className="md:pb-0 sm:pb-2 text-text-colors">
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0 text-text-colors">
             <h2 className="text-2xl font-sp-pro-text-semibold text-text-color">
               All <span className="text-pending">List</span> Notification
             </h2>
@@ -141,8 +141,8 @@ export default function NotificationComponent() {
           </div>
 
           {/* search */}
-          <div className="flex flex-row justify-center gap-10">
-            <div>
+          <div className="md:flex md:flex-row justify-center gap-10">
+            <div className="mb-4 md:mb-0 xl:mb-0">
               <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -168,7 +168,7 @@ export default function NotificationComponent() {
             </div>
 
             {/* filter */}
-            <div className="z-20">
+            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <Combobox
                 value={selected}
                 onChange={setSelected}
@@ -244,6 +244,7 @@ export default function NotificationComponent() {
                 </div>
               </Combobox>
             </div>
+            
 
             {/* add */}
             <div className="block ">
@@ -276,20 +277,20 @@ export default function NotificationComponent() {
             <table className="table w-full">
               <tbody className="divide divide-slate-800">
                 <tr className="text-sm font-sp-pro-text-semibold text-text-color">
-                  <td className="w-2/12  bg-bg-main py-3">No</td>
-                  <td className="w-4/12 bg-bg-main py-3">User Name</td>
-                  <td className="w-2/12 bg-bg-main py-3">Location</td>
-                  <td className="w-4/12 bg-bg-main py-3 text-center">
+                  <td className="w-1/12  bg-bg-main py-3">No</td>
+                  <td className="w-1/12 bg-bg-main py-3">User Name</td>
+                  <td className="w-2/12 bg-bg-main py-3 text-center">Location</td>
+                  <td className="w-3/12 bg-bg-main py-3 text-center">
                     Created Date
                   </td>
-                  <td className="w-4/12 bg-bg-main py-3 text-center">Action</td>
+                  <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                 </tr>
                 {notifications.map((users) => (
                   <tr className="text-sm font-sp-pro-text-regular text-text-color text-center">
-                    <td className="w-2/12 py-3 text-text-color text-left">
+                    <td className="w-1.5/12 py-3 text-text-color text-left">
                       {users.id}
                     </td>
-                    <td className="w-3/12 py-3">
+                    <td className="w-2.5/12 py-3">
                       <div className="flex items-center">
                         <div className="relative  mr-4 w-8 h-8 ">
                           <img
@@ -302,9 +303,9 @@ export default function NotificationComponent() {
                         <div>{users.name}</div>
                       </div>
                     </td>
-                    <td className="w-2/12 py-3">
+                    <td className="w-2.5/12 py-3">
                       <div className="flex items-center">
-                        <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-xs">
+                        <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex justify-center items-center font-sp-pro-text-regular text-red-500 text-xs mx-auto">
                           {users.location}
                         </span>
                         <span className="text-sm text-text-color">
@@ -312,10 +313,10 @@ export default function NotificationComponent() {
                         </span>
                       </div>
                     </td>
-                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
+                    <td className="w-2.5/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
                       {users.date}
                     </td>
-                    <td className="w-2/12 py-3">
+                    <td className="w-2.5/12 py-3">
                       <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
