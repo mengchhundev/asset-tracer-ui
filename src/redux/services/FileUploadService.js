@@ -1,7 +1,7 @@
 import api from "./api"
 
 const storeFile = async (file, token) => {
-    return await api.post(`/files/file`,file,{
+    return await api.post(`/files/file`, file, {
         headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`
@@ -10,14 +10,19 @@ const storeFile = async (file, token) => {
 }
 
 const getFile = async (fileName, token) => {
-    return await api.get(`/files/getFile?fileName=${fileName}`,{
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`
-        },
-        responseType: 'blob',
-    })
+    try {
+        const repsone = await api.get(`files/getFile/{fileName}?fileName=${fileName}`, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+            },
+            responseType: 'blob',
+        })
+    return repsone;
+    } catch (e) {
+        console.log("Error", e);
+    }
 }
 
-const FileUploadService = {storeFile, getFile}
+const FileUploadService = { storeFile, getFile }
 export default FileUploadService
