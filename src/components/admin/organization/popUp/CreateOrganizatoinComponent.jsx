@@ -85,15 +85,15 @@ export default function CreateOrganizatoinComponent(props) {
                                                     : <img className="block m-auto" src={upload} alt="" />
                                             }
                                         </div>
-                                        <p className='mt-5 text-xs'>Upload Invoice picture, max size 20MB</p>
+                                        <p className='mt-5 text-xs'>Upload Organzation Picture</p>
                                         <br />
                                         <label htmlFor='image' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
                                         <input type="file" className='hidden' id='image' onChange={handleChange} />
                                     </div>
                                 </div>
-                                <div className='mt-3'>
+                                {/* <div className='mt-3'>
                                     <button className='shadow-sm rounded-md border border-none bg-reject-light w-full text-reject px-5 py-1.5 my-2 flex justify-center items-center gap-1'><BsTrash /> Remove</button>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className='flex-grow mt-10 lg:mt-0'>
@@ -136,7 +136,7 @@ export default function CreateOrganizatoinComponent(props) {
 
                         <label
                             htmlFor='create-organization'
-                            className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-90 border border-slate-400 flex justify-center items-center gap-1"
+                            className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                         >
                             <RiCloseFill className='text-lg' />
                             Cancel
