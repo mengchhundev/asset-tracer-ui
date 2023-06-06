@@ -47,12 +47,12 @@ export default function ProfileComponent() {
         validationSchema: Yup.object().shape({
             oldPassword: Yup.string().required("Current password is required"),
             newPassword: Yup.string().required("New password is required"),
-            confirmNewPasswrod: Yup.string().required("Confirm new password is required").oneOf([Yup.ref('newPassword'), null], 'Password not match'),
+            confirmNewPassword: Yup.string().required("Confirm new password is required").oneOf([Yup.ref('newPassword'), null], 'Password not match'),
         }),
         onSubmit: (val, { resetForm }) => {
-            handleChangePassword()
             resetForm(val = { oldPassword: "", newPassword: "", confirmNewPasswrod: "" })
-            setNewData({ oldPassword: "", newPassword: "", confirmNewPasswrod: "" })
+            setNewData({ oldPassword: "", newPassword: "", confirmNewPassword: "" })
+            handleChangePassword()
         }
     });
 
@@ -96,13 +96,6 @@ export default function ProfileComponent() {
         })
     }
 
-    // Get profile image
-    const handleGetProfileImage = () => {
-        FileUploadService.getFile(fileName, localStorage.getItem("token")).then(res => {
-
-        })
-    }
-
     useEffect(() => {
         handleGetProfileDetail()
     }, [])
@@ -139,23 +132,16 @@ export default function ProfileComponent() {
         setNewData({ ...newData, [e.target.name]: e.target.value })
     };
 
-
     // Update Profile
     const [profile, setProfile] = useState({
         name: "", gender: "", phone: "", address: "", image: ""
     })
 
-
     const handleInputChangeProfile = (e) => {
         setProfile({ ...profile, [e.target.name]: e.target.value })
     };
 
-    const removeClass = () => {
-
-    }
-
     const handleUpdateProfile = () => {
-
         if (selectedFile) {
             if (selectedFile != null) {
                 formData.append("file", selectedFile)
@@ -195,8 +181,8 @@ export default function ProfileComponent() {
         }),
         onSubmit: (val, { resetForm }) => {
             handleUpdateProfile()
-            // resetForm(val = {})
-            // setProfile({ name: "", gender: "", phone: "", address: "" })
+            resetForm(val = {})
+            setProfile({ name: "", gender: "", phone: "", address: "" })
             setIsShowFormUpdateProfile(false)
         }
     })
@@ -563,11 +549,11 @@ export default function ProfileComponent() {
                                         <div className='text-left  w-full '>
                                             <label className="block mb-2 ml-1 text-sm">Current Password</label>
                                             <input
-                                                type='number'
+                                                type='password'
                                                 onInput={handleInputChange}
                                                 onChange={formik.handleChange}
-                                                defaultValue={newData.oldPassword}
-                                                name="password"
+                                                value={newData.oldPassword}
+                                                name="oldPassword"
                                                 className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
                                             />
@@ -576,10 +562,10 @@ export default function ProfileComponent() {
                                         <div className='text-left  w-full '>
                                             <label className="block mb-2 ml-1 text-sm">New Password</label>
                                             <input
-                                                type='number'
+                                                type='password'
                                                 onInput={handleInputChange}
                                                 onChange={formik.handleChange}
-                                                defaultValue={newData.newPassword}
+                                                value={newData.newPassword}
                                                 name="newPassword"
                                                 className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
@@ -589,6 +575,7 @@ export default function ProfileComponent() {
                                         <div className='text-left  w-full '>
                                             <label className="block mb-2 ml-1 text-sm">Confirm New Password</label>
                                             <input
+                                                type='password'
                                                 onInput={handleInputChange}
                                                 onChange={formik.handleChange}
                                                 value={newData.confirmNewPassword}
@@ -603,10 +590,10 @@ export default function ProfileComponent() {
                                         </div>
                                     </form>
 
-                                    <div className='absolute top-14 left-14'>
+                                    <div className='absolute top-8 left-8 w-36'>
                                         <img src={plans} />
                                     </div>
-                                    <div className='absolute bottom-14 right-14'>
+                                    <div className='absolute bottom-8 right-8 w-36'>
                                         <img src={coconut_trees} />
                                     </div>
                                     <div className='absolute top-14 rounded-full right-14 w-32 h-32 bg-primary bg-opacity-20'>
@@ -620,7 +607,7 @@ export default function ProfileComponent() {
                 </Tab.Group>
 
                 {isShowSuccess ? <>
-                    <div className={`${isShowSuccess ? "modal rounded-sm modal-open" : ""}`}>
+                    <div className={`${isShowSuccess ? "modal rounded-sm modal-open" : ""} bg-opacity-0`}>
                         <div className="modal-box">
                             <div className="flex justify-center"> <img src={successIcon} width={80} alt="" /></div>
                             <h2 className="mb-1 text-xl font-sp-pro-text-semibold leading-tight text-primary sm:text-2xl text-center pt-[25px]">Password Changed!</h2>
