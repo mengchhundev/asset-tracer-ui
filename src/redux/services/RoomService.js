@@ -1,12 +1,13 @@
-import api from "./api";
- const getAllRoom = async () =>{
-    return await api.get(`/rooms`)
- }
- const getRoomById = async (id) =>{
+import apiV2 from "./apiV2";
+const token = localStorage.getItem("token")
+const getAllRoom = async () => {
+   return await apiV2.get(`/rooms`)
+}
+const getRoomById = async (id) => {
    return await api.get(`/rooms/${id}`)
 }
-const addRoom = async ()=>{
-   return await api.post(`/rooms`)
+const addRoom = async (data) => {
+   return await apiV2.post(`/rooms`,data)
 }
- const RoomService = {getAllRoom,getRoomById};
- export default RoomService;
+const RoomService = { getAllRoom, getRoomById, addRoom };
+export default RoomService;

@@ -1,10 +1,15 @@
 import api from "./api"
+import apiV2 from "./apiV2";
 
 const signin = async (data) => {
+    console.log("Work");
+    console.log("Data ",data);
     return await api.post(`/users/login`, data)
 }
 
 const singup = async (data) => {
+    console.log("Work");
+    console.log("Data ",data);
     return await api.post(`/users/register`, data)
 }
 

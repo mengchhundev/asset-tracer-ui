@@ -2,7 +2,6 @@ import React from "react";
 import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
 import Pen from "../../assets/images/updatePicture/Pen.png";
 import Image from "../../assets/images/updatePicture/Image.png";
-
 export default function ProfileComponent() {
   return (
     <>
@@ -24,7 +23,6 @@ export default function ProfileComponent() {
               >
                 x
               </label>
-
               <div className=" mt-6 w-[85%] mx-auto">
                 <div className="mb-3 ">
                   <div className="mb-4 text-text-color font-sp-pro-text-medium ">
