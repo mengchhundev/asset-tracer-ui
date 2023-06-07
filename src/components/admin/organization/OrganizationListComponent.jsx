@@ -44,23 +44,23 @@ export default function OrganizationListComponent() {
     var userId = decoded.id;
 
     const getAllOrganizations = () => {
-        // OrganizationService.getAllOrganizations(userId).then(res => {
-        //     if (res.data?.success) {
-        //         dispatch(setAllOrganization(res.data.payload))
-        //     }
-        // }, err => {
-        //     dispatch(setAllOrganization([]))
-        // })
+        OrganizationService.getAllOrganizations(userId).then(res => {
+            if (res.data?.success) {
+                dispatch(setAllOrganization(res.data.payload))
+            }
+        }, err => {
+            dispatch(setAllOrganization([]))
+        })
     }
 
     const handleShowOrganization = (val) => {
-        // dispatch(setItem(val))
-        // sessionStorage.setItem("organization", JSON.stringify(val))
-        // navigator("/dashboard", { state: { hideOrganizationBar: true } })
+        dispatch(setItem(val))
+        sessionStorage.setItem("organization", JSON.stringify(val))
+        navigator("/dashboard", { state: { hideOrganizationBar: true } })
     }
 
     useState(() => {
-        // getAllOrganizations()
+        getAllOrganizations()
     }, [])
 
     const [selected, setSelected] = useState(people[0]);
@@ -228,8 +228,8 @@ export default function OrganizationListComponent() {
 
             {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
-                {organizations.length != 0 ? organizations.map(list => (
-                    <div key={list.id} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
+                {organizations.length == 0 ? organizations.map((list, index) => (
+                    <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
                         <div className='absolute top-3 right-3 cursor-pointer'>
                             <Listbox as="div">
                                 {({ open }) => (
@@ -329,7 +329,7 @@ export default function OrganizationListComponent() {
                 )) :
                     <div className='text-center w-full col-span-12 h-[calc(100vh-14rem)] flex justify-center items-center'>
                         <div className='mt-[-6rem]'>
-                            <img src={no_data_pic} className='w-3/6 m-auto pb-5' />
+                            <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' />
                             <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Organization</h2>
                             {/* <button
                                         type="submit"
