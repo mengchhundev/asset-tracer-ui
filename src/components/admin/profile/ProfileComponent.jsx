@@ -26,6 +26,7 @@ import FileUploadService from '../../../redux/services/FileUploadService';
 import axios from 'axios';
 
 export default function ProfileComponent() {
+    var profileImageToken = localStorage.getItem("profileImage")
     const [isShowLoading, setIsShowLoading] = useState(false)
     const dispatch = useDispatch()
     const profileDetail = useSelector(state => state.user.profileDetail)
@@ -323,8 +324,8 @@ export default function ProfileComponent() {
                             <div className='px-5 py-4'>
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
-                                        <div className='w-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
-                                            <img src={file != null ? file : user_placeholder} alt="" className="w-full" />
+                                        <div className='w-36 h-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
+                                            <img src={file != null ? file : profileImageToken != null ? profileImageToken : user_placeholder} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>

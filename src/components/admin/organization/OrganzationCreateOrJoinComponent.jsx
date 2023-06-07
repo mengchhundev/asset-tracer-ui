@@ -186,13 +186,13 @@ export default function OrganzationCreateOrJoinComponent() {
                 <img src={isJoinSuccess ? suc_pic : err_pic} alt="Signup Picture" className="w-28 m-auto" />
               </div>
               <p className={`text-2xl text-center font-sp-pro-text-semibold ${isJoinSuccess ? 'text-custom-blue' : 'text-custom-red'}`}>
-                {isJoinSuccess ? 'Success' : ''}
+                {isJoinSuccess ? 'Waiting For Approve' : ''}
               </p>
               <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
-                {!isJoinSuccess ? <>
-                  You already joined! <br /> <span className='text-blue-700'> Please wait admin approving </span>
+                {isJoinSuccess ? <>
+                  You cannot join organization until admin approve
                 </> : <>
-                  You have joined successfully!  <br /> <span className='text-blue-700'> Please wait admin approving </span>
+                  You already joined this organization code
                 </>}
               </p>
               <button

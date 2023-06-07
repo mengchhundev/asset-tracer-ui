@@ -152,10 +152,10 @@ export default function OrganizationListComponent() {
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                 <div className='w-full flex justify-center'>
-                                    {list.users.map(user => (
+                                    {list.users.map((user, index) => (
                                         <>
                                             {user?.image ?
-                                                <div className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
                                                     <img
                                                         src={FileUploadService.getImage(user.image)}
                                                         loading="lazy"
