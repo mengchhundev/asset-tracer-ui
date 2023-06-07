@@ -1,90 +1,49 @@
 import { HomeIcon, UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useEffect, useState } from 'react';
-import { XCircleIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { useDispatch, useSelector } from "react-redux";
-import RoomService from "../../../../redux/services/RoomService";
-import { setRoomById } from "../../../../redux/slices/RoomSlice";
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
+import FileUploadService from "../../../../redux/services/FileUploadService";
+
 
 
 function DetailComponent() {
     const roomDetail = useSelector(state => state.room.roomDetail)
-    const selectedImage = `http://localhost:8080/api/v1/files/getFile/{fileName}?fileName=${roomDetail.image}`;
-    console.log(roomDetail.image);
-    const [topImage, setTopImage] = useState(selectedImage);
-    const handleImageClick = (newImage) => {
-        setTopImage(newImage);
-    };
-
+    const [image, setImage]=useState("");
+   useEffect(()=>{
+    setImage(FileUploadService.getImage(roomDetail.image))
+   },[roomDetail])
+//    console.log(image);
     return (
         <div className="modal">
-            <div className="bg-white rounded-lg p-6 modal-box max-w-5xl" >
-                <div className="flex justify-between ">
+            <div className="bg-white rounded-lg p-6 modal-box max-w-6xl" >
+                <div className="flex justify-between mx-6 ">
                     <div className="flex">
                         <HomeIcon className="h-8 w-8 text-white bg-primary p-1 rounded-lg" />
                         <p className="px-6 text-text-color text-xl font-sp-pro-text-bold">Room Details</p>
                     </div>
                     <div className="">
-                    <label htmlFor="detail" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 " /></label>
+                    <label htmlFor="detail" ><XMarkIcon className="cursor-pointer h-9 w-9 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 " /></label>
                     </div>
                 </div>
                 <div className="flex">
                     <div className="xl:w-5/12 md:w-6/12">
-                        <div className="w-full justify-center lg:mx-6 lg:mt-6 lg:pb-2 rounded-xl shadow-lg">
+                        <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className="w-full justify-center lg:mx-6 lg:mt-6 lg:pb-2 rounded-xl">
                             <img
                                 className="object-cover w-full h-full rounded-3xl p-7"
-                                src={topImage}
+                                
+                                src={image}
+                                // src={roomDetail.image}
                                 alt=""
                                 loading="lazy"
                             />
                             <h3 className="text-[24px] font-sp-pro-text-bold px-7">
 
                             </h3>
-                            <span className="font-sp-pro-text-semibold px-7 text-[14] text-opacity-30 text-text-color ">Class</span>
-                        </div>
-                        <div className="flex justify-start">
-                            <div className={`w-1/4 ml-6 mt-6 mb-6 transition ease-in-out delay-150 opacity-50 hover:opacity-100 duration-300 `}>
-                                <img
-                                    className="object-cover rounded-lg cursor-pointer"
-                                    src={"https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg"}
-                                    alt=""
-                                    loading="lazy"
-                                    onClick={() =>
-                                        handleImageClick(
-                                            'https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg'
-                                        )
-                                    }
-                                />
-                            </div>
-                            <div className={`w-1/4 ml-6 mt-6 mb-6 transition ease-in-out delay-150 opacity-50 hover:opacity-100  duration-300`}>
-                                <img
-                                    className="object-cover rounded-lg cursor-pointer"
-                                    src={"https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756_960_720.jpg"}
-                                    alt=""
-                                    loading="lazy"
-                                    onClick={() =>
-                                        handleImageClick(
-                                            'https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756_960_720.jpg'
-                                        )
-                                    }
-                                />
-                            </div>
-                            <div className="w-1/4 ml-6 mt-6 mb-6">
-                                <img
-                                    className="object-cover rounded-lg hover:scale-110 cursor-pointer opacity-50 hover:opacity-100 transition ease-in-out delay-150"
-                                    src="https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_960_720.jpg"
-                                    alt=""
-                                    loading="lazy"
-                                    onClick={() =>
-                                        handleImageClick(
-                                            'https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_960_720.jpg'
-                                        )
-                                    }
-                                />
-                            </div>
+                            <span className="font-sp-pro-text-semibold px-7 text-[14] text-opacity-30 text-text-color ">{roomDetail.name}</span>
                         </div>
                     </div>
                     <div className="xl:w-7/12 md:ml-10 md:w-1/2 rounded-lg">
-                        <div className="xl:flex lg:flex-row  justify-center shadow-xl w-full py-10">
+                        <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className="xl:flex lg:flex-row rounded-lg justify-center w-full py-5 lg:mt-6">
                             <div className="w-full flex sm:w-1/2 ">
                                 <div className="pl-14">
                                     <div className="">
@@ -139,8 +98,8 @@ function DetailComponent() {
                             </div>
                         </div>
                         <div>
-                            <h1 className="text-[16px] pt-4 text-text-color font-sp-pro-text-regular">Room Description</h1>
-                            <p className="text-[16] text-text-color bg-zinc-50 rounded-lg font-sp-pro-text-regular p-5">{roomDetail?.description}</p>
+                            <h1 className="text-[16px] mx-2 mt-2 text-text-color font-sp-pro-text-regular">Room Description</h1>
+                            <p style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className="xl:flex lg:flex-row rounded-lg w-full p-4 h-24 mt-1">{roomDetail?.description}</p>
                         </div>
                     </div>
                 </div>

@@ -39,26 +39,11 @@ function AddComponent(props) {
     }, [selectedFile]);
     console.log(selectedFile);
     let formData = new FormData()
-    const handleimage = () => {
-        if (selectedFile != null) {
-            formData.append("file", selectedFile)
-            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-                console.log(res);
-            }).catch((err) => {
-                console.error(err);
-            });
-        }
-    }
-
-
-
-
     // console.log("selectUi", selectUi);
     const organization = sessionStorage.getItem("organization");
     const getOrganizationDetail = JSON.parse(organization)
     const organizationId = getOrganizationDetail.id;
     const [data, setData] = useState();
-
     useEffect(() => {
         setData((prevData) => ({
             ...prevData,
@@ -67,7 +52,6 @@ function AddComponent(props) {
             type,
         }));
     }, [floor, type, selectUi]);
-
     const handleChang = (event) => {
         const { name, value } = event.target;
         setData((prevData) => ({
@@ -115,7 +99,7 @@ function AddComponent(props) {
                             <div className="item-center w-full rounded-xl   ">
                                 <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className='block items-center space-y-5 mx-5 p-5 pb-3 rounded-md mb-1'>
                                     <label htmlFor="fileInput" className="browseButton">
-                                        <div className=" flex cursor-pointer border border-dashed items-center border-primary h-[210px] justify-center text-center p-3 rounded-lg m-auto">
+                                        <div className=" flex cursor-pointer border border-dashed items-center border-primary h-[285px] justify-center text-center p-3 rounded-lg m-auto">
                                             <div className="">
                                                 {selectedFile && (
                                                     <img
@@ -216,8 +200,8 @@ function AddComponent(props) {
 
                                                                                     {selected && (
                                                                                         <span
-                                                                                            className={`${active ? "text-white" : "text-indigo-600"
-                                                                                                } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                                                                        className={`${active ? "text-white" : "text-primary"
+                                                                                    } absolute inset-y-0 left-0 flex items-center pl-2`}
                                                                                         >
                                                                                             <svg
                                                                                                 className="h-4 w-4"
@@ -275,7 +259,7 @@ function AddComponent(props) {
                                                                                         } cursor-default select-none relative py-2 pl-10 pr-4`}
                                                                                 >
                                                                                     <span
-                                                                                        className={`${selected ? "font-semibold" : "font-normal"
+                                                                                        className={`${selected ? "font-medium" : "font-normal"
                                                                                             }`}
                                                                                     >
                                                                                         {room}
@@ -283,7 +267,7 @@ function AddComponent(props) {
 
                                                                                     {selected && (
                                                                                         <span
-                                                                                            className={`${active ? "text-white" : "text-indigo-600"
+                                                                                            className={`${active ? "text-white" : "text-primary"
                                                                                                 } absolute inset-y-0 left-0 flex items-center pl-2`}
                                                                                         >
                                                                                             <svg
