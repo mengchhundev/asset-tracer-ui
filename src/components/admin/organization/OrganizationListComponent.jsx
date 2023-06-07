@@ -228,7 +228,7 @@ export default function OrganizationListComponent() {
 
             {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
-                {organizations.length == 0 ? organizations.map((list, index) => (
+                {organizations.length != 0 ? organizations.map((list, index) => (
                     <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
                         <div className='absolute top-3 right-3 cursor-pointer'>
                             <Listbox as="div">
@@ -252,8 +252,8 @@ export default function OrganizationListComponent() {
                                                 >
                                                     <Listbox.Option>
                                                         <label
-                                                            htmlFor='delete_org'
-                                                            className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-1 p-4 w-full  text-gray-900 rounded-md `}
+                                                            htmlFor=''
+                                                            className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                         >
                                                             <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
                                                                 <FiTrash2 /> Edit
@@ -261,7 +261,7 @@ export default function OrganizationListComponent() {
                                                         </label>
                                                         <label
                                                             htmlFor='delete_org'
-                                                            className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-1 p-4 w-full  text-gray-900 rounded-md `}
+                                                            className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
                                                         >
                                                             <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
                                                                 <FiTrash2 /> Delete

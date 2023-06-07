@@ -67,7 +67,7 @@ export default function CreateOrganizatoinComponent() {
                         if (res.data?.success) {
                             dispatch(setItem(res.data.payload))
                             sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-                            navigator("/dashboard", { state: { hideOrganizationBar: true } })
+                            navigator("/organization", { state: { hideOrganizationBar: true } })
 
                         }
                     }, err => {
@@ -80,7 +80,7 @@ export default function CreateOrganizatoinComponent() {
                 if (res.data?.success) {
                     dispatch(setItem(res.data.payload))
                     sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-                    navigator("/dashboard", { state: { hideOrganizationBar: true } })
+                    navigator("/organization", { state: { hideOrganizationBar: true } })
                 }
             }, err => {
                 console.log(err)
