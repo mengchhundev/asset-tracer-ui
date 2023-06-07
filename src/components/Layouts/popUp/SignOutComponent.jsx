@@ -9,6 +9,8 @@ function SignOutComponent(props) {
     const handleSignOut = () => {
         localStorage.removeItem("token")
         sessionStorage.removeItem("organization")
+        localStorage.removeItem("profileImage")
+        localStorage.removeItem("profileImage")
         navigator("/signin")
     }
 
