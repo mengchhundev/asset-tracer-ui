@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState ={
     data:[],
     dataId:[],
-    roomDetail: {}
+    roomDetail: {},
+    deleteRoom:{}
 }
 export const roomSilce = createSlice ({
     name: "Room",
@@ -44,8 +45,15 @@ export const roomSilce = createSlice ({
         },
         setRoomDetail: (state, action) => {
             state.roomDetail = action.payload
+        },
+        // setRoomImage : (state,action) => {
+        //     state.profileImage = action.payload
+        // },
+        setDeleteRoom:(state,action)=>{
+            state.deleteRoom = action.payload
+            // console.log(action.payload);
         }
     }
 });
-export const {setAllRoom,setRoomById, setRoomDetail} = roomSilce.actions
+export const {setAllRoom,setRoomById, setRoomDetail,setDeleteRoom} = roomSilce.actions
 export default roomSilce.reducer
