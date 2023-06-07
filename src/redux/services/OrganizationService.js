@@ -4,11 +4,11 @@ const getAllOrganizations = async (userID) => {
     return await apiV2.get(`/organizations/${userID}/organization`);
 }
 
-const joinOrganization = async (data, token) => {
+const joinOrganization = async (data) => {
     return await apiV2.post(`/organizations/join`, data)
 }
 
-const saveOrganization = async (data, token) => {
+const saveOrganization = async (data) => {
     return await apiV2.post(`/organizations`, data)
     
 }

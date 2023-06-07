@@ -39,9 +39,7 @@ export default function NavbarComponent() {
   const getAllOrganizations = () => {
     OrganizationService.getAllOrganizations(userId).then(
       (res) => {
-        console.log(res.data.payload);
         if (res.data?.success) {
-          console.log(234);
           dispatch(setAllOrganization(res.data.payload));
         }
       },
@@ -84,8 +82,6 @@ export default function NavbarComponent() {
 
         <div className="flex items-center w-full justify-between">
           <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center rounded-md">
-            {/* <HiOutlineBuildingLibrary className="h-7 rounded-md w-7 text-white bg-primary p-1 mr-2"/> */}
-            {/* {session ? session.name : "No Organzation"} */}
           </div>
           <nav className="flex items-center gap-2 ">
             <Menu
@@ -167,25 +163,45 @@ export default function NavbarComponent() {
             <Menu
               menuButton={
                 <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
-                  {item != null ? (
-                    <img
-                      src={FileUploadService.getImage(item.logo)}
-                      className="w-9 h-9 object-cover rounded-full"
-                    />
-                  ) : organization != null ? (
-                    <img
-                      src={FileUploadService.getImage(organization.logo)}
-                      className="w-9 h-9 object-cover rounded-full"
-                    />
-                  ) : (
-                    <div className="w-9 h-9 bg-green rounded-full flex justify-center items-center m-auto">
-                      {organization && (
-                        <p className="font-sp-pro-text-bold text-2xl lg:text-2xl text-white">
-                          {organization?.name.substring(0, 1)}
-                        </p>
-                      )}
-                    </div>
-                  )}
+
+
+                  {organization ?
+                    <>
+                      {organization.logo ?
+                        <>
+                          <img
+                            src={FileUploadService.getImage(organization.logo)}
+                            className="w-9 h-9 object-cover rounded-full"
+                          />
+                        </>
+                        :
+                        <div className="w-9 h-9 bg-green rounded-full flex justify-center items-center m-auto">
+                          <p className="font-sp-pro-text-bold text-2xl lg:text-2xl text-white">
+                            {organization?.name.substring(0, 1)}
+                          </p>
+                        </div>
+                      }
+                    </>
+
+                    :
+                    item ?
+                      <>
+                        {item?.log ?
+                          <img
+                            src={FileUploadService.getImage(item.logo)}
+                            className="w-9 h-9 object-cover rounded-full"
+                          /> :
+
+                          <div className="w-9 h-9 bg-green rounded-full flex justify-center items-center m-auto">
+                            <p className="font-sp-pro-text-bold text-2xl lg:text-2xl text-white">
+                              {item?.name.substring(0, 1)}
+                            </p>
+                          </div>
+                        }
+                      </>
+                      : null
+                  }
+
                   {organization ? (
                     <span className="header">{organization.name}</span>
                   ) : (
@@ -229,36 +245,38 @@ export default function NavbarComponent() {
                           />
                         </div>
                       </div>
-                      {organizations.map((list, index) => (
-                        <label
-                          key={index}
-                          onClick={() => handleShowOrganization(list)}
-                          className="rounded-0 hover:bg-bg-primary cursor-pointer w-full bg-bg-color  transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-1.5 px-6 flex-1"
-                        >
-                          {list?.logo ? (
-                            <img
-                              src={
-                                list.logo != null
-                                  ? FileUploadService.getImage(list.logo)
-                                  : placeholder
-                              }
-                              className="w-7 h-7 object-cover rounded-full border-2 border-bg-feature shadow-md"
-                            />
-                          ) : (
-                            <div className="w-7 h-7 bg-green rounded-full flex justify-center items-center">
-                              <p className="font-sp-pro-text-bold text-xl  text-white">
-                                {organization?.name.substring(0, 1)}
-                              </p>
-                            </div>
-                          )}
+                      <div className="h-[40vh] overflow-y-scroll">
+                        {organizations.map((list, index) => (
+                          <label
+                            key={index}
+                            onClick={() => handleShowOrganization(list)}
+                            className="rounded-0 hover:bg-bg-primary cursor-pointer w-full bg-bg-color  transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-1.5 px-6 flex-1"
+                          >
+                            {list?.logo ? (
+                              <img
+                                src={
+                                  list.logo != null
+                                    ? FileUploadService.getImage(list.logo)
+                                    : placeholder
+                                }
+                                className="w-7 h-7 object-cover rounded-full border-2 border-bg-feature shadow-md"
+                              />
+                            ) : (
+                              <div className="w-7 h-7 bg-green rounded-full flex justify-center items-center">
+                                <p className="font-sp-pro-text-bold text-xl  text-white">
+                                  {organization?.name.substring(0, 1)}
+                                </p>
+                              </div>
+                            )}
 
-                          <div className="flex flex-col">
-                            <span className="text-xs text-text-color font-sp-pro-text-regular py-2">
-                              {list.name}
-                            </span>
-                          </div>
-                        </label>
-                      ))}
+                            <div className="flex flex-col">
+                              <span className="text-xs text-text-color font-sp-pro-text-regular py-2">
+                                {list.name}
+                              </span>
+                            </div>
+                          </label>
+                        ))}
+                      </div>
                     </div>
                   </>
                 ) : null}

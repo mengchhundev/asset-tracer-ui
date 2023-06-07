@@ -105,8 +105,6 @@ export default function SidebarComponent() {
             >
                 <div>
                     <ul>
-
-
                         <li>
                             <NavLink
                                 onClick={() => setShowOrganization(!showOrganization)}

@@ -103,17 +103,11 @@ export default function SignInComponent() {
                                     let getToken = jwt_decode(res.data.payload.token)
                                     if (localStorage.getItem("token")) {
                                         if (getToken?.image) {
-                                            FileUploadService.getFileV2(getToken.image, res.data.payload.token).then(res => {
-                                                if (res?.data) {
-                                                    blobToBase64(res.data).then(res => {
-                                                        localStorage.setItem("profileImage", res)
-                                                    })
-                                                }
-                                            })
+                                            localStorage.setItem("profileImage", FileUploadService.getImage(getToken.image))
                                         }
                                         setTimeout(() => {
                                             setLoading(false)
-                                            navigator("/organization");
+                                            navigator("/organization", {state: {isLoggedIn : true}});
                                         }, 1000)
                                     }
                                 }, err => {

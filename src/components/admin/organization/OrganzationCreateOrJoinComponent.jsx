@@ -7,7 +7,6 @@ import { Fragment, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { ChevronUpDownIcon, EllipsisVerticalIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { HiChevronDown, HiOutlineCheck } from 'react-icons/hi';
-import AddOrgnizaation from './popUp/AddOrgnizaation';
 import { useFormik } from 'formik';
 import OrganizationService from '../../../redux/services/OrganizationService';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,38 +38,6 @@ const people = [
 let organizationList = [
   {
     id: 1,
-    name: "HRD Center",
-    owner: "Sok Polen",
-    memebers: [
-
-    ]
-  },
-  {
-    id: 2,
-    name: "HRD Center",
-    owner: "Sok Polen",
-    memebers: [
-
-    ]
-  },
-  {
-    id: 3,
-    name: "HRD Center",
-    owner: "Sok Polen",
-    memebers: [
-
-    ]
-  },
-  {
-    id: 4,
-    name: "HRD Center",
-    owner: "Sok Polen",
-    memebers: [
-
-    ]
-  },
-  {
-    id: 5,
     name: "HRD Center",
     owner: "Sok Polen",
     memebers: [
@@ -139,7 +106,7 @@ export default function OrganzationCreateOrJoinComponent() {
 
   return (
     <>
-      <main className="overflow-y-auto pb-4 ">
+      <main className="overflow-y-auto pb-4">
         <div className="gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-5 md:px-10 lg:px-20 con-Shadow">
           <div className='grid grid-cols-2 w-full gap-3 md:gap-8 py-4'>
             <label htmlFor="create-organization" className="min-h-[9rem] col-span-2 md:col-span-1 px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">

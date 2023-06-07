@@ -4,8 +4,13 @@ const apiV2 = axios.create({
     headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
     }
+})
+
+apiV2.interceptors.request.use((s)=> {
+    const token = localStorage.getItem("token")
+    s.headers.Authorization= "Bearer "+ token
+    return s
 })
 
 export default apiV2;
