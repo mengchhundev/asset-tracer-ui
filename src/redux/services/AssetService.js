@@ -1,11 +1,9 @@
-import api from "./api"
+import apiV2 from "./api"
 
-const getAllAssets = async (userID) => {
-    return api.get(`/organizations/${userID}/organization`);
+const getAllAssets = async () => {
+    return await apiV2.get(`/assets`);
 }
 
-const AssetService = {
-
-}
+const AssetService = { getAllAssets}
 
 export default AssetService;

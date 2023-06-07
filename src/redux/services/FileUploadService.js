@@ -11,8 +11,20 @@ const storeFile = async (file, token) => {
 }
 
 const getFile = async (fileName) => {
-    return await apiFile.get(`files/getFile?fileName=${fileName}`)
+
 }
 
-const FileUploadService = { storeFile, getFile }
+const getFileV2 = async (fileName, token) => {
+    return await apiFile.get(`files/getFile?fileName=${fileName}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+const getImage = (fileName) => {
+    return "http://localhost:8080/api/v1/files/getFile?fileName=" + fileName;
+}
+
+const FileUploadService = { storeFile, getFile, getFileV2, getImage}
 export default FileUploadService

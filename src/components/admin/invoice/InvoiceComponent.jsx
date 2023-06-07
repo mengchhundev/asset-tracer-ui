@@ -35,74 +35,68 @@ export default function AssetComponent() {
     {
       id: 1,
       invoice: "10",
-      supplier:
-        "computer shop",
+      supplier: "computer shop",
       purchaser:
         "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
       date: "12-27-2023",
       quantity: "40",
       totalPrice: "700",
-      name : "menghout"
+      name: "menghout",
     },
     {
       id: 2,
       invoice: "10",
-      supplier:
-        "computer shop",
+      supplier: "computer shop",
       purchaser:
         "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
       date: "12-27-2023",
       quantity: "40",
       totalPrice: "700",
-      name : "menghout"
+      name: "menghout",
     },
     {
       id: 3,
       invoice: "10",
-      supplier:
-        "computer shop",
+      supplier: "computer shop",
       purchaser:
         "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
       date: "12-27-2023",
       quantity: "40",
       totalPrice: "700",
-      name : "menghout"
+      name: "menghout",
     },
     {
       id: 4,
       invoice: "10",
-      supplier:
-        "computer shop",
+      supplier: "computer shop",
       purchaser:
         "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
       date: "12-27-2023",
       quantity: "40",
       totalPrice: "700",
-      name : "menghout"
+      name: "menghout",
     },
     {
       id: 5,
       invoice: "10",
-      supplier:
-        "computer shop",
+      supplier: "computer shop",
       purchaser:
         "https://i.pinimg.com/474x/cc/e2/ec/cce2ec22b072d3b11b8a83d942457d00.jpg",
       date: "12-27-2023",
       quantity: "40",
       totalPrice: "700",
-      name : "menghout"
+      name: "menghout",
     },
     {
       id: 6,
       invoice: "10",
-      supplier:
-        "computer shop",
+      supplier: "computer shop",
       purchaser:
         "https://i.pinimg.com/474x/cc/e2/ec/cce2ec22b072d3b11b8a83d942457d00.jpg",
       date: "12-27-2023",
       quantity: "40",
       totalPrice: "700",
-      name : "menghout"
+      name: "menghout",
     },
   ]);
   //combobox
@@ -259,16 +253,16 @@ export default function AssetComponent() {
               </div>
 
               {/* add */}
-              <Link to={'/invoice/add'}>
-              <div className="block ">
-                <label
-                  htmlFor="my-modal-3"
-                  className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
-                >
-                  <BsPlus className="w-6 h-6" />
-                  &nbsp;Add User
-                </label>
-              </div>
+              <Link to={"/invoice/add"}>
+                <div className="block ">
+                  <label
+                    htmlFor="my-modal-3"
+                    className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
+                  >
+                    <BsPlus className="w-6 h-6" />
+                    &nbsp;Add User
+                  </label>
+                </div>
               </Link>
             </div>
           </div>
@@ -285,12 +279,22 @@ export default function AssetComponent() {
                 <tbody className="">
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 text-text-color">
                     <td className="w-1/14  bg-bg-main py-3">No</td>
-                    <td className="w-1/14 bg-bg-main py-3 text-center">Invoice</td>
-                    <td className="w-1/14 bg-bg-main py-3 text-center">Supplier</td>
-                    <td className="w-1/14 bg-bg-main py-3 text-center">Purchase</td>
+                    <td className="w-1/14 bg-bg-main py-3 text-center">
+                      Invoice
+                    </td>
+                    <td className="w-1/14 bg-bg-main py-3 text-center">
+                      Supplier
+                    </td>
+                    <td className="w-1/14 bg-bg-main py-3 text-center">
+                      Purchase
+                    </td>
                     <td className="w-4/14 bg-bg-main py-3 text-center">Date</td>
-                    <td className="w-4/14 bg-bg-main py-3 text-center">Quantity</td>
-                    <td className="w-2/14 bg-bg-main py-3 text-center">Total Price</td>
+                    <td className="w-4/14 bg-bg-main py-3 text-center">
+                      Quantity
+                    </td>
+                    <td className="w-2/14 bg-bg-main py-3 text-center">
+                      Total Price
+                    </td>
                     <td className=" bg-bg-main text-center">More</td>
                   </tr>
                   {invoices.map((invoice) => (
@@ -299,14 +303,10 @@ export default function AssetComponent() {
                         {invoice.id}
                       </td>
                       <td className="w-1/12 py-2">
-                        <div className="">
-                          {invoice.invoice}
-                        </div>
+                        <div className="">{invoice.invoice}</div>
                       </td>
                       <td className="w-2/12 py-2">
-                        <div className="">
-                         {invoice.supplier}
-                        </div>
+                        <div className="">{invoice.supplier}</div>
                       </td>
                       <td className="w-2/12 py-2 items-start">
                         <div className="relative  mr-8 w-12 h-12 flex items-center">
@@ -315,9 +315,7 @@ export default function AssetComponent() {
                             loading="lazy"
                             className="rounded-full h-full w-full"
                           />
-                          <div>
-                            {invoice.name}
-                          </div>
+                          <div>{invoice.name}</div>
                         </div>
                       </td>
                       <td className="w-1.5/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
@@ -342,18 +340,21 @@ export default function AssetComponent() {
                             tabIndex={0}
                             className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-52"
                           >
-                            
-                            <Link to='/view-invoice'>
-                            <li onClick={() => dispatch(ViewInvoiceComponent(item))}>
-                              <label
-                                htmlFor="detail"
-                                className="hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4"
+                            <Link to="/view-invoice">
+                              <li
+                                onClick={() =>
+                                  dispatch(ViewInvoiceComponent(item))
+                                }
                               >
-                                View Invoice
-                              </label>
-                            </li>
+                                <label
+                                  htmlFor="detail"
+                                  className="hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4"
+                                >
+                                  View Invoice
+                                </label>
+                              </li>
                             </Link>
-                            <Link to={'/update-invoice'}>
+                            <Link to={"/update-invoice"}>
                               <li className="">
                                 <label
                                   htmlFor="update"
@@ -362,7 +363,7 @@ export default function AssetComponent() {
                                   Update Invoice
                                 </label>
                               </li>
-                              </Link>
+                            </Link>
 
                             <li className="">
                               <label

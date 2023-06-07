@@ -18,6 +18,7 @@ import avatar04 from "../../../assets/images/organization/avatar04.png";
 import trash_ico from "../../../assets/images/trash.png"
 import { Listbox, Transition } from '@headlessui/react';
 import { RiCloseFill } from 'react-icons/ri';
+import FileUploadService from '../../../redux/services/FileUploadService';
 
 export default function OrganizationListComponent() {
     const [dropdown, setDropdown] = useState(false);
@@ -33,6 +34,7 @@ export default function OrganizationListComponent() {
 
     const getAllOrganizations = () => {
         OrganizationService.getAllOrganizations(userId).then(res => {
+            console.log(res.data.payload)
             if (res.data?.success) {
                 dispatch(setAllOrganization(res.data.payload))
             }
@@ -55,7 +57,6 @@ export default function OrganizationListComponent() {
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl">
 
             <input type="checkbox" id="delete_org" className="modal-toggle" />
-
             <div className="modal">
                 <div className="modal-box relative">
                     <div className='absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer'>
@@ -68,7 +69,7 @@ export default function OrganizationListComponent() {
                         <div className="pl-3 leading-none">
                             <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
                             <p className="pt-1 py-5">
-                                Are you sure want to delete this post?
+                                Are you sure want to delete this organization?
                             </p>
                         </div>
                     </div>
@@ -101,7 +102,7 @@ export default function OrganizationListComponent() {
                                     <>
                                         <div className="relative">
                                             <span className="">
-                                                <Listbox.Button className="hover:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
+                                                <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
                                                     <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
                                                 </Listbox.Button>
                                             </span>
@@ -113,14 +114,22 @@ export default function OrganizationListComponent() {
                                             >
                                                 <Listbox.Options
                                                     static
-                                                    className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-[-2.5rem] z-50 w-40 p-3"
+                                                    className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
                                                 >
                                                     <Listbox.Option>
                                                         <label
                                                             htmlFor='delete_org'
-                                                            className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                            className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-1 p-4 w-full  text-gray-900 rounded-md `}
                                                         >
-                                                            <span className='flex justify-start text-[16px] font-sp-pro-text-semibold items-center gap-2'>
+                                                            <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                <FiTrash2 /> Edit
+                                                            </span>
+                                                        </label>
+                                                        <label
+                                                            htmlFor='delete_org'
+                                                            className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-1 p-4 w-full  text-gray-900 rounded-md `}
+                                                        >
+                                                            <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
                                                                 <FiTrash2 /> Delete
                                                             </span>
                                                         </label>
@@ -138,53 +147,44 @@ export default function OrganizationListComponent() {
                             <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
                                 <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
                                     <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
-                                    {/* <p>{list.id}</p> */}
                                 </div>
                             </div>
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
                             <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                Organization Owner
+                                {list?.owner}
                             </p>
                             <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
-                                20 members
+                                {list.users.length} members
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
-                                {/* {list.users.map(user => ( */}
-
                                 <div className='w-full flex justify-center'>
-                                    <div className="relative  w-7 h-7 mr-[-14px] z-10">
-                                        <img
-                                            src={avatar01}
-                                            loading="lazy"
-                                            className="rounded-full h-full w-full"
-                                        />
-                                    </div>
-                                    <div className="relative  w-7 h-7 mr-[-14px] z-20">
-                                        <img
-                                            src={avatar02}
-                                            loading="lazy"
-                                            className="rounded-full h-full w-full"
-                                        />
-                                    </div>
-                                    <div className="relative  w-7 h-7 mr-[-14px] z-30">
-                                        <img
-                                            src={avatar03}
-                                            loading="lazy"
-                                            className="rounded-full h-full w-full"
-                                        />
-                                    </div>
-                                    <div className="relative  w-7 h-7 mr-[-14px] z-40">
-                                        <img
-                                            src={avatar04}
-                                            loading="lazy"
-                                            className="rounded-full h-full w-full"
-                                        />
-                                    </div>
-                                    <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
+                                    {list.users.map((user, index) => (
+                                        <>
+                                            {user?.image ?
+                                                <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                    <img
+                                                        src={FileUploadService.getImage(user.image)}
+                                                        loading="lazy"
+                                                        className="rounded-full h-full w-full"
+                                                    />
+                                                </div>
+                                                :
+                                                <div className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                    <img
+                                                        src={avatar01}
+                                                        loading="lazy"
+                                                        className="rounded-full h-full w-full"
+                                                    />
+                                                </div>
+                                            }
+                                        </>
+                                    ))}
+
+                                    {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                                         8 <FiPlus />
-                                    </div>
+                                    </div> */}
                                 </div>
-                                {/* ))} */}
+
                             </div>
                             <div className="w-full px-8 text-center cursor-pointer">
                                 <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>

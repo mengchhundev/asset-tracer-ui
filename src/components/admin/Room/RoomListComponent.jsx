@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAllRoom, setRoomDetail } from "../../../redux/slices/RoomSlice";
+import { setAllRoom, setRoomDetail, setDeleteRoom } from "../../../redux/slices/RoomSlice";
 import RoomService from "../../../redux/services/RoomService";
 import DetailComponent from "./popUpRoom/DetailComponent";
 import AddComponent from "./popUpRoom/AddComponent";
@@ -11,6 +11,9 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { BsPlus } from "react-icons/bs";
 import jwt_decode from "jwt-decode";
+import DeletemodalComponent from "../../modalDelete/DeletemodalComponent";
+
+
 const people = [
   { id: 1, name: "Room" },
   { id: 2, name: "Arlene Mccoy" },
@@ -34,7 +37,7 @@ function RoomListComponent(props) {
   // organization id
   const organization = sessionStorage.getItem("organization");
   const getOrganizationDetail = JSON.parse(organization)
-  const organizationId = getOrganizationDetail.id;
+  const orgId = getOrganizationDetail.id;
 
   const filteredPeople =
     query === ""
@@ -53,7 +56,7 @@ function RoomListComponent(props) {
   const index = divClassName.substring(startIndex, endIndex).trim();
   const [pageCount, setPageCount] = useState(2);
   const getAllRoom = () => {
-    RoomService.getAllRoom().then((res) => {
+    RoomService.getAllRoom(orgId).then((res) => {
       if (res?.data?.success) {
         dispatch(setAllRoom(res.data.payload));
       }
@@ -72,6 +75,17 @@ function RoomListComponent(props) {
     getAllSuperCategory(event.selected + 1);
     setI(event.selected * 10 + 1);
   };
+
+
+// Get image detail
+const handleShowRoomDetail = (item) => {
+
+    dispatch(setRoomDetail(item))
+
+}
+const handlDelete =(item)=>{
+  dispatch(setDeleteRoom(item));
+}
 
   return (
     <main
@@ -119,7 +133,7 @@ function RoomListComponent(props) {
             </div>
 
             {/* filter */}
-            <div className="z-20">
+            {/* <div className="z-20">
               <Combobox
                 value={selected}
                 onChange={setSelected}
@@ -191,7 +205,7 @@ function RoomListComponent(props) {
                   </Transition>
                 </div>
               </Combobox>
-            </div>
+            </div> */}
 
             {/* add */}
             <div className="block ">
@@ -221,13 +235,13 @@ function RoomListComponent(props) {
                 <td className="w-2/12 bg-bg-main py-3">
                   Type
                 </td>
-                <td className="w-2/12 bg-bg-main py-3 text-center">
+                <td className="w-2/12 bg-bg-main py-3 ">
                   Floor
                 </td>
-                <td className="w-3/12 bg-bg-main py-3 text-center">
+                <td className="w-3/12 bg-bg-main py-3 ">
                   Description
                 </td>
-                <td className="w-1/12 bg-bg-main py-3 text-center">
+                <td className="w-1/12 bg-bg-main py-3 ">
                   Action
                 </td>
               </tr>
@@ -235,40 +249,41 @@ function RoomListComponent(props) {
             <tbody className="">
 
               {getData.map((item, index) => {
-                  if(item.organization.id == organizationId ){
-                    return(
-                <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
-                  <td className="w-1/12 px-10">{index + 1}</td>
-                  <td className="w-3/12">
-                    <span className={`bg-accept bg-opacity-20 p-2 text-accept rounded-full mr-5`}>{item.name.substring(0, 2)}</span>
-                    {item.name}
-                  </td>
-                  <td className="w-2/12">{item.type}</td>
-                  <td className="w-2/12">{item.floor}</td>
-                  <td className="w-3/12">{item.description}</td>
-                  <td className="w-1/12">
-                    <div className="dropdown dropdown-left">
-                      <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
-                      <ul tabIndex={0} className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-44">
-                        <li onClick={() => dispatch(setRoomDetail(item))}>
-                          <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4' >View Room Detail</label>
-                        </li>
-                        <li className=''>
-                          <label htmlFor="update" className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer">Update Room</label>
-                        </li>
-                        <li className='hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer'>Delete Room</li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-             ) }
-              else{
+                  return (
+                    <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
+                      <td className="w-1/12 px-10">{index + 1}</td>
+                      <td className="w-3/12">
+                        <span className={`bg-accept bg-opacity-20 p-2 text-accept rounded-full mr-5`}>{item.name.substring(0, 2)}</span>
+                        {item.name}
+                      </td>
+                      <td className="w-2/12">{item.type}</td>
+                      <td className="w-2/12">{item.floor}</td>
+                      <td className="w-3/12">{item.description}</td>
+                      <td className="w-1/12">
+                        <div  className="dropdown dropdown-left">
+                          <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
+                          <ul tabIndex={0} style={{ boxShadow: "0 3px 20px 0 rgb(0 0 0 / 0.1)" }} className="z-50 dropdown-content menu bg-base-100 rounded-md w-44">
+                            <li onClick={() => handleShowRoomDetail(item)}>
+                              <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 px-4 p-3' >View Room Detail</label>
+                            </li>
+                            <li className=''>
+                              <label htmlFor="update" className="hover:bg-primary hover:bg-opacity-10 px-4 p-3 cursor-pointer">Update Room</label>
+                            </li>
+                            <li onClick={()=>handlDelete(item)}>
+                            <label htmlFor="delete_org" className="hover:bg-primary hover:bg-opacity-10 px-4 p-3 cursor-pointer"> Delete Room</label>
+                             </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                
 
-              }
-               
-            })}
+              })}
             </tbody>
           </table>
+          <input type="checkbox" id="delete_org" className="modal-toggle" />
+          <DeletemodalComponent className="model"/>
           <input type="checkbox" id="detail" className="modal-toggle" />
           <DetailComponent className="modal" />
           <input type="checkbox" id="addroom" className="modal-toggle" />

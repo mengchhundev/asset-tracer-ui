@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HomeModernIcon } from '@heroicons/react/20/solid';
 import upload_placeholder from '../../../../assets/images/placeholder/upload_placeholder.svg';
 import { useState } from 'react';
@@ -8,8 +8,12 @@ import OrganizationService from '../../../../redux/services/OrganizationService'
 import { useNavigate } from 'react-router';
 import { RiCloseFill } from 'react-icons/ri';
 import { FiSave } from 'react-icons/fi';
+import FileUploadService from '../../../../redux/services/FileUploadService';
+import { useDispatch } from 'react-redux';
+import { setItem } from '../../../../redux/slices/OrganizationSlice';
 
-export default function CreateOrganizatoinComponent(props) {
+export default function CreateOrganizatoinComponent() {
+    const dispatch = useDispatch()
     const navigator = useNavigate()
     const [newData, setNewData] = useState({
         name: "",
@@ -17,19 +21,72 @@ export default function CreateOrganizatoinComponent(props) {
         logo: ""
     })
 
+    let formData = new FormData()
+
+    // Upload file
+    const [selectedFile, setSelectedFile] = useState('')
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
+    useEffect(() => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                console.log(event)
+                const image = new Image();
+                image.onload = () => {
+                    setImageDimensions({
+                        width: image.width,
+                        height: image.height,
+                    });
+                };
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    }, [selectedFile]);
+
     const handleInputChange = (e) => {
         setNewData({ ...newData, [e.target.name]: e.target.value })
         console.log(newData)
     };
 
     const hanndSaveOrganization = () => {
-        OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
-            if (res.data?.success) {
-                navigator("/organization")
-            }
-        }, err => {
-            console.log(err)
-        })
+        if (selectedFile) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+                if (res.data.success) {
+                    OrganizationService.saveOrganization({
+                        name: newData.name,
+                        address: newData.address,
+                        logo: res.data.payload
+                    }, localStorage.getItem("token")).then(res => {
+                        if (res.data?.success) {
+                            dispatch(setItem(res.data.payload))
+                            sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            navigator("/dashboard", { state: { hideOrganizationBar: true } })
+
+                        }
+                    }, err => {
+                        console.log(err)
+                    })
+                }
+            })
+        } else {
+            OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
+                if (res.data?.success) {
+                    dispatch(setItem(res.data.payload))
+                    sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                    navigator("/dashboard", { state: { hideOrganizationBar: true } })
+                }
+            }, err => {
+                console.log(err)
+            })
+        }
+
     }
 
     const formik = useFormik({
@@ -52,12 +109,9 @@ export default function CreateOrganizatoinComponent(props) {
         }
     });
 
-
-    const [file, setFile] = useState();
-    function handleChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
-    }
+    useEffect(() => {
+        formik.setValues(newData);
+    }, [])
 
     return (
         <div className="modal">
@@ -77,21 +131,18 @@ export default function CreateOrganizatoinComponent(props) {
                             <div className="px-6">
                                 <div className='space-y-5 shadow p-10 rounded-md mb-1 relative'>
                                     <div className='border border-dashed py-8 border-primary block justify-center text-center p-4 rounded-lg'>
-                                        <div className='w-44 relative'>
+                                        <div className='w-44 h-20 relative'>
                                             {
-                                                file ? <img src={file} className='w-220px' />
+                                                selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
                                                     : <img className="block m-auto " src={upload_placeholder} alt="" />
                                             }
                                         </div>
                                         <p className='mt-5 text-xs'>Upload Organzation Picture</p>
                                         <br />
-                                        <label htmlFor='image' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
-                                        <input type="file" className='hidden' id='image' onChange={handleChange} />
+                                        <label htmlFor='logo' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
+                                        <input type="file" className='hidden' id='logo' onChange={handleFileSelect} />
                                     </div>
                                 </div>
-                                {/* <div className='mt-3'>
-                                    <button className='shadow-sm rounded-md border border-none bg-reject-light w-full text-reject px-5 py-1.5 my-2 flex justify-center items-center gap-1'><BsTrash /> Remove</button>
-                                </div> */}
                             </div>
                         </div>
                         <div className='flex-grow mt-10 lg:mt-0'>

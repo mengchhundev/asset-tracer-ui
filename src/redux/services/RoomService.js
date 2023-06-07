@@ -1,7 +1,7 @@
 import apiV2 from "./apiV2";
-const token = localStorage.getItem("token")
-const getAllRoom = async () => {
-   return await apiV2.get(`/rooms`)
+const getAllRoom = async (orgId) => {
+   console.log(orgId);
+   return await apiV2.get(`/rooms/organization/${orgId}`)
 }
 const getRoomById = async (id) => {
    return await api.get(`/rooms/${id}`)
@@ -9,5 +9,9 @@ const getRoomById = async (id) => {
 const addRoom = async (data) => {
    return await apiV2.post(`/rooms`,data)
 }
-const RoomService = { getAllRoom, getRoomById, addRoom };
+const deleteRoom = async (roomId)=>{
+   console.log("roomId",roomId);
+   return await apiV2.delete(`rooms/${roomId}`)
+}
+const RoomService = { getAllRoom, getRoomById, addRoom ,deleteRoom};
 export default RoomService;

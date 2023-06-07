@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded, BiEdit } from "react-icons/bi";
 import { RxCheck } from "react-icons/rx";
 
@@ -18,6 +18,9 @@ import UpdateComponent from "../Room/popUpRoom/UpdateComponent";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import DeleteComponent from "../../modalDelete/DeleteComponent";
+import AssetService from "../../../redux/services/AssetService";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from "../../../redux/slices/AssetSlice";
 
 const people = [
   { id: 1, name: "Asset" },
@@ -86,6 +89,23 @@ export default function AssetComponent() {
     getAllSuperCategory(event.selected + 1);
     setI(event.selected * 10 + 1);
   };
+  // getdata
+  const dispatch = useDispatch();
+  const getdata = useSelector((state) => state.asset.data);
+  console.log("getdata",getdata)
+  const getAllAsset =()=>{
+    AssetService.getAllAssets()
+    .then((res)=>{
+      console.log("res data",res.data.payload)
+        dispatch(setData(res.data.payload))
+    })
+    .catch((err) => {
+      console.error(err);
+  });
+  }
+  useEffect(()=>{
+    getAllAsset();
+  },[])
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
@@ -94,10 +114,10 @@ export default function AssetComponent() {
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-pending">Normal</span> Management
+              All <span className="text-pending">Assets</span> Items
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-              Active categories
+              Active Assets
             </p>
           </div>
 
@@ -207,10 +227,9 @@ export default function AssetComponent() {
             </div>
 
             {/* add */}
-            {/* add */}
             <div className="block ">
               <Link to={"/asset/add"}>
-                <label className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase">
+                <label className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] hover:bg-primary hover:bg-opacity-10 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase">
                   <BsPlus className="w-6 h-6" />
                   &nbsp;Add Asset
                 </label>
@@ -218,9 +237,6 @@ export default function AssetComponent() {
             </div>
           </div>
         </div>
-
-
-        
 
 
         <div className="flex flex-col justify-between relative">

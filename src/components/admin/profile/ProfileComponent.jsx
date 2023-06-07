@@ -26,6 +26,7 @@ import FileUploadService from '../../../redux/services/FileUploadService';
 import axios from 'axios';
 
 export default function ProfileComponent() {
+    var profileImageToken = localStorage.getItem("profileImage")
     const [isShowLoading, setIsShowLoading] = useState(false)
     const dispatch = useDispatch()
     const profileDetail = useSelector(state => state.user.profileDetail)
@@ -38,6 +39,7 @@ export default function ProfileComponent() {
     const token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
     var userId = decoded.id;
+    var profileImageToken = localStorage.getItem("profileImage")
     const [newData, setNewData] = useState({
         oldPassword: "", newPassword: "", confirmNewPassword: ""
     })
@@ -84,16 +86,8 @@ export default function ProfileComponent() {
         UserService.getProfileUser(userId).then(res => {
             if (res.data?.success) {
                 dispatch(setProfileDetail(res.data.payload))
-                setProfile(res.data.payload)
                 if (res.data.payload?.image) {
-                    FileUploadService.getFile(res.data.payload?.image).then(res => {
-                        if (res?.data) {
-                            blobToBase64(res.data).then(res => {
-                                setFile(res)
-                                dispatch(setProfileImage(res))
-                            })
-                        }
-                    })
+                    setFile(FileUploadService.getImage(res.data.payload.image))
                 }
             }
         })
@@ -156,11 +150,22 @@ export default function ProfileComponent() {
                     image: res.data.payload
                 }).then(res => {
                     if (res.data?.success) {
-                        setIsSuccessUpdateProfile(true)
-                        handleGetProfileDetail()
+                        
+                        
+                        if(res.data.payload?.image) {
+                            setFile(FileUploadService.getImage(res.data.payload.image))
+                            dispatch(setProfileImage(FileUploadService.getImage(res.data.payload.image)))
+                            localStorage.setItem("profileImage", FileUploadService.getImage(res.data.payload.image))
+                        }
+                        
+                        document.getElementById("modal-profile").click()
                         setTimeout(() => {
-                            document.getElementById("modal-profile").click()
-                        }, 100)
+                            handleGetProfileDetail()
+                        }, 800)
+
+                        setTimeout(() => {
+                            setIsSuccessUpdateProfile(true)
+                        }, 1000)
                     }
                 })
             })
@@ -188,9 +193,17 @@ export default function ProfileComponent() {
     })
 
     const handleShowProfile = () => {
-        formikProfile.setValues(profile);
+        UserService.getProfileUser(userId).then(res => {
+            if(res.data.success) {
+                setProfile(res.data.payload)
+            }
+        })
         
     }
+
+    useEffect(() => {
+        formikProfile.setValues(profile);
+    }, [profile])
 
     return (
         <>
@@ -317,8 +330,8 @@ export default function ProfileComponent() {
                             <div className='px-5 py-4'>
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
-                                        <div className='w-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
-                                            <img src={file ?? user_placeholder} alt="" className="w-full" />
+                                        <div className='w-36 h-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
+                                            <img src={file != null ? file : profileImageToken != null ? profileImageToken : user_placeholder} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>
