@@ -1,25 +1,27 @@
-import api from "./api"
+import apiV2 from "./apiV2"
 
 const getAllOrganizations = async (userID) => {
-    return api.get(`/organizations/${userID}/organization`);
+    return await apiV2.get(`/organizations/${userID}/organization`);
 }
 
 const joinOrganization = async (data, token) => {
-    return api.post(`/organizations/join`, data, {
-        headers: { Authorization: `Bearer ${token}` }
-    })
+    return await apiV2.post(`/organizations/join`, data)
 }
 
-const saveOrganization = (data, token) => {
-    return api.post(`/organizations`, data, {
-        headers: { Authorization: `Bearer ${token}` }
-    })
+const saveOrganization = async (data, token) => {
+    return await apiV2.post(`/organizations`, data)
+    
+}
+
+const updateOrganization = async (data, orgId) => {
+    return  await apiV2.put(`/organizations/${orgId}`, data)
 }
 
 const OrganizationService = {
     getAllOrganizations,
     joinOrganization,
-    saveOrganization
+    saveOrganization,
+    updateOrganization
 }
 
 export default OrganizationService;

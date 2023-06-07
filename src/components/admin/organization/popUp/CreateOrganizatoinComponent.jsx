@@ -9,8 +9,11 @@ import { useNavigate } from 'react-router';
 import { RiCloseFill } from 'react-icons/ri';
 import { FiSave } from 'react-icons/fi';
 import FileUploadService from '../../../../redux/services/FileUploadService';
+import { useDispatch } from 'react-redux';
+import { setItem } from '../../../../redux/slices/OrganizationSlice';
 
-export default function CreateOrganizatoinComponent(props) {
+export default function CreateOrganizatoinComponent() {
+    const dispatch = useDispatch()
     const navigator = useNavigate()
     const [newData, setNewData] = useState({
         name: "",
@@ -52,8 +55,6 @@ export default function CreateOrganizatoinComponent(props) {
     };
 
     const hanndSaveOrganization = () => {
-
-
         if (selectedFile) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
@@ -64,7 +65,10 @@ export default function CreateOrganizatoinComponent(props) {
                         logo: res.data.payload
                     }, localStorage.getItem("token")).then(res => {
                         if (res.data?.success) {
-                            navigator("/organization")
+                            dispatch(setItem(res.data.payload))
+                            sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            navigator("/dashboard", { state: { hideOrganizationBar: true } })
+
                         }
                     }, err => {
                         console.log(err)
@@ -74,7 +78,9 @@ export default function CreateOrganizatoinComponent(props) {
         } else {
             OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
                 if (res.data?.success) {
-                    navigator("/organization")
+                    dispatch(setItem(res.data.payload))
+                    sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                    navigator("/dashboard", { state: { hideOrganizationBar: true } })
                 }
             }, err => {
                 console.log(err)

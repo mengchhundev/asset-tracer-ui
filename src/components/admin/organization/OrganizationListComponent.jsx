@@ -69,7 +69,7 @@ export default function OrganizationListComponent() {
                         <div className="pl-3 leading-none">
                             <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
                             <p className="pt-1 py-5">
-                                Are you sure want to delete this post?
+                                Are you sure want to delete this organization?
                             </p>
                         </div>
                     </div>
@@ -119,9 +119,17 @@ export default function OrganizationListComponent() {
                                                     <Listbox.Option>
                                                         <label
                                                             htmlFor='delete_org'
+                                                            className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-1 p-4 w-full  text-gray-900 rounded-md `}
+                                                        >
+                                                            <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                <FiTrash2 /> Edit
+                                                            </span>
+                                                        </label>
+                                                        <label
+                                                            htmlFor='delete_org'
                                                             className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-1 p-4 w-full  text-gray-900 rounded-md `}
                                                         >
-                                                            <span className='flex justify-start text-[16px] font-sp-pro-text-semibold items-center gap-2'>
+                                                            <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
                                                                 <FiTrash2 /> Delete
                                                             </span>
                                                         </label>
@@ -139,7 +147,6 @@ export default function OrganizationListComponent() {
                             <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
                                 <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
                                     <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
-                                    {/* <p>{list.id}</p> */}
                                 </div>
                             </div>
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
