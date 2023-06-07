@@ -8,6 +8,14 @@ import facebook from "../../../assets/images/user/fb.png";
 import linkin from "../../../assets/images/user/in.png";
 import cancel from "../../../assets/images/user/cancel.png";
 import check from "../../../assets/images/user/check.png";
+import Ellipse_1 from "../../../assets/icon/default profile/Ellipse 1.svg"
+import Ellipse_2 from "../../../assets/icon/default profile/Ellipse 2.svg"
+import Ellipse_3 from "../../../assets/icon/default profile/Ellipse 3.svg"
+import Ellipse_4 from "../../../assets/icon/default profile/Ellipse 4.svg"
+import Ellipse_5 from "../../../assets/icon/default profile/Ellipse 5.svg"
+// import Ellipse_6 from "../../../assets/icon/default profile/Ellipse 6.svg"
+// import Ellipse_7 from "../../../assets/icon/default profile/Ellipse 7.svg"
+import Ellipse_8 from "../../../assets/icon/default profile/Ellipse 8.svg"
 
 export default function UserRequestComponent() {
   const [user, setUser] = useState([
@@ -16,35 +24,35 @@ export default function UserRequestComponent() {
       profile: "SE",
       name: "Senglorn",
       email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
+      src: Ellipse_1,
     },
     {
       id: 2,
       profile: "HO",
       name: "Hong Meng",
       email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
+      src: Ellipse_2,
     },
     {
       id: 3,
       profile: "ME",
       name: "Keo Mony",
       email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+      src: Ellipse_5,
     },
     {
       id: 4,
       profile: "ME",
       name: "Keo Mony",
       email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+      src: Ellipse_8,
     },
     {
       id: 5,
       profile: "ME",
       name: "Keo Mony",
       email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+      src: Ellipse_4,
     },
   ]);
 
@@ -79,6 +87,7 @@ export default function UserRequestComponent() {
                   </svg>
                 </div>
                 <input
+                  
                   className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
@@ -100,11 +109,11 @@ export default function UserRequestComponent() {
           </h1>
           <div className="rounded-xl border border-bg-main shadow">
             <div className="rounded-md p-5 flex-col space-y-2">
-              <div className="overflow-x-auto h-[242px]">
-                <div className="p-1 overflow-y-scroll">
+              <div className="overflow-x-auto h-[270px]">
+                <div className="px-10 p overflow-y-scroll">
                   <div className="overflow-x-auto">
                     <div className="p-1 overflow-y-scroll">
-                      <table className="table border-spacing-y-3 border-separate w-full">
+                      <table className="table flex  border-spacing-y-3 border-separate w-full">
                         {/* <thead>
                             <tr className="bg-bg-primary text-sidebar">
                               <th className="w-1/6">No</th>
@@ -115,10 +124,10 @@ export default function UserRequestComponent() {
                           </thead> */}
                         <tbody className="divide-y dark:divide-gray-700">
                           {user.map((users) => (
-                            <tr className="font-md text-text-color  border-none">
-                              <td className="bg-bg-main rounded-[5px]">{users.id}</td>
+                            <tr className="font-md text-text-color border-none">
+                              <td className="bg-bg-main text-center rounded-[5px]">{users.id}</td>
                               <td className="bg-bg-main">
-                                <div className="flex items-center">
+                                <div className="flex justify-center items-center">
                                   <div className="relative  mr-3 w-10 ">
                                     <img
                                       src={users.src}
