@@ -4,6 +4,7 @@ import  organizationSlice  from "./slices/OrganizationSlice";
 import roomSilce from "./slices/RoomSlice";
 import userSlice  from "./slices/UserSlice";
 import  assetSlice  from "./slices/AssetSlice";
+import invoiceSilce from "./slices/InvoiceSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         organization: organizationSlice,
         room: roomSilce,
         user: userSlice,
-        asset: assetSlice
+        asset: assetSlice,
+        invoice: invoiceSilce
     }
 });
 

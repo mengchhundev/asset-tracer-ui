@@ -41,19 +41,6 @@ export default function NotificationComponent() {
     setI(event.selected * 10 + 1);
   };
 
-  // useEffect(() => {
-  //   getMethod();
-  // }, []);
-
-  // const getMethod = () => {
-  //   axios
-  //     .get("http://localhost:8080/api/v1/normal-categories?page=1&size=4")
-  //     .then((data) => {
-  //       console.log(data.data.payload);
-  //       console.log("state", state);
-  //       setState(data.data.payload[0]);
-  //     });
-  // };
 
   const [notifications, setNotification] = useState([
     {
@@ -270,7 +257,6 @@ export default function NotificationComponent() {
             className="overflow-x-auto px-5 flex-grow"
             style={
               {
-                // minHeight: "calc(100vh - 12rem)",
               }
             }
           >
@@ -320,7 +306,7 @@ export default function NotificationComponent() {
                       <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
-                          htmlFor="modalEdit"
+                          // htmlFor="modalEdit"
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
                           aria-label="Edit"
                         >

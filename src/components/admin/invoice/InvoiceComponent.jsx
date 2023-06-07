@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
 import { BsDot, BsGraphUp, BsPlus } from "react-icons/bs";
 import { EyeIcon } from "@heroicons/react/24/outline";
@@ -12,7 +12,6 @@ import trash_ico from "../../../assets/images/trash.png";
 import { Combobox, Listbox, Transition } from "@headlessui/react";
 import {
   CheckIcon,
-  ChevronDownIcon,
   ChevronUpDownIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/react/20/solid";
@@ -22,7 +21,10 @@ import { RiCloseFill } from "react-icons/ri";
 import { FiTrash2 } from "react-icons/fi";
 import { Menu } from "@szhsin/react-menu";
 import ViewInvoiceComponent from "./ViewInvoiceComponent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import InvoiceService from "../../../redux/services/InvoiceService";
+import { setAllInvoice } from "../../../redux/slices/InvoiceSlice";
+import moment from "moment";
 const people = [
   { id: 1, name: "Asset" },
   { id: 2, name: "HDMI" },
@@ -31,79 +33,52 @@ const people = [
 ];
 
 export default function AssetComponent() {
-  const [invoices, setInvioce] = useState([
-    {
-      id: 1,
-      invoice: "10",
-      supplier: "computer shop",
-      purchaser:
-        "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
-      date: "12-27-2023",
-      quantity: "40",
-      totalPrice: "700",
-      name: "menghout",
-    },
-    {
-      id: 2,
-      invoice: "10",
-      supplier: "computer shop",
-      purchaser:
-        "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
-      date: "12-27-2023",
-      quantity: "40",
-      totalPrice: "700",
-      name: "menghout",
-    },
-    {
-      id: 3,
-      invoice: "10",
-      supplier: "computer shop",
-      purchaser:
-        "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
-      date: "12-27-2023",
-      quantity: "40",
-      totalPrice: "700",
-      name: "menghout",
-    },
-    {
-      id: 4,
-      invoice: "10",
-      supplier: "computer shop",
-      purchaser:
-        "https://i.pinimg.com/474x/79/78/b3/7978b3b8a8ce9965dc4b02761af1f19f.jpg",
-      date: "12-27-2023",
-      quantity: "40",
-      totalPrice: "700",
-      name: "menghout",
-    },
-    {
-      id: 5,
-      invoice: "10",
-      supplier: "computer shop",
-      purchaser:
-        "https://i.pinimg.com/474x/cc/e2/ec/cce2ec22b072d3b11b8a83d942457d00.jpg",
-      date: "12-27-2023",
-      quantity: "40",
-      totalPrice: "700",
-      name: "menghout",
-    },
-    {
-      id: 6,
-      invoice: "10",
-      supplier: "computer shop",
-      purchaser:
-        "https://i.pinimg.com/474x/cc/e2/ec/cce2ec22b072d3b11b8a83d942457d00.jpg",
-      date: "12-27-2023",
-      quantity: "40",
-      totalPrice: "700",
-      name: "menghout",
-    },
-  ]);
+  const [i, setI] = useState(1);
+  const getAllInvoices = useSelector((state) => state.invoice.data);
+  const [totalRow, setTotalRow] = useState(0)
+  // const updateGetAllInvoices = getAllInvoices.map((invoice) => ({
+  //   ...invoice,
+  //   purchaseDate: new Date(invoice.purchaseDate).toLocaleDateString("en-US", {
+  //     day: "numeric",
+  //     month: "short",
+  //     year : "numeric"
+  //   }),
+  // }));
+
+
+  // const getAllInvoice = () => {
+  //   InvoiceService.getAllInvoice().then((res) => {
+  //     console.log(res.data);
+  //     dispatch(setAllInvoice(res.data.payload));
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   getAllInvoice();
+  // }, []);
+
+  // const getAllInvoices = () => {
+
+  // }
+
+  const handleGetAllInvoices = (page) => {
+    InvoiceService.getAllInvoices(page).then(res => {
+      if(res.data.success) {
+        dispatch(setAllInvoice(res.data.payload));
+        setTotalRow(res.data.totalPage)
+      }
+    })
+  }
+
+  useEffect(() => {
+    handleGetAllInvoices(1);
+  }, [])
+
   //combobox
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-
+  const date = moment().format("MMM Do YY");
   const filteredPeople =
     query === ""
       ? people
@@ -115,15 +90,19 @@ export default function AssetComponent() {
         );
 
   // pagination
-  const [pageCount, setPageCount] = useState(2);
+  const [pageCount, setPageCount] = useState(4);
   let [isOpen, setIsOpen] = useState(false);
   function openDetail() {
     setIsOpen(true);
   }
   const handlePageClick = (event) => {
-    getAllSuperCategory(event.selected + 1);
-    setI(event.selected * 10 + 1);
+    handleGetAllInvoices(event.selected + 1)
+    setI(event.selected * 8 + 1);
   };
+
+  useEffect(() => {
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [totalRow])
 
   return (
     <>
@@ -268,66 +247,53 @@ export default function AssetComponent() {
           </div>
 
           <div
-            className="flex flex-col justify-between"
-            style={{
-              minHeight: "calc(100vh - 18rem)",
-            }}
+            className="min-h-[65vh]"
+
           >
             {/* table */}
-            <div className="overflow-x-auto px-5 z-0 flex-grow">
+            <div className="px-5 z-0">
               <table className="table w-full">
                 <tbody className="">
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 text-text-color">
-                    <td className="w-1/14  bg-bg-main py-3">No</td>
-                    <td className="w-1/14 bg-bg-main py-3 text-center">
+                    <td className="w-1/12  bg-bg-main py-3">No</td>
+                    <td className="w-1/12 bg-bg-main py-3 text-center">
                       Invoice
                     </td>
-                    <td className="w-1/14 bg-bg-main py-3 text-center">
+                    <td className="w-3/12 bg-bg-main py-3 text-center">
                       Supplier
                     </td>
-                    <td className="w-1/14 bg-bg-main py-3 text-center">
-                      Purchase
+                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                      Purchaser
                     </td>
-                    <td className="w-4/14 bg-bg-main py-3 text-center">Date</td>
-                    <td className="w-4/14 bg-bg-main py-3 text-center">
-                      Quantity
-                    </td>
-                    <td className="w-2/14 bg-bg-main py-3 text-center">
-                      Total Price
-                    </td>
-                    <td className=" bg-bg-main text-center">More</td>
+                    <td className="w-2/12 bg-bg-main py-3 text-center">Date</td>
+                    <td className="w-1/12  bg-bg-main text-center">More</td>
                   </tr>
-                  {invoices.map((invoice) => (
-                    <tr className="text-sm font-sp-pro-text-regular text-text-color text-center">
+                  {getAllInvoices?.map((invoice, index) => (
+                    <tr
+                      key={index}
+                      className="text-sm font-sp-pro-text-regular text-text-color text-center"
+                    >
                       <td className="w-1/12 py-2 text-text-color text-left">
-                        {invoice.id}
+                        {i + index}
                       </td>
                       <td className="w-1/12 py-2">
-                        <div className="">{invoice.invoice}</div>
+                        <div className="">{invoice.invoiceCode}</div>
                       </td>
                       <td className="w-2/12 py-2">
                         <div className="">{invoice.supplier}</div>
                       </td>
                       <td className="w-2/12 py-2 items-start">
-                        <div className="relative  mr-8 w-12 h-12 flex items-center">
+                        <div className="relative  mr-8 flex items-center">
                           <img
-                            src={invoice.purchaser}
+                            src={invoice.image}
                             loading="lazy"
-                            className="rounded-full h-full w-full"
+                            className="rounded-full h-10 w-10"
                           />
-                          <div>{invoice.name}</div>
+                          <div className="p-2">{invoice.purchaseBy}</div>
                         </div>
                       </td>
-                      <td className="w-1.5/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
-                        {invoice.date}
-                      </td>
-
-                      <td className="w-1/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
-                        {invoice.quantity}
-                      </td>
-
-                      <td className="w-1/12 py-3 text-sm font-sp-pro-text-regular text-green">
-                        $ {invoice.totalPrice}
+                      <td className="w-1.5/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5 items-center">
+                        {moment(invoice.purchaseDate).format("MMM DD YYYY")}
                       </td>
                       {/* menu dropdown */}
                       <td>
@@ -382,11 +348,11 @@ export default function AssetComponent() {
               </table>
             </div>
             {/* pagination */}
-            <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-              <div className="">Showing data 1 to 8 of 256K entries</div>
+            <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 px-7">
+              <div className="">Showing data 1 to 8 of {totalRow} entries</div>
               <div id="react-paginate" className="">
                 <ReactPaginate
-                  nextLabel=" >"
+                  nextLabel=">"
                   onPageChange={handlePageClick}
                   pageRangeDisplayed={3}
                   marginPagesDisplayed={2}
