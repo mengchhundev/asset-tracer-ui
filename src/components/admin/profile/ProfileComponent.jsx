@@ -150,16 +150,22 @@ export default function ProfileComponent() {
                     image: res.data.payload
                 }).then(res => {
                     if (res.data?.success) {
-                        setIsSuccessUpdateProfile(true)
-                        handleGetProfileDetail()
+                        
+                        
                         if(res.data.payload?.image) {
                             setFile(FileUploadService.getImage(res.data.payload.image))
                             dispatch(setProfileImage(FileUploadService.getImage(res.data.payload.image)))
                             localStorage.setItem("profileImage", FileUploadService.getImage(res.data.payload.image))
                         }
+                        
+                        document.getElementById("modal-profile").click()
                         setTimeout(() => {
-                            document.getElementById("modal-profile").click()
-                        }, 100)
+                            handleGetProfileDetail()
+                        }, 800)
+
+                        setTimeout(() => {
+                            setIsSuccessUpdateProfile(true)
+                        }, 1000)
                     }
                 })
             })

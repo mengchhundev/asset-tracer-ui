@@ -26,7 +26,7 @@ export default function NavbarComponent() {
     const dispatch = useDispatch();
     const navigator = useNavigate()
     const organizations = useSelector(state => state.organization.data)
-
+console.log(organization)
     let session = sessionStorage.getItem("organization")
     if (session) {
         session = JSON.parse(session)
@@ -162,9 +162,9 @@ export default function NavbarComponent() {
                                             src={FileUploadService.getImage(item.logo)}
                                             className="w-9 h-9 object-cover rounded-full"
                                         />
-                                        : organization.image ?
+                                        : organization.logo ?
                                         <img
-                                            src={FileUploadService.getImage(organization.image)}
+                                            src={FileUploadService.getImage(organization.logo)}
                                             className="w-9 h-9 object-cover rounded-full"
                                         />
                                         :
