@@ -10,7 +10,7 @@ export default function DeleteComponent() {
             <div>
               <label
                 htmlFor="modalDelete"
-                className="btn border-none bg-white text-text-color hover:bg-bg-main hover:text-red-500 btn-sm btn-circle absolute right-2 top-2"
+                className="btn border-none bg-white text-text-color hover:bg-bg-primary btn-sm btn-circle absolute right-2 top-2"
               >
                 ✕
               </label>

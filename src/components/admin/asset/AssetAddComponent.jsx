@@ -15,6 +15,8 @@ import { BiSave } from "react-icons/bi";
 import { MdClear } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { RiCloseFill } from "react-icons/ri";
+import { FiSave } from "react-icons/fi";
 
 function AssetAddComponent(props) {
   const [query, setQuery] = useState("");
@@ -85,7 +87,8 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Select Item <span className="text-[11px]">*</span>
+                      Select Item{" "}
+                      <span className=" text-red-500">*</span>
                     </label>
                     <ItemComponent className="z-60" />
                   </div>
@@ -95,7 +98,7 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Owner <span className="text-[11px]">*</span>
+                      Owner <span className=" text-red-500">*</span>
                     </label>
                     <input
                       className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10 text-xs text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50"
@@ -111,7 +114,8 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Label Code <span className="text-[11px]">*</span>
+                      Label Code{" "}
+                      <span className=" text-red-500">*</span>
                     </label>
                     <input
                       className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10 text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
@@ -125,7 +129,8 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Serial Code <span className="text-[11px]">*</span>
+                      Serial Code{" "}
+                      <span className=" text-red-500">*</span>
                     </label>
                     <input
                       className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10  text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
@@ -141,7 +146,8 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Select Category <span className="text-[11px]">*</span>
+                      Select Category{" "}
+                      <span className=" text-red-500">*</span>
                     </label>
                     <CategoryComponent />
                   </div>
@@ -151,7 +157,8 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Select Status <span className="text-[11px]">*</span>
+                      Select Status{" "}
+                      <span className=" text-red-500">*</span>
                     </label>
                     <StatusComponent />
                   </div>
@@ -163,7 +170,8 @@ function AssetAddComponent(props) {
                       htmlFor=""
                       className="text-sm text-text-color font-sp-pro-text-regular"
                     >
-                      Select Room <span className="text-[11px]">*</span>
+                      Select Room{" "}
+                      <span className=" text-red-500">*</span>
                     </label>
                     <RoomComponent />
                   </div>
@@ -176,7 +184,8 @@ function AssetAddComponent(props) {
                     for="message"
                     className="block mb-1 text-sm text-text-color font-sp-pro-text-regular"
                   >
-                    Your message <span className="text-[11px]">*</span>
+                    Description{" "}
+                    <span className=" text-red-500">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -191,7 +200,7 @@ function AssetAddComponent(props) {
             <div className="xl:w-1/3 md:w-1/2 md:mt-6 mt-[-24px]">
               <div className="item-center w-full rounded-xl   ">
                 <div className="block lg:mx-5 p-7">
-                  <div className=" flex items-center justify-center text-center rounded-lg md:h-[430px] h-[250px] border border-dashed border-yellow">
+                  <div className=" flex items-center justify-center text-center rounded-lg md:h-[390px] h-[250px] border border-dashed border-yellow">
                     <div className="">
                       <label
                         htmlFor="fileInput"
@@ -239,17 +248,18 @@ function AssetAddComponent(props) {
                   </div>
 
                   {/* button */}
-                  <div className="flex justify-end flex-row space-x-6 mt-5">
+                  <div className="flex justify-end flex-row space-x-4 mt-10">
                     <div className="">
                       <Link to={"/asset"}>
-                        <button class="text-white py-1.5 px-2 bg-slate-500 hover:bg-slate-500 hover:opacity-90 cursor-pointer p-1.5 rounded-md text-sm w-full flex items-center">
-                          <MdClear className="w-4 h4" /> &nbsp; Cancel
+                        <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                          <RiCloseFill className="text-lg" /> &nbsp; Cancel
                         </button>
                       </Link>
                     </div>
+
                     <div className="">
-                      <button class="text-white py-1.5 px-4 bg-primary cursor-pointer hover:bg-primary hover:opacity-90 p-1.5 rounded-md text-sm w-full flex items-center">
-                        <BiSave className="w-4 h4" /> &nbsp; Save
+                      <button class="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                        <FiSave className="text-lg" /> &nbsp; Save
                       </button>
                     </div>
                   </div>

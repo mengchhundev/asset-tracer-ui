@@ -38,7 +38,7 @@ function AssetViewComponent(props) {
             <div className="flex">
               <label
                 htmlFor="normalModal"
-                className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
+                className="btn border-none bg-none text-text-color hover:bg-bg-primary hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
               >
                 ✕
               </label>

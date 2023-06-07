@@ -3,7 +3,7 @@ import  superCategorySlice  from "./slices/SuperCategorySlice";
 import  organizationSlice  from "./slices/OrganizationSlice";
 import roomSilce from "./slices/RoomSlice";
 import userSlice  from "./slices/UserSlice";
-import { assetSlice } from "./slices/AssetSlice";
+import  assetSlice  from "./slices/AssetSlice";
 
 export const store = configureStore({
     reducer: {

@@ -1,19 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: [],
-  asset: {
-    id: "",
-    name: "",
-  },
+  data: {},
+  asset: { },
 };
 
 export const assetSlice = createSlice({
-  name: "Organization",
+  name: "Asset",
   initialState,
   reducers: {
     setData: (state, action) => {
       state.data = action.payload;
+      
     },
   },
 });
