@@ -9,7 +9,8 @@ import RoomService from '../../redux/services/RoomService';
 function DeletemodalComponent(props) {
     const deleteData = useSelector(state => state.room.deleteRoom);
     console.log(deleteData);
-    const [data, setData] = useState({ roomId: "", organizationId: "" });
+    const roomId = deleteData.id
+    // const [data, setData] = useState({ roomId: "", organizationId: "" });
     // const roomId = deleteData.di
     const handlerClick = () => {
         RoomService.deleteRoom(roomId)
@@ -20,7 +21,6 @@ function DeletemodalComponent(props) {
                 console.error(error);
             });
     }
-    console.log("", data);
     return (
         <>
 
