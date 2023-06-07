@@ -5,9 +5,19 @@ import StatusComponent from "../asset/filtter/StatusComponent";
 import RoomComponent from "../asset/filtter/RoomComponent";
 import upload from "../../../assets/images/Room/Upload.png";
 import { RiAddBoxFill } from "react-icons/ri";
+import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import { NavLink } from "react-router-dom";
 
 export default function AddInvoiceComponent() {
   const [query, setQuery] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
 
   return (
     <>
@@ -82,15 +92,14 @@ export default function AddInvoiceComponent() {
               <div className="">
                 <label
                   htmlFor=""
-                  className=" flex text-sm text-text-color font-sp-pro-text pb-1"
+                  className=" flex text-sm text-text-color font-sp-pro-text pb-1.5"
                 >
                   Purchase date
                 </label>
 
-                <div className=" xl:flex w-full​ flex-row space-x-10 border-[#E1E9EE] border rounded-lg text-right">
-                  <div className=" xl:w-40 md:w-full px-[20px] pt-3.5">
-                    <input type="date" className="text-primary " />
-                  </div>
+                <div className=" xl:flex w-full​ flex-row space-x-10 ">
+                    <input type="date" className="text-primary border-[#E1E9EE] border rounded-lg py-1.5  px-4 w-full outline-none focus:border-primary" />
+                  
                 </div>
               </div>
             </div>
@@ -190,14 +199,49 @@ export default function AddInvoiceComponent() {
               <div className="md:p-7 md:m-5 ">
                 <div className="space-y-12 border border-dotted border-yellow px-10 md:py-20 rounded-md ">
                   <div className=" items-center block justify-center text-center p-3  rounded-lg">
-                    <div>
-                      <img className="block m-auto " src={upload} alt="" />
-                      <p className="mt-3 text-xs">
-                        Upload Invoice picture, max size 20MB
-                      </p>
-                      <button className="shadow-sm rounded-md border border-bg-primary px-3 py-1.5 my-2 ">
-                        Browse
-                      </button>
+                  <div className="">
+                      <label
+                        htmlFor="fileInput"
+                        className="browseButton cursor-pointer"
+                      >
+                        {selectedFile && (
+                          <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected File"
+                            className={`${
+                              imageDimensions.width > imageDimensions.height
+                                ? "w-[300px]"
+                                : "h-auto"
+                            } ${
+                              imageDimensions.width < imageDimensions.height
+                                ? "h-[195px]"
+                                : "w-auto"
+                            } block rounded-md object-center justify-center  items-center`}
+                          />
+                        )}
+                        {!selectedFile && (
+                          <>
+                            <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
+                          </>
+                        )}
+                      </label>
+                      <div className="flex justify-center">
+                        <label
+                          htmlFor="fileInput"
+                          className="browseButton text-text-color font-sp-pro-text-regular"
+                        >
+                          <p className="border w-min p-2 px-12 mt-3 border-[#E1E9EE] shadow-sm rounded-md text-text-color font-sp-pro-text-regular cursor-pointer hover:bg-bg-primary">
+                            Browse
+                          </p>
+                          <input
+                            id="fileInput"
+                            type="file"
+                            onChange={handleFileSelect}
+                            accept="image/*"
+                            style={{ display: "none" }}
+                          />
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -205,9 +249,11 @@ export default function AddInvoiceComponent() {
 
               <div className="flex justify-center flex-row">
                 <div className="bg-slate-500 cursor-pointer  w-1/5 p-2  rounded-lg text-center">
+                  <NavLink to={'/invoice'}>
                   <button className=" text-white font-sp-pro-text-regular">
                     Cancel
                   </button>
+                  </NavLink>
                 </div>
 
                 <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-1/5 p-2 rounded-lg text-center">
