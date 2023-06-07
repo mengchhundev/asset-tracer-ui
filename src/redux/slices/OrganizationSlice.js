@@ -2,7 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     data: [],
-    item: null
+    item: {
+        id: "",
+        name: "",
+        address: "",
+        logo: ""
+    }
 }
 
 export const organizationSlice = createSlice({

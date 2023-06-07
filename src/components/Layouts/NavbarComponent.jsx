@@ -21,12 +21,12 @@ import LoadingComponent from '../../components/LoadingComponent'
 
 export default function NavbarComponent() {
     const [isShowLoading, setIsShowLoading] = useState(false)
-    const item = useSelector(state => state.organization?.item)
+    const item = useSelector(state => state.organization.item)
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const dispatch = useDispatch();
     const navigator = useNavigate()
     const organizations = useSelector(state => state.organization.data)
-console.log(organization)
+
     let session = sessionStorage.getItem("organization")
     if (session) {
         session = JSON.parse(session)
@@ -144,35 +144,37 @@ console.log(organization)
                             <hr className="my-1 border-text-color border-opacity-10" />
 
                             <div className="px-4 py-1">
-                                <MenuItem className="px-0 mt-3 py-1.5 flex hover:bg-blue-700 hover:text-white hover:border-blue-700 bg-white rounded-md border justify-center cursor-pointer" style={{ border: "1px solid gainsboro" }}>
+                                {/* <MenuItem className="px-0 mt-3 py-1.5 flex hover:bg-blue-700 hover:text-white hover:border-blue-700 bg-white rounded-md border justify-center cursor-pointer" style={{ border: "1px solid gainsboro" }}>
                                     <Link
                                         to="notification"
                                         className="text-sm"
                                     >
                                         View all notifications
                                     </Link>
-                                </MenuItem>
+                                </MenuItem> */}
                             </div>
                         </Menu>
                         <Menu
                             menuButton={
                                 <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
-                                    {item?.logo ?
+                                    {item != null ?
+                                        <img src={FileUploadService.getImage(item.logo)}
+                                        className="w-9 h-9 object-cover rounded-full"
+                                    />
+                                    : 
+                                        organization != null ?
                                         <img
-                                            src={FileUploadService.getImage(item.logo)}
-                                            className="w-9 h-9 object-cover rounded-full"
-                                        />
-                                        : organization.logo ?
-                                        <img
-                                            src={FileUploadService.getImage(organization.logo)}
-                                            className="w-9 h-9 object-cover rounded-full"
-                                        />
-                                        :
+                                        src={FileUploadService.getImage(organization.logo)}
+                                        className="w-9 h-9 object-cover rounded-full"
+                                    />
+
+                                        : 
                                         <div className='w-9 h-9 bg-green rounded-full flex justify-center items-center m-auto'>
-                                            <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{organization?.name.substring(0, 1)}</p>
-                                        </div>
+                                                    {/* <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{organization?.name.substring(0, 1)}</p> */}
+                                                </div>
                                     }
-                                    <span className="header">{organization.name}</span>
+                                   
+                                    {/* <span className="header">{organization.name}</span> */}
                                     <RiArrowDownSLine className="w-5" />
                                 </MenuButton>
                             }
