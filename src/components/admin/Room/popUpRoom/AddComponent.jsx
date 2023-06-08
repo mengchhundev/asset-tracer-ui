@@ -7,18 +7,28 @@ import { ref, uploadBytes } from 'firebase/storage'
 import { v4 as uuid } from 'uuid';
 import RoomService from "../../../../redux/services/RoomService";
 import FileUploadService from "../../../../redux/services/FileUploadService";
+import defaultimg from "../../../../assets/images/Room/default-image.webp"
+import { useDispatch } from "react-redux";
+import { setAllRoom } from "../../../../redux/slices/RoomSlice";
 
 function AddComponent(props) {
-    const createType = ["Sr Room", "Admin Room", "PP Room", "BTB Room", "Koskhobg Room", "PVH Room"];
-    const createFloor = ["GF", "F1", "F2", "F3", "F4"];
+    const createType = ["Office", "Store", "Classroom", "Kitchen"];
+    const createFloor = ["UF", "GF", "1F", "2F", "3F", "4F", "5F", "6F"];
+    // date
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const date = `${year}-${month}-${day}`;
 
     const [floor, setSelectedfloor] = useState("Room floor");
     // const [selectedCreate, setSelectedCreate] = useState("Room By");
     const [type, setSelectedRoom] = useState("Room type");
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
-    const [selectedFile, setSelectedFile] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
     const [selectUi, setSelectUui] = useState("")
     const handleFileSelect = (event) => {
+        console.log("Event",event);
         setSelectedFile(event.target.files[0]);
     };
     useEffect(() => {
@@ -37,19 +47,28 @@ function AddComponent(props) {
             reader.readAsDataURL(selectedFile);
         }
     }, [selectedFile]);
-    console.log(selectedFile);
     let formData = new FormData()
-    // console.log("selectUi", selectUi);
     const organization = sessionStorage.getItem("organization");
     const getOrganizationDetail = JSON.parse(organization)
     const organizationId = getOrganizationDetail.id;
     const [data, setData] = useState();
+    const dispatch = useDispatch();
+
+    const orgId = getOrganizationDetail.id;
+    const getAllRoom = () => {
+        RoomService.getAllRoom(orgId).then((res) => {
+            if (res?.data?.success) {
+                dispatch(setAllRoom(res.data.payload));
+            }
+        });
+    };
     useEffect(() => {
         setData((prevData) => ({
             ...prevData,
             organizationId,
             floor,
             type,
+            selectedFile
         }));
     }, [floor, type, selectUi]);
     const handleChang = (event) => {
@@ -64,26 +83,37 @@ function AddComponent(props) {
     };
 
     const handlesubmit = () => {
-        if (selectedFile != null) {
+        if (selectedFile !== null) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-                RoomService.addRoom({...data, image: res.data.payload})
+                RoomService.addRoom({ ...data, image: res.data.payload })
                     .then((res) => {
-                        console.log(res);
+                        getAllRoom();
                     })
                     .catch((error) => {
-                        console.error(error);
+                        console.log(err);
                     });
             }).catch((err) => {
-                console.error(err);
+                console.log(err);
             });
+        }
+        else {
+            RoomService.addRoom({ ...data, image: defaultimg })
+                .then((res) => {
+                    console.log(res);
+                    getAllRoom();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
         }
     }
     return (
         <>
             <div className="modal" >
                 {/* <div className="modal-box" > */}
-                <div className="modal-box max-w-4xl bg-white rounded-lg p-5 font-sp-pro-text-regular relative" >
+                <div className="modal-box max-w-5xl bg-white rounded-lg p-5 font-sp-pro-text-regular relative" >
                     <div className="flex justify-between px-5">
                         <div className="flex">
                             <HomeIcon className="h-8 w-8 text-white bg-primary p-2 rounded-lg" />
@@ -99,21 +129,21 @@ function AddComponent(props) {
                             <div className="item-center w-full rounded-xl   ">
                                 <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className='block items-center space-y-5 mx-5 p-5 pb-3 rounded-md mb-1'>
                                     <label htmlFor="fileInput" className="browseButton">
-                                        <div className=" flex cursor-pointer border border-dashed items-center border-primary h-[285px] justify-center text-center p-3 rounded-lg m-auto">
+                                        <div className=" flex cursor-pointer border border-dashed items-center border-primary h-[365px] justify-center text-center p-3 rounded-lg m-auto">
                                             <div className="">
                                                 {selectedFile && (
                                                     <img
                                                         src={URL.createObjectURL(selectedFile)}
                                                         alt="Selected File"
                                                         className={`${imageDimensions.width > imageDimensions.height ? 'w-[300px]' : 'h-auto'} ${imageDimensions.width < imageDimensions.height ? 'h-[195px]' : 'w-auto'} block rounded-md object-center justify-center  items-center`}
-
-
                                                     />
                                                 )}
                                                 {!selectedFile && (
                                                     <>
                                                         <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
                                                         <p className="fileInfo py-4">Upload Invoice picture, max size 20MB</p>
+                                                        <p className='border w-full p-2 px-4 mt-3 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Browse</p>
+
                                                     </>
                                                 )}
                                             </div>
@@ -127,7 +157,6 @@ function AddComponent(props) {
                                         />
                                     </label>
                                     <label htmlFor="fileInput" className="browseButton">
-                                        <p className='border w-full p-2 px-4 mt-3 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Browse</p>
                                         <input
                                             id="fileInput"
                                             type="file"
@@ -139,7 +168,6 @@ function AddComponent(props) {
                                     {/* <button onClick={handleimage} className="bg-primary p-5">upload</button> */}
                                 </div>
                             </div>
-
                         </div>
                         <div className="xl:w-2/3 md:w-1/2 ">
                             <div className="  item-center w-full rounded-xl">
@@ -154,9 +182,8 @@ function AddComponent(props) {
                                             />
                                         </div>
                                         <div className="w-full xl:p-2 lg:py-2 p-2">
-                                            <label htmlFor="" className="" >Creat Date</label> <br />
-                                            <input onChange={handleChang} name="createdAt" className="border-[#E1E9EE]  font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2 h-8 outline-none focus:border-primary text-xs" type="date"
-                                            />
+                                            <label className="" >Created Date</label> <br />
+                                            <div className="border-[#E1E9EE] h-8 font-sp-pro-text-regular border rounded-md mt-1 text-text-color w-full p-2  outline-none focus:border-primary placeholder-text-color placeholder-opacity-30 text-xs">Date: {date}</div>
                                         </div>
                                     </div>
                                     <div className="xl:flex justify-between">
@@ -200,8 +227,8 @@ function AddComponent(props) {
 
                                                                                     {selected && (
                                                                                         <span
-                                                                                        className={`${active ? "text-white" : "text-primary"
-                                                                                    } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                                                                            className={`${active ? "text-white" : "text-primary"
+                                                                                                } absolute inset-y-0 left-0 flex items-center pl-2`}
                                                                                         >
                                                                                             <svg
                                                                                                 className="h-4 w-4"
@@ -301,13 +328,13 @@ function AddComponent(props) {
                                         <div className="xl:p-3 lg:py-2 p-2">
                                             <div>
                                                 <label htmlFor="" className="" >Description</label>
-                                                <textarea onChange={handleChang} name="description" className="border-[#E1E9EE] border rounded-md mt-1 text-text-color p-2 w-full  outline-none focus:border-primary" type="text" id="" cols="20" rows="3"></textarea>
+                                                <textarea onChange={handleChang} name="description" className="border-[#E1E9EE] border rounded-md mt-1 text-text-color p-2 w-full  outline-none focus:border-primary" type="text" id="" cols="20" rows="5"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex space-x-5 p-5 justify-end flex-row w-full">
                                         <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer hover:bg-bg-primary'>Cancel</label>
-                                        <label className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer text-white  bg-primary  ' onClick={handlesubmit}>Save</label>
+                                        <label htmlFor='addroom' className='border w-1/4 p-2 px-4 border-black border-opacity-20 rounded-md text-center cursor-pointer text-white  bg-primary  ' onClick={handlesubmit}>Save</label>
                                     </div>
                                 </div>
                             </div>

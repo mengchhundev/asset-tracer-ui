@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 import trash_ico from "../../assets/images/trash.png"
-import { useSelector } from 'react-redux';
-import RoomSlice from '../../redux/slices/RoomSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import RoomService from '../../redux/services/RoomService';
-
-
+import { setAllRoom } from '../../redux/slices/RoomSlice';
 function DeletemodalComponent(props) {
     const deleteData = useSelector(state => state.room.deleteRoom);
     console.log(deleteData);
     const roomId = deleteData.id
     // const [data, setData] = useState({ roomId: "", organizationId: "" });
     // const roomId = deleteData.di
+
+    // organization id
+    const organization = sessionStorage.getItem("organization");
+    const getOrganizationDetail = JSON.parse(organization)
+    const orgId = getOrganizationDetail.id;
+
+    const dispatch = useDispatch();
+
+    const getAllRoom = () => {
+        RoomService.getAllRoom(orgId).then((res) => {
+            if (res?.data?.success) {
+                console.log("data : ", res.data.payload);
+                dispatch(setAllRoom(res.data.payload));
+            }
+        }, err => {
+            dispatch(setAllRoom([]));
+        });
+    };
+
     const handlerClick = () => {
         RoomService.deleteRoom(roomId)
             .then((res) => {
                 console.log(res);
+
+                getAllRoom();
             })
             .catch((error) => {
                 console.error(error);
             });
+
     }
+
+
     return (
         <>
 
@@ -48,13 +70,14 @@ function DeletemodalComponent(props) {
                         >
                             Cancel
                         </label>
-                        <button
+                        <label
+                            htmlFor='delete_org'
                             onClick={handlerClick}
                             type="submit"
                             className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
                         >
                             Delete
-                        </button>
+                        </label>
                     </div>
                 </div>
             </div>

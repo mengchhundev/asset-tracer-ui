@@ -1,10 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setAllRoom,
-  setRoomDetail,
-  setDeleteRoom,
-} from "../../../redux/slices/RoomSlice";
+import { setAllRoom, setRoomDetail, setDeleteRoom,setUpdateRoom } from "../../../redux/slices/RoomSlice";
 import RoomService from "../../../redux/services/RoomService";
 import DetailComponent from "./popUpRoom/DetailComponent";
 import AddComponent from "./popUpRoom/AddComponent";
@@ -20,6 +16,7 @@ import {
 import { BsPlus } from "react-icons/bs";
 import jwt_decode from "jwt-decode";
 import DeletemodalComponent from "../../modalDelete/DeletemodalComponent";
+import defaultimg from "../../../assets/images/Room/default-image.webp"
 
 const people = [
   { id: 1, name: "Room" },
@@ -29,9 +26,6 @@ const people = [
   { id: 5, name: "Tanya Fox" },
   { id: 6, name: "Hellen Schmidt" },
 ];
-{
-  /* <EllipsisVerticalIcon className="h-6 w-6 text-gray-500" /> */
-}
 
 function RoomListComponent(props) {
   const [selected, setSelected] = useState(people[0]);
@@ -56,20 +50,21 @@ function RoomListComponent(props) {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
   const dispatch = useDispatch();
-  const getData = useSelector((state) => state.room.data);
-  const divClassName =
-    "flex items-center col-span-12 md:col-span-6 lg:col-span-3 mt-1";
-  const startIndex = divClassName.indexOf("Showing ") + 8;
-  const endIndex = divClassName.indexOf("-");
-  const index = divClassName.substring(startIndex, endIndex).trim();
   const [pageCount, setPageCount] = useState(2);
+  const getData = useSelector((state) => state.room.data);
+
+
   const getAllRoom = () => {
     RoomService.getAllRoom(orgId).then((res) => {
       if (res?.data?.success) {
+        console.log("data : ", res.data.payload);
         dispatch(setAllRoom(res.data.payload));
       }
     });
   };
+  const handlDelete = (item) => {
+    dispatch(setDeleteRoom(item));
+  }
   useEffect(() => {
     getAllRoom();
   }, []);
@@ -84,17 +79,19 @@ function RoomListComponent(props) {
     setI(event.selected * 10 + 1);
   };
 
+
   // Get image detail
   const handleShowRoomDetail = (item) => {
-    dispatch(setRoomDetail(item));
-  };
-  const handlDelete = (item) => {
-    dispatch(setDeleteRoom(item));
-  };
+    dispatch(setRoomDetail(item))
+  }
+
+  const handleUpdate = (item)=>{
+    dispatch(setUpdateRoom(item))
+  }
 
   return (
     <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
+      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative z-0 "
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
       }}
@@ -138,7 +135,7 @@ function RoomListComponent(props) {
             </div>
 
             {/* filter */}
-            {/* <div className="z-20">
+            <div className="z-20">
               <Combobox
                 value={selected}
                 onChange={setSelected}
@@ -210,7 +207,7 @@ function RoomListComponent(props) {
                   </Transition>
                 </div>
               </Combobox>
-            </div> */}
+            </div>
 
             {/* add */}
             <div className="block ">
@@ -245,17 +242,10 @@ function RoomListComponent(props) {
             <tbody className="">
               {getData.map((item, index) => {
                 return (
-                  <tr
-                    className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20"
-                    key={index}
-                  >
+                  <tr className=" bg-bg-primary text-sidebar border-b border-gray border-opacity-20" key={index}>
                     <td className="w-1/12 px-10">{index + 1}</td>
                     <td className="w-3/12">
-                      <span
-                        className={`bg-accept bg-opacity-20 p-2 text-accept rounded-full mr-5`}
-                      >
-                        {item.name.substring(0, 2)}
-                      </span>
+                      <span className={`bg-accept bg-opacity-20 p-2 text-accept rounded-full mr-5`}>{item.name.substring(0, 2)}</span>
                       {item.name}
                     </td>
                     <td className="w-2/12">{item.type}</td>
@@ -263,45 +253,24 @@ function RoomListComponent(props) {
                     <td className="w-3/12">{item.description}</td>
                     <td className="w-1/12">
                       <div className="dropdown dropdown-left">
-                        <EllipsisVerticalIcon
-                          tabIndex={0}
-                          className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full"
-                        />
-                        <ul
-                          tabIndex={0}
-                          style={{ boxShadow: "0 3px 20px 0 rgb(0 0 0 / 0.1)" }}
-                          className="z-50 dropdown-content menu bg-base-100 rounded-md w-44"
-                        >
+                        <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
+                        <ul tabIndex={0} style={{ boxShadow: "0 3px 20px 0 rgb(0 0 0 / 0.1)" }} className="z-50 dropdown-content menu bg-base-100 rounded-md w-44">
                           <li onClick={() => handleShowRoomDetail(item)}>
-                            <label
-                              htmlFor="detail"
-                              className="hover:bg-primary cursor-pointer hover:bg-opacity-10 px-4 p-3"
-                            >
-                              View Room Detail
-                            </label>
+                            <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 px-4 p-3' >View Room Detail</label>
                           </li>
-                          <li className="">
-                            <label
-                              htmlFor="update"
-                              className="hover:bg-primary hover:bg-opacity-10 px-4 p-3 cursor-pointer"
-                            >
-                              Update Room
-                            </label>
+                          <li className=''>
+                            <label htmlFor="update" onClick={() => handleUpdate(item)} className="hover:bg-primary hover:bg-opacity-10 px-4 p-3 cursor-pointer">Update Room</label>
                           </li>
                           <li onClick={() => handlDelete(item)}>
-                            <label
-                              htmlFor="delete_org"
-                              className="hover:bg-primary hover:bg-opacity-10 px-4 p-3 cursor-pointer"
-                            >
-                              {" "}
-                              Delete Room
-                            </label>
+                            <label htmlFor="delete_org" className="hover:bg-primary hover:bg-opacity-10 px-4 p-3 cursor-pointer"> Delete Room</label>
                           </li>
                         </ul>
                       </div>
                     </td>
                   </tr>
-                );
+                )
+
+
               })}
             </tbody>
           </table>
@@ -342,6 +311,7 @@ function RoomListComponent(props) {
             />
           </div>
         </div>
+  
       </div>
     </main>
   );

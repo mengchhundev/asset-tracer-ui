@@ -4,8 +4,6 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import FileUploadService from "../../../../redux/services/FileUploadService";
 
-
-
 function DetailComponent() {
     const roomDetail = useSelector(state => state.room.roomDetail)
     const [image, setImage]=useState("");
