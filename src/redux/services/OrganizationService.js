@@ -14,7 +14,11 @@ const saveOrganization = async (data) => {
 }
 
 const updateOrganization = async (data, orgId) => {
-    return  await apiV2.put(`/organizations/${orgId}`, data)
+    return await apiV2.put(`/organizations/${orgId}`, data)
+}
+
+const deleteOrganization = async (orgId) => {
+    return await apiV2.delete(``)
 }
 
 const OrganizationService = {

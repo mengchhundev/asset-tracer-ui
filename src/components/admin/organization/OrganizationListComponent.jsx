@@ -39,6 +39,7 @@ export default function OrganizationListComponent() {
 
     const [selectedSort, setSelectedSort] = useState(sort[0]);
     const [query, setQuery] = useState("");
+    const [search, setSearch] = useState()
 
     const filteredOrganizatoin =
         query === ""
@@ -57,7 +58,6 @@ export default function OrganizationListComponent() {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const navigator = useNavigate()
     const location = useLocation()
-    console.log(organizations)
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
@@ -72,6 +72,10 @@ export default function OrganizationListComponent() {
         })
     }
 
+    const handleInputSearch = (e) => {
+        setSearch(e.target.value)
+    };
+
     const handleShowOrganization = (val) => {
         dispatch(setItem(val))
         sessionStorage.setItem("organization", JSON.stringify(val))
@@ -83,8 +87,8 @@ export default function OrganizationListComponent() {
     }, [])
 
     useEffect(() => {
-        if(selectedSort.id == "asc" || selectedSort.id == "desc") {
-            OrganizationService.getAllOrganizations(userId, "", selectedSort.id).then(res => {
+        if (selectedSort.id == "asc" || selectedSort.id == "desc" || search != null) {
+            OrganizationService.getAllOrganizations(userId, search, selectedSort.id).then(res => {
                 if (res.data?.success) {
                     dispatch(setAllOrganization(res.data.payload))
                 }
@@ -93,20 +97,8 @@ export default function OrganizationListComponent() {
             })
         }
 
-    }, [selectedSort])
+    }, [selectedSort, search])
 
-
-
-    const handleSearchOrganization = (e) => {
-        console.log(123)
-        OrganizationService.getAllOrganizations(userId, e.target.value).then(res => {
-            if (res.data?.success) {
-                dispatch(setAllOrganization(res.data.payload))
-            }
-        }, err => {
-            dispatch(setAllOrganization([]))
-        })
-    }
     return (
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{ minHeight: "83vh" }}>
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -174,7 +166,7 @@ export default function OrganizationListComponent() {
                                 className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                 type="text"
                                 name="search"
-                                onInput={handleSearchOrganization}
+                                onInput={handleInputSearch}
                                 placeholder="Search..."
                             />
                         </div>
