@@ -128,7 +128,7 @@ export default function UserRequestComponent() {
               >
                 <div className="rounded-md pb-12 p-5 py-6  flex-col  ">
                   <div className="overflow-x-auto h-[270px] ">
-                    <div className=" xl:px-11 sm:px-5 2xl:px-20 overflow-y-scroll">
+                    <div className=" xl:px-11 sm:px-5 2xl:px-20 3xl:px-32 overflow-y-scroll">
                       <div className="overflow-x-auto">
                         <div className="p-1 overflow-y-scroll items-start">
                           <table className="table border-spacing-y-3 border-separate w-[1020px]">

@@ -1,19 +1,12 @@
 import React, { Fragment, useState } from "react";
-import { BiCheck, BiDotsHorizontalRounded, BiHome } from "react-icons/bi";
-import { HiOutlineCheck, HiOutlineQrcode } from "react-icons/hi";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 import facebook from "../../../assets/images/user/fb.png";
-import linkin from "../../../assets/images/user/in.png";
 import instagram from "../../../assets/images/user/ig.png";
 import twinter from "../../../assets/images/user/tw.png";
-import RoomFillterComponent from "../tracking/RoomFillterComponent";
-import SuperFillterComponent from "../tracking/SuperFillterComponent";
-import NormalFillterComponent from "../tracking/NormalFillterComponent";
-import OwnerFillterComponent from "../tracking/OwnerFillterComponent";
-import SortByComponent from "../tracking/SortByComponent";
-import { BsGraphUp, BsHouseCheck, BsPlus } from "react-icons/bs";
-import { TbCalendarStats } from "react-icons/tb";
+import { BsPlus } from "react-icons/bs";
 import { AiFillGift } from "react-icons/ai";
 import UserDetail from "./userPopup/UserDetail";
+
 import "../../../style/shadow.css";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { Combobox, Transition } from "@headlessui/react";
@@ -26,8 +19,6 @@ const people = [
   { id: 5, name: "Newest - Olest" },
 ];
 
-
-
 export default function UsersAllComponent() {
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
@@ -36,12 +27,11 @@ export default function UsersAllComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
-
+          person.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
 
   const [user, setUser] = useState([
     {
@@ -134,14 +124,13 @@ export default function UsersAllComponent() {
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
-
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
               All <span className="text-pending">User</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-            Active Users
+              Active Users
             </p>
           </div>
 
@@ -210,9 +199,10 @@ export default function UsersAllComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                ? "bg-hover-yellow text-text-color"
-                                : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-hover-yellow text-text-color"
+                                  : "text-text-color"
                               }`
                             }
                             value={person}
@@ -220,15 +210,17 @@ export default function UsersAllComponent() {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                    }`}
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                      }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-text-color"
+                                    }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -249,21 +241,19 @@ export default function UsersAllComponent() {
 
             {/* add */}
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-
               <label
-                htmlFor="normalCategory"
+                htmlFor="invite-user"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
-                <BsPlus className="w-6 h-6" />&nbsp;Invite user
+                <BsPlus className="w-6 h-6" />
+                &nbsp;Invite user
               </label>
             </div>
           </div>
         </div>
 
         {/* card */}
-        <div
-          className=" py-6 relative"
-        >
+        <div className=" py-6 relative">
           <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  justify-items-center gap-10 lg:gap-x-10  gap-y-8 p-5 w-full">
             {user.map((list) => (
               <button
@@ -302,13 +292,13 @@ export default function UsersAllComponent() {
                   </div>
 
                   <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full ">
-                    <div className="w-[55px] h-[55px] con-pro-color rounded-full flex justify-center items-center m-auto">
-                      <p className="font-sp-pro-text-bold text-xl text-green ">
-                        {list.profile}
+                    <div className="w-[65px] h-[65px] con-pro-color rounded-full flex justify-center items-center m-auto">
+                      <p className="font-sp-pro-text-semibold uppercase text-xl text-green ">
+                        {list.name.substring(0, 2)}
                       </p>
                     </div>
                   </div>
-                  
+
                   <p className="pt-2 font-sp-pro-text-semibold 2xl:text-[15px]  w-full text-center text-text-color capitalize">
                     {list.name}
                   </p>
@@ -330,7 +320,6 @@ export default function UsersAllComponent() {
                       <img src={twinter} alt="" />
                     </div>
                   </div>
-
                 </div>
                 <div className="p-6 w-48  text-center mx-auto  ">
                   {/* <span className="inline-block w-full bg-gray-200 rounded-md py-2 px-3 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-yellow text-white">
@@ -341,7 +330,6 @@ export default function UsersAllComponent() {
                     className="inline-block mb-1 2xl:mb-2 lt-16:w-full lt-14:w-28 cursor-pointer  shadow-[#F8C400] con-Shadow-btn rounded-md py-2 px-4 lt-16:text-sm lt-14:text-xs font-sp-pro-text-regular text-gray-700 mr-2  bg-yellow text-white"
                   >
                     <p className=" text-xs ">More Info</p>
-                    
                   </label>
                 </div>
               </button>
@@ -352,9 +340,9 @@ export default function UsersAllComponent() {
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />
         <UserDetail className="modal" />
         {/* Modol invite user */}
-        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <input type="checkbox" id="invite-user" className="modal-toggle" />
         <div className="modal">
-          <div className="bg-bg-primary lg:w-1/3 md:w-3/4 sm:w-32 rounded-lg relative p-4">
+          <div className="bg-bg-primary overflow-hidden  h-[60vh] w-[70vh] rounded-lg relative p-4">
             {/* header */}
             <div className="flex justify-between mb-5">
               <div className="flex items-center">
@@ -374,7 +362,7 @@ export default function UsersAllComponent() {
               </div>
               <div className="flex">
                 <label
-                  htmlFor="my-modal-3"
+                  htmlFor="invite-user"
                   className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
                 >
                   ✕
@@ -410,9 +398,74 @@ export default function UsersAllComponent() {
               </div>
 
               {/* featch data invite user */}
-              <div className="w-full mt-5 border border-slate-200 bg-bg-main">
-                {user.map((users) => (
-                  <div className="w-full rounded-md">
+            </div>
+              <div class="relative rounded-xl overflow-y-auto p-4">
+          
+                <div class="overflow-y-auto  scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-bg-primary-strock scrollbar-track-bg-primary h-80 relative max-w-xl mx-auto divide-slate-200 bg-bg-main ring-1 ring-black/5 rounded-md flex flex-col divide-y highlight-white/5 ">
+                  <div class="flex items-center gap-4 p-4">
+                    <img
+                      class="w-12 h-12 rounded-full"
+                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+                      alt=""
+                    />
+                    <div class="flex flex-col">
+                      <strong class="text-slate-900 text-sm font-sp-pro-text-regular">
+                        Andrew Alfred
+                      </strong>
+                      <span class="text-slate-500 text-sm font-sp-pro-text-regular ">
+                        Technical advisor
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-4 p-4">
+                    <img
+                      class="w-12 h-12 rounded-full"
+                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+                      alt=""
+                    />
+                    <div class="flex flex-col">
+                      <strong class="text-slate-900 text-sm font-medium">
+                        Andrew Alfred
+                      </strong>
+                      <span class="text-slate-500 text-sm font-sp-pro-text-regular ">
+                        Technical advisor
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-4 p-4">
+                    <img
+                      class="w-12 h-12 rounded-full"
+                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+                      alt=""
+                    />
+                    <div class="flex flex-col">
+                      <strong class="text-slate-900 text-sm font-medium dark:text-slate-200">
+                        Andrew Alfred
+                      </strong>
+                      <span class="text-slate-500 text-sm font-medium dark:text-slate-400">
+                        Technical advisor
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-4 p-4">
+                    <img
+                      class="w-12 h-12 rounded-full"
+                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+                      alt=""
+                    />
+                    <div class="flex flex-col">
+                      <strong class="text-slate-900 text-sm font-medium dark:text-slate-200">
+                        Andrew Alfred
+                      </strong>
+                      <span class="text-slate-500 text-sm font-medium dark:text-slate-400">
+                        Technical advisor
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* {user.map((users) => (
+                  <div className="w-full rounded-md px-5">
                     <div className="flex justify-between hover:bg-gray-light p-2">
                       <div>
                         <div className="flex items-center m-auto space-x-3">
@@ -435,13 +488,12 @@ export default function UsersAllComponent() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-            {/*  */}
+                ))} */}
+        
           </div>
         </div>
         {/* modal invite user */}
+
         {/* Put this part before </body> tag */}
       </div>
     </main>
