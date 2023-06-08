@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useState } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
@@ -20,25 +20,44 @@ import { Listbox } from '@headlessui/react';
 import { RiCloseFill } from 'react-icons/ri';
 import FileUploadService from '../../../redux/services/FileUploadService';
 import { Combobox, Transition } from "@headlessui/react";
-import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from 'react-icons/bs';
 
-
-const people = [
-    { id: 1, name: "Sort By" },
-    { id: 2, name: "Arlene Mccoy" },
-    { id: 3, name: "Devon Webb" },
+const sort = [
+    {
+        id: "sort_by", name: "Sort by"
+    },
+    {
+        id: "asc", name: "A - Z"
+    },
+    {
+        id: "desc", name: "Z - A"
+    }
 ];
 
-
 export default function OrganizationListComponent() {
+
+    const [selectedSort, setSelectedSort] = useState(sort[0]);
+    const [query, setQuery] = useState("");
+
+    const filteredOrganizatoin =
+        query === ""
+            ? sort
+            : sort.filter((person) =>
+                person.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "")
+                    .includes(query.toLowerCase().replace(/\s+/g, ""))
+            );
+
+
     const dispatch = useDispatch();
     const organizations = useSelector(state => state.organization.data)
     const item = useSelector(state => state.organization?.item)
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const navigator = useNavigate()
     const location = useLocation()
-
+    console.log(organizations)
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
@@ -63,21 +82,33 @@ export default function OrganizationListComponent() {
         getAllOrganizations()
     }, [])
 
-    const [selected, setSelected] = useState(people[0]);
-    const [query, setQuery] = useState("");
+    useEffect(() => {
+        if(selectedSort.id == "asc" || selectedSort.id == "desc") {
+            OrganizationService.getAllOrganizations(userId, "", selectedSort.id).then(res => {
+                if (res.data?.success) {
+                    dispatch(setAllOrganization(res.data.payload))
+                }
+            }, err => {
+                dispatch(setAllOrganization([]))
+            })
+        }
 
-    const filteredPeople =
-        query === ""
-            ? people
-            : people.filter((person) =>
-                person.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "")
-                    .includes(query.toLowerCase().replace(/\s+/g, ""))
-            );
+    }, [selectedSort])
 
+
+
+    const handleSearchOrganization = (e) => {
+        console.log(123)
+        OrganizationService.getAllOrganizations(userId, e.target.value).then(res => {
+            if (res.data?.success) {
+                dispatch(setAllOrganization(res.data.payload))
+            }
+        }, err => {
+            dispatch(setAllOrganization([]))
+        })
+    }
     return (
-        <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{minHeight: "83vh"}}>
+        <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{ minHeight: "83vh" }}>
             <input type="checkbox" id="delete_org" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
@@ -143,6 +174,7 @@ export default function OrganizationListComponent() {
                                 className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                 type="text"
                                 name="search"
+                                onInput={handleSearchOrganization}
                                 placeholder="Search..."
                             />
                         </div>
@@ -151,15 +183,15 @@ export default function OrganizationListComponent() {
                     {/* filter */}
                     <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
-                            value={selected}
-                            onChange={setSelected}
+                            value={selectedSort}
+                            onChange={setSelectedSort}
                             className="z-20"
                         >
                             <div className="relative z-20">
                                 <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                     <Combobox.Input
                                         className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                                        displayValue={(person) => person.name}
+                                        displayValue={(val) => val.name}
                                         onChange={(event) => setQuery(event.target.value)}
                                     />
                                     <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -177,31 +209,31 @@ export default function OrganizationListComponent() {
                                     afterLeave={() => setQuery("")}
                                 >
                                     <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {filteredPeople.length === 0 && query !== "" ? (
+                                        {filteredOrganizatoin.length === 0 && query !== "" ? (
                                             <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                                                 Nothing found.
                                             </div>
                                         ) : (
-                                            filteredPeople.map((person, index) => (
+                                            filteredOrganizatoin.map((val, index) => (
                                                 <Combobox.Option
                                                     key={index}
                                                     className={({ active }) =>
                                                         `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                            ? "bg-hover-yellow text-text-color"
+                                                            ? "bg-custom-yellow-showdow-light text-text-color"
                                                             : "text-text-color"
                                                         }`
                                                     }
-                                                    value={person}
+                                                    value={val}
                                                 >
-                                                    {({ selected, active }) => (
+                                                    {({ selectedSort, active }) => (
                                                         <>
                                                             <span
-                                                                className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                                                className={`block truncate ${selectedSort ? "font-medium" : "font-normal"
                                                                     }`}
                                                             >
-                                                                {person.name}
+                                                                {val.name}
                                                             </span>
-                                                            {selected ? (
+                                                            {selectedSort ? (
                                                                 <span
                                                                     className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
                                                                         }`}
@@ -291,34 +323,34 @@ export default function OrganizationListComponent() {
                             </>}
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
                             <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                Owner
+                                {list.roleName == "ADMIN" ? "Owner" : "Member"}
                             </p>
                             <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
                                 {list.users.length} members
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                 <div className='w-full flex justify-center'>
-                                    {list.users.map((user, index) => (
-                                        <>
-                                            {user?.image ?
-                                                <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
-                                                    <img
-                                                        src={FileUploadService.getImage(user.image)}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                                :
-                                                <div className="relative  w-7 h-7 mr-[-14px] z-10">
-                                                    <img
-                                                        src={avatar01}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                            }
-                                        </>
-                                    ))}
+                                    {list.users.map((user, index) => {
+                                        if (index <= 4) {
+                                            return (
+                                                <>
+                                                    {user?.image ?
+                                                        <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                            <img
+                                                                src={FileUploadService.getImage(user.image)}
+                                                                loading="lazy"
+                                                                className="rounded-full h-full w-full"
+                                                            />
+                                                        </div>
+                                                        :
+                                                        <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                                            {user.name.substring(0, 1)}
+                                                        </div>
+                                                    }
+                                                </>
+                                            )
+                                        }
+                                    })}
 
                                     {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                                         8 <FiPlus />
