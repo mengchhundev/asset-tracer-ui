@@ -63,6 +63,7 @@ export default function OrganizationListComponent() {
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
+    const [organizationObj, setOrganizationObj] = useState();
 
     const getAllOrganizations = () => {
         OrganizationService.getAllOrganizations(userId).then(res => {
@@ -112,9 +113,6 @@ export default function OrganizationListComponent() {
         })
     }
 
-    const handleShowOrganizationForUpdate = () => {
-
-    }
 
     return (
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{ minHeight: "83vh" }}>
@@ -156,7 +154,7 @@ export default function OrganizationListComponent() {
 
             {/* Update */}
             <input type="checkbox" id="create-organization" className="modal-toggle" />
-            <CreateOrganizatoinComponent className="modal" />
+            <CreateOrganizatoinComponent className="modal" val={organizationObj}/>
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
@@ -297,7 +295,8 @@ export default function OrganizationListComponent() {
                                                 >
                                                     <Listbox.Option>
                                                         <label
-                                                            htmlFor=''
+                                                            onClick={() => setOrganizationObj(list)}
+                                                            htmlFor='create-organization'
                                                             className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                         >
                                                             <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>

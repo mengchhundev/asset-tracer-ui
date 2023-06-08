@@ -10,7 +10,6 @@ const joinOrganization = async (data) => {
 
 const saveOrganization = async (data) => {
     return await apiV2.post(`/organizations`, data)
-    
 }
 
 const updateOrganization = async (data, orgId) => {

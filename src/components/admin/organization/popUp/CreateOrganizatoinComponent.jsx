@@ -12,18 +12,33 @@ import FileUploadService from '../../../../redux/services/FileUploadService';
 import { useDispatch } from 'react-redux';
 import { setItem } from '../../../../redux/slices/OrganizationSlice';
 
-export default function CreateOrganizatoinComponent() {
+export default function CreateOrganizatoinComponent(val, {handleShowSuccess}) {
+
     const dispatch = useDispatch()
     const navigator = useNavigate()
+    const [isUpdate, setIsUpdate] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [image, setImage] = useState()
     const [newData, setNewData] = useState({
+        id: "",
         name: "",
         address: "",
         logo: ""
     })
 
-    let formData = new FormData()
+    useEffect(() => {
+        setIsSuccess(false)
+        if (val.val) {
+            setIsUpdate(true)
+            setNewData({ ...val.val })
+            if (val.val?.logo) {
+                setImage(FileUploadService.getImage(val.val?.logo))
+            }
+        }
+    }, [val.val, image])
 
     // Upload file
+    let formData = new FormData()
     const [selectedFile, setSelectedFile] = useState('')
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
 
@@ -35,7 +50,6 @@ export default function CreateOrganizatoinComponent() {
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = (event) => {
-                console.log(event)
                 const image = new Image();
                 image.onload = () => {
                     setImageDimensions({
@@ -51,10 +65,10 @@ export default function CreateOrganizatoinComponent() {
 
     const handleInputChange = (e) => {
         setNewData({ ...newData, [e.target.name]: e.target.value })
-        console.log(newData)
     };
 
-    const hanndSaveOrganization = () => {
+    const handleSaveOrganization = () => {
+        setIsUpdate(false)
         if (selectedFile) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
@@ -63,30 +77,61 @@ export default function CreateOrganizatoinComponent() {
                         name: newData.name,
                         address: newData.address,
                         logo: res.data.payload
-                    }, localStorage.getItem("token")).then(res => {
+                    }).then(res => {
                         if (res.data?.success) {
+                            setImage("")
+                            setIsSuccess(true)
                             dispatch(setItem(res.data.payload))
                             sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                             navigator("/organization", { state: { hideOrganizationBar: true } })
-
                         }
-                    }, err => {
-                        console.log(err)
                     })
                 }
             })
         } else {
             OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
                 if (res.data?.success) {
+                    setIsSuccess(true)
                     dispatch(setItem(res.data.payload))
                     sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                     navigator("/organization", { state: { hideOrganizationBar: true } })
                 }
-            }, err => {
-                console.log(err)
             })
         }
 
+    }
+
+    const handleUpdateOrganization = () => {
+        if (selectedFile) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+                if (res.data.success) {
+                    OrganizationService.updateOrganization({
+                        name: newData.name,
+                        address: newData.address,
+                        logo: res.data.payload
+                    }, newData?.id).then(res => {
+                        if (res.data?.success) {
+                            console.log(res.data)
+                            setIsSuccess(true)
+                            // setImage("")
+                            // dispatch(setItem(res.data.payload))
+                            // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            // navigator("/organization", { state: { hideOrganizationBar: true } })
+
+                        }
+                    })
+                }
+            })
+        } else {
+            OrganizationService.updateOrganization(newData, newData?.id).then(res => {
+                if (res.data?.success) {
+                    console.log(res)
+                    setIsSuccess(true)
+                    
+                }
+            })
+        }
     }
 
     const formik = useFormik({
@@ -95,17 +140,19 @@ export default function CreateOrganizatoinComponent() {
             name: Yup.string().required("Organization name is required"),
         }),
         onSubmit: (val, { resetForm }) => {
-            hanndSaveOrganization()
-            resetForm(val = {
-                name: "",
-                address: "",
-                logo: ""
-            })
-            setNewData({
-                name: "",
-                address: "",
-                logo: ""
-            })
+            isUpdate ? handleUpdateOrganization() : handleSaveOrganization()
+            if (isSuccess) {
+                resetForm(val = {
+                    name: "",
+                    address: "",
+                    logo: ""
+                })
+                setNewData({
+                    name: "",
+                    address: "",
+                    logo: ""
+                })
+            }
         }
     });
 
@@ -113,11 +160,21 @@ export default function CreateOrganizatoinComponent() {
         formik.setValues(newData);
     }, [])
 
+    useEffect(() => {
+        formik.setValues(newData);
+    }, [image])
+
+    const handleHideModal = () => {
+        setSelectedFile("")
+        setImage("")
+        setIsUpdate(false)
+    }
+
     return (
         <div className="modal">
             <div className="modal-box max-w-4xl relative">
                 <div className='absolute top-4 right-4'>
-                    <label htmlFor="create-organization" ><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
+                    <label htmlFor="create-organization" onClick={handleHideModal}><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
                 </div>
                 <div className='flex justify-between'>
                     <div className='flex'>
@@ -134,7 +191,8 @@ export default function CreateOrganizatoinComponent() {
                                         <div className='w-44 h-20 relative'>
                                             {
                                                 selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                                                    : <img className="block m-auto " src={upload_placeholder} alt="" />
+                                                    : image ? <img src={image} className='h-full m-auto' />
+                                                        : <img className="block m-auto " src={upload_placeholder} />
                                             }
                                         </div>
                                         <p className='mt-5 text-xs'>Upload Organzation Picture</p>
@@ -184,6 +242,7 @@ export default function CreateOrganizatoinComponent() {
                     <div className='w-full flex justify-end gap-3'>
 
                         <label
+                            onClick={handleHideModal}
                             htmlFor='create-organization'
                             className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                         >
@@ -192,10 +251,10 @@ export default function CreateOrganizatoinComponent() {
                         </label>
                         <button
                             type="submit"
-                            className="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1"
+                            className={`${isUpdate ? "hover:bg-opacity-90 bg-accept" : "hover:bg-opacity-90 bg-primary"}  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
                         >
                             <FiSave className='text-lg' />
-                            Save
+                            {isUpdate ? "Save changes" : "Save"}
                         </button>
                     </div>
                 </form>
