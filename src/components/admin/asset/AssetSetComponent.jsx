@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import {
   ChevronDownIcon,
   HomeIcon,
@@ -16,6 +17,14 @@ import { MdClear } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Link, NavLink } from "react-router-dom";
 import { RiAddBoxFill, RiCloseFill } from "react-icons/ri";
+=======
+import React, { useEffect, useState } from "react";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { CloudArrowUpIcon } from "@heroicons/react/20/solid";
+import { Link, NavLink } from "react-router-dom";
+import SetAssetDropDownComponent from "./filtter/SetAssetDropDownComponent";
+import { RiCloseFill } from "react-icons/ri";
+>>>>>>> Stashed changes
 import { FiSave } from "react-icons/fi";
 
 export default function AssetSetComponent() {
@@ -58,6 +67,7 @@ export default function AssetSetComponent() {
   };
 
   return (
+<<<<<<< Updated upstream
     <main
       className="overflow-y-auto  bg-white rounded-xl relative"
       style={{
@@ -66,9 +76,19 @@ export default function AssetSetComponent() {
       }}
     >
       <div className="bg-white rounded-lg">
+=======
+    <>
+      <main
+        className="overflow-y-auto pb-20 bg-white rounded-xl relative"
+        style={{
+          boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
+        }}
+      >
+        {/* Set Asset */}
+>>>>>>> Stashed changes
         <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
           <h1 className="flex items-center">
-            <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Add
+            <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Set
             Asset
           </h1>
         </div>
@@ -195,8 +215,13 @@ export default function AssetSetComponent() {
               </div>
             </div>
           </div>
+<<<<<<< Updated upstream
 
           <div className="xl:w-1/3 md:w-1/2 md:mt-6 mt-[-24px]">
+=======
+          {/* upload */}
+<div className="xl:w-1/3 md:w-1/2 md:mt-6 mt-[-24px]">
+>>>>>>> Stashed changes
             <div className="item-center w-full rounded-xl   ">
               <div className="block lg:mx-5 p-7">
                 <div className=" flex items-center justify-center text-center rounded-lg md:h-[390px] h-[250px] border border-dashed border-yellow">
@@ -210,8 +235,13 @@ export default function AssetSetComponent() {
                           src={URL.createObjectURL(selectedFile)}
                           alt="Selected File"
                           className={`${imageDimensions.width > imageDimensions.height
+<<<<<<< Updated upstream
                             ? "w-[300px]"
                             : "h-auto"
+=======
+                              ? "w-[300px]"
+                              : "h-auto"
+>>>>>>> Stashed changes
                             } ${imageDimensions.width < imageDimensions.height
                               ? "h-[195px]"
                               : "w-auto"
@@ -248,14 +278,22 @@ export default function AssetSetComponent() {
                 <div className="flex justify-end flex-row space-x-4 mt-10">
                   <div className="">
                     <Link to={"/asset"}>
+<<<<<<< Updated upstream
                       <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+=======
+                      <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+>>>>>>> Stashed changes
                         <RiCloseFill className="text-lg" /> &nbsp; Cancel
                       </button>
                     </Link>
                   </div>
 
                   <div className="">
+<<<<<<< Updated upstream
                     <button className="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+=======
+                    <button class="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+>>>>>>> Stashed changes
                       <FiSave className="text-lg" /> &nbsp; Save
                     </button>
                   </div>
