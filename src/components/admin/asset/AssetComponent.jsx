@@ -33,6 +33,12 @@ export default function AssetComponent() {
   //combobox
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
+  const [asset,setAsset] = useState({})
+
+
+  useEffect(()=>{
+    console.log("Asset after click",asset);
+  },[asset])
 
   const filteredPeople =
     query === ""
@@ -44,41 +50,6 @@ export default function AssetComponent() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
-  const [user, setUser] = useState([
-    {
-      id: 1,
-      profile: "SE",
-      name: "Senglorn",
-      type: "modern",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/0f/b2/97/0fb2975d18129966010c0f58366b8ade.jpg",
-    },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      type: "office",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/a6/d3/e7/a6d3e70fea9bdd7be1788393cc6b782c.jpg",
-    },
-    {
-      id: 3,
-      profile: "ME",
-      name: "Keo Mony",
-      type: "model",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/7f/c9/ff/7fc9ff3043b463345310170aed59517d.jpg",
-    },
-    {
-      id: 4,
-      profile: "ME",
-      name: "Keo Mony",
-      type: "office",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/52/cb/81/52cb81eddd24d627b6cc602b02f0ef5d.jpg",
-    },
-  ]);
-
   // pagination
   const [pageCount, setPageCount] = useState(2);
   let [isOpen, setIsOpen] = useState(false);
@@ -89,23 +60,25 @@ export default function AssetComponent() {
     getAllSuperCategory(event.selected + 1);
     setI(event.selected * 10 + 1);
   };
+
   // getdata
   const dispatch = useDispatch();
   const getdata = useSelector((state) => state.asset.data);
-  console.log("getdata",getdata)
-  const getAllAsset =()=>{
+  console.log("getdata", getdata);
+
+  const getAllAsset = () => {
     AssetService.getAllAssets()
-    .then((res)=>{
-      console.log("res data",res.data.payload)
-        dispatch(setData(res.data.payload))
-    })
-    .catch((err) => {
-      console.error(err);
-  });
-  }
-  useEffect(()=>{
+      .then((res) => {
+        console.log("res data", res.data.payload);
+        dispatch(setData(res.data.payload));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  useEffect(() => {
     getAllAsset();
-  },[])
+  }, []);
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
@@ -238,9 +211,7 @@ export default function AssetComponent() {
           </div>
         </div>
 
-
         <div className="flex flex-col justify-between relative">
-          {/* table */}
           <div
             className="flex flex-col justify-between"
             style={{
@@ -263,59 +234,72 @@ export default function AssetComponent() {
                       </td>
                     </tr>
 
-                    {user.map((users) => (
-                      <tr className="text-sm font-sp-pro-text-regular text-text-color">
+                    {/* {user.map((asset) => ( */}
+                    {getdata.map((asset, index) => (
+                      <tr
+                        key={index}
+                        className="text-sm font-sp-pro-text-regular text-text-color"
+                      >
                         <td className="w-1/12 py-3 text-center text-text-color">
-                          {users.id}
+                          {/* {index + 1}  */}
                         </td>
 
+                        {/* Name */}
                         <td className="w-3/12 py-3">
                           <div className="flex items-center">
                             <div className="relative  mr-3 w-8 h-8 ">
                               <img
-                                src={users.src}
-                                alt={users.title}
+                                src={asset.itemDetail.image}
                                 loading="lazy"
                                 className="rounded-full h-full w-full"
                               />
                             </div>
                             <div className="flex flex-col">
                               <span className="text-text-color font-sp-pro-text-regular text-sm">
-                                {users.name}
+                                {asset.itemDetail.normalCategoryName}
                               </span>
                               <span className="text-[11px] text-text-color font-sp-pro-text-regular">
-                                {users.type}
+                                {asset.itemDetail.name}
                               </span>
                             </div>
                           </div>
                         </td>
 
+                        {/* category */}
                         <td className="w-2/12 py-3">
                           <div className="flex items-center m-auto space-x-3">
-                            <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                              {users.profile}
-                            </span>
+                            <img
+                              src={asset.itemDetail.image}
+                              loading="lazy"
+                              className="w-8 h-8 overflow-hidden rounded-full flex items-center justify-center"
+                            />
                             <span className="text-sm text-text-color">
-                              {users.name}
+                              {asset.itemDetail.superCategoryName}
                             </span>
                           </div>
                         </td>
 
+                        {/* Owner */}
                         <td className="w-2/12 py-3">
                           <div className="flex items-center m-auto space-x-3">
                             <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                              {users.profile}
+                              {/* <img
+                                src={asset.itemDetail.image}
+                                loading="lazy"
+                                className="rounded-full h-full w-full"
+                              /> */}
                             </span>
                             <span className="text-sm text-text-color">
-                              {users.name}
+                              {asset.owner}
                             </span>
                           </div>
                         </td>
 
+                        {/* Satus */}
                         <td className="w-2/12 text-sm font-sp-pro-text-medium text-text-color">
                           <div className="flex flex-row bg-gray-light w-[95px] rounded-lg ">
                             <label className="ml-auto bg-gray-light pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center justify-center">
-                              <BsDot className="w-6 h-6" /> Damaged
+                              <BsDot className="w-6 h-6" /> {asset.status}
                             </label>
                           </div>
                         </td>
@@ -371,7 +355,7 @@ export default function AssetComponent() {
                             </span>
 
                             <span className="w-6 h-6 ">
-                              <label htmlFor="normalModal">
+                              <label htmlFor="normalModal" onClick={()=>setAsset(asset)}>
                                 <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500 text-[#2076FF]" />
                               </label>
                             </span>
@@ -397,7 +381,7 @@ export default function AssetComponent() {
                 id="normalModal"
                 className="modal-toggle"
               />
-              <AssetViewComponent className="modal" />
+              <AssetViewComponent viewAsset={asset} className="modal" />
             </div>
           </div>
 

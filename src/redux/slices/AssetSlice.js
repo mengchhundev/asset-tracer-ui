@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: {},
+  data: [],
   asset: { },
 };
 
@@ -10,6 +10,7 @@ export const assetSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
+      console.log("Action : ", action.payload)
       state.data = action.payload;
       
     },

@@ -7,11 +7,12 @@ import { BiCheck, BiHome } from "react-icons/bi";
 
 import { BsGraphUp, BsHouseCheck } from "react-icons/bs";
 
-function AssetViewComponent(props) {
+function AssetViewComponent({ viewAsset }) {
   const selectedImage =
     "https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg";
   const [topImage, setTopImage] = useState(selectedImage);
 
+  console.log("View Asset as props", viewAsset);
   const handleImageClick = (newImage) => {
     setTopImage(newImage);
   };
@@ -32,7 +33,7 @@ function AssetViewComponent(props) {
                 <BsGraphUp className="w-8 h-8 bg-primary text-white" />
               </span>
               <span className="pl-3  text-text-color text-xl font-sp-pro-text-semibold">
-                Tracking Details
+                Asset Details
               </span>
             </div>
             <div className="flex">
@@ -71,7 +72,6 @@ function AssetViewComponent(props) {
                         </a>
                       </div>
                     </div>
-                    
 
                     <div
                       id="slide2"
@@ -118,7 +118,7 @@ function AssetViewComponent(props) {
                               <TbCalendarStats className="w-6 h-6 text-white" />
                             </span>
                             <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              Electronic
+                              {viewAsset.superCategoryName}
                             </span>
                           </p>
                         </div>
@@ -139,7 +139,7 @@ function AssetViewComponent(props) {
                               <BiHome className="w-6 h-6 text-yellow" />
                             </span>
                             <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              KSHRD Center
+                              {viewAsset.name}
                             </span>
                           </p>
                         </div>
@@ -158,7 +158,7 @@ function AssetViewComponent(props) {
                               <BsHouseCheck className="w-6 h-6 text-yellow" />
                             </span>
                             <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              Siemreap
+                            {viewAsset.roomName}
                             </span>
                           </p>
                         </div>
@@ -191,7 +191,7 @@ function AssetViewComponent(props) {
                               <HiOutlineQrcode className="w-8 h-8  text-primary" />
                             </span>
                             <span className="text-text-color text-xs font-sp-pro-text-regular">
-                              Y8R6E6N9Z3W
+                              {viewAsset.labelCode}
                             </span>
                           </p>
                         </div>
@@ -212,7 +212,7 @@ function AssetViewComponent(props) {
                               <RiBarcodeFill className="w-8 h-8 text-primary" />{" "}
                             </p>
                             <p className="text-text-color text-xs font-sp-pro-text-regular flex flex-row">
-                              A8H9G6F5C5S4N9S2
+                              {viewAsset.serialCode}
                             </p>
                           </p>
                         </div>
@@ -262,11 +262,7 @@ function AssetViewComponent(props) {
                           />
                           <div className="pl-2">
                             <span className="text-text-color font-sp-pro-text-regular text-sm">
-                              Rotanakosal
-                              <br />
-                            </span>
-                            <span className="text-xs text-text-color font-sp-pro-text-regular">
-                              Admin
+                              {viewAsset.owner}
                             </span>
                           </div>
                         </div>
@@ -299,11 +295,7 @@ function AssetViewComponent(props) {
                           />
                           <div className="pl-2">
                             <span className="text-text-color font-sp-pro-text-regular text-sm">
-                              Rotanakosal
-                              <br />
-                            </span>
-                            <span className="text-xs text-text-color font-sp-pro-text-regular">
-                              Admin
+                              {viewAsset.createdAt}
                             </span>
                           </div>
                         </div>
@@ -324,7 +316,7 @@ function AssetViewComponent(props) {
                               <TbCalendarStats className="w-6 h-6 text-yellow" />
                             </span>
                             <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              Thu-08-12-2013 : 12:00
+                              {viewAsset.createdBy}
                             </span>
                           </p>
                         </div>
