@@ -22,6 +22,7 @@ import FileUploadService from '../../../redux/services/FileUploadService';
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from 'react-icons/bs';
+import CreateOrganizatoinComponent from './popUp/CreateOrganizatoinComponent';
 
 const sort = [
     {
@@ -37,9 +38,10 @@ const sort = [
 
 export default function OrganizationListComponent() {
 
-    const [selectedSort, setSelectedSort] = useState(sort[0]);
-    const [query, setQuery] = useState("");
+    const [selectedSort, setSelectedSort] = useState(sort[0])
+    const [query, setQuery] = useState("")
     const [search, setSearch] = useState()
+    const [orgId, setOrgId] = useState()
 
     const filteredOrganizatoin =
         query === ""
@@ -99,6 +101,21 @@ export default function OrganizationListComponent() {
 
     }, [selectedSort, search])
 
+    const handleDeleteOrganization = () => {
+        OrganizationService.deleteOrganization(orgId).then(res => {
+            if (res.data.success) {
+                getAllOrganizations()
+                document.getElementById("delete_org").click()
+            }
+        }, err => {
+            console.log(err)
+        })
+    }
+
+    const handleShowOrganizationForUpdate = () => {
+
+    }
+
     return (
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{ minHeight: "83vh" }}>
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -127,7 +144,8 @@ export default function OrganizationListComponent() {
                             Cancel
                         </label>
                         <button
-                            type="submit"
+                            onClick={handleDeleteOrganization}
+                            type="button"
                             className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
                         >
                             Delete
@@ -135,6 +153,10 @@ export default function OrganizationListComponent() {
                     </div>
                 </div>
             </div>
+
+            {/* Update */}
+            <input type="checkbox" id="create-organization" className="modal-toggle" />
+            <CreateOrganizatoinComponent className="modal" />
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
@@ -283,6 +305,7 @@ export default function OrganizationListComponent() {
                                                             </span>
                                                         </label>
                                                         <label
+                                                            onClick={() => setOrgId(list.id)}
                                                             htmlFor='delete_org'
                                                             className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
                                                         >

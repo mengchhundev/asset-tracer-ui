@@ -18,14 +18,15 @@ const updateOrganization = async (data, orgId) => {
 }
 
 const deleteOrganization = async (orgId) => {
-    return await apiV2.delete(``)
+    return await apiV2.delete(`/organizations/${orgId}`)
 }
 
 const OrganizationService = {
     getAllOrganizations,
     joinOrganization,
     saveOrganization,
-    updateOrganization
+    updateOrganization,
+    deleteOrganization
 }
 
 export default OrganizationService;

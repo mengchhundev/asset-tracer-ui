@@ -248,14 +248,14 @@ export default function AssetSetComponent() {
                 <div className="flex justify-end flex-row space-x-4 mt-10">
                   <div className="">
                     <Link to={"/asset"}>
-                      <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                      <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
                         <RiCloseFill className="text-lg" /> &nbsp; Cancel
                       </button>
                     </Link>
                   </div>
 
                   <div className="">
-                    <button class="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                    <button className="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
                       <FiSave className="text-lg" /> &nbsp; Save
                     </button>
                   </div>
