@@ -150,8 +150,6 @@ export default function ProfileComponent() {
                     image: res.data.payload
                 }).then(res => {
                     if (res.data?.success) {
-                        
-                        
                         if(res.data.payload?.image) {
                             setFile(FileUploadService.getImage(res.data.payload.image))
                             dispatch(setProfileImage(FileUploadService.getImage(res.data.payload.image)))

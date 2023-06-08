@@ -255,7 +255,7 @@ export default function NavbarComponent() {
                             {list?.logo ? (
                               <img
                                 src={
-                                  list.logo != null
+                                  list.logo != null || list.logo != ""
                                     ? FileUploadService.getImage(list.logo)
                                     : placeholder
                                 }

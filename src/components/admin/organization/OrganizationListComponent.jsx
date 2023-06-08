@@ -25,9 +25,9 @@ import { BsPlus } from 'react-icons/bs';
 
 
 const people = [
-  { id: 1, name: "Sort By" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
+    { id: 1, name: "Sort By" },
+    { id: 2, name: "Arlene Mccoy" },
+    { id: 3, name: "Devon Webb" },
 ];
 
 
@@ -77,8 +77,7 @@ export default function OrganizationListComponent() {
             );
 
     return (
-        <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl">
-
+        <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{minHeight: "83vh"}}>
             <input type="checkbox" id="delete_org" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
@@ -183,9 +182,9 @@ export default function OrganizationListComponent() {
                                                 Nothing found.
                                             </div>
                                         ) : (
-                                            filteredPeople.map((person) => (
+                                            filteredPeople.map((person, index) => (
                                                 <Combobox.Option
-                                                    key={person.id}
+                                                    key={index}
                                                     className={({ active }) =>
                                                         `relative cursor-default select-none py-2 pl-10 pr-4 ${active
                                                             ? "bg-hover-yellow text-text-color"
@@ -278,14 +277,21 @@ export default function OrganizationListComponent() {
                         </div>
                         <label className="px-6" onClick={() => handleShowOrganization(list)}>
                             <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
-                            <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
-                                <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
-                                    <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+
+                            {list.logo != "" && list.logo != null ? <>
+                                <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                                    <img src={FileUploadService.getImage(list.logo)} className='w-12 h-12  rounded-full flex justify-center items-center m-auto' />
                                 </div>
-                            </div>
+                            </> : <>
+                                <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                                    <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
+                                        <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+                                    </div>
+                                </div>
+                            </>}
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
                             <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                {list?.owner}
+                                Owner
                             </p>
                             <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
                                 {list.users.length} members

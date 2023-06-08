@@ -31,6 +31,7 @@ import NotFoundPageComponent from './components/admin/notFoundPage/NotFoundPageC
 import NotificationComponent from './components/admin/notification/NotificationComponent'
 import { useLayoutEffect } from 'react'
 import AddInvoiceComponent from './components/admin/invoice/AddInvoiceComponent'
+import AssetSetComponent from './components/admin/asset/AssetSetComponent'
 
 function App() {
    const {pathname}= useLocation();
@@ -69,6 +70,8 @@ function App() {
             <Route path='/asset' element={<AssetComponent />}></Route>
             <Route path='/asset/add' element={<AssetAddComponent/>}></Route>
             <Route path='/asset/update' element={<AssetUpdate />} />
+            <Route path='/asset-add' element={<AssetAddComponent/>}></Route>
+            <Route path='/asset-set' element={<AssetSetComponent />} />
 
             <Route path='/tracking' element={<TrackingComponent />}></Route>
             <Route path='/user' element={<UsersAllComponent />}></Route>

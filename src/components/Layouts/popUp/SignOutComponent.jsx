@@ -3,14 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import question from "../../../assets/images/auth/Exclamation-Mark-Symbol.png"
 import { ExclamationCircleIcon, KeyIcon, LockClosedIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 import { AiOutlineWarning } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import {setItem } from '../../../redux/slices/OrganizationSlice';
 
 function SignOutComponent(props) {
     const navigator = useNavigate()
+    const dispatch = useDispatch()
+
     const handleSignOut = () => {
         localStorage.removeItem("token")
         sessionStorage.removeItem("organization")
         localStorage.removeItem("profileImage")
         localStorage.removeItem("profileImage")
+        dispatch(setItem(null))
         navigator("/signin")
     }
 

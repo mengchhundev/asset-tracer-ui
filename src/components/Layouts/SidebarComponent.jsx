@@ -28,6 +28,9 @@ export default function SidebarComponent() {
     const [showCategory, setShowCategory] = useState(false);
     const [isShowCategory, setIsShowCategory] = useState(false);
 
+    const [showInvoice, setShowAsset] = useState(false);
+    const [isShowInvoice, setIsShowAsset] = useState(false);
+
     const location = useLocation();
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const item = useSelector(state => state?.organization?.item)
@@ -90,6 +93,15 @@ export default function SidebarComponent() {
             setIsShowUser(false)
             setKey("")
         }
+
+        if (path == "/asset" || path == "/asset-add" || path == "/asset-set") {
+            setShowAsset(true)
+            setIsShowAsset(true)
+        } else {
+            setShowAsset(false)
+            setIsShowAsset(false)
+            setKey("")
+        }
     }, [item, path])
 
     const [showUser, setShowUser] = useState(false)
@@ -138,7 +150,7 @@ export default function SidebarComponent() {
                                         to="/organization"
                                         className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
                                             `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
-                                        onClick={() => { setIsShowOrganization(true), setIsShowUser(false), setShowUser(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("organization") }}
+                                        onClick={() => { setIsShowOrganization(true), setIsShowAsset(false), setShowAsset(false), setIsShowUser(false), setShowUser(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("organization") }}
                                     >
                                         Organization List
                                     </NavLink>
@@ -148,7 +160,7 @@ export default function SidebarComponent() {
                                         to="/organization-create"
                                         className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
                                             `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
-                                        onClick={() => { setIsShowOrganization(true), setIsShowUser(false), setShowUser(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("organization") }}
+                                        onClick={() => { setIsShowOrganization(true), setIsShowAsset(false), setShowAsset(false), setIsShowUser(false), setShowUser(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("organization") }}
                                     >
                                         Create or Join
                                     </NavLink>
@@ -161,7 +173,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/dashboard"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("dashboard") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowAsset(false), setShowAsset(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("dashboard") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -194,7 +206,7 @@ export default function SidebarComponent() {
                                         <p className="ml-3">Category</p>
                                     </span>
                                     <RiArrowRightSLine
-                                        className={`${showCategory || path == "/super-category" || path == "/normal-cateogry" && "rotate-90"
+                                        className={`${showCategory && "rotate-90"
                                             } transition-all text-2xl`}
                                     />
                                 </NavLink>
@@ -207,7 +219,7 @@ export default function SidebarComponent() {
                                             to="/super-category"
                                             className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
-                                            onClick={() => { setIsShowCategory(true), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("category") }}
+                                            onClick={() => { setIsShowCategory(true), setIsShowAsset(false), setShowAsset(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("category") }}
                                         >
                                             Type Super
                                         </NavLink>
@@ -217,18 +229,90 @@ export default function SidebarComponent() {
                                             to="/normal-category"
                                             className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
-                                            onClick={() => { setIsShowCategory(true), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("category") }}
+                                            onClick={() => { setIsShowCategory(true), setIsShowAsset(false), setShowAsset(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("category") }}
                                         >
                                             Type Normal
                                         </NavLink>
                                     </li>
                                 </ul>
                             </li>
+
+
+
+
+
+
+                            <li>
+                                <NavLink
+                                    onClick={() => setShowAsset(!showInvoice)}
+                                    className={`${isShowInvoice ? "bg-primary hover:bg-primary" : ""} ${isShowInvoice ? activeStyleDropDown : inActiveStyleDropDown}`}
+                                >
+                                    <span className="flex items-center justify-start">
+
+
+                                        <span className="flex items-center justify-start">
+                                            <div className="w-5 h-5 relative">
+                                                <svg width="100%" height="100%" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1.66675 8.73698C1.66675 7.26422 2.86066 6.07031 4.33341 6.07031H25.6668C27.1395 6.07031 28.3334 7.26422 28.3334 8.73698V10.9433C28.3334 12.121 27.561 13.1591 26.433 13.4975L16.5326 16.4676C15.5329 16.7675 14.4672 16.7675 13.4676 16.4676L3.56716 13.4975C2.4392 13.1591 1.66675 12.121 1.66675 10.9433V8.73698Z"
+                                                        stroke={`${key == "asset" || path == "/asset" || path == "/asset-add" || path == "/asset-set" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                    <path d="M15 12.9302L15 10.6445" stroke={`${key == "asset" || path == "/asset" || path == "/asset-add" || path == "/asset-set" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    <path d="M2.77808 12.9297L2.77808 20.1677C2.77808 23.1132 5.16589 25.501 8.11141 25.501H21.8892C24.8347 25.501 27.2225 23.1132 27.2225 20.1677V12.9297" stroke={`${key == "asset" || path == "/asset" || path == "/asset-add" || path == "/asset-set" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                    <path d="M19.4446 6.0714V4.16667C19.4446 2.69391 18.2506 1.5 16.7779 1.5H13.2223C11.7496 1.5 10.5557 2.69391 10.5557 4.16667L10.5557 6.0714" stroke={`${key == "asset" || path == "/asset" || path == "/asset-add" || path == "/asset-set" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                </svg>
+                                            </div>
+                                            <p className="ml-3">Asset</p>
+                                        </span>
+
+                                    </span>
+                                    <RiArrowRightSLine
+                                        className={`${showInvoice && "rotate-90"
+                                            } transition-all text-2xl`}
+                                    />
+                                </NavLink>
+                                <ul
+                                    className={` ${showInvoice ? "h-[120px] pt-1 mt-1 bg-[#f7fbff] bg-opacity-70 rounded-md" : "h-0"
+                                        } overflow-y-hidden transition-all`}
+                                >
+                                    <li>
+                                        <NavLink
+                                            to="/asset"
+                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
+                                                `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
+                                            onClick={() => { setIsShowAsset(true), setIsShowCategory(false), setShowCategory(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("asset") }}
+                                        >
+                                            All Assets
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to="/asset-add"
+                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
+                                                `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
+                                            onClick={() => { setIsShowAsset(true), setIsShowCategory(false), setShowCategory(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("asset") }}
+                                        >
+                                            Add Asset
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to="/asset-set"
+                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
+                                                `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
+                                            onClick={() => { setIsShowAsset(true), setIsShowCategory(false), setShowCategory(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("asset") }}
+                                        >
+                                            Set Asset
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
                             <li>
                                 <NavLink
                                     to="/invoice"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("invoice") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowAsset(false), setShowAsset(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("invoice") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -244,7 +328,7 @@ export default function SidebarComponent() {
                                     </span>
                                 </NavLink>
                             </li>
-                            <li>
+                            {/* <li>
                                 <NavLink
                                     to="/asset"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
@@ -264,12 +348,12 @@ export default function SidebarComponent() {
                                         <p className="ml-3">Asset</p>
                                     </span>
                                 </NavLink>
-                            </li>
+                            </li> */}
                             <li>
                                 <NavLink
                                     to="/room"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("room") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowAsset(false), setShowAsset(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("room") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -287,7 +371,7 @@ export default function SidebarComponent() {
                                 <NavLink
                                     to="/tracking"
                                     className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("tracking") }}
+                                    onClick={() => { setIsShowCategory(false), setIsShowAsset(false), setShowAsset(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("tracking") }}
                                 >
                                     <span className="flex items-center justify-start">
                                         <div className="w-5 h-5 relative">
@@ -335,7 +419,7 @@ export default function SidebarComponent() {
                                             to="/user"
                                             className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors  `}
-                                            onClick={() => { setIsShowUser(true), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
+                                            onClick={() => { setIsShowUser(true), setIsShowAsset(false), setShowAsset(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
                                         >
                                             All Users
                                         </NavLink>
@@ -345,7 +429,7 @@ export default function SidebarComponent() {
                                             to="/user-request"
                                             className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors  `}
-                                            onClick={() => { setIsShowUser(true), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
+                                            onClick={() => { setIsShowUser(true), setIsShowAsset(false), setShowAsset(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
                                         >
                                             User Request
                                         </NavLink>

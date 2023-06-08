@@ -12,8 +12,10 @@ import { Combobox, Dialog, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
 // import { Dialog, Transition } from "@headlessui/react";
 import { setAllSuperCategory } from "../../../redux/slices/SuperCategorySlice";
-import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { ChevronUpDownIcon, HomeModernIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
+import { RiCloseFill } from "react-icons/ri";
+import gift from '../../../assets/images/gift.png'
 
 const people = [
   { id: 1, name: "Room" },
@@ -402,7 +404,40 @@ export default function SuperCategoryComponent() {
         <div className="modal">
           <div className="modal-box relative rounded-lg">
 
+            <div className='absolute top-4 right-4'>
+              <label htmlFor="create-organization" ><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
+            </div>
+            <div className='flex justify-between'>
+              <div className='flex'>
+                <img src={gift} className="h-9 rounded-lg w-9 " />
+                <p className='flexF items-center font-sp-pro-text-bold text-xl pl-5 text-text-color'>Create Super Category</p>
+              </div>
+            </div>
+            <div className="border border-bg-primary rounded-md p-3 my-3">
+              <div className="flex flex-row gap-4">
+                <div className="w-14 h-14 rounded-full bg-green">
 
+                </div>
+
+                <div>
+                  <p>Choose Icon</p>
+                  <div className="flex flex-row">
+                    <div className="w-9 h-9 rounded-full bg-green">
+                      adsf
+                    </div>
+                    <div className="w-9 h-9 rounded-full bg-green">
+                      adsf
+                    </div>
+                    <div className="w-9 h-9 rounded-full bg-green">
+                      adsf
+                    </div>
+                    <div className="w-9 h-9 rounded-full bg-green">
+                      adsf
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
