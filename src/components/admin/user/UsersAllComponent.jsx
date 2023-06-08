@@ -11,6 +11,11 @@ import "../../../style/shadow.css";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import Ellipse_1 from "../../../assets/icon/default profile/Ellipse 1.svg";
+import Ellipse_2 from "../../../assets/icon/default profile/Ellipse 2.svg";
+import Ellipse_3 from "../../../assets/icon/default profile/Ellipse 3.svg";
+import Ellipse_4 from "../../../assets/icon/default profile/Ellipse 4.svg";
+import Ellipse_5 from "../../../assets/icon/default profile/Ellipse 5.svg";
 const people = [
   { id: 1, name: "Sort by" },
   { id: 2, name: "A - Z" },
@@ -22,7 +27,6 @@ const people = [
 export default function UsersAllComponent() {
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
-
   const filteredPeople =
     query === ""
       ? people
@@ -33,41 +37,47 @@ export default function UsersAllComponent() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
+  const [organization, setOrg] = useState([
+    {
+      name: "KSHRD Center",
+    },
+  ]);
+
   const [user, setUser] = useState([
     {
       id: 1,
       profile: "S",
       email: "hrdcenter@gmail.com",
       name: "Senglorn",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
+      src: Ellipse_1,
     },
     {
       id: 2,
       profile: "H",
       email: "hrdcenter@gmail.com",
       name: "HongMeng",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
+      src: Ellipse_2,
     },
     {
       id: 3,
       profile: "M",
       email: "hrdcenter@gmail.com",
       name: "Mony",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+      src: Ellipse_3,
     },
     {
       id: 4,
       profile: "M",
       name: "Mnor",
       email: "hrdcenter@gmail.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+      src: Ellipse_4,
     },
     {
       id: 5,
       profile: "M",
       email: "hrdcenter@gmail.com",
       name: "Mengchhun",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCd7qwwQHtYYI5AtJlt-fhcQqFikjyz2EfTg&usqp=CAU",
+      src: Ellipse_5,
     },
     {
       id: 6,
@@ -133,7 +143,6 @@ export default function UsersAllComponent() {
               Active Users
             </p>
           </div>
-
           {/* search */}
           <div className="md:flex md:flex-row justify-start gap-6 ">
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
@@ -336,34 +345,44 @@ export default function UsersAllComponent() {
             ))}
           </div>
         </div>
+        
         {/* popupDetaile */}
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />
         <UserDetail className="modal" />
-        {/* Modol invite user */}
+
+
+        {/* ============ Modol invite user  ===============*/}
         <input type="checkbox" id="invite-user" className="modal-toggle" />
-        <div className="modal">
-          <div className="bg-bg-primary overflow-hidden  h-[60vh] w-[70vh] rounded-lg relative p-4">
+        <div className="modal duration-300">
+          <div className="bg-bg-primary overflow-hidden sm:h-[29rem] sm:w-[30rem] lg:h-[35rem] lg:w-[35rem] 2xl:h-[35rem] 2xl:w-[36] lt-16:w-4/12 h-[35rem] rounded-[20px] relative p-4">
             {/* header */}
-            <div className="flex justify-between mb-5">
+            <div className="flex justify-between mb-2">
               <div className="flex items-center">
-                <div className="flex items-center mt-2">
-                  <div className="bg-gray-light rounded-full p-3">
-                    <AiFillGift className="w-8 h-8" />
+                {organization.map((orgs) => (
+                  <div className="flex items-center">
+                  <div className="rounded-full p-3 px-6">
+                    <div className="w-[74px] h-[74px] con-pro-color rounded-full flex justify-center items-center m-auto">
+                      <p className="font-sp-pro-text-bold uppercase text-2xl text-green ">
+                        {orgs.name.substring(0,2)}
+                      </p>
+                    </div>
                   </div>
                   <div className="pl-4 flex flex-col space-y-1">
-                    <span className="text-text-color font-sp-pro-text-medium text-lg">
-                      Rotanakosal
+                    <span className="text-text-color font-sp-pro-text-bold text-xl">
+                      {orgs.name}
                     </span>
                     <span className="text-sm text-text-color font-sp-pro-text-regular">
                       Manage invitations and requests to join your team.
                     </span>
                   </div>
                 </div>
+                ))}
+                
               </div>
               <div className="flex">
                 <label
                   htmlFor="invite-user"
-                  className="btn border-red-500 bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
+                  className="btn border-bg-primary-strock bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle absolute right-7 top-6"
                 >
                   ✕
                 </label>
@@ -371,9 +390,9 @@ export default function UsersAllComponent() {
             </div>
 
             {/* data */}
-            <div>
+            <div className="px-6">
               <div className="w-full">
-                <div className="relative w-full border rounded-md border-slate-200 bg-bg-main p-[5px]">
+                <div className="relative w-full border rounded-[4px] border-slate-200 bg-bg-main p-[5px]">
                   <div className="absolute inset-y-0 flex items-center pl-2">
                     <svg
                       className="w-5 h-5 text-primary"
@@ -389,107 +408,44 @@ export default function UsersAllComponent() {
                     </svg>
                   </div>
                   <input
-                    className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    className=" w-full h-9 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                     type="text"
                     name="search"
-                    placeholder="Search..."
+                    placeholder="Search team member or type an email"
                   />
                 </div>
               </div>
 
               {/* featch data invite user */}
             </div>
-              <div className="relative rounded-xl overflow-y-auto p-4">
-          
-                <div className="overflow-y-auto  scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-bg-primary-strock scrollbar-track-bg-primary h-80 relative max-w-xl mx-auto divide-slate-200 bg-bg-main ring-1 ring-black/5 rounded-md flex flex-col divide-y highlight-white/5 ">
-                  <div className="flex items-center gap-4 p-4">
-                    <img
-                      className="w-12 h-12 rounded-full"
-                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    <div className="flex flex-col">
-                      <strong className="text-slate-900 text-sm font-sp-pro-text-regular">
-                        Andrew Alfred
-                      </strong>
-                      <span className="text-slate-500 text-sm font-sp-pro-text-regular ">
-                        Technical advisor
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4">
-                    <img
-                      className="w-12 h-12 rounded-full"
-                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    <div className="flex flex-col">
-                      <strong className="text-slate-900 text-sm font-medium">
-                        Andrew Alfred
-                      </strong>
-                      <span className="text-slate-500 text-sm font-sp-pro-text-regular ">
-                        Technical advisor
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4">
-                    <img
-                      className="w-12 h-12 rounded-full"
-                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    <div className="flex flex-col">
-                      <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
-                        Andrew Alfred
-                      </strong>
-                      <span className="text-slate-500 text-sm font-medium dark:text-slate-400">
-                        Technical advisor
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4">
-                    <img
-                      className="w-12 h-12 rounded-full"
-                      src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    <div className="flex flex-col">
-                      <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
-                        Andrew Alfred
-                      </strong>
-                      <span className="text-slate-500 text-sm font-medium dark:text-slate-400">
-                        Technical advisor
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* {user.map((users) => (
-                  <div className="w-full rounded-md px-5">
-                    <div className="flex justify-between hover:bg-gray-light p-2">
-                      <div>
-                        <div className="flex items-center m-auto space-x-3">
-                          <span>
-                            <img
-                              src={users.src}
-                              alt={users.title}
-                              className="w-10 h-10 rounded-full"
-                            />
-                          </span>
-                          <span className="font-sp-pro-text-medium text-sm text-text-color">
-                            {users.name}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="bg-blue-light p-1 rounded-sm text-white text-sm cursor-pointer">
-                          Resend
+            <div className="relative overflow-y-auto p-4 px-6 ">
+              <div className="overflow-y-auto  scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-bg-primary-strock scrollbar-track-bg-primary sm:h-[15rem] lg:h-[20rem] h-[20rem] relative max-w-xl  mx-auto divide-border-gray-light bg-bg-main ring-1 ring-black/5 rounded-[4px] flex flex-col divide-y highlight-white/5 ">
+                {user.map((users) => (
+                  <div className="flex 3xl:space-x-[28rem] sm:space-x-[18rem] lg:space-x-[23rem] items-center  ">
+                    <div className="flex items-center gap-4 p-4 ">
+                      <img
+                        className="w-12 h-12 rounded-full"
+                        src={users.src}
+                        alt=""
+                      />
+                      <div className="flex flex-col ">
+                        <strong className="text-slate-900 text-sm font-sp-pro-text-regular ">
+                          {users.name}
+                        </strong>
+                        <span className="text-slate-500 text-xs font-sp-pro-text-regular ">
+                          {users.email}
                         </span>
                       </div>
                     </div>
+                    <div className="absolute flex items-center">
+                      <button className="w-20 h-8 bg-yellow rounded-[3px] text-white text-md ">
+                        <p>Invite</p>
+                      </button>
+                    </div>
                   </div>
-                ))} */}
-        
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         {/* modal invite user */}
