@@ -1,7 +1,7 @@
 import apiV2 from "./apiV2"
 
-const getAllOrganizations = async (userID) => {
-    return await apiV2.get(`/organizations/${userID}/organization`);
+const getAllOrganizations = async (userID,search = "",sort = "") => {
+    return await apiV2.get(`/organizations/${userID}/organization?search=${search}&sort=${sort}`);
 }
 
 const joinOrganization = async (data) => {

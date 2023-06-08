@@ -40,6 +40,8 @@ export default function SidebarComponent() {
     const token = localStorage.getItem("token")
     var getToken = jwt_decode(token);
     const [file, setFile] = useState()
+    const [search, setSearch] = useState()
+    const [sort, setSort] = useState()
 
     const dispatch = useDispatch()
 
@@ -237,11 +239,6 @@ export default function SidebarComponent() {
                                 </ul>
                             </li>
 
-
-
-
-
-
                             <li>
                                 <NavLink
                                     onClick={() => setShowAsset(!showInvoice)}
@@ -306,8 +303,6 @@ export default function SidebarComponent() {
                                 </ul>
                             </li>
 
-
-
                             <li>
                                 <NavLink
                                     to="/invoice"
@@ -328,27 +323,7 @@ export default function SidebarComponent() {
                                     </span>
                                 </NavLink>
                             </li>
-                            {/* <li>
-                                <NavLink
-                                    to="/asset"
-                                    className={({ isActive }) => isActive ? `bg-primary hover:bg-primary text-white ${activeStyle}` : inActiveStyle}
-                                    onClick={() => { setIsShowCategory(false), setIsShowOrganization(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), handleChangeColor("asset") }}
-                                >
-
-                                    <span className="flex items-center justify-start">
-                                        <div className="w-5 h-5 relative">
-                                            <svg width="100%" height="100%" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M1.66675 8.73698C1.66675 7.26422 2.86066 6.07031 4.33341 6.07031H25.6668C27.1395 6.07031 28.3334 7.26422 28.3334 8.73698V10.9433C28.3334 12.121 27.561 13.1591 26.433 13.4975L16.5326 16.4676C15.5329 16.7675 14.4672 16.7675 13.4676 16.4676L3.56716 13.4975C2.4392 13.1591 1.66675 12.121 1.66675 10.9433V8.73698Z"
-                                                    stroke={`${key == "asset" || path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M15 12.9302L15 10.6445" stroke={`${key == "asset" || path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                <path d="M2.77808 12.9297L2.77808 20.1677C2.77808 23.1132 5.16589 25.501 8.11141 25.501H21.8892C24.8347 25.501 27.2225 23.1132 27.2225 20.1677V12.9297" stroke={`${path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M19.4446 6.0714V4.16667C19.4446 2.69391 18.2506 1.5 16.7779 1.5H13.2223C11.7496 1.5 10.5557 2.69391 10.5557 4.16667L10.5557 6.0714" stroke={`${path == "/asset" ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                            </svg>
-                                        </div>
-                                        <p className="ml-3">Asset</p>
-                                    </span>
-                                </NavLink>
-                            </li> */}
+                         
                             <li>
                                 <NavLink
                                     to="/room"

@@ -33,12 +33,11 @@ export default function AssetComponent() {
   //combobox
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
-  const [asset,setAsset] = useState({})
+  const [asset, setAsset] = useState({});
 
-
-  useEffect(()=>{
-    console.log("Asset after click",asset);
-  },[asset])
+  useEffect(() => {
+    console.log("Asset after click", asset);
+  }, [asset]);
 
   const filteredPeople =
     query === ""
@@ -161,7 +160,7 @@ export default function AssetComponent() {
                             className={({ active }) =>
                               `relative cursor-default select-none py-2 pl-10 pr-4 ${
                                 active
-                                  ? "bg-hover-yellow text-text-color"
+                                  ? "bg-custom-yellow-showdow-light text-text-color"
                                   : "text-text-color"
                               }`
                             }
@@ -178,14 +177,25 @@ export default function AssetComponent() {
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                  className={`${active ? "text-primary" : "text-primary"
+                                } absolute inset-y-0 left-0 flex items-center pl-2`}
                                   >
-                                    <CheckIcon
+                                    {/* <CheckIcon
                                       className="h-5 w-5"
                                       aria-hidden="true"
-                                    />
+                                    /> */}
+                                    <svg
+                                      className="h-4 w-4"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      viewBox="0 0 20 20"
+                                      fill="currentColor"
+                                    >
+                                      <path
+                                        fillRule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clipRule="evenodd"
+                                      />
+                                    </svg>
                                   </span>
                                 ) : null}
                               </>
@@ -355,7 +365,10 @@ export default function AssetComponent() {
                             </span>
 
                             <span className="w-6 h-6 ">
-                              <label htmlFor="normalModal" onClick={()=>setAsset(asset)}>
+                              <label
+                                htmlFor="normalModal"
+                                onClick={() => setAsset(asset)}
+                              >
                                 <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500 text-[#2076FF]" />
                               </label>
                             </span>

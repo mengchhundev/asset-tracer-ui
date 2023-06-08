@@ -7,6 +7,7 @@ import upload from "../../../assets/images/Room/Upload.png";
 import { RiAddBoxFill } from "react-icons/ri";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 export default function AddInvoiceComponent() {
   const [query, setQuery] = useState("");
@@ -22,18 +23,22 @@ export default function AddInvoiceComponent() {
   return (
     <>
       <main
-        className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10"
+        className="overflow-y-auto bg-white rounded-xl relative"
         style={{
           boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
         }}
       >
         {/* Add invoice */}
-        <div className="text-lg font-sp-pro-text-semibold text-text-color py-6 px-[40px]">
-          <h1>Add Invoice</h1>
-        </div>
-        <div className="w-full px-[40px]">
-          <hr className="border-[#E1E9EE]" />
-        </div>
+        <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
+            <h1 className="flex items-center">
+              <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Add
+              Asset
+            </h1>
+          </div>
+
+          <div className="w-full">
+            <hr className="border-[#E1E9EE] border-1" />
+          </div>
         <div className="flex justify-between">
           <div className="bg-white rounded-lg">
             {/* invoice detail */}
