@@ -59,7 +59,7 @@ export default function OwnerFillterComponent() {
                     key={person.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? "bg-hover-yellow text-white" : "text-text-color"
+                        active ? "bg-hover-yellow bg-opacity-10 text-yellow" : "text-text-color"
                       }`
                     }
                     value={person}
@@ -76,7 +76,7 @@ export default function OwnerFillterComponent() {
                         {selected ? (
                           <span
                             className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                              active ? "text-white" : "text-text-color"
+                              active ? "text-yellow" : "text-text-color"
                             }`}
                           >
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />

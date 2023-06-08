@@ -36,7 +36,7 @@ export default function () {
       <NavbarComponent />
       <div className="bg-bg-pink pt-[90px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-1 ">
-          <div className="text-left md:col-span-6 3xl:mt-[55px] 2xl:mt-[60px] xl:mt-14 mt-4">
+          <div className="text-left md:col-span-6 3xl:mt-[55px] 2xl:mt-[60px] xl:mt-14 md:mt-[45px] mt-4">
             <div className="w-[90%] 3xl:ml-[250px] 2xl:ml-[220px] xl:ml-[170px] lg:ml-[140px] md:ml-[30px] sm:ml-[40px] ml-6">
               <div className="3xl:text-[65px] 2xl:text-[55px] xl:text-5xl lg:text-4xl md:text-3xl text-3xl my-3 font-sp-pro-text-bold text-text-color">
                 Make assets
@@ -75,7 +75,7 @@ export default function () {
             <img
               src={Icon}
               alt=""
-              className="absolute 3xl:top-[360px] 2xl:top-[320px] lg:top-[273px] w-[48px] 3xl:ml-0 2xl:-ml-6 xl:-ml-5 lg:-ml-5 -ml-5"
+              className=" hidden lg:block absolute 3xl:top-[360px] 2xl:top-[320px] lg:top-[273px] w-[48px] 3xl:ml-0 2xl:-ml-6 xl:-ml-5 lg:-ml-5 -ml-5"
             />
 
             <div

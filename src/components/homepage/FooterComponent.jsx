@@ -13,25 +13,25 @@ export default function FooterComponent() {
 
           <div className="flex flex-wrap-reverse items-center justify-between">
             <ul className="flex flex-none -ml-[30px] lg:ml-10 md:ml-[160px] sm:ml-[100px] mb-6 text-xl font-medium text-textmediem sm:mb-0 px-[33px]">
-              <span className="mr-6 md:mr-8 ">Follow Us</span>
+              <span className="mr-6 md:mr-8 font-sp-pro-text-heavy ">Follow Us</span>
               <li>
                 <div href="#" className="mr-4 md:mr-6 ">
-                  <img src={Facebook} alt="" className="w-[40px]" />
+                  <img src={Facebook} alt="" className="sm:w-[40px] w-[38px]" />
                 </div>
               </li>
               <li>
                 <div href="#" className="mr-4 md:mr-6">
-                  <img src={Twitter} alt="" className="w-[40px]" />
+                  <img src={Twitter} alt="" className="sm:w-[40px] w-[38px]" />
                 </div>
               </li>
               <li>
                 <div href="#" className="mr-4 md:mr-6 ">
-                  <img src={Instagram} alt="" className="w-[40px]" />
+                  <img src={Instagram} alt="" className="sm:w-[40px] w-[38px]" />
                 </div>
               </li>
               <li>
                 <div href="#" className="hover:underline">
-                  <img src={Phone} alt="" className="w-[40px]" />
+                  <img src={Phone} alt="" className="sm:w-[40px] w-[38px]" />
                 </div>
               </li>
             </ul>
