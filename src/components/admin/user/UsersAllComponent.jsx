@@ -15,14 +15,17 @@ import { TbCalendarStats } from "react-icons/tb";
 import { AiFillGift } from "react-icons/ai";
 import UserDetail from "./userPopup/UserDetail";
 import "../../../style/shadow.css";
-import { Combobox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
-
+import { Combobox, Transition } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/20/solid";
 const people = [
-  { id: 1, name: "Sort By" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
+  { id: 1, name: "Sort by" },
+  { id: 2, name: "A - Z" },
+  { id: 3, name: "Z - A" },
+  { id: 4, name: "Olest - Newest" },
+  { id: 5, name: "Newest - Olest" },
 ];
+
 
 
 export default function UsersAllComponent() {

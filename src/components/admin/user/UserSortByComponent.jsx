@@ -28,10 +28,10 @@ export default function UserSortByComponent() {
   return (
     <div>
       <Combobox value={selected} onChange={setSelected}>
-        <div className="relative mt-1 z-20">
+        <div className="relative z-20">
           <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
             <Combobox.Input
-              className="w-full bg-bg-main rounded-md py-2 pl-3 pr-10 text-sm leading-5 text-text-color focus:outline-yellow"
+              className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
               displayValue={(person) => person.name}
               onChange={(event) => setQuery(event.target.value)}
             />
