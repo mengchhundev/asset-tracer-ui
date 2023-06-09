@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import ItemComponent from "./filtter/ItemComponent";
-import { RiAddBoxFill } from "react-icons/ri";
 import { CloudArrowUpIcon } from "@heroicons/react/20/solid";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SetAssetDropDownComponent from "./filtter/SetAssetDropDownComponent";
+import { RiCloseFill } from "react-icons/ri";
+import { FiSave } from "react-icons/fi";
 
 export default function AssetSetComponent() {
   const [query, setQuery] = useState("");
@@ -52,10 +52,10 @@ export default function AssetSetComponent() {
           boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
         }}
       >
-        {/* Add Asset */}
+        {/* Set Asset */}
         <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
           <h1 className="flex items-center">
-            <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Add
+            <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Set
             Asset
           </h1>
         </div>
@@ -150,73 +150,69 @@ export default function AssetSetComponent() {
             </div>
           </div>
           {/* upload */}
-          <div className="xl:w-5/12 md:w-6/12 sm:full">
-            <div className="w-full">
-              <div className="md:p-7 md:m-5 ">
-                <div className="space-y-12 border border-dotted border-yellow px-10 md:py-20 rounded-md ">
-                  <div className=" items-center block justify-center text-center p-3  rounded-lg">
-
-                    <div className="">
+<div className="xl:w-1/3 md:w-1/2 md:mt-6 mt-[-24px]">
+            <div className="item-center w-full rounded-xl   ">
+              <div className="block lg:mx-5 p-7">
+                <div className=" flex items-center justify-center text-center rounded-lg md:h-[390px] h-[250px] border border-dashed border-yellow">
+                  <div className="">
+                    <label
+                      htmlFor="fileInput"
+                      className="browseButton cursor-pointer"
+                    >
+                      {selectedFile && (
+                        <img
+                          src={URL.createObjectURL(selectedFile)}
+                          alt="Selected File"
+                          className={`${imageDimensions.width > imageDimensions.height
+                              ? "w-[300px]"
+                              : "h-auto"
+                            } ${imageDimensions.width < imageDimensions.height
+                              ? "h-[195px]"
+                              : "w-auto"
+                            } block rounded-md object-center justify-center  items-center`}
+                        />
+                      )}
+                      {!selectedFile && (
+                        <>
+                          <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
+                        </>
+                      )}
+                    </label>
+                    <div className="flex justify-center">
                       <label
                         htmlFor="fileInput"
-                        className="browseButton cursor-pointer"
+                        className="browseButton text-text-color font-sp-pro-text-regular"
                       >
-                        {selectedFile && (
-                          <img
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Selected File"
-                            className={`${
-                              imageDimensions.width > imageDimensions.height
-                                ? "w-[300px]"
-                                : "h-atuo"
-                            } ${
-                              imageDimensions.width < imageDimensions.height
-                                ? "h-[195px]"
-                                : "w-auto"
-                            } block rounded-md object-center justify-center  items-center`}
-                          />
-                        )}
-                        {!selectedFile && (
-                          <>
-                            <CloudArrowUpIcon className="h-20 w-20 text-blue-200 hover:text-blue-300 m-auto" />
-                          </>
-                        )}
+                        <p className="border w-min p-2 px-12 mt-3 border-[#E1E9EE] shadow-sm rounded-md text-text-color font-sp-pro-text-regular cursor-pointer hover:bg-bg-primary">
+                          Browse
+                        </p>
+                        <input
+                          id="fileInput"
+                          type="file"
+                          onChange={handleFileSelect}
+                          accept="image/*"
+                          style={{ display: "none" }}
+                        />
                       </label>
-                      <div className="flex justify-center">
-                        <label
-                          htmlFor="fileInput"
-                          className="browseButton text-text-color font-sp-pro-text-regular"
-                        >
-                          <p className="border w-min p-2 px-12 mt-2 border-[#E1E9EE] shadow-sm rounded-md text-text-color font-sp-pro-text-regular cursor-pointer hover:bg-bg-primary">
-                            Browse
-                          </p>
-                          <input
-                            id="fileInput"
-                            type="file"
-                            onChange={handleFileSelect}
-                            accept="image/*"
-                            style={{ display: "none" }}
-                          />
-                        </label>
-                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex justify-end flex-row p-10">
-                <div className="bg-slate-500 cursor-pointer  w-1/5 p-2  rounded-lg text-center">
-                  <NavLink to={"/asset"}>
-                    <button className=" text-white font-sp-pro-text-regular">
-                      Cancel
+                {/* button */}
+                <div className="flex justify-end flex-row space-x-4 mt-10">
+                  <div className="">
+                    <Link to={"/asset"}>
+                      <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                        <RiCloseFill className="text-lg" /> &nbsp; Cancel
+                      </button>
+                    </Link>
+                  </div>
+
+                  <div className="">
+                    <button class="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                      <FiSave className="text-lg" /> &nbsp; Save
                     </button>
-                  </NavLink>
-                </div>
-
-                <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-1/5 p-2 rounded-lg text-center">
-                  <button className=" text-primary font-sp-pro-text-regular  ">
-                    Save
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import ItemComponent from '../asset/filtter/ItemComponent'
 import { RiAddBoxFill } from 'react-icons/ri'
 import upload from "../../../assets/images/Room/Upload.png";
+import { Link } from 'react-router-dom';
 export default function UpdateInvoiceComponent() {
   return (
     <>
@@ -200,9 +201,11 @@ export default function UpdateInvoiceComponent() {
 
               <div className="flex justify-center flex-row">
                 <div className="bg-slate-500 cursor-pointer  w-1/5 p-2  rounded-lg text-center">
+                  <Link to={'/invoice'}>
                   <button className=" text-white font-sp-pro-text-regular">
                     Cancel
                   </button>
+                  </Link>
                 </div>
 
                 <div className="bg-primary cursor-pointer bg-opacity-20 ml-6 w-1/5 p-2 rounded-lg text-center">

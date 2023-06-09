@@ -46,13 +46,6 @@ export default function SuperCategoryComponent() {
       src: "{furniture}"
     },
     {
-      id: 2,
-      profile: "SE",
-      name: "Electronic",
-      date: "09 June 2023",
-      src: {electronic}
-    },
-    {
       id: 3,
       profile: "SE",
       name: "Electronic",
@@ -61,6 +54,13 @@ export default function SuperCategoryComponent() {
     },
     {
       id: 4,
+      profile: "SE",
+      name: "Electronic",
+      date: "09 June 2023",
+      src: {electronic}
+    },
+    {
+      id: 5,
       name: "Electronic",
       date: "09 June 2023",
 
@@ -68,11 +68,12 @@ export default function SuperCategoryComponent() {
       src: {electronic}
     },
     {
-      id: 5,
+      id: 6,
       name: "Electronic",
       date: "09 June 2023",
       src: {electronic}
     },
+    
   ]);
 
   const [selected, setSelected] = useState(people[0]);
@@ -468,7 +469,7 @@ export default function SuperCategoryComponent() {
             </div>
 
             <label
-              htmlFor="superCategory"
+              htmlFor=""
               className="flex text-sm text-text-color font-sp-pro-text-regular py-2"
             >
               Name
@@ -476,18 +477,22 @@ export default function SuperCategoryComponent() {
             <input
               className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
               type="text"
-              placeholder="your super category"
+              placeholder="super category"
             />
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
-                <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
-                  <RiCloseFill className="text-lg" /> &nbsp; Cancel
+                <button 
+                class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                  <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+                  <label htmlFor="superCategory">
+                  &nbsp; Cancel
+              </label>
                 </button>
               </div>
 
               <div className="">
                 <button class="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
-                  <FiSave className="text-lg" /> &nbsp; Save
+                  <FiSave className="text-lg" /> &nbsp; Add
                 </button>
               </div>
             </div>
@@ -555,13 +560,16 @@ export default function SuperCategoryComponent() {
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
                 <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
-                  <RiCloseFill className="text-lg" /> &nbsp; Cancel
+                <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+                <label htmlFor="EditSuperCategory">
+                  &nbsp; Cancel
+              </label>
                 </button>
               </div>
 
               <div className="">
                 <button class="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
-                  <FiSave className="text-lg" /> &nbsp; Save
+                  <FiSave className="text-lg" /> &nbsp; Edit
                 </button>
               </div>
             </div>
