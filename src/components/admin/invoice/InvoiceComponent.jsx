@@ -1,15 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
-import { BsDot, BsGraphUp, BsPlus } from "react-icons/bs";
-import { EyeIcon } from "@heroicons/react/24/outline";
+import { BsPlus } from "react-icons/bs";
 import gift from "../../../assets/images/gift.png";
 import trash from "../../../assets/images/trash.png";
 import pc from "../../../assets/images/pc.png";
 import cross from "../../../assets/images/cross.png";
 import furniture from "../../../assets/images/furniture.png";
 import book from "../../../assets/images/book.png";
-import trash_ico from "../../../assets/images/trash.png";
-import { Combobox, Listbox, Transition } from "@headlessui/react";
+import { Combobox, Transition } from "@headlessui/react";
+import "../../../style/shadow.css"
 import {
   CheckIcon,
   ChevronUpDownIcon,
@@ -17,9 +15,6 @@ import {
 } from "@heroicons/react/20/solid";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-import { RiCloseFill } from "react-icons/ri";
-import { FiTrash2 } from "react-icons/fi";
-import { Menu } from "@szhsin/react-menu";
 import ViewInvoiceComponent from "./ViewInvoiceComponent";
 import { useDispatch, useSelector } from "react-redux";
 import InvoiceService from "../../../redux/services/InvoiceService";
@@ -36,34 +31,10 @@ export default function AssetComponent() {
   const [i, setI] = useState(1);
   const getAllInvoices = useSelector((state) => state.invoice.data);
   const [totalRow, setTotalRow] = useState(0)
-  // const updateGetAllInvoices = getAllInvoices.map((invoice) => ({
-  //   ...invoice,
-  //   purchaseDate: new Date(invoice.purchaseDate).toLocaleDateString("en-US", {
-  //     day: "numeric",
-  //     month: "short",
-  //     year : "numeric"
-  //   }),
-  // }));
-
-
-  // const getAllInvoice = () => {
-  //   InvoiceService.getAllInvoice().then((res) => {
-  //     console.log(res.data);
-  //     dispatch(setAllInvoice(res.data.payload));
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   getAllInvoice();
-  // }, []);
-
-  // const getAllInvoices = () => {
-
-  // }
 
   const handleGetAllInvoices = (page) => {
     InvoiceService.getAllInvoices(page).then(res => {
-      if(res.data.success) {
+      if (res.data.success) {
         dispatch(setAllInvoice(res.data.payload));
         setTotalRow(res.data.totalPage)
       }
@@ -83,11 +54,11 @@ export default function AssetComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
 
   // pagination
   const [pageCount, setPageCount] = useState(4);
@@ -107,10 +78,7 @@ export default function AssetComponent() {
   return (
     <>
       <main
-        className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10"
-        style={{
-          boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        }}
+        className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow"
       >
         <div className="gap-6 overflow-hidden z-10">
           <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
@@ -189,10 +157,9 @@ export default function AssetComponent() {
                             <Combobox.Option
                               key={person.id}
                               className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "bg-hover-yellow text-text-color"
-                                    : "text-text-color"
+                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                  ? "bg-hover-yellow text-text-color"
+                                  : "text-text-color"
                                 }`
                               }
                               value={person}
@@ -200,19 +167,17 @@ export default function AssetComponent() {
                               {({ selected, active }) => (
                                 <>
                                   <span
-                                    className={`block truncate ${
-                                      selected ? "font-medium" : "font-normal"
-                                    }`}
+                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                      }`}
                                   >
                                     {person.name}
                                   </span>
                                   {selected ? (
                                     <span
-                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                        active
+                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active
                                           ? "text-white"
                                           : "text-text-color"
-                                      }`}
+                                        }`}
                                     >
                                       <CheckIcon
                                         className="h-5 w-5"

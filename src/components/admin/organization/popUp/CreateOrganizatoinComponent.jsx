@@ -81,8 +81,8 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                         if (res.data?.success) {
                             setImage("")
                             setIsSuccess(true)
-                            dispatch(setItem(res.data.payload))
-                            sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            // dispatch(setItem(res.data.payload))
+                            // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                             navigator("/organization", { state: { hideOrganizationBar: true } })
                         }
                     })
@@ -92,8 +92,8 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
             OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
                 if (res.data?.success) {
                     setIsSuccess(true)
-                    dispatch(setItem(res.data.payload))
-                    sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                    // dispatch(setItem(res.data.payload))
+                    // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                     navigator("/organization", { state: { hideOrganizationBar: true } })
                 }
             })
