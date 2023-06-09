@@ -12,7 +12,7 @@ import FileUploadService from '../../../../redux/services/FileUploadService';
 import { useDispatch } from 'react-redux';
 import { setItem } from '../../../../redux/slices/OrganizationSlice';
 
-export default function CreateOrganizatoinComponent(val, {handleShowSuccess}) {
+export default function CreateOrganizatoinComponent(val, { handleUpdateSuccess }) {
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
@@ -102,36 +102,33 @@ export default function CreateOrganizatoinComponent(val, {handleShowSuccess}) {
     }
 
     const handleUpdateOrganization = () => {
-        if (selectedFile) {
-            formData.append("file", selectedFile)
-            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-                if (res.data.success) {
-                    OrganizationService.updateOrganization({
-                        name: newData.name,
-                        address: newData.address,
-                        logo: res.data.payload
-                    }, newData?.id).then(res => {
-                        if (res.data?.success) {
-                            console.log(res.data)
-                            setIsSuccess(true)
-                            // setImage("")
-                            // dispatch(setItem(res.data.payload))
-                            // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-                            // navigator("/organization", { state: { hideOrganizationBar: true } })
-
-                        }
-                    })
-                }
-            })
-        } else {
-            OrganizationService.updateOrganization(newData, newData?.id).then(res => {
-                if (res.data?.success) {
-                    console.log(res)
-                    setIsSuccess(true)
-                    
-                }
-            })
-        }
+        handleUpdateSuccess(true)
+        // if (selectedFile) {
+        //     formData.append("file", selectedFile)
+        //     FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+        //         if (res.data.success) {
+        //             OrganizationService.updateOrganization({
+        //                 name: newData.name,
+        //                 address: newData.address,
+        //                 logo: res.data.payload
+        //             }, newData?.id).then(res => {
+        //                 if (res.data?.success) {
+        //                     setIsSuccess(true)
+        //                     setImage("")
+        //                     // dispatch(setItem(res.data.payload))
+        //                     // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+        //                     document.getElementById("create-organization").click()
+        //                 }
+        //             })
+        //         }
+        //     })
+        // } else {
+        //     OrganizationService.updateOrganization(newData, newData?.id).then(res => {
+        //         if (res.data?.success) {
+        //             setIsSuccess(true)
+        //         }
+        //     })
+        // }
     }
 
     const formik = useFormik({
@@ -171,94 +168,97 @@ export default function CreateOrganizatoinComponent(val, {handleShowSuccess}) {
     }
 
     return (
-        <div className="modal">
-            <div className="modal-box max-w-4xl relative">
-                <div className='absolute top-4 right-4'>
-                    <label htmlFor="create-organization" onClick={handleHideModal}><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
-                </div>
-                <div className='flex justify-between'>
-                    <div className='flex'>
-                        <HomeModernIcon className="h-9 rounded-lg w-9 text-white bg-primary p-2" />
-                        <p className='flex items-center font-sp-pro-text-bold text-xl pl-5 text-text-color'>Organization Information</p>
+        <>
+            <input type="checkbox" id="create-organization" className="modal-toggle" />
+            <div className="modal">
+                <div className="modal-box max-w-4xl relative">
+                    <div className='absolute top-4 right-4'>
+                        <label htmlFor="create-organization" onClick={handleHideModal}><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
                     </div>
-                </div>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className='flex flex-wrap md:flex-row mt-5 justify-center'>
-                        <div className=''>
-                            <div className="px-6">
-                                <div className='space-y-5 shadow p-10 rounded-md mb-1 relative'>
-                                    <div className='border border-dashed py-8 border-primary block justify-center text-center p-4 rounded-lg'>
-                                        <div className='w-44 h-20 relative'>
-                                            {
-                                                selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                                                    : image ? <img src={image} className='h-full m-auto' />
-                                                        : <img className="block m-auto " src={upload_placeholder} />
-                                            }
+                    <div className='flex justify-between'>
+                        <div className='flex'>
+                            <HomeModernIcon className="h-9 rounded-lg w-9 text-white bg-primary p-2" />
+                            <p className='flex items-center font-sp-pro-text-bold text-xl pl-5 text-text-color'>Organization Information</p>
+                        </div>
+                    </div>
+                    <form onSubmit={formik.handleSubmit}>
+                        <div className='flex flex-wrap md:flex-row mt-5 justify-center'>
+                            <div className=''>
+                                <div className="px-6">
+                                    <div className='space-y-5 shadow p-10 rounded-md mb-1 relative'>
+                                        <div className='border border-dashed py-8 border-primary block justify-center text-center p-4 rounded-lg'>
+                                            <div className='w-44 h-20 relative'>
+                                                {
+                                                    selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
+                                                        : image ? <img src={image} className='h-full m-auto' />
+                                                            : <img className="block m-auto " src={upload_placeholder} />
+                                                }
+                                            </div>
+                                            <p className='mt-5 text-xs'>Upload Organzation Picture</p>
+                                            <br />
+                                            <label htmlFor='logo' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
+                                            <input type="file" className='hidden' id='logo' onChange={handleFileSelect} />
                                         </div>
-                                        <p className='mt-5 text-xs'>Upload Organzation Picture</p>
-                                        <br />
-                                        <label htmlFor='logo' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
-                                        <input type="file" className='hidden' id='logo' onChange={handleFileSelect} />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='flex-grow mt-10 lg:mt-0'>
-                            <div className="px-6">
-                                <div className='space-y-5 shadow px-10 py-8 rounded-md'>
-                                    <div className='text-left'>
-                                        <label className="block mb-2 ml-1 text-sm">Organization Name <span className='text-reject'>*</span></label>
-                                        <input
-                                            type='text'
-                                            onInput={handleInputChange}
-                                            onChange={formik.handleChange}
-                                            value={newData.name}
-                                            name="name"
-                                            className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                                            placeholder='Enter organization name...'
-                                        />
-                                        {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+                            <div className='flex-grow mt-10 lg:mt-0'>
+                                <div className="px-6">
+                                    <div className='space-y-5 shadow px-10 py-8 rounded-md'>
+                                        <div className='text-left'>
+                                            <label className="block mb-2 ml-1 text-sm">Organization Name <span className='text-reject'>*</span></label>
+                                            <input
+                                                type='text'
+                                                onInput={handleInputChange}
+                                                onChange={formik.handleChange}
+                                                value={newData.name}
+                                                name="name"
+                                                className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                placeholder='Enter organization name...'
+                                            />
+                                            {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+                                        </div>
+
+                                        <div className='relative'>
+                                            <label className="block mb-2 ml-1 text-sm">Address</label>
+                                            <textarea
+                                                onInput={handleInputChange}
+                                                onChange={formik.handleChange}
+                                                value={newData.address}
+                                                rows={5}
+                                                name="address"
+                                                className="text-sm border-[#E1E9EE] border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                placeholder='Enter address...'
+                                            >
+                                            </textarea>
+                                        </div>
                                     </div>
 
-                                    <div className='relative'>
-                                        <label className="block mb-2 ml-1 text-sm">Address</label>
-                                        <textarea
-                                            onInput={handleInputChange}
-                                            onChange={formik.handleChange}
-                                            value={newData.address}
-                                            rows={5}
-                                            name="address"
-                                            className="text-sm border-[#E1E9EE] border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
-                                            placeholder='Enter address...'
-                                        >
-                                        </textarea>
-                                    </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                    <hr className='opacity-0 my-4' />
-                    <div className='w-full flex justify-end gap-3'>
+                        <hr className='opacity-0 my-4' />
+                        <div className='w-full flex justify-end gap-3'>
 
-                        <label
-                            onClick={handleHideModal}
-                            htmlFor='create-organization'
-                            className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
-                        >
-                            <RiCloseFill className='text-lg' />
-                            Cancel
-                        </label>
-                        <button
-                            type="submit"
-                            className={`${isUpdate ? "hover:bg-opacity-90 bg-accept" : "hover:bg-opacity-90 bg-primary"}  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
-                        >
-                            <FiSave className='text-lg' />
-                            {isUpdate ? "Save changes" : "Save"}
-                        </button>
-                    </div>
-                </form>
+                            <label
+                                onClick={handleHideModal}
+                                htmlFor='create-organization'
+                                className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
+                            >
+                                <RiCloseFill className='text-lg' />
+                                Cancel
+                            </label>
+                            <button
+                                type="submit"
+                                className={`${isUpdate ? "hover:bg-opacity-90 bg-accept" : "hover:bg-opacity-90 bg-primary"}  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
+                            >
+                                <FiSave className='text-lg' />
+                                {isUpdate ? "Save changes" : "Save"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

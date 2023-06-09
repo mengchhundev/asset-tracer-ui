@@ -142,7 +142,7 @@ export default function OrganzationCreateOrJoinComponent() {
           </div>
         </div>
 
-        <input type="checkbox" id="create-organization" className="modal-toggle" />
+        {/* <input type="checkbox" id="create-organization" className="modal-toggle" /> */}
         <CreateOrganizatoinComponent className="modal" />
       </main>
       {isShowJoinPopup &&

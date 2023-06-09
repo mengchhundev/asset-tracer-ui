@@ -42,6 +42,11 @@ export default function OrganizationListComponent() {
     const [query, setQuery] = useState("")
     const [search, setSearch] = useState()
     const [orgId, setOrgId] = useState()
+    const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
+
+    const handleUpdateSuccess = (val) => {
+        setIsUpdateSuccess(val)
+    }
 
     const filteredOrganizatoin =
         query === ""
@@ -113,7 +118,7 @@ export default function OrganizationListComponent() {
         })
     }
 
-
+console.log(isUpdateSuccess)
     return (
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{ minHeight: "83vh" }}>
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -153,8 +158,8 @@ export default function OrganizationListComponent() {
             </div>
 
             {/* Update */}
-            <input type="checkbox" id="create-organization" className="modal-toggle" />
-            <CreateOrganizatoinComponent className="modal" val={organizationObj}/>
+
+            <CreateOrganizatoinComponent className="modal" val={organizationObj} handleUpdateSuccess={handleUpdateSuccess} />
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
