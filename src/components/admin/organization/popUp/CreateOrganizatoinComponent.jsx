@@ -239,6 +239,7 @@ export default function CreateOrganizatoinComponent(val, {handleShowSuccess}) {
                         </div>
                     </div>
                     <hr className='opacity-0 my-4' />
+                    
                     <div className='w-full flex justify-end gap-3'>
 
                         <label
