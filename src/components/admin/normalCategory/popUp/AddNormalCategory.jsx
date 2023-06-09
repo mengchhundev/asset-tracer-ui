@@ -12,9 +12,11 @@ import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 function AddNormalCategory(props) {
 
     const superCategory = [
-        { id: 1, name: null },
-        { id: 2, name: "Arlene Mccoy" },
-        { id: 3, name: "Devon Webb" },
+        { id: 1, name: 'Durward Reynolds', disabled: true },
+        { id: 2, name: 'Kenton Towne', unavailable: false },
+        { id: 3, name: 'Therese Wunsch', unavailable: false },
+        { id: 4, name: 'Benedict Kessler', unavailable: true },
+        { id: 5, name: 'Katelyn Rohan', unavailable: false },
       ];
   const [selected, setSelected] = useState(superCategory[0]);
   const [state, setState] = useState([]);
@@ -75,24 +77,27 @@ function AddNormalCategory(props) {
                     <form className='pt-2'>
 
                         <div>
-                            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0" >
                                 <Combobox
                                     value={selected}
                                     onChange={setSelected}
                                     className="z-20"
+                                   
                                 >
                                     <div className="relative z-20">
                                         <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                             <Combobox.Input
-                                                className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                                                displayValue={(item) => item.name}
-                                                onChange={(event) => setQuery(event.target.value)}
+                                                 className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                                                 displayValue={(item) => item.name}
+                                                 onChange={(event) => setQuery(event.target.value)}
+                                                 placeholder="Select a person"
                                             />
                                             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                                                 <ChevronUpDownIcon
                                                     className="h-5 w-5 text-text-color"
                                                     aria-hidden="true"
                                                 />
+                                            
                                             </Combobox.Button>
                                         </div>
                                         <Transition

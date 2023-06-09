@@ -16,7 +16,7 @@ import { setAllCategory } from "../../../redux/slices/NomolCategorySlice";
 import AddNormalCategory from "./popUp/AddNormalCategory";
 
 const people = [
-  { id: 1, name: "Sort By" },
+  { id: 1, name: "Sort By", unavailable: false },
   { id: 2, name: "Arlene Mccoy" },
   { id: 3, name: "Devon Webb" },
 ];
