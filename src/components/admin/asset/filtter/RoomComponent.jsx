@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 //import
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpDownIcon,
+} from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
-import RoomService from "../../../../redux/services/RoomService";
-import { useDispatch, useSelector } from "react-redux";
 const people = [
   { id: 1, name: "Room" },
   { id: 2, name: "SR Class" },
@@ -13,29 +16,6 @@ const people = [
 ];
 
 export default function RoomComponent() {
-    // organization id
-    const organization = sessionStorage.getItem("organization");
-    const getOrganizationDetail = JSON.parse(organization);
-    const orgId = getOrganizationDetail.id;
-
-    // get room data
-    const dispatch = useDispatch();
-    const getdata = useSelector((state) => state.room.data);
-
-    const getAllRoom = () => {
-      RoomService.getAllRoom(orgId).then((res) => {
-        if (res?.data?.success) {
-          console.log("data room: ", res.data.payload);
-          dispatch(setAllRoom(res.data.payload));
-        }
-      });
-    };
-  
-    useEffect(() =>{
-      getAllRoom()
-    },[])
-
-
   // under  export
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
