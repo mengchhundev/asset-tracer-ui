@@ -48,6 +48,11 @@ export default function OrganizationListComponent() {
         setIsUpdateSuccess(val)
     }
 
+    useEffect(() => {
+        getAllOrganizations()
+        setIsUpdateSuccess(false)
+    }, [isUpdateSuccess])
+
     const filteredOrganizatoin =
         query === ""
             ? sort
@@ -61,10 +66,7 @@ export default function OrganizationListComponent() {
 
     const dispatch = useDispatch();
     const organizations = useSelector(state => state.organization.data)
-    const item = useSelector(state => state.organization?.item)
-    const organization = JSON.parse(sessionStorage.getItem("organization"))
     const navigator = useNavigate()
-    const location = useLocation()
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
@@ -113,12 +115,9 @@ export default function OrganizationListComponent() {
                 getAllOrganizations()
                 document.getElementById("delete_org").click()
             }
-        }, err => {
-            console.log(err)
         })
     }
 
-console.log(isUpdateSuccess)
     return (
         <main className="overflow-y-scroll p-5 lg:px-3 con-Shadow bg-white rounded-xl" style={{ minHeight: "83vh" }}>
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -349,27 +348,24 @@ console.log(isUpdateSuccess)
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                 <div className='w-full flex justify-center'>
-                                    {list.users.map((user, index) => {
-                                        if (index <= 4) {
-                                            return (
-                                                <>
-                                                    {user?.image ?
-                                                        <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
-                                                            <img
-                                                                src={FileUploadService.getImage(user.image)}
-                                                                loading="lazy"
-                                                                className="rounded-full h-full w-full"
-                                                            />
-                                                        </div>
-                                                        :
-                                                        <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
-                                                            {user.name.substring(0, 1)}
-                                                        </div>
-                                                    }
-                                                </>
-                                            )
-                                        }
-                                    })}
+                                    {list.users.map(user => (
+
+                                        <>
+                                            {user?.image ?
+                                                <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                    <img
+                                                        src={FileUploadService.getImage(user.image)}
+                                                        loading="lazy"
+                                                        className="rounded-full h-full w-full"
+                                                    />
+                                                </div>
+                                                :
+                                                <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                                    {user.name.substring(0, 1)}
+                                                </div>
+                                            }
+                                        </>
+                                    ))}
 
                                     {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                                         8 <FiPlus />

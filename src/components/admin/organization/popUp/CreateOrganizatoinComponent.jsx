@@ -12,7 +12,7 @@ import FileUploadService from '../../../../redux/services/FileUploadService';
 import { useDispatch } from 'react-redux';
 import { setItem } from '../../../../redux/slices/OrganizationSlice';
 
-export default function CreateOrganizatoinComponent(val, { handleUpdateSuccess }) {
+export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }) {
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
@@ -28,14 +28,14 @@ export default function CreateOrganizatoinComponent(val, { handleUpdateSuccess }
 
     useEffect(() => {
         setIsSuccess(false)
-        if (val.val) {
+        if (val) {
             setIsUpdate(true)
-            setNewData({ ...val.val })
-            if (val.val?.logo) {
-                setImage(FileUploadService.getImage(val.val?.logo))
+            setNewData({ ...val })
+            if (val?.logo) {
+                setImage(FileUploadService.getImage(val?.logo))
             }
         }
-    }, [val.val, image])
+    }, [val, image])
 
     // Upload file
     let formData = new FormData()
@@ -102,33 +102,39 @@ export default function CreateOrganizatoinComponent(val, { handleUpdateSuccess }
     }
 
     const handleUpdateOrganization = () => {
-        handleUpdateSuccess(true)
-        // if (selectedFile) {
-        //     formData.append("file", selectedFile)
-        //     FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-        //         if (res.data.success) {
-        //             OrganizationService.updateOrganization({
-        //                 name: newData.name,
-        //                 address: newData.address,
-        //                 logo: res.data.payload
-        //             }, newData?.id).then(res => {
-        //                 if (res.data?.success) {
-        //                     setIsSuccess(true)
-        //                     setImage("")
-        //                     // dispatch(setItem(res.data.payload))
-        //                     // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-        //                     document.getElementById("create-organization").click()
-        //                 }
-        //             })
-        //         }
-        //     })
-        // } else {
-        //     OrganizationService.updateOrganization(newData, newData?.id).then(res => {
-        //         if (res.data?.success) {
-        //             setIsSuccess(true)
-        //         }
-        //     })
-        // }
+        if (selectedFile) {
+            formData.append("file", selectedFile)
+            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+                if (res.data.success) {
+                    OrganizationService.updateOrganization({
+                        name: newData.name,
+                        address: newData.address,
+                        logo: res.data.payload
+                    }, newData?.id).then(res => {
+                        console.log(res.data)
+                        if (res.data?.success) {
+                            setIsSuccess(true)
+                            setImage("")
+                            // dispatch(setItem(res.data.payload))
+                            // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            document.getElementById("create-organization").click()
+                            handleUpdateSuccess(true)
+                        }
+                    })
+                }
+            })
+        } else {
+            OrganizationService.updateOrganization(newData, newData?.id).then(res => {
+                if (res.data?.success) {
+                    setIsSuccess(true)
+                    setImage("")
+                    // dispatch(setItem(res.data.payload))
+                    // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                    document.getElementById("create-organization").click()
+                    handleUpdateSuccess(true)
+                }
+            })
+        }
     }
 
     const formik = useFormik({
