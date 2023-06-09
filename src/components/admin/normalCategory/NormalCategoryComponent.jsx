@@ -10,7 +10,10 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import NormalCategoryService from "../../../redux/services/NormalCategoryService";
+import { setAllCategory } from "../../../redux/slices/NomolCategorySlice";
+import AddNormalCategory from "./popUp/AddNormalCategory";
 
 const people = [
   { id: 1, name: "Sort By" },
@@ -55,78 +58,21 @@ export default function CategoryComponent() {
         setState(data.data.payload[0]);
       });
   };
-
-  const [user, setUser] = useState([
-    {
-      id: 1,
-      profile: "SE",
-      name: "Senglorn",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
-    },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF38z4yXEJCseD5dYN08fHuNTgDeFlxZkohQ&usqp=CAU",
-    },
-    {
-      id: 3,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 4,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 5,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-
-    {
-      id: 6,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 7,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-    {
-      id: 8,
-      profile: "ME",
-      name: "Keo Mony",
-      date: "09 June 2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWtmf-JQD46GCkUA6YNG_CGGbHqdBlfq2T9xUYRNWsipJt2PHoBqJYirwKApTFTmlXlA0&usqp=CAU",
-    },
-  ]);
-
+// const [user,setuser]= useState([])
+  const data = useSelector((state)=> state.normalCategory.data)
+  console.log("data",data);
+  const dispatch = useDispatch();
+  const getAllNormalCategory =()=>{
+     NormalCategoryService.getAllNormalCategory().then((res)=>{
+      console.log(res);
+      dispatch(setAllCategory(res.data.payload))
+     }).catch((err)=>{
+      console.log(err);
+     })
+  }
+  useEffect(()=>{
+    getAllNormalCategory()
+  },[])
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 z-10">
@@ -256,7 +202,8 @@ export default function CategoryComponent() {
             </div>
           </div>
         </div>
-
+        <input type="checkbox" id="normalCategory" className="modal-toggle" />
+        <AddNormalCategory className="modal"/>                             
         <div className="flex flex-col justify-between relative overflow-x-auto">
           {/* table */}
 
@@ -280,36 +227,36 @@ export default function CategoryComponent() {
                     Action
                   </td>
                 </tr>
-                {user.map((users) => (
+                {data.map((item,index) => (
                   <tr className="text-sm font-sp-pro-text-regular text-center">
                     <td className="w-1/12 py-3 text-center ">
-                      {users.id}
+                      {index+1}
                     </td>
                     <td className="w-3/12 py-3">
                       <div className="flex items-center">
                         <div className="relative  mr-3 w-8 h-8 ">
                           <img
-                            src={users.src}
-                            alt={users.title}
+                            src={item.src}
+                            alt={item.title}
                             loading="lazy"
                             className="rounded-full h-full w-full"
                           />
                         </div>
-                        <div>{users.name}</div>
+                        <div>{item.name}</div>
                       </div>
                     </td>
                     <td className="w-2/12 py-3">
                       <div className="flex items-center m-auto space-x-3">
                         <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                          {users.profile}
+                          {item.profile}
                         </span>
                         <span className="text-sm ">
-                          {users.name}
+                          {item.name}
                         </span>
                       </div>
                     </td>
                     <td className="w-2/12 py-3 text-sm font-sp-pro-text-medium  p-2.5">
-                      {users.date}
+                      {item.date}
                     </td>
                     <td className="w-2/12 py-3">
                       <div className="flex items-center space-x-4 justify-center">

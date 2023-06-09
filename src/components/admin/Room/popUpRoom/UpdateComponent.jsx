@@ -125,8 +125,6 @@ function UpdateComponent(props) {
                 {/* <div className="modal-box" > */}
                 <div className="modal-box max-w-5xl bg-white rounded-lg p-5 font-sp-pro-text-regular relative" >
                     <div className="flex justify-between px-5">
-                        <div className="modal-box max-w-5xl bg-white rounded-lg p-5 font-sp-pro-text-regular relative" >
-                            <div className="flex justify-between px-5">
                                 <div className="flex">
                                     <HomeIcon className="h-8 w-8 text-white bg-primary p-2 rounded-lg" />
                                     <p className="px-4 text-text-color text-[16px] text-opacity-90 item-center xl:text-[20px] font-sp-pro-text-bold">Update Room</p>
@@ -231,8 +229,6 @@ function UpdateComponent(props) {
                             </div>
                         </div>
                     </div >
-                </div >
-            </div >
         </>
     );
 }
