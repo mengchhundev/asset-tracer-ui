@@ -10,8 +10,8 @@ export const normalCategorySlice = createSlice({
     reducers: {
         setAllCategory: (state, action) => {
             state.data = action.payload
-        },
+        }
     }
 });
-export const {setAllCategory} = normalCategorySlice.actions
+export const {setAllCategory, setCategoryName} = normalCategorySlice.actions
 export default normalCategorySlice.reducer

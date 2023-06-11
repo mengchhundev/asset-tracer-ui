@@ -12,7 +12,7 @@ import { Combobox, Dialog, Transition } from "@headlessui/react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
-import { setAllCategory } from "../../../redux/slices/NomolCategorySlice";
+import { setAllCategory } from "../../../redux/slices/NormalCategorySlice";
 import AddNormalCategory from "./popUp/AddNormalCategory";
 
 const people = [

@@ -5,7 +5,7 @@ import roomSilce from "./slices/RoomSlice";
 import userSlice  from "./slices/UserSlice";
 import  assetSlice  from "./slices/AssetSlice";
 import invoiceSilce from "./slices/InvoiceSlice";
-import  normalCategorySlice  from "./slices/NomolCategorySlice";
+import  normalCategorySlice  from "./slices/NormalCategorySlice";
 
 export const store = configureStore({
     reducer: {

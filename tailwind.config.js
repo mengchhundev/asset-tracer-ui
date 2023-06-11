@@ -78,7 +78,8 @@ export default {
         "border-gray-light": "#edf2f7",
         "custom-yellow-showdow-light": "#FEFAE8",
         "bg-feature": "#F4F4F4",
-        "custom-menu": "#737791"
+        "custom-menu": "#737791",
+        "custom-midnight-blue": "#003F7D"
       },
       screens: {
         '2xl' : '1536px',

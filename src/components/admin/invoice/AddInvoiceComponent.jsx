@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ItemComponent from "../asset/filtter/ItemComponent";
 import { RiAddBoxFill } from "react-icons/ri";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
@@ -13,30 +13,45 @@ import { useFormik } from 'formik';
 import { FiSave } from "react-icons/fi";
 import InvoiceService from "../../../redux/services/InvoiceService";
 import { Combobox, Transition } from "@headlessui/react";
-import { useDispatch } from "react-redux";
-import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useDispatch, useSelector } from "react-redux";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import NormalCategoryService from "../../../redux/services/NormalCategoryService";
+import { setCategoryName } from "../../../redux/slices/NormalCategorySlice";
 
-const people = [
-  { id: 1, name: "Asset" },
-  { id: 2, name: "HDMI" },
-  { id: 3, name: "Keyboard" },
-  { id: 4, name: "Mango" },
-];
+
 
 export default function AddInvoiceComponent() {
 
+  const [normalCategoryName, setNormalCategoryName] = useState([]);
   const navigator = useNavigate()
   //combobox
-  const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-  // const date = moment().format("MMM Do YY");
   let organization = JSON.parse(sessionStorage.getItem("organization"))
   const [selectedFile, setSelectedFile] = useState();
   const [image, setImage] = useState()
+
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const image = new Image();
+        image.onload = () => {
+          setImageDimensions({
+            width: image.width,
+            height: image.height,
+          });
+        };
+        image.src = event.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  }, [selectedFile]);
+
   const [imageDimensions, setImageDimensions] = useState({
     width: 0,
     height: 0,
@@ -59,7 +74,7 @@ export default function AddInvoiceComponent() {
       qty: "",
       unitPrice: "",
       discount: "",
-      normalCategoryId: "9d3b3886-1483-4004-af9c-0465147ac03b",
+      normalCategoryId: "",
       organizationId: organization.id
     }
   ])
@@ -71,7 +86,7 @@ export default function AddInvoiceComponent() {
       qty: "",
       unitPrice: "",
       discount: "",
-      normalCategoryId: "9d3b3886-1483-4004-af9c-0465147ac03b",
+      normalCategoryId: "",
       organizationId: organization.id
     }])
   }
@@ -87,12 +102,17 @@ export default function AddInvoiceComponent() {
     const onChangeVal = [...newItem]
     onChangeVal[index][name] = value
     setNewItem(onChangeVal)
-    console.log(newItem)
+  }
+
+  const handleSelectionChangeItem = (e, index) => {
+    const { name, value } = { name: "normalCategoryId", value: e.id }
+    const onChangeVal = [...newItem]
+    onChangeVal[index][name] = value
+    setNewItem(onChangeVal)
   }
 
   const handleInputChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value })
-    console.log(newData)
   };
 
   const handleSaveInvoice = () => {
@@ -104,12 +124,11 @@ export default function AddInvoiceComponent() {
       supplier: newData.supplier,
       itemDetailRequests: newItem
     }).then(res => {
-      if(res.data.success) {
+      if (res.data.success) {
         navigator("/invoice")
       }
     }, err => {
       console.log(err)
-
     })
 
 
@@ -123,6 +142,7 @@ export default function AddInvoiceComponent() {
       purchaseBy: Yup.string().required("Purchase by is required"),
     }),
     onSubmit: (val, { resetForm }) => {
+      console.log(newItem)
       handleSaveInvoice()
       setNewData({
         invoiceCode: "",
@@ -148,29 +168,36 @@ export default function AddInvoiceComponent() {
   });
 
 
-  const filteredPeople =
+  const filteredCategoryName =
     query === ""
-      ? people
-      : people.filter((person) =>
-        person.name
+      ? normalCategoryName
+      : normalCategoryName.filter((list) =>
+        list.name
           .toLowerCase()
           .replace(/\s+/g, "")
           .includes(query.toLowerCase().replace(/\s+/g, ""))
       );
 
+  useEffect(() => {
+    NormalCategoryService.getAllNormalCategoryName(organization.id).then(res => {
+      if (res.data.success) {
+        setNormalCategoryName(res.data.payload)
+      }
+    })
+  }, [])
 
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
         <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
-          <h1 className="flex items-center">
+          <h1 className="flex items-center text-custom-midnight-blue">
             <FaFileInvoice /> &nbsp;Add Invoice
           </h1>
         </div>
         <hr className="border-[#E1E9EE] border-1" />
 
         <form onSubmit={formik.handleSubmit}>
-          <div className="flex flex-wrap-reverse xl:flex-nowrap justify-between w-full p-10 pb-5">
+          <div className="flex flex-wrap-reverse xl:flex-nowrap justify-between w-full p-5 md:p-10 pb-5">
             <div className="w-full md:w-7/12 lg:w-full xl:w-7/12 mx-auto">
               <div className="text-base font-sp-pro-text-semibold w-full ">
                 <h1>Invoice Detail</h1>
@@ -257,12 +284,12 @@ export default function AddInvoiceComponent() {
                         type='text'
                         onInput={(e) => handleInputChangeItem(e, index)}
                         onChange={formik.handleChange}
-                        value={newItem.name}
+                        value={list.name}
                         name="name"
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='Item name'
                       />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                      {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm"> QTY <span className='text-reject'>*</span></label>
@@ -270,7 +297,7 @@ export default function AddInvoiceComponent() {
                         type='number'
                         onInput={(e) => handleInputChangeItem(e, index)}
                         onChange={formik.handleChange}
-                        value={newItem.qty}
+                        value={list.qty}
                         name="qty"
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='0'
@@ -283,23 +310,23 @@ export default function AddInvoiceComponent() {
                         type='number'
                         onInput={(e) => handleInputChangeItem(e, index)}
                         onChange={formik.handleChange}
-                        value={newItem.unitPrice}
+                        value={list.unitPrice}
                         name="unitPrice"
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='0'
                       />
                       {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
                     </div>
-                    
+
                   </div>
                   <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
-                  <div className='text-left w-full'>
+                    <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Discount</label>
                       <input
                         type='number'
                         onInput={(e) => handleInputChangeItem(e, index)}
                         onChange={formik.handleChange}
-                        value={newItem.discount}
+                        value={list.discount}
                         name="discount"
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='0'
@@ -312,7 +339,7 @@ export default function AddInvoiceComponent() {
                         type='text'
                         onInput={(e) => handleInputChangeItem(e, index)}
                         onChange={formik.handleChange}
-                        value={newItem.model}
+                        value={list.model}
                         name="model"
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='Enter model name...'
@@ -324,15 +351,15 @@ export default function AddInvoiceComponent() {
 
                       <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
-                          value={selected}
-                          onChange={setSelected}
+                          // value=
+                          onChange={(e) => handleSelectionChangeItem(e, index)}
                           className="z-20"
                         >
                           <div className="relative z-20">
                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                               <Combobox.Input
                                 className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                                displayValue={(person) => person.name}
+                                displayValue={(val) => val.name}
                                 onChange={(event) => setQuery(event.target.value)}
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -344,51 +371,26 @@ export default function AddInvoiceComponent() {
                             </div>
                             <Transition
                               as={Fragment}
-                              leave="transition ease-in duration-100"
+                              leave="transition ease-in duration-10sp0"
                               leaveFrom="opacity-100"
                               leaveTo="opacity-0"
                               afterLeave={() => setQuery("")}
                             >
                               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                {filteredPeople.length === 0 && query !== "" ? (
+                                {filteredCategoryName.length === 0 && query !== "" ? (
                                   <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                                     Nothing found.
                                   </div>
                                 ) : (
-                                  filteredPeople.map((person) => (
+                                  filteredCategoryName.map((val, index) => (
                                     <Combobox.Option
-                                      key={person.id}
+                                      key={index}
                                       className={({ active }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                          ? "bg-hover-yellow text-text-color"
-                                          : "text-text-color"
-                                        }`
+                                        `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
                                       }
-                                      value={person}
+                                      value={val}
                                     >
-                                      {({ selected, active }) => (
-                                        <>
-                                          <span
-                                            className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                              }`}
-                                          >
-                                            {person.name}
-                                          </span>
-                                          {selected ? (
-                                            <span
-                                              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active
-                                                ? "text-white"
-                                                : "text-text-color"
-                                                }`}
-                                            >
-                                              <CheckIcon
-                                                className="h-5 w-5"
-                                                aria-hidden="true"
-                                              />
-                                            </span>
-                                          ) : null}
-                                        </>
-                                      )}
+                                      {val.name}
                                     </Combobox.Option>
                                   ))
                                 )}
@@ -404,22 +406,20 @@ export default function AddInvoiceComponent() {
               ))}
 
               <label onClick={handleAddMoreItem}>
-                <span className="flex flex-row mt-2 items-center cursor-pointer text-blue-500 p-3 py-1.5 rounded-md border   hover:text-opacity-90 float-right">
-                  <AiOutlinePlus className="text-xl mr-1"/> Add item
+                <span className="flex flex-row mt-2 items-center cursor-pointer bg-[#003F7D] hover:bg-opacity-90 text-white p-3 py-1.5 rounded-md border   hover:text-opacity-90 float-right">
+                  <AiOutlinePlus className="text-xl mr-1" /> Add item
                 </span>
-                {/* <RiAddBoxFill className=" mt-2 cursor-pointer h-9 w-9 text-green hover:text-opacity-90 float-right" /> */}
               </label>
             </div>
 
-            <div className="w-9/12 md:w-[22rem] lg:w-[24rem] mx-auto">
-              <div className="px-5 my-5 flex">
+            <div className="w-[24rem] md:w-[22rem] lg:w-[24rem] mx-auto">
+              <div className="md:px-5 my-5 flex">
                 <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
                   <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
                     <div className='w-full h-80 flex p-5 relative'>
                       {
                         selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                          : image ? <img src={image} className='h-full m-auto' />
-                            : <img className="block m-auto h-32" src={upload_placeholder} />
+                          : <img className="block m-auto h-32" src={upload_placeholder} />
                       }
                     </div>
                     <p className='mt-5 text-xs'>Upload Invoice Picture</p>
@@ -433,7 +433,7 @@ export default function AddInvoiceComponent() {
             </div>
 
           </div>
-          <div className='w-full flex justify-end gap-x-3 px-16 mb-10'>
+          <div className='w-full flex justify-end gap-x-3 px-5 lg:px-10 xl:px-16 mb-10'>
 
             <label
               htmlFor='create-organization'
