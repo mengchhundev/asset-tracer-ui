@@ -220,7 +220,7 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                                                 onChange={formik.handleChange}
                                                 value={newData.name}
                                                 name="name"
-                                                className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder='Enter organization name...'
                                             />
                                             {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
@@ -234,7 +234,7 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                                                 value={newData.address}
                                                 rows={5}
                                                 name="address"
-                                                className="text-sm border-[#E1E9EE] border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder='Enter address...'
                                             >
                                             </textarea>

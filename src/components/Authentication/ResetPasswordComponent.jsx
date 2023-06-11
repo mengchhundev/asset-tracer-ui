@@ -75,7 +75,7 @@ function ResetPasswordComponent(props) {
                                     onChange={formik.handleChange}
                                     value={newData.newPassword}
                                     name="newPassword"
-                                    className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2 px-4 mb-1 outline-none focus:border-primary"
+                                    className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2 px-4 mb-1 outline-none focus:border-primary"
                                     placeholder='********'
                                 />
                                 {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.newPassword}</p> : null}
@@ -88,7 +88,7 @@ function ResetPasswordComponent(props) {
                                     onChange={formik.handleChange}
                                     value={newData.confirmNewPasswrod}
                                     name="confirmNewPasswrod"
-                                    className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2 px-4 mb-1 outline-none focus:border-primary"
+                                    className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2 px-4 mb-1 outline-none focus:border-primary"
                                     placeholder='********'
                                 />
                                 {formik.touched.confirmNewPasswrod && formik.errors?.confirmNewPasswrod ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.confirmNewPasswrod}</p> : null}

@@ -110,7 +110,7 @@ function RoomListComponent(props) {
           {/* search */}
           <div className="flex flex-row justify-center gap-10">
             <div>
-              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+              <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20   bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"

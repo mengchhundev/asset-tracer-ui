@@ -135,7 +135,7 @@ export default function SignInComponent() {
                                     <div className="text-left mb-3">
                                         <label className="block mb-1 ml-0.5 text-sm">Email</label>
                                         <Field name="email" type="email"
-                                            className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary"
+                                            className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary"
                                             placeholder="Enter your email" />
                                         <ErrorMessage name="email" component="div" className="text-reject text-xs ml-1" />
                                     </div>
@@ -143,7 +143,7 @@ export default function SignInComponent() {
                                     <div className="text-left mb-3">
                                         <label className="block mb-1 ml-0.5 text-sm">Password</label>
                                         <Field name="password" type="password"
-                                            className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary"
+                                            className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary"
                                             placeholder="Enter your passowrd" />
                                         <ErrorMessage name="password" component="div" className="text-reject text-xs ml-1" />
                                     </div>

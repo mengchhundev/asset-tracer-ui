@@ -44,7 +44,7 @@ function ForgotPasswordComponent(props) {
                                 <div className="md:space-y-5 pt-5">
                                     <div className="text-left">
                                         <label className="block mb-2 ml-1 text-sm">Email</label>
-                                        <Field name='email' type="email" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter you email" />
+                                        <Field name='email' type="email" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter you email" />
                                         <ErrorMessage name="email" component="div" className="text-reject text-xs ml-1" />
                                     </div>
                                     <div>

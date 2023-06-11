@@ -254,7 +254,7 @@ export default function ProfileComponent() {
                                                         onChange={formikProfile.handleChange}
                                                         value={profile.name}
                                                         name="name"
-                                                        className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                        className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                         placeholder='Enter name'
                                                     />
                                                     {formikProfile.touched.name && formikProfile.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formikProfile.errors.name}</p> : null}
@@ -267,7 +267,7 @@ export default function ProfileComponent() {
                                                         value={profile.gender}
                                                         name="gender"
                                                         placeholder='Gender'
-                                                        className={`text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none ${profile.gender == "" ? "text-gray" : ""}`}
+                                                        className={`text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none ${profile.gender == "" ? "text-gray" : ""}`}
                                                     >
                                                         <option value="" disabled>Select Gender</option>
                                                         <option value="male">Male</option>
@@ -284,7 +284,7 @@ export default function ProfileComponent() {
                                                     onChange={formikProfile.handleChange}
                                                     value={profile.phone}
                                                     name="phone"
-                                                    className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                    className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                     placeholder='Enter phone number'
                                                 />
                                                 {formikProfile.touched.phone && formikProfile.errors?.phone ? <p className="text-reject text-xs mt-2 pl-1">{formikProfile.errors.phone}</p> : null}
@@ -298,7 +298,7 @@ export default function ProfileComponent() {
                                                     value={profile.address}
                                                     rows={4}
                                                     name="address"
-                                                    className="text-sm border-[#E1E9EE] focus:border-primary border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                    className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary border w-full  rounded-lg block py-2 px-4 mb-1 outline-none"
                                                     placeholder='Enter address'
                                                 >
                                                 </textarea>
@@ -571,7 +571,7 @@ export default function ProfileComponent() {
                                                 onChange={formik.handleChange}
                                                 value={newData.oldPassword}
                                                 name="oldPassword"
-                                                className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
                                             />
                                             {formik.touched.oldPassword && formik.errors?.oldPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.oldPassword}</p> : null}
@@ -584,7 +584,7 @@ export default function ProfileComponent() {
                                                 onChange={formik.handleChange}
                                                 value={newData.newPassword}
                                                 name="newPassword"
-                                                className="text-sm border-[#E1E9EE] focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
                                             />
                                             {formik.touched.newPassword && formik.errors?.newPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.newPassword}</p> : null}
@@ -597,7 +597,7 @@ export default function ProfileComponent() {
                                                 onChange={formik.handleChange}
                                                 value={newData.confirmNewPassword}
                                                 name="confirmNewPassword"
-                                                className="text-sm border-[#E1E9EE] focus:border-primary     w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                                                className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  focus:border-primary     w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                                 placeholder="********"
                                             />
                                             {formik.touched.confirmNewPassword && formik.errors?.confirmNewPassword ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.confirmNewPassword}</p> : null}

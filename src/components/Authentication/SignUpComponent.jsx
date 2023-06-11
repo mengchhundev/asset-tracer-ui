@@ -138,20 +138,20 @@ export default function SignUpComponent() {
                                 <Form>
                                     <div className="text-left mb-3">
                                         <label className="block mb-2 ml-1 text-sm">Name</label>
-                                        <Field name='name' type="text" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter your name" />
+                                        <Field name='name' type="text" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter your name" />
                                         <ErrorMessage name="name" component="div" className="text-reject text-xs ml-1" />
 
                                     </div>
 
                                     <div className="text-left mb-3">
                                         <label className="block mb-2 ml-1 text-sm">Email</label>
-                                        <Field name='email' type="email" className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter you email" />
+                                        <Field name='email' type="email" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="Enter you email" />
                                         <ErrorMessage name="email" component="div" className="text-reject text-xs ml-1" />
 
                                     </div>
                                     <div className="text-left mb-3">
                                         <label className="block mb-2 ml-1 text-sm">password</label>
-                                        <Field type="password" name='password' className="text-sm border-[#E1E9EE] border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="********" />
+                                        <Field type="password" name='password' className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg block w-full py-2.5 px-4 mb-1 outline-none focus:border-primary" placeholder="********" />
                                         <ErrorMessage name="password" component="div" className="text-reject text-xs ml-1" />
                                     </div>
 

@@ -1,213 +1,137 @@
 import React from "react";
 import upload from "../../../assets/images/Room/Upload.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { FaFileInvoice } from "react-icons/fa";
+import upload_placeholder from '../../../assets/images/placeholder/upload_placeholder.svg';
 
-export default function ViewInvoiceComponent() {
+export default function ViewInvoiceComponent(props) {
+
+  const getInvoiceDetail = useSelector(state => console.log(state.invoice.invoiceDetail))
+
   return (
     <>
-      <main
-        className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10"
-        style={{
-          boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        }}
-      >
-        {/* Invoice Detail */}
-        <div className="gap-6 overflow-hidden z-10">
-        <div className="flex justify-between p-4 px-[40px]">
-          <div className="text-lg font-sp-pro-text-semibold text-text-color  ">
-            <h1>View Invoice</h1>
+      <main className="overflow-x-hidden bg-white rounded-xl relative con-Shadow text-text-color">
+        <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
+          <h1 className="flex items-center">
+            <FaFileInvoice /> &nbsp;View Invoice
+          </h1>
+        </div>
+        <hr className="border-[#E1E9EE] border-1" />
+
+
+        <div className="flex flex-wrap-reverse xl:flex-nowrap justify-between w-full p-10 pb-5">
+          <div className="w-full md:w-7/12 lg:w-full xl:w-7/12">
+            <div className="text-base font-sp-pro-text-semibold w-full ">
+              <h1>Invoice Detail</h1>
+            </div>
+            <hr className="border-[#E1E9EE] border-spacing-y-10 mb-5" />
+
+            <section className="overflow-x-scroll">
+              <table className="table w-full">
+                <tbody className="">
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-white">
+                    <td className="w-3/12  bg-primary py-3">Invoice Code</td>
+                    <td className="w-3/12 bg-primary py-3">
+                      Purchse By
+                    </td>
+                    <td className="w-3/12 bg-primary py-3">
+                      Supplier
+                    </td>
+                    <td className="w-3/12 bg-primary py-3">
+                      Purchaser Date
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td className="w-3/12 py-3 text-blue-700">#3061</td>
+                    <td className="w-3/12 py-3">
+                      Boeurn Mnor
+                    </td>
+                    <td className="w-3/12 py-3">
+                      Computer Shop
+                    </td>
+                    <td className="w-3/12 py-3">
+                      Jan 6 2023
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <br />
+            <div className="text-base font-sp-pro-text-semibold w-full ">
+              <h1>Item</h1>
+            </div>
+            <hr className="border-[#E1E9EE] border-spacing-y-10 mb-5" />
+
+            <section className="overflow-x-scroll">
+              <table className="table w-full">
+                <tbody className="">
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-white">
+                    <td className="w-3/12  bg-primary py-3">Name</td>
+                    <td className="w-3/12 bg-primary py-3">
+                      QTY
+                    </td>
+                    <td className="w-3/12 bg-primary py-3">
+                      Unit Price
+                    </td>
+                    <td className="w-3/12 bg-primary py-3">
+                      Discount
+                    </td>
+                    <td className="w-3/12 bg-primary py-3">
+                      Total
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="w-3/12 py-3">Computer</td>
+                    <td className="w-3/12 py-3">
+                      10
+                    </td>
+                    <td className="w-3/12 py-3">
+                      1200
+                    </td>
+                    <td className="w-3/12 py-3">
+                      0
+                    </td>
+                    <td className="w-3/12 py-3">
+                      12000
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="w-3/12 py-3">Computer</td>
+                    <td className="w-3/12 py-3">
+                      10
+                    </td>
+                    <td className="w-3/12 py-3">
+                      1200
+                    </td>
+                    <td className="w-3/12 py-3">
+                      0
+                    </td>
+                    <td className="w-3/12 py-3">
+                      12000
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
           </div>
-          <Link to={"/invoice"}>
-            <button className="bg-primary px-2 py-1 rounded-lg opacity-60 text-text-color hover:bg-primary hover:bg-opacity-60 cursor-pointer">
-              Back
-            </button>
-          </Link>
-        </div>
-        <div className="w-full px-[40px]">
-          <hr className="border-[#E1E9EE]" />
-        </div>
-        {/* invoice detail */}
-        <div className="flex mt-4 text-base font-sp-pro-text text-text-color p-1 px-[40px]">
-          <h1>Invoice Detail</h1>
-        </div>
-        <div className="w-2.5/5 px-[40px]">
-          <hr className="border-[#E1E9EE] border-spacing-y-10" />
-        </div>
-        {/* header flex */}
-        <div className="flex flex-row">
-          {/* table flex */}
-          <div className="mt-10 px-[40px]">
-            {/* table 1 */}
-            <table className="table w-full">
-              <thead>
-                <tr>
-                  <td className="w-3/12 bg-primary text-center">Invoice</td>
-                  <td className="w-3/12 bg-primary text-center">Supplier</td>
-                  <td className="w-3/12 bg-primary text-center">Date</td>
-                  <td className="w-3/12 bg-primary text-center">Purchaser</td>
-                  <td className="w-3/12 bg-primary text-center">Purchaser</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td>#1540</td>
-                  <td>Computer shop</td>
-                  <td>Jan 6 2020</td>
-                  <td>10</td>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative  mr-4 w-8 h-8 ">
-                        <img
-                          src={
-                            "https://i.pinimg.com/474x/c9/b2/56/c9b25648b56a4fc34eca507e47c20c72.jpg"
-                          }
-                          loading="lazy"
-                          className="rounded-full h-full w-full"
-                        />
-                      </div>
-                      <div>Menghout</div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div className="w-5/5">
-          <hr className="border-[#E1E9EE] border-spacing-y-10" />
-        </div>
-
-        <div className="flex mt-4 text-base font-sp-pro-text text-text-color">
-          <h1>Asset</h1>
-        </div>
-
-            {/* table 2 */}
-            <table className="table w-full mt-6">
-              <thead>
-                <tr className="text-center">
-                  <td className="bg-gray-light text-center">Name</td>
-                  <td className="bg-gray-light text-center">Quantity</td>
-                  <td className="bg-gray-light text-center">Unit price</td>
-                  <td className="bg-gray-light text-center">Discount price</td>
-                  <td className="bg-gray-light text-center">Total price</td>
-                </tr>
-              </thead>
-              <tbody className="text-center">
-                <tr>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative  mr-4 w-8 h-8 ">
-                        <img
-                          src={
-                            "https://em-content.zobj.net/socialmedia/apple/271/desktop-computer_1f5a5-fe0f.png"
-                          }
-                          loading="lazy"
-                          className="rounded-full h-full w-full"
-                        />
-                      </div>
-                      <div>Computer</div>
-                    </div>
-                  </td>
-                  <td>15</td>
-                  <td className="text-green">$ 1500</td>
-                  <td className="text-yellow">10 %</td>
-                  <td className="text-green">$ 22500 </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative  mr-4 w-8 h-8 ">
-                        <img
-                          src={
-                            "https://em-content.zobj.net/socialmedia/apple/271/desktop-computer_1f5a5-fe0f.png"
-                          }
-                          loading="lazy"
-                          className="rounded-full h-full w-full"
-                        />
-                      </div>
-                      <div>Computer</div>
-                    </div>
-                  </td>
-                  <td>15</td>
-                  <td className="text-green">$ 1500</td>
-                  <td className="text-yellow">10 %</td>
-                  <td className="text-green">$ 22500 </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative  mr-4 w-8 h-8 ">
-                        <img
-                          src={
-                            "https://em-content.zobj.net/socialmedia/apple/271/desktop-computer_1f5a5-fe0f.png"
-                          }
-                          loading="lazy"
-                          className="rounded-full h-full w-full"
-                        />
-                      </div>
-                      <div>Computer</div>
-                    </div>
-                  </td>
-                  <td>15</td>
-                  <td className="text-green">$ 1500</td>
-                  <td className="text-yellow">10 %</td>
-                  <td className="text-green">$ 22500 </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div className="flex items-center">
-                      <div className="relative  mr-4 w-8 h-8 ">
-                        <img
-                          src={
-                            "https://em-content.zobj.net/socialmedia/apple/271/desktop-computer_1f5a5-fe0f.png"
-                          }
-                          loading="lazy"
-                          className="rounded-full h-full w-full"
-                        />
-                      </div>
-                      <div>Computer</div>
-                    </div>
-                  </td>
-                  <td>15</td>
-                  <td className="text-green">$ 1500</td>
-                  <td className="text-yellow">10 %</td>
-                  <td className="text-green">$ 22500 </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* upload form invoice */}
-          <div className="xl:w-5/12 md:w-5/6/12 sm:full mb-20">
-            <div className="w-full">
-              <div className="md:p-4 md:m-8 ">
-                <div className=" border border-dotted border-yellow px-5 md:py-28 rounded-md ">
-                  <div className=" items-center block justify-center text-center p-3  rounded-lg">
-                    <div>
-                      <img className="block m-auto " src={upload} alt="" />
-                      <p className="mt-3 text-xs">
-                        Upload Invoice picture, max size 20MB
-                      </p>
-                      <button className="shadow-sm rounded-md border border-bg-primary px-3 py-1.5 my-2 ">
-                        Browse
-                      </button>
-                    </div>
+          <div className="w-9/12 md:w-[22rem] lg:w-[24rem] mx-auto">
+            <div className="px-5 my-5 flex">
+              <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
+                <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
+                  <div className='w-full h-80 flex p-5 relative'>
+                    <img className="block m-auto h-32" src={upload_placeholder}/>
                   </div>
-                </div>
-              </div>
-
-              <div className="flex justify-center flex-row">
-                <div className=" cursor-pointer  w-4/5 p-2  rounded-lg text-center bg-primary">
-                  <button className=" text-white font-sp-pro-text-regular">
-                    Print
-                  </button>
+                  <br /><br />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
+
       </main>
     </>
   );

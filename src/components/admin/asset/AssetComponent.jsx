@@ -96,7 +96,7 @@ export default function AssetComponent() {
           {/* search */}
           <div className="md:flex md:flex-row justify-start gap-10">
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+              <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20   bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import ItemComponent from "../asset/filtter/ItemComponent";
 import { RiAddBoxFill } from "react-icons/ri";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaFileInvoice } from "react-icons/fa";
 import '../../../style/shadow.css'
 import { AiOutlineFileAdd, AiOutlinePlus } from "react-icons/ai";
@@ -12,10 +12,26 @@ import * as Yup from "yup";
 import { useFormik } from 'formik';
 import { FiSave } from "react-icons/fi";
 import InvoiceService from "../../../redux/services/InvoiceService";
+import { Combobox, Transition } from "@headlessui/react";
+import { useDispatch } from "react-redux";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+
+const people = [
+  { id: 1, name: "Asset" },
+  { id: 2, name: "HDMI" },
+  { id: 3, name: "Keyboard" },
+  { id: 4, name: "Mango" },
+];
 
 export default function AddInvoiceComponent() {
+
+  const navigator = useNavigate()
+  //combobox
+  const [selected, setSelected] = useState(people[0]);
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  // const date = moment().format("MMM Do YY");
   let organization = JSON.parse(sessionStorage.getItem("organization"))
-  const [query, setQuery] = useState();
   const [selectedFile, setSelectedFile] = useState();
   const [image, setImage] = useState()
   const handleFileSelect = (event) => {
@@ -55,7 +71,7 @@ export default function AddInvoiceComponent() {
       qty: "",
       unitPrice: "",
       discount: "",
-      normalCategoryId: "",
+      normalCategoryId: "9d3b3886-1483-4004-af9c-0465147ac03b",
       organizationId: organization.id
     }])
   }
@@ -88,10 +104,12 @@ export default function AddInvoiceComponent() {
       supplier: newData.supplier,
       itemDetailRequests: newItem
     }).then(res => {
-      console.log(res)
+      if(res.data.success) {
+        navigator("/invoice")
+      }
     }, err => {
       console.log(err)
-      
+
     })
 
 
@@ -106,8 +124,40 @@ export default function AddInvoiceComponent() {
     }),
     onSubmit: (val, { resetForm }) => {
       handleSaveInvoice()
+      setNewData({
+        invoiceCode: "",
+        purchaseBy: "",
+        purchaseDate: "",
+        image: "",
+        organizationId: organization.id,
+        supplier: "",
+        itemDetailRequests: []
+      })
+      setNewItem([
+        {
+          name: "",
+          image: "",
+          qty: "",
+          unitPrice: "",
+          discount: "",
+          normalCategoryId: "",
+          organizationId: organization.id
+        }
+      ])
     }
   });
+
+
+  const filteredPeople =
+    query === ""
+      ? people
+      : people.filter((person) =>
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
+
 
   return (
     <>
@@ -137,7 +187,7 @@ export default function AddInvoiceComponent() {
                       onChange={formik.handleChange}
                       value={newData.invoiceCode}
                       name="invoiceCode"
-                      className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter invoice no...'
                     />
                     {formik.touched.invoiceCode && formik.errors?.invoiceCode ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.invoiceCode}</p> : null}
@@ -150,7 +200,7 @@ export default function AddInvoiceComponent() {
                       onChange={formik.handleChange}
                       value={newData.purchaseDate}
                       name="purchaseDate"
-                      className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter invoice no...'
                     />
                     {formik.touched.purchaseDate && formik.errors?.purchaseDate ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.purchaseDate}</p> : null}
@@ -166,7 +216,7 @@ export default function AddInvoiceComponent() {
                       onChange={formik.handleChange}
                       value={newData.purchaseBy}
                       name="purchaseBy"
-                      className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter purchaser name...'
                     />
                     {formik.touched.purchaseBy && formik.errors?.purchaseBy ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.purchaseBy}</p> : null}
@@ -179,7 +229,7 @@ export default function AddInvoiceComponent() {
                       onChange={formik.handleChange}
                       value={newData.supplier}
                       name="supplier"
-                      className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter supplier name...'
                     />
                     {formik.touched.supplier && formik.errors?.supplier ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.supplier}</p> : null}
@@ -202,15 +252,57 @@ export default function AddInvoiceComponent() {
                   }
                   <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
                     <div className='text-left w-full'>
-                      <label className="block mb-2 ml-1 text-sm">Item Name <span className='text-reject'>*</span></label>
+                      <label className="block mb-2 ml-1 text-sm">Item <span className='text-reject'>*</span></label>
                       <input
                         type='text'
                         onInput={(e) => handleInputChangeItem(e, index)}
                         onChange={formik.handleChange}
                         value={newItem.name}
                         name="name"
-                        className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                        placeholder='Enter item name...'
+                        className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                        placeholder='Item name'
+                      />
+                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                    </div>
+                    <div className='text-left w-full'>
+                      <label className="block mb-2 ml-1 text-sm"> QTY <span className='text-reject'>*</span></label>
+                      <input
+                        type='number'
+                        onInput={(e) => handleInputChangeItem(e, index)}
+                        onChange={formik.handleChange}
+                        value={newItem.qty}
+                        name="qty"
+                        className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                        placeholder='0'
+                      />
+                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                    </div>
+                    <div className='text-left w-full'>
+                      <label className="block mb-2 ml-1 text-sm">Unit Price <span className='text-reject'>*</span></label>
+                      <input
+                        type='number'
+                        onInput={(e) => handleInputChangeItem(e, index)}
+                        onChange={formik.handleChange}
+                        value={newItem.unitPrice}
+                        name="unitPrice"
+                        className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                        placeholder='0'
+                      />
+                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                    </div>
+                    
+                  </div>
+                  <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
+                  <div className='text-left w-full'>
+                      <label className="block mb-2 ml-1 text-sm">Discount</label>
+                      <input
+                        type='number'
+                        onInput={(e) => handleInputChangeItem(e, index)}
+                        onChange={formik.handleChange}
+                        value={newItem.discount}
+                        name="discount"
+                        className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                        placeholder='0'
                       />
                       {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
                     </div>
@@ -222,50 +314,89 @@ export default function AddInvoiceComponent() {
                         onChange={formik.handleChange}
                         value={newItem.model}
                         name="model"
-                        className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                        className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='Enter model name...'
                       />
                       {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
                     </div>
-                  </div>
-                  <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
                     <div className='text-left w-full'>
-                      <label className="block mb-2 ml-1 text-sm"> QTY <span className='text-reject'>*</span></label>
-                      <input
-                        type='text'
-                        onInput={(e) => handleInputChangeItem(e, index)}
-                        onChange={formik.handleChange}
-                        value={newItem.qty}
-                        name="qty"
-                        className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                        placeholder='Enter qty...'
-                      />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
-                    </div>
-                    <div className='text-left w-full'>
-                      <label className="block mb-2 ml-1 text-sm">Unit Price <span className='text-reject'>*</span></label>
-                      <input
-                        type='text'
-                        onInput={(e) => handleInputChangeItem(e, index)}
-                        onChange={formik.handleChange}
-                        value={newItem.unitPrice}
-                        name="unitPrice"
-                        className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                        placeholder='Enter unit price...'
-                      />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
-                    </div>
-                    <div className='text-left w-full'>
-                      <label className="block mb-2 ml-1 text-sm">Discount</label>
-                      <input
-                        type='text'
-                        onInput={(e) => handleInputChangeItem(e, index)}
-                        onChange={formik.handleChange}
-                        value={newItem.discount}
-                        name="discount"
-                        className="text-sm border-[#E1E9EE] w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                        placeholder='Enter discount...'
-                      />
+                      <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
+
+                      <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                        <Combobox
+                          value={selected}
+                          onChange={setSelected}
+                          className="z-20"
+                        >
+                          <div className="relative z-20">
+                            <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                              <Combobox.Input
+                                className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                                displayValue={(person) => person.name}
+                                onChange={(event) => setQuery(event.target.value)}
+                              />
+                              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                                <ChevronUpDownIcon
+                                  className="h-5 w-5 text-text-color"
+                                  aria-hidden="true"
+                                />
+                              </Combobox.Button>
+                            </div>
+                            <Transition
+                              as={Fragment}
+                              leave="transition ease-in duration-100"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
+                              afterLeave={() => setQuery("")}
+                            >
+                              <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                {filteredPeople.length === 0 && query !== "" ? (
+                                  <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                    Nothing found.
+                                  </div>
+                                ) : (
+                                  filteredPeople.map((person) => (
+                                    <Combobox.Option
+                                      key={person.id}
+                                      className={({ active }) =>
+                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                          ? "bg-hover-yellow text-text-color"
+                                          : "text-text-color"
+                                        }`
+                                      }
+                                      value={person}
+                                    >
+                                      {({ selected, active }) => (
+                                        <>
+                                          <span
+                                            className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                              }`}
+                                          >
+                                            {person.name}
+                                          </span>
+                                          {selected ? (
+                                            <span
+                                              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active
+                                                ? "text-white"
+                                                : "text-text-color"
+                                                }`}
+                                            >
+                                              <CheckIcon
+                                                className="h-5 w-5"
+                                                aria-hidden="true"
+                                              />
+                                            </span>
+                                          ) : null}
+                                        </>
+                                      )}
+                                    </Combobox.Option>
+                                  ))
+                                )}
+                              </Combobox.Options>
+                            </Transition>
+                          </div>
+                        </Combobox>
+                      </div>
                       {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
                     </div>
                   </div>
@@ -273,11 +404,14 @@ export default function AddInvoiceComponent() {
               ))}
 
               <label onClick={handleAddMoreItem}>
-                <RiAddBoxFill className=" mt-2 cursor-pointer h-7 w-7 text-green hover:text-opacity-90 float-right" />
+                <span className="flex flex-row mt-2 items-center cursor-pointer text-blue-500 p-3 py-1.5 rounded-md border   hover:text-opacity-90 float-right">
+                  <AiOutlinePlus className="text-xl mr-1"/> Add item
+                </span>
+                {/* <RiAddBoxFill className=" mt-2 cursor-pointer h-9 w-9 text-green hover:text-opacity-90 float-right" /> */}
               </label>
             </div>
 
-            <div className="w-10/12 md:w-[26rem] lg:w-[28rem] mx-auto">
+            <div className="w-9/12 md:w-[22rem] lg:w-[24rem] mx-auto">
               <div className="px-5 my-5 flex">
                 <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
                   <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>

@@ -18,7 +18,7 @@ import { Link, NavLink } from "react-router-dom";
 import ViewInvoiceComponent from "./ViewInvoiceComponent";
 import { useDispatch, useSelector } from "react-redux";
 import InvoiceService from "../../../redux/services/InvoiceService";
-import { setAllInvoice } from "../../../redux/slices/InvoiceSlice";
+import { setAllInvoice, setInvoiceDetail } from "../../../redux/slices/InvoiceSlice";
 import moment from "moment";
 import { TbListDetails } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
@@ -98,7 +98,7 @@ export default function AssetComponent() {
             {/* search */}
             <div className="md:flex md:flex-row justify-center gap-10">
               <div className="mb-4 md:mb-0 xl:mb-0">
-                <div className="relative text-sm border-[#E1E9EE]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+                <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20   bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                   <div className="absolute inset-y-0 flex items-center pl-2">
                     <svg
                       className="w-5 h-5 text-primary"
@@ -200,17 +200,19 @@ export default function AssetComponent() {
               </div>
 
               {/* add */}
-              <Link to={"/invoice/add"}>
-                <div className="block ">
-                  <label
-                    htmlFor="my-modal-3"
-                    className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
-                  >
-                    <BsPlus className="w-6 h-6" />
-                    &nbsp;Add User
-                  </label>
-                </div>
-              </Link>
+              <div>
+                <Link to={"/invoice/add"}>
+                  <div className="block w-max">
+                    <label
+                      htmlFor="my-modal-3"
+                      className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
+                    >
+                      <BsPlus className="w-6 h-6" />
+                      &nbsp;Add User
+                    </label>
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -222,7 +224,7 @@ export default function AssetComponent() {
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-text-color">
                     <td className="w-2/12  bg-bg-main py-3">No</td>
                     <td className="w-2/12 bg-bg-main py-3">
-                      Invoice
+                      Invoice Code
                     </td>
                     <td className="w-3/12 bg-bg-main py-3">
                       Supplier
@@ -231,9 +233,9 @@ export default function AssetComponent() {
                       Purchaser
                     </td>
                     <td className="w-2/12 bg-bg-main py-3">Date</td>
-                    <td className="w-1/12  bg-bg-main py-3">More</td>
+                    <td className="w-1/12  bg-bg-main py-3">Action</td>
                   </tr>
-                  {getAllInvoices?.map((invoice, index) => (
+                  {getAllInvoices?.map((list, index) => (
                     <tr
                       key={index}
                       className="text-sm font-sp-pro-text-regular"
@@ -242,19 +244,19 @@ export default function AssetComponent() {
                         {i + index}
                       </td>
                       <td className="py-2.5">
-                        {invoice.invoiceCode}
+                        {list.invoiceCode}
                       </td>
                       <td className="py-2.5">
-                        {invoice.supplier}
+                        {list.supplier}
                       </td>
                       <td className="py-2.5">
-                        {invoice.purchaseBy}
+                        {list.purchaseBy}
                       </td>
                       <td className="py-2.5">
-                        {moment(invoice.purchaseDate).format("MMM DD YYYY")}
+                        {moment(list.purchaseDate).format("MMM DD YYYY")}
                       </td>
                       {/* menu dropdown */}
-                      <td className="py-2.5">
+                      <td className="py-2.5 text-center">
                         <Listbox as="div">
                           {({ open }) => (
                             <>
@@ -276,9 +278,8 @@ export default function AssetComponent() {
                                   >
                                     <Listbox.Option className="flex flex-col">
                                       <NavLink
-                                        // onClick={() => showOrganizationDetail(list)}
-                                        
-                                        htmlFor='show-organization'
+                                        onClick={() => dispatch(setInvoiceDetail(list))}
+                                        to="/invoice/view"
                                         className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                       >
                                         <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
@@ -286,7 +287,7 @@ export default function AssetComponent() {
                                         </span>
                                       </NavLink>
                                       <NavLink
-                                        to={"/update-invoice"}
+                                        to={"/invoice/update"}
                                         htmlFor='create-organization'
                                         className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                       >
@@ -320,7 +321,7 @@ export default function AssetComponent() {
                             tabIndex={0}
                             className="z-50 dropdown-content menu shadow bg-white rounded-lg w-44 mr-2 font-sp-pro-text-semibold"
                           >
-                            <Link to="/view-invoice">
+                            <Link to="/invoice/view">
                               <li
                                 onClick={() =>
                                   dispatch(ViewInvoiceComponent(item))
@@ -334,7 +335,7 @@ export default function AssetComponent() {
                                 </label>
                               </li>
                             </Link>
-                            <Link to={"/update-invoice"}>
+                            <Link to={"/invoice/update"}>
                               <li className="">
                                 <label
                                   htmlFor="update"
