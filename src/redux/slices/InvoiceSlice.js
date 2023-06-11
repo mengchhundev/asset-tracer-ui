@@ -2,7 +2,16 @@ import { createSlice} from '@reduxjs/toolkit';
 
 const initialState ={
     data:[],
-    invoiceDetail: {}
+    invoiceDetail: {
+        id: "",
+        invoiceCode: "",
+        purchaseBy: "",
+        purchaseDate: "",
+        supplier: "",
+        createdAt: "",
+        image: "",
+        itemDetails: []
+    }
 }
 export const invoiceSilce = createSlice ({
     

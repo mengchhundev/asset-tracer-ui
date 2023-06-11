@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
 import { setCategoryName } from "../../../redux/slices/NormalCategorySlice";
+import FileUploadService from "../../../redux/services/FileUploadService";
 
 
 
@@ -28,6 +29,9 @@ export default function AddInvoiceComponent() {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   let organization = JSON.parse(sessionStorage.getItem("organization"))
+
+  // Upload file
+  let formData = new FormData()
   const [selectedFile, setSelectedFile] = useState();
   const [image, setImage] = useState()
 
@@ -73,12 +77,11 @@ export default function AddInvoiceComponent() {
       image: "",
       qty: "",
       unitPrice: "",
-      discount: "",
+      discount: "0",
       normalCategoryId: "",
       organizationId: organization.id
     }
   ])
-
 
   const formik = useFormik({
     initialValues: { ...newData, newItem },
@@ -96,28 +99,7 @@ export default function AddInvoiceComponent() {
       )
     }),
     onSubmit: (val, { resetForm }) => {
-      // console.log(newItem)
-      // handleSaveInvoice()
-      // setNewData({
-      //   invoiceCode: "",
-      //   purchaseBy: "",
-      //   purchaseDate: "",
-      //   image: "",
-      //   organizationId: organization.id,
-      //   supplier: "",
-      //   itemDetailRequests: []
-      // })
-      // setNewItem([
-      //   {
-      //     name: "",
-      //     image: "",
-      //     qty: "",
-      //     unitPrice: "",
-      //     discount: "",
-      //     normalCategoryId: "",
-      //     organizationId: organization.id
-      //   }
-      // ])
+      handleSaveInvoice()
     }
   });
 
@@ -127,7 +109,7 @@ export default function AddInvoiceComponent() {
       model: "",
       qty: "",
       unitPrice: "",
-      discount: "",
+      discount: "0",
       normalCategoryId: "",
       organizationId: organization.id
     }])
@@ -142,7 +124,6 @@ export default function AddInvoiceComponent() {
     formik.values.newItem.splice(index, 1)
   }
 
-  console.log(formik.values)
   const handleInputChangeItem = (e, index) => {
     const { name, value } = e.target
     const onChangeVal = [...newItem]
@@ -162,20 +143,40 @@ export default function AddInvoiceComponent() {
   };
 
   const handleSaveInvoice = () => {
-    InvoiceService.saveInvoice({
-      invoiceCode: newData.invoiceCode,
-      purchaseBy: newData.purchaseBy,
-      purchaseDate: newData.purchaseDate,
-      organizationId: newData.organizationId,
-      supplier: newData.supplier,
-      itemDetailRequests: newItem
-    }).then(res => {
-      if (res.data.success) {
-        navigator("/invoice")
-      }
-    }, err => {
-      console.log(err)
-    })
+
+    if (selectedFile) {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+        if (res.data.success) {
+          InvoiceService.saveInvoice({
+            invoiceCode: newData.invoiceCode,
+            purchaseBy: newData.purchaseBy,
+            purchaseDate: newData.purchaseDate,
+            organizationId: newData.organizationId,
+            supplier: newData.supplier,
+            image: res.data.payload,
+            itemDetailRequests: newItem
+          }).then(res => {
+            if (res.data.success) {
+              navigator("/invoice")
+            }
+          })
+        }
+      })
+    } else {
+      InvoiceService.saveInvoice({
+        invoiceCode: newData.invoiceCode,
+        purchaseBy: newData.purchaseBy,
+        purchaseDate: newData.purchaseDate,
+        organizationId: newData.organizationId,
+        supplier: newData.supplier,
+        itemDetailRequests: newItem
+      }).then(res => {
+        if (res.data.success) {
+          navigator("/invoice")
+        }
+      })
+    }
   }
 
   const filteredCategoryName =
@@ -200,7 +201,7 @@ export default function AddInvoiceComponent() {
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
         <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
-          <h1 className="flex items-center text-custom-midnight-blue">
+          <h1 className="flex items-center">
             <FaFileInvoice /> &nbsp;Add Invoice
           </h1>
         </div>
@@ -370,7 +371,7 @@ export default function AddInvoiceComponent() {
                               <Combobox.Input
                                 className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => val.name}
-                                onChange={(event) => setQuery(event.target.value)}
+                                onChange={(e) => handleSelectionChangeItem(e, index)}
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                                 <ChevronUpDownIcon

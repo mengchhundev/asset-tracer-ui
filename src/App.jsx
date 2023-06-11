@@ -66,7 +66,7 @@ function App() {
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
             {/* Invoice */}
             <Route path='/invoice' element={<InvoiceComponent />} />
-            <Route path='/invoice/view' element={<ViewInvoiceComponent />} />
+            <Route path='/invoice/view/:id' element={<ViewInvoiceComponent />} />
             <Route path='/invoice/update' element={<UpdateInvoiceComponent />} />
             <Route path='/invoice/add' element={<AddInvoiceComponent />} />
 

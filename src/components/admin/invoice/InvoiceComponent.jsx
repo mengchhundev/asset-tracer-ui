@@ -278,8 +278,7 @@ export default function AssetComponent() {
                                   >
                                     <Listbox.Option className="flex flex-col">
                                       <NavLink
-                                        onClick={() => dispatch(setInvoiceDetail(list))}
-                                        to="/invoice/view"
+                                        to={`/invoice/view/${list.id}`}
                                         className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                       >
                                         <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>

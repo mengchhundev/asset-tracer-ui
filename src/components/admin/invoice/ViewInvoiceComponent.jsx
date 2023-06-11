@@ -1,14 +1,34 @@
 import React from "react";
 import upload from "../../../assets/images/Room/Upload.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaFileInvoice } from "react-icons/fa";
 import upload_placeholder from '../../../assets/images/placeholder/upload_placeholder.svg';
+import { useEffect } from "react";
+import InvoiceService from "../../../redux/services/InvoiceService";
+import { setInvoiceDetail } from "../../../redux/slices/InvoiceSlice";
+import { useState } from "react";
+import FileUploadService from "../../../redux/services/FileUploadService";
 
 export default function ViewInvoiceComponent(props) {
 
   const invoiceDetail = useSelector(state => state.invoice.invoiceDetail)
-  console.log(invoiceDetail)
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const [image, setImage] = useState()
+
+  useEffect(() => {
+    InvoiceService.getInvoiceById(id).then(res => {
+      console.log(res.data)
+      if (res.data.success) {
+        dispatch(setInvoiceDetail(res.data.payload))
+        if (res.data.payload.image) {
+          setImage(FileUploadService.getImage(res.data.payload.image))
+        }
+      }
+    })
+  }, [id])
+  
   return (
     <>
       <main className="overflow-x-hidden bg-white rounded-xl relative con-Shadow text-text-color">
@@ -21,7 +41,7 @@ export default function ViewInvoiceComponent(props) {
 
 
         <div className="flex flex-wrap xl:flex-nowrap justify-between w-full p-10 pb-5">
-          <div className="w-full md:w-7/12 lg:w-full xl:w-7/12">
+          <div className="w-full lg:w-full xl:w-7/12">
             <div className="text-base font-sp-pro-text-semibold w-full ">
               <h1>Invoice Detail</h1>
             </div>
@@ -84,8 +104,8 @@ export default function ViewInvoiceComponent(props) {
                       Total
                     </td>
                   </tr>
-                  {invoiceDetail.itemDetails.map((list, index) => (
-                    <tr>
+                  {invoiceDetail?.itemDetails.map((list, index) => (
+                    <tr key={index}>
                       <td className="w-3/12 py-3 capitalize">{list.name}</td>
                       <td className="w-3/12 py-3">
                         {list.qty}
@@ -97,7 +117,7 @@ export default function ViewInvoiceComponent(props) {
                         {list.discount}
                       </td>
                       <td className="w-3/12 py-3">
-                        {list.qty  * list.unitPrice}
+                        {list.qty * list.unitPrice}
                       </td>
                     </tr>
 
@@ -106,12 +126,12 @@ export default function ViewInvoiceComponent(props) {
               </table>
             </section>
           </div>
-          <div className="w-9/12 md:w-[22rem] lg:w-[24rem] mx-auto">
+          <div className="w-full sm:w-[24rem] xl:w-[28rem] mx-auto">
             <div className="px-5 my-5 flex">
               <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
                 <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
-                  <div className='w-full h-80 flex p-5 relative'>
-                    <img className="block m-auto h-32" src={upload_placeholder} />
+                  <div className='w-full flex p-5 relative'>
+                    <img className="block m-auto h-full" src={image != null || image != "" ? image : upload_placeholder} />
                   </div>
                   <br /><br />
                 </div>
