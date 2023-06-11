@@ -79,6 +79,48 @@ export default function AddInvoiceComponent() {
     }
   ])
 
+
+  const formik = useFormik({
+    initialValues: { ...newData, newItem },
+    validationSchema: Yup.object().shape({
+      invoiceCode: Yup.string().required("Invoice code is required"),
+      purchaseDate: Yup.string().required("Purchase date is required"),
+      purchaseBy: Yup.string().required("Purchase by is required"),
+      newItem: Yup.array().of(
+        Yup.object().shape({
+          name: Yup.string().required("Item name is required"),
+          qty: Yup.string().required("QTY is required"),
+          unitPrice: Yup.string().required("Unit price is required"),
+          normalCategoryId: Yup.string().required("Category is required"),
+        })
+      )
+    }),
+    onSubmit: (val, { resetForm }) => {
+      // console.log(newItem)
+      // handleSaveInvoice()
+      // setNewData({
+      //   invoiceCode: "",
+      //   purchaseBy: "",
+      //   purchaseDate: "",
+      //   image: "",
+      //   organizationId: organization.id,
+      //   supplier: "",
+      //   itemDetailRequests: []
+      // })
+      // setNewItem([
+      //   {
+      //     name: "",
+      //     image: "",
+      //     qty: "",
+      //     unitPrice: "",
+      //     discount: "",
+      //     normalCategoryId: "",
+      //     organizationId: organization.id
+      //   }
+      // ])
+    }
+  });
+
   const handleAddMoreItem = () => {
     setNewItem([...newItem, {
       name: "",
@@ -89,14 +131,18 @@ export default function AddInvoiceComponent() {
       normalCategoryId: "",
       organizationId: organization.id
     }])
+
+    formik.values.newItem.push(...newItem)
   }
 
-  const handleDeleteItem = (i) => {
+  const handleDeleteItem = (index) => {
     const val = [...newItem]
-    val.splice(i, 1)
+    val.splice(index, 1)
     setNewItem(val)
+    formik.values.newItem.splice(index, 1)
   }
 
+  console.log(formik.values)
   const handleInputChangeItem = (e, index) => {
     const { name, value } = e.target
     const onChangeVal = [...newItem]
@@ -130,43 +176,7 @@ export default function AddInvoiceComponent() {
     }, err => {
       console.log(err)
     })
-
-
   }
-
-  const formik = useFormik({
-    initialValues: newData,
-    validationSchema: Yup.object().shape({
-      invoiceCode: Yup.string().required("Invoice code is required"),
-      purchaseDate: Yup.string().required("Purchase date is required"),
-      purchaseBy: Yup.string().required("Purchase by is required"),
-    }),
-    onSubmit: (val, { resetForm }) => {
-      console.log(newItem)
-      handleSaveInvoice()
-      setNewData({
-        invoiceCode: "",
-        purchaseBy: "",
-        purchaseDate: "",
-        image: "",
-        organizationId: organization.id,
-        supplier: "",
-        itemDetailRequests: []
-      })
-      setNewItem([
-        {
-          name: "",
-          image: "",
-          qty: "",
-          unitPrice: "",
-          discount: "",
-          normalCategoryId: "",
-          organizationId: organization.id
-        }
-      ])
-    }
-  });
-
 
   const filteredCategoryName =
     query === ""
@@ -289,7 +299,7 @@ export default function AddInvoiceComponent() {
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='Item name'
                       />
-                      {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+                      {formik.touched?.newItem && formik.errors?.newItem && formik.errors?.newItem[index]?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors?.newItem[index]?.name}</p> : null}
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm"> QTY <span className='text-reject'>*</span></label>
@@ -302,7 +312,7 @@ export default function AddInvoiceComponent() {
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='0'
                       />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                      {formik.touched?.newItem && formik.errors?.newItem && formik.errors?.newItem[index]?.qty ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors?.newItem[index].qty}</p> : null}
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Unit Price <span className='text-reject'>*</span></label>
@@ -315,7 +325,7 @@ export default function AddInvoiceComponent() {
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='0'
                       />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                      {formik.touched?.newItem && formik.errors?.newItem && formik.errors?.newItem[index]?.unitPrice ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors?.newItem[index].unitPrice}</p> : null}
                     </div>
 
                   </div>
@@ -331,7 +341,7 @@ export default function AddInvoiceComponent() {
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='0'
                       />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Model</label>
@@ -344,7 +354,7 @@ export default function AddInvoiceComponent() {
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='Enter model name...'
                       />
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
@@ -399,7 +409,7 @@ export default function AddInvoiceComponent() {
                           </div>
                         </Combobox>
                       </div>
-                      {/* {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null} */}
+                      {formik.touched?.newItem && formik.errors?.newItem && formik.errors?.newItem[index]?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors?.newItem[index].normalCategoryId}</p> : null}
                     </div>
                   </div>
                 </section>

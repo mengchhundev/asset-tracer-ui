@@ -7,8 +7,8 @@ import upload_placeholder from '../../../assets/images/placeholder/upload_placeh
 
 export default function ViewInvoiceComponent(props) {
 
-  const getInvoiceDetail = useSelector(state => console.log(state.invoice.invoiceDetail))
-
+  const invoiceDetail = useSelector(state => state.invoice.invoiceDetail)
+  console.log(invoiceDetail)
   return (
     <>
       <main className="overflow-x-hidden bg-white rounded-xl relative con-Shadow text-text-color">
@@ -20,7 +20,7 @@ export default function ViewInvoiceComponent(props) {
         <hr className="border-[#E1E9EE] border-1" />
 
 
-        <div className="flex flex-wrap-reverse xl:flex-nowrap justify-between w-full p-10 pb-5">
+        <div className="flex flex-wrap xl:flex-nowrap justify-between w-full p-10 pb-5">
           <div className="w-full md:w-7/12 lg:w-full xl:w-7/12">
             <div className="text-base font-sp-pro-text-semibold w-full ">
               <h1>Invoice Detail</h1>
@@ -44,15 +44,15 @@ export default function ViewInvoiceComponent(props) {
 
                   </tr>
                   <tr>
-                    <td className="w-3/12 py-3 text-blue-700">#3061</td>
+                    <td className="w-3/12 py-3 text-blue-700">{invoiceDetail.invoiceCode}</td>
                     <td className="w-3/12 py-3">
-                      Boeurn Mnor
+                      {invoiceDetail.purchaseBy}
                     </td>
                     <td className="w-3/12 py-3">
-                      Computer Shop
+                      {invoiceDetail.supplier}
                     </td>
                     <td className="w-3/12 py-3">
-                      Jan 6 2023
+                      {invoiceDetail.purchaseDate}
                     </td>
 
                   </tr>
@@ -84,36 +84,24 @@ export default function ViewInvoiceComponent(props) {
                       Total
                     </td>
                   </tr>
-                  <tr>
-                    <td className="w-3/12 py-3">Computer</td>
-                    <td className="w-3/12 py-3">
-                      10
-                    </td>
-                    <td className="w-3/12 py-3">
-                      1200
-                    </td>
-                    <td className="w-3/12 py-3">
-                      0
-                    </td>
-                    <td className="w-3/12 py-3">
-                      12000
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="w-3/12 py-3">Computer</td>
-                    <td className="w-3/12 py-3">
-                      10
-                    </td>
-                    <td className="w-3/12 py-3">
-                      1200
-                    </td>
-                    <td className="w-3/12 py-3">
-                      0
-                    </td>
-                    <td className="w-3/12 py-3">
-                      12000
-                    </td>
-                  </tr>
+                  {invoiceDetail.itemDetails.map((list, index) => (
+                    <tr>
+                      <td className="w-3/12 py-3 capitalize">{list.name}</td>
+                      <td className="w-3/12 py-3">
+                        {list.qty}
+                      </td>
+                      <td className="w-3/12 py-3">
+                        {list.unitPrice}
+                      </td>
+                      <td className="w-3/12 py-3">
+                        {list.discount}
+                      </td>
+                      <td className="w-3/12 py-3">
+                        {list.qty  * list.unitPrice}
+                      </td>
+                    </tr>
+
+                  ))}
                 </tbody>
               </table>
             </section>
@@ -123,7 +111,7 @@ export default function ViewInvoiceComponent(props) {
               <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
                 <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
                   <div className='w-full h-80 flex p-5 relative'>
-                    <img className="block m-auto h-32" src={upload_placeholder}/>
+                    <img className="block m-auto h-32" src={upload_placeholder} />
                   </div>
                   <br /><br />
                 </div>
