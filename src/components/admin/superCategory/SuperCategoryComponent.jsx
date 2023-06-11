@@ -482,7 +482,7 @@ export default function SuperCategoryComponent() {
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
                 <button 
-                class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
                   <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
                   <label htmlFor="superCategory">
                   &nbsp; Cancel
@@ -491,7 +491,7 @@ export default function SuperCategoryComponent() {
               </div>
 
               <div className="">
-                <button class="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                <button className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
                   <FiSave className="text-lg" /> &nbsp; Add
                 </button>
               </div>
@@ -559,7 +559,7 @@ export default function SuperCategoryComponent() {
             />
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
-                <button class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
                 <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
                 <label htmlFor="EditSuperCategory">
                   &nbsp; Cancel
@@ -568,7 +568,7 @@ export default function SuperCategoryComponent() {
               </div>
 
               <div className="">
-                <button class="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                <button className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
                   <FiSave className="text-lg" /> &nbsp; Edit
                 </button>
               </div>

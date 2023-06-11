@@ -26,6 +26,16 @@ export default function NavbarComponent() {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const organizations = useSelector((state) => state.organization.data);
+  const [path, setPath] = useState()
+  let pathName = document.location.pathname
+
+  useEffect(() => {
+    if(pathName.includes("invoice")) {
+      setPath("Invoice")
+    } else if(pathName.includes("organization")){
+      setPath("Organization")
+    }
+  }, [pathName])
 
   let session = sessionStorage.getItem("organization");
   if (session) {
@@ -81,7 +91,8 @@ export default function NavbarComponent() {
         </div>
 
         <div className="flex items-center w-full justify-between">
-          <div className="font-sp-pro-text-semibold text-lg invisible lg:visible flex items-center rounded-md">
+          <div className="font-sp-pro-text-bold text-xl invisible lg:visible flex items-center rounded-md pl-12">
+                <h1>{path}</h1>
           </div>
           <nav className="flex items-center gap-2 ">
             <Menu

@@ -191,9 +191,9 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                         <div className='flex flex-wrap md:flex-row mt-5 justify-center'>
                             <div className=''>
                                 <div className="px-6">
-                                    <div className='space-y-5 shadow p-10 rounded-md mb-1 relative'>
-                                        <div className='border border-dashed py-8 border-primary block justify-center text-center p-4 rounded-lg'>
-                                            <div className='w-44 h-20 relative'>
+                                    <div className='space-y-5 shadow p-5 rounded-md mb-1 relative'>
+                                        <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
+                                            <div className='w-48 p-5 relative'>
                                                 {
                                                     selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
                                                         : image ? <img src={image} className='h-full m-auto' />
@@ -204,6 +204,7 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                                             <br />
                                             <label htmlFor='logo' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
                                             <input type="file" className='hidden' id='logo' onChange={handleFileSelect} />
+                                            <br /><br />
                                         </div>
                                     </div>
                                 </div>

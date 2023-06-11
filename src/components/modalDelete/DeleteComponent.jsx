@@ -61,9 +61,9 @@ export default function DeleteComponent() {
                 >
                   Cancel
                 </label>
-                <spann className="border bg-[#DF0404] bg-opacity-25 hover:bg-white text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
+                <span className="border bg-[#DF0404] bg-opacity-25 hover:bg-white text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
                   Delete
-                </spann>
+                </span>
               </div>
             </div>
           </div>

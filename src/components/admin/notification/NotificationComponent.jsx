@@ -261,7 +261,7 @@ export default function NotificationComponent() {
             }
           >
             <table className="table w-full">
-              <tbody className="divide divide-slate-800">
+              <tbody>
                 <tr className="text-sm font-sp-pro-text-semibold text-text-color">
                   <td className="w-1/12  bg-bg-main py-3">No</td>
                   <td className="w-1/12 bg-bg-main py-3">User Name</td>

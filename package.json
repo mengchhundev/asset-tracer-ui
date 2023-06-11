@@ -20,6 +20,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@szhsin/react-menu": "^3.5.3",
     "axios": "^1.4.0",
+    "boxicons": "^2.1.4",
     "daisyui": "^2.51.6",
     "firebase": "^9.21.0",
     "flowbite": "^1.6.5",

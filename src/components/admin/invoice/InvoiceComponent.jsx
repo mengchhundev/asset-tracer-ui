@@ -6,7 +6,7 @@ import pc from "../../../assets/images/pc.png";
 import cross from "../../../assets/images/cross.png";
 import furniture from "../../../assets/images/furniture.png";
 import book from "../../../assets/images/book.png";
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Listbox, Transition } from "@headlessui/react";
 import "../../../style/shadow.css"
 import {
   CheckIcon,
@@ -14,12 +14,17 @@ import {
   EllipsisVerticalIcon,
 } from "@heroicons/react/20/solid";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ViewInvoiceComponent from "./ViewInvoiceComponent";
 import { useDispatch, useSelector } from "react-redux";
 import InvoiceService from "../../../redux/services/InvoiceService";
 import { setAllInvoice } from "../../../redux/slices/InvoiceSlice";
 import moment from "moment";
+import { TbListDetails } from "react-icons/tb";
+import { FiTrash2 } from "react-icons/fi";
+import { AiOutlineCloudDownload } from "react-icons/ai";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+
 const people = [
   { id: 1, name: "Asset" },
   { id: 2, name: "HDMI" },
@@ -77,9 +82,7 @@ export default function AssetComponent() {
 
   return (
     <>
-      <main
-        className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow"
-      >
+      <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
         <div className="gap-6 overflow-hidden z-10">
           <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
             {/* header */}
@@ -175,8 +178,8 @@ export default function AssetComponent() {
                                   {selected ? (
                                     <span
                                       className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active
-                                          ? "text-white"
-                                          : "text-text-color"
+                                        ? "text-white"
+                                        : "text-text-color"
                                         }`}
                                     >
                                       <CheckIcon
@@ -211,65 +214,111 @@ export default function AssetComponent() {
             </div>
           </div>
 
-          <div
-            className="min-h-[65vh]"
-
-          >
+          <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto  flex-grow">
             {/* table */}
-            <div className="px-5 z-0">
+            <div className="px-5 z-0 flex-grow ">
               <table className="table w-full">
                 <tbody className="">
-                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 text-text-color">
-                    <td className="w-1/12  bg-bg-main py-3">No</td>
-                    <td className="w-1/12 bg-bg-main py-3 text-center">
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-text-color">
+                    <td className="w-2/12  bg-bg-main py-3">No</td>
+                    <td className="w-2/12 bg-bg-main py-3">
                       Invoice
                     </td>
-                    <td className="w-3/12 bg-bg-main py-3 text-center">
+                    <td className="w-3/12 bg-bg-main py-3">
                       Supplier
                     </td>
-                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                    <td className="w-3/12 bg-bg-main py-3">
                       Purchaser
                     </td>
-                    <td className="w-2/12 bg-bg-main py-3 text-center">Date</td>
-                    <td className="w-1/12  bg-bg-main text-center">More</td>
+                    <td className="w-2/12 bg-bg-main py-3">Date</td>
+                    <td className="w-1/12  bg-bg-main py-3">More</td>
                   </tr>
                   {getAllInvoices?.map((invoice, index) => (
                     <tr
                       key={index}
-                      className="text-sm font-sp-pro-text-regular text-text-color text-center"
+                      className="text-sm font-sp-pro-text-regular"
                     >
-                      <td className="w-1/12 py-2 text-text-color text-left">
+                      <td className="py-2.5">
                         {i + index}
                       </td>
-                      <td className="w-1/12 py-2">
-                        <div className="">{invoice.invoiceCode}</div>
+                      <td className="py-2.5">
+                        {invoice.invoiceCode}
                       </td>
-                      <td className="w-2/12 py-2">
-                        <div className="">{invoice.supplier}</div>
+                      <td className="py-2.5">
+                        {invoice.supplier}
                       </td>
-                      <td className="w-2/12 py-2 items-start">
-                        <div className="relative  mr-8 flex items-center">
-                          <img
-                            src={invoice.image}
-                            loading="lazy"
-                            className="rounded-full h-10 w-10"
-                          />
-                          <div className="p-2">{invoice.purchaseBy}</div>
-                        </div>
+                      <td className="py-2.5">
+                        {invoice.purchaseBy}
                       </td>
-                      <td className="w-1.5/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5 items-center">
+                      <td className="py-2.5">
                         {moment(invoice.purchaseDate).format("MMM DD YYYY")}
                       </td>
                       {/* menu dropdown */}
-                      <td>
-                        <div className="dropdown dropdown-left ">
+                      <td className="py-2.5">
+                        <Listbox as="div">
+                          {({ open }) => (
+                            <>
+                              <div className="relative">
+                                <span className="">
+                                  <Listbox.Button className="h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer">
+                                    <EllipsisVerticalIcon />
+                                  </Listbox.Button>
+                                </span>
+                                <Transition
+                                  show={open}
+                                  leave=""
+                                  leaveFrom="opacity-100"
+                                  leaveTo="opacity-0"
+                                >
+                                  <Listbox.Options
+                                    static
+                                    className="border border-bg-primary mt-1  bg-white shadow-md rounded-md absolute right-0 z-50 w-48 p-2"
+                                  >
+                                    <Listbox.Option className="flex flex-col">
+                                      <NavLink
+                                        // onClick={() => showOrganizationDetail(list)}
+                                        
+                                        htmlFor='show-organization'
+                                        className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                          <TbListDetails /> View
+                                        </span>
+                                      </NavLink>
+                                      <NavLink
+                                        to={"/update-invoice"}
+                                        htmlFor='create-organization'
+                                        className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                          <FiTrash2 /> Edit
+                                        </span>
+                                      </NavLink>
+                                      <label
+                                        onClick={() => setOrganizationObj(list)}
+                                        htmlFor='create-organization'
+                                        className={`cursor-pointer text-primary hover:bg-primary hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                          <AiOutlineCloudDownload /> Download
+                                        </span>
+                                      </label>
+
+                                    </Listbox.Option>
+                                  </Listbox.Options>
+                                </Transition>
+                              </div>
+                            </>
+                          )}
+                        </Listbox>
+                        {/* <div className="dropdown dropdown-left">
                           <EllipsisVerticalIcon
                             tabIndex={0}
-                            className=" h-7 w-7 text-gray-500 bg-slate-100 rounded-full hover:bg-primary hover:bg-opacity-10 cursor-pointer"
+                            className=" h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer"
                           />
                           <ul
                             tabIndex={0}
-                            className="z-50 dropdown-content menu shadow bg-base-100 rounded-sm w-52"
+                            className="z-50 dropdown-content menu shadow bg-white rounded-lg w-44 mr-2 font-sp-pro-text-semibold"
                           >
                             <Link to="/view-invoice">
                               <li
@@ -281,7 +330,7 @@ export default function AssetComponent() {
                                   htmlFor="detail"
                                   className="hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4"
                                 >
-                                  View Invoice
+                                  <TbListDetails /> View Invoice
                                 </label>
                               </li>
                             </Link>
@@ -291,7 +340,7 @@ export default function AssetComponent() {
                                   htmlFor="update"
                                   className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer"
                                 >
-                                  Update Invoice
+                                  <FiTrash2 /> Update Invoice
                                 </label>
                               </li>
                             </Link>
@@ -301,23 +350,27 @@ export default function AssetComponent() {
                                 className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer"
                                 htmlFor="delete"
                               >
-                                Download Invoice
+                                <AiOutlineCloudDownload /> Download Invoice
                               </label>
                             </li>
                           </ul>
-                        </div>
+                        </div> */}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+
+
             {/* pagination */}
-            <div className="w-full flex justify-between items-center text-sm text-text-color font-sp-pro-text-medium text-gray-500 h-14 px-7">
-              <div className="">Showing data 1 to 8 of {totalRow} entries</div>
+            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
+              <div className="font-sp-pro-text-regular opacity-90">
+                Showing data 1 to 8 of 256K entries
+              </div>
               <div id="react-paginate" className="">
                 <ReactPaginate
-                  nextLabel=">"
+                  nextLabel=" >"
                   onPageChange={handlePageClick}
                   pageRangeDisplayed={3}
                   marginPagesDisplayed={2}
@@ -377,7 +430,7 @@ export default function AssetComponent() {
                 </div>
               </div>
               <select className="select select-bordered w-full ">
-                <option disabled selected>
+                <option disabled defaultValue="">
                   Super Category
                 </option>
                 <option>Normal Apple</option>

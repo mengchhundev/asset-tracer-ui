@@ -32,13 +32,17 @@ import NotificationComponent from './components/admin/notification/NotificationC
 import { useLayoutEffect } from 'react'
 import AddInvoiceComponent from './components/admin/invoice/AddInvoiceComponent'
 import AssetSetComponent from './components/admin/asset/AssetSetComponent'
+import { useSelector } from 'react-redux'
 
 function App() {
-   const {pathname}= useLocation();
+  const { pathname } = useLocation();
+  const item = useSelector(state => state.organization?.item)
 
-   useLayoutEffect(()=>{
-    window.scrollTo({top:0, behavior:"auto"});
-   },[pathname]);
+  const organization = localStorage.getItem("organization")
+  console.log(organization)
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [pathname]);
 
   return (
     <>
@@ -52,7 +56,7 @@ function App() {
         <Route path='/email-sending' element={<EmailSendingComponent />} />
         <Route path='/reset-password' element={<ResetPasswordComponent />} />
         <Route path='/success' element={<SuccessComponent />} />
-        <Route path='*' element={<NotFoundPageComponent/>}/>
+        <Route path='*' element={<NotFoundPageComponent />} />
         <Route element={<ProtectedRoute isLogged={localStorage.getItem("token") ? true : false} />}>
           <Route path="/" element={<MainComponent />}>
             <Route path='/organization' element={<OrganizationListComponent />} />
@@ -61,16 +65,16 @@ function App() {
             <Route path='/super-category' element={<SuperCategoryComponent />} />
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
             {/* Invoice */}
-            <Route path='/invoice' element={<InvoiceComponent/>} />
+            <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/view-invoice' element={<ViewInvoiceComponent />} />
             <Route path='/update-invoice' element={<UpdateInvoiceComponent />} />
-            <Route path='/invoice/add' element={<AddInvoiceComponent/>} />
+            <Route path='/invoice/add' element={<AddInvoiceComponent />} />
 
             {/* asset page */}
             <Route path='/asset' element={<AssetComponent />}></Route>
-            <Route path='/asset/add' element={<AssetAddComponent/>}></Route>
+            <Route path='/asset/add' element={<AssetAddComponent />}></Route>
             <Route path='/asset/update' element={<AssetUpdate />} />
-            <Route path='/asset-add' element={<AssetAddComponent/>}></Route>
+            <Route path='/asset-add' element={<AssetAddComponent />}></Route>
             <Route path='/asset-set' element={<AssetSetComponent />} />
 
             <Route path='/tracking' element={<TrackingComponent />}></Route>
@@ -79,9 +83,9 @@ function App() {
             <Route path='/user-request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent />} />
             <Route path='/room' element={<RoomListComponent />}></Route>
-            
-            <Route path='/notification' element={<NotificationComponent/>}/>
-            
+
+            <Route path='/notification' element={<NotificationComponent />} />
+
           </Route>
         </Route>
       </Routes>
