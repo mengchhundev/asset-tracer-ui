@@ -64,10 +64,11 @@ function App() {
             <Route path='/dashboard' element={<DashboardComponent />} />
             <Route path='/super-category' element={<SuperCategoryComponent />} />
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
+
             {/* Invoice */}
             <Route path='/invoice' element={<InvoiceComponent />} />
             <Route path='/invoice/view/:id' element={<ViewInvoiceComponent />} />
-            <Route path='/invoice/update' element={<UpdateInvoiceComponent />} />
+            <Route path='/invoice/update/:id' element={<UpdateInvoiceComponent />} />
             <Route path='/invoice/add' element={<AddInvoiceComponent />} />
 
             {/* asset page */}

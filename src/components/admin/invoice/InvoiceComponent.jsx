@@ -36,9 +36,10 @@ export default function AssetComponent() {
   const [i, setI] = useState(1);
   const getAllInvoices = useSelector((state) => state.invoice.data);
   const [totalRow, setTotalRow] = useState(0)
+  const organization = JSON.parse(sessionStorage.getItem("organization"))
 
-  const handleGetAllInvoices = (page) => {
-    InvoiceService.getAllInvoices(page).then(res => {
+  const handleGetAllInvoices = () => {
+    InvoiceService.getAllInvoices(organization.id).then(res => {
       if (res.data.success) {
         dispatch(setAllInvoice(res.data.payload));
         setTotalRow(res.data.totalPage)
@@ -286,7 +287,7 @@ export default function AssetComponent() {
                                         </span>
                                       </NavLink>
                                       <NavLink
-                                        to={"/invoice/update"}
+                                        to={`/invoice/update/${list.id}`}
                                         htmlFor='create-organization'
                                         className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                       >

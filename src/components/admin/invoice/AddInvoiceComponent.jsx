@@ -19,8 +19,6 @@ import NormalCategoryService from "../../../redux/services/NormalCategoryService
 import { setCategoryName } from "../../../redux/slices/NormalCategorySlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
 
-
-
 export default function AddInvoiceComponent() {
 
   const [normalCategoryName, setNormalCategoryName] = useState([]);
