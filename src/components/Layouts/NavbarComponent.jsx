@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { RiNotification3Line, RiArrowDownSLine } from "react-icons/ri";
-import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
+import {
+  Menu,
+  MenuItem,
+  MenuButton,
+  FocusableItem,
+  MenuGroup
+} from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
+import '@szhsin/react-menu/dist/index.css';
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/A_Tracer_logo1.png";
 import "../../style/navbar.css";
@@ -20,6 +27,12 @@ import placeholder from "../../assets/images/placeholder/placeholder.png";
 import LoadingComponent from "../../components/LoadingComponent";
 
 export default function NavbarComponent() {
+
+  const [overflow, setOverflow] = useState('auto');
+  const [position, setPosition] = useState('auto');
+  const [filter, setFilter] = useState('');
+
+
   const [isShowLoading, setIsShowLoading] = useState(false);
   const item = useSelector((state) => state.organization.item);
   const organization = JSON.parse(sessionStorage.getItem("organization"));
@@ -30,9 +43,9 @@ export default function NavbarComponent() {
   let pathName = document.location.pathname
 
   useEffect(() => {
-    if(pathName.includes("invoice")) {
+    if (pathName.includes("invoice")) {
       setPath("Invoice")
-    } else if(pathName.includes("organization")){
+    } else if (pathName.includes("organization")) {
       setPath("Organization")
     }
   }, [pathName])
@@ -92,7 +105,7 @@ export default function NavbarComponent() {
 
         <div className="flex items-center w-full justify-between">
           <div className="font-sp-pro-text-bold text-xl invisible lg:visible flex items-center rounded-md pl-12">
-                <h1>{path}</h1>
+            <h1>{path}</h1>
           </div>
           <nav className="flex items-center gap-2 ">
             <Menu
@@ -227,7 +240,20 @@ export default function NavbarComponent() {
               transition
               arrowClassName="bg-secondary-100 "
               menuClassName="bg-bg-color px-4 rounded-lg border"
+
             >
+              <FocusableItem>
+                {({ ref }) => (
+                  <input
+                    ref={ref}
+                    type="text"
+                    placeholder="Type a number"
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                  />
+                )}
+              </FocusableItem>
+              
               <MenuItem className="p-0 m-0 hover:bg-transparent">
                 {organizations.length != 0 ? (
                   <>

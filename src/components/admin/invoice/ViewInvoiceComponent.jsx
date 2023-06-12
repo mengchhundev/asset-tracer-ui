@@ -9,6 +9,8 @@ import InvoiceService from "../../../redux/services/InvoiceService";
 import { setInvoiceDetail } from "../../../redux/slices/InvoiceSlice";
 import { useState } from "react";
 import FileUploadService from "../../../redux/services/FileUploadService";
+import { BiCloudDownload } from "react-icons/bi";
+import moment from "moment";
 
 export default function ViewInvoiceComponent(props) {
 
@@ -28,7 +30,7 @@ export default function ViewInvoiceComponent(props) {
       }
     })
   }, [id])
-  
+
   return (
     <>
       <main className="overflow-x-hidden bg-white rounded-xl relative con-Shadow text-text-color">
@@ -72,7 +74,7 @@ export default function ViewInvoiceComponent(props) {
                       {invoiceDetail.supplier}
                     </td>
                     <td className="w-3/12 py-3">
-                      {invoiceDetail.purchaseDate}
+                      {moment(invoiceDetail.purchaseDate).format("MMM DD YYYY")}
                     </td>
 
                   </tr>
@@ -128,14 +130,12 @@ export default function ViewInvoiceComponent(props) {
           </div>
           <div className="w-full sm:w-[24rem] xl:w-[28rem] mx-auto">
             <div className="px-5 my-5 flex">
-              <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
-                <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
-                  <div className='w-full flex p-5 relative'>
-                    <img className="block m-auto h-full" src={image != null || image != "" ? image : upload_placeholder} />
-                  </div>
-                  <br /><br />
-                </div>
+              <div className='w-full flex p-5 relative'>
+                <img className="block m-auto h-full" src={image != null || image != "" ? image : upload_placeholder} />
               </div>
+            </div>
+            <div className="w-full px-10">
+              <button className="flex justify-center items-center text-base border border-primary text-primary p-1 mx-auto w-full rounded-lg gap-1"><BiCloudDownload className="text-xl"/> Print</button>
             </div>
           </div>
         </div>
