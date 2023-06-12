@@ -11,5 +11,9 @@ const getAllNormalCategoryName = async (orgId) => {
     return await apiV2.get(`/normal-categories/name/${orgId}`)
 }
 
-const NormalCategoryService = { getAllNormalCategory, getAllNormalCategoryName,addNormalCategory};
+const getNormalCategoryName = async (orgId) => {
+    return await apiV2.get(`/normal-categories/name/${orgId}`)
+}
+
+const NormalCategoryService = { getAllNormalCategory, getAllNormalCategoryName,addNormalCategory, getNormalCategoryName};
 export default NormalCategoryService;

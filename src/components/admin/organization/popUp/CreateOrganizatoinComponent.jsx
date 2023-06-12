@@ -98,7 +98,6 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                 }
             })
         }
-
     }
 
     const handleUpdateOrganization = () => {

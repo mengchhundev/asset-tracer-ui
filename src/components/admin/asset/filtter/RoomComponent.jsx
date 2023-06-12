@@ -20,7 +20,6 @@ export default function RoomComponent() {
     RoomService.getAllRoom(orgId).then((res) => {
       if (res?.data?.success) {
         dispatch(setAllRoom(res.data.payload));
-        // console.log("get data res :", res.data.payload);
       }
     });
   };

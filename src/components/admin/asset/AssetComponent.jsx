@@ -1,20 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { BiCheck, BiDotsHorizontalRounded, BiEdit } from "react-icons/bi";
-import { RxCheck } from "react-icons/rx";
-
-// image
-import facebook from "../../../assets/images/user/fb.png";
-import linkin from "../../../assets/images/user/in.png";
-import cancel from "../../../assets/images/user/cancel.png";
-import check from "../../../assets/images/user/check.png";
-import { BsDot, BsGraphUp, BsPlus } from "react-icons/bs";
+import { BsDot, BsPlus } from "react-icons/bs";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import AssetViewComponent from "./popUp/AssetViewComponent";
 //import combobox
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import AddComponent from "../Room/popUpRoom/AddComponent";
-import UpdateComponent from "../Room/popUpRoom/UpdateComponent";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import DeleteComponent from "../../modalDelete/DeleteComponent";
@@ -48,36 +38,44 @@ export default function AssetComponent() {
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
+  // getdata
+  const dispatch = useDispatch();
+  const getdata = useSelector((state) => state.asset.data);
+  console.log("getdata", getdata);
+  const [totalRow, setTotalRow] = useState(0);
+  const [i, setI] = useState(1);
+
+  const getAllAsset = (page) => {
+    AssetService.getAllAssets(page).then(res => {
+      // console.log("res data", res.data.payload);
+      if (res.data.success) {
+        dispatch(setData(res.data.payload));
+        setTotalRow(res.data.totalPage)
+      }
+    })
+    .catch((err) => {
+      dispatch(setData([]));
+        setTotalRow(0)
+    });
+  };
+  useEffect(() => {
+    getAllAsset(1);
+  }, [])
 
   // pagination
-  const [pageCount, setPageCount] = useState(2);
+  const [pageCount, setPageCount] = useState(4);
   let [isOpen, setIsOpen] = useState(false);
   function openDetail() {
     setIsOpen(true);
   }
   const handlePageClick = (event) => {
-    getAllSuperCategory(event.selected + 1);
-    setI(event.selected * 10 + 1);
+    getAllAsset(event.selected + 1);
+    setI(event.selected * 8 + 1);
   };
 
-  // getdata
-  const dispatch = useDispatch();
-  const getdata = useSelector((state) => state.asset.data);
-  console.log("getdata", getdata);
-
-  const getAllAsset = () => {
-    AssetService.getAllAssets()
-      .then((res) => {
-        // console.log("res data", res.data.payload);
-        dispatch(setData(res.data.payload));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
   useEffect(() => {
-    getAllAsset();
-  }, []);
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [totalRow]);
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
@@ -177,8 +175,9 @@ export default function AssetComponent() {
                                 </span>
                                 {selected ? (
                                   <span
-                                  className={`${active ? "text-primary" : "text-primary"
-                                } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                    className={`${
+                                      active ? "text-primary" : "text-primary"
+                                    } absolute inset-y-0 left-0 flex items-center pl-2`}
                                   >
                                     {/* <CheckIcon
                                       className="h-5 w-5"
@@ -244,14 +243,13 @@ export default function AssetComponent() {
                       </td>
                     </tr>
 
-                    {/* {user.map((asset) => ( */}
-                    {getdata.map((asset, index) => (
+                    {getdata?.map((asset, index) => (
                       <tr
                         key={index}
                         className="text-sm font-sp-pro-text-regular text-text-color"
                       >
                         <td className="w-1/12 py-3 text-center text-text-color">
-                          {/* {index + 1}  */}
+                          {i + index}
                         </td>
 
                         {/* Name */}
@@ -264,6 +262,7 @@ export default function AssetComponent() {
                                 className="rounded-full h-full w-full"
                               />
                             </div>
+
                             <div className="flex flex-col">
                               <span className="text-text-color font-sp-pro-text-regular text-sm">
                                 {asset.itemDetail.normalCategoryName}
@@ -277,15 +276,20 @@ export default function AssetComponent() {
 
                         {/* category */}
                         <td className="w-2/12 py-3">
-                          <div className="flex items-center m-auto space-x-3">
-                            <img
-                              src={asset.itemDetail.image}
-                              loading="lazy"
-                              className="w-8 h-8 overflow-hidden rounded-full flex items-center justify-center"
-                            />
-                            <span className="text-sm text-text-color">
-                              {asset.itemDetail.superCategoryName}
-                            </span>
+                          <div className="flex items-center">
+                            <div className="relative  mr-3 w-8 h-8 ">
+                              <img
+                                src={asset.itemDetail.image}
+                                loading="lazy"
+                                className="rounded-full h-full w-full"
+                              />
+                            </div>
+
+                            <div className="flex flex-col">
+                              <span className="text-sm text-text-color">
+                                {asset.itemDetail.superCategoryName}
+                              </span>
+                            </div>
                           </div>
                         </td>
 
@@ -315,6 +319,7 @@ export default function AssetComponent() {
                         </td>
                         <td className="w-2/12 py-3">
                           <div className="flex flex-rol space-x-1 items-center justify-center">
+                            {/* Delete */}
                             <span className="w-6 h-6 ">
                               <label
                                 htmlFor="modalDelete"
@@ -337,6 +342,7 @@ export default function AssetComponent() {
                                 </svg>
                               </label>
                             </span>
+
                             {/* update */}
                             <span>
                               <Link to={"/asset/update"}>
@@ -364,6 +370,7 @@ export default function AssetComponent() {
                               </Link>
                             </span>
 
+                            {/* view */}
                             <span className="w-6 h-6 ">
                               <label
                                 htmlFor="normalModal"
@@ -378,6 +385,35 @@ export default function AssetComponent() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              {/* pagination */}
+              <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
+                <div className="font-sp-pro-text-regular opacity-90">
+                  Showing data 1 to 8 of 256K entries
+                </div>
+                <div id="react-paginate" className="">
+                  <ReactPaginate
+                    nextLabel=" >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={2}
+                    pageCount={pageCount}
+                    previousLabel="< "
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakLabel="..."
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                  />
+                </div>
               </div>
 
               {/* Model Delete */}
@@ -395,35 +431,6 @@ export default function AssetComponent() {
                 className="modal-toggle"
               />
               <AssetViewComponent viewAsset={asset} className="modal" />
-            </div>
-          </div>
-
-          {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm py-2 font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
-            <div className="font-sp-pro-text-regular opacity-90">
-              Showing data 1 to 8 of 256K entries
-            </div>
-            <div id="react-paginate" className="">
-              <ReactPaginate
-                nextLabel=" >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="< "
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-              />
             </div>
           </div>
         </div>

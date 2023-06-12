@@ -5,43 +5,49 @@ import { HiChevronDown } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import NormalCategoryService from "../../../../redux/services/NormalCategoryService";
 import { setAllCategory } from "../../../../redux/slices/NormalCategorySlice";
-const people = [
+
+
+const getNormalCategory = [
   { id: 1, name: "Category" },
   { id: 2, name: "SR Class" },
-  { id: 3, name: "BTB Class" },
-  { id: 4, name: "PP Class" },
 ];
 
 export default function CategoryComponent() {
-  // get item data
-  const getNormalCategory = () => {
-    NormalCategoryService.getAllNormalCategory().then((res) => {
-      if (res?.data?.success) {
-        dispatch(setAllCategory(res.data.payload));
-      }
-    });
-  };
-  useEffect(() => {
-    getNormalCategory();
-  }, []);
+  // organization id
+  const organization = sessionStorage.getItem("organization");
+  const getOrganizationDetail = JSON.parse(organization);
+  const orgId = getOrganizationDetail.id;
 
+  // get normal category
+  const getNormalCategory = useSelector((state)=> state.normalCategory.data)
   const dispatch = useDispatch();
-  const getData = useSelector((state) => state.normalCategory.data);
-  console.log("get normal :", getData);
+  
+  const getNormalCategoryName = () => {
+     NormalCategoryService.getNormalCategoryName(orgId).then((res) => {
+      dispatch(setAllCategory(res.data.payload));
+      
+     }).catch((err)=>{
+      console.log(err);
+     })
+  }
+  useEffect(()=>{
+    getNormalCategoryName()
+  }, [])
 
-  // under  export
-  const [selected, setSelected] = useState(people[0]);
+  // fetch data API
+  const [selected, setSelected] = useState(getNormalCategory);
+  // const [selected, setSelected] = useState(getNormalCategory[0]);
   const [query, setQuery] = useState("");
-
-  const filteredPeople =
+  const filteredNormalCategory =
     query === ""
-      ? people
-      : people.filter((person) =>
-          person.name
+      ? getNormalCategory
+      : getNormalCategory.filter((normal) =>
+          normal.name
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
+
   return (
     <div className="mt-1">
       <div className="">
@@ -50,7 +56,7 @@ export default function CategoryComponent() {
             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
               <Combobox.Input
                 className="w-full border-[#E1E9EE] border rounded-lg py-2.5  pl-3 pr-10 text-xs outline-none focus:border-primary text-text-color text-opacity-50"
-                displayValue={(person) => person.name}
+                displayValue={(normal) => normal.name}
                 onChange={(event) => setQuery(event.target.value)}
               />
               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -68,14 +74,14 @@ export default function CategoryComponent() {
               afterLeave={() => setQuery("")}
             >
               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filteredPeople.length === 0 && query !== "" ? (
+                {filteredNormalCategory.length === 0 && query !== "" ? (
                   <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                     Nothing found.
                   </div>
                 ) : (
-                  filteredPeople.map((person) => (
+                  filteredNormalCategory.map((normal) => (
                     <Combobox.Option
-                      key={person.id}
+                      key={normal.id}
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
                           active
@@ -83,7 +89,7 @@ export default function CategoryComponent() {
                             : "text-text-color"
                         }`
                       }
-                      value={person}
+                      value={normal}
                     >
                       {({ selected, active }) => (
                         <>
@@ -92,7 +98,7 @@ export default function CategoryComponent() {
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >
-                            {person.name}
+                            {normal.name}
                           </span>
                           {selected ? (
                             <span
@@ -100,10 +106,6 @@ export default function CategoryComponent() {
                                 active ? "text-primary" : "text-primary"
                               } absolute inset-y-0 left-0 flex items-center pl-2`}
                             >
-                              {/* <CheckIcon
-                              className="h-5 w-5"
-                              aria-hidden="true"
-                            /> */}
                               <svg
                                 className="h-4 w-4"
                                 xmlns="http://www.w3.org/2000/svg"

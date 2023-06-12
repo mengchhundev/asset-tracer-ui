@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TbCalendarStats } from "react-icons/tb";
 import { HiOutlineQrcode } from "react-icons/hi";
-import { RiBarcodeFill } from "react-icons/ri";
+import { RiBarcodeFill, RiCloseFill } from "react-icons/ri";
 import logo from "../../../../assets/images/A_Tracer_logo1.png";
 import { BiCheck, BiHome } from "react-icons/bi";
 
@@ -25,7 +25,7 @@ function AssetViewComponent({ viewAsset }) {
   return (
     <>
       <div className="modal">
-        <div className="bg-bg-primary p-6 modal-box w-11/12 max-w-5xl">
+        <div className="p-6 modal-box w-11/12 max-w-5xl">
           {/* header */}
           <div className="flex justify-between mb-5">
             <div className="flex">
@@ -37,12 +37,8 @@ function AssetViewComponent({ viewAsset }) {
               </span>
             </div>
             <div className="flex">
-              <label
-                htmlFor="normalModal"
-                className="btn border-none bg-none text-text-color hover:bg-bg-primary hover:border-red-400 btn-sm btn-circle absolute right-4 top-4"
-              >
-                ✕
-              </label>
+              {/*  */}
+              <label htmlFor="normalModal"><RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" /></label>
             </div>
           </div>
 
@@ -176,8 +172,8 @@ function AssetViewComponent({ viewAsset }) {
                   <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
                     Identifiers
                   </h1>
-                  <div className="xl:flex md:flex-row rounded-lg border shadow-sm border-slate-200 ">
-                    <div className="col-span-6 p-4 lg:border-r-2 md:border-r-none border-gray-light h-[80px] mt-[10px]">
+                  <div className="grid lg:grid-cols-2 rounded-lg border shadow-sm border-slate-200 ">
+                    <div className="p-4 lg:border-r-2 md:border-r-none border-gray-light h-[80px] mt-[10px]">
                       <div className="mt-[-10px] ">
                         <label
                           htmlFor=""
@@ -198,7 +194,7 @@ function AssetViewComponent({ viewAsset }) {
                       </div>
                     </div>
 
-                    <div className="col-span-6 p-4">
+                    <div className="p-4">
                       <div>
                         <label
                           htmlFor=""
@@ -295,7 +291,7 @@ function AssetViewComponent({ viewAsset }) {
                           />
                           <div className="pl-2">
                             <span className="text-text-color font-sp-pro-text-regular text-sm">
-                              {viewAsset.createdAt}
+                              {viewAsset.owner}
                             </span>
                           </div>
                         </div>
@@ -316,7 +312,7 @@ function AssetViewComponent({ viewAsset }) {
                               <TbCalendarStats className="w-6 h-6 text-yellow" />
                             </span>
                             <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              {viewAsset.createdBy}
+                              {viewAsset.createdAt}
                             </span>
                           </p>
                         </div>

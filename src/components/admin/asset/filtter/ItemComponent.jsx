@@ -3,15 +3,15 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { HiChevronDown } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { setDataId } from "../../../../redux/slices/ItemDetailSlice";
+import { setData } from "../../../../redux/slices/ItemDetailSlice";
 import ItemDetailService from "../../../../redux/services/ItemDetailService";
 
 export default function ItemComponent() {
   // get item data
   const getAllRoom = () => {
-      ItemDetailService.getItemDetailById().then((res) => {
+      ItemDetailService.getItemDetail().then((res) => {
       if (res?.data?.success) {
-        dispatch(setDataId(res.data.payload));
+        dispatch(setData(res.data.payload));
       }
     });
   };
@@ -20,7 +20,7 @@ export default function ItemComponent() {
   }, []);
 
   const dispatch = useDispatch();
-  const getData = useSelector((state) => state.itemDetail.dataId);
+  const getData = useSelector((state) => state.itemDetail.data);
 
   // under  export
   const [selected, setSelected] = useState(getData);
