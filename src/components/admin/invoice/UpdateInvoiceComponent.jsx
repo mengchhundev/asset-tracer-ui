@@ -127,7 +127,6 @@ export default function UpdateInvoiceComponent() {
     const val = [...newItem]
     val.splice(index, 1)
     setNewItem(val)
-    // formik.values.newItem.splice(index, 1)
     formik.setValues({...formik.values, itemDetails: formik.values.itemDetails.splice(index, 1)})
   }
 
@@ -153,41 +152,39 @@ export default function UpdateInvoiceComponent() {
 
   const handleUpdateInvoice = () => {
     if (selectedFile) {
-      console.log(1)
-      // formData.append("file", selectedFile)
-      // FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-      //   if (res.data.success) {
-      //     InvoiceService.updateInvoice({
-      //       invoiceCode: newData.invoiceCode,
-      //       purchaseBy: newData.purchaseBy,
-      //       purchaseDate: newData.purchaseDate,
-      //       organizationId: organization.id,
-      //       supplier: newData.supplier,
-      //       image: res.data.payload,
-      //       itemDetailRequests: newItem
-      //     }).then(res => {
-      //       if (res.data.success) {
-      //         navigator("/invoice")
-      //       }
-      //     })
-      //   }
-      // })
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData).then(res => {
+        if (res.data.success) {
+          InvoiceService.updateInvoice(id, {
+            invoiceCode: newData.invoiceCode,
+            purchaseBy: newData.purchaseBy,
+            purchaseDate: newData.purchaseDate,
+            organizationId: organization.id,
+            supplier: newData.supplier,
+            image: res.data.payload,
+            itemDetailRequests: newItem
+          }).then(res => {
+            if (res.data.success) {
+              navigator("/invoice")
+            }
+          })
+        }
+      })
     } else {
-      console.log(2)
-      // InvoiceService.updateInvoice(id, {
-      //   invoiceCode: newData.invoiceCode,
-      //   purchaseBy: newData.purchaseBy,
-      //   purchaseDate: newData.purchaseDate,
-      //   organizationId: organization.id,
-      //   supplier: newData.supplier,
-      //   itemDetailRequests: newItem
-      // }).then(res => {
-      //   if (res.data.success) {
-      //     navigator("/invoice")
-      //   }
-      // }, err => {
-      //   console.log(err)
-      // })
+      InvoiceService.updateInvoice(id, {
+        invoiceCode: newData.invoiceCode,
+        purchaseBy: newData.purchaseBy,
+        purchaseDate: newData.purchaseDate,
+        organizationId: organization.id,
+        supplier: newData.supplier,
+        itemDetailRequests: newItem
+      }).then(res => {
+        if (res.data.success) {
+          navigator("/invoice")
+        }
+      }, err => {
+        console.log(err)
+      })
     }
 
     console.log(formik.values)
