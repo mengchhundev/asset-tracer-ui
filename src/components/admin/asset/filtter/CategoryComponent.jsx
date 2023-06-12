@@ -1,13 +1,10 @@
-import React from "react";
-//import
+import React, { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-} from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import NormalCategoryService from "../../../../redux/services/NormalCategoryService";
+import { setAllCategory } from "../../../../redux/slices/NormalCategorySlice";
 const people = [
   { id: 1, name: "Category" },
   { id: 2, name: "SR Class" },
@@ -16,6 +13,22 @@ const people = [
 ];
 
 export default function CategoryComponent() {
+  // get item data
+  const getNormalCategory = () => {
+    NormalCategoryService.getAllNormalCategory().then((res) => {
+      if (res?.data?.success) {
+        dispatch(setAllCategory(res.data.payload));
+      }
+    });
+  };
+  useEffect(() => {
+    getNormalCategory();
+  }, []);
+
+  const dispatch = useDispatch();
+  const getData = useSelector((state) => state.normalCategory.data);
+  console.log("get normal :", getData);
+
   // under  export
   const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");

@@ -68,7 +68,7 @@ export default function AssetComponent() {
   const getAllAsset = () => {
     AssetService.getAllAssets()
       .then((res) => {
-        console.log("res data", res.data.payload);
+        // console.log("res data", res.data.payload);
         dispatch(setData(res.data.payload));
       })
       .catch((err) => {

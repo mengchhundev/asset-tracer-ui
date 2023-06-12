@@ -12,7 +12,7 @@ function AssetViewComponent({ viewAsset }) {
     "https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg";
   const [topImage, setTopImage] = useState(selectedImage);
 
-  console.log("View Asset as props", viewAsset);
+  // console.log("View Asset as props", viewAsset);
   const handleImageClick = (newImage) => {
     setTopImage(newImage);
   };

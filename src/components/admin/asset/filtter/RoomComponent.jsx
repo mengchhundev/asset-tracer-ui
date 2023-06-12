@@ -1,29 +1,43 @@
-import React from "react";
-//import
+import React, { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-} from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
-const people = [
-  { id: 1, name: "Room" },
-  { id: 2, name: "SR Class" },
-  { id: 3, name: "BTB Class" },
-  { id: 4, name: "P " },
-];
+import RoomService from "../../../../redux/services/RoomService";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllRoom } from "../../../../redux/slices/RoomSlice";
+
 
 export default function RoomComponent() {
+  // organization id
+  const organization = sessionStorage.getItem("organization");
+  const getOrganizationDetail = JSON.parse(organization);
+  const orgId = getOrganizationDetail.id;
+
+  // get room data
+  const dispatch = useDispatch();
+
+  const getAllRoom = () => {
+    RoomService.getAllRoom(orgId).then((res) => {
+      if (res?.data?.success) {
+        dispatch(setAllRoom(res.data.payload));
+        // console.log("get data res :", res.data.payload);
+      }
+    });
+  };
+  const getData = useSelector((state) => state.room.data);
+
+  useEffect(() => {
+    getAllRoom();
+  }, []);
+
   // under  export
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(getData);
   const [query, setQuery] = useState("");
 
-  const filteredPeople =
+  const filteredRoom =
     query === ""
-      ? people
-      : people.filter((person) =>
+      ? getData
+      : getData.filter((person) => 
           person.name
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -55,12 +69,12 @@ export default function RoomComponent() {
               afterLeave={() => setQuery("")}
             >
               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filteredPeople.length === 0 && query !== "" ? (
+                {filteredRoom.length === 0 && query !== "" ? (
                   <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                     Nothing found.
                   </div>
                 ) : (
-                  filteredPeople.map((person) => (
+                  filteredRoom.map((person) => (
                     <Combobox.Option
                       key={person.id}
                       className={({ active }) =>
@@ -87,10 +101,6 @@ export default function RoomComponent() {
                                 active ? "text-primary" : "text-primary"
                               } absolute inset-y-0 left-0 flex items-center pl-2`}
                             >
-                              {/* <CheckIcon
-                              className="h-5 w-5"
-                              aria-hidden="true"
-                            /> */}
                               <svg
                                 className="h-4 w-4"
                                 xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,9 @@
 import apiV2 from "./apiV2";
 
-const getAllItemDetail = async () => {
-  return await apiV2.get(`/item-details/${id}`);
+export const getItemDetailById = async (id) => {
+  return await apiV2.get(`/item-details/filter`);
 };
+
+const ItemDetailService = { getItemDetailById };
 
 export default ItemDetailService;

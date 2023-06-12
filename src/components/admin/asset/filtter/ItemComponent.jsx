@@ -1,29 +1,35 @@
-import React from "react";
-//import
+import React, { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-} from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
-const people = [
-  { id: 1, name: "item" },
-  { id: 2, name: "SR Class" },
-  { id: 3, name: "BTB Class" },
-  { id: 4, name: "PP Class" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { setDataId } from "../../../../redux/slices/ItemDetailSlice";
+import ItemDetailService from "../../../../redux/services/ItemDetailService";
 
 export default function ItemComponent() {
+  // get item data
+  const getAllRoom = () => {
+      ItemDetailService.getItemDetailById().then((res) => {
+      if (res?.data?.success) {
+        dispatch(setDataId(res.data.payload));
+      }
+    });
+  };
+  useEffect(() => {
+    getAllRoom();
+  }, []);
+
+  const dispatch = useDispatch();
+  const getData = useSelector((state) => state.itemDetail.dataId);
+
   // under  export
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(getData);
   const [query, setQuery] = useState("");
 
-  const filteredPeople =
+  const filteredItem =
     query === ""
-      ? people
-      : people.filter((person) =>
+      ? getData
+      : getData.filter((person) =>
           person.name
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -55,12 +61,12 @@ export default function ItemComponent() {
               afterLeave={() => setQuery("")}
             >
               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filteredPeople.length === 0 && query !== "" ? (
+                {filteredItem.length === 0 && query !== "" ? (
                   <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                     Nothing found.
                   </div>
                 ) : (
-                  filteredPeople.map((person) => (
+                  filteredItem.map((person) => (
                     <Combobox.Option
                       key={person.id}
                       className={({ active }) =>

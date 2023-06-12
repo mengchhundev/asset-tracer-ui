@@ -6,6 +6,7 @@ import userSlice  from "./slices/UserSlice";
 import  assetSlice  from "./slices/AssetSlice";
 import invoiceSilce from "./slices/InvoiceSlice";
 import  normalCategorySlice  from "./slices/NormalCategorySlice";
+import itemDetailSlice  from "./slices/ItemDetailSlice";
 
 export const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
         user: userSlice,
         asset: assetSlice,
         invoice: invoiceSilce,
-        normalCategory : normalCategorySlice
+        normalCategory : normalCategorySlice,
+        itemDetail: itemDetailSlice,
     }
 });
 
