@@ -4,7 +4,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { setAllOrganization, setItem } from '../../../redux/slices/OrganizationSlice';
+import { setAllOrganization, setItem, setOrgDetail } from '../../../redux/slices/OrganizationSlice';
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
 import { FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
@@ -44,6 +44,7 @@ export default function OrganizationListComponent() {
     const [search, setSearch] = useState()
     const [orgId, setOrgId] = useState()
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
+    const orgDetail = useSelector(state => state.organization.orgDetail)
 
     const handleUpdateSuccess = (val) => {
         setIsUpdateSuccess(val)
@@ -70,8 +71,6 @@ export default function OrganizationListComponent() {
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
-
-    const [organizationObj, setOrganizationObj] = useState();
 
     const getAllOrganizations = () => {
         OrganizationService.getAllOrganizations(userId).then(res => {
@@ -119,10 +118,6 @@ export default function OrganizationListComponent() {
         })
     }
 
-    const showOrganizationDetail = (val) => {
-        console.log(val)
-    }
-
     return (
         <main className="p-5 lg:px-3 con-Shadow bg-white rounded-xl min-h-[calc(100vh-9rem)]">
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -163,7 +158,7 @@ export default function OrganizationListComponent() {
 
             {/* Update */}
 
-            <CreateOrganizatoinComponent className="modal" val={organizationObj} handleUpdateSuccess={handleUpdateSuccess} />
+            <CreateOrganizatoinComponent className="modal" val={orgDetail} handleUpdateSuccess={handleUpdateSuccess} />
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
@@ -315,7 +310,7 @@ export default function OrganizationListComponent() {
                                                         {list.roleName == "ADMIN" &&
                                                             <>
                                                                 <label
-                                                                    onClick={() => setOrganizationObj(list)}
+                                                                    onClick={() => dispatch(setOrgDetail(list))}
                                                                     htmlFor='create-organization'
                                                                     className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                 >
@@ -342,7 +337,6 @@ export default function OrganizationListComponent() {
                                     </>
                                 )}
                             </Listbox>
-
                         </div>
                         <label className="px-6" onClick={() => handleShowOrganization(list)}>
                             <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
@@ -367,24 +361,20 @@ export default function OrganizationListComponent() {
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                 <div className='w-full flex justify-center'>
-                                    {list.users.map(user => (
-
-                                        <>
-                                            {user?.image ?
-                                                <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
-                                                    <img
-                                                        src={FileUploadService.getImage(user.image)}
-                                                        loading="lazy"
-                                                        className="rounded-full h-full w-full"
-                                                    />
-                                                </div>
-                                                :
-                                                <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
-                                                    {user.name.substring(0, 1)}
-                                                </div>
-                                            }
-                                        </>
-                                    ))}
+                                    {list.users.map((user, index) => {
+                                        user?.image ?
+                                        <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
+                                            <img
+                                                src={FileUploadService.getImage(user.image)}
+                                                loading="lazy"
+                                                className="rounded-full h-full w-full"
+                                            />
+                                        </div>
+                                        :
+                                        <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                            {user.name.substring(0, 1)}
+                                        </div>
+                                    })}
 
                                     {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                                         8 <FiPlus />

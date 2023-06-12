@@ -9,10 +9,13 @@ import { useNavigate } from 'react-router';
 import { RiCloseFill } from 'react-icons/ri';
 import { FiSave } from 'react-icons/fi';
 import FileUploadService from '../../../../redux/services/FileUploadService';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setItem } from '../../../../redux/slices/OrganizationSlice';
+import { useId } from 'react';
 
-export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }) {
+export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
+
+    const organization = JSON.parse(sessionStorage.getItem("organization"))
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
@@ -26,42 +29,15 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
         logo: ""
     })
 
-    useEffect(() => {
-        setIsSuccess(false)
-        if (val) {
-            setIsUpdate(true)
-            setNewData({ ...val })
-            if (val?.logo) {
-                setImage(FileUploadService.getImage(val?.logo))
-            }
-        }
-    }, [val, image])
-
+    const orgDetail = useSelector(state => state.organization.orgDetail)
+console.log(orgDetail)
     // Upload file
     let formData = new FormData()
     const [selectedFile, setSelectedFile] = useState('')
-    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
 
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0]);
     };
-
-    useEffect(() => {
-        if (selectedFile) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const image = new Image();
-                image.onload = () => {
-                    setImageDimensions({
-                        width: image.width,
-                        height: image.height,
-                    });
-                };
-                image.src = event.target.result;
-            };
-            reader.readAsDataURL(selectedFile);
-        }
-    }, [selectedFile]);
 
     const handleInputChange = (e) => {
         setNewData({ ...newData, [e.target.name]: e.target.value })
@@ -81,8 +57,6 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                         if (res.data?.success) {
                             setImage("")
                             setIsSuccess(true)
-                            // dispatch(setItem(res.data.payload))
-                            // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                             navigator("/organization", { state: { hideOrganizationBar: true } })
                         }
                     })
@@ -92,8 +66,6 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
             OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
                 if (res.data?.success) {
                     setIsSuccess(true)
-                    // dispatch(setItem(res.data.payload))
-                    // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                     navigator("/organization", { state: { hideOrganizationBar: true } })
                 }
             })
@@ -114,8 +86,11 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                         if (res.data?.success) {
                             setIsSuccess(true)
                             setImage("")
-                            // dispatch(setItem(res.data.payload))
-                            // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            if (organization.id == orgDetail.id) {
+                                dispatch(setItem(res.data.payload))
+                                sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                            }
+                            setSelectedFile("")
                             document.getElementById("create-organization").click()
                             handleUpdateSuccess(true)
                         }
@@ -127,8 +102,11 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
                 if (res.data?.success) {
                     setIsSuccess(true)
                     setImage("")
-                    // dispatch(setItem(res.data.payload))
-                    // sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                    if (organization.id == orgDetail.id) {
+                        dispatch(setItem(res.data.payload))
+                        sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
+                    }
+                    setSelectedFile("")
                     document.getElementById("create-organization").click()
                     handleUpdateSuccess(true)
                 }
@@ -157,6 +135,19 @@ export default function CreateOrganizatoinComponent({ val, handleUpdateSuccess }
             }
         }
     });
+
+    useEffect(() => {
+        setIsSuccess(false)
+        setImage("")
+        if (orgDetail.logo != null && orgDetail.logo != "") {
+            setIsUpdate(true)
+            setNewData({ ...orgDetail })
+            if (orgDetail?.logo) {
+                setImage(FileUploadService.getImage(orgDetail?.logo))
+            }
+            formik.setValues(orgDetail)
+        }
+    }, [orgDetail, image])
 
     useEffect(() => {
         formik.setValues(newData);
