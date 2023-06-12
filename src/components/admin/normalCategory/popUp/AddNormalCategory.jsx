@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 import gift from "../../../../assets//icon/gift.svg";
 import electronic from "../../../../assets//icon/electronic.svg";
@@ -7,20 +7,63 @@ import furniture from "../../../../assets//icon/furniture.svg";
 import addIcon from "../../../../assets//icon/addIcon.svg";
 import { FiSave } from 'react-icons/fi';
 import { Combobox, Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline';
+import { useDispatch, useSelector } from 'react-redux';
+import getAllSuperCategores from '../../../../redux/services/SuperCategoryService';
+import { setAllSuperCategory } from '../../../../redux/slices/SuperCategorySlice';
+import NormalCategoryService from '../../../../redux/services/NormalCategoryService';
+import SuperCategoryService from '../../../../redux/services/SuperCategoryService';
 
 function AddNormalCategory(props) {
+    const dispatch = useDispatch();
+    const organization = sessionStorage.getItem("organization");
+    const getOrganizationDetail = JSON.parse(organization)
+    const organizationId = getOrganizationDetail.id;
+    const orgId = getOrganizationDetail.id;
+    const superCategory = useSelector((state) => state.superCategory.dataByIdd);
+    const [data,setData]= useState();
+    console.log("superCategory",data);
 
-    const superCategory = [
-        { id: 1, name: 'Durward Reynolds', disabled: true },
-        { id: 2, name: 'Kenton Towne', unavailable: false },
-        { id: 3, name: 'Therese Wunsch', unavailable: false },
-        { id: 4, name: 'Benedict Kessler', unavailable: true },
-        { id: 5, name: 'Katelyn Rohan', unavailable: false },
-      ];
+    const getAllSuperCategory = () => {
+        SuperCategoryService.getAllSuperCategores().then((res) => {
+          if (res?.data?.success) {
+            dispatch(setAllSuperCategory(res.data.payload));
+          }
+        });
+      };
+      useEffect(()=>{
+        getAllSuperCategory()
+      },[])
+  
+      useEffect(() => {
+        setData((prevData) => ({
+            ...prevData,
+            
+        }));
+      }, []);
+
+      const handleChang=(event)=>{
+        const { name, value } = event.target;
+        setData((prevData)=>({
+            ...prevData,
+            [name]: value
+        }));
+    }
   const [selected, setSelected] = useState(superCategory[0]);
-  const [state, setState] = useState([]);
+//   console.log("selected",selected.id);
+    // selected.map((superCategory)=>{
+    //     const superCategoryId=superCategory.id
+    // })
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    setData({
+        ...data,
+        selected: {
+            superCategoryId: selected
+        }
+    });
+}, []);
   const filteredsuperCategory =
   query === ""
     ? superCategory
@@ -30,13 +73,21 @@ function AddNormalCategory(props) {
         .replace(/\s+/g, "")
         .includes(query.toLowerCase().replace(/\s+/g, ""))
     );
+const handlesubmit=()=>{
+    NormalCategoryService.addNormalCategory(data).then((res)=>{
+        console.log(res);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
 
+}
     return (
         <>
             <div className=" modal">
                 <div className=" modal-box relative rounded-lg">
                     <div className="absolute top-7 right-7">
-                        <label htmlFor="normalCategory">
+                        <label htmlFor="addnormalCategory">
                             <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
                         </label>
                     </div>
@@ -76,22 +127,22 @@ function AddNormalCategory(props) {
 
                     <form className='pt-2'>
 
-                        <div>
-                            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0" >
+                        <div className='space-y-2'>
+                            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                                <label className='py-1'>Super-Category</label>
                                 <Combobox
-                                    value={selected}
                                     onChange={setSelected}
                                     className="z-20"
-                                   
                                 >
                                     <div className="relative z-20">
                                         <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                             <Combobox.Input
-                                                 className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                                                 displayValue={(item) => item.name}
-                                                 onChange={(event) => setQuery(event.target.value)}
-                                                 placeholder="Select a person"
-                                            />
+                                                  className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                                                  displayValue={(item) => item.name}
+                                                  onChange={(event) => setQuery(event.target.value)}
+                                                  placeholder="Super-category" // Add placeholder attribute
+                                              />
+                                            
                                             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                                                 <ChevronUpDownIcon
                                                     className="h-5 w-5 text-text-color"
@@ -113,12 +164,12 @@ function AddNormalCategory(props) {
                                                         Nothing found.
                                                     </div>
                                                 ) : (
-                                                    filteredsuperCategory.map((item) => (
+                                                    filteredsuperCategory.map((item,index) => (
                                                         <Combobox.Option
-                                                            key={item.id}
+                                                            key={index+1}
                                                             className={({ active }) =>
                                                                 `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                                    ? "bg-hover-yellow text-text-color"
+                                                                    ? "text-primary bg-custom-yellow-showdow-light"
                                                                     : "text-text-color"
                                                                 }`
                                                             }
@@ -153,17 +204,19 @@ function AddNormalCategory(props) {
                                     </div>
                                 </Combobox>
                             </div>
-                            <div>
+                            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0" >
                                 <label
                                     htmlFor=""
                                     className="flex text-sm text-text-color font-sp-pro-text-regular py-1"
                                 >
-                                    Super Category
+                                    Normal Category
                                 </label>
                                 <input
+                                    onChange={handleChang}
+                                    name='name'
                                     className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                     type="text"
-                                    placeholder="super category"
+                                    placeholder="Normal category"
                                 />
                             </div>
                         </div>
@@ -172,19 +225,19 @@ function AddNormalCategory(props) {
 
                     <div className="flex justify-end flex-row space-x-4 mt-10">
                         <div className="">
-                            <button
-                                className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                            <label htmlFor='addnormalCategory'
+                                class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
                                 <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
                                 <label htmlFor="normalCategory">
                                     &nbsp; Cancel
                                 </label>
-                            </button>
+                            </label>
                         </div>
 
                         <div className="">
-                            <button className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                            <label htmlFor='addnormalCategory'onClick={handlesubmit} class="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
                                 <FiSave className="text-lg" /> &nbsp; Add
-                            </button>
+                            </label>
                         </div>
                     </div>
                 </div>

@@ -91,7 +91,7 @@ function RoomListComponent(props) {
 
   return (
     <main
-      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative z-0 "
+      className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative"
       style={{
         boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
       }}
@@ -254,7 +254,7 @@ function RoomListComponent(props) {
                     <td className="w-1/12">
                       <div className="dropdown dropdown-left">
                         <EllipsisVerticalIcon tabIndex={0} className="cursor-pointer h-7 w-7 text-gray-500 bg-slate-100 rounded-full" />
-                        <ul tabIndex={0} style={{ boxShadow: "0 3px 20px 0 rgb(0 0 0 / 0.1)" }} className="z-50 dropdown-content menu bg-base-100 rounded-md w-44">
+                        <ul tabIndex={0} style={{ boxShadow: "0 3px 20px 0 rgb(0 0 0 / 0.1)" }} className=" dropdown-content menu bg-base-100 rounded-md w-44">
                           <li onClick={() => handleShowRoomDetail(item)}>
                             <label htmlFor="detail" className='hover:bg-primary cursor-pointer hover:bg-opacity-10 px-4 p-3' >View Room Detail</label>
                           </li>

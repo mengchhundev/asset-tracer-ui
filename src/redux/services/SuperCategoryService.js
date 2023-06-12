@@ -1,23 +1,27 @@
-import api from "./api"
+import apiV2 from "./apiV2"
 
 const getAllSuperCategory = async (page, size = 10, name = "") => {
-    return await api.get(`/super-categories/?page=${page}&size=${size}&name=${name}`)
+    return await apiV2.get(`/super-categories/?page=${page}&size=${size}&name=${name}`)
+}
+const getAllSuperCategores = async () => {
+    return await apiV2.get(`/super-categories/`)
 }
 
 const saveSuperCategory = async (data) => {
-    return await api.post(`/super-categories`, data)
+    return await apiV2.post(`/super-categories`, data)
 }
 
 const deleteSuperCategory = async (id) => {
-    return await api.delete(`/super-categories/${id}`)
+    return await apiV2.delete(`/super-categories/${id}`)
 }
 
 const updateSuperCategory = async (id, data) => {
-    return await api.put(`/super-categories/${id}`, data);
+    return await apiV2.put(`/super-categories/${id}`, data);
 }
 
 const SuperCategoryService = {
     getAllSuperCategory,
+    getAllSuperCategores,
     saveSuperCategory,
     deleteSuperCategory,
     updateSuperCategory

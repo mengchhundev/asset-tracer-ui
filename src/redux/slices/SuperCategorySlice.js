@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     data: [],
-    dataByIdd:[],
+    dataByIdd: [],
 }
 
 export const superCategorySlice = createSlice({
@@ -10,10 +10,10 @@ export const superCategorySlice = createSlice({
     initialState,
     reducers: {
         setAllSuperCategory: (state, action) => {
-            state.dataByIdd = action.payload;
-        },
+            state.dataByIdd = action.payload
+        }
     }
 });
 
-export const {setAllSuperCategory} = superCategorySlice.actions
+export const { setAllSuperCategory } = superCategorySlice.actions
 export default superCategorySlice.reducer

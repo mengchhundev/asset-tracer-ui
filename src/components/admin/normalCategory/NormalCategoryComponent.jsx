@@ -60,11 +60,9 @@ export default function CategoryComponent() {
   };
 // const [user,setuser]= useState([])
   const data = useSelector((state)=> state.normalCategory.data)
-  console.log("data",data);
   const dispatch = useDispatch();
   const getAllNormalCategory =()=>{
      NormalCategoryService.getAllNormalCategory().then((res)=>{
-      console.log(res);
       dispatch(setAllCategory(res.data.payload))
      }).catch((err)=>{
       console.log(err);
@@ -194,7 +192,7 @@ export default function CategoryComponent() {
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
 
               <label
-                htmlFor="normalCategory"
+                htmlFor="addnormalCategory"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
                 <BsPlus className="w-6 h-6" />&nbsp;Add Normal Category
@@ -202,7 +200,7 @@ export default function CategoryComponent() {
             </div>
           </div>
         </div>
-        <input type="checkbox" id="normalCategory" className="modal-toggle" />
+        <input type="checkbox" id="addnormalCategory" className="modal-toggle" />
         <AddNormalCategory className="modal"/>                             
         <div className="flex flex-col justify-between relative overflow-x-auto">
           {/* table */}
@@ -313,7 +311,7 @@ export default function CategoryComponent() {
         </div>
 
         {/* Modal Add normal category */}
-        <input type="checkbox" id="normalCategory" className="modal-toggle" />
+        {/* <input type="checkbox" id="normalCategory" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box relative">
             <label
@@ -382,7 +380,7 @@ export default function CategoryComponent() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Edit Popup */}
         <input type="checkbox" id="modalEdit" className="modal-toggle" />

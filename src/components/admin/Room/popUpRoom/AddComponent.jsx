@@ -214,7 +214,7 @@ function AddComponent(props) {
                                                                             {({ selected, active }) => (
                                                                                 <div
                                                                                     className={`${active
-                                                                                        ? "text-white bg-primary"
+                                                                                        ? "text-primary bg-custom-yellow-showdow-light"
                                                                                         : "text-gray-900"
                                                                                         } cursor-default select-none relative py-2 pl-10 pr-4`}
                                                                                 >
@@ -281,7 +281,7 @@ function AddComponent(props) {
                                                                             {({ selected, active }) => (
                                                                                 <div
                                                                                     className={`${active
-                                                                                        ? "text-white bg-primary"
+                                                                                        ? "text-primary bg-custom-yellow-showdow-light"
                                                                                         : "text-text-color"
                                                                                         } cursor-default select-none relative py-2 pl-10 pr-4`}
                                                                                 >

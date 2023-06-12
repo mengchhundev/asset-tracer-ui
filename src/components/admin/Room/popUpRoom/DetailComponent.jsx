@@ -81,7 +81,7 @@ function DetailComponent() {
                                         <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created by</label>
                                         <div className=" mt-2 flex ">
                                             <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><UserCircleIcon className="h-6 w-6 text-white" /></span>
-                                            <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">{roomDetail?.createdBy}</p>
+                                            <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">Boeurn Mnor</p>
                                         </div>
                                     </div>
                                     <div className="pt-5">
