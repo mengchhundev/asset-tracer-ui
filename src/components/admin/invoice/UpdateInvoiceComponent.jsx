@@ -109,8 +109,8 @@ export default function UpdateInvoiceComponent() {
     }])
 
     formik.setValues({
-        ...formik.values, 
-        itemDetails: [...newItem, {
+      ...formik.values,
+      newItem: [...newItem, {
         name: "",
         model: "",
         qty: "",
@@ -120,15 +120,13 @@ export default function UpdateInvoiceComponent() {
         organizationId: organization.id
       }]
     })
-
   }
-  
 
   const handleDeleteItem = (index) => {
     const val = [...newItem]
     val.splice(index, 1)
     setNewItem(val)
-    formik.setValues({...formik.values, itemDetails: formik.values.itemDetails.splice(index, 1)})
+    formik.values.newItem.splice(index, 1)
   }
 
   const handleInputChangeItem = (e, index) => {
@@ -136,6 +134,10 @@ export default function UpdateInvoiceComponent() {
     const onChangeVal = [...newItem]
     onChangeVal[index][name] = value
     setNewItem(onChangeVal)
+    formik.setValues({
+      ...formik.values,
+      newItem: [...onChangeVal]
+    })
   }
 
   const handleSelectionChangeItem = (e, index) => {

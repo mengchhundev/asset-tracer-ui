@@ -112,7 +112,18 @@ export default function AddInvoiceComponent() {
       organizationId: organization.id
     }])
 
-    formik.values.newItem.push(...newItem)
+    formik.setValues({
+      ...formik.values,
+      newItem: [...newItem, {
+        name: "",
+        model: "",
+        qty: "",
+        unitPrice: "",
+        discount: "0",
+        normalCategoryId: "",
+        organizationId: organization.id
+      }]
+    })
   }
 
   const handleDeleteItem = (index) => {
@@ -127,6 +138,10 @@ export default function AddInvoiceComponent() {
     const onChangeVal = [...newItem]
     onChangeVal[index][name] = value
     setNewItem(onChangeVal)
+    formik.setValues({
+      ...formik.values,
+      newItem: [...onChangeVal]
+    })
   }
 
   const handleSelectionChangeItem = (e, index) => {
@@ -134,6 +149,10 @@ export default function AddInvoiceComponent() {
     const onChangeVal = [...newItem]
     onChangeVal[index][name] = value
     setNewItem(onChangeVal)
+    formik.setValues({
+      ...formik.values,
+      newItem: [...onChangeVal]
+    })
   }
 
   const handleInputChange = (e) => {
@@ -141,7 +160,6 @@ export default function AddInvoiceComponent() {
   };
 
   const handleSaveInvoice = () => {
-
     if (selectedFile) {
       formData.append("file", selectedFile)
       FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
@@ -176,7 +194,7 @@ export default function AddInvoiceComponent() {
       })
     }
   }
-  
+
   const filteredCategoryName =
     query === ""
       ? normalCategoryName

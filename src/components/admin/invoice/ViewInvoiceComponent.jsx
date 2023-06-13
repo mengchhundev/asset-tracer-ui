@@ -131,12 +131,14 @@ export default function ViewInvoiceComponent(props) {
           <div className="w-full sm:w-[24rem] xl:w-[28rem] mx-auto">
             <div className="px-5 my-5 flex">
               <div className='w-full flex p-5 relative'>
-                <img className="block m-auto h-full" src={image != null || image != "" ? image : upload_placeholder} />
+                <img className="block m-auto h-full" src={image != null ? image : ""} />
               </div>
             </div>
-            <div className="w-full px-10">
-              <button className="flex justify-center items-center text-base border border-primary text-primary p-1 mx-auto w-full rounded-lg gap-1"><BiCloudDownload className="text-xl"/> Print</button>
-            </div>
+            {image != null &&
+              <div className="w-full px-10">
+                <button className="flex justify-center items-center text-base border border-primary text-primary p-1 mx-auto w-full rounded-lg gap-1"><BiCloudDownload className="text-xl" /> Print</button>
+              </div>
+            }
           </div>
         </div>
 
