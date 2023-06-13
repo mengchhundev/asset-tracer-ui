@@ -378,16 +378,16 @@ export default function AddInvoiceComponent() {
 
                       <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
-                          // value=
                           onChange={(e) => handleSelectionChangeItem(e, index)}
                           className="z-20"
                         >
                           <div className="relative z-20">
                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                               <Combobox.Input
-                                className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                                className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20 border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => val.name}
-                                onChange={(event) => setQuery(event.target.value)}
+                                onChange={(e) => {setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index)}}
+                                placeholder='Select Category'
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                                 <ChevronUpDownIcon

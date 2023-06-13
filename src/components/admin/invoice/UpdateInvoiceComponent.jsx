@@ -1,11 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import ItemComponent from "../asset/filtter/ItemComponent";
-import { RiAddBoxFill } from "react-icons/ri";
-import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaFileInvoice } from "react-icons/fa";
 import '../../../style/shadow.css'
-import { AiOutlineFileAdd, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 import upload_placeholder from '../../../assets/images/placeholder/upload_placeholder.svg';
 import { RiCloseFill } from 'react-icons/ri';
 import * as Yup from "yup";
@@ -13,12 +10,10 @@ import { useFormik } from 'formik';
 import { FiSave } from "react-icons/fi";
 import InvoiceService from "../../../redux/services/InvoiceService";
 import { Combobox, Transition } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useDispatch } from "react-redux";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
-import { setCategoryName } from "../../../redux/slices/NormalCategorySlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
-import { setData } from "../../../redux/slices/AssetSlice";
 import moment from "moment/moment";
 
 export default function UpdateInvoiceComponent() {
@@ -29,9 +24,11 @@ export default function UpdateInvoiceComponent() {
 
   const [normalCategoryName, setNormalCategoryName] = useState([]);
   const navigator = useNavigate()
+
   //combobox
   const [query, setQuery] = useState("");
-console.log(query)
+  const [selectedNormalCategory, setSelectedNormalCategory] = useState()
+
   // Upload file
   let formData = new FormData()
   const [selectedFile, setSelectedFile] = useState();
@@ -205,7 +202,7 @@ console.log(query)
       }
     })
   }, [])
-
+  console.log(selectedNormalCategory)
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
@@ -370,15 +367,13 @@ console.log(query)
                       <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
                           onChange={(e) => handleSelectionChangeItem(e, index)}
-                          className="z-20"
                         >
                           <div className="relative z-20">
                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                               <Combobox.Input
                                 className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => val.name}
-                                onChange={(event) => setQuery(event.target.value)}
-                                // onChange={(e) => handleSelectionChangeItem(e, index)}
+                                onChange={(e) => {setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index)}}
                                 placeholder='Select Category'
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -404,10 +399,10 @@ console.log(query)
                                   filteredCategoryName.map((val, index) => (
                                     <Combobox.Option
                                       key={index}
+                                      value={val}
                                       className={({ active }) =>
                                         `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
                                       }
-                                      value={val}
                                     >
                                       {val.name}
                                     </Combobox.Option>
