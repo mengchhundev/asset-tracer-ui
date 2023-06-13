@@ -33,7 +33,7 @@ export default function ViewInvoiceComponent(props) {
 
   return (
     <>
-      <main className="overflow-x-hidden bg-white rounded-xl relative con-Shadow text-text-color">
+      <main className="overflow-x-hidden bg-white rounded-xl relative con-Shadow text-text-color on-Shadow min-h-[calc(100vh-9rem)]">
         <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
           <h1 className="flex items-center">
             <FaFileInvoice /> &nbsp;View Invoice

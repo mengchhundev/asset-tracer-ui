@@ -236,7 +236,7 @@ export default function AssetComponent() {
                     <td className="w-2/12 bg-bg-main py-3">Date</td>
                     <td className="w-1/12  bg-bg-main py-3">Action</td>
                   </tr>
-                  {getAllInvoices?.map((list, index) => (
+                  {getAllInvoices.length != 0 ? getAllInvoices?.map((list, index) => (
                     <tr
                       key={index}
                       className="text-sm font-sp-pro-text-regular"
@@ -312,53 +312,13 @@ export default function AssetComponent() {
                             </>
                           )}
                         </Listbox>
-                        {/* <div className="dropdown dropdown-left">
-                          <EllipsisVerticalIcon
-                            tabIndex={0}
-                            className=" h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer"
-                          />
-                          <ul
-                            tabIndex={0}
-                            className="z-50 dropdown-content menu shadow bg-white rounded-lg w-44 mr-2 font-sp-pro-text-semibold"
-                          >
-                            <Link to="/invoice/view">
-                              <li
-                                onClick={() =>
-                                  dispatch(ViewInvoiceComponent(item))
-                                }
-                              >
-                                <label
-                                  htmlFor="detail"
-                                  className="hover:bg-primary cursor-pointer hover:bg-opacity-10 p-4"
-                                >
-                                  <TbListDetails /> View Invoice
-                                </label>
-                              </li>
-                            </Link>
-                            <Link to={"/invoice/update"}>
-                              <li className="">
-                                <label
-                                  htmlFor="update"
-                                  className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer"
-                                >
-                                  <FiTrash2 /> Update Invoice
-                                </label>
-                              </li>
-                            </Link>
-
-                            <li className="">
-                              <label
-                                className="hover:bg-primary hover:bg-opacity-10 p-4 cursor-pointer"
-                                htmlFor="delete"
-                              >
-                                <AiOutlineCloudDownload /> Download Invoice
-                              </label>
-                            </li>
-                          </ul>
-                        </div> */}
                       </td>
                     </tr>
-                  ))}
+                  )) : <>
+                    <tr>
+                      <td colSpan={99} className="text-center">No Data</td>
+                    </tr>
+                  </>}
                 </tbody>
               </table>
             </div>

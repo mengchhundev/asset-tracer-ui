@@ -38,6 +38,14 @@ export default function UpdateInvoiceComponent() {
     setSelectedFile(event.target.files[0]);
   };
 
+  const [normaCategories, setNormalCategories] = useState([])
+
+  const handleSetNormalCategories = (e, index) => {
+    const onChangeVal = [...normaCategories]
+    onChangeVal[index]["name"] = e.name
+    setNormalCategories(onChangeVal)
+  }
+
   const [newData, setNewData] = useState({
     invoiceCode: "",
     purchaseBy: "",
@@ -91,10 +99,13 @@ export default function UpdateInvoiceComponent() {
         setNewData({ ...res.data.payload, purchaseDate: moment(res.data.payload.purchaseDate).format("YYYY-MM-DD") })
         setNewItem(res.data.payload.itemDetails)
         formik.setValues(res.data.payload)
+
+        let categories = res.data.payload.itemDetails.map(({normalCategoryName}) => ({name: normalCategoryName}));
+        setNormalCategories(categories)
       }
     })
   }, [id])
-
+  console.log(normaCategories)
   const handleAddMoreItem = () => {
     setNewItem([...newItem, {
       name: "",
@@ -206,7 +217,6 @@ export default function UpdateInvoiceComponent() {
       }
     })
   }, [])
-
 
   return (
     <>
@@ -365,15 +375,14 @@ export default function UpdateInvoiceComponent() {
                         className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                         placeholder='Enter model name...'
                       />
-
                     </div>
+
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
                       <div className=" mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
-                          // value={newItem[index]?.normalCategoryName}
-                          // value={val}
-                          onChange={(e) => handleSelectionChangeItem(e, index)}
+                          value={normaCategories[index]}
+                          onChange={(e) => {handleSelectionChangeItem(e, index), handleSetNormalCategories(e, index)}}
                         >
                           <div className="relative z-20">
                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
@@ -383,8 +392,6 @@ export default function UpdateInvoiceComponent() {
                                 displayValue={(val) => {
                                   ; return val.name
                                 }}
-                                // defaultValue={newItem[index]?.normalCategoryName}
-                                // value={newItem[index]?.normalCategoryName}
                                 onChange={(e) => { setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index) }}
                                 placeholder='Select Category'
                               />
