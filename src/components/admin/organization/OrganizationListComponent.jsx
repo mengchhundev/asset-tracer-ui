@@ -311,28 +311,28 @@ export default function OrganizationListComponent() {
                                                                 <TbListDetails /> Show Detail
                                                             </span>
                                                         </label>
-                                                        {list.roleName == "ADMIN" &&
-                                                            <>
-                                                                <label
-                                                                    onClick={() => handleSetOrgDetail(list)}
-                                                                    htmlFor='create-organization'
-                                                                    className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                                >
-                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                        <FiTrash2 /> Edit
-                                                                    </span>
-                                                                </label>
-                                                                <label
-                                                                    onClick={() => setOrgId(list.id)}
-                                                                    htmlFor='delete_org'
-                                                                    className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
-                                                                >
-                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                        <FiTrash2 /> Delete
-                                                                    </span>
-                                                                </label>
-                                                            </>
-                                                        }
+                                                        {/* {list.roleName == "ADMIN" && */}
+                                                        <>
+                                                            <label
+                                                                onClick={() => handleSetOrgDetail(list)}
+                                                                htmlFor='create-organization'
+                                                                className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                            >
+                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                    <FiTrash2 /> Edit
+                                                                </span>
+                                                            </label>
+                                                            <label
+                                                                onClick={() => setOrgId(list.id)}
+                                                                htmlFor='delete_org'
+                                                                className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                            >
+                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                    <FiTrash2 /> Delete
+                                                                </span>
+                                                            </label>
+                                                        </>
+                                                        {/* } */}
 
                                                     </Listbox.Option>
                                                 </Listbox.Options>

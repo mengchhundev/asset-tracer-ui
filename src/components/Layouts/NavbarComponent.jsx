@@ -184,6 +184,7 @@ export default function NavbarComponent() {
                 </MenuItem>
               </div>
             </Menu>
+
             <Menu
               menuButton={
                 <MenuButton className="flex font-sp-pro-text-medium items-center gap-x-2 hover:bg-secondary-100 p-2 rounded-lg transition-colors">
@@ -240,7 +241,6 @@ export default function NavbarComponent() {
               transition
               arrowClassName="bg-secondary-100 "
               menuClassName="bg-bg-color px-4 rounded-lg border"
-
             >
               <FocusableItem>
                 <div className="p-4">
@@ -265,12 +265,12 @@ export default function NavbarComponent() {
                           </div>
                           <input
                             className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                            // ref={ref}
+                            ref={ref}
                             type="text"
                             name="search"
                             placeholder="Search..."
-                          // value={filter}
-                          // onChange={(e) => setFilter(e.target.value)}
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
                           />
                         </>
 
@@ -280,73 +280,48 @@ export default function NavbarComponent() {
                 </div>
               </FocusableItem>
 
-              <MenuItem className="p-0 m-0 hover:bg-transparent">
-                {organizations.length != 0 ? (
-                  <>
-
-                    <div className="w-60">
-
-                      {/* <div className="w-60">
-                      <div className="p-4">
-                        <div className="relative text-sm border-[#edf0f1]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1  focus:border-primary">
-                          <div className="absolute inset-y-0 flex items-center pl-2">
-                            <svg
-                              className="w-5 h-5 text-primary"
-                              aria-hidden="true"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
+              {organizations.length != 0 ?
+                <MenuItem className="p-0 m-0 hover:bg-transparent">
+                  <div className="w-60">
+                    <div className="max-h-[40vh] overflow-y-scroll">
+                      <>
+                        {organizations.filter((list) => list.name.toUpperCase().includes(filter.trim().toUpperCase()))
+                          .map((list, index) => (
+                            <label
+                              key={index}
+                              onClick={() => handleShowOrganization(list)}
+                              className="rounded-0 hover:bg-bg-primary cursor-pointer w-full bg-bg-color  transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-1.5 px-6 flex-1"
                             >
-                              <path
-                                fillRule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clipRule="evenodd"
-                              ></path>
-                            </svg>
-                          </div>
-                          <input
-                            className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                            type="text"
-                            name="search"
-                            placeholder="Search..."
-                          />
-                        </div>
-                      </div> */}
-                      <div className="h-[40vh] overflow-y-scroll">
-                        {organizations.map((list, index) => (
-                          <label
-                            key={index}
-                            onClick={() => handleShowOrganization(list)}
-                            className="rounded-0 hover:bg-bg-primary cursor-pointer w-full bg-bg-color  transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-2 py-1.5 px-6 flex-1"
-                          >
-                            {list?.logo ? (
-                              <img
-                                src={
-                                  list.logo != null || list.logo != ""
-                                    ? FileUploadService.getImage(list.logo)
-                                    : placeholder
-                                }
-                                className="w-7 h-7 object-cover rounded-full border-2 border-bg-feature shadow-md"
-                              />
-                            ) : (
-                              <div className="w-7 h-7 bg-green rounded-full flex justify-center items-center">
-                                <p className="font-sp-pro-text-bold text-xl  text-white">
-                                  {organization?.name.substring(0, 1)}
-                                </p>
-                              </div>
-                            )}
+                              {list?.logo ? (
+                                <img
+                                  src={
+                                    list.logo != null || list.logo != ""
+                                      ? FileUploadService.getImage(list.logo)
+                                      : placeholder
+                                  }
+                                  className="w-7 h-7 object-cover rounded-full border-2 border-bg-feature shadow-md"
+                                />
+                              ) : (
+                                <div className="w-7 h-7 bg-green rounded-full flex justify-center items-center">
+                                  <p className="font-sp-pro-text-bold text-xl  text-white">
+                                    {organization?.name.substring(0, 1)}
+                                  </p>
+                                </div>
+                              )}
 
-                            <div className="flex flex-col">
-                              <span className="text-xs text-text-color font-sp-pro-text-regular py-2">
-                                {list.name}
-                              </span>
-                            </div>
-                          </label>
-                        ))}
-                      </div>
+                              <div className="flex flex-col">
+                                <span className="text-xs text-text-color font-sp-pro-text-regular py-2">
+                                  {list.name}
+                                </span>
+                              </div>
+                            </label>
+
+                          ))}
+                      </>
                     </div>
-                  </>
-                ) : null}
-              </MenuItem>
+                  </div>
+                </MenuItem>
+                : null}
             </Menu>
           </nav>
           <input type="checkbox" id="my-modal" className="modal-toggle" />

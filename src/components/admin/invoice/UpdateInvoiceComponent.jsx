@@ -207,7 +207,7 @@ export default function UpdateInvoiceComponent() {
     })
   }, [])
 
-  
+
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
@@ -369,8 +369,10 @@ export default function UpdateInvoiceComponent() {
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
-                      <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                      <div className=" mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
+                          // value={newItem[index]?.normalCategoryName}
+                          // value={val}
                           onChange={(e) => handleSelectionChangeItem(e, index)}
                         >
                           <div className="relative z-20">
@@ -378,9 +380,12 @@ export default function UpdateInvoiceComponent() {
                               <Combobox.Input
                                 as="input"
                                 className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                                displayValue={(val) => val.name}
-                                value={newItem[index]?.normalCategoryName}
-                                onChange={(e) => {setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index)}}
+                                displayValue={(val) => {
+                                  ; return val.name
+                                }}
+                                // defaultValue={newItem[index]?.normalCategoryName}
+                                // value={newItem[index]?.normalCategoryName}
+                                onChange={(e) => { setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index) }}
                                 placeholder='Select Category'
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
