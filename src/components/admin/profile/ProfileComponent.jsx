@@ -21,9 +21,7 @@ import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
 import { FiPlus } from 'react-icons/fi';
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
-import LoadingComponent from '../../LoadingComponent';
 import FileUploadService from '../../../redux/services/FileUploadService';
-import axios from 'axios';
 
 export default function ProfileComponent() {
     var profileImageToken = localStorage.getItem("profileImage")
@@ -111,7 +109,6 @@ export default function ProfileComponent() {
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = (event) => {
-                console.log(event)
                 const image = new Image();
                 image.onload = () => {
                     setImageDimensions({
@@ -196,7 +193,6 @@ export default function ProfileComponent() {
                 setProfile(res.data.payload)
             }
         })
-        
     }
 
     useEffect(() => {
@@ -328,13 +324,12 @@ export default function ProfileComponent() {
                             <div className='px-5 py-4'>
                                 <div className='flex flex-row gap-10 md:gap-5 justify-center w-full flex-wrap sm:flex-nowrap'>
                                     <div>
-                                        <div className='w-36 h-36 md:w-28 md:h-28 rounded-full overflow-hidden relative'>
+                                        <div className='w-32 h-3w-32 md:w-24 md:h-24 rounded-full overflow-hidden relative'>
                                             <img src={file != null ? file : profileImageToken != null ? profileImageToken : user_placeholder} alt="" className="w-full" />
                                         </div>
                                     </div>
                                     <div className='flex flex-row justify-start w-full'>
-                                        <div className='leading-8 w-full md:w-1/3'>
-
+                                        <div className='leading-7 w-full md:w-1/2'>
                                             {profileDetail?.name != null &&
                                                 <div className='flex'>
                                                     <p className='w-32'>Name</p>
@@ -377,7 +372,7 @@ export default function ProfileComponent() {
 
                                             </span>
                                         </div>
-                                        <div className='leading-8 pl-10 border-l-2 border-dashed w-2/3 border-gray-light md:block hidden'>
+                                        <div className='leading-7 pl-10 border-l-2 border-dashed w-1/2 border-gray-light md:block hidden'>
                                             <div className='flex'>
                                                 <p className='w-24'>Phone</p>
                                                 <p className='break-all w-1/2'>: {profileDetail?.phone != "" && profileDetail?.phone != null ? profileDetail?.phone : <> <span className='opacity-50'>(Update Your Phone)</span></>}</p>
