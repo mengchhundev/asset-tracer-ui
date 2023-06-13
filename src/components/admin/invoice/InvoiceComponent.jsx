@@ -209,7 +209,7 @@ export default function AssetComponent() {
                       className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
                     >
                       <BsPlus className="w-6 h-6" />
-                      &nbsp;Add User
+                      &nbsp; Add New Invoice
                     </label>
                   </div>
                 </Link>

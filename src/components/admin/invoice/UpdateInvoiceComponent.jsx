@@ -56,6 +56,7 @@ export default function UpdateInvoiceComponent() {
       unitPrice: "",
       discount: "0",
       normalCategoryId: "",
+      normalCategoryName: "",
       organizationId: organization.id
     }
   ])
@@ -102,6 +103,7 @@ export default function UpdateInvoiceComponent() {
       unitPrice: "",
       discount: "0",
       normalCategoryId: "",
+      normalCategoryName: "",
       organizationId: organization.id
     }])
 
@@ -114,6 +116,7 @@ export default function UpdateInvoiceComponent() {
         unitPrice: "",
         discount: "0",
         normalCategoryId: "",
+        normalCategoryName: "",
         organizationId: organization.id
       }]
     })
@@ -141,6 +144,7 @@ export default function UpdateInvoiceComponent() {
     const { name, value } = { name: "normalCategoryId", value: e.id }
     const onChangeVal = [...newItem]
     onChangeVal[index][name] = value
+    onChangeVal[index]["normalCategoryName"] = e.name
     setNewItem(onChangeVal)
   }
 
@@ -202,7 +206,8 @@ export default function UpdateInvoiceComponent() {
       }
     })
   }, [])
-  console.log(selectedNormalCategory)
+
+  
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
@@ -371,8 +376,10 @@ export default function UpdateInvoiceComponent() {
                           <div className="relative z-20">
                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                               <Combobox.Input
+                                as="input"
                                 className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => val.name}
+                                value={newItem[index]?.normalCategoryName}
                                 onChange={(e) => {setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index)}}
                                 placeholder='Select Category'
                               />
