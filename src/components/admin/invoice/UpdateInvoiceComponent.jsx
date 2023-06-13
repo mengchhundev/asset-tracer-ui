@@ -19,6 +19,7 @@ import NormalCategoryService from "../../../redux/services/NormalCategoryService
 import { setCategoryName } from "../../../redux/slices/NormalCategorySlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import { setData } from "../../../redux/slices/AssetSlice";
+import moment from "moment/moment";
 
 export default function UpdateInvoiceComponent() {
 
@@ -89,7 +90,7 @@ export default function UpdateInvoiceComponent() {
         if (res.data.payload.image) {
           setImage(FileUploadService.getImage(res.data.payload.image))
         }
-        setNewData(res.data.payload)
+        setNewData({...res.data.payload, purchaseDate: moment(res.data.payload.purchaseDate).format("YYYY-MM-DD")})
         setNewItem(res.data.payload.itemDetails)
         formik.setValues(res.data.payload)
       }
@@ -130,8 +131,6 @@ export default function UpdateInvoiceComponent() {
     formik.setValues({...formik.values, itemDetails: formik.values.itemDetails.splice(index, 1)})
   }
 
-  console.log(formik.values)
-  
   const handleInputChangeItem = (e, index) => {
     const { name, value } = e.target
     const onChangeVal = [...newItem]
@@ -153,7 +152,7 @@ export default function UpdateInvoiceComponent() {
   const handleUpdateInvoice = () => {
     if (selectedFile) {
       formData.append("file", selectedFile)
-      FileUploadService.storeFile(formData).then(res => {
+      FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
         if (res.data.success) {
           InvoiceService.updateInvoice(id, {
             invoiceCode: newData.invoiceCode,
@@ -187,7 +186,7 @@ export default function UpdateInvoiceComponent() {
       })
     }
 
-    console.log(formik.values)
+    console.log(newItem)
   }
 
   const filteredCategoryName =
@@ -373,7 +372,6 @@ export default function UpdateInvoiceComponent() {
 
                       <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
-                          // value=
                           onChange={(e) => handleSelectionChangeItem(e, index)}
                           className="z-20"
                         >

@@ -118,6 +118,10 @@ export default function OrganizationListComponent() {
         })
     }
 
+    const handleSetOrgDetail = (val) => {
+        dispatch(setOrgDetail(val))
+    }
+
     return (
         <main className="p-5 lg:px-3 con-Shadow bg-white rounded-xl min-h-[calc(100vh-9rem)]">
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -310,7 +314,7 @@ export default function OrganizationListComponent() {
                                                         {list.roleName == "ADMIN" &&
                                                             <>
                                                                 <label
-                                                                    onClick={() => dispatch(setOrgDetail(list))}
+                                                                    onClick={() => handleSetOrgDetail(list)}
                                                                     htmlFor='create-organization'
                                                                     className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                 >
@@ -357,24 +361,37 @@ export default function OrganizationListComponent() {
                                 {list.roleName == "ADMIN" ? "Owner" : "Member"}
                             </p>
                             <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
-                                {list.users.length} members
+                                {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                 <div className='w-full flex justify-center'>
-                                    {list.users.map((user, index) => {
-                                        user?.image ?
-                                        <div key={index} className="relative  w-7 h-7 mr-[-14px] z-10">
-                                            <img
-                                                src={FileUploadService.getImage(user.image)}
-                                                loading="lazy"
-                                                className="rounded-full h-full w-full"
-                                            />
-                                        </div>
-                                        :
-                                        <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
-                                            {user.name.substring(0, 1)}
-                                        </div>
-                                    })}
+                                    {list.users.map((user, index) => (
+                                        <span key={index}>
+                                            {
+                                                user.id != userId ?
+                                                    <>
+                                                        {
+                                                            user?.image ?
+                                                                <div className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                                    <img
+                                                                        src={FileUploadService.getImage(user.image)}
+                                                                        loading="lazy"
+                                                                        className="rounded-full h-full w-full"
+                                                                    />
+                                                                </div>
+                                                                :
+                                                                <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                                                    {user.name.substring(0, 1)}
+                                                                </div>
+                                                        }
+                                                    </> : <>
+                                                        <div className="invisible w-7 h-7 mr-[-28px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                                            {user.name.substring(0, 1)}
+                                                        </div>
+                                                    </>
+                                            }
+                                        </span>
+                                    ))}
 
                                     {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                                         8 <FiPlus />

@@ -176,7 +176,7 @@ export default function AddInvoiceComponent() {
       })
     }
   }
-
+  
   const filteredCategoryName =
     query === ""
       ? normalCategoryName

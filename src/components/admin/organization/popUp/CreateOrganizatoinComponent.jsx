@@ -11,7 +11,6 @@ import { FiSave } from 'react-icons/fi';
 import FileUploadService from '../../../../redux/services/FileUploadService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setItem } from '../../../../redux/slices/OrganizationSlice';
-import { useId } from 'react';
 
 export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
 
@@ -30,7 +29,7 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
     })
 
     const orgDetail = useSelector(state => state.organization.orgDetail)
-console.log(orgDetail)
+
     // Upload file
     let formData = new FormData()
     const [selectedFile, setSelectedFile] = useState('')
