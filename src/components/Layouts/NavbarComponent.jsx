@@ -47,6 +47,32 @@ export default function NavbarComponent() {
       setPath("Invoice")
     } else if (pathName.includes("organization")) {
       setPath("Organization")
+    } else if (pathName.includes("dashboard")) {
+      setPath("Dashboard")
+    } else if (pathName.includes("super-category")) {
+      setPath("Super Category")
+    } else if (pathName.includes("normal-category")) {
+      setPath("Normal Category")
+    } else if (pathName.includes("invoice")) {
+      setPath("Invoice")
+    } else if (pathName.includes("room")) {
+      setPath("Room")
+    } else if (pathName.includes("tracking")) {
+      setPath("Tracking")
+    } else if (pathName.includes("user-request")) {
+      setPath("User Request")
+    } else if (pathName.includes("user")) {
+      setPath("All User")
+    }  else if (pathName.includes("notification")) {
+      setPath("Notification")
+    } else if (pathName.includes("profile")) {
+      setPath("Profile")
+    } else if (pathName.includes("asset-add")) {
+      setPath("Add Asset")
+    } else if (pathName.includes("asset-set")) {
+      setPath("Set Asset")
+    } else if (pathName.includes("asset")) {
+      setPath("All Asset")
     }
   }, [pathName])
 

@@ -45,14 +45,6 @@ export default function SidebarComponent() {
 
     const dispatch = useDispatch()
 
-    function blobToBase64(blob) {
-        return new Promise((resolve, _) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
-        });
-    }
-
     useEffect(() => {
         dispatch(setProfileDetail(getToken))
     }, [token])
