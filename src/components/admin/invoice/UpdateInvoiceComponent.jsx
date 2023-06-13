@@ -90,7 +90,7 @@ export default function UpdateInvoiceComponent() {
         if (res.data.payload.image) {
           setImage(FileUploadService.getImage(res.data.payload.image))
         }
-        setNewData({...res.data.payload, purchaseDate: moment(res.data.payload.purchaseDate).format("YYYY-MM-DD")})
+        setNewData({ ...res.data.payload, purchaseDate: moment(res.data.payload.purchaseDate).format("YYYY-MM-DD") })
         setNewItem(res.data.payload.itemDetails)
         formik.setValues(res.data.payload)
       }
@@ -151,6 +151,8 @@ export default function UpdateInvoiceComponent() {
     setNewData({ ...newData, [e.target.name]: e.target.value })
   };
 
+  console.log(newData)
+
   const handleUpdateInvoice = () => {
     if (selectedFile) {
       formData.append("file", selectedFile)
@@ -177,18 +179,15 @@ export default function UpdateInvoiceComponent() {
         purchaseBy: newData.purchaseBy,
         purchaseDate: newData.purchaseDate,
         organizationId: organization.id,
+        image: newData.image,
         supplier: newData.supplier,
         itemDetailRequests: newItem
       }).then(res => {
         if (res.data.success) {
           navigator("/invoice")
         }
-      }, err => {
-        console.log(err)
       })
     }
-
-    console.log(newItem)
   }
 
   const filteredCategoryName =
@@ -214,7 +213,7 @@ export default function UpdateInvoiceComponent() {
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
         <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
           <h1 className="flex items-center">
-            <FaFileInvoice /> &nbsp;Add Invoice
+            <FaFileInvoice /> &nbsp;Edit Invoice
           </h1>
         </div>
         <hr className="border-[#E1E9EE] border-1" />
