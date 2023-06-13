@@ -387,7 +387,7 @@ export default function AddInvoiceComponent() {
                               <Combobox.Input
                                 className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => val.name}
-                                onChange={(e) => handleSelectionChangeItem(e, index)}
+                                onChange={(event) => setQuery(event.target.value)}
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                                 <ChevronUpDownIcon

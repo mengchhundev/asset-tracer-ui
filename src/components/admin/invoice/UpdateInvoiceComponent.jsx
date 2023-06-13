@@ -31,7 +31,7 @@ export default function UpdateInvoiceComponent() {
   const navigator = useNavigate()
   //combobox
   const [query, setQuery] = useState("");
-
+console.log(query)
   // Upload file
   let formData = new FormData()
   const [selectedFile, setSelectedFile] = useState();
@@ -150,8 +150,6 @@ export default function UpdateInvoiceComponent() {
   const handleInputChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value })
   };
-
-  console.log(newData)
 
   const handleUpdateInvoice = () => {
     if (selectedFile) {
@@ -292,7 +290,6 @@ export default function UpdateInvoiceComponent() {
               <hr className="border-[#E1E9EE] border-spacing-y-10 mb-5" />
 
               {newItem.map((list, index) => (
-
                 <section className={`relative border rounded-md px-3 shadow-sm mt-5 ${index % 2 != 0 ? "bg-bg-color border-bg-primary-strock" : "border-primary"}`} key={index}>
                   {index != 0 &&
                     <div className='absolute -top-3 -right-3'>
@@ -370,7 +367,6 @@ export default function UpdateInvoiceComponent() {
                     </div>
                     <div className='text-left w-full'>
                       <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
-
                       <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                         <Combobox
                           onChange={(e) => handleSelectionChangeItem(e, index)}
@@ -379,9 +375,11 @@ export default function UpdateInvoiceComponent() {
                           <div className="relative z-20">
                             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                               <Combobox.Input
-                                className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                                className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => val.name}
-                                onChange={(e) => handleSelectionChangeItem(e, index)}
+                                onChange={(event) => setQuery(event.target.value)}
+                                // onChange={(e) => handleSelectionChangeItem(e, index)}
+                                placeholder='Select Category'
                               />
                               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                                 <ChevronUpDownIcon
