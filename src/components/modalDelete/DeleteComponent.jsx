@@ -1,6 +1,21 @@
 import React from "react";
+import AssetService from "../../redux/services/AssetService";
 
-export default function DeleteComponent() {
+export default function DeleteComponent({ getAllAssetData }) {
+  console.log("data :", getAllAssetData)
+  // organization id
+  const organization = sessionStorage.getItem("organization");
+  const getOrganizationDetail = JSON.parse(organization);
+  const orgId = getOrganizationDetail.id;
+  // Delete
+  const handleDeleteAsset = () => {
+    AssetService.deleteAsset(orgId).then((res) => {
+      if (res.data.success) {
+        getAllAsset();
+        // document.getElementById("delete_org").click();
+      }
+    });
+  };
   return (
     <>
       <div className="modal bg-ma">
@@ -10,7 +25,7 @@ export default function DeleteComponent() {
             <div>
               <label
                 htmlFor="modalDelete"
-                className="btn border-none bg-white text-text-color hover:bg-bg-primary btn-sm btn-circle absolute right-2 top-2"
+                className="btn border-none bg-white text-text-color hover:bg-bg-primary btn-sm btn-circle absolute right-2 top-2 cursor-pointer"
               >
                 ✕
               </label>
@@ -54,16 +69,20 @@ export default function DeleteComponent() {
                 <hr className="border-[#E1E9EE]" />
               </div>
 
-              <div className="p-5 flex flex-row justify-center space-x-5">
+              <div className="p-5 flex flex-row justify-center space-x-5 cursor-pointer">
                 <label
                   htmlFor="modalDelete"
                   className="border border-[#E1E9EE] bg-bg-main hover:bg-white text-text-color font-sp-pro-text-medium p-1.5 px-5 rounded-md cursor-pointer"
                 >
                   Cancel
                 </label>
-                <span className="border bg-[#DF0404] bg-opacity-25 hover:bg-white text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md">
+                <button
+                  onClick={handleDeleteAsset}
+                  type="button"
+                  className="border bg-[#DF0404] bg-opacity-25 hover:bg-white text-reject font-sp-pro-text-medium p-1.5 px-5 rounded-md cursor-pointer"
+                >
                   Delete
-                </span>
+                </button>
               </div>
             </div>
           </div>

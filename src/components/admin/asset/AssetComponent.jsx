@@ -41,26 +41,26 @@ export default function AssetComponent() {
   // getdata
   const dispatch = useDispatch();
   const getdata = useSelector((state) => state.asset.data);
-  console.log("getdata", getdata);
   const [totalRow, setTotalRow] = useState(0);
   const [i, setI] = useState(1);
 
   const getAllAsset = (page) => {
-    AssetService.getAllAssets(page).then(res => {
-      // console.log("res data", res.data.payload);
-      if (res.data.success) {
-        dispatch(setData(res.data.payload));
-        setTotalRow(res.data.totalPage)
-      }
-    })
-    .catch((err) => {
-      dispatch(setData([]));
-        setTotalRow(0)
-    });
+    AssetService.getAllAssets(page)
+      .then((res) => {
+        // console.log("res data", res.data.payload);
+        if (res.data.success) {
+          dispatch(setData(res.data.payload));
+          setTotalRow(res.data.totalPage);
+        }
+      })
+      .catch((err) => {
+        dispatch(setData([]));
+        setTotalRow(0);
+      });
   };
   useEffect(() => {
     getAllAsset(1);
-  }, [])
+  }, []);
 
   // pagination
   const [pageCount, setPageCount] = useState(4);
@@ -243,7 +243,7 @@ export default function AssetComponent() {
                       </td>
                     </tr>
 
-                    {getdata?.map((asset, index) => (
+                    {getdata.map((asset, index) => (
                       <tr
                         key={index}
                         className="text-sm font-sp-pro-text-regular text-text-color"
@@ -422,7 +422,7 @@ export default function AssetComponent() {
                 id="modalDelete"
                 className="modal-toggle"
               />
-              <DeleteComponent className="modal" />
+              <DeleteComponent className="modal" getAllAssetData = {getAllAsset}/>
 
               {/* view */}
               <input
