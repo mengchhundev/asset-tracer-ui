@@ -38,28 +38,6 @@ export default function AddInvoiceComponent() {
     setSelectedFile(event.target.files[0]);
   };
 
-  useEffect(() => {
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const image = new Image();
-        image.onload = () => {
-          setImageDimensions({
-            width: image.width,
-            height: image.height,
-          });
-        };
-        image.src = event.target.result;
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-  }, [selectedFile]);
-
-  const [imageDimensions, setImageDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
-
   const [newData, setNewData] = useState({
     invoiceCode: "",
     purchaseBy: "",

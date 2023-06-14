@@ -33,11 +33,11 @@ export default function AssetComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
   // getdata
   const dispatch = useDispatch();
   const getdata = useSelector((state) => state.asset.data);
@@ -156,10 +156,9 @@ export default function AssetComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-custom-yellow-showdow-light text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-custom-yellow-showdow-light text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -167,17 +166,15 @@ export default function AssetComponent() {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`${
-                                      active ? "text-primary" : "text-primary"
-                                    } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                    className={`${active ? "text-primary" : "text-primary"
+                                      } absolute inset-y-0 left-0 flex items-center pl-2`}
                                   >
                                     {/* <CheckIcon
                                       className="h-5 w-5"
@@ -209,12 +206,17 @@ export default function AssetComponent() {
             </div>
 
             {/* add */}
-            <div className="block ">
-              <Link to="/asset-add">
-                <label className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] hover:bg-primary hover:bg-opacity-10 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase">
-                  <BsPlus className="w-6 h-6" />
-                  &nbsp;Add Asset
-                </label>
+            <div>
+              <Link to={"/asset-add"}>
+                <div className="block w-max">
+                  <label
+                    htmlFor="my-modal-3"
+                    className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
+                  >
+                    <BsPlus className="w-6 h-6" />
+                    &nbsp; Add New Asset
+                  </label>
+                </div>
               </Link>
             </div>
           </div>
@@ -422,7 +424,7 @@ export default function AssetComponent() {
                 id="modalDelete"
                 className="modal-toggle"
               />
-              <DeleteComponent className="modal" getAllAssetData = {getAllAsset}/>
+              <DeleteComponent className="modal" getAllAssetData={getAllAsset} />
 
               {/* view */}
               <input

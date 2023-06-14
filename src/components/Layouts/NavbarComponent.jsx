@@ -268,8 +268,7 @@ export default function NavbarComponent() {
               arrowClassName="bg-secondary-100 "
               menuClassName="bg-bg-color px-4 rounded-lg border"
             >
-              <FocusableItem>
-                <div className="p-4">
+              <div className="p-4">
                   <div className="relative text-sm border-[#edf0f1]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1  focus:border-primary">
 
                     <FocusableItem>
@@ -299,12 +298,10 @@ export default function NavbarComponent() {
                             onChange={(e) => setFilter(e.target.value)}
                           />
                         </>
-
                       )}
                     </FocusableItem>
                   </div>
                 </div>
-              </FocusableItem>
 
               {organizations.length != 0 ?
                 <MenuItem className="p-0 m-0 hover:bg-transparent">

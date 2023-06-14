@@ -11,7 +11,6 @@ import { RiCloseFill } from "react-icons/ri";
 import { FiSave } from "react-icons/fi";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { addAsset } from "../../../redux/services/AssetService";
 import FileUploadService from "../../../redux/services/FileUploadService";
 
 function AssetAddComponent({props, val}) {
@@ -58,7 +57,7 @@ function AssetAddComponent({props, val}) {
   };
 
   const handleInputAsset = () => {
-    addAsset(assetNewData);
+
   };
 
   const formik = useFormik({
