@@ -390,7 +390,7 @@ export default function UpdateInvoiceComponent() {
                                 as="input"
                                 className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20  border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                                 displayValue={(val) => {
-                                  ; return val.name
+                                   return val.name
                                 }}
                                 onChange={(e) => { setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index) }}
                                 placeholder='Select Category'

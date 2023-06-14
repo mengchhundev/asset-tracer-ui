@@ -210,7 +210,7 @@ export default function AssetComponent() {
 
             {/* add */}
             <div className="block ">
-              <Link to={"/asset/add"}>
+              <Link to="/asset-add">
                 <label className="border-2 ml-auto cursor-pointer border-yellow text-yellow p-[5px] hover:bg-primary hover:bg-opacity-10 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase">
                   <BsPlus className="w-6 h-6" />
                   &nbsp;Add Asset

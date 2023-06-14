@@ -23,6 +23,7 @@ export default function AddInvoiceComponent() {
 
   const [normalCategoryName, setNormalCategoryName] = useState([]);
   const navigator = useNavigate()
+  
   //combobox
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();

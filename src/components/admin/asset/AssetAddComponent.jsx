@@ -1,59 +1,32 @@
 import React, { useEffect, useState } from "react";
+import '../../../style/shadow.css'
 import { IoMdAddCircleOutline } from "react-icons/io";
 import ItemComponent from "./filtter/ItemComponent";
 import { RiAddBoxFill } from "react-icons/ri";
 import { CloudArrowUpIcon } from "@heroicons/react/20/solid";
 import { NavLink } from "react-router-dom";
 import SetAssetDropDownComponent from "./filtter/SetAssetDropDownComponent";
+import { FaFileInvoice } from "react-icons/fa";
+import { HiTemplate } from "react-icons/hi";
 
 export default function AssetAddComponent() {
-  const [query, setQuery] = useState("");
-  //Upload image
-  const [imageDimensions, setImageDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
-  const [selectedFile, setSelectedFile] = useState("");
-  const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-  let unique_id = "";
-  useEffect(() => {
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const image = new Image();
-        image.onload = () => {
-          setImageDimensions({
-            width: image.width,
-            height: image.height,
-          });
-        };
-        image.src = event.target.result;
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-  }, [selectedFile]);
-  const handleUpload = () => {
-    unique_id = uuid();
+ 
 
-    if (selectedFile) {
-      const uploadTask = ref(storage, `images/${unique_id}`);
-      uploadBytes(uploadTask, selectedFile).then((res) => {
-        console.log(res);
-      });
-    }
-  };
+
+
   return (
     <>
-      <main
-        className="overflow-y-auto pb-20 bg-white rounded-xl relative"
-        style={{
-          boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        }}
-      >
-        {/* Add Asset */}
-        <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
+      <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
+        <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
+          <h1 className="flex items-center">
+            <HiTemplate /> &nbsp; Add Asset
+          </h1>
+        </div>
+        <hr className="border-[#E1E9EE] border-1" />
+
+      
+
+        {/* <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
           <h1 className="flex items-center">
             <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Add
             Asset
@@ -66,7 +39,6 @@ export default function AssetAddComponent() {
 
         <div className="flex justify-between px-[25px]">
           <div className="bg-white rounded-lg">
-            {/* Assets name */}
             <div className="xl:w-5/5 lg:w-full md:w-full mt-none px-[40px] mt-6">
               <label
                 htmlFor=""
@@ -80,10 +52,7 @@ export default function AssetAddComponent() {
                 placeholder="name"
               />
             </div>
-
-            {/* two asset info in row */}
             <div className=" lg:flex lg:flex-row md:flex-col sm:flex-col flex flex-row mt-4">
-              {/* Purchase by */}
               <div className="lg:flex lg:flex-row xl:flex w-72​ flex-row space-x-10 ">
                 <div className=" xl:w-80 md:w-full px-[40px]">
                   <label
@@ -96,7 +65,6 @@ export default function AssetAddComponent() {
                 </div>
               </div>
 
-              {/* Purchase date */}
               <div>
                 <label
                   htmlFor=""
@@ -114,10 +82,8 @@ export default function AssetAddComponent() {
               </div>
             </div>
 
-            {/* border 1 */}
             <div className="px-[20px] mt-4 ">
               <div className=" ">
-                {/* top item in border */}
                 <div className="flex flex-row px-4 justify-between">
                   <div className="xl:w-[245px] md:w-full ">
                     <label
@@ -149,7 +115,7 @@ export default function AssetAddComponent() {
               </div>
             </div>
           </div>
-          {/* upload */}
+
           <div className="xl:w-5/12 md:w-6/12 sm:full">
             <div className="w-full">
               <div className="md:p-7 md:m-5 ">
@@ -219,7 +185,8 @@ export default function AssetAddComponent() {
               </div>
             </div>
           </div>
-        </div>
+
+        </div> */}
       </main>
     </>
   );
