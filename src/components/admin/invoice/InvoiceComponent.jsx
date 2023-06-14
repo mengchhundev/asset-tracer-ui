@@ -230,10 +230,10 @@ export default function AssetComponent() {
                     <td className="w-3/12 bg-bg-main py-3">
                       Supplier
                     </td>
-                    <td className="w-3/12 bg-bg-main py-3">
+                    <td className="w-2/12 bg-bg-main py-3">
                       Purchaser
                     </td>
-                    <td className="w-2/12 bg-bg-main py-3">Date</td>
+                    <td className="w-3/12 bg-bg-main py-3 text-center">Date</td>
                     <td className="w-1/12  bg-bg-main py-3">Action</td>
                   </tr>
                   {getAllInvoices.length != 0 ? getAllInvoices?.map((list, index) => (
@@ -245,7 +245,7 @@ export default function AssetComponent() {
                         {i + index}
                       </td>
                       <td className="py-2.5">
-                        {list.invoiceCode}
+                        <span className="px-3 py-1 bg-green rounded-md  text-white">{list.invoiceCode}</span>
                       </td>
                       <td className="py-2.5">
                         {list.supplier}
@@ -253,7 +253,7 @@ export default function AssetComponent() {
                       <td className="py-2.5">
                         {list.purchaseBy}
                       </td>
-                      <td className="py-2.5">
+                      <td className="py-2.5 text-center">
                         {moment(list.purchaseDate).format("MMM DD YYYY")}
                       </td>
                       {/* menu dropdown */}
@@ -327,7 +327,7 @@ export default function AssetComponent() {
             {/* pagination */}
             <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
               <div className="font-sp-pro-text-regular opacity-90">
-                Showing data 1 to 8 of 256K entries
+                Showing data 1 to 8 of {totalRow} entries
               </div>
               <div id="react-paginate" className="">
                 <ReactPaginate

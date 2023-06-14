@@ -88,7 +88,7 @@ export default function SidebarComponent() {
             setKey("")
         }
 
-        if (path.includes("asset")) {
+        if (path.includes("asset") ) {
             setShowAsset(true)
             setIsShowAsset(true)
         } else {
