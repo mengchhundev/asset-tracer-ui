@@ -87,13 +87,22 @@ export default function AssetAddComponent() {
   }
 
   const handleSaveAsset = () => {
-    console.log(selectedFile)
     if (selectedFile) {
       formData.append("file", selectedFile)
       FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
         if (res.data.success) {
           AssetService.saveAsset({ ...newAsset, image: res.data.payload }).then(res => {
             if (res.data.success) {
+              setNewAsset({
+                name: "",
+                image: "",
+                qty: "",
+                unitPrice: "",
+                discount: "0",
+                model: "",
+                normalCategoryId: "",
+                organizationId: organization.id
+              })
               navigator("/asset")
             }
           })
@@ -102,6 +111,16 @@ export default function AssetAddComponent() {
     } else {
       AssetService.saveAsset(newAsset).then(res => {
         if (res.data.success) {
+          setNewAsset({
+            name: "",
+            image: "",
+            qty: "",
+            unitPrice: "",
+            discount: "0",
+            model: "",
+            normalCategoryId: "",
+            organizationId: organization.id
+          })
           navigator("/asset")
         }
       })

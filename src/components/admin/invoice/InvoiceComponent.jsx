@@ -221,7 +221,7 @@ export default function AssetComponent() {
             {/* table */}
             <div className="px-5 z-0 flex-grow ">
               <table className="table w-full">
-                <tbody className="">
+                <tbody>
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-text-color">
                     <td className="w-2/12  bg-bg-main py-3">No</td>
                     <td className="w-2/12 bg-bg-main py-3">
