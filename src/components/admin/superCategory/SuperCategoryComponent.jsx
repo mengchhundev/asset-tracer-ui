@@ -19,6 +19,7 @@ import electronic from "../../../assets/icon/electronic.svg";
 import furniture from "../../../assets/icon/furniture.svg";
 import office from "../../../assets/icon/office.svg";
 import { FiSave } from "react-icons/fi";
+import moment from "moment";
 
 const people = [
   { id: 1, name: "Room" },
@@ -30,61 +31,14 @@ const people = [
 ];
 
 export default function SuperCategoryComponent() {
-  const [user, setUser] = useState([
-    {
-      id: 1,
-      name: "Electronic",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: "{electronic}"
-    },
-    {
-      id: 2,
-      name: "Electronic",
-      date: "09 June 2023",
-      src: "{furniture}"
-    },
-    {
-      id: 3,
-      profile: "SE",
-      name: "Electronic",
-      date: "09 June 2023",
-      src: {electronic}
-    },
-    {
-      id: 4,
-      profile: "SE",
-      name: "Electronic",
-      date: "09 June 2023",
-      src: {electronic}
-    },
-    {
-      id: 5,
-      name: "Electronic",
-      date: "09 June 2023",
-
-      email: "hrdcenter@gamil.com",
-      src: {electronic}
-    },
-    {
-      id: 6,
-      name: "Electronic",
-      date: "09 June 2023",
-      src: {electronic}
-    },
-    
-  ]);
-
   const [selected, setSelected] = useState(people[0]);
   const [i, setI] = useState(1);
   const [isUpdate, setIsUpdate] = useState(false);
   const dispatch = useDispatch();
-  const getData = useSelector((state) => state.superCategory.data);
+  const getAllSuperCategores = useSelector((state)=> state.superCategory.data)
+  // const saveSuperCategory = useSelector((state) => state.saveSuperCategory.data)
   const [pageCount, setPageCount] = useState(2);
-  const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
-  const [isShowError, setIsShowError] = useState(false);
+  const [setIsOpenModalDelete, setIsOpenModalCreate] = useState(false);
   const [superCategoryId, setSuperCategoryId] = useState("");
   const organization = JSON.parse(sessionStorage.getItem("organization"));
 
@@ -129,24 +83,17 @@ export default function SuperCategoryComponent() {
     setSuperCategoryId(id);
     setIsOpenModalDelete(true);
   }
-
-  const getAllSuperCategory = (page = 1, size = 10, name) => {
-    SuperCategoryService.getAllSuperCategory(page, size, name).then(
-      (res) => {
-        if (res?.data?.success) {
-          dispatch(setAllSuperCategory(res.data.payload));
-        }
-      },
-      (err) => {
-        if (err.response.data.status == 400) {
-          dispatch(setAllSuperCategory([]));
-        }
+  const handleGetAllSuperCategory = () => {
+    SuperCategoryService.getAllSuperCategores().then((res) => {
+      if (res.data.success) {
+        console.log(res)
+        dispatch(setAllSuperCategory(res.data.payload));
       }
-    );
+    });
   };
 
   useEffect(() => {
-    getAllSuperCategory(1);
+    handleGetAllSuperCategory(1);
   }, []);
 
   const handleInputChange = (e) => {
@@ -337,37 +284,34 @@ export default function SuperCategoryComponent() {
             </div>
           </div>
         </div>
- {/* table */}
+        {/* table */}
         <div className="flex flex-col justify-between h-[64vh] relative">
-         
-          <div
-            className="overflow-scroll px-5 flex-grow"
-            
-          >
+          <div className="overflow-scroll px-5 flex-grow">
             <table className="table w-full">
               <tbody className="">
                 <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
                   <td className="w-1/5 bg-bg-main">No</td>
-                  <td className="w-2/5 bg-bg-main">
-                    Super Category Name
-                  </td>
-                  <td className="w-2/5 bg-bg-main ">
-                    Created Date
-                  </td>
+                  <td className="w-2/5 bg-bg-main">Super Category Name</td>
+                  <td className="w-2/5 bg-bg-main">Created Date</td>
                   <td className="w-1/5 bg-bg-main text-center">Action</td>
                 </tr>
-                {user.map((users) => (
-                  <tr className="text-sm font-sp-pro-text-regular">
-                    <td className="w-1/5 ">{users.id}</td>
+                {getAllSuperCategores?.map((list, index) => (
+                  <tr key={index} className="text-sm font-sp-pro-text-regular">
+                    <td className="w-1/5 ">{index + i}</td>
 
                     <td className="w-2/5 ">
                       <div className="flex items-center space-x-5">
-                      <img src={electronic} className="h-8 rounded-lg w-8 " />
-                        <span className="text-sm ">{users.name}</span>
+                        <img 
+                      className="h-8 w-8"
+                      src={list.icon}></img>
+                        <span className="text-sm ">{list.name}</span>
                       </div>
                     </td>
-                    <td className="w-2/5 py-3 text-sm font-sp-pro-text-regular  p-2.5">
-                      {users.date}
+                    <td className="w-2/5 py-3 text-sm font-sp-pro-text-regular p-2.5">
+                    <div className="flex items-center space-x-5">
+                        <span className="text-sm ">{moment(list.createAt).format("MMM DD YYYY")}</span>
+                        
+                      </div>
                     </td>
                     <td className="w-1/5 py-3">
                       <div className="flex items-center space-x-4 justify-center">
@@ -481,12 +425,9 @@ export default function SuperCategoryComponent() {
             />
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
-                <button 
-                className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
                   <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                  <label htmlFor="superCategory">
-                  &nbsp; Cancel
-              </label>
+                  <label htmlFor="superCategory">&nbsp; Cancel</label>
                 </button>
               </div>
 
@@ -560,10 +501,8 @@ export default function SuperCategoryComponent() {
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
                 <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
-                <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                <label htmlFor="EditSuperCategory">
-                  &nbsp; Cancel
-              </label>
+                  <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+                  <label htmlFor="EditSuperCategory">&nbsp; Cancel</label>
                 </button>
               </div>
 

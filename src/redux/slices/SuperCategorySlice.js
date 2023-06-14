@@ -10,7 +10,7 @@ export const superCategorySlice = createSlice({
     initialState,
     reducers: {
         setAllSuperCategory: (state, action) => {
-            state.dataByIdd = action.payload
+            state.data = action.payload
         }
     }
 });
