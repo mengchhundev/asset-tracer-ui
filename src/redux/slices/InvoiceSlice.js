@@ -14,7 +14,7 @@ const initialState ={
     }
 }
 export const invoiceSilce = createSlice ({
-    
+
     name: "Invoices",
     initialState,
     reducers:{

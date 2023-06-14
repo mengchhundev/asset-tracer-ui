@@ -75,7 +75,7 @@ export default function AssetComponent() {
   const handlePageClick = (event) => {
     handleGetAllInvoices(event.selected + 1)
     setI(event.selected * 8 + 1);
-  };
+};
 
   useEffect(() => {
     setPageCount(Math.ceil(totalRow / 8));
