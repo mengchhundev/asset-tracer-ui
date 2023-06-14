@@ -270,7 +270,6 @@ export default function NavbarComponent() {
             >
               <div className="p-4">
                 <div className="relative text-sm border-[#edf0f1]  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1  focus:border-primary">
-
                   <FocusableItem>
                     {({ ref }) => (
                       <>

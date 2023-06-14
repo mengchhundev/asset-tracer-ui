@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from "react";
 import '../../../style/shadow.css'
-import { IoMdAddCircleOutline } from "react-icons/io";
-import ItemComponent from "./filtter/ItemComponent";
-import { RiAddBoxFill } from "react-icons/ri";
-import { CloudArrowUpIcon } from "@heroicons/react/20/solid";
 import { NavLink, useNavigate } from "react-router-dom";
-import SetAssetDropDownComponent from "./filtter/SetAssetDropDownComponent";
-import { FaFileInvoice } from "react-icons/fa";
 import { HiTemplate } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import '../../../style/shadow.css'
-import { AiOutlineFileAdd, AiOutlinePlus } from "react-icons/ai";
 import upload_placeholder from '../../../assets/images/placeholder/upload_placeholder.svg';
 import { RiCloseFill } from 'react-icons/ri';
 import * as Yup from "yup";
 import { FiSave } from "react-icons/fi";
-import InvoiceService from "../../../redux/services/InvoiceService";
 import { Combobox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import AssetService from "../../../redux/services/AssetService";
+import NormalCategoryService from "../../../redux/services/NormalCategoryService";
+import FileUploadService from '../../../redux/services/FileUploadService';
 
 export default function AssetAddComponent() {
 
-
   const [normalCategoryName, setNormalCategoryName] = useState([]);
+  const [normalCategory, setNormalCategory] = useState();
   const navigator = useNavigate()
 
   //combobox
@@ -38,12 +32,26 @@ export default function AssetAddComponent() {
   const [selectedFile, setSelectedFile] = useState();
   const [image, setImage] = useState()
 
+  const filteredCategoryName =
+    query === ""
+      ? normalCategoryName
+      : normalCategoryName.filter((list) =>
+        list.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
+
+  useEffect(() => {
+    NormalCategoryService.getAllNormalCategoryName(organization.id).then(res => {
+      if (res.data.success) {
+        setNormalCategoryName(res.data.payload)
+      }
+    })
+  }, [])
+
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
-  };
-
-  const handleInputChange = (e) => {
-    setNewData({ ...newData, [e.target.name]: e.target.value })
   };
 
   const [newAsset, setNewAsset] = useState({
@@ -52,6 +60,7 @@ export default function AssetAddComponent() {
     qty: "",
     unitPrice: "",
     discount: "0",
+    model: "",
     normalCategoryId: "",
     organizationId: organization.id
   })
@@ -61,22 +70,43 @@ export default function AssetAddComponent() {
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Item name is required"),
       qty: Yup.string().required("QTY is required"),
-      normalCategoryId: Yup.string().required("Category is required"),
+      normalCategoryId: Yup.string().required("Normal category is required"),
     }),
     onSubmit: (val, { resetForm }) => {
-      // handleSaveAsset()
-      console.log(newAsset)
+      handleSaveAsset()
     }
   });
 
-  const handleSaveAsset = () => {
-    AssetService.saveAsset(newAsset).then(res => {
-      console.log(res)
-    }, err => {
-      console.log(err)
-    })
+  const handleInputChange = (e) => {
+    setNewAsset({ ...newAsset, [e.target.name]: e.target.value })
+  };
+
+  const handleSelectedNormalCategory = (val) => {
+    setNewAsset({ ...newAsset, normalCategoryId: val.id })
+    formik.setValues({ ...newAsset, normalCategoryId: val.id })
   }
 
+  const handleSaveAsset = () => {
+    console.log(selectedFile)
+    if (selectedFile) {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
+        if (res.data.success) {
+          AssetService.saveAsset({ ...newAsset, image: res.data.payload }).then(res => {
+            if (res.data.success) {
+              navigator("/asset")
+            }
+          })
+        }
+      })
+    } else {
+      AssetService.saveAsset(newAsset).then(res => {
+        if (res.data.success) {
+          navigator("/asset")
+        }
+      })
+    }
+  }
 
   return (
     <>
@@ -99,12 +129,12 @@ export default function AssetAddComponent() {
                       type='text'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.invoiceCode}
-                      name="invoiceCode"
+                      value={newAsset.name}
+                      name="name"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter invoice name'
                     />
-                    {/* {formik.touched.invoiceCode && formik.errors?.invoiceCode ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.invoiceCode}</p> : null} */}
+                    {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
                   </div>
                 </div>
                 <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
@@ -114,12 +144,12 @@ export default function AssetAddComponent() {
                       type='number'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.invoiceCode}
-                      name="invoiceCode"
+                      value={newAsset.qty}
+                      name="qty"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter QTY'
                     />
-                    {/* {formik.touched.invoiceCode && formik.errors?.invoiceCode ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.invoiceCode}</p> : null} */}
+                    {formik.touched.qty && formik.errors?.qty ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.qty}</p> : null}
                   </div>
                   <div className='text-left w-full'>
                     <label className="block mb-2 ml-1 text-sm">Unit Price</label>
@@ -127,12 +157,11 @@ export default function AssetAddComponent() {
                       type='text'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.invoiceCode}
-                      name="invoiceCode"
+                      value={newAsset.unitPrice}
+                      name="unitPrice"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter unit price'
                     />
-                    {/* {formik.touched.invoiceCode && formik.errors?.invoiceCode ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.invoiceCode}</p> : null} */}
                   </div>
                 </div>
                 <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
@@ -142,15 +171,14 @@ export default function AssetAddComponent() {
                       type='text'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.invoiceCode}
-                      name="invoiceCode"
+                      value={newAsset.purchaseBy}
+                      name="purchaseBy"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter purchase by'
                     />
-                    {/* {formik.touched.invoiceCode && formik.errors?.invoiceCode ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.invoiceCode}</p> : null} */}
                   </div>
                   <div className='text-left w-full'>
-                    <label className="block mb-2 ml-1 text-sm">Purchase Date <span className='text-reject'>*</span></label>
+                    <label className="block mb-2 ml-1 text-sm">Purchase Date</label>
                     <input
                       type='date'
                       onInput={handleInputChange}
@@ -160,15 +188,26 @@ export default function AssetAddComponent() {
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                     // placeholder="Date"
                     />
-                    {/* {formik.touched.purchaseDate && formik.errors?.purchaseDate ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.purchaseDate}</p> : null} */}
                   </div>
                 </div>
-                <div className="flex w-full lg:w-1/2 gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
+                <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Model</label>
+                    <input
+                      type='text'
+                      onInput={handleInputChange}
+                      onChange={formik.handleChange}
+                      value={newAsset.model}
+                      name="model"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      placeholder='Enter purchase by'
+                    />
+                  </div>
                   <div className='text-left w-full'>
                     <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
                     <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                       <Combobox
-                        // onChange={(e) => handleSelectionChangeItem(e, index)}
+                        onChange={handleSelectedNormalCategory}
                         className="z-20"
                       >
                         <div className="relative z-20">
@@ -176,7 +215,7 @@ export default function AssetAddComponent() {
                             <Combobox.Input
                               className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20 border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                               displayValue={(val) => val.name}
-                              // onChange={(e) => { setQuery(e.target.value), (e) => handleSelectionChangeItem(e, index) }}
+                              onChange={(e) => setQuery(e.target.value)}
                               placeholder='Select Category'
                             />
                             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -193,7 +232,7 @@ export default function AssetAddComponent() {
                             leaveTo="opacity-0"
                             afterLeave={() => setQuery("")}
                           >
-                            {/* <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                               {filteredCategoryName.length === 0 && query !== "" ? (
                                 <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                                   Nothing found.
@@ -211,12 +250,12 @@ export default function AssetAddComponent() {
                                   </Combobox.Option>
                                 ))
                               )}
-                            </Combobox.Options> */}
+                            </Combobox.Options>
                           </Transition>
                         </div>
                       </Combobox>
                     </div>
-                    {formik.touched?.newAsset && formik.errors?.newAsset && formik.errors?.newAsset[index]?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors?.newAsset[index].normalCategoryId}</p> : null}
+                    {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null}
                   </div>
                 </div>
               </section>
