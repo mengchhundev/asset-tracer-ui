@@ -1,3 +1,4 @@
+import { Search } from "@mui/icons-material";
 import api from "./api"
 import apiV2 from "./apiV2";
 
@@ -37,6 +38,10 @@ const getProfileUser = async (userId) => {
     return await api.get(`users/${userId}`)
 }
 
+const getUserAllInOrganizations = async (orgId) => {
+    return await apiV2.get(`/organizations/get-all-joined-users/${orgId}`);
+}
+
 const UserService = {
     signin,
     singup,
@@ -46,7 +51,8 @@ const UserService = {
     checkValidCode,
     setNewPassword,
     verifyRegistration,
-    getProfileUser
+    getProfileUser,
+    getUserAllInOrganizations
 }
 
 export default UserService;

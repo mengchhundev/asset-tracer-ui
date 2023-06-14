@@ -1,14 +1,16 @@
-import { CalendarDaysIcon, EnvelopeIcon, MapPinIcon, UserCircleIcon, UserIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import React from 'react';
+import { CalendarDaysIcon, EnvelopeIcon, MapPinIcon, UserCircleIcon, UserIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import { RiFacebookCircleLine } from 'react-icons/ri';
 import { TiSocialLinkedinCircular, TiSocialTwitterCircular } from 'react-icons/ti';
 import { TbBrandInstagram } from 'react-icons/tb';
 import { BsGenderAmbiguous } from 'react-icons/bs';
 import { PhoneIcon } from '@heroicons/react/24/outline';
+
 // import { TiSocialLinkedinCircular } from 'react-icons/Ti';
 
 
 function UserDetail(props) {
+
     return (
         <div className="modal">
             <div className="modal-box max-w-5xl">

@@ -81,7 +81,7 @@ export default function OrganizationListComponent() {
             dispatch(setAllOrganization([]))
         })
     }
-
+   
     const handleInputSearch = (e) => {
         setSearch(e.target.value)
     };
