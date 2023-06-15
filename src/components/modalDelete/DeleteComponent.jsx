@@ -60,8 +60,7 @@ export default function DeleteComponent({ getAllAssetData }) {
                   You want to delete?
                 </h1>
                 <p className="text-text-color font-sp-pro-text-regular text-sm mt-1">
-                  Do you really want to delete these organization? This process
-                  cannot be undone.
+                  Are your sure, you want to delete this asset?
                 </p>
               </div>
 

@@ -277,7 +277,6 @@ export default function OrganizationListComponent() {
                 </div>
             </div>
 
-            {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
                 {organizations.length != 0 ? organizations.map((list, index) => (
                     <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
@@ -311,7 +310,7 @@ export default function OrganizationListComponent() {
                                                                 <TbListDetails /> Show Detail
                                                             </span>
                                                         </label>
-                                                        {/* {list.roleName == "ADMIN" && */}
+                                                        {list?.roleName == "ADMIN" &&
                                                         <>
                                                             <label
                                                                 onClick={() => handleSetOrgDetail(list)}
@@ -332,7 +331,7 @@ export default function OrganizationListComponent() {
                                                                 </span>
                                                             </label>
                                                         </>
-                                                        {/* } */}
+                                                        }
 
                                                     </Listbox.Option>
                                                 </Listbox.Options>
@@ -358,7 +357,7 @@ export default function OrganizationListComponent() {
                             </>}
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
                             <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                {list.roleName == "ADMIN" ? "Owner" : "Member"}
+                                {list?.roleName == "ADMIN" ? "Owner" : "Member"}
                             </p>
                             <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
                                 {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}

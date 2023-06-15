@@ -3,21 +3,21 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { HiChevronDown } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { setData } from "../../../../redux/slices/ItemDetailSlice";
 import ItemDetailService from "../../../../redux/services/ItemDetailService";
 
 export default function ItemComponent() {
+
   // get item data
-  const getAllRoom = () => {
-      ItemDetailService.getItemDetail().then((res) => {
-      if (res?.data?.success) {
-        dispatch(setData(res.data.payload));
-      }
-    });
-  };
-  useEffect(() => {
-    getAllRoom();
-  }, []);
+  // const getAllItemDetail = () => {
+  //   ItemDetailService.getItemDetail().then((res) => {
+  //     if (res?.data?.success) {
+  //       dispatch(setAsset(res.data.payload));
+  //     }
+  //   });
+  // };
+  // useEffect(() => {
+  //   getAllItemDetail();
+  // }, []);
 
   const dispatch = useDispatch();
   const getData = useSelector((state) => state.itemDetail.data);
@@ -30,11 +30,12 @@ export default function ItemComponent() {
     query === ""
       ? getData
       : getData.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
+      
   return (
     <div className="mt-1">
       <div>
@@ -70,10 +71,9 @@ export default function ItemComponent() {
                     <Combobox.Option
                       key={person.id}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active
-                            ? "bg-custom-yellow-showdow-light text-text-color"
-                            : "text-text-color"
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                          ? "bg-custom-yellow-showdow-light text-text-color"
+                          : "text-text-color"
                         }`
                       }
                       value={person}
@@ -81,17 +81,15 @@ export default function ItemComponent() {
                       {({ selected, active }) => (
                         <>
                           <span
-                            className={`block truncate ${
-                              selected ? "font-medium" : "font-normal"
-                            }`}
+                            className={`block truncate ${selected ? "font-medium" : "font-normal"
+                              }`}
                           >
                             {person.name}
                           </span>
                           {selected ? (
                             <span
-                              className={`${
-                                active ? "text-primary" : "text-primary"
-                              } absolute inset-y-0 left-0 flex items-center pl-2`}
+                              className={`${active ? "text-primary" : "text-primary"
+                                } absolute inset-y-0 left-0 flex items-center pl-2`}
                             >
                               {/* <CheckIcon
                                 className="h-5 w-5"
