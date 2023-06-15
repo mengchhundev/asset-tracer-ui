@@ -24,7 +24,7 @@ export default function AssetComponent() {
 
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const dispatch = useDispatch();
-  const getAllAssets = useSelector((state) => state.itemDetail.itemDetails);
+  const getAllItems = useSelector((state) => state.itemDetail.itemDetails);
   const [totalRow, setTotalRow] = useState(0);
   const [i, setI] = useState(1);
 
@@ -44,7 +44,7 @@ export default function AssetComponent() {
       );
 
   const handleGetAllAssets = () => {
-    ItemDetailService.getAllAssets(organization.id).then(res => {
+    ItemDetailService.getAllItems(organization.id).then(res => {
       if (res.data.success) {
         dispatch(setItemDetails(res.data.payload))
       }
@@ -65,7 +65,7 @@ export default function AssetComponent() {
   useEffect(() => {
     handleGetAllAssets()
   }, [])
-  console.log(getAllAssets)
+
   return (
     <>
       <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -232,7 +232,7 @@ export default function AssetComponent() {
                     <td className="w-2/12 bg-bg-main py-3">Created At</td>
                     <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                   </tr>
-                  {getAllAssets != 0 ? getAllAssets.map((list, index) => (
+                  {getAllItems != 0 ? getAllItems.map((list, index) => (
                     <tr
                       key={index}
                       className="text-sm font-sp-pro-text-regular"
@@ -363,7 +363,7 @@ export default function AssetComponent() {
           id="modalDelete"
           className="modal-toggle"
         />
-        <DeleteComponent className="modal" getAllAssetData={getAllAssets} />
+        <DeleteComponent className="modal" getAllAssetData={getAllItems} />
 
         {/* view */}
         <input

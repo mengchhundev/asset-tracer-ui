@@ -16,6 +16,10 @@ const saveAsset = async (data) => {
     return await apiV2.post(`/item-details`, data)
 }
 
-const AssetService = { getAllAssets, addAsset, deleteAsset, saveAsset }
+const updateAsset = async (id, data) => {
+    return await apiV2.put(`/item-details/${id}`, data)
+}
+
+const AssetService = { getAllAssets, addAsset, deleteAsset, saveAsset, updateAsset }
 
 export default AssetService;

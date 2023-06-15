@@ -15,18 +15,29 @@ import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import AssetService from "../../../redux/services/AssetService";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
 import FileUploadService from '../../../redux/services/FileUploadService';
+import ItemDetailService from "../../../redux/services/ItemDetailService";
 
 export default function AssetUpdateComponent() {
-    const [normalCategoryName, setNormalCategoryName] = useState([]);
-    const [normalCategory, setNormalCategory] = useState();
-    const navigator = useNavigate()
 
-    const {id} = useParams()
-
-    //combobox
-    const [query, setQuery] = useState("");
     const dispatch = useDispatch();
+    const [normalCategoryName, setNormalCategoryName] = useState([]);
+    const [selectedNormalCategory, setSelectedNormalCategory] = useState();
+    const navigator = useNavigate()
+    const [query, setQuery] = useState("");
     let organization = JSON.parse(sessionStorage.getItem("organization"))
+
+    const [newItem, setNewItem] = useState({
+        name: "",
+        image: "",
+        qty: "",
+        unitPrice: "",
+        discount: "0",
+        model: "",
+        normalCategoryId: "",
+        organizationId: organization.id
+    })
+
+    const { id } = useParams()
 
     // Upload file
     let formData = new FormData()
@@ -55,46 +66,46 @@ export default function AssetUpdateComponent() {
         setSelectedFile(event.target.files[0]);
     };
 
-    const [newAsset, setNewAsset] = useState({
-        name: "",
-        image: "",
-        qty: "",
-        unitPrice: "",
-        discount: "0",
-        model: "",
-        normalCategoryId: "",
-        organizationId: organization.id
-    })
-
     const formik = useFormik({
-        initialValues: newAsset,
+        initialValues: newItem,
         validationSchema: Yup.object().shape({
             name: Yup.string().required("Item name is required"),
             qty: Yup.string().required("QTY is required"),
             normalCategoryId: Yup.string().required("Normal category is required"),
         }),
         onSubmit: (val, { resetForm }) => {
-            handleSaveAsset()
+            handleUpdateAsset()
         }
     });
 
+    useEffect(() => {
+        ItemDetailService.getItemById(id).then(res => {
+            if (res.data.payload) {
+                setNewItem(res.data.payload)
+                setSelectedNormalCategory({name: res.data.payload.normalCategoryName})
+                formik.setValues(res.data.payload)
+            }
+        })
+    }, [id])
+
     const handleInputChange = (e) => {
-        setNewAsset({ ...newAsset, [e.target.name]: e.target.value })
+        setNewItem({ ...newItem, [e.target.name]: e.target.value })
     };
 
     const handleSelectedNormalCategory = (val) => {
-        setNewAsset({ ...newAsset, normalCategoryId: val.id })
-        formik.setValues({ ...newAsset, normalCategoryId: val.id })
+        setSelectedNormalCategory({name: val.name})
+        setNewItem({ ...newItem, normalCategoryId: val.id })
+        formik.setValues({ ...newItem, normalCategoryId: val.id })
     }
 
-    const handleSaveAsset = () => {
+    const handleUpdateAsset = () => {
         if (selectedFile) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
                 if (res.data.success) {
-                    AssetService.saveAsset({ ...newAsset, image: res.data.payload }).then(res => {
+                    AssetService.updateAsset(id, { ...newItem, image: res.data.payload }).then(res => {
                         if (res.data.success) {
-                            setNewAsset({
+                            setNewItem({
                                 name: "",
                                 image: "",
                                 qty: "",
@@ -110,9 +121,9 @@ export default function AssetUpdateComponent() {
                 }
             })
         } else {
-            AssetService.saveAsset(newAsset).then(res => {
+            AssetService.updateAsset(id, newItem).then(res => {
                 if (res.data.success) {
-                    setNewAsset({
+                    setNewItem({
                         name: "",
                         image: "",
                         qty: "",
@@ -149,7 +160,7 @@ export default function AssetUpdateComponent() {
                                             type='text'
                                             onInput={handleInputChange}
                                             onChange={formik.handleChange}
-                                            value={newAsset.name}
+                                            value={newItem.name}
                                             name="name"
                                             className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder='Enter invoice name'
@@ -164,7 +175,7 @@ export default function AssetUpdateComponent() {
                                             type='number'
                                             onInput={handleInputChange}
                                             onChange={formik.handleChange}
-                                            value={newAsset.qty}
+                                            value={newItem.qty}
                                             name="qty"
                                             className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder='Enter QTY'
@@ -177,36 +188,10 @@ export default function AssetUpdateComponent() {
                                             type='text'
                                             onInput={handleInputChange}
                                             onChange={formik.handleChange}
-                                            value={newAsset.unitPrice}
+                                            value={newItem.unitPrice}
                                             name="unitPrice"
                                             className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder='Enter unit price'
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
-                                    <div className='text-left w-full'>
-                                        <label className="block mb-2 ml-1 text-sm">Purchase by</label>
-                                        <input
-                                            type='text'
-                                            onInput={handleInputChange}
-                                            onChange={formik.handleChange}
-                                            value={newAsset.purchaseBy}
-                                            name="purchaseBy"
-                                            className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                                            placeholder='Enter purchase by'
-                                        />
-                                    </div>
-                                    <div className='text-left w-full'>
-                                        <label className="block mb-2 ml-1 text-sm">Purchase Date</label>
-                                        <input
-                                            type='date'
-                                            onInput={handleInputChange}
-                                            onChange={formik.handleChange}
-                                            value={newAsset.purchaseDate}
-                                            name="purchaseDate"
-                                            className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                                        // placeholder="Date"
                                         />
                                     </div>
                                 </div>
@@ -217,7 +202,7 @@ export default function AssetUpdateComponent() {
                                             type='text'
                                             onInput={handleInputChange}
                                             onChange={formik.handleChange}
-                                            value={newAsset.model}
+                                            value={newItem.model}
                                             name="model"
                                             className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                                             placeholder='Enter purchase by'
@@ -227,6 +212,7 @@ export default function AssetUpdateComponent() {
                                         <label className="block mb-2 ml-1 text-sm">Category <span className='text-reject'>*</span></label>
                                         <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                                             <Combobox
+                                                value={selectedNormalCategory}
                                                 onChange={handleSelectedNormalCategory}
                                                 className="z-20"
                                             >
@@ -288,10 +274,11 @@ export default function AssetUpdateComponent() {
                                         <div className='w-full min-h-[14rem] flex p-5 relative'>
                                             {
                                                 selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                                                    : <img className="block m-auto h-32" src={upload_placeholder} />
+                                                    : newItem?.image ? <img src={FileUploadService.getImage(newItem.image)} className='h-full m-auto' />
+                                                    :<img className="block m-auto h-32" src={upload_placeholder} />
                                             }
                                         </div>
-                                        <p className='mt-5 text-xs'>Upload Asset Picture</p>
+                                        <p className='mt-5 text-xs'>Upload Item Picture</p>
                                         <br />
                                         <label htmlFor='logo' className='cursor-pointer shadow-md rounded-md border border-bg-primary px-5 py-2 my-2 '>Browse</label>
                                         <input type="file" className='hidden' id='logo' onChange={handleFileSelect} />
@@ -313,9 +300,9 @@ export default function AssetUpdateComponent() {
                         </label>
                         <button
                             type="submit"
-                            className={`hover:bg-opacity-90 bg-primary  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
+                            className={`hover:bg-opacity-90 bg-accept  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
                         >
-                            <FiSave className='text-lg' /> Add
+                            <FiSave className='text-lg' /> Save changes
                         </button>
                     </div>
                 </form>

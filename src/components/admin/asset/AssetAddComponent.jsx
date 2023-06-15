@@ -54,7 +54,7 @@ export default function AssetAddComponent() {
     setSelectedFile(event.target.files[0]);
   };
 
-  const [newAsset, setNewAsset] = useState({
+  const [newItem, setNewItem] = useState({
     name: "",
     image: "",
     qty: "",
@@ -66,7 +66,7 @@ export default function AssetAddComponent() {
   })
 
   const formik = useFormik({
-    initialValues: newAsset,
+    initialValues: newItem,
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Item name is required"),
       qty: Yup.string().required("QTY is required"),
@@ -78,12 +78,12 @@ export default function AssetAddComponent() {
   });
 
   const handleInputChange = (e) => {
-    setNewAsset({ ...newAsset, [e.target.name]: e.target.value })
+    setNewItem({ ...newItem, [e.target.name]: e.target.value })
   };
 
   const handleSelectedNormalCategory = (val) => {
-    setNewAsset({ ...newAsset, normalCategoryId: val.id })
-    formik.setValues({ ...newAsset, normalCategoryId: val.id })
+    setNewItem({ ...newItem, normalCategoryId: val.id })
+    formik.setValues({ ...newItem, normalCategoryId: val.id })
   }
 
   const handleSaveAsset = () => {
@@ -91,9 +91,9 @@ export default function AssetAddComponent() {
       formData.append("file", selectedFile)
       FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
         if (res.data.success) {
-          AssetService.saveAsset({ ...newAsset, image: res.data.payload }).then(res => {
+          AssetService.saveAsset({ ...newItem, image: res.data.payload }).then(res => {
             if (res.data.success) {
-              setNewAsset({
+              setNewItem({
                 name: "",
                 image: "",
                 qty: "",
@@ -109,9 +109,9 @@ export default function AssetAddComponent() {
         }
       })
     } else {
-      AssetService.saveAsset(newAsset).then(res => {
+      AssetService.saveAsset(newItem).then(res => {
         if (res.data.success) {
-          setNewAsset({
+          setNewItem({
             name: "",
             image: "",
             qty: "",
@@ -148,7 +148,7 @@ export default function AssetAddComponent() {
                       type='text'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.name}
+                      value={newItem.name}
                       name="name"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter invoice name'
@@ -163,7 +163,7 @@ export default function AssetAddComponent() {
                       type='number'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.qty}
+                      value={newItem.qty}
                       name="qty"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter QTY'
@@ -176,36 +176,10 @@ export default function AssetAddComponent() {
                       type='text'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.unitPrice}
+                      value={newItem.unitPrice}
                       name="unitPrice"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter unit price'
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
-                  <div className='text-left w-full'>
-                    <label className="block mb-2 ml-1 text-sm">Purchase by</label>
-                    <input
-                      type='text'
-                      onInput={handleInputChange}
-                      onChange={formik.handleChange}
-                      value={newAsset.purchaseBy}
-                      name="purchaseBy"
-                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                      placeholder='Enter purchase by'
-                    />
-                  </div>
-                  <div className='text-left w-full'>
-                    <label className="block mb-2 ml-1 text-sm">Purchase Date</label>
-                    <input
-                      type='date'
-                      onInput={handleInputChange}
-                      onChange={formik.handleChange}
-                      value={newAsset.purchaseDate}
-                      name="purchaseDate"
-                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                    // placeholder="Date"
                     />
                   </div>
                 </div>
@@ -216,7 +190,7 @@ export default function AssetAddComponent() {
                       type='text'
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
-                      value={newAsset.model}
+                      value={newItem.model}
                       name="model"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter purchase by'
