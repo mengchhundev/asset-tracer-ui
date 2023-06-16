@@ -66,10 +66,12 @@ const sort = [
 ];
 
 export default function UsersAllComponent() {
-  const [selected, setSelected] = useState(sort[0]);
+  const [selectedSort, setSelectedSort] = useState(sort[0]);
   const [query, setQuery] = useState("");
   const [userId, setUserId] = useState();
+  const [search, setSearch] = useState();
   const CurrentOrg = JSON.parse(sessionStorage.getItem("organization"));
+
   const userDetail = useSelector((state) => state.user.userDetail);
 
   const filteredPeople =
@@ -89,7 +91,7 @@ export default function UsersAllComponent() {
     UserService.getUserAllInOrganizations(orgId).then(
       (res) => {
         if (res.data?.success) {
-          // console.log(res.data.payload)
+          console.log(res.data.payload);
           dispatch(setAllUser(res.data.payload));
         }
       },
@@ -98,7 +100,10 @@ export default function UsersAllComponent() {
       }
     );
   };
-
+  const handleInputSearch = (e) => {
+    setSearch(e.target.value);
+    // console.log(e.target.value);
+  };
   // const handleShowUserInOrg = (val) => {
   //   dispatch(console.log(setProfile(val)))
   //   sessionStorage.setItem("user", JSON.stringify(val))
@@ -109,18 +114,21 @@ export default function UsersAllComponent() {
   }, []);
 
   useEffect(() => {
-    UserService.getUserAllInOrganizations(orgId).then(
-      (res) => {
-        if (res.data?.success) {
-          // console.log(res.data.payload)
-          dispatch(setAllUser(res.data.payload));
+    if(selectedSort.id == "asc" || selectedSort.id == "desc" || search != null){
+      UserService.getUserAllInOrganizations(orgId).then(
+        (res) => {
+          if (res.data?.success) {
+            // console.log(res.data.payload)
+            dispatch(setAllUser(res.data.payload));
+          }
+        },
+        (err) => {
+          dispatch(setAllUser([]));
         }
-      },
-      (err) => {
-        dispatch(setAllUser([]));
-      }
-    );
-  }, []);
+      );
+    }
+   
+  }, [selectedSort, search]);
 
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
@@ -154,6 +162,7 @@ export default function UsersAllComponent() {
                   </svg>
                 </div>
                 <input
+                  onInput={handleInputSearch}
                   className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
@@ -165,10 +174,12 @@ export default function UsersAllComponent() {
             {/* filter */}
             <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <Combobox
-                value={selected}
-                onChange={setSelected}
+                value={selectedSort}
+                onChange={setSelectedSort}
                 className="z-20"
               >
+            
+          
                 <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
@@ -208,16 +219,17 @@ export default function UsersAllComponent() {
                             }
                             value={person}
                           >
-                            {({ selected, active }) => (
+                            {({ selectedSort, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`bloc
+                                k truncate ${
+                                  selectedSort ? "font-medium" : "font-normal"
+                                }`}
                                 >
                                   {person.name}
                                 </span>
-                                {selected ? (
+                                {selectedSort ? (
                                   <span
                                     className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
                                       active ? "text-white" : "text-text-color"
@@ -383,7 +395,7 @@ export default function UsersAllComponent() {
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />
         {/* <UserDetail className="modal" /> */}
         <div className="modal px-6 ">
-          <div className="  bg-white py-6 p-8 rounded-[15px] max-w-5xl sm:max-w-[50rem]  lg:max-w-5xl xl:h-[500px] xl:w-[1280px]  ">
+          <div className="  bg-white p-8   rounded-[15px] max-w-5xl sm:w-[50rem] lg:w-[65rem]  xl:h-[500px] xl:w-[1280px]  ">
             {/* header */}
             <div className="  flex justify-between">
               <div className="flex items-center space-x-4">
@@ -393,14 +405,19 @@ export default function UsersAllComponent() {
                 </h2>
               </div>
               <label htmlFor="my-modal-5" className="cursor-pointer">
-                <XCircleIcon className="h-7 w-7 text-red-300" />
+                <label
+                  htmlFor="my-modal-5"
+                  className="btn border-bg-primary-strock bg-white text-red-500 hover:bg-white hover:border-red-400 btn-sm btn-circle "
+                >
+                  ✕
+                </label>
               </label>
             </div>
 
             {/* ============ content =========== */}
 
             <div className="lg:flex space-x-12 relative ">
-              <div className="lg:w-1/3 py-14  md:w-full">
+              <div className="lg:w-1/3 sm:py-4 md:py-7 xl:py-12 md:w-full">
                 <div className="flex justify-center ">
                   {userDetail.image != null ? (
                     <>
@@ -419,15 +436,15 @@ export default function UsersAllComponent() {
                     </>
                   )}
                 </div>
-                <div className="p-3">
-                  <h3 className="flex justify-center font-sp-pro-text-regular text-2xl text-text-color">
+                <div className="p-2">
+                  <h3 className="flex justify-center font-sp-pro-text-bold text-2xl text-text-color">
                     {userDetail.name}
                   </h3>
-                  <p className="flex justify-center text-xl font- font-sp-pro-text-regular text-md text-primary">
+                  <p className="flex justify-center text-md font- font-sp-pro-text-regular  text-primary">
                     UX/UI Design
                   </p>
                 </div>
-                <div className="m-auto gap-1 flex flex-row justify-center space-x-2 pt-4 2xl:pb-5 pb-3">
+                <div className="m-auto gap-1 flex flex-row justify-center space-x-2 pt-3 2xl:pb-5 ">
                   <div className="w-8 h-8  rounded-full">
                     <svg
                       viewBox="0 0 40 39"
@@ -551,14 +568,14 @@ export default function UsersAllComponent() {
                 </div>
               </div>
               <div className=" md:flex w-2/3 md:w-full ">
-                <div className="w-1/2 py-7 sm:w-full">
-                  <div className="grid grid-cols-2 gap-12 gap-x-14 ">
+                <div className="w-1/2 py-7 xl:py-8  sm:w-full ">
+                  <div className="grid sm:grid-cols-1 sm:px-7 sm:gap-y-5  md:gap-y-12 md:grid-cols-2 gap-12 gap-x-16 ">
                     <div>
                       <div className="flex items-center ">
                         <span className="flex-grow-0">
                           <svg
                             width="43"
-                            height="41"
+                            height="42"
                             viewBox="0 0 43 41"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -617,42 +634,42 @@ export default function UsersAllComponent() {
                       <div className="flex items-center ">
                         {/* =============== Icon Date ============= */}
                         <span className="flex flex-grow-0">
-                        <svg
-                          width="43"
-                          height="42"
-                          viewBox="0 0 43 42"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            y="0.59375"
+                          <svg
                             width="43"
-                            height="40.42"
-                            rx="10.32"
-                            fill="#F8C400"
-                            fill-opacity="0.8"
-                          />
-                          <path
-                            d="M29.8332 18.6328V15.6328C29.8332 14.5282 28.9005 13.6328 27.7498 13.6328H15.2498C14.0992 13.6328 13.1665 14.5282 13.1665 15.6328V18.6328M29.8332 18.6328V27.6328C29.8332 28.7374 28.9005 29.6328 27.7498 29.6328H15.2498C14.0992 29.6328 13.1665 28.7374 13.1665 27.6328V18.6328M29.8332 18.6328H13.1665M17.3332 11.6328V15.6328M25.6665 11.6328V15.6328"
-                            stroke="white"
-                            stroke-width="1.91667"
-                            stroke-linecap="round"
-                          />
-                          <path
-                            d="M17.8542 20.6328H15.7708C15.4832 20.6328 15.25 20.8567 15.25 21.1328V23.1328C15.25 23.409 15.4832 23.6328 15.7708 23.6328H17.8542C18.1418 23.6328 18.375 23.409 18.375 23.1328V21.1328C18.375 20.8567 18.1418 20.6328 17.8542 20.6328Z"
-                            fill="white"
-                          />
-                          <path
-                            d="M22.5417 20.6328H20.4583C20.1707 20.6328 19.9375 20.8567 19.9375 21.1328V23.1328C19.9375 23.409 20.1707 23.6328 20.4583 23.6328H22.5417C22.8293 23.6328 23.0625 23.409 23.0625 23.1328V21.1328C23.0625 20.8567 22.8293 20.6328 22.5417 20.6328Z"
-                            fill="white"
-                          />
-                          <path
-                            d="M27.2292 20.6328H25.1458C24.8582 20.6328 24.625 20.8567 24.625 21.1328V23.1328C24.625 23.409 24.8582 23.6328 25.1458 23.6328H27.2292C27.5168 23.6328 27.75 23.409 27.75 23.1328V21.1328C27.75 20.8567 27.5168 20.6328 27.2292 20.6328Z"
-                            fill="white"
-                          />
-                        </svg>
+                            height="42"
+                            viewBox="0 0 43 42"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              y="0.59375"
+                              width="43"
+                              height="40.42"
+                              rx="10.32"
+                              fill="#F8C400"
+                              fill-opacity="0.8"
+                            />
+                            <path
+                              d="M29.8332 18.6328V15.6328C29.8332 14.5282 28.9005 13.6328 27.7498 13.6328H15.2498C14.0992 13.6328 13.1665 14.5282 13.1665 15.6328V18.6328M29.8332 18.6328V27.6328C29.8332 28.7374 28.9005 29.6328 27.7498 29.6328H15.2498C14.0992 29.6328 13.1665 28.7374 13.1665 27.6328V18.6328M29.8332 18.6328H13.1665M17.3332 11.6328V15.6328M25.6665 11.6328V15.6328"
+                              stroke="white"
+                              stroke-width="1.91667"
+                              stroke-linecap="round"
+                            />
+                            <path
+                              d="M17.8542 20.6328H15.7708C15.4832 20.6328 15.25 20.8567 15.25 21.1328V23.1328C15.25 23.409 15.4832 23.6328 15.7708 23.6328H17.8542C18.1418 23.6328 18.375 23.409 18.375 23.1328V21.1328C18.375 20.8567 18.1418 20.6328 17.8542 20.6328Z"
+                              fill="white"
+                            />
+                            <path
+                              d="M22.5417 20.6328H20.4583C20.1707 20.6328 19.9375 20.8567 19.9375 21.1328V23.1328C19.9375 23.409 20.1707 23.6328 20.4583 23.6328H22.5417C22.8293 23.6328 23.0625 23.409 23.0625 23.1328V21.1328C23.0625 20.8567 22.8293 20.6328 22.5417 20.6328Z"
+                              fill="white"
+                            />
+                            <path
+                              d="M27.2292 20.6328H25.1458C24.8582 20.6328 24.625 20.8567 24.625 21.1328V23.1328C24.625 23.409 24.8582 23.6328 25.1458 23.6328H27.2292C27.5168 23.6328 27.75 23.409 27.75 23.1328V21.1328C27.75 20.8567 27.5168 20.6328 27.2292 20.6328Z"
+                              fill="white"
+                            />
+                          </svg>
                         </span>
-                        
+
                         {/* ================================================== */}
                         {/* <CalendarDaysIcon className="h-10 w-10 bg-primary p-1 text-white rounded-md" /> */}
                         <div className="flex flex-col px-3">
