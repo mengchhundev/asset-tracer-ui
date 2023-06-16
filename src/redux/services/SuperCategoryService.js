@@ -4,7 +4,7 @@ export const getAllSuperCategory = async (page, size = 10, name = "") => {
     return await apiV2.get(`/super-categories/?page=${page}&size=${size}&name=${name}`)
 }
 const getAllSuperCategores = async () => {
-    return await apiV2.get(`/super-categories/`)
+    return await apiV2.get(`/super-categories/all`)
 }
 
 const saveSuperCategory = async (data) => {

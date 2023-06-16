@@ -12,7 +12,6 @@ import { setAllSuperCategory } from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { RiCloseFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import addIcon from "../../../assets/icon/addIcon.svg";
 import gift from "../../../assets/icon/gift.svg";
 import electronic from "../../../assets/icon/electronic.svg";
@@ -20,6 +19,7 @@ import furniture from "../../../assets/icon/furniture.svg";
 import office from "../../../assets/icon/office.svg";
 import { FiSave } from "react-icons/fi";
 import moment from "moment";
+import { ClassSharp, CleaningServices } from "@mui/icons-material";
 
 const people = [
   { id: 1, name: "Room" },
@@ -35,17 +35,52 @@ export default function SuperCategoryComponent() {
   const [i, setI] = useState(1);
   const [isUpdate, setIsUpdate] = useState(false);
   const dispatch = useDispatch();
-  const getAllSuperCategores = useSelector((state)=> state.superCategory.data)
-  // const saveSuperCategory = useSelector((state) => state.saveSuperCategory.data)
+  const getAllSuperCategores = useSelector((state) => state.superCategory.data);
   const [pageCount, setPageCount] = useState(2);
   const [setIsOpenModalDelete, setIsOpenModalCreate] = useState(false);
   const [superCategoryId, setSuperCategoryId] = useState("");
-  const organization = JSON.parse(sessionStorage.getItem("organization"));
+  const organization = sessionStorage.getItem("organization");
+  const getOrganizationDetail = JSON.parse(organization);
+  const organizationId = getOrganizationDetail.id;
+  const [newData, setData] = useState("");
+  const [newIcon, setIcon] = useState("");
+console.log(getAllSuperCategores)
+  
 
-  const [newData, setNewData] = useState({
-    id: "",
-    name: "",
-  });
+  const handleGetAllSuperCategory = () => {
+    SuperCategoryService.getAllSuperCategores().then((res) => {
+      if (res?.data?.success) {
+        dispatch(setAllSuperCategory(res.data.payload));
+      }
+    });
+  };
+
+  const handleSaveSuperCategory = () => {
+    SuperCategoryService.saveSuperCategory(newData).then((res) => {
+      handleGetAllSuperCategory();
+      if (res?.data?.success) {
+      }
+    });
+  };
+
+useEffect(() => {
+      handleGetAllSuperCategory();
+    }, []);
+
+  useEffect(() => {
+    setData((prevData) => ({
+      ...prevData,
+      organizationId,
+    }))
+  },[]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const [query, setQuery] = useState("");
 
@@ -83,31 +118,11 @@ export default function SuperCategoryComponent() {
     setSuperCategoryId(id);
     setIsOpenModalDelete(true);
   }
-  const handleGetAllSuperCategory = () => {
-    SuperCategoryService.getAllSuperCategores().then((res) => {
-      if (res.data.success) {
-        console.log(res)
-        dispatch(setAllSuperCategory(res.data.payload));
-      }
-    });
-  };
+  
 
-  useEffect(() => {
-    handleGetAllSuperCategory(1);
-  }, []);
 
-  const handleInputChange = (e) => {
-    setNewData({ ...newData, [e.target.name]: e.target.value });
-  };
-
-  const handleSaveSuperCategory = () => {
-    SuperCategoryService.saveSuperCategory(newData).then((res) => {
-      if (res?.data?.success) {
-        getAllSuperCategory(1);
-      }
-    });
-  };
-
+  
+  console.log(newData);
   const formik = useFormik({
     initialValues: newData,
     validationSchema: Yup.object().shape({
@@ -118,7 +133,7 @@ export default function SuperCategoryComponent() {
       setIsUpdate(false);
       setIsOpenModalCreate(false);
       resetForm((val = { id: "", name: "" }));
-      setNewData({ id: "", name: "" });
+      setData({ id: "", name: "" });
     },
   });
 
@@ -126,27 +141,28 @@ export default function SuperCategoryComponent() {
     getAllSuperCategory(1, 10, e.target.value);
   };
 
-  const handleDeleteSuperCategory = () => {
-    SuperCategoryService.deleteSuperCategory(superCategoryId).then((res) => {
-      if (res?.data?.success) {
-        getAllSuperCategory(1);
-        closeModalDeleteSuperCategory();
-      }
-    });
-  };
+  // const handleDeleteSuperCategory = () => {
+  //   SuperCategoryService.deleteSuperCategory(superCategoryId).then((res) => {
+  //     if (res?.data?.success) {
+  //       getAllSuperCategory(1);
+  //       closeModalDeleteSuperCategory();
+  //     }
+  //   });
+  // };
 
-  const handleShowSuperCategory = (val) => {
-    setIsUpdate(true);
-    openModalCreateSuperCategory(true);
-    setNewData(val);
-    setSuperCategoryId(val.id);
-    formik.setValues(val);
-  };
+  // const handleShowSuperCategory = (val) => {
+  //   setIsUpdate(true);
+  //   openModalCreateSuperCategory(true);
+  //   setNewData(val);
+  //   setSuperCategoryId(val.id);
+  //   formik.setValues(val);
+  // };
 
   const handleUpdateSuperCategory = () => {
     SuperCategoryService.updateSuperCategory(superCategoryId, newData).then(
       (res) => {
         if (res?.data?.success) {
+          dispatch(setAllSuperCategory(res.data.payload));
           getAllSuperCategory(1);
         }
       }
@@ -154,12 +170,12 @@ export default function SuperCategoryComponent() {
   };
 
   return (
-    <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[83vh]">
-      <div className="gap-6 z-10">
-        <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+    <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
+      <div className="gap-6 overflow-hidden z-10">
+        <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
           {/* header */}
-          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
-            <h2 className="text-2xl font-sp-pro-text-semibold">
+          <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0 text-text-colors">
+            <h2 className="text-2xl font-sp-pro-text-semibold text-text-color">
               All <span className="text-pending">Super</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
@@ -285,8 +301,8 @@ export default function SuperCategoryComponent() {
           </div>
         </div>
         {/* table */}
-        <div className="flex flex-col justify-between h-[64vh] relative">
-          <div className="overflow-scroll px-5 flex-grow">
+        <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto  flex-grow">
+          <div className="px-5 z-0 flex-grow">
             <table className="table w-full">
               <tbody className="">
                 <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
@@ -301,16 +317,15 @@ export default function SuperCategoryComponent() {
 
                     <td className="w-2/5 ">
                       <div className="flex items-center space-x-5">
-                        <img 
-                      className="h-8 w-8"
-                      src={list.icon}></img>
+                        <img className="h-8 w-8" src={list.icon}></img>
                         <span className="text-sm ">{list.name}</span>
                       </div>
                     </td>
                     <td className="w-2/5 py-3 text-sm font-sp-pro-text-regular p-2.5">
-                    <div className="flex items-center space-x-5">
-                        <span className="text-sm ">{moment(list.createAt).format("MMM DD YYYY")}</span>
-                        
+                      <div className="flex items-center space-x-5">
+                        <span className="text-sm ">
+                          {moment(list.createAt).format("MMM DD YYYY")}
+                        </span>
                       </div>
                     </td>
                     <td className="w-1/5 py-3">
@@ -392,16 +407,28 @@ export default function SuperCategoryComponent() {
                   <p className="text-center">Choose Icon</p>
                   <div className="flex flex- justify-between">
                     <div className="p-2">
-                      <img src={electronic} className="h-14 rounded-lg w-14 " />
+                      <button>
+                        <img
+                          src={electronic}
+                          className="h-14 rounded-lg w-14 "
+                        />
+                      </button>
                     </div>
                     <div className="p-2 mt-4">
-                      <img src={electronic} className="h-9 rounded-lg w-9 " />
+                      <button onClick={handleSearchSuperCategory}>
+                        <img src={electronic} className="h-9 rounded-lg w-9 " />
+                      </button>
                     </div>
                     <div className="p-2 mt-4">
-                      <img src={office} className="h-9 rounded-lg w-9 " />
+                      <button onClick={handleSearchSuperCategory}>
+                        <img src={office} className="h-9 rounded-lg w-9 " />
+                      </button>
                     </div>
+
                     <div className="p-2 mt-4">
-                      <img src={furniture} className="h-9 rounded-lg w-9 " />
+                      <button onClick={handleInputChange}>
+                        <img src={furniture} className="h-9 rounded-lg w-9 " />
+                      </button>
                     </div>
 
                     <div className="p-2 mt-4">
@@ -419,6 +446,8 @@ export default function SuperCategoryComponent() {
               Name
             </label>
             <input
+              onChange={handleInputChange}
+              name="name"
               className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
               type="text"
               placeholder="super category"
@@ -432,9 +461,13 @@ export default function SuperCategoryComponent() {
               </div>
 
               <div className="">
-                <button className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                <label
+                htmlFor="superCategory"
+                  onClick={handleSaveSuperCategory}
+                  className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
+                >
                   <FiSave className="text-lg" /> &nbsp; Add
-                </button>
+                </label>
               </div>
             </div>
           </div>
@@ -494,6 +527,7 @@ export default function SuperCategoryComponent() {
               Name
             </label>
             <input
+              onSubmit={handleInputChange}
               className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
               type="text"
               placeholder="update your super category"
@@ -507,7 +541,9 @@ export default function SuperCategoryComponent() {
               </div>
 
               <div className="">
-                <button className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
+                <button 
+                onSubmit={handleUpdateSuperCategory}
+                className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
                   <FiSave className="text-lg" /> &nbsp; Edit
                 </button>
               </div>
