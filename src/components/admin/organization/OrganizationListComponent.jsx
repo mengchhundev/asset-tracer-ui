@@ -81,7 +81,7 @@ export default function OrganizationListComponent() {
             dispatch(setAllOrganization([]))
         })
     }
-   
+
     const handleInputSearch = (e) => {
         setSearch(e.target.value)
     };
@@ -223,7 +223,7 @@ export default function OrganizationListComponent() {
                                 </div>
                                 <Transition
                                     as={Fragment}
-                                    leave="transition ease-in duration-10sp0"
+                                    leave="transition ease-in duration-100"
                                     leaveFrom="opacity-100"
                                     leaveTo="opacity-0"
                                     afterLeave={() => setQuery("")}
@@ -277,7 +277,6 @@ export default function OrganizationListComponent() {
                 </div>
             </div>
 
-            {/* <div className="flex flex-wrap justify-around md:justify-start gap-12 p-5 w-full"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
                 {organizations.length != 0 ? organizations.map((list, index) => (
                     <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
@@ -311,28 +310,28 @@ export default function OrganizationListComponent() {
                                                                 <TbListDetails /> Show Detail
                                                             </span>
                                                         </label>
-                                                        {/* {list.roleName == "ADMIN" && */}
-                                                        <>
-                                                            <label
-                                                                onClick={() => handleSetOrgDetail(list)}
-                                                                htmlFor='create-organization'
-                                                                className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                            >
-                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                    <FiTrash2 /> Edit
-                                                                </span>
-                                                            </label>
-                                                            <label
-                                                                onClick={() => setOrgId(list.id)}
-                                                                htmlFor='delete_org'
-                                                                className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
-                                                            >
-                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                    <FiTrash2 /> Delete
-                                                                </span>
-                                                            </label>
-                                                        </>
-                                                        {/* } */}
+                                                        {list?.roleName == "ADMIN" &&
+                                                            <>
+                                                                <label
+                                                                    onClick={() => handleSetOrgDetail(list)}
+                                                                    htmlFor='create-organization'
+                                                                    className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                >
+                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                        <FiTrash2 /> Edit
+                                                                    </span>
+                                                                </label>
+                                                                <label
+                                                                    onClick={() => setOrgId(list.id)}
+                                                                    htmlFor='delete_org'
+                                                                    className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                                >
+                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                        <FiTrash2 /> Delete
+                                                                    </span>
+                                                                </label>
+                                                            </>
+                                                        }
 
                                                     </Listbox.Option>
                                                 </Listbox.Options>
@@ -358,7 +357,7 @@ export default function OrganizationListComponent() {
                             </>}
                             <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
                             <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                {list.roleName == "ADMIN" ? "Owner" : "Member"}
+                                {list?.roleName == "ADMIN" ? "Owner" : "Member"}
                             </p>
                             <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
                                 {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}
@@ -392,12 +391,7 @@ export default function OrganizationListComponent() {
                                             }
                                         </span>
                                     ))}
-
-                                    {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                        8 <FiPlus />
-                                    </div> */}
                                 </div>
-
                             </div>
                             <div className="w-full px-8 text-center cursor-pointer">
                                 <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>
@@ -410,15 +404,7 @@ export default function OrganizationListComponent() {
                         <div className='mt-[-6rem]'>
                             <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' />
                             <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Organization</h2>
-                            {/* <button
-                                        type="submit"
-                                        className="bg-primary hover:bg-pending-hover text-white font-sp-pro-text-regular py-2 px-4  rounded"
-                                    >
-                                        Create Organazation
-                                    </button> */}
                         </div>
-
-
                     </div>
                 }
             </div>

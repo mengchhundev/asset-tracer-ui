@@ -1,373 +1,367 @@
 import React, { useEffect, useState } from "react";
 import upload_placeholder from "../../../assets/images/placeholder/upload_placeholder.svg";
-
-import ItemComponent from "./filtter/ItemComponent";
-import CategoryComponent from "./filtter/CategoryComponent";
-import StatusComponent from "./filtter/StatusComponent";
-import RoomComponent from "./filtter/RoomComponent";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
 import { RiCloseFill } from "react-icons/ri";
 import { FiSave } from "react-icons/fi";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import FileUploadService from "../../../redux/services/FileUploadService";
+import { HiDocumentText } from "react-icons/hi";
+import { Combobox, Listbox, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import placeholder from "../../../assets/images/placeholder/placeholder-image.png"
+import ItemDetailService from "../../../redux/services/ItemDetailService";
+import RoomService from "../../../redux/services/RoomService";
 
-function AssetAddComponent({props, val}) {
-  // go back
-  // const navigate = useNavigate();
+const status = [
+  { id: "in_stock", name: "In Stock" },
 
-  // organization id
-  const organization = sessionStorage.getItem("organization");
-  const getOrganizationDetail = JSON.parse(organization);
-  const orgId = getOrganizationDetail.id;
+]
 
-  // Id item detail
-  const itemId = "e00005d4-f6ab-437e-a46d-dac94ead68a0";
-  const [image, setImage] = useState();
-  const [isSuccess, setIsSuccess] = useState();
-  const  [newData, setNewData] = useState();
+export default function AssetSetComponent() {
 
-  //post data
-  const [assetNewData, setAssetNewData] = useState({
-    logo: "",
-    owner: "",
-    status: "",
+  const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const orgId = organization.id
+  const [newData, setNewData] = useState({
+    itemDetailId: "",
     labelCode: "",
     serialCode: "",
+    owner: "",
+    status: "",
+    roomId: "",
     description: "",
-    itemDetailId: itemId,
     organizationId: orgId,
-  });
-  useEffect(() =>{
-    setIsSuccess(false)
-    if (val){
-      setIsSuccess(true)
-      setNewData({ ...val })
-      if (val?.logo){
-        setImage(FileUploadService.getImage(val?.logo))
+  })
+
+  const [items, setItems] = useState([])
+  const [rooms, setRooms] = useState([])
+
+  const [selectedItem, setSelectedItem] = useState()
+  const [selectedRoom, setSelectedRoom] = useState()
+  const [selectedFile, setSelectedFile] = useState()
+  const [selectedStatus, setSelectedStatus] = useState()
+
+  const handleInputChange = () => {
+    setNewData({ ...newData, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    ItemDetailService.getAllItemByOrg(orgId).then(res => {
+      if (res.data.success) {
+        setItems(res.data.payload)
       }
-    }
-  }, [val, image])
-  // console.log("data : ", assetNewData);
+    })
 
-  //value input
-  const handleAssetInputChange = (e) => {
-    setAssetNewData({ ...assetNewData, [e.target.name]: e.target.value });
-  };
-
-  const handleInputAsset = () => {
-
-  };
+    RoomService.getAllRoomByOrgId(orgId).then(res => {
+      if (res.data.success) {
+        setRooms(res.data.payload)
+      }
+    })
+  }, [])
 
   const formik = useFormik({
-    initialValues: assetNewData,
+    initialValues: newData,
     validationSchema: Yup.object().shape({
-      owner: Yup.string().required("Name is required"),
-      labelCode: Yup.string().required("label code is required"),
-      serialCode: Yup.string().required("Serial code is requirred"),
+      itemDetailId: Yup.string().required("Item is required"),
+      status: Yup.string().required("Status is required"),
     }),
     onSubmit: (val, { resetForm }) => {
-      resetForm(
-        (val = {
-          owner: "",
-          labelCode: "",
-          serialCode: "",
-          description: "",
-          itemDetailId: itemId,
-          organizationId: orgId,
-        })
+
+    }
+  });
+
+  const [queryItem, setQueryItem] = useState("");
+  const filteredItem =
+    queryItem === ""
+      ? items
+      : items.filter((list) =>
+        list.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(queryItem.toLowerCase().replace(/\s+/g, ""))
       );
-      handleInputAsset();
-      console.log("after submit");
-      setAssetNewData({
-        owner: "",
-        labelCode: "",
-        serialCode: "",
-        description: "",
-        itemDetailId: itemId,
-        organizationId: orgId,
-      });
-    },
-  });
 
-  useEffect(() => {
-    formik.setValues(assetNewData);
-  }, []);
 
-  const [query, setQuery] = useState("");
-  //Upload image
-  const [imageDimensions, setImageDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
-  const [selectedFile, setSelectedFile] = useState("");
-  const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-  let unique_id = "";
-  useEffect(() => {
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const image = new Image();
-        image.onload = () => {
-          setImageDimensions({
-            width: image.width,
-            height: image.height,
-          });
-        };
-        image.src = event.target.result;
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-  }, [selectedFile]);
-  const handleUpload = () => {
-    unique_id = uuid();
+  const [queryRoom, setQueryRoom] = useState("");
+  const filteredRoom =
+    queryRoom === ""
+      ? rooms
+      : rooms.filter((list) =>
+        list.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(queryRoom.toLowerCase().replace(/\s+/g, ""))
+      );
 
-    if (selectedFile) {
-      const uploadTask = ref(storage, `images/${unique_id}`);
-      uploadBytes(uploadTask, selectedFile).then((res) => {
-        console.log(res);
-      });
-    }
-  };
+  const handleSelectedItem = (val) => {
+    setNewData({ ...newData, itemDetailId: val.id })
+  }
+
+  const handleSelectedRoom = (val) => {
+    setNewData({ ...newData, roomId: val.id })
+  }
+
+  const handleSelectedStatus = (val) => {
+    setNewData({ ...newData, itemDetailId: val.id })
+  }
+
+  console.log(newData)
+
   return (
     <>
-      <main
-        className="overflow-y-auto pb-20 bg-white rounded-xl relative"
-        style={{
-          boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
-        }}
-      >
-        {/* Add Asset */}
-        <div className="text-2xl font-sp-pro-text-bold text-text-color py-4 px-[40px]">
+      <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
+        <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
           <h1 className="flex items-center">
-            <IoMdAddCircleOutline className="text-yellow w-5 h-5" /> &nbsp;Set
-            Asset
+            <HiDocumentText /> &nbsp; Set Asset
           </h1>
         </div>
+        <hr className="border-[#E1E9EE] border-1" />
 
-        <div className="w-full">
-          <hr className="border-[#E1E9EE] border-1" />
-        </div>
-        <div>
-          <form onSubmit={formik.handleSubmit}>
-            <div className="md:flex mt-1 sm:flex-row">
-              <div className="xl:w-2/3 md:w-1/2 ">
-                <div className="lg:mx-5 mx-0 p-5 rounded-md mb-1 text-text-color text-opacity-90 text-xs font-sp-pro-text-regular">
-                  <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
+        <form onSubmit={formik.handleSubmit}>
+          <div className="flex flex-wrap xl:flex-nowrap justify-between w-full p-5 md:p-10 pb-5">
+            <div className="w-full md:w-7/12 lg:w-full xl:w-7/12 mx-auto">
+              <section className="">
+                <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Select Item <span className='text-reject'>*</span></label>
+                    <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                      <Combobox
+                        value={selectedItem}
+                        onChange={handleSelectedItem}
+                        className="z-20"
                       >
-                        Select Item
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <ItemComponent className="z-60" />
+                        <div className="relative z-50">
+                          <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                            <Combobox.Input
+                              className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20 border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                              displayValue={(val) => val.name}
+                              onChange={(e) => setQueryItem(e.target.value)}
+                              placeholder='Select item'
+                            />
+                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                              <ChevronUpDownIcon
+                                className="h-5 w-5 text-text-color"
+                                aria-hidden="true"
+                              />
+                            </Combobox.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            leave="transition ease-in duration-100"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
+                            afterLeave={() => setQueryItem("")}
+                          >
+                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                              {filteredItem.length == 0 && queryItem !== "" ? (
+                                <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                  Nothing found.
+                                </div>
+                              ) : (
+                                filteredItem.map((val, index) => (
+                                  <Combobox.Option
+                                    key={index}
+                                    className={({ active }) =>
+                                      `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                    }
+                                    value={val}
+                                  >
+                                    {val.name}
+                                  </Combobox.Option>
+                                ))
+                              )}
+                            </Combobox.Options>
+                          </Transition>
+                        </div>
+                      </Combobox>
                     </div>
-
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
-                      >
-                        Owner <span className=" text-red-500">*</span>
-                      </label>
-                      <input
-                        className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10 text-xs text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50"
-                        type="text"
-                        onInput={handleAssetInputChange}
-                        onChange={formik.handleChange}
-                        value={assetNewData.owner}
-                        name="owner"
-                        placeholder="Owner Name"
-                      />
-                      {formik.touched.owner && formik.errors?.owner ? (
-                        <p className="text-reject text-xs mt-2 pl-1">
-                          {formik.errors.owner}
-                        </p>
-                      ) : null}
-                    </div>
+                    {/* {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null} */}
                   </div>
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Select Status <span className='text-reject'>*</span></label>
+                    <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                      <Listbox as="div" value={selectedStatus} onChange={handleSelectedStatus}>
+                        {({ open }) => (
+                          <>
+                            <div className="relative z-30">
+                              <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                                <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200 bg-bg-main rounded-md text-gray-800">
+                                  {selectedStatus ? <span className="block truncate text-sm text-text-color">{selectedStatus}</span> : <span className="block truncate text-sm text-black text-opacity-20">Select status</span>}
 
-                  <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
-                      >
-                        Label Code
-                        <span className=" text-red-500">*</span>
-                      </label>
-                      <input
-                        className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10 text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
-                        type="text"
-                        onInput={handleAssetInputChange}
-                        onChange={formik.handleChange}
-                        value={assetNewData.labelCode}
-                        name="labelCode"
-                        placeholder="Label Code"
-                      />
-                      {formik.touched.labelCode && formik.errors?.labelCode ? (
-                        <p className="text-reject text-xs mt-2 pl-1">
-                          {formik.errors.labelCode}
-                        </p>
-                      ) : null}
+                                  <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                                    <ChevronUpDownIcon
+                                      className="h-5 w-5 text-text-color"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                </Listbox.Button>
+                              </div>
+                              <Transition
+                                show={open}
+                                leave=""
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Listbox.Options
+                                  static
+                                  className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                                >
+                                  {status.length == 0 ? (
+                                    <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                      Nothing found.
+                                    </div>
+                                  ) : (
+                                    status.map((val, index) => (
+                                      <Listbox.Option key={index} value={val.name}
+                                        className={({ active }) =>
+                                          `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                        }
+                                      >
+                                        {val.name}
+                                      </Listbox.Option>
+                                    ))
+                                  )}
+                                </Listbox.Options>
+                              </Transition>
+                            </div>
+                          </>
+                        )}
+                      </Listbox>
                     </div>
-
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
-                      >
-                        Serial Code <span className=" text-red-500">*</span>
-                      </label>
-                      <input
-                        className="mt-1 w-full border-[#E1E9EE] border rounded-lg py-2.5 pl-3 pr-10  text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
-                        type="text"
-                        onInput={handleAssetInputChange}
-                        onChange={formik.handleChange}
-                        value={assetNewData.serialCode}
-                        name="serialCode"
-                        placeholder="Serial Code"
-                      />
-                      {formik.touched.serialCode &&
-                      formik.errors?.serialCode ? (
-                        <p className="text-reject text-xs mt-2 pl-1">
-                          {formik.errors.serialCode}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
-                      >
-                        Select Category <span className=" text-red-500">*</span>
-                      </label>
-                      <CategoryComponent />
-                    </div>
-
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
-                      >
-                        Select Status <span className=" text-red-500">*</span>
-                      </label>
-                      <StatusComponent />
-                    </div>
-                  </div>
-
-                  <div className="xl:flex lg:flex-row justify-between lg:space-x-5">
-                    <div className="w-full xl:p-2 lg:py-2 p-2">
-                      <label
-                        htmlFor=""
-                        className="text-sm text-text-color font-sp-pro-text-regular"
-                      >
-                        Select Room <span className=" text-red-500">*</span>
-                      </label>
-                      <RoomComponent />
-                    </div>
-
-                    <div className="w-full xl:p-2 lg:py-2 p-2"></div>
-                  </div>
-
-                  <div className="w-full p-2 lg:mt-0 mt-[-15px]">
-                    <label
-                      for="message"
-                      onInput={handleAssetInputChange}
-                      value={assetNewData.description}
-                      className="block mb-1 text-sm text-text-color font-sp-pro-text-regular"
-                    >
-                      Description <span className=" text-red-500">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      rows="4"
-                      className="block p-2.5 w-full border-[#E1E9EE] rounded-lg border text-text-color outline-none focus:border-primary placeholder-text-color placeholder-opacity-50 text-xs"
-                      placeholder="Description..."
-                    ></textarea>
+                    {/* {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null} */}
                   </div>
                 </div>
-              </div>
-
-              <div className="xl:w-1/3 md:w-1/2 md:mt-6 mt-[-24px]">
-                <div className="item-center w-full rounded-xl   ">
-                  <div className="block lg:mx-5 p-7">
-                    <div className=" flex items-center justify-center text-center rounded-lg md:h-[390px] h-[250px] border border-dashed border-yellow">
-                      <div className="">
-                        <div className="w-52 relative">
-                          {selectedFile ? (
-                            <img
-                              src={URL.createObjectURL(selectedFile)}
-                              className="h-full m-auto"
+                <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Label Code</label>
+                    <input
+                      type='text'
+                      // onInput={handleInputChange}
+                      // onChange={formik.handleChange}
+                      // value={newItem.qty}
+                      name="qty"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      placeholder='Enter label code'
+                    />
+                  </div>
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Serial Code</label>
+                    <input
+                      type='text'
+                      // onInput={handleInputChange}
+                      // onChange={formik.handleChange}
+                      // value={newItem.unitPrice}
+                      name="unitPrice"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      placeholder='Enter serial code'
+                    />
+                  </div>
+                </div>
+                <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Owner</label>
+                    <input
+                      type='text'
+                      // onInput={handleInputChange}
+                      // onChange={formik.handleChange}
+                      // value={newItem.qty}
+                      name="owner"
+                      className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                      placeholder='Enter owner'
+                    />
+                  </div>
+                  <div className='text-left w-full'>
+                    <label className="block mb-2 ml-1 text-sm">Select Room</label>
+                    <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                      <Combobox
+                        value={selectedRoom}
+                        onChange={handleSelectedRoom}
+                        className="z-20"
+                      >
+                        <div className="relative z-20">
+                          <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                            <Combobox.Input
+                              className="w-full border-[#E1E9EE] placeholder-black placeholder-opacity-20 border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                              displayValue={(val) => val.name}
+                              onChange={(e) => setQueryRoom(e.target.value)}
+                              placeholder='Select room'
                             />
-                          ) : (
-                            <img
-                              className="block m-auto "
-                              src={upload_placeholder}
-                              alt=""
-                            />
-                          )}
-                        </div>
-                        <div className="flex justify-center">
-                          <label
-                            htmlFor="fileInput"
-                            className="browseButton text-text-color font-sp-pro-text-regular"
+                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                              <ChevronUpDownIcon
+                                className="h-5 w-5 text-text-color"
+                                aria-hidden="true"
+                              />
+                            </Combobox.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            leave="transition ease-in duration-100"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
+                            afterLeave={() => setQueryRoom("")}
                           >
-                            <p className="border w-min p-2 px-12 mt-3 border-[#E1E9EE] shadow-sm rounded-md text-text-color font-sp-pro-text-regular cursor-pointer hover:bg-bg-primary">
-                              Browse
-                            </p>
-                            <input
-                              id="fileInput"
-                              type="file"
-                              onChange={handleFileSelect}
-                              accept="image/*"
-                              style={{ display: "none" }}
-                            />
-                          </label>
+                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                              {filteredRoom.length == 0 && queryItem !== "" ? (
+                                <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                  Nothing found.
+                                </div>
+                              ) : (
+                                filteredRoom.map((val, index) => (
+                                  <Combobox.Option
+                                    key={index}
+                                    className={({ active }) =>
+                                      `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                    }
+                                    value={val}
+                                  >
+                                    {val.name}
+                                  </Combobox.Option>
+                                ))
+                              )}
+                            </Combobox.Options>
+                          </Transition>
                         </div>
-                      </div>
+                      </Combobox>
                     </div>
+                    {/* {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null} */}
+                  </div>
+                </div>
+              </section>
+            </div>
 
-                    {/* button */}
-                    <div className="flex justify-end flex-row space-x-4 mt-10">
-                      <div className="">
-                      <Link to={"/asset"}>
-                          <button
-                            // onClick={() => navigate(-1)}
-                            class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center"
-                          >
-                            <RiCloseFill className="text-lg" /> &nbsp; Cancel
-                          </button>
-                        </Link>
-                      </div>
-
-                      <div className="">
-                        <button
-                          type="submit"
-                          class="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
-                        >
-                          <FiSave className="text-lg" />
-                          Save
-                        </button>
-                      </div>
+            <div className="w-[24rem] md:w-[22rem] lg:w-[24rem] mx-auto">
+              <div className="md:px-5 my-5 flex">
+                <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
+                  <div className='py-2 block justify-center text-center rounded-lg'>
+                    <div className='w-full min-h-[20rem] flex p-5 relative'>
+                      {
+                        <img className="block m-auto h-56" src={placeholder} />
+                      }
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+
+          </div>
+          <div className='w-full flex justify-end gap-x-3 px-5 lg:px-10 xl:px-16 mb-10'>
+
+            <label
+              htmlFor='create-organization'
+              className="rounded-md bg-bg-primary py-2 cursor-pointer px-3 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
+            >
+              <RiCloseFill className='text-lg' />
+              Cancel
+            </label>
+            <button
+              type="submit"
+              className={`hover:bg-opacity-90 bg-primary  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
+            >
+              <FiSave className='text-lg' /> Set
+            </button>
+          </div>
+        </form>
       </main>
     </>
   );
 }
-
-export default AssetAddComponent;

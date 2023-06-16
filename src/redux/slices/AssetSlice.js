@@ -1,22 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: [],
-  assetAdd: [],
+  assets: [],
 };
 
-export const assetSlice = createSlice({
+export const AssetSlice = createSlice({
   name: "Asset",
   initialState,
   reducers: {
-    setData: (state, action) => {
+    setAssets: (state, action) => {
       state.data = action.payload;
-    },
-    setassetAdd: (state, action) => {
-      state.item = action.payload
     }
   },
 });
 
-export const { setData,setassetAdd } = assetSlice.actions;
-export default assetSlice.reducer;
+export const { setAssets } = AssetSlice.actions;
+export default AssetSlice.reducer;

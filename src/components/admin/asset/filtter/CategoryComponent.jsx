@@ -23,7 +23,7 @@ export default function CategoryComponent() {
   const dispatch = useDispatch();
   
   const getNormalCategoryName = () => {
-     NormalCategoryService.getNormalCategoryName(orgId).then((res) => {
+     NormalCategoryService.getAllNormalCategory(orgId).then((res) => {
       dispatch(setAllCategory(res.data.payload));
       
      }).catch((err)=>{

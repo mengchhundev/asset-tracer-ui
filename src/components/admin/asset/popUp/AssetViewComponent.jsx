@@ -203,14 +203,14 @@ function AssetViewComponent({ viewAsset }) {
                           Serial code
                         </label>
                         <div className="mt-3">
-                          <p className="flex items-center">
+                          <div className="flex items-center">
                             <p className="pr-3">
                               <RiBarcodeFill className="w-8 h-8 text-primary" />{" "}
                             </p>
                             <p className="text-text-color text-xs font-sp-pro-text-regular flex flex-row">
                               {viewAsset.serialCode}
                             </p>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>

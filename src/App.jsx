@@ -26,13 +26,13 @@ import UpdateInvoiceComponent from './components/admin/invoice/UpdateInvoiceComp
 import TrackingComponent from './components/admin/tracking/TrackingComponent'
 import UserRequestComponent from './components/admin/user/UserRequestComponent'
 import AssetAddComponent from './components/admin/asset/AssetAddComponent'
-import AssetUpdate from './components/admin/asset/AssetUpdate'
 import NotFoundPageComponent from './components/admin/notFoundPage/NotFoundPageComponent'
 import NotificationComponent from './components/admin/notification/NotificationComponent'
 import { useLayoutEffect } from 'react'
 import AddInvoiceComponent from './components/admin/invoice/AddInvoiceComponent'
 import AssetSetComponent from './components/admin/asset/AssetSetComponent'
 import { useSelector } from 'react-redux'
+import AssetUpdateComponent from './components/admin/asset/AssetUpdateComponent'
 
 function App() {
   const { pathname } = useLocation();
@@ -59,9 +59,14 @@ function App() {
         <Route path='*' element={<NotFoundPageComponent />} />
         <Route element={<ProtectedRoute isLogged={localStorage.getItem("token") ? true : false} />}>
           <Route path="/" element={<MainComponent />}>
+
+            <Route path='/dashboard' element={<DashboardComponent />} />
+
+            {/* Organization */}
             <Route path='/organization' element={<OrganizationListComponent />} />
             <Route path='/organization-create' element={<OrganzationCreateOrJoinComponent />} />
-            <Route path='/dashboard' element={<DashboardComponent />} />
+
+            {/* Category */}
             <Route path='/super-category' element={<SuperCategoryComponent />} />
             <Route path='/normal-category' element={<NormalCategoryComponent />} />
 
@@ -71,20 +76,23 @@ function App() {
             <Route path='/invoice/update/:id' element={<UpdateInvoiceComponent />} />
             <Route path='/invoice/add' element={<AddInvoiceComponent />} />
 
-            {/* asset page */}
+            {/* Asset */}
             <Route path='/asset' element={<AssetComponent />}></Route>
             <Route path='/asset/add' element={<AssetAddComponent />}></Route>
-            <Route path='/asset/update' element={<AssetUpdate />} />
+            <Route path='/asset/update/:id' element={<AssetUpdateComponent />} />
             <Route path='/asset-add' element={<AssetAddComponent />}></Route>
             <Route path='/asset-set' element={<AssetSetComponent />} />
 
+            {/* Tracking */}
             <Route path='/tracking' element={<TrackingComponent />}></Route>
+
+            {/* User */}
             <Route path='/user' element={<UsersAllComponent />}></Route>
             <Route path='/request' element={<UserRequestComponent />}></Route>
             <Route path='/user-request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent />} />
-            <Route path='/room' element={<RoomListComponent />}></Route>
 
+            <Route path='/room' element={<RoomListComponent />}></Route>
             <Route path='/notification' element={<NotificationComponent />} />
 
           </Route>
