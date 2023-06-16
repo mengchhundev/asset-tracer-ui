@@ -1,6 +1,6 @@
 import apiV2 from "./apiV2"
 
-const getAllSuperCategory = async (page, size = 10, name = "") => {
+export const getAllSuperCategory = async (page, size = 10, name = "") => {
     return await apiV2.get(`/super-categories/?page=${page}&size=${size}&name=${name}`)
 }
 const getAllSuperCategores = async () => {

@@ -57,7 +57,7 @@ function AssetAddComponent({props, val}) {
   };
 
   const handleInputAsset = () => {
-
+    addAsset(assetNewData);
   };
 
   const formik = useFormik({
