@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { BsDot, BsPlus } from "react-icons/bs";
+import { BsPlus } from "react-icons/bs";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import AssetViewComponent from "./popUp/AssetViewComponent";
 import { Combobox, Transition } from "@headlessui/react";
@@ -7,11 +7,13 @@ import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import DeleteComponent from "../../modalDelete/DeleteComponent";
 import AssetService from "../../../redux/services/AssetService";
 import { useDispatch, useSelector } from "react-redux";
 import ItemDetailService from "../../../redux/services/ItemDetailService";
 import { setItemDetails } from "../../../redux/slices/ItemDetailSlice";
+import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
+import FileUploadService from '../../../redux/services/FileUploadService';
+import AssetDeleteComponent from "./popUp/AssetDeleteComponent";
 
 const people = [
   { id: 1, name: "Asset" },
@@ -27,6 +29,7 @@ export default function AssetComponent() {
   const getAllItems = useSelector((state) => state.itemDetail.itemDetails);
   const [totalRow, setTotalRow] = useState(0);
   const [i, setI] = useState(1);
+  const [itemId, setItemId] = useState()
 
   //combobox
   const [selected, setSelected] = useState(people[0]);
@@ -65,6 +68,19 @@ export default function AssetComponent() {
   useEffect(() => {
     handleGetAllAssets()
   }, [])
+
+  const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
+
+  const handleDeleteSuccess = (val) => {
+    setIsDeleteSuccess(val)
+  }
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      handleGetAllAssets()
+    }
+    setIsDeleteSuccess(false)
+  }, [isDeleteSuccess])
 
   return (
     <>
@@ -242,7 +258,8 @@ export default function AssetComponent() {
                         <div className="flex items-center gap-2">
                           <span className="w-8 h-8 overflow-hidden rounded-full bg-bg-primary-strock flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                             <img
-                              // src={}
+
+                              src={list.image ? FileUploadService.getImage(list.image) : placeholder_square}
                               loading="lazy"
                               className="rounded-full h-full w-full"
                             />
@@ -259,6 +276,7 @@ export default function AssetComponent() {
                         <div className="flex flex-rol space-x-3 items-center justify-center">
                           <span className="w-6 h-6 ">
                             <label
+                              onClick={() => setItemId(list.id)}
                               htmlFor="modalDelete"
                               className="cursor-pointer"
                             >
@@ -363,7 +381,7 @@ export default function AssetComponent() {
           id="modalDelete"
           className="modal-toggle"
         />
-        <DeleteComponent className="modal" getAllAssetData={getAllItems} />
+        <AssetDeleteComponent className="modal" itemId={itemId} handleDeleteSuccess={handleDeleteSuccess} />
 
         {/* view */}
         <input

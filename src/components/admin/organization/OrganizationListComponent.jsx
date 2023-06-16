@@ -81,7 +81,7 @@ export default function OrganizationListComponent() {
             dispatch(setAllOrganization([]))
         })
     }
-   
+
     const handleInputSearch = (e) => {
         setSearch(e.target.value)
     };
@@ -311,26 +311,26 @@ export default function OrganizationListComponent() {
                                                             </span>
                                                         </label>
                                                         {list?.roleName == "ADMIN" &&
-                                                        <>
-                                                            <label
-                                                                onClick={() => handleSetOrgDetail(list)}
-                                                                htmlFor='create-organization'
-                                                                className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                            >
-                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                    <FiTrash2 /> Edit
-                                                                </span>
-                                                            </label>
-                                                            <label
-                                                                onClick={() => setOrgId(list.id)}
-                                                                htmlFor='delete_org'
-                                                                className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
-                                                            >
-                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                    <FiTrash2 /> Delete
-                                                                </span>
-                                                            </label>
-                                                        </>
+                                                            <>
+                                                                <label
+                                                                    onClick={() => handleSetOrgDetail(list)}
+                                                                    htmlFor='create-organization'
+                                                                    className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                >
+                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                        <FiTrash2 /> Edit
+                                                                    </span>
+                                                                </label>
+                                                                <label
+                                                                    onClick={() => setOrgId(list.id)}
+                                                                    htmlFor='delete_org'
+                                                                    className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                                >
+                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                        <FiTrash2 /> Delete
+                                                                    </span>
+                                                                </label>
+                                                            </>
                                                         }
 
                                                     </Listbox.Option>
@@ -391,12 +391,7 @@ export default function OrganizationListComponent() {
                                             }
                                         </span>
                                     ))}
-
-                                    {/* <div className="relative  w-7 h-7 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                                        8 <FiPlus />
-                                    </div> */}
                                 </div>
-
                             </div>
                             <div className="w-full px-8 text-center cursor-pointer">
                                 <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>
@@ -409,15 +404,7 @@ export default function OrganizationListComponent() {
                         <div className='mt-[-6rem]'>
                             <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' />
                             <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Organization</h2>
-                            {/* <button
-                                        type="submit"
-                                        className="bg-primary hover:bg-pending-hover text-white font-sp-pro-text-regular py-2 px-4  rounded"
-                                    >
-                                        Create Organazation
-                                    </button> */}
                         </div>
-
-
                     </div>
                 }
             </div>

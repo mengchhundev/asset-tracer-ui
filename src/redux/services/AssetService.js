@@ -4,12 +4,8 @@ const getAllAssets = async (orgId, page = 1, size = 8, name = "", type = "", lab
     return await apiV2.get(`/assets/track/${orgId}?page=${page}&size=${size}&name=${name}&type=${type}&labelCode=${labelCode}&serialCode=${serialCode}&status=${status}&owner=${owner}&room=${room}&normalCategoryName=${normalCategoryName}&superCategoryName=${superCategoryName}&sort=${sort}`);
 }
 
-const deleteAsset = async (assetId, orgId) => {
-    return await apiV2.delete(`/assets/${assetId}/${orgId}`)
-}
-
-const addAsset = async (data) => {
-    return await apiV2.post(`/assets`, data);
+const deleteAsset = async (itemId, orgId) => {
+    return await apiV2.delete(`/item-details/${itemId}/${orgId}`)
 }
 
 const saveAsset = async (data) => {
@@ -18,6 +14,10 @@ const saveAsset = async (data) => {
 
 const updateAsset = async (id, data) => {
     return await apiV2.put(`/item-details/${id}`, data)
+}
+
+const addAsset = async (data) => {
+    return await apiV2.post(`/assets`, data);
 }
 
 const AssetService = { getAllAssets, addAsset, deleteAsset, saveAsset, updateAsset }
