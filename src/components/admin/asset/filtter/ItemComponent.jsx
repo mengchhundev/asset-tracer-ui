@@ -35,11 +35,12 @@ export default function ItemComponent() {
           .replace(/\s+/g, "")
           .includes(query.toLowerCase().replace(/\s+/g, ""))
       );
-      
+
   return (
-    <div className="mt-1">
-      <div>
-        <Combobox value={selected} onChange={setSelected}>
+    <>
+      <div className="mt-1">
+        <div>
+          {/* <Combobox value={selected} onChange={setSelected}>
           <div className="relative z-50">
             <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
               <Combobox.Input
@@ -91,10 +92,6 @@ export default function ItemComponent() {
                               className={`${active ? "text-primary" : "text-primary"
                                 } absolute inset-y-0 left-0 flex items-center pl-2`}
                             >
-                              {/* <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              /> */}
                               <svg
                                 className="h-4 w-4"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -117,8 +114,10 @@ export default function ItemComponent() {
               </Combobox.Options>
             </Transition>
           </div>
-        </Combobox>
+        </Combobox> */}
+        </div>
       </div>
-    </div>
+    </>
+
   );
 }

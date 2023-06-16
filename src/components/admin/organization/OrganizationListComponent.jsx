@@ -223,7 +223,7 @@ export default function OrganizationListComponent() {
                                 </div>
                                 <Transition
                                     as={Fragment}
-                                    leave="transition ease-in duration-10sp0"
+                                    leave="transition ease-in duration-100"
                                     leaveFrom="opacity-100"
                                     leaveTo="opacity-0"
                                     afterLeave={() => setQuery("")}
