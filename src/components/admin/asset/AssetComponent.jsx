@@ -92,7 +92,7 @@ export default function AssetComponent() {
     setItemName(e.target.value)
   };
 
-  const handleSelectedStatus = (val) => {
+  const handleSelectedSort = (val) => {
     setSelectedSort(val)
   }
 
@@ -145,7 +145,7 @@ export default function AssetComponent() {
                 </div>
               </div>
               <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                <Listbox as="div" value={selectedSort} onChange={handleSelectedStatus}>
+                <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
                   {({ open }) => (
                     <>
                       <div className="relative z-30">
@@ -226,9 +226,9 @@ export default function AssetComponent() {
             </div>
           </div>
 
-          <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto  flex-grow">
+          <div className="flex flex-col min-h-[calc(100vh-19rem)]">
             {/* table */}
-            <div className="px-5 z-0 flex-grow ">
+            <div className="px-5 z-0 flex-grow overflow-x-scroll">
               <table className="table w-full">
                 <tbody>
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-text-color">

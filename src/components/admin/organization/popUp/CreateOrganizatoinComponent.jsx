@@ -182,11 +182,11 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
                                 <div className="px-6">
                                     <div className='space-y-5 shadow p-5 rounded-md mb-1 relative'>
                                         <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
-                                            <div className='w-48 p-5 relative'>
+                                            <div className='w-48 p-5 min-h-[9rem] relative'>
                                                 {
                                                     selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
                                                         : image ? <img src={image} className='h-full m-auto' />
-                                                            : <img className="block m-auto " src={upload_placeholder} />
+                                                            : <img className="block m-auto" src={upload_placeholder} />
                                                 }
                                             </div>
                                             <p className='mt-5 text-xs'>Upload Organzation Picture</p>
