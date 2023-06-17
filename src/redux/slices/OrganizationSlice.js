@@ -9,9 +9,7 @@ const initialState = {
         code: "",
         address: "",
         roleName: "",
-        image: "",
-        createdAt: "",
-        user: []
+        image: ""
     }
 }
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-// Icons
 import {
     RiArrowRightSLine,
     RiMenu3Line,
@@ -63,11 +62,6 @@ export default function SidebarComponent() {
             setShowOrganization(false)
             setIsShowOrganization(false)
             setKey("")
-        }
-
-        if (location?.state?.hideOrganizationBar) {
-            setIsShowOrganization(false)
-            setShowOrganization(false)
         }
 
         if (path.includes("category")) {

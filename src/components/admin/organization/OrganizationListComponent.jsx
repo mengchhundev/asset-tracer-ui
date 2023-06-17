@@ -1,29 +1,24 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setAllOrganization, setItem, setOrgDetail } from '../../../redux/slices/OrganizationSlice';
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
-import { FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 import no_data_pic from '../../../assets/images/empty_box.png'
 import '../../../style/shadow.css';
 import '../../../style/dropdown.css';
-import avatar01 from "../../../assets/images/organization/avatar01.png";
-import avatar02 from "../../../assets/images/organization/avatar02.png";
-import avatar03 from "../../../assets/images/organization/avatar03.png";
-import avatar04 from "../../../assets/images/organization/avatar04.png";
 import trash_ico from "../../../assets/images/trash.png"
 import { Listbox } from '@headlessui/react';
 import { RiCloseFill } from 'react-icons/ri';
 import FileUploadService from '../../../redux/services/FileUploadService';
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import { BsPlus } from 'react-icons/bs';
-import CreateOrganizatoinComponent from './popUp/CreateOrganizatoinComponent';
+import { Transition } from "@headlessui/react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { TbListDetails } from "react-icons/tb";
+import UpdateOrganizationComponent from './popUp/UpdateOrganizationComponent';
 
 const sort = [
     {
@@ -53,6 +48,10 @@ export default function OrganizationListComponent() {
         getAllOrganizations()
         setIsUpdateSuccess(false)
     }, [isUpdateSuccess])
+
+    const handleIsUpdateSuccess = (val) => {
+        setIsUpdateSuccess(val)
+    }
 
     const dispatch = useDispatch();
     const organizations = useSelector(state => state.organization.data)
@@ -108,7 +107,7 @@ export default function OrganizationListComponent() {
     }
 
     const handleSetOrgDetail = (val) => {
-        dispatch(setOrgDetail(val))
+        dispatch(setOrgDetail({ id: val.id, name: val.name, code: val.code, address: val.address, logo: val.logo }))
     }
 
     const handleSelectedSort = (val) => {
@@ -154,8 +153,7 @@ export default function OrganizationListComponent() {
             </div>
 
             {/* Update */}
-
-            <CreateOrganizatoinComponent className="modal" val={orgDetail} handleUpdateSuccess={handleUpdateSuccess} />
+            <UpdateOrganizationComponent className="modal" val={orgDetail} handleIsUpdateSuccess={handleIsUpdateSuccess}/>
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
@@ -298,7 +296,7 @@ export default function OrganizationListComponent() {
                                                             <>
                                                                 <label
                                                                     onClick={() => handleSetOrgDetail(list)}
-                                                                    htmlFor='create-organization'
+                                                                    htmlFor='update-organization'
                                                                     className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                 >
                                                                     <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
