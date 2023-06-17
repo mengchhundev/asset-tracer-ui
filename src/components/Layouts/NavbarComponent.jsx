@@ -25,6 +25,7 @@ import jwt_decode from "jwt-decode";
 import FileUploadService from "../../redux/services/FileUploadService";
 import placeholder from "../../assets/images/placeholder/placeholder.png";
 import LoadingComponent from "../../components/LoadingComponent";
+import err_pic from '../../assets/images/false.png'
 
 export default function NavbarComponent() {
 
@@ -102,18 +103,51 @@ export default function NavbarComponent() {
     getAllOrganizations();
   }, []);
 
+  const [isWaitingApprove, setIsWaitingApprove] = useState(false)
+
   const handleShowOrganization = (val) => {
-    setIsShowLoading(true);
-    dispatch(setItem(val));
-    sessionStorage.setItem("organization", JSON.stringify(val));
-    setTimeout(() => {
-      navigator("/dashboard", { state: { hideOrganizationBar: true } });
-      setIsShowLoading(false);
-    }, 1000);
+    if (!val.isActive) {
+      setIsWaitingApprove(true)
+      dispatch(setItem(null));
+      sessionStorage.removeItem("organization")
+    } else {
+      setIsWaitingApprove(false)
+      setIsShowLoading(true);
+      dispatch(setItem(val));
+      sessionStorage.setItem("organization", JSON.stringify(val));
+      setTimeout(() => {
+        navigator("/dashboard", { state: { hideOrganizationBar: true } });
+        setIsShowLoading(false);
+      }, 1000);
+    }
   };
 
   return (
     <>
+      {isWaitingApprove &&
+        <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
+          <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
+            <div className="flex flex-col justify-end">
+              <div className="relative w-40 m-auto pb-7">
+                <img src={err_pic} className="w-28 m-auto" />
+              </div>
+              <p className={`text-2xl text-center font-sp-pro-text-semibold text-custom-red`}>
+                Waiting For Approve
+              </p>
+              <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
+                You cannot join organization until admin approve
+              </p>
+              <button
+                onClick={() => setIsWaitingApprove(false)}
+                className={`bg-custom-red text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
+              >
+                <span>Close</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+
       {isShowLoading && <LoadingComponent />}
       <header
         className="flex-shrink-0 bg-white px-8 h-[4.3rem] flex flex-row items-center justify-between text-text-color"

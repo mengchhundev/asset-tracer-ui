@@ -19,6 +19,7 @@ import { Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { TbListDetails } from "react-icons/tb";
 import UpdateOrganizationComponent from './popUp/UpdateOrganizationComponent';
+import err_pic from '../../../assets/images/false.png'
 
 const sort = [
     {
@@ -38,6 +39,7 @@ export default function OrganizationListComponent() {
     const [search, setSearch] = useState()
     const [orgId, setOrgId] = useState()
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
+    const [isWaitingApprove, setIsWaitingApprove] = useState(false)
     const orgDetail = useSelector(state => state.organization.orgDetail)
 
     const handleUpdateSuccess = (val) => {
@@ -75,9 +77,14 @@ export default function OrganizationListComponent() {
     };
 
     const handleShowOrganization = (val) => {
-        dispatch(setItem(val))
-        sessionStorage.setItem("organization", JSON.stringify(val))
-        navigator("/dashboard", { state: { hideOrganizationBar: true } })
+        if (!val.isActive) {
+            setIsWaitingApprove(true)
+        } else {
+            setIsWaitingApprove(false)
+            dispatch(setItem(val))
+            sessionStorage.setItem("organization", JSON.stringify(val))
+            navigator("/dashboard", { state: { hideOrganizationBar: true } })
+        }
     }
 
     useState(() => {
@@ -153,7 +160,7 @@ export default function OrganizationListComponent() {
             </div>
 
             {/* Update */}
-            <UpdateOrganizationComponent className="modal" val={orgDetail} handleIsUpdateSuccess={handleIsUpdateSuccess}/>
+            <UpdateOrganizationComponent className="modal" val={orgDetail} handleIsUpdateSuccess={handleIsUpdateSuccess} />
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
@@ -262,67 +269,70 @@ export default function OrganizationListComponent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
                 {organizations.length != 0 ? organizations.map((list, index) => (
                     <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
-                        <div className='absolute top-3 right-3 cursor-pointer'>
-                            <Listbox as="div">
-                                {({ open }) => (
-                                    <>
-                                        <div className="relative">
-                                            <span className="">
-                                                <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
-                                                    <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
-                                                </Listbox.Button>
-                                            </span>
-                                            <Transition
-                                                show={open}
-                                                leave=""
-                                                leaveFrom="opacity-100"
-                                                leaveTo="opacity-0"
-                                            >
-                                                <Listbox.Options
-                                                    static
-                                                    className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
-                                                >
-                                                    <Listbox.Option>
-                                                        <label
-                                                            onClick={() => showOrganizationDetail(list)}
-                                                            htmlFor='show-organization'
-                                                            className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                        >
-                                                            <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                <TbListDetails /> Show Detail
-                                                            </span>
-                                                        </label>
-                                                        {list?.roleName == "ADMIN" &&
-                                                            <>
-                                                                <label
-                                                                    onClick={() => handleSetOrgDetail(list)}
-                                                                    htmlFor='update-organization'
-                                                                    className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                                >
-                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                        <FiTrash2 /> Edit
-                                                                    </span>
-                                                                </label>
-                                                                <label
-                                                                    onClick={() => setOrgId(list.id)}
-                                                                    htmlFor='delete_org'
-                                                                    className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
-                                                                >
-                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                        <FiTrash2 /> Delete
-                                                                    </span>
-                                                                </label>
-                                                            </>
-                                                        }
+                        {list.isActive &&
 
-                                                    </Listbox.Option>
-                                                </Listbox.Options>
-                                            </Transition>
-                                        </div>
-                                    </>
-                                )}
-                            </Listbox>
-                        </div>
+                            <div className='absolute top-3 right-3 cursor-pointer'>
+                                <Listbox as="div">
+                                    {({ open }) => (
+                                        <>
+                                            <div className="relative">
+                                                <span className="">
+                                                    <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
+                                                        <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
+                                                    </Listbox.Button>
+                                                </span>
+                                                <Transition
+                                                    show={open}
+                                                    leave=""
+                                                    leaveFrom="opacity-100"
+                                                    leaveTo="opacity-0"
+                                                >
+                                                    <Listbox.Options
+                                                        static
+                                                        className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
+                                                    >
+                                                        <Listbox.Option>
+                                                            <label
+                                                                onClick={() => showOrganizationDetail(list)}
+                                                                htmlFor='show-organization'
+                                                                className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                            >
+                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                    <TbListDetails /> Show Detail
+                                                                </span>
+                                                            </label>
+                                                            {list?.roleName == "ADMIN" &&
+                                                                <>
+                                                                    <label
+                                                                        onClick={() => handleSetOrgDetail(list)}
+                                                                        htmlFor='update-organization'
+                                                                        className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                    >
+                                                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                            <FiTrash2 /> Edit
+                                                                        </span>
+                                                                    </label>
+                                                                    <label
+                                                                        onClick={() => setOrgId(list.id)}
+                                                                        htmlFor='delete_org'
+                                                                        className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                                    >
+                                                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                            <FiTrash2 /> Delete
+                                                                        </span>
+                                                                    </label>
+                                                                </>
+                                                            }
+
+                                                        </Listbox.Option>
+                                                    </Listbox.Options>
+                                                </Transition>
+                                            </div>
+                                        </>
+                                    )}
+                                </Listbox>
+                            </div>
+                        }
                         <label className="px-6" onClick={() => handleShowOrganization(list)}>
                             <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
 
@@ -376,7 +386,7 @@ export default function OrganizationListComponent() {
                                 </div>
                             </div>
                             <div className="w-full px-8 text-center cursor-pointer">
-                                <span className="inline-block w-full rounded-md py-2 px-3 text-xs font-semibold text-green bg-green bg-opacity-10">Joined</span>
+                                <span className={`inline-block w-full rounded-md py-2 px-3 text-xs font-semibold  bg-opacity-10 ${list?.isActive ? "text-green bg-green" : "text-reject bg-reject"}`}>{list?.isActive ? "Joined" : "Pending"}</span>
                             </div>
                         </label>
                     </div>
@@ -390,6 +400,30 @@ export default function OrganizationListComponent() {
                     </div>
                 }
             </div>
+
+            {isWaitingApprove &&
+                <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
+                    <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
+                        <div className="flex flex-col justify-end">
+                            <div className="relative w-40 m-auto pb-7">
+                                <img src={err_pic} className="w-28 m-auto" />
+                            </div>
+                            <p className={`text-2xl text-center font-sp-pro-text-semibold text-custom-red`}>
+                                Waiting For Approve
+                            </p>
+                            <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
+                                You cannot join organization until admin approve
+                            </p>
+                            <button
+                                onClick={() => setIsWaitingApprove(false)}
+                                className={`bg-custom-red text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
+                            >
+                                <span>Close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
         </main>
     )
 }
