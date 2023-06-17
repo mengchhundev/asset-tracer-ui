@@ -151,7 +151,7 @@ export default function AssetComponent() {
                       <div className="relative z-30">
                         <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                           <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
-                            {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Sort" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+                            {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
 
                             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                               <ChevronUpDownIcon
@@ -262,13 +262,12 @@ export default function AssetComponent() {
                               className="rounded-full h-full w-full"
                             />
                           </span>
-
                           {list.name}
                         </div>
                       </td>
                       <td className="py-3 font-sp-pro-text-semibold">{list.qty}</td>
                       <td className="py-3 text-accept">{dollarUS.format(list.unitPrice)}</td>
-                      <td className="py-3"><span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span></td>
+                      <td className="py-3">{list.invoiceCode != null && <span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span>}</td>
                       <td className="py-3">{moment(list.createdAt).format("MMM DD YYYY")}</td>
                       <td>
                         <div className="flex flex-rol space-x-3 items-center justify-center">
@@ -280,7 +279,7 @@ export default function AssetComponent() {
                             >
                               <svg
                                 width="20"
-                                height="21"
+                                height="22"
                                 viewBox="0 0 20 21"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
