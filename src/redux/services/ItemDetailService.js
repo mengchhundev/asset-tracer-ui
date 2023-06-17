@@ -1,7 +1,7 @@
 import apiV2 from "./apiV2";
 
-const getAllItems = async (orgId, page = 1, size = 8, name = "", normalCategoryName = "", superCategoryName = "") => {
-  return await apiV2.get(`/item-details/by-organization/${orgId}?page=${page}&size=${size}&name=${name}&normalCategoryName=${normalCategoryName}&superCategoryName=${superCategoryName}`);
+const getAllItems = async (orgId, page = 1, size = 8, name = "", normalCategoryName = "", sort = "") => {
+  return await apiV2.get(`/item-details/by-organization/${orgId}?page=${page}&size=${size}&name=${name}&normalCategoryName=${normalCategoryName}&sort=${sort}`);
 };
 
 const getItemById = async (id) => {

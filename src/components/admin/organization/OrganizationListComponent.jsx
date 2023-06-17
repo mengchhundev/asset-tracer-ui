@@ -1,46 +1,40 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setAllOrganization, setItem, setOrgDetail } from '../../../redux/slices/OrganizationSlice';
 import jwt_decode from "jwt-decode";
 import OrganizationService from '../../../redux/services/OrganizationService';
-import { FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 import no_data_pic from '../../../assets/images/empty_box.png'
 import '../../../style/shadow.css';
 import '../../../style/dropdown.css';
-import avatar01 from "../../../assets/images/organization/avatar01.png";
-import avatar02 from "../../../assets/images/organization/avatar02.png";
-import avatar03 from "../../../assets/images/organization/avatar03.png";
-import avatar04 from "../../../assets/images/organization/avatar04.png";
 import trash_ico from "../../../assets/images/trash.png"
 import { Listbox } from '@headlessui/react';
 import { RiCloseFill } from 'react-icons/ri';
 import FileUploadService from '../../../redux/services/FileUploadService';
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import { BsPlus } from 'react-icons/bs';
-import CreateOrganizatoinComponent from './popUp/CreateOrganizatoinComponent';
+import { Transition } from "@headlessui/react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { TbListDetails } from "react-icons/tb";
+import UpdateOrganizationComponent from './popUp/UpdateOrganizationComponent';
 
 const sort = [
     {
-        id: "sort_by", name: "Sort by"
+        id: "", name: "Default"
     },
     {
-        id: "asc", name: "A - Z"
+        id: "asc", name: "A -> Z"
     },
     {
-        id: "desc", name: "Z - A"
+        id: "desc", name: "Z -> A"
     }
 ];
 
 export default function OrganizationListComponent() {
 
-    const [selectedSort, setSelectedSort] = useState(sort[0])
-    const [query, setQuery] = useState("")
+    const [selectedSort, setSelectedSort] = useState(sort[0].name)
     const [search, setSearch] = useState()
     const [orgId, setOrgId] = useState()
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
@@ -55,15 +49,9 @@ export default function OrganizationListComponent() {
         setIsUpdateSuccess(false)
     }, [isUpdateSuccess])
 
-    const filteredOrganizatoin =
-        query === ""
-            ? sort
-            : sort.filter((person) =>
-                person.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "")
-                    .includes(query.toLowerCase().replace(/\s+/g, ""))
-            );
+    const handleIsUpdateSuccess = (val) => {
+        setIsUpdateSuccess(val)
+    }
 
     const dispatch = useDispatch();
     const organizations = useSelector(state => state.organization.data)
@@ -97,8 +85,8 @@ export default function OrganizationListComponent() {
     }, [])
 
     useEffect(() => {
-        if (selectedSort.id == "asc" || selectedSort.id == "desc" || search != null) {
-            OrganizationService.getAllOrganizations(userId, search, selectedSort.id).then(res => {
+        if (selectedSort != null || search != null) {
+            OrganizationService.getAllOrganizations(userId, search, selectedSort).then(res => {
                 if (res.data?.success) {
                     dispatch(setAllOrganization(res.data.payload))
                 }
@@ -119,7 +107,11 @@ export default function OrganizationListComponent() {
     }
 
     const handleSetOrgDetail = (val) => {
-        dispatch(setOrgDetail(val))
+        dispatch(setOrgDetail({ id: val.id, name: val.name, code: val.code, address: val.address, logo: val.logo }))
+    }
+
+    const handleSelectedSort = (val) => {
+        setSelectedSort(val)
     }
 
     return (
@@ -161,8 +153,7 @@ export default function OrganizationListComponent() {
             </div>
 
             {/* Update */}
-
-            <CreateOrganizatoinComponent className="modal" val={orgDetail} handleUpdateSuccess={handleUpdateSuccess} />
+            <UpdateOrganizationComponent className="modal" val={orgDetail} handleIsUpdateSuccess={handleIsUpdateSuccess}/>
 
             <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
                 {/* header */}
@@ -202,77 +193,68 @@ export default function OrganizationListComponent() {
 
                     {/* filter */}
                     <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                        <Combobox
-                            value={selectedSort}
-                            onChange={setSelectedSort}
-                            className="z-20"
-                        >
-                            <div className="relative z-20">
-                                <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                                    <Combobox.Input
-                                        className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                                        displayValue={(val) => val.name}
-                                        onChange={(event) => setQuery(event.target.value)}
-                                    />
-                                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                        <ChevronUpDownIcon
-                                            className="h-5 w-5 text-text-color"
-                                            aria-hidden="true"
-                                        />
-                                    </Combobox.Button>
-                                </div>
-                                <Transition
-                                    as={Fragment}
-                                    leave="transition ease-in duration-100"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
-                                    afterLeave={() => setQuery("")}
-                                >
-                                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {filteredOrganizatoin.length === 0 && query !== "" ? (
-                                            <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                                                Nothing found.
-                                            </div>
-                                        ) : (
-                                            filteredOrganizatoin.map((val, index) => (
-                                                <Combobox.Option
-                                                    key={index}
-                                                    className={({ active }) =>
-                                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                                            ? "bg-custom-yellow-showdow-light text-text-color"
-                                                            : "text-text-color"
-                                                        }`
-                                                    }
-                                                    value={val}
-                                                >
-                                                    {({ selectedSort, active }) => (
-                                                        <>
-                                                            <span
-                                                                className={`block truncate ${selectedSort ? "font-medium" : "font-normal"
-                                                                    }`}
-                                                            >
-                                                                {val.name}
-                                                            </span>
-                                                            {selectedSort ? (
-                                                                <span
-                                                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                                                        }`}
-                                                                >
-                                                                    <CheckIcon
-                                                                        className="h-5 w-5"
-                                                                        aria-hidden="true"
-                                                                    />
-                                                                </span>
-                                                            ) : null}
-                                                        </>
-                                                    )}
-                                                </Combobox.Option>
-                                            ))
-                                        )}
-                                    </Combobox.Options>
-                                </Transition>
-                            </div>
-                        </Combobox>
+                        <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+                            {({ open }) => (
+                                <>
+                                    <div className="relative z-30">
+                                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                                            <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
+                                                {selectedSort ? <span className={`block truncate text-sm w-full md:w-36 lg:w-full xl:w-36 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by Name: </span>{selectedSort == "Default" ? "" : selectedSort == "asc" ? "A -> Z" : "Z -> A"}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by Name: </span>}
+
+                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-text-color"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </Listbox.Button>
+                                        </div>
+                                        <Transition
+                                            show={open}
+                                            leave=""
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            <Listbox.Options
+                                                static
+                                                className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                                            >
+                                                {sort.length == 0 ? (
+                                                    <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                                        Nothing found.
+                                                    </div>
+                                                ) : (
+                                                    sort.map((val, index) => (
+                                                        <Listbox.Option key={index} value={val.id}
+                                                            className={({ active }) =>
+                                                                `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                                            }
+                                                        >
+                                                            {({ selected, active }) => (
+                                                                <>
+                                                                    <span
+                                                                        className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                                                    >
+                                                                        {val.name}
+                                                                    </span>
+                                                                    {selected ? (
+                                                                        <span
+                                                                            className={`${active ? "text-primary" : "text-primary"
+                                                                                } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                                                        >
+                                                                        </span>
+                                                                    ) : null}
+                                                                </>
+                                                            )}
+                                                        </Listbox.Option>
+                                                    ))
+                                                )}
+                                            </Listbox.Options>
+                                        </Transition>
+                                    </div>
+                                </>
+                            )}
+                        </Listbox>
                     </div>
                 </div>
             </div>
@@ -314,7 +296,7 @@ export default function OrganizationListComponent() {
                                                             <>
                                                                 <label
                                                                     onClick={() => handleSetOrgDetail(list)}
-                                                                    htmlFor='create-organization'
+                                                                    htmlFor='update-organization'
                                                                     className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                 >
                                                                     <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>

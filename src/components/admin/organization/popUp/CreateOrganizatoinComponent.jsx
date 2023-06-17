@@ -14,21 +14,14 @@ import { setItem } from '../../../../redux/slices/OrganizationSlice';
 
 export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
 
-    const organization = JSON.parse(sessionStorage.getItem("organization"))
-
     const dispatch = useDispatch()
     const navigator = useNavigate()
-    const [isUpdate, setIsUpdate] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
-    const [image, setImage] = useState()
     const [newData, setNewData] = useState({
         id: "",
         name: "",
         address: "",
         logo: ""
     })
-
-    const orgDetail = useSelector(state => state.organization.orgDetail)
 
     // Upload file
     let formData = new FormData()
@@ -43,7 +36,6 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
     };
 
     const handleSaveOrganization = () => {
-        setIsUpdate(false)
         if (selectedFile) {
             formData.append("file", selectedFile)
             FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
@@ -54,9 +46,13 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
                         logo: res.data.payload
                     }).then(res => {
                         if (res.data?.success) {
-                            setImage("")
-                            setIsSuccess(true)
-                            navigator("/organization", { state: { hideOrganizationBar: true } })
+                            setNewData({
+                                id: "",
+                                name: "",
+                                address: "",
+                                logo: ""
+                            })
+                            navigator("/organization")
                         }
                     })
                 }
@@ -64,50 +60,13 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
         } else {
             OrganizationService.saveOrganization(newData, localStorage.getItem("token")).then(res => {
                 if (res.data?.success) {
-                    setIsSuccess(true)
-                    navigator("/organization", { state: { hideOrganizationBar: true } })
-                }
-            })
-        }
-    }
-
-    const handleUpdateOrganization = () => {
-        if (selectedFile) {
-            formData.append("file", selectedFile)
-            FileUploadService.storeFile(formData, localStorage.getItem("token")).then(res => {
-                if (res.data.success) {
-                    OrganizationService.updateOrganization({
-                        name: newData.name,
-                        address: newData.address,
-                        logo: res.data.payload
-                    }, newData?.id).then(res => {
-                        console.log(res.data)
-                        if (res.data?.success) {
-                            setIsSuccess(true)
-                            setImage("")
-                            if (organization.id == orgDetail.id) {
-                                dispatch(setItem(res.data.payload))
-                                sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-                            }
-                            setSelectedFile("")
-                            document.getElementById("create-organization").click()
-                            handleUpdateSuccess(true)
-                        }
+                    setNewData({
+                        id: "",
+                        name: "",
+                        address: "",
+                        logo: ""
                     })
-                }
-            })
-        } else {
-            OrganizationService.updateOrganization(newData, newData?.id).then(res => {
-                if (res.data?.success) {
-                    setIsSuccess(true)
-                    setImage("")
-                    if (organization.id == orgDetail.id) {
-                        dispatch(setItem(res.data.payload))
-                        sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
-                    }
-                    setSelectedFile("")
-                    document.getElementById("create-organization").click()
-                    handleUpdateSuccess(true)
+                    navigator("/organization")
                 }
             })
         }
@@ -119,47 +78,18 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
             name: Yup.string().required("Organization name is required"),
         }),
         onSubmit: (val, { resetForm }) => {
-            isUpdate ? handleUpdateOrganization() : handleSaveOrganization()
-            if (isSuccess) {
-                resetForm(val = {
-                    name: "",
-                    address: "",
-                    logo: ""
-                })
-                setNewData({
-                    name: "",
-                    address: "",
-                    logo: ""
-                })
-            }
+            handleSaveOrganization()
         }
     });
 
-    useEffect(() => {
-        setIsSuccess(false)
-        setImage("")
-        if (orgDetail.logo != null && orgDetail.logo != "") {
-            setIsUpdate(true)
-            setNewData({ ...orgDetail })
-            if (orgDetail?.logo) {
-                setImage(FileUploadService.getImage(orgDetail?.logo))
-            }
-            formik.setValues(orgDetail)
-        }
-    }, [orgDetail, image])
-
-    useEffect(() => {
-        formik.setValues(newData);
-    }, [])
-
-    useEffect(() => {
-        formik.setValues(newData);
-    }, [image])
-
     const handleHideModal = () => {
         setSelectedFile("")
-        setImage("")
-        setIsUpdate(false)
+        setNewData({
+            id: "",
+            name: "",
+            address: "",
+            logo: ""
+        })
     }
 
     return (
@@ -182,11 +112,10 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
                                 <div className="px-6">
                                     <div className='space-y-5 shadow p-5 rounded-md mb-1 relative'>
                                         <div className='border border-dashed py-2 border-primary block justify-center text-center rounded-lg'>
-                                            <div className='w-48 p-5 relative'>
+                                            <div className='w-48 p-5 min-h-[9rem] relative'>
                                                 {
                                                     selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                                                        : image ? <img src={image} className='h-full m-auto' />
-                                                            : <img className="block m-auto " src={upload_placeholder} />
+                                                        : <img className="block m-auto" src={upload_placeholder} />
                                                 }
                                             </div>
                                             <p className='mt-5 text-xs'>Upload Organzation Picture</p>
@@ -246,10 +175,10 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
                             </label>
                             <button
                                 type="submit"
-                                className={`${isUpdate ? "hover:bg-opacity-90 bg-accept" : "hover:bg-opacity-90 bg-primary"}  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
+                                className="hover:bg-opacity-90 bg-primary rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1"
                             >
                                 <FiSave className='text-lg' />
-                                {isUpdate ? "Save changes" : "Save"}
+                                Add
                             </button>
                         </div>
                     </form>

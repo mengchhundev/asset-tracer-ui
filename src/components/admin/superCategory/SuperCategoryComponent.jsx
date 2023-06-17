@@ -8,7 +8,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Combobox, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
-import { setAllSuperCategory } from "../../../redux/slices/SuperCategorySlice";
+import {
+  setAllSuperCategory,
+} from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { RiCloseFill } from "react-icons/ri";
@@ -19,7 +21,6 @@ import furniture from "../../../assets/icon/furniture.svg";
 import office from "../../../assets/icon/office.svg";
 import { FiSave } from "react-icons/fi";
 import moment from "moment";
-import { ClassSharp, CleaningServices } from "@mui/icons-material";
 
 const people = [
   { id: 1, name: "Room" },
@@ -31,22 +32,23 @@ const people = [
 ];
 
 export default function SuperCategoryComponent() {
+
   const [selected, setSelected] = useState(people[0]);
   const [i, setI] = useState(1);
-  const [isUpdate, setIsUpdate] = useState(false);
   const dispatch = useDispatch();
   const getAllSuperCategores = useSelector((state) => state.superCategory.data);
   const [pageCount, setPageCount] = useState(2);
-  const [setIsOpenModalDelete, setIsOpenModalCreate] = useState(false);
-  const [superCategoryId, setSuperCategoryId] = useState("");
-  const organization = sessionStorage.getItem("organization");
-  const getOrganizationDetail = JSON.parse(organization);
-  const organizationId = getOrganizationDetail.id;
-  const [newData, setData] = useState("");
-  const [newIcon, setIcon] = useState("");
-console.log(getAllSuperCategores)
-  
+  const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const organizationId = organization.id;
+  const [isUpdate,setIsUpdate] = useState(false)
+  const [newData, setData] = useState({
+    id: "",
+    name: "",
+    icon: "",
+    organizationId: organizationId
+  });
 
+  // function get all super category
   const handleGetAllSuperCategory = () => {
     SuperCategoryService.getAllSuperCategores().then((res) => {
       if (res?.data?.success) {
@@ -55,25 +57,48 @@ console.log(getAllSuperCategores)
     });
   };
 
-  const handleSaveSuperCategory = () => {
-    SuperCategoryService.saveSuperCategory(newData).then((res) => {
-      handleGetAllSuperCategory();
-      if (res?.data?.success) {
+  // function delete SuperCategory
+  const handlDeleteSuperCategory = () => {
+    SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
+      if (res.data.success) {
+        handleGetAllSuperCategory();
       }
     });
   };
 
-useEffect(() => {
-      handleGetAllSuperCategory();
-    }, []);
+  // function ADD super category
+  const handleSaveSuperCategory = () => {
+    SuperCategoryService.saveSuperCategory(newData).then((res) => {
+      if (res.data.success) {
+        document.getElementById("btn-super-category").click()
+        handleGetAllSuperCategory();
+      }
+    });
+  };
+
+  const handleUpdateSuperCategory = () => {
+    SuperCategoryService.updateSuperCategory(newData.id, newData).then(res => {
+      if(res.data.success) {
+        document.getElementById("btn-super-category").click()
+        handleGetAllSuperCategory()
+      }
+    })
+  }
 
   useEffect(() => {
-    setData((prevData) => ({
-      ...prevData,
-      organizationId,
-    }))
+    handleGetAllSuperCategory();
   },[]);
 
+
+  useEffect(() => {
+      setData((prevData) => ({
+        ...prevData,
+        organizationId,
+      }));
+  }, []);
+
+
+  // handle input change 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -94,80 +119,47 @@ useEffect(() => {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    getAllSuperCategory(event.selected + 1);
-    setI(event.selected * 10 + 1);
-  };
-
-  // Modal
-  function closeModalCreateSuperCategory() {
-    setIsOpenModalCreate(false);
-    setNewData({ id: "", name: "" });
-  }
-
-  function openModalCreateSuperCategory() {
-    setIsOpenModalCreate(true);
-  }
-
-  function closeModalDeleteSuperCategory() {
-    setIsOpenModalDelete(false);
-  }
-
-  function openModalDeleteSuperCategory(id) {
-    setSuperCategoryId(id);
-    setIsOpenModalDelete(true);
-  }
-  
-
-
-  
-  console.log(newData);
   const formik = useFormik({
     initialValues: newData,
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Name is required"),
     }),
     onSubmit: (val, { resetForm }) => {
-      isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory();
-      setIsUpdate(false);
-      setIsOpenModalCreate(false);
-      resetForm((val = { id: "", name: "" }));
-      setData({ id: "", name: "" });
+      isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory()
+      resetForm(val = { id: "", name: "", organizationId: "" })
+      setData({ id: "", name: "", organizationId: "" })
+      formik.setValues({ id: "", name: "", organizationId: "" })
     },
   });
 
+  useEffect(() => {
+    if(!isUpdate) {
+      formik.setValues({ id: "", name: "", organizationId: "" })
+    }
+  }, isUpdate)
+ 
   const handleSearchSuperCategory = (e) => {
     getAllSuperCategory(1, 10, e.target.value);
   };
 
-  // const handleDeleteSuperCategory = () => {
-  //   SuperCategoryService.deleteSuperCategory(superCategoryId).then((res) => {
-  //     if (res?.data?.success) {
-  //       getAllSuperCategory(1);
-  //       closeModalDeleteSuperCategory();
-  //     }
-  //   });
-  // };
+  const handleShowSuperCategory = (val) => {
+    setIsUpdate(true)
+    setData({...val, organizationId: organizationId})
+    formik.setValues(val)
+  }
 
-  // const handleShowSuperCategory = (val) => {
-  //   setIsUpdate(true);
-  //   openModalCreateSuperCategory(true);
-  //   setNewData(val);
-  //   setSuperCategoryId(val.id);
-  //   formik.setValues(val);
-  // };
-
-  const handleUpdateSuperCategory = () => {
-    SuperCategoryService.updateSuperCategory(superCategoryId, newData).then(
-      (res) => {
-        if (res?.data?.success) {
-          dispatch(setAllSuperCategory(res.data.payload));
-          getAllSuperCategory(1);
-        }
-      }
-    );
-  };
+  const handleHideModal = () => {
+    setTimeout(() => {
+      setIsUpdate(false)  
+    }, 100);
+    setData({
+      id: "",
+    name: "",
+    icon: "",
+    organizationId: organizationId
+    })
+    formik.setValues({ id: "", name: "", organizationId: "" })
+  }
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -311,7 +303,7 @@ useEffect(() => {
                   <td className="w-2/5 bg-bg-main">Created Date</td>
                   <td className="w-1/5 bg-bg-main text-center">Action</td>
                 </tr>
-                {getAllSuperCategores?.map((list, index) => (
+                {getAllSuperCategores.map((list, index) => (
                   <tr key={index} className="text-sm font-sp-pro-text-regular">
                     <td className="w-1/5 ">{index + i}</td>
 
@@ -332,7 +324,8 @@ useEffect(() => {
                       <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
-                          htmlFor="EditSuperCategory"
+                          onClick={() => handleShowSuperCategory(list)}
+                          htmlFor="superCategory"
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
                           aria-label="Edit"
                         >
@@ -340,6 +333,7 @@ useEffect(() => {
                         </label>
                         {/* Delete */}
                         <label
+                          onClick={() => handleShowSuperCategory(list)}
                           htmlFor="modalDelete"
                           className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
                           aria-label="Delete"
@@ -362,7 +356,7 @@ useEffect(() => {
             <div id="react-paginate" className="">
               <ReactPaginate
                 nextLabel=" >"
-                onPageChange={handlePageClick}
+                // onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={2}
                 pageCount={pageCount}
@@ -389,7 +383,7 @@ useEffect(() => {
         <div className=" modal">
           <div className=" modal-box relative rounded-lg">
             <div className="absolute top-7 right-7">
-              <label htmlFor="superCategory">
+              <label htmlFor="superCategory" id="btn-super-category" onClick={handleHideModal}>
                 <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
               </label>
             </div>
@@ -401,6 +395,7 @@ useEffect(() => {
                 </p>
               </div>
             </div>
+            <form onSubmit={formik.handleSubmit}>
             <div className=" border border-bg-primary rounded-md p-3 my-3">
               <div className="flex flex-row gap-4">
                 <div>
@@ -446,108 +441,33 @@ useEffect(() => {
               Name
             </label>
             <input
-              onChange={handleInputChange}
+              value={newData.name}
+              onInput={handleInputChange}
+              onChange={formik.handleChange}
               name="name"
               className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
               type="text"
               placeholder="super category"
             />
+            {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
-                <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
+                <label htmlFor="superCategory" onClick={handleHideModal}  className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
                   <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                  <label htmlFor="superCategory">&nbsp; Cancel</label>
-                </button>
-              </div>
-
-              <div className="">
-                <label
-                htmlFor="superCategory"
-                  onClick={handleSaveSuperCategory}
-                  className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
-                >
-                  <FiSave className="text-lg" /> &nbsp; Add
+                  &nbsp;Cancel
                 </label>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Edit Popup */}
-        <input
-          type="checkbox"
-          id="EditSuperCategory"
-          className="modal-toggle"
-        />
-        <div className="modal">
-          <div className=" modal-box relative rounded-lg">
-            <div className="absolute top-7 right-7">
-              <label htmlFor="EditSuperCategory">
-                <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-              </label>
-            </div>
-            <div className=" flex justify-between">
-              <div className="flex">
-                <img src={gift} className="h-12 rounded-lg w-12 " />
-                <p className="mt-2 flexF items-center font-sp-pro-text-regular text-xl pl-6  text-text-color">
-                  Update normal category
-                </p>
-              </div>
-            </div>
-            <div className=" border border-bg-primary rounded-md p-3 my-3">
-              <div className="flex flex-row gap-4">
-                <div>
-                  <p className="text-center">Choose Icon</p>
-                  <div className="flex flex- justify-between">
-                    <div className="p-2">
-                      <img src={electronic} className="h-14 rounded-lg w-14 " />
-                    </div>
-                    <div className="p-2 mt-4">
-                      <img src={electronic} className="h-9 rounded-lg w-9 " />
-                    </div>
-                    <div className="p-2 mt-4">
-                      <img src={office} className="h-9 rounded-lg w-9 " />
-                    </div>
-                    <div className="p-2 mt-4">
-                      <img src={furniture} className="h-9 rounded-lg w-9 " />
-                    </div>
-
-                    <div className="p-2 mt-4">
-                      <img src={addIcon} className="h-9 rounded-lg w-9 " />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <label
-              htmlFor="EditSuperCategory"
-              className="flex text-sm text-text-color font-sp-pro-text-regular py-2"
-            >
-              Name
-            </label>
-            <input
-              onSubmit={handleInputChange}
-              className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-              type="text"
-              placeholder="update your super category"
-            />
-            <div className="flex justify-end flex-row space-x-4 mt-10">
-              <div className="">
-                <button className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
-                  <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                  <label htmlFor="EditSuperCategory">&nbsp; Cancel</label>
-                </button>
-              </div>
 
               <div className="">
-                <button 
-                onSubmit={handleUpdateSuperCategory}
-                className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center">
-                  <FiSave className="text-lg" /> &nbsp; Edit
+                <button
+                  type="submit"
+                  className={`${isUpdate ? "hover:bg-green bg-green" : "hover:bg-primary bg-primary"}  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                >
+                  <FiSave className="text-lg" /> &nbsp; {isUpdate ? "Save change" : "Add"}
                 </button>
               </div>
             </div>
+            </form>
           </div>
         </div>
 
@@ -578,7 +498,11 @@ useEffect(() => {
                 </label>
               </div>
               <div className="modal-action">
-                <label className="bg-[#FFC5C5] font-light text-reject border-2 border-reject hover:bg-[#FFC5C5] btn">
+                <label
+                  htmlFor="modalDelete"
+                  onClick={handlDeleteSuperCategory}
+                  className="bg-[#FFC5C5] font-light text-reject border-2 border-reject hover:bg-[#FFC5C5] btn"
+                >
                   Delete
                 </label>
               </div>

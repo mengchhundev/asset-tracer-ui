@@ -5,8 +5,7 @@ import * as Yup from "yup";
 // // combobox import
 import { Fragment, useState } from 'react';
 import { Transition } from '@headlessui/react';
-import { ChevronUpDownIcon, EllipsisVerticalIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
-import { HiChevronDown, HiOutlineCheck } from 'react-icons/hi';
+import { ChevronUpDownIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { useFormik } from 'formik';
 import OrganizationService from '../../../redux/services/OrganizationService';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,10 +13,7 @@ import { setItem } from '../../../redux/slices/OrganizationSlice';
 import { useNavigate } from 'react-router-dom';
 import CreateOrganizatoinComponent from './popUp/CreateOrganizatoinComponent';
 import organization_pic from '../../../assets/images/organization.png'
-import { BsPlus } from 'react-icons/bs';
 import ReactPaginate from 'react-paginate';
-import gift from "../../../assets/images/gift.png";
-import book from "../../../assets/images/book.png";
 import avatar01 from "../../../assets/images/organization/avatar01.png";
 import avatar02 from "../../../assets/images/organization/avatar02.png";
 import avatar03 from "../../../assets/images/organization/avatar03.png";
@@ -59,6 +55,11 @@ export default function OrganzationCreateOrJoinComponent() {
   const [isShowJoinPopup, setIsShowJoinPopup] = useState(false)
   const [isJoinSuccess, setIsJoinSuccess] = useState(false)
   const [pageCount, setPageCount] = useState(2);
+  const [isUpdate, setIsUpdate] = useState(false)
+
+  const handleUpdateSuccess = (val) => {
+    setIsUpdate(val)
+  }
 
   const handleJoinOrganization = () => {
     OrganizationService.joinOrganization(newData, localStorage.getItem("token")).then(res => {
@@ -109,7 +110,7 @@ export default function OrganzationCreateOrJoinComponent() {
       <main className="overflow-y-auto pb-4">
         <div className="gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-5 md:px-10 lg:px-20 con-Shadow">
           <div className='grid grid-cols-2 w-full gap-3 md:gap-8 py-4'>
-            <label htmlFor="create-organization" className="min-h-[9rem] col-span-2 md:col-span-1 px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
+            <label htmlFor="create-organization" onClick={() => handleUpdateSuccess(false)} className="min-h-[9rem] col-span-2 md:col-span-1 px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
               <div>
                 <PlusCircleIcon className="w-12 h-12 text-green rounded-full m-auto mb-2" />
                 <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
@@ -142,8 +143,7 @@ export default function OrganzationCreateOrJoinComponent() {
           </div>
         </div>
 
-        {/* <input type="checkbox" id="create-organization" className="modal-toggle" /> */}
-        <CreateOrganizatoinComponent className="modal" />
+        <CreateOrganizatoinComponent className="modal" handleUpdateSuccess={handleUpdateSuccess}/>
       </main>
       {isShowJoinPopup &&
         <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
