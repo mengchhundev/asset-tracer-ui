@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import AssetViewComponent from "./popUp/AssetViewComponent";
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
@@ -15,15 +15,22 @@ import placeholder_square from "../../../assets/images/placeholder/placeholder_s
 import FileUploadService from '../../../redux/services/FileUploadService';
 import AssetDeleteComponent from "./popUp/AssetDeleteComponent";
 
-const people = [
-  { id: 1, name: "Asset" },
-  { id: 2, name: "HDMI" },
-  { id: 3, name: "Keyboard" },
-  { id: 4, name: "Mango" },
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "asc", name: "A -> Z"
+  },
+  {
+    id: "desc", name: "Z -> A"
+  }
 ];
 
 export default function AssetComponent() {
 
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [selectedPage, setSelectedPage] = useState(1)
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const dispatch = useDispatch();
   const getAllItems = useSelector((state) => state.itemDetail.itemDetails);
@@ -32,41 +39,42 @@ export default function AssetComponent() {
   const [itemId, setItemId] = useState()
 
   //combobox
-  const [selected, setSelected] = useState(people[0]);
-  const [query, setQuery] = useState("");
   const [asset, setAsset] = useState({});
+  const [itemName, setItemName] = useState();
 
-  const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
-
-  const handleGetAllAssets = () => {
-    ItemDetailService.getAllItems(organization.id).then(res => {
+  const handleGetAllItems = (page = 1, size = 8, name = "", normalCategoryName = "", sort = "") => {
+    ItemDetailService.getAllItems(organization.id, page, size, name, normalCategoryName, sort).then(res => {
       if (res.data.success) {
         dispatch(setItemDetails(res.data.payload))
+        setTotalRow(res.data.totalData)
       }
+    }, err => {
+      dispatch(setItemDetails([]))
     })
   }
 
   // pagination
   const [pageCount, setPageCount] = useState(4);
-  let [isOpen, setIsOpen] = useState(false);
-  function openDetail() {
-    setIsOpen(true);
-  }
+
   const handlePageClick = (event) => {
-    handleGetAllInvoices(event.selected + 1)
+    setSelectedPage(event.selected + 1)
+    handleGetAllItems(event.selected + 1)
     setI(event.selected * 8 + 1);
   };
 
+
   useEffect(() => {
-    handleGetAllAssets()
+    if (itemName != null || selectedSort != null) {
+      handleGetAllItems(selectedPage, 8, itemName, "", selectedSort)
+    }
+  }, [itemName, selectedSort])
+
+  useEffect(() => {
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [totalRow])
+
+  useEffect(() => {
+    handleGetAllItems()
   }, [])
 
   const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
@@ -77,10 +85,18 @@ export default function AssetComponent() {
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      handleGetAllAssets()
+      handleGetAllItems()
     }
     setIsDeleteSuccess(false)
   }, [isDeleteSuccess])
+
+  const handleInputSearch = (e) => {
+    setItemName(e.target.value)
+  };
+
+  const handleSelectedStatus = (val) => {
+    setSelectedSort(val)
+  }
 
   return (
     <>
@@ -116,99 +132,77 @@ export default function AssetComponent() {
                     </svg>
                   </div>
                   <input
-                    className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    className="placeholder:text-black placeholder:text-opacity-20 w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:text-gray-200 focus:placeholder-gray-500   focus:outline-none"
                     type="text"
                     name="search"
                     placeholder="Search..."
+                    onInput={handleInputSearch}
                   />
                 </div>
               </div>
+              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                <Listbox as="div" value={selectedSort} onChange={handleSelectedStatus}>
+                  {({ open }) => (
+                    <>
+                      <div className="relative z-30">
+                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                          <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
+                            {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Sort" ? "text-black text-opacity-20" : ""}`}>{selectedSort == "asc" ? "A -> Z" : selectedSort == "desc" ? "Z -> A" : "Sort"}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort</span>}
 
-              {/* filter */}
-              <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                <Combobox
-                  value={selected}
-                  onChange={setSelected}
-                  className="z-20"
-                >
-                  <div className="relative z-20">
-                    <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                      <Combobox.Input
-                        className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                        displayValue={(person) => person.name}
-                        onChange={(event) => setQuery(event.target.value)}
-                      />
-                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon
-                          className="h-5 w-5 text-text-color"
-                          aria-hidden="true"
-                        />
-                      </Combobox.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                      afterLeave={() => setQuery("")}
-                    >
-                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {filteredPeople.length === 0 && query !== "" ? (
-                          <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                            Nothing found.
-                          </div>
-                        ) : (
-                          filteredPeople.map((person) => (
-                            <Combobox.Option
-                              key={person.id}
-                              className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                  ? "bg-custom-yellow-showdow-light text-text-color"
-                                  : "text-text-color"
-                                }`
-                              }
-                              value={person}
-                            >
-                              {({ selected, active }) => (
-                                <>
-                                  <span
-                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                      }`}
-                                  >
-                                    {person.name}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={`${active ? "text-primary" : "text-primary"
-                                        } absolute inset-y-0 left-0 flex items-center pl-2`}
-                                    >
-                                      {/* <CheckIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    /> */}
-                                      <svg
-                                        className="h-4 w-4"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
+                            <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                              <ChevronUpDownIcon
+                                className="h-5 w-5 text-text-color"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          </Listbox.Button>
+                        </div>
+                        <Transition
+                          show={open}
+                          leave=""
+                          leaveFrom="opacity-100"
+                          leaveTo="opacity-0"
+                        >
+                          <Listbox.Options
+                            static
+                            className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                          >
+                            {sort.length == 0 ? (
+                              <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                Nothing found.
+                              </div>
+                            ) : (
+                              sort.map((val, index) => (
+                                <Listbox.Option key={index} value={val.id}
+                                  className={({ active }) =>
+                                    `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                  }
+                                >
+                                  {({ selected, active }) => (
+                                    <>
+                                      <span
+                                        className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
                                       >
-                                        <path
-                                          fillRule="evenodd"
-                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                          clipRule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  ) : null}
-                                </>
-                              )}
-                            </Combobox.Option>
-                          ))
-                        )}
-                      </Combobox.Options>
-                    </Transition>
-                  </div>
-                </Combobox>
+                                        {val.name}
+                                      </span>
+                                      {selected ? (
+                                        <span
+                                          className={`${active ? "text-primary" : "text-primary"
+                                            } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                        >
+                                        </span>
+                                      ) : null}
+                                    </>
+                                  )}
+                                </Listbox.Option>
+                              ))
+                            )}
+                          </Listbox.Options>
+                        </Transition>
+                      </div>
+                    </>
+                  )}
+                </Listbox>
               </div>
 
               {/* add */}
@@ -347,7 +341,7 @@ export default function AssetComponent() {
             {/* pagination */}
             <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
               <div className="font-sp-pro-text-regular opacity-90">
-                Showing data 1 to 8 of 10 entries
+                Showing data 1 to 8 of {totalRow} entries
               </div>
               <div id="react-paginate" className="">
                 <ReactPaginate
