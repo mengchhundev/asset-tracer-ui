@@ -19,8 +19,8 @@ const updateSuperCategory = async (id, data) => {
     return await apiV2.put(`/super-categories/${id}`, data);
 }
 
+
 const SuperCategoryService = {
-    getAllSuperCategory,
     getAllSuperCategores,
     saveSuperCategory,
     deleteSuperCategory,

@@ -18,9 +18,16 @@ export const superCategorySlice = createSlice({
         },
         setSuperCategoryDetail: (state,action) =>{
             state.superCategoryDetail = action.payload
-        }
+        },
+        setDeleteSuperCategory: (state, action) => {
+            state.deleteSuperCategory = action.payload
+        },
+        setUpdateSuperCategory: (state, action) => {
+            state.setUpdateSuperCategory = action.payload
+        },
+        
     }
 });
 
-export const { setAllSuperCategory, setSuperCategoryDetail } = superCategorySlice.actions
+export const { setAllSuperCategory, setSuperCategoryDetail, setDeleteSuperCategory,setUpdateSuperCategory } = superCategorySlice.actions
 export default superCategorySlice.reducer
