@@ -6,12 +6,13 @@ import { BiCheck, BiDownArrowAlt, BiUpArrowAlt } from "react-icons/bi";
 import { TiExportOutline } from "react-icons/ti";
 import { MdArrowForwardIos } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+import Chart from "react-apexcharts";
 
 export default function DashboardComponent() {
   return (
     <>
       <main
-        className="lg:h-full md:h-[205vh] overflow-y-auto"
+        className="lg:h-full md:h-[205vh] "
         style={{
           boxShadow: "rgba(149, 157, 165, 0.1) 0px 1px 4px 1px",
           height: "calc(100vh - 6rem)",
@@ -19,78 +20,95 @@ export default function DashboardComponent() {
       >
         <div className="p-10 bg-white rounded-xl overflow-hidden">
           {/* header */}
-          <div className="mb-3">
-            <h2 className="text-2xl text-text-color font-sp-pro-text-semibold">
+          <div className="mb-5">
+            <h2 className="text-2xl text-text-color font-sp-pro-text-semibold uppercase">
               KSHRD Center
             </h2>
           </div>
 
           {/* Card Box1 */}
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2  gap-5">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-5">
             {/* total user */}
-            <div className="border-border-gray-light rounded-lg shadow-sm border p-5">
-              <div>
-                <h1 className="text-gray font-sp-pro-text-regular text-sm uppercase">
-                  total users
-                </h1>
-              </div>
-              <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                <span className="text-base text-text-color">50</span>
-                <span className="text-green flex items-center">
-                  + 36% <BiUpArrowAlt className="w-6 h-6" />
-                </span>
+            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out bg-gray-50 group ">
+              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#ffcb03]  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  group-hover:text-white">
+              
+                <div>
+                  <h1 className="text-[#ffcb03] group-hover:text-white w-full font-sp-pro-text-bold text-md uppercase">
+                    total users
+                  </h1>
+                </div>
+                <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
+                  <span className="text-base text-text-color group-hover:text-white">50</span>
+                  <span className="text-[#ffcb03] group-hover:text-white flex items-center">
+                    + 36% <BiUpArrowAlt className="w-6 h-6" />
+                  </span>
+                </div>
               </div>
             </div>
 
+            {/* </div> */}
+
             {/* total asset */}
-            <div className="border-border-gray-light rounded-lg shadow-sm border p-5">
-              <div>
-                <h1 className="text-gray font-sp-pro-text-regular text-sm uppercase">
-                  total assets
-                </h1>
-              </div>
-              <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                <span className="text-base text-text-color">1200</span>
-                <span className="text-red-500 flex items-center">
-                  + 14% <BiDownArrowAlt className="w-6 h-6" />
-                </span>
+            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out p- bg-gray-50 group ">
+              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#5ec576]  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  ">
+                <div>
+                  <h1 className="text-[#5ec576] group-hover:text-white font-sp-pro-text-bold text-md uppercase">
+                    total assets
+                  </h1>
+                </div>
+                <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
+                  <span className="text-base text-text-color group-hover:text-white">1200</span>
+                  <span className="text-[#5ec576] group-hover:text-white flex items-center">
+                    + 14% <BiDownArrowAlt className="w-6 h-6" />
+                  </span>
+                </div>
               </div>
             </div>
 
             {/* total room */}
-            <div className="border-border-gray-light rounded-lg shadow-sm border p-5">
-              <div>
-                <h1 className="text-gray font-sp-pro-text-regular text-base uppercase">
+            <div className=" rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out p- bg-gray-50 group">
+            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#ff585f]  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  ">
+              <div >
+                <h1 className=" text-[#ff585f] group-hover:text-white font-sp-pro-text-bold text-md uppercase">
                   total rooms
                 </h1>
               </div>
               <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                <span className="text-base text-text-color">100</span>
-                <span className="text-green flex items-center">
+                <span className="text-base text-text-color  group-hover:text-white ">100</span>
+                <span className="text-[#ff585f]  group-hover:text-white   flex items-center">
                   + 36% <BiUpArrowAlt className="w-6 h-6" />
                 </span>
               </div>
+              </div>
+             
             </div>
 
             {/* total invoice */}
-            <div className="border-border-gray-light rounded-lg shadow-sm border p-5">
+            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out p- bg-gray-50 group">
+            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-blue-500  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  ">
               <div>
-                <h1 className="text-gray font-sp-pro-text-regular text-base uppercase">
+                <h1 className="text-blue-500 font-sp-pro-text-bold text-md  group-hover:text-white uppercase">
                   total user
                 </h1>
               </div>
               <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                <span className="text-base text-text-color">33, 493</span>
-                <span className="text-green flex items-center">
+                <span className="text-base text-text-color  group-hover:text-white ">33, 493</span>
+                <span className="text-blue-500  flex items-center">
                   + 36% <BiUpArrowAlt className="w-6 h-6" />
                 </span>
               </div>
+              </div>
+              
             </div>
           </div>
 
           {/* Card Box2 */}
           <div className="grid md:grid-cols-12 sm:grid-cols-2 gap-5 mt-8">
-            <div className="lg:col-span-8 md:col-span-12 sm:col-span-12  border-border-gray-light rounded-lg shadow-sm border p-5">
+            <div className="lg:col-span-7 md:col-span-12 sm:col-span-12  border-border-gray-light rounded-lg shadow-sm border p-5">
               {/* header */}
               <div className="flex md:justify-between md:flex-row flex-col">
                 <div className="float-left flex">
@@ -207,8 +225,40 @@ export default function DashboardComponent() {
             </div>
 
             {/* Recent Member */}
-            <div className="lg:col-span-4 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative h-72 p-5">
-              <div className="">
+            <div className=" lg:col-span-5 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative lg:p-6  2xl:p-10 ">
+              {/* <React.Fragment> */}
+              <Chart
+                type="donut"
+                series={[43, 23, 65, 90]}
+                options={{
+                  responsive: [
+                    {
+                      breakpoint: 640,
+                    },
+                  ],
+                  // chart:{
+                  //   height:"400",
+                  //   width:"300"
+                  // },
+                  labels: ["In Used", "In Stock", "Damage", "Donated"],
+                  dataLabels: {
+                    enabled: false,
+
+                    style: {
+                      fontSize: "10px",
+                      fontFamily: "Helvetica, Arial, sans-serif",
+                    },
+                  },
+                  legend: {
+                    fontSize: "12px",
+                    fontFamily: "Helvetica, Arial",
+                    position: "bottom",
+                  },
+                }}
+              />
+
+              {/* </React.Fragment> */}
+              {/* <div className="">
                 <div>
                   <h2 className="text-base font-sp-pro-text-regular text-text-color">
                     Recent Member
@@ -304,13 +354,13 @@ export default function DashboardComponent() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="absolute bottom-0 left-0 p-5">
+              {/* <div className="absolute bottom-0 left-0 p-5">
                 <h2 className="text-gray font-sp-pro-text-regular text-sm uppercase flex flex-row">
                   see all user <MdArrowForwardIos className="w-6 h-4 pl-3" />
                 </h2>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Card Box2 */}
