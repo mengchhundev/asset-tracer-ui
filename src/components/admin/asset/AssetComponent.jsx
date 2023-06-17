@@ -96,11 +96,17 @@ export default function AssetComponent() {
     setSelectedSort(val)
   }
 
+  let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   return (
     <>
       <main className="px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
         <div className="gap-6 overflow-hidden z-10">
           <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
+
             {/* header */}
             <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
               <h2 className="text-2xl font-sp-pro-text-semibold">
@@ -260,9 +266,9 @@ export default function AssetComponent() {
                           {list.name}
                         </div>
                       </td>
-                      <td className="py-3">{list.qty}</td>
-                      <td className="py-3">{list.unitPrice}</td>
-                      <td className="py-3">{list.discount}</td>
+                      <td className="py-3 font-sp-pro-text-semibold">{list.qty}</td>
+                      <td className="py-3 text-accept">{dollarUS.format(list.unitPrice)}</td>
+                      <td className="py-3"><span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span></td>
                       <td className="py-3">{moment(list.createdAt).format("MMM DD YYYY")}</td>
                       <td>
                         <div className="flex flex-rol space-x-3 items-center justify-center">
