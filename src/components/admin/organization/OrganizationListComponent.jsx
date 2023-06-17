@@ -353,7 +353,7 @@ export default function OrganizationListComponent() {
                                                     <>
                                                         {
                                                             user?.image ?
-                                                                <div className="relative  w-7 h-7 mr-[-14px] z-10">
+                                                                <div className="relative  w-7 h-7 z-10">
                                                                     <img
                                                                         src={FileUploadService.getImage(user.image)}
                                                                         loading="lazy"
@@ -361,7 +361,7 @@ export default function OrganizationListComponent() {
                                                                     />
                                                                 </div>
                                                                 :
-                                                                <div className="relative  w-7 h-7 mr-[-14px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                                                <div className="relative  w-7 h-7 z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
                                                                     {user.name.substring(0, 1)}
                                                                 </div>
                                                         }

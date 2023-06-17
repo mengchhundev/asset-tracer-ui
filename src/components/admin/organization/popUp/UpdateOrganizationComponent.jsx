@@ -47,9 +47,9 @@ export default function UpdateOrganizationComponent({ handleIsUpdateSuccess }) {
                         name: newData.name,
                         address: newData.address,
                         logo: res.data.payload
-                    }, newData?.id).then(res => {
+                    }, newData.id).then(res => {
                         if (res.data?.success) {
-                            if (organization.id == orgDetail.id) {
+                            if (organization?.id == newData?.id) {
                                 dispatch(setItem(res.data.payload))
                                 sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                             }
@@ -66,9 +66,9 @@ export default function UpdateOrganizationComponent({ handleIsUpdateSuccess }) {
                 }
             })
         } else {
-            OrganizationService.updateOrganization(newData, newData?.id).then(res => {
+            OrganizationService.updateOrganization(newData, newData.id).then(res => {
                 if (res.data?.success) {
-                    if (organization.id == orgDetail.id) {
+                    if (organization?.id == newData?.id) {
                         dispatch(setItem(res.data.payload))
                         sessionStorage.setItem("organization", JSON.stringify(res.data.payload))
                     }
