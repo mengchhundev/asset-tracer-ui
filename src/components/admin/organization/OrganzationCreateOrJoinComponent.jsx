@@ -69,6 +69,9 @@ export default function OrganzationCreateOrJoinComponent() {
       }
     }, err => {
       console.log(err)
+      if(err.response.data.detail == "Organization not found") {
+        setMessage("Wrong code")
+      }
       setIsShowJoinPopup(true)
       setIsJoinSuccess(false)
     })
@@ -159,7 +162,7 @@ export default function OrganzationCreateOrJoinComponent() {
                 {isJoinSuccess ? <>
                   You cannot join organization until admin approve
                 </> : <>
-                  You already joined this organization code
+                  {message != null ? message : "You already joined this organization code"}
                 </>}
               </p>
               <button
@@ -291,13 +294,7 @@ export default function OrganzationCreateOrJoinComponent() {
             {/* table */}
 
             <div
-              className="overflow-scroll px-5 flex-grow"
-            // style={
-            //   {
-            //     minHeight: "calc(100vh - 40rem)",
-            //   }
-            // }
-            >
+              className="overflow-scroll px-5 flex-grow">
               <table className="table w-full">
                 <tbody className="">
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none">

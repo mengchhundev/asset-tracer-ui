@@ -6,8 +6,7 @@ import addIcon from "../../../assets/icon/addIcon.svg";
 import furniture from "../../../assets/images/furniture.png";
 import office from "../../../assets/icon/office.svg";
 import gift from "../../../assets/images/gift.png";
-import book from "../../../assets/images/book.png";
-import cross from "../../../assets/images/cross.png";
+import trash_ico from "../../../assets/images/trash.png";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
@@ -21,9 +20,13 @@ import { RiCloseFill } from "react-icons/ri";
 import { FiSave } from "react-icons/fi";
 import {
   setAllCategory,
+  setDeletNormalCategory,
   setUpdateNormalCategory,
 } from "../../../redux/slices/NormalCategorySlice";
 import * as Yup from "yup";
+import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const people = [
   { id: 1, name: "Sort By", unavailable: false },
@@ -40,24 +43,19 @@ export default function CategoryComponent() {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [updateNormal, setupdateNormal] = useState("");
   const [categoryUpdate, setCategoryUpdate] = useState({});
+  const [deleteCategory, setDeleteCategory] = useState();
+  const [getNormalName, setGetNormalName] = useState("");
+  // console.log("Get name : ", getNormalName);
 
   // organization id
   const organization = sessionStorage.getItem("organization");
   const getOrganizationDetail = JSON.parse(organization);
   const orgId = getOrganizationDetail.id;
 
-  // Post
-  const [normalData, setNormalData] = useState({
-    name: "",
-    icon: "",
-    superCategoryId: "",
-    organizationId: orgId,
-  });
-  useEffect(() => {}, []);
-
   // get all normal category
   const data = useSelector((state) => state.normalCategory.data);
   const dispatch = useDispatch();
+
   const getAllNormalCategory = () => {
     NormalCategoryService.getAllNormalCategory(orgId)
       .then((res) => {
@@ -69,7 +67,7 @@ export default function CategoryComponent() {
   };
   useEffect(() => {
     getAllNormalCategory();
-  }, []);
+  });
 
   // update normal category
   const handleUpdateNormalCategory = (item) => {
@@ -79,7 +77,7 @@ export default function CategoryComponent() {
   const handleUpdateCategory = (e) => {
     setupdateNormal({ ...updateNormal, [e.target.name]: e.target.value });
   };
-  // uodate
+  // update
   const handleSubmit = () => {
     const updateCategory = {
       ...updateNormal,
@@ -91,10 +89,24 @@ export default function CategoryComponent() {
     updateNormalCategory(categoryUpdate.id, updateCategory).then((r) =>
       dispatch(setUpdateNormalCategory(r.data.payload))
     );
-  };
-  // testing
 
-  // testing
+    handleNormalSuccess();
+  };
+
+  // delete
+  const handleDeletNormalCategory = (item) => {
+    setDeleteCategory(item);
+    console.log(item.name);
+    setGetNormalName(item.name);
+  };
+
+  const handleClickDelete = () => {
+    NormalCategoryService.deleteNormalCategory(deleteCategory, orgId)
+      .then((res) => {
+        dispatch(setDeletNormalCategory(item.id));
+      })
+      .finally(() => alert("deleted successfully"));
+  };
 
   const filteredPeople =
     query === ""
@@ -125,9 +137,25 @@ export default function CategoryComponent() {
         setState(data.data.payload[0]);
       });
   };
+  // const showToastMessage = () => {
+  //   toast.success("Success Notification !", {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //     autoClose: 3000,
+  //   });
+  // };
+
+  const handleNormalSuccess = () =>
+    toast.success("Success Notification !", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 10000,
+    });
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative">
+      <div>
+        <button onClick={handleNormalSuccess}>Notify!</button>
+        <ToastContainer />
+      </div>
       <div className="gap-6 z-10">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 ">
           {/* header */}
@@ -305,15 +333,17 @@ export default function CategoryComponent() {
                         <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                           {item.profile}
                         </span>
-                        <span className="text-sm ">{item.superCategoryName}</span>
+                        <span className="text-sm ">
+                          {item.superCategoryName}
+                        </span>
                       </div>
                     </td>
                     <td className="w-2/12 py-3 text-sm font-sp-pro-text-medium  p-2.5">
-                      {item.date}
+                      {moment(item.createdAt).format("MMM DD YYYY")}
                     </td>
                     <td className="w-2/12 py-3">
                       <div className="flex items-center space-x-4 justify-center">
-                        {/* Edit */}
+                        {/* edit */}
                         <label
                           htmlFor="modalEdit"
                           onClick={() => handleUpdateNormalCategory(item)}
@@ -322,9 +352,10 @@ export default function CategoryComponent() {
                         >
                           Edit
                         </label>
-                        {/* Delete */}
+                        {/* delete */}
                         <label
                           htmlFor="modalDelete"
+                          onClick={() => handleDeletNormalCategory(item)}
                           className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
                           aria-label="Delete"
                         >
@@ -380,8 +411,8 @@ export default function CategoryComponent() {
             <div className=" flex justify-between">
               <div className="flex">
                 <img src={gift} className="h-12 rounded-lg w-12 " />
-                <p className="mt-2 flexF items-center font-sp-pro-text-regular text-xl pl-6  text-text-color">
-                  Update normal category
+                <p className="mt-2 flexF items-center font-sp-pro-text-medium text-xl pl-6  text-text-color">
+                  Update Normal Category
                 </p>
               </div>
             </div>
@@ -449,45 +480,59 @@ export default function CategoryComponent() {
                   onClick={() => handleSubmit()}
                   className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
                 >
-                  <FiSave className="text-lg" /> &nbsp; Edit
+                  <FiSave className="text-lg" /> &nbsp; Update Change
                 </label>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Delete Popup */}
+        {/* delete */}
         <input type="checkbox" id="modalDelete" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box relative">
+            <div className="absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer">
+              <label htmlFor="modalDelete">
+                <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+              </label>
+            </div>
             <div className="flex justify-start">
-              <img src={trash} width={50} className="inline-block" />
-              <div className="pl-2">
-                <h3 className="text-lg font-bold ">Delete</h3>
-                <p className="pt-1 ">Are you sure want to delete this post?</p>
+              <div>
+                <img
+                  src={trash_ico}
+                  width={55}
+                  height={55}
+                  className="inline-block"
+                />
+              </div>
+              <div className="pl-3 leading-none">
+                <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
+                <p className="pt-1 py-5">
+                  Are you sure want to delete{" "}
+                  <span className="font-sp-pro-text-medium text-base">
+                    {" "}
+                    {getNormalName}{" "}
+                  </span>
+                  this normal category?
+                </p>
               </div>
             </div>
-            <label
-              htmlFor="modalDelete"
-              className="font-semibold text-xl absolute right-8 top-6"
-            >
-              ✕
-            </label>
-
+            <br />
             <div className="flex justify-end space-x-4">
-              <div className="modal-action">
-                <label
-                  htmlFor="modalDelete"
-                  className="bg-[#F4F4F4] font-light text-text-color hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
-                >
-                  Cancel
-                </label>
-              </div>
-              <div className="modal-action">
-                <label className="bg-[#FFC5C5] font-light text-reject border-2 border-reject hover:bg-[#FFC5C5] btn">
-                  Delete
-                </label>
-              </div>
+              <label
+                htmlFor="modalDelete"
+                className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-90 border border-[#D0D5DD] flex justify-center items-center gap-1"
+              >
+                Cancel
+              </label>
+              <label
+                htmlFor="modalDelete"
+                onClick={handleClickDelete}
+                type="button"
+                className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
+              >
+                Delete
+              </label>
             </div>
           </div>
         </div>

@@ -66,14 +66,18 @@ export default function AssetComponent() {
   const handlePageClick = (event) => {
     setSelectedPage(event.selected + 1)
     setI(event.selected * 8 + 1);
+    handleGetAllItems(event.selected + 1, itemName, selectedSort)
   };
 
   useEffect(() => {
-    if (itemName != null || selectedSort != null || selectedPage != null) {
+    if (itemName != null || selectedSort != null) {
+      setSelectedPage(1)
       handleGetAllItems(selectedPage, itemName, selectedSort)
+      // console.log(document.getElementById("react-paginate").children[0].getElementsByClassName('pagination'))
     }
+
     setPageCount(Math.ceil(totalRow / 8));
-  }, [itemName, selectedSort, selectedPage, totalRow])
+  }, [itemName, selectedSort, totalRow])
 
   const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
 

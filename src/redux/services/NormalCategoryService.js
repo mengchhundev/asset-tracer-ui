@@ -31,10 +31,16 @@ const getAllNormalCategoryName = async (orgId) => {
   return await apiV2.get(`/normal-categories/name/${orgId}`)
 }
 
+export const deleteNormalCategory = async (normalId, orgId) => {
+  const respone = await apiV2.delete(`/normal-categories/${normalId.id}/${orgId}`);
+  return  respone;
+}
+
 const NormalCategoryService = {
   getAllNormalCategory,
   addNormalCategory,
   updateNormalCategory,
-  getAllNormalCategoryName
+  getAllNormalCategoryName,
+  deleteNormalCategory,
 };
 export default NormalCategoryService;

@@ -211,7 +211,7 @@ export default function UpdateInvoiceComponent() {
       );
 
   useEffect(() => {
-    NormalCategoryService.getAllNormalCategoryName(organization.id).then(res => {
+    NormalCategoryService.getAllNormalCategory(organization.id).then(res => {
       if (res.data.success) {
         setNormalCategoryName(res.data.payload)
       }
