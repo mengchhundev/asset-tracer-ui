@@ -20,10 +20,16 @@ const sort = [
     id: "", name: "Default"
   },
   {
-    id: "asc", name: "A -> Z"
+    id: "name", name: "Name"
   },
   {
-    id: "desc", name: "Z -> A"
+    id: "qty", name: "QTY"
+  },
+  {
+    id: "unitPrice", name: "Unit Price"
+  },
+  {
+    id: "createdAt", name: "Created At"
   }
 ];
 
@@ -42,14 +48,15 @@ export default function AssetComponent() {
   const [asset, setAsset] = useState({});
   const [itemName, setItemName] = useState();
 
-  const handleGetAllItems = (page = 1, size = 8, name = "", normalCategoryName = "", sort = "") => {
-    ItemDetailService.getAllItems(organization.id, page, size, name, normalCategoryName, sort).then(res => {
+  const handleGetAllItems = (page = 1, name = "", sort = "") => {
+    ItemDetailService.getAllItems(organization.id, page, 8, name, "", sort).then(res => {
       if (res.data.success) {
         dispatch(setItemDetails(res.data.payload))
         setTotalRow(res.data.totalData)
       }
     }, err => {
       dispatch(setItemDetails([]))
+      setTotalRow(0)
     })
   }
 
@@ -58,24 +65,15 @@ export default function AssetComponent() {
 
   const handlePageClick = (event) => {
     setSelectedPage(event.selected + 1)
-    handleGetAllItems(event.selected + 1)
     setI(event.selected * 8 + 1);
   };
 
-
   useEffect(() => {
-    if (itemName != null || selectedSort != null) {
-      handleGetAllItems(selectedPage, 8, itemName, "", selectedSort)
+    if (itemName != null || selectedSort != null || selectedPage != null) {
+      handleGetAllItems(selectedPage, itemName, selectedSort)
     }
-  }, [itemName, selectedSort])
-
-  useEffect(() => {
     setPageCount(Math.ceil(totalRow / 8));
-  }, [totalRow])
-
-  useEffect(() => {
-    handleGetAllItems()
-  }, [])
+  }, [itemName, selectedSort, selectedPage, totalRow])
 
   const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
 
@@ -100,7 +98,7 @@ export default function AssetComponent() {
 
   return (
     <>
-      <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
+      <main className="px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
         <div className="gap-6 overflow-hidden z-10">
           <div className="lg:flex lg:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
             {/* header */}
@@ -147,7 +145,7 @@ export default function AssetComponent() {
                       <div className="relative z-30">
                         <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                           <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
-                            {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Sort" ? "text-black text-opacity-20" : ""}`}>{selectedSort == "asc" ? "A -> Z" : selectedSort == "desc" ? "Z -> A" : "Sort"}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort</span>}
+                            {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Sort" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
 
                             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                               <ChevronUpDownIcon
@@ -343,6 +341,7 @@ export default function AssetComponent() {
               <div className="font-sp-pro-text-regular opacity-90">
                 Showing data 1 to 8 of {totalRow} entries
               </div>
+
               <div id="react-paginate" className="">
                 <ReactPaginate
                   nextLabel=" >"
