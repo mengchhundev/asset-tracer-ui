@@ -29,9 +29,9 @@ export default function DashboardComponent() {
           {/* Card Box1 */}
           <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-5">
             {/* total user */}
-            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out bg-gray-50 group ">
-              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#ffcb03]  group-hover:h-full"></span>
-              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  group-hover:text-white">
+            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300 ease-in-out bg-gray-50 group ">
+              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-[#ffcb03]  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  group-hover:text-white">
               
                 <div>
                   <h1 className="text-[#ffcb03] group-hover:text-white w-full font-sp-pro-text-bold text-md uppercase">
@@ -50,9 +50,9 @@ export default function DashboardComponent() {
             {/* </div> */}
 
             {/* total asset */}
-            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out p- bg-gray-50 group ">
-              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#5ec576]  group-hover:h-full"></span>
-              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  ">
+            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300 ease-in-out p- bg-gray-50 group ">
+              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-[#5ec576]  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  ">
                 <div>
                   <h1 className="text-[#5ec576] group-hover:text-white font-sp-pro-text-bold text-md uppercase">
                     total assets
@@ -68,9 +68,9 @@ export default function DashboardComponent() {
             </div>
 
             {/* total room */}
-            <div className=" rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out p- bg-gray-50 group">
-            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#ff585f]  group-hover:h-full"></span>
-              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  ">
+            <div className=" rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300 ease-in-out p- bg-gray-50 group">
+            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-[#ff585f]  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  ">
               <div >
                 <h1 className=" text-[#ff585f] group-hover:text-white font-sp-pro-text-bold text-md uppercase">
                   total rooms
@@ -87,9 +87,9 @@ export default function DashboardComponent() {
             </div>
 
             {/* total invoice */}
-            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-150 ease-in-out p- bg-gray-50 group">
-            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-blue-500  group-hover:h-full"></span>
-              <div class="relative p-5 w-full  transition-colors duration-200 ease-in-out  ">
+            <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300   ease-in-out p- bg-gray-50 group">
+            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-blue-500  group-hover:h-full"></span>
+              <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  ">
               <div>
                 <h1 className="text-blue-500 font-sp-pro-text-bold text-md  group-hover:text-white uppercase">
                   total user

@@ -61,7 +61,7 @@ export default function OrganizationListComponent() {
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
-
+console.log(organizations)
     const getAllOrganizations = () => {
         OrganizationService.getAllOrganizations(userId).then(res => {
             if (res.data?.success) {
