@@ -38,7 +38,7 @@ function AddNormalCategory({ props, val }) {
   useEffect(() => {
     handleGetAllSuperCategory();
   }, []);
-
+  
   //superCategory
   const superCategory = useSelector((state) => state?.superCategory?.data);
 
@@ -46,15 +46,6 @@ function AddNormalCategory({ props, val }) {
   useEffect(() => {
     console.log("Selected Super", selected);
   }, [selected]);
-  //   console.log("seleted :", selected.id);
-  //   const superCategoryId = selected.id;
-  //   console.log("superCategory Id :", superCategoryId);
-
-  //   useEffect(() => {
-  //     setAddNormal((prevData) => ({
-  //       ...prevData,
-  //     }));
-  //   }, []);
 
   //   input value
   const [addNormal, setAddNormal] = useState({
@@ -156,7 +147,7 @@ function AddNormalCategory({ props, val }) {
           </div>
 
           <form onSubmit={formik.handleSubmit} className="pt-2">
-            <div className="space-y-2">
+            <div className="space-y-5">
               <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                 <label className="py-1">Super-Category</label>
                 <Combobox
@@ -171,7 +162,7 @@ function AddNormalCategory({ props, val }) {
                         displayValue={(item) => item.name}
                         onInput={handleNormalInputChang}
                         // onChange={formik.handleChange}
-                        value={addNormal.superCategoryId}
+                        // value={addNormal.superCategoryId}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Super-category" // Add placeholder attribute
                       />
@@ -241,6 +232,7 @@ function AddNormalCategory({ props, val }) {
                   </div>
                 </Combobox>
               </div>
+              
               <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                 <label
                   htmlFor=""
