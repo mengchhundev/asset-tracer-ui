@@ -139,7 +139,7 @@ export default function UserRequestComponent() {
           </div>
         </div>
         <div className="space-y-8 sm:px-3 px-10">
-          {requestUsers.map((list, index) => (
+          {requestUsers.length != 0 ? requestUsers.map((list, index) => (
             <div key={index} className="overflow-x-auto px-10 mb-10">
               <div className="flex flex-row items-center">
                 <img
@@ -209,7 +209,14 @@ export default function UserRequestComponent() {
                 </div>
               </div>
             </div>
-          ))}
+          )) : <>
+            <div className='text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center'>
+              <div className='mt-[-6rem]'>
+                {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
+                <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Reqeusted User</h2>
+              </div>
+            </div>
+          </>}
         </div>
         {/* <div className="space-y-8 sm:px-3 px-10">
           {organizations.map((organization) => (

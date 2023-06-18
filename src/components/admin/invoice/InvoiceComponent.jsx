@@ -25,61 +25,78 @@ import { FiTrash2 } from "react-icons/fi";
 import { AiOutlineCloudDownload } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
-const people = [
-  { id: 1, name: "Asset" },
-  { id: 2, name: "HDMI" },
-  { id: 3, name: "Keyboard" },
-  { id: 4, name: "Mango" },
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "invoiceCode", name: "Invoice Code"
+  },
+  {
+    id: "supplier", name: "Supplier"
+  },
+  {
+    id: "purchaseBy", name: "Purchaser"
+  },
+  {
+    id: "purchaseDate", name: "Date"
+  }
 ];
 
 export default function AssetComponent() {
+
   const [i, setI] = useState(1);
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
   const getAllInvoices = useSelector((state) => state.invoice.data);
   const [totalRow, setTotalRow] = useState(0)
   const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const orgId = organization.id;
+  const [invoiceCode, setInvoiceCode] = useState()
+  const [selectedPage, setSelectedPage] = useState(1)
 
-  const handleGetAllInvoices = () => {
-    InvoiceService.getAllInvoices(organization.id).then(res => {
+  const handleGetAllInvoices = (selectedPage, invoiceCode, selectedSort) => {
+    InvoiceService.getAllInvoices(organization.id, selectedPage, 8, invoiceCode, "", "", selectedSort).then(res => {
       if (res.data.success) {
         dispatch(setAllInvoice(res.data.payload));
-        setTotalRow(res.data.totalPage)
+        setTotalRow(res.data.totalData)
       }
     })
   }
 
-  useEffect(() => {
-    handleGetAllInvoices(1);
-  }, [])
-
   //combobox
-  const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-  const date = moment().format("MMM Do YY");
-  const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
 
   // pagination
   const [pageCount, setPageCount] = useState(4);
-  let [isOpen, setIsOpen] = useState(false);
-  function openDetail() {
-    setIsOpen(true);
-  }
+
   const handlePageClick = (event) => {
-    handleGetAllInvoices(event.selected + 1)
+    setSelectedPage(event.selected + 1)
     setI(event.selected * 8 + 1);
   };
 
   useEffect(() => {
+    if (invoiceCode != null || selectedSort != null) {
+      setSelectedPage(1)
+      handleGetAllInvoices(selectedPage, invoiceCode, selectedSort)
+    }
+
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [invoiceCode, selectedSort, totalRow])
+
+  useEffect(() => {
     setPageCount(Math.ceil(totalRow / 8));
   }, [totalRow])
+
+  const handleInputSearch = (e) => {
+    setInvoiceCode(e.target.value)
+  };
+
+  const handleSelectedSort = (val) => {
+    setSelectedSort(val)
+  }
+
+
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -97,7 +114,7 @@ export default function AssetComponent() {
 
           {/* search */}
           <div className="md:flex md:flex-row justify-center gap-10">
-            <div className="mb-4 md:mb-0 xl:mb-0">
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20   bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -114,16 +131,17 @@ export default function AssetComponent() {
                   </svg>
                 </div>
                 <input
-                  className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  className="placeholder:text-black placeholder:text-opacity-20 w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:text-gray-200 focus:placeholder-gray-500   focus:outline-none"
                   type="text"
                   name="search"
                   placeholder="Search..."
+                  onInput={handleInputSearch}
                 />
               </div>
             </div>
 
             {/* filter */}
-            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+            {/* <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <Combobox
                 value={selected}
                 onChange={setSelected}
@@ -197,6 +215,70 @@ export default function AssetComponent() {
                   </Transition>
                 </div>
               </Combobox>
+            </div> */}
+            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+                {({ open }) => (
+                  <>
+                    <div className="relative z-30">
+                      <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                        <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
+                          {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                            <ChevronUpDownIcon
+                              className="h-5 w-5 text-text-color"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </Listbox.Button>
+                      </div>
+                      <Transition
+                        show={open}
+                        leave=""
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                      >
+                        <Listbox.Options
+                          static
+                          className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        >
+                          {sort.length == 0 ? (
+                            <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                              Nothing found.
+                            </div>
+                          ) : (
+                            sort.map((val, index) => (
+                              <Listbox.Option key={index} value={val.id}
+                                className={({ active }) =>
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                }
+                              >
+                                {({ selected, active }) => (
+                                  <>
+                                    <span
+                                      className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                    >
+                                      {val.name}
+                                    </span>
+                                    {selected ? (
+                                      <span
+                                        className={`${active ? "text-primary" : "text-primary"
+                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                      >
+                                      </span>
+                                    ) : null}
+                                  </>
+                                )}
+                              </Listbox.Option>
+                            ))
+                          )}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
             </div>
 
             {/* add */}

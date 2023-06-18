@@ -73,7 +73,6 @@ export default function AssetComponent() {
     if (itemName != null || selectedSort != null) {
       setSelectedPage(1)
       handleGetAllItems(selectedPage, itemName, selectedSort)
-      // console.log(document.getElementById("react-paginate").children[0].getElementsByClassName('pagination'))
     }
 
     setPageCount(Math.ceil(totalRow / 8));
