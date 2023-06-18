@@ -11,7 +11,8 @@ const initialState = {
     users:null,
     userDetail: {
         name: ""
-    }
+    },
+    requestUsers: []
 }
 
 export const userSlice = createSlice({
@@ -24,8 +25,6 @@ export const userSlice = createSlice({
         setUsers: (state, action ) => {
             state.users = action.payload;
         },
-
-
         setProfile: (state, action) => {
             state.profile = action.payload;
         },
@@ -37,9 +36,12 @@ export const userSlice = createSlice({
         },
         setUserDetail: (state, action) => {
             state.userDetail = action.payload
+        },
+        setRequestUsers: (state, action) => {
+            state.requestUsers = action.payload
         }
     }
 });
 
-export const {setProfile, setProfileDetail, setProfileImage, setAllUser, setUsers, setUserDetail} = userSlice.actions
+export const {setProfile, setProfileDetail, setProfileImage, setAllUser, setUsers, setUserDetail, setRequestUsers} = userSlice.actions
 export default userSlice.reducer

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
 import UserSortByComponent from "./UserSortByComponent";
 import { RxCheck } from "react-icons/rx";
@@ -13,9 +13,14 @@ import Ellipse_2 from "../../../assets/icon/default profile/Ellipse 2.svg";
 import Ellipse_3 from "../../../assets/icon/default profile/Ellipse 3.svg";
 import Ellipse_4 from "../../../assets/icon/default profile/Ellipse 4.svg";
 import Ellipse_5 from "../../../assets/icon/default profile/Ellipse 5.svg";
+import UserService from "../../../redux/services/UserService";
+import { useDispatch, useSelector } from "react-redux";
+import { setRequestUsers } from "../../../redux/slices/UserSlice";
+import FileUploadService from "../../../redux/services/FileUploadService";
 // import Ellipse_6 from "../../../assets/icon/default profile/Ellipse 6.svg"
 // import Ellipse_7 from "../../../assets/icon/default profile/Ellipse 7.svg"
 // import Ellipse_8 from "../../../assets/icon/default profile/Ellipse 8.svg"
+
 const people = [
   { id: 1, name: "Sort by" },
   { id: 2, name: "A - Z" },
@@ -25,7 +30,11 @@ const people = [
 ];
 
 export default function UserRequestComponent() {
-  const [organization, setOrg] = useState([
+  const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const dispatch = useDispatch()
+  const requestUsers = useSelector(state => state.user.requestUsers)
+
+  const [organizations, setOrg] = useState([
     {
       id: 1,
       name: "KSHRD Center",
@@ -73,6 +82,18 @@ export default function UserRequestComponent() {
     },
   ]);
 
+  const handleGetAllRequestUsers = () => {
+    UserService.getAllRequestUsers(organization.id).then(res => {
+      if (res.data.success) {
+        dispatch(setRequestUsers(res.data.payload))
+      }
+    })
+  }
+
+  useEffect(() => {
+    handleGetAllRequestUsers()
+  }, [])
+
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
@@ -118,13 +139,86 @@ export default function UserRequestComponent() {
           </div>
         </div>
         <div className="space-y-8 sm:px-3 px-10">
-          {organization.map((organizations) => (
+          {requestUsers.map((list, index) => (
+            <div key={index} className="overflow-x-auto px-10 mb-10">
+              <div className="flex flex-row items-center">
+                <img
+                  src={FileUploadService.getImage(list.logo)}
+                  className="rounded-full w-14   "
+                />
+                <h1 className="mb-2 text-text-color font-sp-pro-text-bold text-xl">
+                  {list.name}
+                </h1>
+              </div>
+              <div className="rounded-xl border border-bg-main shadow my-5"
+                style={{ boxShadow: " rgba(0, 0, 0, 0.1)  0px 2.45px 11.28px" }}
+              >
+                <div className="rounded-md p-5 flex-col">
+                  <div className="overflow-x-auto">
+                    <div className=" xl:px-11 sm:px-5 2xl:px-20 3xl:px-32 overflow-y-scroll">
+                      <div className="overflow-x-auto">
+                        <div className="p-1 overflow-y-scroll items-start">
+                          <table className="table border-spacing-y-3 border-separate w-[1020px]">
+
+                            <tbody>
+                              {list?.users && list.users.map((user, index) => (
+                                <tr className="font-md text-text-color border-none">
+                                  <td
+                                    className="bg-bg-main text-left rounded-s-[5px]"
+                                    style={{ padding: "1.5rem" }}
+                                  >
+                                    {index + 1}
+                                  </td>
+                                  <td className="bg-bg-main w-1/12 items-start  ">
+                                    <div className="flex items-center mr-20 space-x-3 ">
+                                      {user?.image ?
+                                        <img
+                                          src={FileUploadService.getImage(user.image)}
+                                          className="rounded-full h-10 "
+                                        />
+                                        :
+
+                                        <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                                          {list.name.e.substring(0, 1)}
+                                        </span>
+                                      }
+
+                                      <span className="font-sp-pro-text-medium text-sm text-text-color">
+                                        {user.email}
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="bg-bg-main rounded-e-[4px]">
+                                    <div className="flex justify-center space-x-5 items-center">
+                                      <label className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
+                                        X
+                                      </label>
+                                      <label>
+                                        <RxCheck className="cursor-pointer w-8 h-8 p-1 rounded-md bg-white border border-border-strock text-green" />
+                                      </label>
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* <div className="space-y-8 sm:px-3 px-10">
+          {organizations.map((organization) => (
             <div className="overflow-x-auto px-10">
               <h1 className="mb-2 text-text-color font-sp-pro-text-medium text-base">
-                {organizations.name}
+                {organization.name}
               </h1>
               <div className="rounded-xl border border-bg-main shadow"
-                style={{boxShadow: " rgba(0, 0, 0, 0.1)  0px 2.45px 11.28px"}}
+                style={{ boxShadow: " rgba(0, 0, 0, 0.1)  0px 2.45px 11.28px" }}
               >
                 <div className="rounded-md pb-12 p-5 py-6  flex-col  ">
                   <div className="overflow-x-auto h-[270px] ">
@@ -132,14 +226,6 @@ export default function UserRequestComponent() {
                       <div className="overflow-x-auto">
                         <div className="p-1 overflow-y-scroll items-start">
                           <table className="table border-spacing-y-3 border-separate w-[1020px]">
-                            {/* <thead>
-                            <tr className="bg-bg-primary text-sidebar">
-                              <th className="w-1/6">No</th>
-                              <th className="w-4/12">Name</th>
-                              <th className="w-4/12">Created Date</th>
-                              <th className="w-1/6">Action</th>
-                            </tr>
-                          </thead> */}
                             <tbody>
                               {user.map((users) => (
                                 <tr className="font-md text-text-color border-none">
@@ -191,7 +277,7 @@ export default function UserRequestComponent() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </main>
   );

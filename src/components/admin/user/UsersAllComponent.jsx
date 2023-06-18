@@ -366,7 +366,7 @@ export default function UsersAllComponent() {
                     className="w-2/6 xl:w-3/6 m-auto pb-5"
                   />
                   <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
-                    No Organization
+                    No User
                   </h2>
                   {/* <button
                                 type="submit"
