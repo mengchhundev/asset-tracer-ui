@@ -118,7 +118,7 @@ export default function UsersAllComponent() {
       UserService.getUserAllInOrganizations(orgId).then(
         (res) => {
           if (res.data?.success) {
-            // console.log(res.data.payload)
+            console.log(res.data.payload)
             dispatch(setAllUser(res.data.payload));
           }
         },

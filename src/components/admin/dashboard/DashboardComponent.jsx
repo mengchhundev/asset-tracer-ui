@@ -22,7 +22,7 @@ export default function DashboardComponent() {
           {/* header */}
           <div className="mb-5">
             <h2 className="text-2xl text-text-color font-sp-pro-text-semibold uppercase">
-              KSHRD Center
+              Dashboard
             </h2>
           </div>
 
@@ -31,17 +31,18 @@ export default function DashboardComponent() {
             {/* total user */}
             <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300 ease-in-out bg-gray-50 group ">
               <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-[#ffcb03]  group-hover:h-full"></span>
-              <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  group-hover:text-white">
-              
+              <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  group-hover:text-white ">
                 <div>
                   <h1 className="text-[#ffcb03] group-hover:text-white w-full font-sp-pro-text-bold text-md uppercase">
                     total users
                   </h1>
                 </div>
-                <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                  <span className="text-base text-text-color group-hover:text-white">50</span>
-                  <span className="text-[#ffcb03] group-hover:text-white flex items-center">
-                    + 36% <BiUpArrowAlt className="w-6 h-6" />
+                <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
+                  <span className="text-lg font-sp-pro-text-bold text-text-color group-hover:text-white">
+                    1200
+                  </span>
+                  <span className="text-[#5ec576] group-hover:text-white flex items-center">
+                    + 14% <BiDownArrowAlt className="w-6 h-6" />
                   </span>
                 </div>
               </div>
@@ -58,8 +59,10 @@ export default function DashboardComponent() {
                     total assets
                   </h1>
                 </div>
-                <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                  <span className="text-base text-text-color group-hover:text-white">1200</span>
+                <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
+                  <span className="text-lg font-sp-pro-text-bold text-text-color group-hover:text-white">
+                    1200
+                  </span>
                   <span className="text-[#5ec576] group-hover:text-white flex items-center">
                     + 14% <BiDownArrowAlt className="w-6 h-6" />
                   </span>
@@ -69,46 +72,51 @@ export default function DashboardComponent() {
 
             {/* total room */}
             <div className=" rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300 ease-in-out p- bg-gray-50 group">
-            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-[#ff585f]  group-hover:h-full"></span>
+              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-[#ff585f]  group-hover:h-full"></span>
               <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  ">
-              <div >
-                <h1 className=" text-[#ff585f] group-hover:text-white font-sp-pro-text-bold text-md uppercase">
-                  total rooms
-                </h1>
+                <div>
+                  <h1 className=" text-[#ff585f] group-hover:text-white font-sp-pro-text-bold text-md uppercase">
+                    total rooms
+                  </h1>
+                </div>
+                <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
+                  <span className="text-lg font-sp-pro-text-bold text-text-color  group-hover:text-white ">
+                    100
+                  </span>
+                  <span className="text-[#ff585f]  group-hover:text-white   flex items-center">
+                    + 36% <BiUpArrowAlt className="w-6 h-6" />
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                <span className="text-base text-text-color  group-hover:text-white ">100</span>
-                <span className="text-[#ff585f]  group-hover:text-white   flex items-center">
-                  + 36% <BiUpArrowAlt className="w-6 h-6" />
-                </span>
-              </div>
-              </div>
-             
             </div>
 
             {/* total invoice */}
             <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden   transition-all duration-300   ease-in-out p- bg-gray-50 group">
-            <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-blue-500  group-hover:h-full"></span>
+              <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-300 ease-in-out bg-blue-500  group-hover:h-full"></span>
               <div class="relative p-5 w-full  transition-colors duration-300 ease-in-out  ">
-              <div>
-                <h1 className="text-blue-500 font-sp-pro-text-bold text-md  group-hover:text-white uppercase">
-                  total user
-                </h1>
+                {/* <div> */}
+                <div>
+                  <h1 className="text-blue-500 font-sp-pro-text-bold text-md  group-hover:text-white uppercase">
+                    total invoices
+                  </h1>
+                </div>
+                <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
+                  <span className="text-lg font-sp-pro-text-bold text-text-color  group-hover:text-white ">
+                    33
+                  </span>
+                  <span className="text-blue-500  flex items-center ">
+                    + 36% <BiUpArrowAlt className="w-6 h-6" />
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-center font-sp-pro-text-regular mt-5">
-                <span className="text-base text-text-color  group-hover:text-white ">33, 493</span>
-                <span className="text-blue-500  flex items-center">
-                  + 36% <BiUpArrowAlt className="w-6 h-6" />
-                </span>
-              </div>
-              </div>
-              
+
+              {/* </div> */}
             </div>
           </div>
 
           {/* Card Box2 */}
           <div className="grid md:grid-cols-12 sm:grid-cols-2 gap-5 mt-8">
-            <div className="lg:col-span-7 md:col-span-12 sm:col-span-12  border-border-gray-light rounded-lg shadow-sm border p-5">
+            <div className="lg:col-span-7 md:col-span-12 sm:col-span-12  border-border-gray-light  rounded-lg shadow-sm border p-4">
               {/* header */}
               <div className="flex md:justify-between md:flex-row flex-col">
                 <div className="float-left flex">
@@ -116,117 +124,112 @@ export default function DashboardComponent() {
                     <h2 className="text-text-color font-sp-pro-text-medium text-base">
                       Asset / Category
                     </h2>
-                    <p className="text-gray font-sp-pro-text-regular text-sm mt-2">
-                      Assets Summery
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex">
-                  <div>
-                    <a className="mt-3 sm:mt-0 flex items-center rounded-lg px-3 py-1 bg-bg-main border border-slate-200 text-text-color font-sp-pro-text-regular text-sm cursor-pointer">
-                      <TiExportOutline className="w-5 h-5 flex pr-1" />
-                      Export
-                    </a>
                   </div>
                 </div>
               </div>
 
               {/* Card  */}
-              <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-8">
-                {/* 1 */}
-                <div className="border-border-gray-light bg-red-100  rounded-lg shadow-sm border p-5">
-                  <div>
-                    <img
-                      className="w-8 h-8 rounded-full "
-                      src="https://api.time.com/wp-content/uploads/2018/05/forest-bathing.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="font-sp-pro-text-regular mt-3 flex flex-col">
-                    <span className="font-sp-pro-text-semibold text-base text-text-color">
-                      50
-                    </span>
-                    <span className="font-sp-pro-text-regular text-sm text-gray my-2 ">
-                      Desktop
-                    </span>
-                    <span className="font-sp-pro-text-regular text-xs  text-blue-500">
-                      + 36% from yesterday
-                    </span>
-                  </div>
-                </div>
+              <div className="lg:h-[200px] xl:h-[220px] 2xl:h-[350px]">
+                <Chart
+                  height="100%"
+                  width="100%"
+                  type="bar"
+                  series={[
+                    {
+                      data: [44, 87, 66, 76, 65, 90, 150],
+                    },
+                  ]}
+                  options={{
+                    chart: {
+                      animations: {
+                        enabled: true,
+                        easing: "easeinout",
+                        speed: 800,
+                        animateGradually: {
+                          enabled: true,
+                          delay: 150,
+                        },
+                        dynamicAnimation: {
+                          enabled: true,
+                          speed: 350,
+                        },
+                      },
+                    },
+                    colors: [
+                      "rgba(255, 99, 132, 0.5)",
+                      "rgba(255, 159, 64,0.5)",
+                      "rgba(255, 205, 86, 0.5)",
+                      "rgba(75, 192, 192, 0.5)",
+                      "rgba(54, 162, 235, 0.5)",
+                      "rgba(153, 102, 255, 0.5)",
+                      "rgba(201, 203, 207, 0.5)",
+                    ],
+                    stroke: {
+                      width: 1,
+                      colors: [
+                        "rgb(255, 99, 132)",
+                        "rgb(255, 159, 64)",
+                        "rgb(255, 205, 86)",
+                        "rgb(75, 192, 192)",
+                        "rgb(54, 162, 235)",
+                        "rgb(153, 102, 255)",
+                        "rgb(201, 203, 207)",
+                      ],
+                    },
+                    // theme: { mode: "light" },
+                    plotOptions: {
+                      bar: {
+                        columnWidth: "50%",
+                        distributed: true,
+                      },
+                    },
+                    xaxis: {
+                      tickPlacement: "on",
+                      categories: [
+                        "Furnature",
+                        "Office",
+                        "Kitchen",
+                        "Electronic",
+                        "Vihecle",
+                        "Uniform",
+                        "Accesories",
+                      ],
+                      // title: {
+                      //   text: "Social Media User",
+                      //   style: { color: "#f90000", fontSize: 30 },
+                      // },
+                    },
 
-                {/* 2 */}
-                <div className="border-border-gray-light bg-amber-100  rounded-lg shadow-sm border p-5">
-                  <div>
-                    <img
-                      className="w-8 h-8 rounded-full "
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaw1JlRIUksyVhNsChhKSO00_CaV8YjwA-Cw&usqp=CAU"
-                      alt=""
-                    />
-                  </div>
-                  <div className="font-sp-pro-text-regular mt-3 flex flex-col">
-                    <span className="font-sp-pro-text-semibold text-base text-text-color">
-                      50
-                    </span>
-                    <span className="font-sp-pro-text-regular text-sm text-gray my-2 ">
-                      Desktop
-                    </span>
-                    <span className="font-sp-pro-text-regular text-xs  text-blue-500">
-                      + 36% from yesterday
-                    </span>
-                  </div>
-                </div>
+                    yaxis: {
+                      labels: {
+                        formatter: (val) => {
+                          return `${val}`;
+                        },
+                        // style: { fontSize: "15" },
+                      },
+                    },
 
-                {/* 3 */}
-                <div className="border-border-gray-light bg-lime-100  rounded-lg shadow-sm border p-5">
-                  <div>
-                    <img
-                      className="w-8 h-8 rounded-full "
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwZrgMv-OIpXZmg3tbA4xJ48mWvYvDYMhNTw&usqp=CAU"
-                      alt=""
-                    />
-                  </div>
-                  <div className="font-sp-pro-text-regular mt-3 flex flex-col">
-                    <span className="font-sp-pro-text-semibold text-base text-text-color">
-                      50
-                    </span>
-                    <span className="font-sp-pro-text-regular text-sm text-gray my-2 ">
-                      Desktop
-                    </span>
-                    <span className="font-sp-pro-text-regular text-xs  text-blue-500">
-                      + 36% from yesterday
-                    </span>
-                  </div>
-                </div>
+                    legend: {
+                      show: false,
+                      position: "right",
+                    },
+                    dataLabels: {
+                      formatter: (val) => {
+                        // return `${val}`;
+                      },
 
-                {/* 4 */}
-                <div className="border-border-gray-light bg-indigo-200  rounded-lg shadow-sm border p-5">
-                  <div>
-                    <img
-                      className="w-8 h-8 rounded-full "
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS66g4ybmDvkvLDa-2p_k9PQFmLXx1nyTo0_w&usqp=CAU"
-                      alt=""
-                    />
-                  </div>
-                  <div className="font-sp-pro-text-regular mt-3 flex flex-col">
-                    <span className="font-sp-pro-text-semibold text-base text-text-color">
-                      50
-                    </span>
-                    <span className="font-sp-pro-text-regular text-sm text-gray my-2 ">
-                      Desktop
-                    </span>
-                    <span className="font-sp-pro-text-regular text-xs  text-blue-500">
-                      + 36% from yesterday
-                    </span>
-                  </div>
-                </div>
+                      // style: {
+                      //   colors: ["#f4"],
+                      //   fontSize: 15,
+                      // },
+                    },
+                  }}
+                />
               </div>
             </div>
 
-            {/* Recent Member */}
+            {/* ============= Pie Chart ============ */}
             <div className=" lg:col-span-5 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative lg:p-6  2xl:p-10 ">
-              {/* <React.Fragment> */}
               <Chart
                 type="donut"
                 series={[43, 23, 65, 90]}
@@ -240,10 +243,30 @@ export default function DashboardComponent() {
                   //   height:"400",
                   //   width:"300"
                   // },
+                  // colors: [
+                  //   "rgba(255, 99, 132, 0.5)",
+                  //   "rgba(255, 159, 64,0.5)",
+                  //   "rgba(255, 205, 86, 0.5)",
+                  //   "rgba(75, 192, 192, 0.5)",
+                  //   "rgba(54, 162, 235, 0.5)",
+                  //   "rgba(153, 102, 255, 0.5)",
+                  //   "rgba(201, 203, 207, 0.5)",
+                  // ],
+                  // stroke: {
+                  //   width: 1,
+                  //   colors: [
+                  //     "rgb(255, 99, 132)",
+                  //     "rgb(255, 159, 64)",
+                  //     "rgb(255, 205, 86)",
+                  //     "rgb(75, 192, 192)",
+                  //     "rgb(54, 162, 235)",
+                  //     "rgb(153, 102, 255)",
+                  //     "rgb(201, 203, 207)",
+                  //   ],
+                  // },
                   labels: ["In Used", "In Stock", "Damage", "Donated"],
                   dataLabels: {
                     enabled: false,
-
                     style: {
                       fontSize: "10px",
                       fontFamily: "Helvetica, Arial, sans-serif",
@@ -256,9 +279,58 @@ export default function DashboardComponent() {
                   },
                 }}
               />
+            </div>
+          </div>
+          {/* Card Box2 */}
 
-              {/* </React.Fragment> */}
-              {/* <div className="">
+          {/* =============== Lats 3 invoice ================== */}
+          <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-5 mt-8 lg:mb-0 overflow-auto">
+            <div className="border-border-gray-light rounded-lg shadow-sm border p-5 w-[295px] sm:w-auto">
+              <h1 className="text-text-color font-sp-pro-text-medium text-base">
+                3 lastest invoice
+              </h1>
+              {/* data table */}
+              <div className="text-text-color  mt-3 overflow-auto ">
+                <table className="table w-full z-0 ">
+                  <thead>
+                    <tr className="tracking-wide text-center ">
+                      <th className=" text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
+                        No
+                      </th>
+                      <th className="text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
+                        Supplier
+                      </th>
+                      <th className="text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
+                        Qty
+                      </th>
+                      <th className="text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
+                        Amount
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="text-center">
+                      <td className="text-text-color font-sp-pro-text-regular text-xs">
+                        1
+                      </td>
+                      <td className="text-text-color font-sp-pro-text-regular text-xs">
+                        Electronic
+                      </td>
+                      <td className="text-text-color font-sp-pro-text-regular text-xs">
+                        100
+                      </td>
+                      <td className="text-text-color font-sp-pro-text-regular text-xs">
+                        $220
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* ============== Current Users ==============  */}
+            <div className="border-border-gray-light rounded-lg shadow-sm border p-5 w-[295px] sm:w-auto">
+              <div className="">
                 <div>
                   <h2 className="text-base font-sp-pro-text-regular text-text-color">
                     Recent Member
@@ -354,162 +426,11 @@ export default function DashboardComponent() {
                     </div>
                   </div>
                 </div>
-              </div> */}
-
-              {/* <div className="absolute bottom-0 left-0 p-5">
-                <h2 className="text-gray font-sp-pro-text-regular text-sm uppercase flex flex-row">
-                  see all user <MdArrowForwardIos className="w-6 h-4 pl-3" />
-                </h2>
-              </div> */}
-            </div>
-          </div>
-          {/* Card Box2 */}
-
-          {/* Card Box3 */}
-          <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-5 mt-8 lg:mb-0 overflow-auto">
-            <div className="border-border-gray-light rounded-lg shadow-sm border p-5 w-[295px] sm:w-auto">
-              <h1 className="text-base font-sp-pro-text-regular text-text-color">
-                3 lastest invoice
-              </h1>
-              {/* data table */}
-              <div className="text-text-color mt-3 overflow-auto ">
-                <table className="table w-full z-0 ">
-                  <thead>
-                    <tr className="tracking-wide text-left ">
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        No
-                      </th>
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        Supplier
-                      </th>
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        Qty
-                      </th>
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        Amount
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        $220
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        $220
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        $220
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
-            </div>
-
-            <div className="border-border-gray-light rounded-lg shadow-sm border p-5 w-[295px] sm:w-auto">
-              <h1 className="text-base font-sp-pro-text-regular text-text-color">
-                3 lastest invoice
-              </h1>
-              {/* data table */}
-              <div className="text-text-color mt-3 overflow-auto ">
-                <table className="table w-full z-0 ">
-                  <thead>
-                    <tr className="tracking-wide text-left ">
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        No
-                      </th>
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        Name
-                      </th>
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        Purchase Date
-                      </th>
-                      <th className="text-text-color font-sp-pro-text-regular text-xs">
-                        Price
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        $220
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        $220
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-sm">
-                        $220
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="py-3">
+                <p className="text-gray font-sp-pro-text-regular text-sm uppercase flex flex-row">
+                  see all user <MdArrowForwardIos className="w-6 h-4 pl-3" />
+                </p>
               </div>
             </div>
           </div>
