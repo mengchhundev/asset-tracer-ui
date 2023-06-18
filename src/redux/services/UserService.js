@@ -42,6 +42,10 @@ const getUserAllInOrganizations = async (orgId) => {
     return await apiV2.get(`/organizations/get-all-joined-users/${orgId}`);
 }
 
+const getAllRequestUsers = async (orgId) => {
+    return await apiV2.get(`/organizations/get-all-request-users/${orgId}`)
+}
+
 const UserService = {
     signin,
     singup,
@@ -52,7 +56,8 @@ const UserService = {
     setNewPassword,
     verifyRegistration,
     getProfileUser,
-    getUserAllInOrganizations
+    getUserAllInOrganizations,
+    getAllRequestUsers
 }
 
 export default UserService;

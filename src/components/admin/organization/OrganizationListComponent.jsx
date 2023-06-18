@@ -19,7 +19,7 @@ import { Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { TbListDetails } from "react-icons/tb";
 import UpdateOrganizationComponent from './popUp/UpdateOrganizationComponent';
-import err_pic from '../../../assets/images/false.png'
+import emoji from '../../../assets/images/emoji.svg'
 
 const sort = [
     {
@@ -403,12 +403,12 @@ console.log(organizations)
 
             {isWaitingApprove &&
                 <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
-                    <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
+                    <div className="bg-white rounded-xl p-16  z-10 border border-bg-primary shadow-xl" >
                         <div className="flex flex-col justify-end">
                             <div className="relative w-40 m-auto pb-7">
-                                <img src={err_pic} className="w-28 m-auto" />
+                                <img src={emoji} className="w-14 m-auto" />
                             </div>
-                            <p className={`text-2xl text-center font-sp-pro-text-semibold text-custom-red`}>
+                            <p className={`text-2xl text-center font-sp-pro-text-semibold text-primary`}>
                                 Waiting For Approve
                             </p>
                             <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
@@ -416,7 +416,7 @@ console.log(organizations)
                             </p>
                             <button
                                 onClick={() => setIsWaitingApprove(false)}
-                                className={`bg-custom-red text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
+                                className={`bg-primary text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
                             >
                                 <span>Close</span>
                             </button>

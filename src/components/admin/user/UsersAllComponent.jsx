@@ -78,11 +78,11 @@ export default function UsersAllComponent() {
     query === ""
       ? sort
       : sort.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   var orgId = organization.id;
   const users = useSelector((state) => state.user.data);
@@ -211,10 +211,9 @@ export default function UsersAllComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -222,8 +221,7 @@ export default function UsersAllComponent() {
                             {({ selectedSort, active }) => (
                               <>
                                 <span
-                                  className={`bloc
-                                k truncate ${
+                                  className={`block truncate ${
                                   selectedSort ? "font-medium" : "font-normal"
                                 }`}
                                 >
@@ -231,9 +229,8 @@ export default function UsersAllComponent() {
                                 </span>
                                 {selectedSort ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -268,7 +265,6 @@ export default function UsersAllComponent() {
         {/* card */}
         <div className=" py-6 relative">
           <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  justify-items-center gap-10 lg:gap-x-10  gap-y-8 p-5 w-full">
-            {console.log(users)}
             {users.length != 0 ? (
               users.map((list) => (
                 <button
@@ -371,21 +367,10 @@ export default function UsersAllComponent() {
                 </button>
               ))
             ) : (
-              <div className="text-center w-full col-span-12 h-[calc(100vh-14rem)] flex justify-center items-center">
-                <div className="mt-[-6rem]">
-                  <img
-                    // src={no_data_pic}
-                    className="w-2/6 xl:w-3/6 m-auto pb-5"
-                  />
-                  <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
-                    No Organization
-                  </h2>
-                  {/* <button
-                                type="submit"
-                                className="bg-primary hover:bg-pending-hover text-white font-sp-pro-text-regular py-2 px-4  rounded"
-                            >
-                                Create Organazation
-                            </button> */}
+              <div className='text-center w-full col-span-12 h-[calc(100vh-21rem)] flex justify-center items-center'>
+                <div className='mt-[-6rem]'>
+                  {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
+                  <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No User</h2>
                 </div>
               </div>
             )}
@@ -668,7 +653,42 @@ export default function UsersAllComponent() {
                               fill="white"
                             />
                           </svg>
+                          <svg
+                            width="43"
+                            height="42"
+                            viewBox="0 0 43 42"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              y="0.59375"
+                              width="43"
+                              height="40.42"
+                              rx="10.32"
+                              fill="#F8C400"
+                              fill-opacity="0.8"
+                            />
+                            <path
+                              d="M29.8332 18.6328V15.6328C29.8332 14.5282 28.9005 13.6328 27.7498 13.6328H15.2498C14.0992 13.6328 13.1665 14.5282 13.1665 15.6328V18.6328M29.8332 18.6328V27.6328C29.8332 28.7374 28.9005 29.6328 27.7498 29.6328H15.2498C14.0992 29.6328 13.1665 28.7374 13.1665 27.6328V18.6328M29.8332 18.6328H13.1665M17.3332 11.6328V15.6328M25.6665 11.6328V15.6328"
+                              stroke="white"
+                              stroke-width="1.91667"
+                              stroke-linecap="round"
+                            />
+                            <path
+                              d="M17.8542 20.6328H15.7708C15.4832 20.6328 15.25 20.8567 15.25 21.1328V23.1328C15.25 23.409 15.4832 23.6328 15.7708 23.6328H17.8542C18.1418 23.6328 18.375 23.409 18.375 23.1328V21.1328C18.375 20.8567 18.1418 20.6328 17.8542 20.6328Z"
+                              fill="white"
+                            />
+                            <path
+                              d="M22.5417 20.6328H20.4583C20.1707 20.6328 19.9375 20.8567 19.9375 21.1328V23.1328C19.9375 23.409 20.1707 23.6328 20.4583 23.6328H22.5417C22.8293 23.6328 23.0625 23.409 23.0625 23.1328V21.1328C23.0625 20.8567 22.8293 20.6328 22.5417 20.6328Z"
+                              fill="white"
+                            />
+                            <path
+                              d="M27.2292 20.6328H25.1458C24.8582 20.6328 24.625 20.8567 24.625 21.1328V23.1328C24.625 23.409 24.8582 23.6328 25.1458 23.6328H27.2292C27.5168 23.6328 27.75 23.409 27.75 23.1328V21.1328C27.75 20.8567 27.5168 20.6328 27.2292 20.6328Z"
+                              fill="white"
+                            />
+                          </svg>
                         </span>
+
 
                         {/* ================================================== */}
                         {/* <CalendarDaysIcon className="h-10 w-10 bg-primary p-1 text-white rounded-md" /> */}
