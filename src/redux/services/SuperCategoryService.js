@@ -7,6 +7,10 @@ const getAllSuperCategores = async () => {
     return await apiV2.get(`/super-categories/all`)
 }
 
+const getSuperCategories = async () => {
+    return await apiV2.get(`/super-categories/7b1cd12b-4283-485b-8a33-c0870d246bee/filter?page=1&size=10`)
+}
+
 const saveSuperCategory = async (data) => {
     return await apiV2.post(`/super-categories`, data)
 }
@@ -24,6 +28,7 @@ const SuperCategoryService = {
     getAllSuperCategores,
     saveSuperCategory,
     deleteSuperCategory,
-    updateSuperCategory
+    updateSuperCategory,
+    getSuperCategories
 };
 export default SuperCategoryService;

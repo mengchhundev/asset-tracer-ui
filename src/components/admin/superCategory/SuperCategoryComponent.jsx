@@ -8,9 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Combobox, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
-import {
-  setAllSuperCategory,
-} from "../../../redux/slices/SuperCategorySlice";
+import { setAllSuperCategory } from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { RiCloseFill } from "react-icons/ri";
@@ -19,8 +17,12 @@ import gift from "../../../assets/icon/gift.svg";
 import electronic from "../../../assets/icon/electronic.svg";
 import furniture from "../../../assets/icon/furniture.svg";
 import office from "../../../assets/icon/office.svg";
-import { FiSave } from "react-icons/fi";
+import placeImg from "../../../assets/icon/placeImg.svg";
+import { FiSave, FiTrash2 } from "react-icons/fi";
+import trash_ico from "../../../assets/images/trash.png";
 import moment from "moment";
+import FileUploadService from "../../../redux/services/FileUploadService";
+import { list } from "postcss";
 
 const people = [
   { id: 1, name: "Room" },
@@ -30,27 +32,49 @@ const people = [
   { id: 5, name: "Tanya Fox" },
   { id: 6, name: "Hellen Schmidt" },
 ];
+const serverLocation = "http://localhost:8080/api/v1/files/getFile?fileName=";
 
 export default function SuperCategoryComponent() {
-
   const [selected, setSelected] = useState(people[0]);
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
   const getAllSuperCategores = useSelector((state) => state.superCategory.data);
   const [pageCount, setPageCount] = useState(2);
-  const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const organization = JSON.parse(sessionStorage.getItem("organization"));
   const organizationId = organization.id;
-  const [isUpdate,setIsUpdate] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false);
+  let formData = new FormData();
+  const [selectedFile, setSelectedFile] = useState("");
   const [newData, setData] = useState({
     id: "",
     name: "",
     icon: "",
-    organizationId: organizationId
+    organizationId: organizationId,
   });
+
+  console.log(getAllSuperCategores);
+
+  // select file
+  const handleFileSelect = (event) => {
+    console.log("File : ", event.target.files[0]);
+    setSelectedFile(event.target.files[0]);
+    formData.append("file", event.target.files[0]);
+    FileUploadService.storeFile(formData, localStorage.getItem("token"))
+      .then(
+        (res) => {
+          console.log("res : ", res);
+          setData({ ...newData, icon: res.data.payload });
+        },
+        (e) => console.log(e)
+      )
+      .catch((e) => console.log("Error upload file", e));
+  };
+  console.log("Selected file : ", formData);
+  console.log("New Data : ", newData);
 
   // function get all super category
   const handleGetAllSuperCategory = () => {
-    SuperCategoryService.getAllSuperCategores().then((res) => {
+    SuperCategoryService.getSuperCategories().then((res) => {
       if (res?.data?.success) {
         dispatch(setAllSuperCategory(res.data.payload));
       }
@@ -61,6 +85,7 @@ export default function SuperCategoryComponent() {
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
+        setData
         handleGetAllSuperCategory();
       }
     });
@@ -68,37 +93,38 @@ export default function SuperCategoryComponent() {
 
   // function ADD super category
   const handleSaveSuperCategory = () => {
+    console.log("New Data : ", newData);
     SuperCategoryService.saveSuperCategory(newData).then((res) => {
       if (res.data.success) {
-        document.getElementById("btn-super-category").click()
+        document.getElementById("btn-super-category").click();
         handleGetAllSuperCategory();
       }
     });
   };
-
   const handleUpdateSuperCategory = () => {
-    SuperCategoryService.updateSuperCategory(newData.id, newData).then(res => {
-      if(res.data.success) {
-        document.getElementById("btn-super-category").click()
-        handleGetAllSuperCategory()
+    SuperCategoryService.updateSuperCategory(newData.id, newData).then(
+      (res) => {
+        if (res.data.success) {
+          document.getElementById("btn-super-category").click();
+          handleGetAllSuperCategory();
+        }
       }
-    })
-  }
+    );
+  };
+  console.log("Data : ", getAllSuperCategores);
 
   useEffect(() => {
     handleGetAllSuperCategory();
-  },[]);
-
-
-  useEffect(() => {
-      setData((prevData) => ({
-        ...prevData,
-        organizationId,
-      }));
   }, []);
 
+  useEffect(() => {
+    setData((prevData) => ({
+      ...prevData,
+      organizationId,
+    }));
+  }, []);
 
-  // handle input change 
+  // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -125,41 +151,37 @@ export default function SuperCategoryComponent() {
       name: Yup.string().required("Name is required"),
     }),
     onSubmit: (val, { resetForm }) => {
-      isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory()
-      resetForm(val = { id: "", name: "", organizationId: "" })
-      setData({ id: "", name: "", organizationId: "" })
-      formik.setValues({ id: "", name: "", organizationId: "" })
+      isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory();
+      resetForm((val = { id: "", name: "", organizationId: "" }));
+      setData({ id: "", name: "", organizationId: "" });
+      formik.setValues({ id: "", name: "", organizationId: "" });
     },
   });
 
   useEffect(() => {
-    if(!isUpdate) {
-      formik.setValues({ id: "", name: "", organizationId: "" })
+    if (!isUpdate) {
+      formik.setValues({ id: "", name: "", organizationId: "" });
     }
-  }, isUpdate)
- 
-  const handleSearchSuperCategory = (e) => {
-    getAllSuperCategory(1, 10, e.target.value);
-  };
+  }, isUpdate);
 
   const handleShowSuperCategory = (val) => {
-    setIsUpdate(true)
-    setData({...val, organizationId: organizationId})
-    formik.setValues(val)
-  }
+    setIsUpdate(true);
+    setData({ ...val, organizationId: organizationId });
+    formik.setValues(val);
+  };
 
   const handleHideModal = () => {
     setTimeout(() => {
-      setIsUpdate(false)  
+      setIsUpdate(false);
     }, 100);
     setData({
       id: "",
-    name: "",
-    icon: "",
-    organizationId: organizationId
-    })
-    formik.setValues({ id: "", name: "", organizationId: "" })
-  }
+      name: "",
+      icon: "",
+      organizationId: organizationId,
+    });
+    formik.setValues({ id: "", name: "", organizationId: "" });
+  };
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -309,7 +331,10 @@ export default function SuperCategoryComponent() {
 
                     <td className="w-2/5 ">
                       <div className="flex items-center space-x-5">
-                        <img className="h-8 w-8" src={list.icon}></img>
+                        <img
+                          className="h-9 rounded-full w-9"
+                          src={`${serverLocation}${list.icon}`}
+                        ></img>
                         <span className="text-sm ">{list.name}</span>
                       </div>
                     </td>
@@ -383,7 +408,11 @@ export default function SuperCategoryComponent() {
         <div className=" modal">
           <div className=" modal-box relative rounded-lg">
             <div className="absolute top-7 right-7">
-              <label htmlFor="superCategory" id="btn-super-category" onClick={handleHideModal}>
+              <label
+                htmlFor="superCategory"
+                id="btn-super-category"
+                onClick={handleHideModal}
+              >
                 <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
               </label>
             </div>
@@ -396,97 +425,127 @@ export default function SuperCategoryComponent() {
               </div>
             </div>
             <form onSubmit={formik.handleSubmit}>
-            <div className=" border border-bg-primary rounded-md p-3 my-3">
-              <div className="flex flex-row gap-4">
-                <div>
-                  <p className="text-center">Choose Icon</p>
-                  <div className="flex flex- justify-between">
-                    <div className="p-2">
-                      <button>
-                        <img
-                          src={electronic}
-                          className="h-14 rounded-lg w-14 "
-                        />
-                      </button>
-                    </div>
-                    <div className="p-2 mt-4">
-                      <button onClick={handleSearchSuperCategory}>
-                        <img src={electronic} className="h-9 rounded-lg w-9 " />
-                      </button>
-                    </div>
-                    <div className="p-2 mt-4">
-                      <button onClick={handleSearchSuperCategory}>
-                        <img src={office} className="h-9 rounded-lg w-9 " />
-                      </button>
-                    </div>
+              <div className=" border border-bg-primary rounded-md p-3 my-3">
+                <div className="flex flex-row gap-4">
+                  <div>
+                    <p className="text-center">Choose Icon</p>
+                    <div className="flex flex- justify-between">
+                      <div className="p-2">
+                        <label>
+                          {selectedFile ? (
+                            <img
+                              src={URL.createObjectURL(selectedFile)}
+                              className="h-14 rounded-full w-14 "
+                            />
+                          ) : (
+                            <img
+                              className="h-14 rounded-lg w-14"
+                              src={placeImg}
+                            />
+                          )}
+                        </label>
+                      </div>
+                      <div className="p-2 mt-4">
+                        <label>
+                          <img
+                            src={electronic}
+                            className="h-9 rounded-lg w-9 "
+                          />
+                        </label>
+                      </div>
+                      <div className="p-2 mt-4">
+                        <label>
+                          <img src={office} className="h-9 rounded-lg w-9 " />
+                        </label>
+                      </div>
 
-                    <div className="p-2 mt-4">
-                      <button onClick={handleInputChange}>
-                        <img src={furniture} className="h-9 rounded-lg w-9 " />
-                      </button>
-                    </div>
+                      <div className="p-2 mt-4">
+                        <label>
+                          <img
+                            src={furniture}
+                            className="h-9 rounded-lg w-9 "
+                          />
+                        </label>
+                      </div>
 
-                    <div className="p-2 mt-4">
-                      <img src={addIcon} className="h-9 rounded-lg w-9 " />
+                      <div className="p-2 mt-4">
+                        <label>
+                          <input
+                            type="file"
+                            className="hidden"
+                            id="logo"
+                            onChange={handleFileSelect}
+                          />
+                          <img src={addIcon} className="h-9 rounded-lg w-9 " />
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <label
-              htmlFor=""
-              className="flex text-sm text-text-color font-sp-pro-text-regular py-2"
-            >
-              Name
-            </label>
-            <input
-              value={newData.name}
-              onInput={handleInputChange}
-              onChange={formik.handleChange}
-              name="name"
-              className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-              type="text"
-              placeholder="super category"
-            />
-            {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
-            <div className="flex justify-end flex-row space-x-4 mt-10">
-              <div className="">
-                <label htmlFor="superCategory" onClick={handleHideModal}  className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center">
-                  <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                  &nbsp;Cancel
-                </label>
-              </div>
+              <label
+                htmlFor=""
+                className="flex text-sm text-text-color font-sp-pro-text-regular py-2"
+              >
+                Name
+              </label>
+              <input
+                value={newData.name}
+                onInput={handleInputChange}
+                onChange={formik.handleChange}
+                name="name"
+                className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
+                type="text"
+                placeholder="super category"
+              />
+              {formik.touched.name && formik.errors?.name ? (
+                <p className="text-reject text-xs mt-2 pl-1">
+                  {formik.errors.name}
+                </p>
+              ) : null}
+              <div className="flex justify-end flex-row space-x-4 mt-10">
+                <div className="">
+                  <label
+                    htmlFor="superCategory"
+                    onClick={handleHideModal}
+                    className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center"
+                  >
+                    <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+                    &nbsp;Cancel
+                  </label>
+                </div>
 
-              <div className="">
-                <button
-                  type="submit"
-                  className={`${isUpdate ? "hover:bg-green bg-green" : "hover:bg-primary bg-primary"}  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
-                >
-                  <FiSave className="text-lg" /> &nbsp; {isUpdate ? "Save change" : "Add"}
-                </button>
+                <div className="">
+                  <button
+                    type="submit"
+                    className={`${
+                      isUpdate
+                        ? "hover:bg-green bg-green"
+                        : "hover:bg-primary bg-primary"
+                    }  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                  >
+                    <FiSave className="text-lg" /> &nbsp;{" "}
+                    {isUpdate ? "Save change" : "Add"}
+                  </button>
+                </div>
               </div>
-            </div>
             </form>
           </div>
         </div>
 
         {/* medal Delete */}
         <input type="checkbox" id="modalDelete" className="modal-toggle" />
-        <div className="modal">
+        {/* <div className="modal">
           <div className="modal-box relative">
             <div className="flex justify-start">
               <div className="pl-2">
-                <h3 className="text-lg font-bold ">Delete</h3>
+                <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2 ">
+                  <FiTrash2 /> Delete
+                </span>
                 <p className="pt-1 ">Are you sure want to delete this post?</p>
               </div>
             </div>
-            <label
-              htmlFor="modalDelete"
-              className="font-semibold text-xl absolute right-8 top-6"
-            >
-              ✕
-            </label>
 
             <div className="flex justify-end space-x-4">
               <div className="modal-action">
@@ -506,6 +565,53 @@ export default function SuperCategoryComponent() {
                   Delete
                 </label>
               </div>
+            </div>
+          </div>
+        </div> */}
+        <div className="modal">
+          <div className="modal-box relative">
+            <div className="absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer">
+              <label htmlFor="modalDelete">
+                <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+              </label>
+            </div>
+            <div className="flex justify-start">
+              <div>
+                <img
+                  src={trash_ico}
+                  width={55}
+                  height={55}
+                  className="inline-block"
+                />
+              </div>
+              <div className="pl-3 leading-none">
+                <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
+                <p className="pt-1 py-5">
+                  Are you sure want to delete{"  "}
+                  <span className="font-sp-pro-text-medium text-base">
+                    {"  "}
+                    {newData.name}{"  "}
+                  </span>
+                  this normal category?
+                </p>
+              </div>
+            </div>
+            <br />
+            <div className="flex justify-end space-x-4">
+              <label
+                htmlFor="modalDelete"
+                className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-90 border border-[#D0D5DD] flex justify-center items-center gap-1"
+              >
+                Cancel
+              </label>
+              <label
+                htmlFor="modalDelete"
+                onClick={handlDeleteSuperCategory}
+                type="button"
+                className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
+              >
+                Delete
+              </label>
             </div>
           </div>
         </div>
