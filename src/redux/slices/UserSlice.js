@@ -12,7 +12,9 @@ const initialState = {
     userDetail: {
         name: ""
     },
-    requestUsers: []
+    requestUsers: [],
+    approveUsers:[],
+    rejectUseReq:[]
 }
 
 export const userSlice = createSlice({
@@ -39,9 +41,15 @@ export const userSlice = createSlice({
         },
         setRequestUsers: (state, action) => {
             state.requestUsers = action.payload
+        },
+        setUserapprove : (state, action) => {
+            state.approveUsers = action.payload
+        },
+        setUserReject : (state, action) => {
+            state.data = action.payload
         }
     }
 });
 
-export const {setProfile, setProfileDetail, setProfileImage, setAllUser, setUsers, setUserDetail, setRequestUsers} = userSlice.actions
+export const {setProfile, setProfileDetail, setProfileImage, setAllUser, setUsers, setUserDetail, setRequestUsers, setUserapprove, setUserReject} = userSlice.actions
 export default userSlice.reducer

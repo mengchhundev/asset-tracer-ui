@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
 import UserSortByComponent from "./UserSortByComponent";
 import { RxCheck } from "react-icons/rx";
-
+import { toast } from "react-hot-toast";
 // image
 import facebook from "../../../assets/images/user/fb.png";
 import linkin from "../../../assets/images/user/in.png";
@@ -15,7 +15,7 @@ import Ellipse_4 from "../../../assets/icon/default profile/Ellipse 4.svg";
 import Ellipse_5 from "../../../assets/icon/default profile/Ellipse 5.svg";
 import UserService from "../../../redux/services/UserService";
 import { useDispatch, useSelector } from "react-redux";
-import { setRequestUsers } from "../../../redux/slices/UserSlice";
+import { setRequestUsers, setUserReject, setUserapprove } from "../../../redux/slices/UserSlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
 // import Ellipse_6 from "../../../assets/icon/default profile/Ellipse 6.svg"
 // import Ellipse_7 from "../../../assets/icon/default profile/Ellipse 7.svg"
@@ -30,69 +30,47 @@ const people = [
 ];
 
 export default function UserRequestComponent() {
-  const organization = JSON.parse(sessionStorage.getItem("organization"))
-  const dispatch = useDispatch()
-  const requestUsers = useSelector(state => state.user.requestUsers)
-
-  const [organizations, setOrg] = useState([
-    {
-      id: 1,
-      name: "KSHRD Center",
-    },
-    {
-      id: 2,
-      name: "KOSIGN",
-    },
-  ]);
-  const [user, setUser] = useState([
-    {
-      id: 1,
-      profile: "SE",
-      name: "Senglorn",
-      email: "hrdcenter@gamil.com",
-      src: Ellipse_1,
-    },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      email: "hrdcenter@gamil.com",
-      src: Ellipse_2,
-    },
-    {
-      id: 3,
-      profile: "ME",
-      name: "Keo Mony",
-      email: "hrdcenter@gamil.com",
-      src: Ellipse_5,
-    },
-    {
-      id: 4,
-      profile: "ME",
-      name: "Keo Mony",
-      email: "hrdcenter@gamil.com",
-      src: Ellipse_4,
-    },
-    {
-      id: 5,
-      profile: "ME",
-      name: "Keo Mony",
-      email: "hrdcenter@gamil.com",
-      src: Ellipse_5,
-    },
-  ]);
-
+  const organization = JSON.parse(sessionStorage.getItem("organization"));
+  const dispatch = useDispatch();
+  const [userRequest, setUserRequest] = useState([]);
+  const requestUsers = useSelector((state) => state.user.requestUsers);
+  const approveUserReq = useSelector((state) => state.user.approveUsers)
   const handleGetAllRequestUsers = () => {
-    UserService.getAllRequestUsers(organization.id).then(res => {
+    UserService.getAllRequestUsers(organization.id).then((res) => {
       if (res.data.success) {
-        dispatch(setRequestUsers(res.data.payload))
+
+        dispatch(setRequestUsers(res.data.payload));
+      }
+    });
+  };
+  
+  const handleApproveUserReq = (userId) => {
+    UserService.approveUserRequests( organization.id, userId).then((res) => {
+      if(res.data.success){
+        dispatch(setUserapprove(res.data.payload));
+      }
+      (err) => {
+        dispatch(setUserapprove([]));
+      }
+    })
+  }
+  const handleRejectUserReq = (userId) => {
+    UserService.rejectUserRequest(userId, organization.id).then((res) => {
+      if(res.data.success){
+        dispatch(setUserReject([]))
+      }
+      (err) => {
+        dispatch(setUserReject([]))
       }
     })
   }
 
+  // useState(() => {
+  //   handleGetAllRequestUsers();
+  // }, [])
   useEffect(() => {
-    handleGetAllRequestUsers()
-  }, [])
+    handleGetAllRequestUsers();
+  }, []); 
 
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
@@ -101,7 +79,8 @@ export default function UserRequestComponent() {
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-pending">Requested User</span> Management
+              All <span className="text-pending">Requested User</span>{" "}
+              Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
               Requested User
@@ -110,7 +89,7 @@ export default function UserRequestComponent() {
           {/* search */}
           <div className="md:flex md:flex-row justify-start gap-6 ">
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20   bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+              <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20 bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"
@@ -139,84 +118,127 @@ export default function UserRequestComponent() {
           </div>
         </div>
         <div className="space-y-8 sm:px-3 px-10">
-          {requestUsers.length != 0 ? requestUsers.map((list, index) => (
-            <div key={index} className="overflow-x-auto px-10 mb-10">
-              <div className="flex flex-row items-center">
-                <img
-                  src={FileUploadService.getImage(list.logo)}
-                  className="rounded-full w-14   "
-                />
-                <h1 className="mb-2 text-text-color font-sp-pro-text-bold text-xl">
-                  {list.name}
-                </h1>
-              </div>
-              <div className="rounded-xl border border-bg-main shadow my-5"
-                style={{ boxShadow: " rgba(0, 0, 0, 0.1)  0px 2.45px 11.28px" }}
-              >
-                <div className="rounded-md p-5 flex-col">
-                  <div className="overflow-x-auto">
-                    <div className=" xl:px-11 sm:px-5 2xl:px-20 3xl:px-32 overflow-y-scroll">
-                      <div className="overflow-x-auto">
-                        <div className="p-1 overflow-y-scroll items-start">
-                          <table className="table border-spacing-y-3 border-separate w-[1020px]">
+          {requestUsers.length != 0 ? (
+            requestUsers.map((list, index) => (
+              <div key={index} className="overflow-x-auto px-10 mb-10">
+                <div
+                  className="rounded-xl border border-bg-main shadow my-5"
+                  style={{
+                    boxShadow: " rgba(0, 0, 0, 0.1)  0px 2.45px 11.28px",
+                  }}
+                >
+                  <div className="rounded-md p-5 flex-col">
+                    {/* ======= Logo and name =========== */}
+                    {list.logo ? (
+                      <div className="flex flex-row items-center space-x-5 mx-5">
+                        <img
+                          src={FileUploadService.getImage(list.logo)}
+                          className="rounded-full w-14   "
+                        />
+                        <h1 className="mb-2 text-text-color font-sp-pro-text-bold text-xl">
+                          {list.name}
+                        </h1>
+                      </div>
+                    ) : (
+                      <h1 className="mb-2 text-text-color font-sp-pro-text-bold text-xl">
+                        {list.name.substring(0, 2)}
+                      </h1>
+                    )}
 
-                            <tbody>
-                              {list?.users && list.users.map((user, index) => (
-                                <tr className="font-md text-text-color border-none">
-                                  <td
-                                    className="bg-bg-main text-left rounded-s-[5px]"
-                                    style={{ padding: "1.5rem" }}
-                                  >
-                                    {index + 1}
-                                  </td>
-                                  <td className="bg-bg-main w-1/12 items-start  ">
-                                    <div className="flex items-center mr-20 space-x-3 ">
-                                      {user?.image ?
-                                        <img
-                                          src={FileUploadService.getImage(user.image)}
-                                          className="rounded-full h-10 "
-                                        />
-                                        :
+                    <div className="overflow-x-auto">
+                      <div className=" xl:px-11 sm:px-5 2xl:px-20 3xl:px-32 overflow-y-scroll">
+                        <div className="overflow-x-auto">
+                          <div className="p-1 overflow-y-scroll items-start">
+                            <table className="table border-spacing-y-3 border-separate w-[1020px]">
+                              <tbody>
+                                {list?.users &&
+                                  list.users.map((user, index) => (
+                                    <tr className="font-md text-text-color border-none">
+                                      <td
+                                        className="bg-bg-main text-left rounded-s-[5px]"
+                                        style={{ padding: "1.5rem" }}
+                                      >
+                                        {index + 1}
+                                      </td>
+                                      <td className="bg-bg-main w-1/12 items-start  ">
+                                        <div className="flex items-center mr-20 space-x-3 ">
+                                          {user?.image ? (
+                                            <img
+                                              src={FileUploadService.getImage(
+                                                user.image
+                                              )}
+                                              className="rounded-full h-10 "
+                                            />
+                                          ) : (
+                                            <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                                              {list.name.substring(0, 1)}
+                                            </span>
+                                          )}
 
-                                        <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                                          {list.name.e.substring(0, 1)}
-                                        </span>
-                                      }
-
-                                      <span className="font-sp-pro-text-medium text-sm text-text-color">
-                                        {user.email}
-                                      </span>
-                                    </div>
-                                  </td>
-                                  <td className="bg-bg-main rounded-e-[4px]">
-                                    <div className="flex justify-center space-x-5 items-center">
-                                      <label className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
-                                        X
-                                      </label>
-                                      <label>
-                                        <RxCheck className="cursor-pointer w-8 h-8 p-1 rounded-md bg-white border border-border-strock text-green" />
-                                      </label>
-                                    </div>
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                                          <span className="font-sp-pro-text-medium text-sm text-text-color">
+                                            {user.email}
+                                          </span>
+                                        </div>
+                                      </td>
+                                      <td className="bg-bg-main w-1/12 items-start  ">
+                                        {list?.logo ? (
+                                          <div className="flex items-center mr-20 space-x-3 ">
+                                            <img
+                                              src={FileUploadService.getImage(
+                                                list.logo
+                                              )}
+                                              className="rounded-full w-10   "
+                                            />
+                                            <span className=" text-text-color font-sp-pro-text-bold text-md">
+                                              {list.name}
+                                            </span>
+                                          </div>
+                                        ) : (
+                                          <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
+                                            {list.name.substring(0, 1)}
+                                          </span>
+                                        )}
+                                      </td>
+                                      <td className="bg-bg-main rounded-e-[4px]">
+                                        <div className="flex justify-center space-x-5 items-center">
+                                          <label onClick={()=> handleRejectUserReq(user.id) } className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
+                                            X
+                                          </label>
+                                          <label onClick={() => handleApproveUserReq(user.id)} >
+                                            {/* {user?.id != 0 ? (
+                                              toast.success("success")
+                                            ):(
+                                              toast.error("Not success")
+                                            )} */}
+                                           
+                                            <RxCheck className="cursor-pointer w-8 h-8 p-1 rounded-md bg-white border border-border-strock text-green" />
+                                          </label>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  ))}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )) : <>
-            <div className='text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center'>
-              <div className='mt-[-6rem]'>
-                {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
-                <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Requested Users</h2>
+            ))
+          ) : (
+            <>
+              <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+                <div className="mt-[-6rem]">
+                  {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
+                  <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                    No Requested Users
+                  </h2>
+                </div>
               </div>
-            </div>
-          </>}
+            </>
+          )}
         </div>
         {/* <div className="space-y-8 sm:px-3 px-10">
           {organizations.map((organization) => (

@@ -46,6 +46,14 @@ const getAllRequestUsers = async (orgId) => {
     return await apiV2.get(`/organizations/get-all-request-users/${orgId}`)
 }
 
+const approveUserRequests = async (orgId, userId) => {
+    return await apiV2.put(`/organizations/approve-user?userId=${userId}&organizationId=${orgId}`)
+}
+
+const rejectUserRequest = async ( userId, orgId) => {
+    return await apiV2.put(`/organizations/reject-user?userId=${userId}&organizationId=${orgId}`)
+}
+
 const UserService = {
     signin,
     singup,
@@ -57,7 +65,9 @@ const UserService = {
     verifyRegistration,
     getProfileUser,
     getUserAllInOrganizations,
-    getAllRequestUsers
+    getAllRequestUsers,
+    approveUserRequests,
+    rejectUserRequest
 }
 
 export default UserService;

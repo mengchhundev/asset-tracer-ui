@@ -14,12 +14,13 @@ const getTotalRoomInOrg = async (orgId) => {
     return await apiV2.get(`/rooms/${orgId}/get-all`)
 }
 const getTotalInvoice = async (orgId) => {
-    return await apiV2.get(``)
+    return await apiV2.get(`/invoices/filter/${orgId}`)
 }
 const DashboardService = {
     getTotalUserInOrg,
     getTotalAssetInOrg,
-    getTotalRoomInOrg
+    getTotalRoomInOrg,
+    getTotalInvoice
 }
 
 export default DashboardService;

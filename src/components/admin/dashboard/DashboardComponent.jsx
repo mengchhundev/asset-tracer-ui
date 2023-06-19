@@ -7,8 +7,47 @@ import { TiExportOutline } from "react-icons/ti";
 import { MdArrowForwardIos } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import Chart from "react-apexcharts";
+import { useDispatch, useSelector } from "react-redux";
+import DashboardService from "../../../redux/services/DashboardService";
+import { setTotalItems } from "../../../redux/slices/DashboardSlice";
 
 export default function DashboardComponent() {
+  
+  // const CurrentOrg = JSON.parse(sessionStorage.getItem("organization"));
+  // var orgId = CurrentOrg;
+  // const itemsDetail = useSelector((state) => state.items.itemsDetail)
+  // const dispath = useDispatch();
+  // const getTotalAssetInOrg = () => {
+  //   DashboardService.getTotalAssetInOrg(orgId).then(
+  //     (res) => {
+  //       if(res.items?.success){
+  //         dispath(setTotalItems(res.items.payload));
+  //       }
+  //     },
+  //     (err) => {
+  //       dispath(setTotalItems([]));
+  //     } 
+  //   );
+  // };
+
+  // useState(() => {
+  //   getTotalAssetInOrg();
+  // }, [])
+
+  // useEffect(() => {
+  //   DashboardService.getTotalAssetInOrg(orgId).then(
+  //     (res) => {
+  //       if(res.items?.success){
+  //         console.log(res.items.payload)
+  //         dispath(setTotalItems(res.items.payload));
+  //       }
+  //     },
+  //     (err) => {
+  //       dispath(setTotalItems([]));
+  //     } 
+  //   )
+  // })
+
   return (
     <>
       <main

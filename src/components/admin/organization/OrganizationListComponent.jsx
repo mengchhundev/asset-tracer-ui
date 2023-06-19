@@ -280,7 +280,7 @@ console.log(organizations)
                                                     <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
                                                         <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
                                                     </Listbox.Button>
-                                                </span>
+                                                </span> 
                                                 <Transition
                                                     show={open}
                                                     leave=""

@@ -7,6 +7,8 @@ import { BsPlus } from "react-icons/bs";
 import { AiFillGift } from "react-icons/ai";
 import UserDetail from "./userPopup/UserDetail";
 import FileUploadService from "../../../redux/services/FileUploadService";
+import { Listbox } from "@headlessui/react";
+
 import {
   CalendarDaysIcon,
   EnvelopeIcon,
@@ -20,19 +22,13 @@ import {
   TiSocialLinkedinCircular,
   TiSocialTwitterCircular,
 } from "react-icons/ti";
-import { TbBrandInstagram } from "react-icons/tb";
+import { TbBrandInstagram, TbListDetails } from "react-icons/tb";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { PhoneIcon } from "@heroicons/react/24/outline";
 import "../../../style/shadow.css";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import Ellipse_1 from "../../../assets/icon/default profile/Ellipse 1.svg";
-import Ellipse_2 from "../../../assets/icon/default profile/Ellipse 2.svg";
-import Ellipse_3 from "../../../assets/icon/default profile/Ellipse 3.svg";
-import Ellipse_4 from "../../../assets/icon/default profile/Ellipse 4.svg";
-import Ellipse_5 from "../../../assets/icon/default profile/Ellipse 5.svg";
-import { decode } from "yub/lib/modhex";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
@@ -43,6 +39,15 @@ import {
 } from "../../../redux/slices/UserSlice";
 import UserService from "../../../redux/services/UserService";
 import { list } from "postcss";
+import { FiTrash, FiTrash2 } from "react-icons/fi";
+import {
+  ArrowCircleLeftSharp,
+  ArrowCircleUpSharp,
+  ArrowUpward,
+  PlusOne,
+  Upcoming,
+} from "@mui/icons-material";
+import { toast } from "react-hot-toast";
 // const people = [
 //   { id: 1, name: "Sort by" },
 //   { id: 2, name: "A - Z" },
@@ -52,8 +57,8 @@ import { list } from "postcss";
 // ];
 const sort = [
   {
-    id: "sort_by",
-    name: "Sort by",
+    id: "",
+    name: "Default",
   },
   {
     id: "asc",
@@ -78,11 +83,11 @@ export default function UsersAllComponent() {
     query === ""
       ? sort
       : sort.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
+          person.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   var orgId = organization.id;
   const users = useSelector((state) => state.user.data);
@@ -91,7 +96,7 @@ export default function UsersAllComponent() {
     UserService.getUserAllInOrganizations(orgId).then(
       (res) => {
         if (res.data?.success) {
-          console.log(res.data.payload);
+          // console.log(res.data.payload);
           dispatch(setAllUser(res.data.payload));
         }
       },
@@ -114,11 +119,15 @@ export default function UsersAllComponent() {
   }, []);
 
   useEffect(() => {
-    if(selectedSort.id == "asc" || selectedSort.id == "desc" || search != null){
+    if (
+      selectedSort.id == "asc" ||
+      selectedSort.id == "desc" ||
+      search != null
+    ) {
       UserService.getUserAllInOrganizations(orgId).then(
         (res) => {
           if (res.data?.success) {
-            console.log(res.data.payload)
+            console.log(res.data.payload);
             dispatch(setAllUser(res.data.payload));
           }
         },
@@ -127,7 +136,6 @@ export default function UsersAllComponent() {
         }
       );
     }
-   
   }, [selectedSort, search]);
 
   return (
@@ -178,8 +186,6 @@ export default function UsersAllComponent() {
                 onChange={setSelectedSort}
                 className="z-20"
               >
-            
-          
                 <div className="relative z-20">
                   <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                     <Combobox.Input
@@ -211,9 +217,10 @@ export default function UsersAllComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                ? "bg-hover-yellow text-text-color"
-                                : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-hover-yellow text-text-color"
+                                  : "text-text-color"
                               }`
                             }
                             value={person}
@@ -222,15 +229,16 @@ export default function UsersAllComponent() {
                               <>
                                 <span
                                   className={`block truncate ${
-                                  selectedSort ? "font-medium" : "font-normal"
-                                }`}
+                                    selectedSort ? "font-medium" : "font-normal"
+                                  }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selectedSort ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                      }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-text-color"
+                                    }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -266,42 +274,80 @@ export default function UsersAllComponent() {
         <div className=" py-6 relative">
           <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  justify-items-center gap-10 lg:gap-x-10  gap-y-8 p-5 w-full">
             {users.length != 0 ? (
-              users.map((list) => (
+              users.map((list, index) => (
                 <button
                   type="button"
                   onClick={() => getAllUserInOrganizations(list)}
-                  key={list.id}
-                  className="relative con-Shadow-Card rounded-[5px] min-w-max w-52 cursor-pointer"
+                  key={index}
+                  className="relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer"
                   style={{
                     boxShadow: "0px 2.44633px 11.2792px rgba(0, 0, 0, 0.06)",
                   }}
                 >
                   <div className="relative ">
-                    <div className="absolute top-1 right-3 cursor-pointer">
-                      <div className="dropdown dropdown-bottom">
-                        <button
-                          // onClick={() => setDropdown(!dropdown)}
-                          // tabIndex={0}
-                          className=" w-7 h-7 rounded-full flex justify-center cursor-pointer items-center hover:bg-bg-primary-strock focus:bg-bg-primary-strock focus:text-white text-gray hover:text-white"
-                        >
-                          <BiDotsHorizontalRounded className="w-6 h-6" />
-                        </button>
-                        {/* {dropdown ? (
-                        <ul
-                          tabIndex={0}
-                          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md mt-2 w-52"
-                        >
-                          <li>
-                            <a>Download invoice</a>
-                          </li>
-                          <li>
-                            <a>Download invoice</a>
-                          </li>
-                        </ul>
-                      ) : null} */}
-                      </div>
+                    {/* ========= 3 dot list ============ */}
+                    <div className="absolute top-2 right-3 cursor-pointer">
+                      <Listbox as="div">
+                        {({ open }) => (
+                          <>
+                            <div className="relative">
+                              <span className="">
+                                <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
+                                  <span>
+                                    <BiDotsHorizontalRounded className="w-6 h-6" />
+                                  </span>
+                                </Listbox.Button>
+                              </span>
+                              <Transition
+                                show={open}
+                                leave=""
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Listbox.Options
+                                  static
+                                  className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
+                                >
+                                  <Listbox.Option>
+                                    <label
+                                      // onClick={() => showOrganizationDetail(list)}
+                                      htmlFor="show-organization"
+                                      className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                    >
+                                      <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
+                                        <TbListDetails /> Show Detail
+                                      </span>
+                                    </label>
+                                    {/* {list?.roleName == "ADMIN" && */}
+                                    <>
+                                      <label
+                                        // onClick={() => handleSetOrgDetail(list)}
+                                        htmlFor="promote-organization"
+                                        className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
+                                          <ArrowCircleUpSharp /> Promote
+                                        </span>
+                                      </label>
+                                      <label
+                                        // onClick={() => setOrgId(list.id)}
+                                        htmlFor="delete_org"
+                                        className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                      >
+                                        <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
+                                          <FiTrash2 /> Remove
+                                        </span>
+                                      </label>
+                                    </>
+                                    {/* } */}
+                                  </Listbox.Option>
+                                </Listbox.Options>
+                              </Transition>
+                            </div>
+                          </>
+                        )}
+                      </Listbox>
                     </div>
-
                     <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full ">
                       {list.image != "" && list.image != null ? (
                         <>
@@ -367,10 +413,12 @@ export default function UsersAllComponent() {
                 </button>
               ))
             ) : (
-              <div className='text-center w-full col-span-12 h-[calc(100vh-21rem)] flex justify-center items-center'>
-                <div className='mt-[-6rem]'>
+              <div className="text-center w-full col-span-12 h-[calc(100vh-21rem)] flex justify-center items-center">
+                <div className="mt-[-6rem]">
                   {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
-                  <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No User</h2>
+                  <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                    No User
+                  </h2>
                 </div>
               </div>
             )}
@@ -653,42 +701,7 @@ export default function UsersAllComponent() {
                               fill="white"
                             />
                           </svg>
-                          <svg
-                            width="43"
-                            height="42"
-                            viewBox="0 0 43 42"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              y="0.59375"
-                              width="43"
-                              height="40.42"
-                              rx="10.32"
-                              fill="#F8C400"
-                              fill-opacity="0.8"
-                            />
-                            <path
-                              d="M29.8332 18.6328V15.6328C29.8332 14.5282 28.9005 13.6328 27.7498 13.6328H15.2498C14.0992 13.6328 13.1665 14.5282 13.1665 15.6328V18.6328M29.8332 18.6328V27.6328C29.8332 28.7374 28.9005 29.6328 27.7498 29.6328H15.2498C14.0992 29.6328 13.1665 28.7374 13.1665 27.6328V18.6328M29.8332 18.6328H13.1665M17.3332 11.6328V15.6328M25.6665 11.6328V15.6328"
-                              stroke="white"
-                              stroke-width="1.91667"
-                              stroke-linecap="round"
-                            />
-                            <path
-                              d="M17.8542 20.6328H15.7708C15.4832 20.6328 15.25 20.8567 15.25 21.1328V23.1328C15.25 23.409 15.4832 23.6328 15.7708 23.6328H17.8542C18.1418 23.6328 18.375 23.409 18.375 23.1328V21.1328C18.375 20.8567 18.1418 20.6328 17.8542 20.6328Z"
-                              fill="white"
-                            />
-                            <path
-                              d="M22.5417 20.6328H20.4583C20.1707 20.6328 19.9375 20.8567 19.9375 21.1328V23.1328C19.9375 23.409 20.1707 23.6328 20.4583 23.6328H22.5417C22.8293 23.6328 23.0625 23.409 23.0625 23.1328V21.1328C23.0625 20.8567 22.8293 20.6328 22.5417 20.6328Z"
-                              fill="white"
-                            />
-                            <path
-                              d="M27.2292 20.6328H25.1458C24.8582 20.6328 24.625 20.8567 24.625 21.1328V23.1328C24.625 23.409 24.8582 23.6328 25.1458 23.6328H27.2292C27.5168 23.6328 27.75 23.409 27.75 23.1328V21.1328C27.75 20.8567 27.5168 20.6328 27.2292 20.6328Z"
-                              fill="white"
-                            />
-                          </svg>
                         </span>
-
 
                         {/* ================================================== */}
                         {/* <CalendarDaysIcon className="h-10 w-10 bg-primary p-1 text-white rounded-md" /> */}
