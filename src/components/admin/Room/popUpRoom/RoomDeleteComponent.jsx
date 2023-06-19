@@ -4,7 +4,7 @@ import trash_ico from "../../../../assets/images/trash.png"
 import { useDispatch, useSelector } from 'react-redux'
 import RoomService from '../../../../redux/services/RoomService'
 
-export default function RoomDeleteComponent() {
+export default function RoomDeleteComponent({handleIsDeleteSuccess, handleSetRoomId}) {
     const getAllRooms = useSelector(state => state.room.rooms)
     const room = useSelector(state => state.room.room)
 
@@ -13,11 +13,7 @@ export default function RoomDeleteComponent() {
             if (res.data.success) {
                 console.log(res.data)
                 document.getElementById("delete-room").click()
-                // getAllRooms.filter(room => {
-                //     if (room.id == res.data.payload.id) {
-                //         getAllRooms.splice([getAllRooms.indexOf(room)], 1)
-                //     }
-                // })
+                handleSetRoomId(res.data.payload)
             }
         })
     }

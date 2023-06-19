@@ -191,7 +191,7 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                                         <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
                                             <div className='text-left w-full'>
                                                 <label className="block mb-2 ml-1 text-sm">Description</label>
-                                                <textarea onInput={handleInputChange} name="description" rows="5" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none" placeholder="Enter description"></textarea>
+                                                <textarea onInput={handleInputChange} value={newData.description} name="description" rows="5" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none" placeholder="Enter description"></textarea>
                                             </div>
                                         </div>
                                     </div>

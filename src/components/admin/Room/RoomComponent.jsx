@@ -48,13 +48,17 @@ export default function RoomComponent() {
 
     const [isCreateSuccess, setIsCreateSuccess] = useState(false)
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
-
+    const [roomId, setRoomId] = useState();
     const handleIsCreateSuccess = (val) => {
         setIsCreateSuccess(val)
     }
 
     const handleIsUpdateSuccess = (val) => {
         setIsUpdateSuccess(val)
+    }
+
+    const handleSetRoomId = (val) => {
+        setRoomId(val)
     }
 
     //combobox
@@ -94,27 +98,13 @@ export default function RoomComponent() {
         setIsCreateSuccess(false)
         setIsUpdateSuccess(false)
 
-    }, [itemName, selectedSort, totalRow])
+    }, [itemName, selectedSort, totalRow, isCreateSuccess])
 
     useEffect(() => {
         handleGetAllRooms(selectedPage, itemName, selectedSort)
         setIsCreateSuccess(false)
         setIsUpdateSuccess(false)
-
-    }, [isUpdateSuccess])
-
-    const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
-
-    const handleDeleteSuccess = (val) => {
-        setIsDeleteSuccess(val)
-    }
-
-    useEffect(() => {
-        if (isDeleteSuccess) {
-            handleGetAllRooms()
-        }
-        setIsDeleteSuccess(false)
-    }, [isDeleteSuccess])
+    }, [isUpdateSuccess, roomId])
 
     const handleInputSearch = (e) => {
         setItemName(e.target.value)
@@ -399,7 +389,7 @@ export default function RoomComponent() {
             <DetailComponent className="modal" />
             <RoomAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess} />
             <RoomUpdateComponent className="modal" handleIsUpdateSuccess={handleIsUpdateSuccess} />
-            <RoomDeleteComponent className="modal" handleDeleteSuccess={handleDeleteSuccess} />
+            <RoomDeleteComponent className="modal" handleSetRoomId={handleSetRoomId}/>
         </>
     )
 }
