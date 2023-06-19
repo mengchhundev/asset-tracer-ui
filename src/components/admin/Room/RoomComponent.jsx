@@ -14,27 +14,41 @@ import RoomAddComponent from "./popUpRoom/RoomAddComponent";
 import RoomService from "../../../redux/services/RoomService";
 import { TbListDetails } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
+import DeletemodalComponent from "../../modalDelete/DeletemodalComponent";
+import DetailComponent from "./popUpRoom/DetailComponent";
+import { setRoom, setRoomDetail, setRooms } from "../../../redux/slices/RoomSlice";
+import RoomUpdateComponent from "./popUpRoom/RoomUpdateComponent";
+import RoomDeleteComponent from "./popUpRoom/RoomDeleteComponent";
 
 
 const sort = [
     {
         id: "", name: "Default"
+    },
+    {
+        id: "name", name: "Name"
+    },
+    {
+        id: "type", name: "Room Type"
+    },
+    {
+        id: "floor", name: "Floor"
     }
 ];
 
 export default function RoomComponent() {
+
     const [selectedSort, setSelectedSort] = useState(sort[0].name)
     const [selectedPage, setSelectedPage] = useState(1)
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const dispatch = useDispatch();
-    const getAllRooms = useSelector((state) => state.itemDetail.itemDetails);
+    const getAllRooms = useSelector((state) => state.room.rooms);
     const [totalRow, setTotalRow] = useState(0);
     const [i, setI] = useState(1);
-    const [itemId, setItemId] = useState()
 
     const [isCreateSuccess, setIsCreateSuccess] = useState(false)
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
-
+    const [roomId, setRoomId] = useState();
     const handleIsCreateSuccess = (val) => {
         setIsCreateSuccess(val)
     }
@@ -43,19 +57,23 @@ export default function RoomComponent() {
         setIsUpdateSuccess(val)
     }
 
+    const handleSetRoomId = (val) => {
+        setRoomId(val)
+    }
+
     //combobox
     const [asset, setAsset] = useState({});
     const [itemName, setItemName] = useState();
 
-    const handleGetAllRooms = (selectedPage = 1, name = "", sort = "") => {
-        RoomService.getAllRooms(organization.id, selectedPage, 8, name, "", sort).then(res => {
+    const handleGetAllRooms = (selectedPage = 1, search = "", sort = "") => {
+        RoomService.getAllRooms(organization.id, selectedPage, 8, search, sort).then(res => {
             if (res.data.success) {
-                dispatch(setItemDetails(res.data.payload))
+                dispatch(setRooms(res.data.payload))
                 setTotalRow(res.data.totalData)
             }
         }, err => {
-            dispatch(setItemDetails([]))
-            setTotalRow(0)
+            dispatch(setRooms([]))
+            setTotalRow(1)
         })
     }
 
@@ -69,29 +87,32 @@ export default function RoomComponent() {
     };
 
     useEffect(() => {
-        
+
         if (itemName != null || selectedSort != null) {
             setSelectedPage(1)
             handleGetAllRooms(selectedPage, itemName, selectedSort)
         }
 
         setPageCount(Math.ceil(totalRow / 8));
-        setIsCreateSuccess(false)
-        setIsUpdateSuccess(false)
-    }, [itemName, selectedSort, totalRow, isCreateSuccess, isUpdateSuccess])
 
-    const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
-
-    const handleDeleteSuccess = (val) => {
-        setIsDeleteSuccess(val)
-    }
+    }, [itemName, selectedSort, totalRow])
 
     useEffect(() => {
-        if (isDeleteSuccess) {
-            handleGetAllRooms()
-        }
-        setIsDeleteSuccess(false)
-    }, [isDeleteSuccess])
+        setSelectedPage(0)
+        setI(1)
+        handleGetAllRooms()
+        setIsCreateSuccess(false)
+    }, [isCreateSuccess])
+
+    useEffect(() => {
+        handleGetAllRooms(selectedPage, itemName, selectedSort)
+        setIsUpdateSuccess(false)
+    }, [isUpdateSuccess])
+
+    useEffect(() => {
+        handleGetAllRooms()
+        setRoomId('')
+    }, [roomId])
 
     const handleInputSearch = (e) => {
         setItemName(e.target.value)
@@ -100,6 +121,16 @@ export default function RoomComponent() {
     const handleSelectedSort = (val) => {
         setSelectedSort(val)
     }
+
+    // Get image detail
+    const handleShowRoomDetail = (item) => {
+        dispatch(setRoomDetail(item))
+    }
+
+    const handleShowRoom = (val) => {
+        dispatch(setRoom(val))
+    }
+
     return (
         <>
             <main className="px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -243,10 +274,10 @@ export default function RoomComponent() {
                                     </tr>
                                     {getAllRooms.length != 0 ?
                                         getAllRooms.map((list, index) => (
-                                            <tr>
+                                            <tr key={index}>
                                                 <td className="py-3">{index + i}</td>
                                                 <td className="py-3">
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-3">
                                                         <span className="w-8 h-8 overflow-hidden rounded-full bg-bg-primary-strock flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
                                                             <img
 
@@ -283,7 +314,17 @@ export default function RoomComponent() {
                                                                         >
                                                                             <Listbox.Option className="flex flex-col">
                                                                                 <label
-                                                                                    htmlFor='create-organization'
+                                                                                    htmlFor="detail"
+                                                                                    onClick={() => handleShowRoomDetail(list)}
+                                                                                    className={`cursor-pointer text-text-color hover:bg-bg-primary hover:bg-opacity-50 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                                >
+                                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                                        <TbListDetails />  View Room Detail
+                                                                                    </span>
+                                                                                </label>
+                                                                                <label
+                                                                                    htmlFor='edit-room'
+                                                                                    onClick={() => handleShowRoom(list)}
                                                                                     className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                                 >
                                                                                     <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
@@ -291,8 +332,8 @@ export default function RoomComponent() {
                                                                                     </span>
                                                                                 </label>
                                                                                 <label
-                                                                                    onClick={() => setOrgId(list.id)}
-                                                                                    htmlFor='delete_org'
+                                                                                    htmlFor="delete-room"
+                                                                                    onClick={() => handleShowRoom(list)}
                                                                                     className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
                                                                                 >
                                                                                     <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
@@ -351,7 +392,12 @@ export default function RoomComponent() {
                     </div>
                 </div>
             </main>
-            <RoomAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess}/>
+
+            <input type="checkbox" id="detail" className="modal-toggle" />
+            <DetailComponent className="modal" />
+            <RoomAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess} />
+            <RoomUpdateComponent className="modal" handleIsUpdateSuccess={handleIsUpdateSuccess} />
+            <RoomDeleteComponent className="modal" handleSetRoomId={handleSetRoomId}/>
         </>
     )
 }

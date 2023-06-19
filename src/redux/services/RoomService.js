@@ -9,11 +9,11 @@ const getRoomById = async (id) => {
 const addRoom = async (data) => {
    return await apiV2.post(`/rooms`,data)
 }
-const deleteRoom = async (roomId)=>{
-   return await apiV2.delete(`/rooms/${roomId}`)
+const deleteRoom = async (id)=>{
+   return await apiV2.delete(`/rooms/${id}`)
 }
-const updateRoom = async (roomId,data) =>{
-   return await apiV2.put(`/rooms/${roomId}`,data)
+const updateRoom = async (id, data) =>{
+   return await apiV2.put(`/rooms/${id}`, data)
 }
 const getAllRoomByOrgId = async (orgId) => {
    return await apiV2.get(`/rooms/get-all-name/${orgId}`)

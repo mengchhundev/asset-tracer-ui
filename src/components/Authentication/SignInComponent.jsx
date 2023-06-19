@@ -50,14 +50,13 @@ export default function SignInComponent() {
                         email: result._tokenResponse.email,
                         password: result._tokenResponse.idToken,
                     })
-                        .then(res => {
-                            setSuccess(true);
-                            localStorage.setItem("token", res.data.payload.token)
-                            if (localStorage.getItem("token")) {
-                                navigator("/organization-create");
-                            }
-
-                        })
+                    .then(res => {
+                        setSuccess(true);
+                        localStorage.setItem("token", res.data.payload.token)
+                        if (localStorage.getItem("token")) {
+                            navigator("/organization-create");
+                        }
+                    })
                 }
             })
     }
@@ -149,8 +148,8 @@ export default function SignInComponent() {
                                     </div>
                                     <div className="text-sm flex justify-between my-5">
                                         <div className="flex items-center">
-                                            <input type="checkbox" value="" id='remember-me' onChange={setIsRememberMe} className="w-3.5 h-3.5  text-blue-600 bg-gray-100 border-bg-primary rounded-xl" />
-                                            <label className="ml-2 text-sm font-sm" htmlFor='remember-me'>Remember me</label>
+                                            {/* <input type="checkbox" value="" id='remember-me' onChange={setIsRememberMe} className="w-3.5 h-3.5  text-blue-600 bg-gray-100 border-bg-primary rounded-xl" /> */}
+                                            <label className="ml-2 text-sm font-sm" htmlFor='remember-me'></label>
                                         </div>
                                         <div
                                             className="text-primary"

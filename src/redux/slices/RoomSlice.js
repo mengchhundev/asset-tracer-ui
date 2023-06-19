@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    data: [],
     rooms: [],
+    room: {},
     dataId: [],
     roomDetail: {},
     deleteRoom: {},
@@ -15,9 +15,8 @@ export const roomSilce = createSlice({
   
     reducers: {
         setAllRoom: (state, action) => {
-            state.data = action.payload
+            state.rooms = action.payload
         },
-       
         setRoomById: (state, action) => {
             state.dataId = action.payload
         },
@@ -35,8 +34,11 @@ export const roomSilce = createSlice({
         },
         setRooms: (state, action) => {
             state.rooms = action.payload
+        },
+        setRoom: (state, action) => {
+            state.room = action.payload
         }
     }
 });
-export const { setAllRoom, setRoomById, setRoomDetail, setDeleteRoom ,setUpdateRoom, setRooms} = roomSilce.actions
+export const { setAllRoom, setRoomById, setRoomDetail, setDeleteRoom ,setUpdateRoom, setRooms, setRoom} = roomSilce.actions
 export default roomSilce.reducer

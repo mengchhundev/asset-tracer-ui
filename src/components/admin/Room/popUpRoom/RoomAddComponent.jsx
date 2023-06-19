@@ -4,18 +4,18 @@ import upload_placeholder from '../../../../assets/images/placeholder/upload_pla
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import OrganizationService from '../../../../redux/services/OrganizationService';
-import { useNavigate } from 'react-router';
 import { RiCloseFill } from 'react-icons/ri';
 import { FiSave } from 'react-icons/fi';
 import FileUploadService from '../../../../redux/services/FileUploadService';
-import { useDispatch, useSelector } from 'react-redux';
-import { setItem } from '../../../../redux/slices/OrganizationSlice';
 import RoomService from '../../../../redux/services/RoomService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRooms } from "../../../../redux/slices/RoomSlice";
 
 export default function RoomAddComponent({ handleIsCreateSuccess }) {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const orgId = organization.id
+    let getAllRooms = useSelector((state) => state.room.rooms)
+    const dispatch = useDispatch()
 
     // Upload file
     let formData = new FormData()
@@ -67,6 +67,7 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
             RoomService.addRoom(newData).then(res => {
                 if (res.data.success) {
                     if (res.data.success) {
+
                         handleIsCreateSuccess(true)
                         document.getElementById("create-room").click()
                         setSelectedFile("")
@@ -78,6 +79,10 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                             image: "",
                             organizationId: orgId
                         })
+                        let data = [...getAllRooms]
+                        data.pop()
+                        data.unshift(res.data.payload)
+                        dispatch(setRooms(data))
                     }
                 }
             })
@@ -195,7 +200,7 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                                         <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
                                             <div className='text-left w-full'>
                                                 <label className="block mb-2 ml-1 text-sm">Description</label>
-                                                <textarea onInput={handleInputChange} name="description" rows="5" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none" placeholder="Enter description"></textarea>
+                                                <textarea onInput={handleInputChange} value={newData.description} name="description" rows="5" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none" placeholder="Enter description"></textarea>
                                             </div>
                                         </div>
                                     </div>

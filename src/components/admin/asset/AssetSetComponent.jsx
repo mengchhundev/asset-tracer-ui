@@ -15,7 +15,6 @@ import RoomService from "../../../redux/services/RoomService";
 
 const status = [
   { id: "in_stock", name: "In Stock" },
-
 ]
 
 export default function AssetSetComponent() {
@@ -40,9 +39,10 @@ export default function AssetSetComponent() {
   const [selectedRoom, setSelectedRoom] = useState()
   const [selectedFile, setSelectedFile] = useState()
   const [selectedStatus, setSelectedStatus] = useState()
+  const [image, setImage] = useState()
 
-  const handleInputChange = () => {
-    setNewData({ ...newData, [e.target.name]: e.target.value });
+  const handleInputChange = (e) => {
+    // setNewData({ ...newData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -81,7 +81,6 @@ export default function AssetSetComponent() {
           .includes(queryItem.toLowerCase().replace(/\s+/g, ""))
       );
 
-
   const [queryRoom, setQueryRoom] = useState("");
   const filteredRoom =
     queryRoom === ""
@@ -94,19 +93,26 @@ export default function AssetSetComponent() {
       );
 
   const handleSelectedItem = (val) => {
+    if (val.image != null && val.image != "") {
+      setImage(val.image)
+    } else {
+      setImage(null)
+    }
     setNewData({ ...newData, itemDetailId: val.id })
   }
 
   const handleSelectedRoom = (val) => {
+    setSelectedRoom(val)
     setNewData({ ...newData, roomId: val.id })
   }
 
   const handleSelectedStatus = (val) => {
-    setNewData({ ...newData, itemDetailId: val.id })
+    setSelectedStatus(val)
+    setNewData({ ...newData, status: val })
   }
 
-  console.log(newData)
 
+  console.log(newData)
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
@@ -175,7 +181,7 @@ export default function AssetSetComponent() {
                         </div>
                       </Combobox>
                     </div>
-                    {/* {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null} */}
+                    {formik.touched.itemDetailId && formik.errors?.itemDetailId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.itemDetailId}</p> : null}
                   </div>
                   <div className='text-left w-full'>
                     <label className="block mb-2 ml-1 text-sm">Select Status <span className='text-reject'>*</span></label>
@@ -186,7 +192,9 @@ export default function AssetSetComponent() {
                             <div className="relative z-30">
                               <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                 <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200 bg-bg-main rounded-md text-gray-800">
-                                  {selectedStatus ? <span className="block truncate text-sm text-text-color">{selectedStatus}</span> : <span className="block truncate text-sm text-black text-opacity-20">Select status</span>}
+                                  {selectedStatus ? <span className="block truncate text-sm text-text-color">
+                                  {selectedStatus == "in_stock" ? "In Stock" : ""}
+                                  </span> : <span className="block truncate text-sm text-black text-opacity-20">Select status</span>}
 
                                   <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                                     <ChevronUpDownIcon
@@ -212,7 +220,7 @@ export default function AssetSetComponent() {
                                     </div>
                                   ) : (
                                     status.map((val, index) => (
-                                      <Listbox.Option key={index} value={val.name}
+                                      <Listbox.Option key={index} value={val.id}
                                         className={({ active }) =>
                                           `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
                                         }
@@ -228,7 +236,7 @@ export default function AssetSetComponent() {
                         )}
                       </Listbox>
                     </div>
-                    {/* {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null} */}
+                    {formik.touched.status && formik.errors?.status ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.status}</p> : null}
                   </div>
                 </div>
                 <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
@@ -236,9 +244,9 @@ export default function AssetSetComponent() {
                     <label className="block mb-2 ml-1 text-sm">Label Code</label>
                     <input
                       type='text'
-                      // onInput={handleInputChange}
-                      // onChange={formik.handleChange}
-                      // value={newItem.qty}
+                      onInput={handleInputChange}
+                      onChange={formik.handleChange}
+                      value={newData.labelCode}
                       name="qty"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter label code'
@@ -248,9 +256,9 @@ export default function AssetSetComponent() {
                     <label className="block mb-2 ml-1 text-sm">Serial Code</label>
                     <input
                       type='text'
-                      // onInput={handleInputChange}
-                      // onChange={formik.handleChange}
-                      // value={newItem.unitPrice}
+                      onInput={handleInputChange}
+                      onChange={formik.handleChange}
+                      value={newData.serialCode}
                       name="unitPrice"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter serial code'
@@ -262,9 +270,9 @@ export default function AssetSetComponent() {
                     <label className="block mb-2 ml-1 text-sm">Owner</label>
                     <input
                       type='text'
-                      // onInput={handleInputChange}
-                      // onChange={formik.handleChange}
-                      // value={newItem.qty}
+                      onInput={handleInputChange}
+                      onChange={formik.handleChange}
+                      value={newData.owner}
                       name="owner"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter owner'
@@ -323,13 +331,12 @@ export default function AssetSetComponent() {
                         </div>
                       </Combobox>
                     </div>
-                    {/* {formik.touched.normalCategoryId && formik.errors?.normalCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.normalCategoryId}</p> : null} */}
                   </div>
                 </div>
                 <div className="flex w-full gap-x-6 gap-y-3 flex-col lg:flex-row my-3">
                   <div className='text-left w-full'>
                     <label className="block mb-2 ml-1 text-sm">Description</label>
-                    <textarea name="description" rows="5" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none" placeholder="Enter description"></textarea>
+                    <textarea name="description" value={newData.description} onInput={handleInputChange} rows="5" className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none" placeholder="Enter description"></textarea>
                   </div>
                 </div>
               </section>
@@ -340,8 +347,15 @@ export default function AssetSetComponent() {
                 <div className='w-full shadow p-5 rounded-md mb-1 relative mx-auto'>
                   <div className='py-2 block justify-center text-center rounded-lg'>
                     <div className='w-full min-h-[20rem] flex p-5 relative'>
-                      {
-                        <img className="block m-auto h-56" src={placeholder} />
+                      {image != null ?
+                        <img className="block m-auto h-56" src={FileUploadService.getImage(image)} />
+                        :
+                        <>
+                          <div>
+                            <img className="block m-auto h-56" src={placeholder} />
+                            <h1 className="text-md">No Image</h1>
+                          </div>
+                        </>
                       }
                     </div>
                   </div>
