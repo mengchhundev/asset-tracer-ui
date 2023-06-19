@@ -8,10 +8,14 @@ import { RiCloseFill } from 'react-icons/ri';
 import { FiSave } from 'react-icons/fi';
 import FileUploadService from '../../../../redux/services/FileUploadService';
 import RoomService from '../../../../redux/services/RoomService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRooms } from "../../../../redux/slices/RoomSlice";
 
 export default function RoomAddComponent({ handleIsCreateSuccess }) {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const orgId = organization.id
+    let getAllRooms = useSelector((state) => state.room.rooms)
+    const dispatch = useDispatch()
 
     // Upload file
     let formData = new FormData()
@@ -55,6 +59,10 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                                 image: "",
                                 organizationId: orgId
                             })
+                            let data = [...getAllRooms]
+                            data.pop()
+                            data.unshift(res.data.payload)
+                            dispatch(setRooms(data))
                         }
                     })
                 }
@@ -63,6 +71,7 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
             RoomService.addRoom(newData).then(res => {
                 if (res.data.success) {
                     if (res.data.success) {
+
                         handleIsCreateSuccess(true)
                         document.getElementById("create-room").click()
                         setSelectedFile("")
@@ -74,6 +83,10 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                             image: "",
                             organizationId: orgId
                         })
+                        let data = [...getAllRooms]
+                        data.pop()
+                        data.unshift(res.data.payload)
+                        dispatch(setRooms(data))
                     }
                 }
             })

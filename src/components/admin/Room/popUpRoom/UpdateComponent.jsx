@@ -55,11 +55,11 @@ function UpdateComponent(props) {
     console.log("data", data);
 
     const getAllRoom = () => {
-        RoomService.getAllRoom(orgId).then((res) => {
-            if (res?.data?.success) {
-                dispatch(setAllRoom(res.data.payload));
-            }
-        });
+        // RoomService.getAllRoom(orgId).then((res) => {
+        //     if (res?.data?.success) {
+        //         dispatch(setAllRoom(res.data.payload));
+        //     }
+        // });
     };
 
     const [defultImage, setDefultImage] = useState('');

@@ -95,14 +95,14 @@ export default function RoomComponent() {
 
         setPageCount(Math.ceil(totalRow / 8));
 
-        setIsCreateSuccess(false)
-        setIsUpdateSuccess(false)
+    }, [itemName, selectedSort, totalRow])
 
-    }, [itemName, selectedSort, totalRow, isCreateSuccess])
+    useEffect(() => {
+        setIsCreateSuccess(false)
+    }, [isCreateSuccess])
 
     useEffect(() => {
         handleGetAllRooms(selectedPage, itemName, selectedSort)
-        setIsCreateSuccess(false)
         setIsUpdateSuccess(false)
     }, [isUpdateSuccess, roomId])
 
