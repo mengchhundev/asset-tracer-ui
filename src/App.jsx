@@ -33,6 +33,7 @@ import AddInvoiceComponent from './components/admin/invoice/AddInvoiceComponent'
 import AssetSetComponent from './components/admin/asset/AssetSetComponent'
 import { useSelector } from 'react-redux'
 import AssetUpdateComponent from './components/admin/asset/AssetUpdateComponent'
+import RoomComponent from './components/admin/Room/RoomComponent'
 
 function App() {
   const { pathname } = useLocation();
@@ -92,7 +93,8 @@ function App() {
             <Route path='/user-request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent />} />
 
-            <Route path='/room' element={<RoomListComponent />}></Route>
+            <Route path='/room-list' element={<RoomListComponent />}></Route>
+            <Route path='/room' element={<RoomComponent />}></Route>
             <Route path='/notification' element={<NotificationComponent />} />
 
           </Route>

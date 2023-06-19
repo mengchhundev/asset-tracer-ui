@@ -61,9 +61,10 @@ export default function AssetComponent() {
   }
 
   // pagination
-  const [pageCount, setPageCount] = useState(4);
+  const [pageCount, setPageCount] = useState(1);
 
   const handlePageClick = (event) => {
+    console.log(event.selected)
     setSelectedPage(event.selected + 1)
     setI(event.selected * 8 + 1);
     handleGetAllItems(event.selected + 1, itemName, selectedSort)
@@ -71,7 +72,6 @@ export default function AssetComponent() {
 
   useEffect(() => {
     if (itemName != null || selectedSort != null) {
-      setSelectedPage(1)
       handleGetAllItems(selectedPage, itemName, selectedSort)
     }
 
@@ -270,7 +270,7 @@ export default function AssetComponent() {
                       </td>
                       <td className="py-3 font-sp-pro-text-semibold">{list.qty}</td>
                       <td className="py-3 text-accept">{dollarUS.format(list.unitPrice)}</td>
-                      <td className="py-3">{list.invoiceCode != null && <span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span>}</td>
+                      <td className="py-3">{list.invoiceCode != null ? <span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span> : <span className="px-3 py-1 bg-custom-midnight-blue rounded-md text-white">Normal</span>}</td>
                       <td className="py-3">{moment(list.createdAt).format("MMM DD YYYY")}</td>
                       <td>
                         <div className="flex flex-rol space-x-3 items-center justify-center">

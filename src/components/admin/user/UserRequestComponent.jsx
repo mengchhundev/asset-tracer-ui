@@ -101,10 +101,10 @@ export default function UserRequestComponent() {
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
             <h2 className="text-2xl font-sp-pro-text-semibold">
-              All <span className="text-pending">User</span> Management
+              All <span className="text-pending">Requested User</span> Management
             </h2>
             <p className="font-sp-pro-text-regular text-sm text-green">
-              Active Users
+              Requested User
             </p>
           </div>
           {/* search */}
@@ -213,7 +213,7 @@ export default function UserRequestComponent() {
             <div className='text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center'>
               <div className='mt-[-6rem]'>
                 {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
-                <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Reqeusted User</h2>
+                <h2 className='text-2xl text-gray font-sp-pro-text-bold '>No Requested Users</h2>
               </div>
             </div>
           </>}
