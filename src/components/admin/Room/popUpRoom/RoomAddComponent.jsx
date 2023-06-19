@@ -4,13 +4,9 @@ import upload_placeholder from '../../../../assets/images/placeholder/upload_pla
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import OrganizationService from '../../../../redux/services/OrganizationService';
-import { useNavigate } from 'react-router';
 import { RiCloseFill } from 'react-icons/ri';
 import { FiSave } from 'react-icons/fi';
 import FileUploadService from '../../../../redux/services/FileUploadService';
-import { useDispatch, useSelector } from 'react-redux';
-import { setItem } from '../../../../redux/slices/OrganizationSlice';
 import RoomService from '../../../../redux/services/RoomService';
 
 export default function RoomAddComponent({ handleIsCreateSuccess }) {
