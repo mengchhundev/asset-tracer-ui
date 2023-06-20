@@ -39,7 +39,7 @@ export default function AboutPageComponent() {
           <img
             src={bgTre}
             alt=""
-            className="hidden lg:block w-[25px] h-[25px] absolute 3xl:top-[320px] 2xl:top-[280px] xl:top-[240px] top-[240px] 3xl:left-24 2xl:left-20 xl:left-16 left-16 "
+            className="hidden xl:block w-[25px] h-[25px] absolute 3xl:top-[320px] 2xl:top-[280px] xl:top-[240px] top-[240px] 3xl:left-24 2xl:left-20 xl:left-16 left-16 "
           />
         </div>
         <div className="w-[90%] mx-auto">
@@ -128,11 +128,6 @@ export default function AboutPageComponent() {
             alt=""
             className="w-[50px] absolute top-[8%] left-[7%]"
           />
-          <img
-            src={Eclipeabout}
-            alt=""
-            className="w-[70px] absolute bottom-[10%] left-[16%] hidden lg:block"
-          />
         </div>
         <div className="w-[80%] mx-auto ">
           <div className=" text-center text-text-color py-10">
@@ -147,7 +142,7 @@ export default function AboutPageComponent() {
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
             <div className="grid-cols-6 ">
-              <div className="mb-3 mx-auto text-text-color w-[300px] shadow-2xl shadow-gray-light 3xl:ml-[400px] 2xl:ml-[290px] xl:ml-[150px] lg:ml-[80px] md:ml-[0px] sm:ml-[10px] ml-[3px] ">
+              <div className="mb-3 mx-auto text-text-color w-[300px] shadow-2xl shadow-gray-light 3xl:ml-[400px] 2xl:ml-[230px] xl:ml-[150px] lg:ml-[60px] md:ml-[0px] sm:ml-[105px] ml-[3px] ">
                 <div
                   href="#"
                   className="block text-left px-8 py-4 bg-white border border-gray-light rounded-lg shadow w-[300px] h-[270px]"
@@ -164,7 +159,7 @@ export default function AboutPageComponent() {
             </div>
             <div className="grid-cols-6">
               <div className="pb-[80px]">
-                <div className="mb-3 mx-auto text-text-color w-[300px] shadow-2xl shadow-gray-light 3xl:ml-[60px] 2xl:ml-[50px] xl:ml-[30px] lg:mr-[80px] md:mr-[0px] sm:mr-[10px] ml-[3px] ">
+                <div className="mb-3 mx-auto text-text-color w-[300px] shadow-2xl shadow-gray-light 3xl:ml-[60px] 2xl:ml-[80px] xl:ml-[70px] lg:ml-[50px] md:ml-[0px] sm:ml-[105px] ml-[3px] ">
                   <div
                     href="#"
                     className="block text-left px-8 py-4 bg-white border border-gray-light rounded-lg shadow w-[300px] h-[270px]"
@@ -188,7 +183,7 @@ export default function AboutPageComponent() {
 
       {/* Our Team Member */}
 
-      <div className="bg-bg-pink relative">
+      <div className="bg-bg-pink relative" id="team">
         <div>
           <img
             src={Bgleftourteam}

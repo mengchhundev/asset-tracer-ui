@@ -38,6 +38,7 @@
     "react-paginate": "^8.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.0",
+    "react-scroll": "^1.8.9",
     "react-spinners": "^0.13.8",
     "react-tailwindcss-select": "^1.8.5",
     "uuidv4": "^6.2.13",

@@ -36,11 +36,11 @@ export default function FooterComponent() {
               </li>
             </ul>
 
-            <ul className="flex flex-wrap ml-[30px] items-center mb-8 lg:mb-0 md:mb-8 sm:mb-8 text-sm font-medium ">
+            <ul className="flex flex-wrap md:ml-[10px] sm:ml-[60px] ml-[0px] items-center mb-8 lg:mb-0 md:mb-8 sm:mb-8 text-sm font-medium ">
               <li>
                 <div
                   href="#"
-                  className="mr-4 mb-3 lg:mb-0 md:mb-0 sm:mb-3 lg:ml-0 md:ml-[120px] text-xl font-medium text-text-color "
+                  className="mr-4 mb-3 lg:mb-0 md:mb-0 sm:mb-3 lg:ml-0 md:ml-[120px] text-xl font-medium text-text-color"
                 >
                   Get Newsletter
                 </div>

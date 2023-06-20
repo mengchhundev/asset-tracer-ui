@@ -35,10 +35,10 @@ export default function () {
       <main id='Home'>
       <NavbarComponent />
       <div className="bg-bg-pink pt-[90px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-1 ">
-          <div className="text-left md:col-span-6 3xl:mt-[55px] 2xl:mt-[60px] xl:mt-14 md:mt-[45px] mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-12 ">
+          <div className="text-left md:col-span-6 sm:col-span-6 3xl:mt-[55px] 2xl:mt-[60px] xl:mt-14 md:mt-[45px] mt-4">
             <div className="w-[90%] 3xl:ml-[250px] 2xl:ml-[220px] xl:ml-[170px] lg:ml-[140px] md:ml-[30px] sm:ml-[40px] ml-6">
-              <div className="3xl:text-[65px] 2xl:text-[55px] xl:text-5xl lg:text-4xl md:text-3xl text-3xl my-3 font-sp-pro-text-bold text-text-color">
+              <div className="3xl:text-[65px] 2xl:text-[55px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-3xl text-3xl my-3 font-sp-pro-text-bold text-text-color">
                 Make assets
                 <div className="my-2">tracking</div>
                 <div>
@@ -70,17 +70,17 @@ export default function () {
             <img
               src={Send}
               alt=""
-              className="hidden lg:block absolute top-[100px] lg:ml-[80px] w-[45px] md:ml-[60px] sm:ml-[50px]"
+              className="hidden md:block absolute lg:top-[90px] md:top-[85px] top-[120px] lg:ml-[50px] w-[45px] md:ml-[40px] sm:ml-[50px]"
             />
             <img
               src={Icon}
               alt=""
-              className=" hidden lg:block absolute 3xl:top-[360px] 2xl:top-[320px] lg:top-[273px] w-[48px] 3xl:ml-0 2xl:-ml-6 xl:-ml-5 lg:-ml-5 -ml-5"
+              className=" hidden xl:block absolute 3xl:top-[360px] 2xl:top-[335px] lg:top-[273px] w-[48px] 3xl:ml-0 2xl:-ml-6 xl:-ml-5 lg:-ml-5 -ml-5"
             />
 
             <div
               href="#"
-              className=" hidden lg:block absolute 3xl:ml-[20px] z-30 px-3 py-2 bg-white border border-white rounded-xl 3xl:top-[380px] 2xl:top-[340px] xl:top-[300px] 3xl:w-[230px] xl:w-[190px] w-[190px] 3xl:h-[120px] xl:h-[100px] h-[100px]"
+              className=" hidden xl:block absolute 3xl:ml-[20px] z-30 px-3 py-2 bg-white border border-white rounded-xl 3xl:top-[380px] 2xl:top-[360px] xl:top-[300px] 3xl:w-[230px] xl:w-[190px] w-[190px] 3xl:h-[120px] xl:h-[100px] h-[100px]"
             >
               <ul className=" text-text-color list-inside ">
                 <li className="flex items-center">
@@ -105,17 +105,17 @@ export default function () {
             <img
               src={Grouplanding}
               alt=""
-              className="absolute hidden sm:block 3xl:w-[670px] 2xl:w-[520px] xl:w-[455px] xl:top-[248px] lg:top-[228px]  md:top-[215px]  top-[228px] lg:ml-[40px] md:-ml-[20px] sm:-ml-[5px]"
+              className="absolute hidden sm:block 3xl:w-[670px] 2xl:w-[550px] xl:w-[455px] sm:w-[455px] 2xl:top-[260px] xl:top-[248px] lg:top-[200px]  md:top-[215px] sm:top-[233px] top-[228px] xl:ml-[40px] lg:-ml-[60px] md:-ml-[20px] sm:-ml-[25px]"
             />
             <img
               src={Peoplelanding}
               alt=""
-              className=" 3xl:w-[421px] 2xl:w-[370px] xl:w-[348px] md:w-[297px] z-10 absolute top-[10px] ml-[100px] hidden md:block 3xl:ml-[170px] xl:ml-[120px] lg:ml-[100px] md:ml-[30px] sm:-ml-[5px]"
+              className=" 3xl:w-[421px] 2xl:w-[390px] xl:w-[348px] lg:w-[310px] md:w-[297px] sm:w-[290px] z-10 absolute top-[10px] ml-[100px] hidden sm:block 3xl:ml-[170px] xl:ml-[120px] lg:ml-[40px] md:ml-[30px] sm:ml-[15px]"
             />
           </div>
         </div>
         {/* Card under landing page */}
-        <div className="py-12 3xl:pt-12 xl:pt-16 pt-24 hidden lg:block">
+        <div className="py-12 lg:pt-12 pt-24 hidden lg:block">
           <div
             href="#"
             className=" 3xl:max-w-screen-lg 2xl:max-w-screen-lg max-w-screen-md mx-auto py-12 bg-white border border-border-gray-light rounded-lg shadow-md shadow-gray-light"
@@ -193,7 +193,7 @@ export default function () {
       </div>
       {/* FeatureComponent */}
 
-      <div className="bg-bg-feature py-0 relative" id='Feature'>
+      <div className="bg-bg-feature py-0 relative" id='feature'>
         <img src={Ellipseside} alt="" className="w-[200px] absolute hidden md:block" />
 
         <img
@@ -204,7 +204,7 @@ export default function () {
         <img
           src={Element}
           alt=""
-          className="absolute hidden lg:block 3xl:ml-[1400px] 2xl:ml-[1100px] xl:ml-[900px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
+          className="absolute hidden lg:block 3xl:ml-[1400px] 2xl:ml-[1200px] xl:ml-[980px] lg:ml-[720px] sm:ml-[500px] top-[50px] w-[120px]"
         />
         <div className="pt-[40px]">
           <div className="3xl:text-6xl 2xl:text-[53px] xl:text-5xl text-4xl font-sp-pro-text-bold text-text-color text-center">
@@ -220,7 +220,7 @@ export default function () {
         {/* Card */}
 
         <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[70%] mx-auto ">
-          <div className="mb-3 text-left text-text-color relative 3xl:ml-14 2xl:ml-5 xl:ml-0 md:-ml-[30px] sm:ml-[80px] -ml-3 ">
+          <div className="mb-3 text-left text-text-color relative 3xl:ml-14 2xl:ml-5 xl:ml-0 lg:-ml-[100px] md:-ml-[30px] sm:ml-[80px] -ml-3 ">
             <div
               href="#"
               className="block px-6 pb-6 bg-white border border-border-gray-light rounded-lg shadow-xl shadow-border-gray-light z-50 3xl:w-[350px] 2xl:w-[300px] w-[280px] h-[250px] "
@@ -235,7 +235,7 @@ export default function () {
               </p>
             </div>
           </div>
-          <div className="mb-3 text-text-color text-left 3xl:ml-10 2xl:ml-5 xl:ml-0 md:ml-[0px] sm:ml-[80px] -ml-3">
+          <div className="mb-3 text-text-color text-left 3xl:ml-10 2xl:ml-5 xl:ml-0 lg:-ml-[30px] md:ml-[0px] sm:ml-[80px] -ml-3">
             <div
               href="#"
               className="block 3xl:w-[350px] 2xl:w-[300px] w-[280px] h-[250px] px-6 pb-6 bg-white border border-border-gray-light rounded-lg shadow "
@@ -250,7 +250,7 @@ export default function () {
               </p>
             </div>
           </div>
-          <div className="mb-3 text-text-color text-left 2xl:ml-5 xl:ml-0 md:ml-[120px] sm:ml-[80px] -ml-3">
+          <div className="mb-3 text-text-color text-left 2xl:ml-5 xl:ml-0 lg:ml-[43px] md:ml-[120px] sm:ml-[80px] -ml-3">
             <div
               href="#"
               className="block 3xl:w-[350px] 2xl:w-[300px] w-[280px] h-[250px] px-6 pb-6 bg-white border border-border-gray-light rounded-lg shadow "
@@ -267,14 +267,14 @@ export default function () {
           </div>
         </div>
         {/* ++++++++++++++++++++++++++++++++++++++++   One Card  +++++++++++++++++++++++++++++++++++++++++++ */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 py-[100px]">
+        <div className="grid grid-cols-1 xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 py-[100px] lg:mt-3 md:-mt-12 sm:-mt-[50px] -mt-[50px]">
           <div className="col-span-5 ">
             <img
               src={Ellipse}
               alt=""
               className="absolute top-[890px] w-[30px] ml-[12%] hidden lg:block"
             />
-            <div className="w-[70%] ml-8 3xl:mx-[50%] 2xl:mx-[45%] xl:mx-[40%] lg:mx-[40%] md:mx-auto sm:mx-auto">
+            <div className="w-[70%] lg:ml-24 ml-10 3xl:mx-[50%] 2xl:mx-[45%] xl:mx-[40%] lg:mx-[40%] md:mx-auto sm:mx-auto sm:text-center">
               <div className="text-left 3xl:text-5xl 2xl:text-5xl xl:text-4xl lg:text-3xl text-3xl font-sp-pro-text-bold text-text-color">
                 What people say
                 <div className="text-pending 3xl:my-2 xl:my-1 lg:my-2 my-2">about us.</div>
@@ -290,16 +290,16 @@ export default function () {
             <img
               src={Elementleft}
               alt=""
-              className="absolute -top-[100px] w-[120px] 3xl:ml-[600px] xl:ml-[480px] z-40 hidden lg:block"
+              className="absolute -top-[100px] w-[120px] 3xl:ml-[600px] 2xl:ml-[500px] xl:ml-[450px] lg:ml-[400px] z-40 hidden lg:block"
             />
             <div className="relative">
               <img
                 src={Image}
                 alt=""
-                className="absolute -top-[20px] w-[50px] 3xl:ml-[225px] 2xl:ml-[180px] ml-[130px] z-40 hidden md:block"
+                className="absolute -top-[20px] w-[50px] 3xl:ml-[225px] 2xl:ml-[180px] xl:ml-[100px] lg:ml-[60px] ml-[130px] z-40 hidden md:block"
               />
 
-              <div className="mb-3 text-left text-text-color 3xl:ml-[250px] 2xl:ml-[200px] xl:ml-[150px] md:ml-[150px] sm:ml-[100px]  ml-9 relative z-20 ">
+              <div className="mb-3 text-left text-text-color 3xl:ml-[250px] 2xl:ml-[200px] xl:ml-[120px] lg:ml-[80px] md:ml-[150px] sm:ml-[100px]  ml-9 relative z-20 ">
                 <div
                   href="#"
                   className="block px-6 py-6  lg:w-[390px] md:w-[385px] sm:w-[385px] w-[300px] lg:h-[250px] md:h-[260px] sm:h-[240px] h-[250px] bg-white border border-border-gray-light rounded-lg shadow-2xl shadow-[#cbc6c6] "
@@ -317,7 +317,7 @@ export default function () {
                 </div>
               </div>
 
-              <div className="mb-3 text-left text-text-color top-[70px] ml-[190px] 3xl:ml-[295px] 2xl:ml-[240px] lg:ml-[185px] md:ml-[190px] sm:ml-[140px] absolute">
+              <div className="mb-3 text-left text-text-color top-[70px] ml-[190px] 3xl:ml-[295px] 2xl:ml-[240px] xl:ml-[160px] lg:ml-[120px] md:ml-[190px] sm:ml-[140px] absolute">
                 <div
                   href="#"
                   className=" hidden sm:block px-6 py-6 bg-[#F7F8FC] w-[390px] h-[240px] border border-border-gray-light rounded-lg shadow "
@@ -346,7 +346,7 @@ export default function () {
 
       {/* BenefitComponent */}
 
-      <div className="bg-bg-pink relative py-8 3xl:h-[950px] 2xl:h-[880px] xl:h-[780px] h-[770px]" id='Benefits'>
+      <div className="bg-bg-pink relative py-8 3xl:h-[950px] 2xl:h-[880px] xl:h-[780px] h-[770px]" id='benefit'>
         <div>
           <img
             src={Ellipsesidebenefit}
@@ -385,7 +385,7 @@ export default function () {
 
         <div className="w-[65%] h-[650px] mx-auto mt-5 relative">
           <div className="relative">
-            <div className="lg:w-[60%] md:w-[80%] sm:w-[90%] w-[80%] h-[150px] absolute z-10 m-auto left-0 right-0 xl:left-0 xl:right-0 2xl:left-[90px] top-[80px]">
+            <div className="lg:w-[60%] md:w-[80%] sm:w-[90%] w-[80%] h-[150px] absolute z-10 m-auto left-0 right-0 xl:left-16 md:left-[10px] sm:left-[90px] md:top-[80px] sm:top-[50px] top-[60px]">
               <div className="grid grid-cols-1 sm:grid-cols-12">
                 <div className="col-span-6">
                   <div className="">
@@ -466,7 +466,7 @@ export default function () {
           </div>
 
           <div className="">
-            <div className="lg:w-[60%] md:w-[80%] sm:w-[90%] w-[80%] h-[150px] absolute z-20 m-auto left-0 right-0 xl:left-0 xl:right-0 2xl:left-[90px] 3xl:top-[470px] 2xl:top-[440px] xl:top-[380px] top-[380px]">
+            <div className="lg:w-[60%] md:w-[80%] sm:w-[90%] w-[80%] h-[150px] absolute z-20 m-auto left-0 right-0 xl:left-16 md:left-[20px] sm:left-[100px] 3xl:top-[470px] 2xl:top-[440px] md:top-[380px] sm:top-[350px] top-[380px]">
               <div className="grid grid-cols-1 sm:grid-cols-12">
                 <div className="col-span-6">
                   <div className="mb-2 text-lg font-semibold text-text-color ">
@@ -533,22 +533,22 @@ export default function () {
       </div>
 
       <div className="bg-[#F4F4F4] relative py-16 pb-24">
-        <div className="grid 3xl:grid-cols-12 xl:grid-cols-12 lg:grid-cols-1 md:grid-cols-1 ">
+        <div className="grid 3xl:grid-cols-12 xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-1 ">
           <div className="col-span-7 ">
-            <div className="hidden lg:block 3xl:w-[75%] 2xl:w-[85%] xl:w-[95%] w-[95%] h-[315px] xl:h-[315px] 3xl:h-[375px] 2xl:h-[340px] mx-auto bg-white 3xl:ml-[160px] 2xl:ml-[120px] md:ml-[50px] relative">
+            <div className="hidden lg:block 3xl:w-[75%] 2xl:w-[85%] xl:w-[95%] lg:w-[95%] w-[95%] h-[315px] xl:h-[315px] 3xl:h-[375px] 2xl:h-[340px] mx-auto bg-white 3xl:ml-[160px] 2xl:ml-[120px] xl:ml-[90px] md:ml-[50px] relative">
               <div className="order-1 relative">
                 <img
                   src={girlimage}
                   alt=""
-                  className="absolute 3xl:w-[650px] 2xl:w-[600px] xl:w-[550px] w-[550px] justify top-0 right-[80px] xl:right-[80px] 3xl:right-[100px]"
+                  className="absolute 3xl:w-[650px] 2xl:w-[600px] xl:w-[550px] w-[550px] justify top-0 ml-0 lg:-ml-16 xl:ml-0"
                 />
               </div>
             </div>
           </div>
           <div className="col-span-5 ">
-            <div className=" 3xl:w-[750px] 2xl:w-[550px] xl:w-[475px] lg:w-[475px] md:w-[690px] sm:w-[570px] w-[370px] 3xl:h-[375px] 2xl:h-[340px] lg:h-[315px] md:h-[315px] sm:h-[315px] h-[350px] mx-auto bg-white relative 3xl:-ml-[125px] 2xl:-ml-[30px] xl:-ml-[0px]">
-              <div className="mx-auto lg:ml-0 md:ml-14 sm:ml-14 ml-8">
-                <div className="3xl:text-4xl text-3xl 3xl:w-[600px] 2xl:w-[500px] xl:w-[100%] md:w-[100%] sm:w-[100%] w-[100%] text-left font-sp-pro-text-bold text-text-color 3xl:pt-[65px] 2xl:pt-[70px] xl:pt-[45px] pt-[45px] ">
+            <div className=" 3xl:w-[750px] 2xl:w-[550px] xl:w-[475px] lg:w-[475px] md:w-[690px] sm:w-[570px] w-[370px] 3xl:h-[375px] 2xl:h-[340px] lg:h-[315px] md:h-[315px] sm:h-[315px] h-[350px] mx-auto bg-white relative 3xl:-ml-[125px] 2xl:-ml-[30px] xl:-ml-[40px] lg:-ml-[70px] sm:ml-[35px]">
+              <div className="mx-auto lg:ml-0 md:ml-16 sm:ml-9 ml-8">
+                <div className="3xl:text-4xl text-3xl 3xl:w-[600px] 2xl:w-[500px] xl:w-[100%] md:w-[100%] sm:w-[100%] w-[100%] text-left font-sp-pro-text-bold text-text-color 3xl:pt-[65px] 2xl:pt-[70px] md:pt-[45px] xl:pt-[45px] pt-[45px] ">
                   Create your accounted today and get started for free!
                 </div>
                 <div className="text-text-color py-3 text-left 3xl:text-lg text-base">
@@ -562,7 +562,7 @@ export default function () {
               </div>
 
               <div className="w-full flex flex-col md:flex-row py-3">
-                <div className="lg:ml-0 md:ml-[55px] sm:-ml-[150px] ml-[40px]">
+                <div className="lg:ml-0 md:ml-[55px] sm:ml-[30px] ml-[40px]">
                   <NavLink
                     to="/signup"
                     type="button"

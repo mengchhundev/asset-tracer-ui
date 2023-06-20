@@ -21,7 +21,7 @@ export default function ContactComponent() {
 
           <div className=" col-span-6">
             <div className="lg:ml-0 md:ml-[100px] sm:ml-[60px] ml-[25px]">
-              <div className="mr-20 ">
+              <div className=" ">
                 <div className=" w-[80%] text-text-color text-left">
                   <p className="font-sp-pro-text-regular 3xl:text-base xl:text-sm text-sm mt-14">
                     CONTECT US
@@ -68,9 +68,9 @@ export default function ContactComponent() {
                 </div>
                 <button
                   type="message"
-                  className="lg:mr-[400px] md:mr-[450px] sm:mr-[350px] mr-[250px] py-2.5 px-6 rounded-md text-white bg-pending hover:bg-hover-yellow font-medium 2xl:text-base xl:text-sm text-sm text-center shadow-lg shadow-shadow "
+                  className="lg:mr-[350px] md:mr-[450px] sm:mr-[350px] mr-[200px] py-2.5 px-6 rounded-md text-white bg-pending hover:bg-hover-yellow font-medium 2xl:text-base xl:text-sm text-sm text-center shadow-lg shadow-shadow "
                 >
-                  <div className="2xl:w-[200px] xl:w-[150px] w-[90px]">
+                  <div className="2xl:w-[150px] xl:w-[150px] lg:w-[100px] md:w-[100px] sm:w-[100px] w-[100px]">
                     Send Massage
                   </div>
                 </button>
@@ -88,7 +88,7 @@ export default function ContactComponent() {
                   <div className=" flex justify-between  ">
                     <div className=" md:w-[50%] sm:w-[60%] h-[130px] lg:mx-0 md:mx-0 sm:mx-auto mx-auto">
                       <img src={Location} alt="Contact Picture" className="w-[50px] mx-auto mb-5" />
-                      <div className="3xl:ml-[80px] 2xl:ml-[20px] xl:ml-0 ml-0 lg:text-left md:text-left sm:text-center text-center text-md font-sp-pro-text-regular text-text-color">
+                      <div className="3xl:ml-[80px] 2xl:ml-[20px] xl:ml-6 md:ml-6 ml-0 lg:text-left md:text-left sm:text-center text-center text-md font-sp-pro-text-regular text-text-color">
                         Address:#12, st323, Sangkat
                         <div>Boeung Kak II, Khan Toul Kork,</div>
                         <div>Phnom Penh, Cambodia</div>
@@ -96,7 +96,7 @@ export default function ContactComponent() {
                     </div>
                     <div className="w-[60%] hidden md:block h-[130px] mb-8 lg:mb-0 md:mb-0 sm:mb-8">
                       <img src={email} alt="Contact Picture" className="w-[50px] mx-auto mb-5" />
-                      <div className="text-md font-sp-pro-text-regular text-text-color 3xl:ml-[80px] 2xl:ml-[20px] xl:ml-0 ml-0">
+                      <div className="text-md font-sp-pro-text-regular text-text-color 3xl:ml-[80px] 2xl:ml-[20px] xl:ml-7 md:ml-8 ml-0">
                         Email: <span className="text-blue-light">assettracerteam@gamil.com</span>
                       </div>
                     </div>
@@ -111,7 +111,7 @@ export default function ContactComponent() {
                   <div className=" flex justify-between  ">
                     <div className="hidden md:block w-[40%] h-[130px]">
                       <img src={Phone} alt="Contact Picture" className="w-[50px] mx-auto mb-5" />
-                      <div className="3xl:ml-[70px] 2xl:ml-[10px]  xl:ml-0 ml-0">
+                      <div className="3xl:ml-[70px] 2xl:ml-[10px]  xl:ml-3 ml-0">
                         <div className="text-md font-sp-pro-text-regular text-text-color">
                           Tel::<span className="text-blue-light">12 9989 19 ( khmer )</span>
                         </div>
@@ -120,8 +120,8 @@ export default function ContactComponent() {
                         </div>
                       </div>
                     </div>
-                    <div className="hidden md:block w-[40%] h-[130px] mb-10">
-                      <img src={facebook} alt="Contact Picture" className="w-[50px] mx-auto mb-5" />
+                    <div className="hidden md:block w-[40%] h-[130px] mb-10 ">
+                      <img src={facebook} alt="Contact Picture" className="w-[50px] mx-auto mb-5 ml-12" />
                       <div className="text-md font-sp-pro-text-regular text-text-color 3xl:ml-[80px] 2xl:ml-[20px] xl:ml-0 ml-0">
                         Facebook : <span className="text-gray">Asset Tracer</span>
                       </div>

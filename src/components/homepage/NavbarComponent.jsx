@@ -10,6 +10,7 @@ import { FaHandHoldingUsd } from "react-icons/fa";
 import { GiTeamIdea } from "react-icons/gi";
 import { BsPeopleFill } from "react-icons/bs";
 import { VscSignIn } from "react-icons/vsc";
+import { Link as Link2 } from 'react-scroll';
 
 let token = localStorage.getItem("token");
 const PAGES = ["Home", "Feature", "Benefits", "Our Team", "About Us"];
@@ -52,7 +53,7 @@ export default function NavbarComponent() {
                         <div className="items-center inline-flex gap-4 ">
                           <MdFeaturedPlayList className='h-7 w-7 text-yellow opacity-80' />
                           <div className="block py-5 text-textblack mx-auto">
-                            Feature
+                          <Link2 activeClass="active" to="feature" spy={true} smooth={true} offset={-80} duration={500} className='hover:cursor-pointer'>Feature</Link2>
                           </div>
                         </div>
                       </li>
@@ -60,7 +61,7 @@ export default function NavbarComponent() {
                         <div className="items-center inline-flex gap-4 ">
                           <FaHandHoldingUsd className='h-7 w-7 text-yellow opacity-80' />
                           <div className="block py-5 text-textblack mx-auto">
-                            Benefits
+                          <Link2 activeClass="active" to="benefit" spy={true} smooth={true} offset={-80} duration={500} className='hover:cursor-pointer'>Benefits</Link2>
                           </div>
                         </div>
                       </li>
@@ -68,7 +69,7 @@ export default function NavbarComponent() {
                         <div className="items-center inline-flex gap-4 ">
                           <GiTeamIdea className='h-7 w-7 text-yellow opacity-90' />
                           <div className="block py-5 text-textblack mx-auto">
-                            Our Team
+                          <Link2 activeClass="active" to="team" spy={true} smooth={true} offset={-80} duration={500} className='hover:cursor-pointer'>Our Team</Link2>
                           </div>
                         </div>
                       </li>
@@ -82,13 +83,6 @@ export default function NavbarComponent() {
                       </li>
                     </ul>
                     </div>              
-                  {/* <NavLink
-                    to={`${token ? "organization" : "/signin"}`}
-                    type="button"
-                    className="text-yellow rounded-lg bg-secondary-yellow bg-opacity-30 font-medium text-md px-[80px] py-2 text-center hover:bg-hover-yellow hover:bg-opacity-40 shadow-sm shadow-shadow border-2 border-yellow"
-                  >
-                    Sign In
-                  </NavLink> */}
                   <div className=''>
                   <NavLink
                     to={`${token ? "organization" : "/signin"}`}
@@ -108,6 +102,7 @@ export default function NavbarComponent() {
             </>
           ) : (
             <>
+            {/* Biger Navbar */}
               <div className='mx-auto text-text-color text-[16px] font-sp-pro-text-medium flex gap-x-14'
                 value={value}
                 onChange={(e, value) => setValue(value)}
@@ -125,17 +120,17 @@ export default function NavbarComponent() {
                       </li>
                       <li>
                         <div href="#" className="block py-2 px-3 text-textblack ">
-                          Feature
+                        <Link2 activeClass="active" to="feature" spy={true} smooth={true} offset={-80} duration={500} className='hover:cursor-pointer'>Feature</Link2>
                         </div>
                       </li>
                       <li>
                         <div href="#" className="block py-2 px-3 text-textblack ">
-                          Benefits
+                        <Link2 activeClass="active" to="benefit" spy={true} smooth={true} offset={-80} duration={500} className='hover:cursor-pointer'>Benefits</Link2>
                         </div>
                       </li>
                       <li>
                         <div href="#" className="block py-2 px-3 text-textblack ">
-                          Our team
+                        <Link2 activeClass="active" to="team" spy={true} smooth={true} offset={-60} duration={500} className='hover:cursor-pointer'>Our Team</Link2>
                         </div>
                       </li>
                       <li>
