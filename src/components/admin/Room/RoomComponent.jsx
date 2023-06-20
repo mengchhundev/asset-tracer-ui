@@ -102,14 +102,7 @@ export default function RoomComponent() {
         setI(1)
         handleGetAllRooms()
         setIsCreateSuccess(false)
-        setIsUpdateSuccess(false)
-    }, [itemName, selectedSort, totalRow, isCreateSuccess, isUpdateSuccess])
-
-    const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
-
-    const handleDeleteSuccess = (val) => {
-        setIsDeleteSuccess(val)
-    }
+    }, [isCreateSuccess])
 
     useEffect(() => {
         handleGetAllRooms(selectedPage, itemName, selectedSort)
