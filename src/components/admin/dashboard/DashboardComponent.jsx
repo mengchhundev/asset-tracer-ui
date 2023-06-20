@@ -9,44 +9,104 @@ import { useLocation } from "react-router-dom";
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardService from "../../../redux/services/DashboardService";
-import { setTotalItems } from "../../../redux/slices/DashboardSlice";
-
+import { setTotalInvoices, setTotalItems, setTotalRooms, setTotalUsers } from "../../../redux/slices/DashboardSlice";
+import { useEffect } from "react";
+import { useState } from "react";
 export default function DashboardComponent() {
   
-  // const CurrentOrg = JSON.parse(sessionStorage.getItem("organization"));
-  // var orgId = CurrentOrg;
+  const CurrentOrg = JSON.parse(sessionStorage.getItem("organization"));
+
   // const itemsDetail = useSelector((state) => state.items.itemsDetail)
-  // const dispath = useDispatch();
-  // const getTotalAssetInOrg = () => {
-  //   DashboardService.getTotalAssetInOrg(orgId).then(
-  //     (res) => {
-  //       if(res.items?.success){
-  //         dispath(setTotalItems(res.items.payload));
-  //       }
-  //     },
-  //     (err) => {
-  //       dispath(setTotalItems([]));
-  //     } 
-  //   );
-  // };
+  const totalUsers = useSelector((state) => state.dashboard.data)
+  const totalItems = useSelector((state) => state.dashboard.items)
+  const totalRooms = useSelector((state) => state.dashboard.rooms)
+  const totalInvoice = useSelector((state) => state.dashboard.invoices)
+  const dispath = useDispatch();
+  
+  // ============ Get Total Users =============
+  const getTotalUserInOrg = () => {
+    DashboardService.getTotalUserInOrg(CurrentOrg.id).then(
+      (res) => {
+        if(res.data?.success){
+          dispath(setTotalUsers(res.data.payload));
+        }
+      },
+    );
+  };
+ 
+  // ============ Get Total Items =============
+  const getTotalItems = () => {
+    DashboardService.getTotalAssetInOrg(CurrentOrg.id).then(
+      (res) => {  
+        if(res.data?.payload){
+          dispath(setTotalItems(res.data.payload))
+        }
+      }
+    )
+  }
+  // ============ Get Total Rooms =============
+  const getTotalRooms = () => {
+    DashboardService.getTotalRoomInOrg(CurrentOrg.id).then(
+      (res) => {
+        if(res.data?.payload){
+          dispath(setTotalRooms(res.data.payload))
+        }
+      }
+    )
+  }
+  // ============ Get Total Invoices =============
+  const getTotalInvoices = ( ) => {
+    DashboardService.getTotalInvoiceInOrg(CurrentOrg.id).then(
+      (res) => {
+        console.log(res)
+        if(res.data?.payload){
+          dispath(setTotalInvoices(res.data.payload))
+        }
+      }
+    )
+  }
 
-  // useState(() => {
-  //   getTotalAssetInOrg();
-  // }, [])
+  
+  useEffect(() => {
+    DashboardService.getTotalAssetInOrg(CurrentOrg.id).then(
+      (res) => {
+        if(res.items?.payload){
+          dispath(setTotalItems(res.items.payload))
+        }
+      }
+    ),
 
-  // useEffect(() => {
-  //   DashboardService.getTotalAssetInOrg(orgId).then(
-  //     (res) => {
-  //       if(res.items?.success){
-  //         console.log(res.items.payload)
-  //         dispath(setTotalItems(res.items.payload));
-  //       }
-  //     },
-  //     (err) => {
-  //       dispath(setTotalItems([]));
-  //     } 
-  //   )
-  // })
+    DashboardService.getTotalUserInOrg(CurrentOrg.id).then(
+      (res) => {
+        if(res.data?.success){
+          dispath(setTotalUsers(res.data.payload));
+        }
+      },
+    ),
+    DashboardService.getTotalRoomInOrg(CurrentOrg.id).then(
+      (res) => {
+        if(res.rooms?.payload){
+         dispath( setTotalRooms(res.rooms.payload))
+        }
+      }
+    ),
+    DashboardService.getTotalInvoiceInOrg(CurrentOrg.id).then(
+      (res) => {
+        if(res.invoices?.payload){
+          dispath(setTotalInvoices(res.invoices.payload))
+        }
+      }
+    )
+  })
+ 
+  useState(() => {
+    getTotalUserInOrg();
+    getTotalItems();
+    getTotalRooms();
+    getTotalInvoices()  
+ 
+  }, [])
+
 
   return (
     <>
@@ -78,7 +138,7 @@ export default function DashboardComponent() {
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
                   <span className="text-lg font-sp-pro-text-bold text-text-color group-hover:text-white">
-                    1200
+                    {totalUsers}
                   </span>
                   <span className="text-[#5ec576] group-hover:text-white flex items-center">
                     + 14% <BiDownArrowAlt className="w-6 h-6" />
@@ -100,7 +160,7 @@ export default function DashboardComponent() {
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
                   <span className="text-lg font-sp-pro-text-bold text-text-color group-hover:text-white">
-                    1200
+                    {totalItems}
                   </span>
                   <span className="text-[#5ec576] group-hover:text-white flex items-center">
                     + 14% <BiDownArrowAlt className="w-6 h-6" />
@@ -120,7 +180,7 @@ export default function DashboardComponent() {
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
                   <span className="text-lg font-sp-pro-text-bold text-text-color  group-hover:text-white ">
-                    100
+                    {totalRooms}
                   </span>
                   <span className="text-[#ff585f]  group-hover:text-white   flex items-center">
                     + 36% <BiUpArrowAlt className="w-6 h-6" />
@@ -141,7 +201,7 @@ export default function DashboardComponent() {
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
                   <span className="text-lg font-sp-pro-text-bold text-text-color  group-hover:text-white ">
-                    33
+                    {totalInvoice}
                   </span>
                   <span className="text-blue-500  flex items-center ">
                     + 36% <BiUpArrowAlt className="w-6 h-6" />

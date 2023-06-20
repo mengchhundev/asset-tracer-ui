@@ -17,6 +17,9 @@ import { useNavigate } from "react-router-dom";
 
 const status = [
   { id: "in_stock", name: "In Stock" },
+  { id: "in_used", name: "In Used" },
+  { id: "damage", name: "Damage" },
+  { id: "donated", name: "Donated" },
 ]
 
 export default function AssetSetComponent() {
@@ -203,7 +206,7 @@ export default function AssetSetComponent() {
                               <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                 <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200 bg-bg-main rounded-md text-gray-800">
                                   {selectedStatus ? <span className="block truncate text-sm text-text-color">
-                                    {selectedStatus == "in_stock" ? "In Stock" : ""}
+                                  {selectedStatus == "in_stock" ? "In Stock" : selectedStatus == "in_used" ? "In Used" : selectedStatus == "damage" ? "Damage" : selectedStatus == "donated" ? "Donated" : ""}
                                   </span> : <span className="block truncate text-sm text-black text-opacity-20">Select status</span>}
 
                                   <span className="absolute inset-y-0 right-0 flex items-center pr-2">

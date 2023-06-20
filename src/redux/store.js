@@ -8,7 +8,9 @@ import invoiceSilce from "./slices/InvoiceSlice";
 import  normalCategorySlice  from "./slices/NormalCategorySlice";
 import itemDetailSlice  from "./slices/ItemDetailSlice";
 import { ImportExport } from "@mui/icons-material";
-import { dashboardSlice } from "./slices/DashboardSlice";
+import  dashboardSlice  from "./slices/DashboardSlice";
+
+
 
 export const store = configureStore({
     reducer: {
@@ -20,6 +22,7 @@ export const store = configureStore({
         invoice: invoiceSilce,
         normalCategory : normalCategorySlice,
         itemDetail: itemDetailSlice,
+        dashboard : dashboardSlice
         
     }
 });
