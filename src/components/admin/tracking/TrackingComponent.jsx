@@ -9,6 +9,7 @@ import RoomService from "../../../redux/services/RoomService";
 import AssetService from "../../../redux/services/AssetService";
 import { setAssets } from "../../../redux/slices/AssetSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ViewDetailComponent from "./ViewDetailComponent";
 
 const status = [
   { id: "in_stock", name: "In Stock" },
@@ -400,10 +401,10 @@ export default function TrackingComponent() {
                         <div className="flex items-center">
                           <label
                             htmlFor="modalEdit"
-                            className="flex items-center border bg-reject bg-opacity-10 border-reject text-reject w-[90px] justify-center px-5 py-1 hover:bg-reject hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"
+                            className={`flex items-center border bg-opacity-10 justify-center px-5 py-1 cursor-pointer leading-5 rounded-full ${list.status == "in_stock" ? "bg-blue-700 border-blue-700 text-blue-700" : list.status == "in_used" ? "bg-accept border-apbg-accept text-apbg-accept" : "bg-reject border-reject text-reject"}`}
                             aria-label="Edit"
                           >
-                            {list.status}
+                            {list.status == "in_stock" ? "In Stock" : list.status == "in_used" ? "In Used" : ""}
                           </label>
                         </div>
                       </td>
@@ -414,9 +415,9 @@ export default function TrackingComponent() {
                         {list.roomName}
                       </td>
                       <td>
-                        <button className="px-3 py-2 bg-primary bg-opacity-10 rounded-md border border-primary text-primary">
+                        <label htmlFor="view-detail" className="px-3 py-2 bg-primary bg-opacity-10 rounded-md border border-primary text-primary">
                           View Detail
-                        </button>
+                        </label>
                       </td>
                     </tr>
 
@@ -460,6 +461,7 @@ export default function TrackingComponent() {
           </div>
         </div>
       </div>
+      <ViewDetailComponent className="modal" />
     </main>
   );
 }
