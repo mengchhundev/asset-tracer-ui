@@ -3,14 +3,18 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import FileUploadService from "../../../../redux/services/FileUploadService";
+import placeholder from "../../../../assets/images/placeholder/placeholder-image.png"
 
 function DetailComponent() {
     const roomDetail = useSelector(state => state.room.roomDetail)
-    const [image, setImage]=useState("");
-   useEffect(()=>{
-    setImage(FileUploadService.getImage(roomDetail.image))
-   },[roomDetail])
-//    console.log(image);
+    const [image, setImage] = useState("");
+    useEffect(() => {
+        if(roomDetail.image) {
+            setImage(FileUploadService.getImage(roomDetail.image))
+        }
+    }, [roomDetail])
+
+    console.log(image)
     return (
         <div className="modal">
             <div className="bg-white rounded-lg p-6 modal-box max-w-6xl" >
@@ -20,24 +24,31 @@ function DetailComponent() {
                         <p className="px-6 text-text-color text-xl font-sp-pro-text-bold">Room Details</p>
                     </div>
                     <div className="">
-                    <label htmlFor="detail" ><XMarkIcon className="cursor-pointer h-9 w-9 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 " /></label>
+                        <label htmlFor="detail" ><XMarkIcon className="cursor-pointer h-9 w-9 text-text-color hover:bg-text-color hover:bg-opacity-20 rounded-full p-1 " /></label>
                     </div>
                 </div>
                 <div className="flex">
                     <div className="xl:w-5/12 md:w-6/12">
                         <div style={{ boxShadow: "0 1px 40px 0 rgb(0 0 0 / 0.06)" }} className="w-full justify-center lg:mx-6 lg:mt-6 lg:pb-2 rounded-xl">
-                            <img
-                                className="object-cover w-full h-full rounded-3xl p-7"
-                                
-                                src={image}
-                                // src={roomDetail.image}
-                                alt=""
-                                loading="lazy"
-                            />
-                            <h3 className="text-[24px] font-sp-pro-text-bold px-7">
 
-                            </h3>
-                            <span className="font-sp-pro-text-semibold px-7 text-[14] text-opacity-30 text-text-color ">{roomDetail.name}</span>
+                            {image != "" ?
+                                <img
+                                    className="object-cover w-full h-full rounded-3xl p-7"
+
+                                    src={image}
+                                    alt=""
+                                    loading="lazy"
+                                />
+                                : 
+                                <img
+                                    className="object-cover w-full h-full rounded-3xl p-7"
+
+                                    src={placeholder}
+                                    alt=""
+                                    loading="lazy"
+                                />
+                            }
+
                         </div>
                     </div>
                     <div className="xl:w-7/12 md:ml-10 md:w-1/2 rounded-lg">
