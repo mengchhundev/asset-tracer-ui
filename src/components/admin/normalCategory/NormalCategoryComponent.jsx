@@ -5,6 +5,7 @@ import electronic from "../../../assets/icon/electronic.svg";
 import addIcon from "../../../assets/icon/addIcon.svg";
 import furniture from "../../../assets/images/furniture.png";
 import office from "../../../assets/icon/office.svg";
+import placeImg from "../../../assets/icon/placeImg.svg";
 import gift from "../../../assets/images/gift.png";
 import trash_ico from "../../../assets/images/trash.png";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
@@ -25,14 +26,17 @@ import {
 } from "../../../redux/slices/NormalCategorySlice";
 import * as Yup from "yup";
 import moment from "moment";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import FileUploadService from "../../../redux/services/FileUploadService";
 
 const people = [
   { id: 1, name: "Sort By", unavailable: false },
   { id: 2, name: "Arlene Mccoy" },
   { id: 3, name: "Devon Webb" },
 ];
+
+const serverLocationSuper ="http://localhost:8080/api/v1/files/getFile?fileName=";
 
 export default function CategoryComponent() {
   const [selected, setSelected] = useState(people[0]);
@@ -45,7 +49,8 @@ export default function CategoryComponent() {
   const [categoryUpdate, setCategoryUpdate] = useState({});
   const [deleteCategory, setDeleteCategory] = useState();
   const [getNormalName, setGetNormalName] = useState("");
-  // console.log("Get name : ", getNormalName);
+  const [selectedFile, setSelectedFile] = useState("");
+  let formData = new FormData();
 
   // organization id
   const organization = sessionStorage.getItem("organization");
@@ -55,28 +60,32 @@ export default function CategoryComponent() {
   // get all normal category
   const data = useSelector((state) => state.normalCategory.data);
   const dispatch = useDispatch();
+  console.log(data);
 
   const getAllNormalCategory = () => {
     NormalCategoryService.getAllNormalCategory(orgId)
       .then((res) => {
         dispatch(setAllCategory(res.data.payload));
       })
+
       .catch((err) => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     getAllNormalCategory();
-  });
+  },[]);
 
   // update normal category
-  const handleUpdateNormalCategory = (item) => {
-    setCategoryUpdate(item);
+  const handleUpdateNormalCategory = (item, selectedFile) => {
+    setCategoryUpdate(item, selectedFile);
   };
 
   const handleUpdateCategory = (e) => {
     setupdateNormal({ ...updateNormal, [e.target.name]: e.target.value });
   };
+
   // update
   const handleSubmit = () => {
     const updateCategory = {
@@ -85,7 +94,6 @@ export default function CategoryComponent() {
       icon: "string",
       superCategoryId: "2604b0c0-7070-492d-8d45-0fc42b2abe37",
     };
-    console.log("Final value", updateCategory);
     updateNormalCategory(categoryUpdate.id, updateCategory).then((r) =>
       dispatch(setUpdateNormalCategory(r.data.payload))
     );
@@ -96,16 +104,36 @@ export default function CategoryComponent() {
   // delete
   const handleDeletNormalCategory = (item) => {
     setDeleteCategory(item);
-    console.log(item.name);
     setGetNormalName(item.name);
   };
+  
 
   const handleClickDelete = () => {
     NormalCategoryService.deleteNormalCategory(deleteCategory, orgId)
       .then((res) => {
-        dispatch(setDeletNormalCategory(item.id));
+        dispatch(setDeletNormalCategory(res.data.payload));
+        getAllNormalCategory();
+      console.log(res)
       })
-      .finally(() => alert("deleted successfully"));
+  };
+  // useEffect(() => {
+  //   getAllNormalCategory();
+  // },[]);
+
+  // select file
+  const handleFileSelect = (event) => {
+    console.log("File : ", event.target.files[0]);
+    setSelectedFile(event.target.files[0]);
+    formData.append("file", event.target.files[0]);
+    FileUploadService.storeFile(formData, localStorage.getItem("token"))
+      .then(
+        (res) => {
+          console.log("res : ", res);
+          setData({ ...newData, icon: res.data.payload });
+        },
+        (e) => console.log(e)
+      )
+      .catch((e) => console.log("Error upload file", e));
   };
 
   const filteredPeople =
@@ -123,26 +151,6 @@ export default function CategoryComponent() {
     getAllSuperCategory(event.selected + 1);
     setI(event.selected * 10 + 1);
   };
-
-  useEffect(() => {
-    getMethod();
-  }, []);
-
-  const getMethod = () => {
-    axios
-      .get("http://localhost:8080/api/v1/normal-categories?page=1&size=4")
-      .then((data) => {
-        console.log(data.data.payload);
-        console.log("state", state);
-        setState(data.data.payload[0]);
-      });
-  };
-  // const showToastMessage = () => {
-  //   toast.success("Success Notification !", {
-  //     position: toast.POSITION.TOP_RIGHT,
-  //     autoClose: 3000,
-  //   });
-  // };
 
   const handleNormalSuccess = () =>
     toast.success("Success Notification !", {
@@ -269,7 +277,7 @@ export default function CategoryComponent() {
               </Combobox>
             </div>
 
-            {/* add */}
+            {/* add modal */}
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <label
                 htmlFor="addnormalCategory"
@@ -309,16 +317,18 @@ export default function CategoryComponent() {
                   <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                 </tr>
                 {data.map((item, index) => (
-                  <tr className="text-sm font-sp-pro-text-regular text-center">
+                  <tr
+                    key={index}
+                    className="text-sm font-sp-pro-text-regular text-center"
+                  >
                     <td className="w-1/12 py-3 text-center ">{index + 1}</td>
                     <td className="w-3/12 py-3">
                       <div className="flex items-center">
-                        <div className="relative  mr-3 w-8 h-8 ">
+                        <div className="relative  mr-3 w-9 h-9 ">
                           <img
-                            src={item.src}
-                            alt={item.title}
+                            className="h-9 rounded-full w-9"
+                            src={`${serverLocationSuper}${item.icon}`}
                             loading="lazy"
-                            className="rounded-full h-full w-full"
                           />
                         </div>
                         <div>{item.name}</div>
@@ -326,15 +336,19 @@ export default function CategoryComponent() {
                     </td>
                     <td className="w-2/12 py-3">
                       <div className="flex items-center m-auto space-x-3">
-                        <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                          {item.profile}
-                        </span>
+                        <div>
+                          <img
+                            className="h-9 rounded-full w-9"
+                            src={`${serverLocationSuper}${item.superCategoryIcon}`}
+                            loading="lazy"
+                          />
+                        </div>
                         <span className="text-sm ">
                           {item.superCategoryName}
                         </span>
                       </div>
                     </td>
-                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-medium  p-2.5">
+                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-regular p-2.5">
                       {moment(item.createdAt).format("MMM DD YYYY")}
                     </td>
                     <td className="w-2/12 py-3">
@@ -342,7 +356,9 @@ export default function CategoryComponent() {
                         {/* edit */}
                         <label
                           htmlFor="modalEdit"
-                          onClick={() => handleUpdateNormalCategory(item)}
+                          onClick={() =>
+                            handleUpdateNormalCategory(item)
+                          }
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
                           aria-label="Edit"
                         >
@@ -416,25 +432,46 @@ export default function CategoryComponent() {
             {/* Choose Icon */}
             <div className=" border border-bg-primary rounded-md p-3 my-3">
               <div className="flex flex-row gap-4">
-                <div>
-                  <p className="text-center">Choose Icon</p>
-                  <div className="flex flex- justify-between">
-                    <div className="p-2">
-                      <img src={electronic} className="h-14 rounded-lg w-14 " />
-                    </div>
-                    <div className="p-2 mt-4">
+                <div className="flex flex- justify-between">
+                  <div className="p-2">
+                    <label>
+                      {selectedFile ? (
+                        <img
+                          src={URL.createObjectURL(selectedFile)}
+                          className="h-14 rounded-full w-14 "
+                        />
+                      ) : (
+                        <img className="h-14 rounded-lg w-14" src={placeImg} />
+                      )}
+                    </label>
+                  </div>
+                  <div className="p-2 mt-4">
+                    <label>
                       <img src={electronic} className="h-9 rounded-lg w-9 " />
-                    </div>
-                    <div className="p-2 mt-4">
+                    </label>
+                  </div>
+                  <div className="p-2 mt-4">
+                    <label>
                       <img src={office} className="h-9 rounded-lg w-9 " />
-                    </div>
-                    <div className="p-2 mt-4">
-                      <img src={furniture} className="h-9 rounded-lg w-9 " />
-                    </div>
+                    </label>
+                  </div>
 
-                    <div className="p-2 mt-4">
+                  <div className="p-2 mt-4">
+                    <label>
+                      <img src={furniture} className="h-9 rounded-lg w-9 " />
+                    </label>
+                  </div>
+
+                  <div className="p-2 mt-4">
+                    <label>
+                      <input
+                        type="file"
+                        className="hidden"
+                        id="logo"
+                        onChange={handleFileSelect}
+                      />
                       <img src={addIcon} className="h-9 rounded-lg w-9 " />
-                    </div>
+                    </label>
                   </div>
                 </div>
               </div>

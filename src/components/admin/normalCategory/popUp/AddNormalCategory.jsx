@@ -5,6 +5,7 @@ import electronic from "../../../../assets//icon/electronic.svg";
 import office from "../../../../assets//icon/office.svg";
 import furniture from "../../../../assets//icon/furniture.svg";
 import addIcon from "../../../../assets//icon/addIcon.svg";
+import placeImg from "../../../../assets/icon/placeImg.svg";
 import { FiSave } from "react-icons/fi";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -12,6 +13,7 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllSuperCategory } from "../../../../redux/slices/SuperCategorySlice";
+import FileUploadService from "../../../../redux/services/FileUploadService";
 import NormalCategoryService, {
   addNormalCategory,
 } from "../../../../redux/services/NormalCategoryService";
@@ -25,6 +27,9 @@ function AddNormalCategory({ props, val }) {
   //organization Id
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const orgId = organization.id;
+  let formData = new FormData();
+  const [selectedFile, setSelectedFile] = useState("");
+  const [newData, setData] = useState('');
 
   const handleGetAllSuperCategory = () => {
     SuperCategoryService.getAllSuperCategores().then((res) => {
@@ -38,7 +43,7 @@ function AddNormalCategory({ props, val }) {
   useEffect(() => {
     handleGetAllSuperCategory();
   }, []);
-  
+
   //superCategory
   const superCategory = useSelector((state) => state?.superCategory?.data);
 
@@ -54,7 +59,7 @@ function AddNormalCategory({ props, val }) {
   });
 
   const handleNormalInputChang = (e) => {
-    setAddNormal({ ...addNormal, [e.target.name]: e.target.value });
+    setAddNormal({ ...addNormal, name : e.target.value ,icon : newData });
   };
 
   //post to endpoint
@@ -63,6 +68,24 @@ function AddNormalCategory({ props, val }) {
       dispatch(postNormalCategory(r?.data?.payload))
     );
   };
+
+  // select file
+  const handleFileSelect = (event) => {
+    console.log("File : ", event.target.files[0]);
+    setSelectedFile(event.target.files[0]);
+    formData.append("file", event.target.files[0]);
+    FileUploadService.storeFile(formData, localStorage.getItem("token"))
+      .then(
+        (res) => {
+          console.log("res : ", res);
+          setData(res.data.payload );
+        },
+        (e) => console.log(e)
+      )
+      .catch((e) => console.log("Error upload file", e));
+  };
+  console.log("Selected file : ", formData);
+  console.log("New Data : ", newData);
 
   const formik = useFormik({
     initialValues: addNormal,
@@ -121,26 +144,49 @@ function AddNormalCategory({ props, val }) {
             </div>
           </div>
           <div className=" border border-bg-primary rounded-md p-3 my-3">
-            <div className="flex flex-row gap-4">
-              <div>
-                <p className="text-center">Choose Icon</p>
-                <div className="flex flex- justify-between">
-                  <div className="p-2">
-                    <img src={electronic} className="h-14 rounded-lg w-14 " />
-                  </div>
-                  <div className="p-2 mt-4">
+            
+            <div>
+              <p className="text-center">Choose Icon</p>
+              <div className="flex">
+                <div className="p-2">
+                  <label>
+                    {selectedFile ? (
+                      <img
+                        src={URL.createObjectURL(selectedFile)}
+                        className="h-14 rounded-full w-14 "
+                      />
+                    ) : (
+                      <img className="h-14 rounded-lg w-14" src={placeImg} />
+                    )}
+                  </label>
+                </div>
+                <div className="p-2 mt-4">
+                  <label>
                     <img src={electronic} className="h-9 rounded-lg w-9 " />
-                  </div>
-                  <div className="p-2 mt-4">
+                  </label>
+                </div>
+                <div className="p-2 mt-4">
+                  <label>
                     <img src={office} className="h-9 rounded-lg w-9 " />
-                  </div>
-                  <div className="p-2 mt-4">
-                    <img src={furniture} className="h-9 rounded-lg w-9 " />
-                  </div>
+                  </label>
+                </div>
 
-                  <div className="p-2 mt-4">
+                <div className="p-2 mt-4">
+                  <label>
+                    <img src={furniture} className="h-9 rounded-lg w-9 " />
+                  </label>
+                </div>
+
+                <div className="p-2 mt-4">
+                  <label>
+                    <input
+                      type="file"
+                      className="hidden"
+                      id="logo"
+                      onChange={handleFileSelect}
+                    />
                     <img src={addIcon} className="h-9 rounded-lg w-9 " />
-                  </div>
+                  </label>
                 </div>
               </div>
             </div>
@@ -232,7 +278,7 @@ function AddNormalCategory({ props, val }) {
                   </div>
                 </Combobox>
               </div>
-              
+
               <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
                 <label
                   htmlFor=""
@@ -280,5 +326,4 @@ function AddNormalCategory({ props, val }) {
     </>
   );
 }
-
 export default AddNormalCategory;
