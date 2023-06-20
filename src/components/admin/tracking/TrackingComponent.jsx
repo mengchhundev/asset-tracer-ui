@@ -14,17 +14,36 @@ const status = [
   { id: "in_stock", name: "In Stock" },
 ]
 
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "name", name: "Name"
+  },
+  {
+    id: "type", name: "Room Type"
+  },
+  {
+    id: "floor", name: "Floor"
+  }
+];
+
 export default function TrackingComponent() {
 
   const dispatch = useDispatch()
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const orgId = organization.id;
   const assets = useSelector(state => state.asset.assets)
-  console.log(assets)
+
+  const [itemName, setItemName] = useState("")
+
   // combo box room
   const [roomName, setRoomName] = useState([])
   const [selectedRoom, setSelectedRoom] = useState()
   const [queryRoom, setQueryRoom] = useState("")
+
+  const [totalRow, setTotalRow] = useState(0)
 
   const [i, setI] = useState(1)
 
@@ -45,6 +64,10 @@ export default function TrackingComponent() {
   const [normalCategoryName, setNormalCategoryName] = useState([])
   const [selectedNormalCategory, setSelectedNormalCategory] = useState();
   const [queryNormalCategory, setQueryNormalCategory] = useState("");
+
+
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [selectedPage, setSelectedPage] = useState(1)
 
   useEffect(() => {
     NormalCategoryService.getAllNormalCategoryName(orgId).then(res => {
@@ -78,21 +101,35 @@ export default function TrackingComponent() {
     setI(event.selectedNormalCategory * 10 + 1);
   };
 
+  const handleInputSearch = (e) => {
+    setItemName(e.target.value)
+  };
+
   const handleSelectedStatus = (val) => {
     setSelectedStatus(val)
   }
 
-  const handleGetAllAssets = (page) => {
-    AssetService.getAllAssets(orgId, page).then(res => {
+  const handleGetAllAssets = (page = 1, assetName = "", status = "", room = "", normalCategoryName = "", sort = "") => {
+    AssetService.getAllAssets(orgId, page, 8, assetName, "", "", "", status, "", room, normalCategoryName, sort).then(res => {
       if (res.data.success) {
         dispatch(setAssets(res.data.payload))
+        setTotalRow(res.data.totalData)
       }
+    }, err => {
+      dispatch(setAssets([]))
+      setTotalRow(0)
     })
   }
 
   useEffect(() => {
-    handleGetAllAssets(1)
-  }, [])
+    if (itemName != null || selectedRoom != null || selectedNormalCategory != null || selectedStatus != null) {
+      console.log(itemName)
+      handleGetAllAssets(1, itemName, selectedStatus, selectedRoom, selectedNormalCategory, "")
+    } else {
+      handleGetAllAssets(1)
+    }
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [itemName])
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-7.8rem)]">
@@ -127,6 +164,7 @@ export default function TrackingComponent() {
                   className="w-full placeholder-black placeholder-opacity-20 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
+                  onInput={handleInputSearch}
                   placeholder="Search..."
                 />
               </div>
@@ -373,7 +411,7 @@ export default function TrackingComponent() {
                         {list.owner}
                       </td>
                       <td>
-                      {list.roomName}
+                        {list.roomName}
                       </td>
                       <td>
                         <button className="px-3 py-2 bg-primary bg-opacity-10 rounded-md border border-primary text-primary">
@@ -386,7 +424,7 @@ export default function TrackingComponent() {
 
                   :
                   <tr>
-                    <td colSpan={99} className="text-center">className=ta</td>
+                    <td colSpan={99} className="text-center">No Data</td>
                   </tr>
                 }
 
@@ -396,7 +434,7 @@ export default function TrackingComponent() {
 
           {/* pagination */}
           <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-            <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
+            <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of {totalRow} entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate
                 nextLabel=" >"
