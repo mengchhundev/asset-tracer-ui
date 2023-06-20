@@ -363,7 +363,7 @@ function AssetUpdate({ props, val }) {
                         <Link to={"/asset"}>
                           <button
                             // onClick={() => navigate(-1)}
-                            class="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center"
+                            className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center"
                           >
                             <RiCloseFill className="text-lg" /> &nbsp; Cancel
                           </button>
@@ -373,7 +373,7 @@ function AssetUpdate({ props, val }) {
                       <div className="">
                         <button
                           type="submit"
-                          class="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
+                          className="hover:bg-pending-hover rounded-md cursor-pointer bg-primary py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
                         >
                           <FiSave className="text-lg" />
                           Save

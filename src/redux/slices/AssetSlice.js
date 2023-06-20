@@ -9,7 +9,7 @@ export const AssetSlice = createSlice({
   initialState,
   reducers: {
     setAssets: (state, action) => {
-      state.data = action.payload;
+      state.assets = action.payload;
     }
   },
 });

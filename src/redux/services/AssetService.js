@@ -1,7 +1,7 @@
 import apiV2 from "./apiV2"
 
-const getAllAssets = async (orgId, page = 1, size = 8, name = "", type = "", labelCode = "", serialCode = "", status = "", owner = "", room = "", normalCategoryName = "", superCategoryName = "", sort = "") => {
-    return await apiV2.get(`/assets/track/${orgId}?page=${page}&size=${size}&name=${name}&type=${type}&labelCode=${labelCode}&serialCode=${serialCode}&status=${status}&owner=${owner}&room=${room}&normalCategoryName=${normalCategoryName}&superCategoryName=${superCategoryName}&sort=${sort}`);
+const getAllAssets = async (orgId, page = 1, size = 8, assetName = "", type = "", labelCode = "", serialCode = "", status = "", owner = "", room = "", normalCategoryName = "", sort = "") => {
+    return await apiV2.get(`/assets/track/${orgId}?page=${page}&size=${size}&assetName=${assetName}`);
 }
 
 const deleteAsset = async (itemId, orgId) => {
