@@ -11,7 +11,6 @@ export default function RoomDeleteComponent({handleIsDeleteSuccess, handleSetRoo
     const handleDeleteRoom = () => {
         RoomService.deleteRoom(room.id).then(res => {
             if (res.data.success) {
-                console.log(res.data)
                 document.getElementById("delete-room").click()
                 handleSetRoomId(res.data.payload)
             }

@@ -59,10 +59,6 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                                 image: "",
                                 organizationId: orgId
                             })
-                            let data = [...getAllRooms]
-                            data.pop()
-                            data.unshift(res.data.payload)
-                            dispatch(setRooms(data))
                         }
                     })
                 }

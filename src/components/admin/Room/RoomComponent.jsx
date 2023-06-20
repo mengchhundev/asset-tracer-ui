@@ -98,13 +98,21 @@ export default function RoomComponent() {
     }, [itemName, selectedSort, totalRow])
 
     useEffect(() => {
+        setSelectedPage(0)
+        setI(1)
+        handleGetAllRooms()
         setIsCreateSuccess(false)
     }, [isCreateSuccess])
 
     useEffect(() => {
         handleGetAllRooms(selectedPage, itemName, selectedSort)
         setIsUpdateSuccess(false)
-    }, [isUpdateSuccess, roomId])
+    }, [isUpdateSuccess])
+
+    useEffect(() => {
+        handleGetAllRooms()
+        setRoomId('')
+    }, [roomId])
 
     const handleInputSearch = (e) => {
         setItemName(e.target.value)
