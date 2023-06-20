@@ -17,60 +17,52 @@ import UserService from "../../../redux/services/UserService";
 import { useDispatch, useSelector } from "react-redux";
 import { setRequestUsers, setUserReject, setUserapprove } from "../../../redux/slices/UserSlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
-// import Ellipse_6 from "../../../assets/icon/default profile/Ellipse 6.svg"
-// import Ellipse_7 from "../../../assets/icon/default profile/Ellipse 7.svg"
-// import Ellipse_8 from "../../../assets/icon/default profile/Ellipse 8.svg"
-
-const people = [
-  { id: 1, name: "Sort by" },
-  { id: 2, name: "A - Z" },
-  { id: 3, name: "Z - A" },
-  { id: 4, name: "Olest - Newest" },
-  { id: 5, name: "Newest - Olest" },
-];
+import { isRejected } from "@reduxjs/toolkit";
 
 export default function UserRequestComponent() {
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const dispatch = useDispatch();
   const [userRequest, setUserRequest] = useState([]);
   const requestUsers = useSelector((state) => state.user.requestUsers);
-  const approveUserReq = useSelector((state) => state.user.approveUsers)
+  const approveUserReq = useSelector((state) => state.user.approveUsers);
+  const [isApprove, setIsApprove] = useState(false)
+  const [isReject, setIsReject] = useState(false)
+
   const handleGetAllRequestUsers = () => {
     UserService.getAllRequestUsers(organization.id).then((res) => {
       if (res.data.success) {
-
         dispatch(setRequestUsers(res.data.payload));
       }
+    }, err => {
+      dispatch(setRequestUsers([]));
     });
   };
-  
-  const handleApproveUserReq = (userId) => {
-    UserService.approveUserRequests( organization.id, userId).then((res) => {
-      if(res.data.success){
-        dispatch(setUserapprove(res.data.payload));
-      }
-      (err) => {
-        dispatch(setUserapprove([]));
-      }
-    })
-  }
-  const handleRejectUserReq = (userId) => {
-    UserService.rejectUserRequest(userId, organization.id).then((res) => {
-      if(res.data.success){
-        dispatch(setUserReject([]))
-      }
-      (err) => {
-        dispatch(setUserReject([]))
+
+  const handleApproveUserReq = (user) => {
+    setIsApprove(false)
+    UserService.approveUserRequests(organization.id, user.id).then((res) => {
+      if (res.data.success) {
+        setIsApprove(true)
       }
     })
   }
 
-  // useState(() => {
-  //   handleGetAllRequestUsers();
-  // }, [])
+  const handleRejectUserReq = (user) => {
+    setIsReject(false)
+    UserService.rejectUserRequest(user.id, organization.id).then((res) => {
+      if (res.data.success) {
+        setIsReject(true)
+      }
+    })
+  }
+
   useEffect(() => {
     handleGetAllRequestUsers();
-  }, []); 
+  }, [isApprove, isReject]);
+
+  useEffect(() => {
+    handleGetAllRequestUsers();
+  }, []);
 
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
@@ -119,8 +111,8 @@ export default function UserRequestComponent() {
         </div>
         <div className="space-y-8 sm:px-3 px-10">
           {requestUsers.length != 0 ? (
-            requestUsers.map((list, index) => (
-              <div key={index} className="overflow-x-auto px-10 mb-10">
+            requestUsers.map((list, firstIndex) => (
+              <div key={firstIndex} className="overflow-x-auto px-10 mb-10">
                 <div
                   className="rounded-xl border border-bg-main shadow my-5"
                   style={{
@@ -152,13 +144,13 @@ export default function UserRequestComponent() {
                             <table className="table border-spacing-y-3 border-separate w-[1020px]">
                               <tbody>
                                 {list?.users &&
-                                  list.users.map((user, index) => (
-                                    <tr className="font-md text-text-color border-none">
+                                  list.users.map((user, secondIndex) => (
+                                    <tr key={secondIndex} className="font-md text-text-color border-none">
                                       <td
                                         className="bg-bg-main text-left rounded-s-[5px]"
                                         style={{ padding: "1.5rem" }}
                                       >
-                                        {index + 1}
+                                        {secondIndex + 1}
                                       </td>
                                       <td className="bg-bg-main w-1/12 items-start  ">
                                         <div className="flex items-center mr-20 space-x-3 ">
@@ -170,8 +162,8 @@ export default function UserRequestComponent() {
                                               className="rounded-full h-10 "
                                             />
                                           ) : (
-                                            <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                                              {list.name.substring(0, 1)}
+                                            <span className="w-10 font-sp-pro-text-semibold h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 text-sm">
+                                              {user.name.substring(0, 1)}
                                             </span>
                                           )}
 
@@ -201,16 +193,16 @@ export default function UserRequestComponent() {
                                       </td>
                                       <td className="bg-bg-main rounded-e-[4px]">
                                         <div className="flex justify-center space-x-5 items-center">
-                                          <label onClick={()=> handleRejectUserReq(user.id) } className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
+                                          <label onClick={() => handleRejectUserReq(user)} className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
                                             X
                                           </label>
-                                          <label onClick={() => handleApproveUserReq(user.id)} >
+                                          <label onClick={() => handleApproveUserReq(user)} >
                                             {/* {user?.id != 0 ? (
                                               toast.success("success")
                                             ):(
                                               toast.error("Not success")
                                             )} */}
-                                           
+
                                             <RxCheck className="cursor-pointer w-8 h-8 p-1 rounded-md bg-white border border-border-strock text-green" />
                                           </label>
                                         </div>
