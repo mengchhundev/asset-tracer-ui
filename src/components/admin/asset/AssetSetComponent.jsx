@@ -12,13 +12,15 @@ import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import placeholder from "../../../assets/images/placeholder/placeholder-image.png"
 import ItemDetailService from "../../../redux/services/ItemDetailService";
 import RoomService from "../../../redux/services/RoomService";
+import AssetService from "../../../redux/services/AssetService";
+import { useNavigate } from "react-router-dom";
 
 const status = [
   { id: "in_stock", name: "In Stock" },
 ]
 
 export default function AssetSetComponent() {
-
+  const navigator = useNavigate();
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const orgId = organization.id
   const [newData, setNewData] = useState({
@@ -42,7 +44,7 @@ export default function AssetSetComponent() {
   const [image, setImage] = useState()
 
   const handleInputChange = (e) => {
-    // setNewData({ ...newData, [e.target.name]: e.target.value });
+    setNewData({ ...newData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -59,6 +61,14 @@ export default function AssetSetComponent() {
     })
   }, [])
 
+  const handleSetAsset = () => {
+    AssetService.setAsset(newData).then(res => {
+      if (res.data.success) {
+        navigator("/tracking")
+      }
+    })
+  }
+
   const formik = useFormik({
     initialValues: newData,
     validationSchema: Yup.object().shape({
@@ -66,7 +76,7 @@ export default function AssetSetComponent() {
       status: Yup.string().required("Status is required"),
     }),
     onSubmit: (val, { resetForm }) => {
-
+      handleSetAsset()
     }
   });
 
@@ -98,6 +108,7 @@ export default function AssetSetComponent() {
     } else {
       setImage(null)
     }
+    formik.setValues({...newData, itemDetailId: val.id})
     setNewData({ ...newData, itemDetailId: val.id })
   }
 
@@ -107,12 +118,11 @@ export default function AssetSetComponent() {
   }
 
   const handleSelectedStatus = (val) => {
+    formik.setValues({...newData, status: val})
     setSelectedStatus(val)
     setNewData({ ...newData, status: val })
   }
 
-
-  console.log(newData)
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
@@ -193,7 +203,7 @@ export default function AssetSetComponent() {
                               <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                                 <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200 bg-bg-main rounded-md text-gray-800">
                                   {selectedStatus ? <span className="block truncate text-sm text-text-color">
-                                  {selectedStatus == "in_stock" ? "In Stock" : ""}
+                                    {selectedStatus == "in_stock" ? "In Stock" : ""}
                                   </span> : <span className="block truncate text-sm text-black text-opacity-20">Select status</span>}
 
                                   <span className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -247,7 +257,7 @@ export default function AssetSetComponent() {
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
                       value={newData.labelCode}
-                      name="qty"
+                      name="labelCode"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter label code'
                     />
@@ -259,7 +269,7 @@ export default function AssetSetComponent() {
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
                       value={newData.serialCode}
-                      name="unitPrice"
+                      name="serialCode"
                       className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
                       placeholder='Enter serial code'
                     />

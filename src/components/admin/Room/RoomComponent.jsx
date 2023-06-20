@@ -110,7 +110,8 @@ export default function RoomComponent() {
     }, [isUpdateSuccess])
 
     useEffect(() => {
-        handleGetAllRooms()
+        setRoomId("")
+        handleGetAllRooms(1, "", "")
         setRoomId('')
     }, [roomId])
 
