@@ -9,104 +9,230 @@ import { useLocation } from "react-router-dom";
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardService from "../../../redux/services/DashboardService";
-import { setTotalInvoices, setTotalItems, setTotalRooms, setTotalUsers } from "../../../redux/slices/DashboardSlice";
+import {
+  setBrokenAssets,
+  setCategoryName,
+  setDamageAssets,
+  setDonatedAssets,
+  setInStockAssets,
+  setInUsedAssets,
+  setLastInvoice,
+  setLostAssets,
+  setSuperCategory,
+  setTotalInvoices,
+  setTotalItems,
+  setTotalRooms,
+  setTotalUsers,
+} from "../../../redux/slices/DashboardSlice";
 import { useEffect } from "react";
 import { useState } from "react";
+import InvoiceService from "../../../redux/services/InvoiceService";
+import moment from "moment/moment";
 export default function DashboardComponent() {
-  
   const CurrentOrg = JSON.parse(sessionStorage.getItem("organization"));
 
   // const itemsDetail = useSelector((state) => state.items.itemsDetail)
-  const totalUsers = useSelector((state) => state.dashboard.data)
-  const totalItems = useSelector((state) => state.dashboard.items)
-  const totalRooms = useSelector((state) => state.dashboard.rooms)
-  const totalInvoice = useSelector((state) => state.dashboard.invoices)
+  const totalUsers = useSelector((state) => state.dashboard.data);
+  const totalItems = useSelector((state) => state.dashboard.items);
+  const totalRooms = useSelector((state) => state.dashboard.rooms);
+  const totalInvoice = useSelector((state) => state.dashboard.invoices);
+  const lastThreeInvoice = useSelector((state) => state.dashboard.lastInvoice);
+  const [getCountData, setGetCountData] = useState([]);
   const dispath = useDispatch();
-  
+
   // ============ Get Total Users =============
   const getTotalUserInOrg = () => {
-    DashboardService.getTotalUserInOrg(CurrentOrg.id).then(
-      (res) => {
-        if(res.data?.success){
-          dispath(setTotalUsers(res.data.payload));
-        }
-      },
-    );
+    DashboardService.getTotalUserInOrg(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setTotalUsers(res.data.payload));
+      }
+    });
   };
- 
+
   // ============ Get Total Items =============
   const getTotalItems = () => {
-    DashboardService.getTotalAssetInOrg(CurrentOrg.id).then(
-      (res) => {  
-        if(res.data?.payload){
-          dispath(setTotalItems(res.data.payload))
-        }
+    DashboardService.getTotalAssetInOrg(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setTotalItems(res.data.payload));
       }
-    )
-  }
+    });
+  };
   // ============ Get Total Rooms =============
   const getTotalRooms = () => {
-    DashboardService.getTotalRoomInOrg(CurrentOrg.id).then(
-      (res) => {
-        if(res.data?.payload){
-          dispath(setTotalRooms(res.data.payload))
-        }
+    DashboardService.getTotalRoomInOrg(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setTotalRooms(res.data.payload));
       }
-    )
-  }
+    });
+  };
   // ============ Get Total Invoices =============
-  const getTotalInvoices = ( ) => {
-    DashboardService.getTotalInvoiceInOrg(CurrentOrg.id).then(
-      (res) => {
-        console.log(res)
-        if(res.data?.payload){
-          dispath(setTotalInvoices(res.data.payload))
-        }
+  const getTotalInvoices = () => {
+    DashboardService.getTotalInvoiceInOrg(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setTotalInvoices(res.data.payload));
       }
-    )
-  }
+    });
+  };
+  // ============ Get last 3 Invoices =============
+  const getLastThreeInvoice = () => {
+    InvoiceService.getAllInvoices(CurrentOrg.id, 1, 3).then((res) => {
+      if (res.data?.success) {
+        dispath(setLastInvoice(res.data.payload));
+      }
+    });
+  };
 
-  
+  // =====================================
+  //               Pie Chart
+  //======================================
+  const inStockAsset = useSelector((state) => state.dashboard.inStocks);
+  const inUsedAsset = useSelector((state) => state.dashboard.inUseds);
+  const damageAsset = useSelector((state) => state.dashboard.damages);
+  const donatedAsset = useSelector((state) => state.dashboard.donateds);
+  const brokenAsset = useSelector((state) => state.dashboard.broken);
+  const lostAsset = useSelector((state) => state.dashboard.lost);
+  const getTotalAssetInStock = () => {
+    DashboardService.getTotalAssetInStock(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setInStockAssets(res.data.payload));
+      }
+    });
+  };
+  // ----- get total Asset in used ------
+  const getTotalAssetInUsed = () => {
+    DashboardService.getTotalAssetInUsed(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setInUsedAssets(res.data.payload));
+      }
+    });
+  };
+  // ----- get total Asset damages ------
+  const getTotalAssetDamage = () => {
+    DashboardService.getTotalAssetDamage(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setDamageAssets(res.data.payload));
+      }
+    });
+  };
+  // ----- get total Asset damages ------
+  const getTotalAssetDonated = () => {
+    DashboardService.getTotalAssetDonated(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setDonatedAssets(res.data.payload));
+      }
+    });
+  };
+  // ----- get total Asset Broken ------
+  const getTotalAssetBroken = () => {
+    DashboardService.getTotalAssetBroken(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setBrokenAssets(res.data.payload));
+      }
+    });
+  };
+  // ----- get total Asset Lost ------
+  const getTotalAssetLost = () => {
+    DashboardService.getTotalAssetLost(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        dispath(setLostAssets(res.data.payload));
+      }
+    });
+  };
+
+  // ===================================
+  //           Bar Chart
+  //====================================
+  const assetPerSuperCategory = useSelector(
+    (state) => state.dashboard.superCategory
+  );
+  const getSuperCategoryName = useSelector(
+    (state) => state.dashboard.superCategoryName
+  );
+
+  let data = [];
+  let getCategoryName = [];
   useEffect(() => {
-    DashboardService.getTotalAssetInOrg(CurrentOrg.id).then(
-      (res) => {
-        if(res.items?.payload){
-          dispath(setTotalItems(res.items.payload))
-        }
+    DashboardService.getTotalAssetPerCategory(CurrentOrg.id).then((res) => {
+      if (res.data?.success) {
+        res.data.payload.map((res) => {
+          data.push(res.countAsset);
+          getCategoryName.push(res.name);
+        });
+        dispath(setSuperCategory(data));
+        dispath(setCategoryName(getCategoryName));
       }
-    ),
+    });
 
-    DashboardService.getTotalUserInOrg(CurrentOrg.id).then(
-      (res) => {
-        if(res.data?.success){
+    DashboardService.getTotalAssetInOrg(CurrentOrg.id).then((res) => {
+      if (res.items?.success) {
+        dispath(setTotalItems(res.items.payload));
+      }
+    }),
+      DashboardService.getTotalUserInOrg(CurrentOrg.id).then((res) => {
+        if (res.data?.success) {
           dispath(setTotalUsers(res.data.payload));
         }
-      },
-    ),
-    DashboardService.getTotalRoomInOrg(CurrentOrg.id).then(
-      (res) => {
-        if(res.rooms?.payload){
-         dispath( setTotalRooms(res.rooms.payload))
+      }),
+      DashboardService.getTotalRoomInOrg(CurrentOrg.id).then((res) => {
+        if (res.rooms?.success) {
+          dispath(setTotalRooms(res.rooms.payload));
         }
-      }
-    ),
-    DashboardService.getTotalInvoiceInOrg(CurrentOrg.id).then(
-      (res) => {
-        if(res.invoices?.payload){
-          dispath(setTotalInvoices(res.invoices.payload))
+      }),
+      DashboardService.getTotalInvoiceInOrg(CurrentOrg.id).then((res) => {
+        if (res.invoices?.success) {
+          dispath(setTotalInvoices(res.invoices.payload));
         }
-      }
-    )
-  })
- 
+      }),
+      DashboardService.getTotalAssetInStock(CurrentOrg.id).then((res) => {
+        if (res.inStocks?.success) {
+          dispath(setInStockAssets(res.inStocks.payload));
+        }
+      }),
+      DashboardService.getTotalAssetInUsed(CurrentOrg.id).then((res) => {
+        if (res.inUseds?.success) {
+          dispath(setInUsedAssets(res.inUseds.payload));
+        }
+      }),
+      DashboardService.getTotalAssetDamage(CurrentOrg.id).then((res) => {
+        if (res.damages?.success) {
+          dispath(setDamageAssets(res.damages.payload));
+        }
+      }),
+      DashboardService.getTotalAssetDonated(CurrentOrg.id).then((res) => {
+        if (res.donateds?.success) {
+          dispath(setDonatedAssets(res.donateds.payload));
+        }
+      }),
+      DashboardService.getTotalAssetBroken(CurrentOrg.id).then((res) => {
+        if (res.broken?.success) {
+          dispath(setBrokenAssets(res.broken.payload));
+        }
+      }),
+      DashboardService.getTotalAssetLost(CurrentOrg.id).then((res) => {
+        if (res.lost?.success) {
+          dispath(setLostAssets(res.lost.payload));
+        }
+      }),
+      DashboardService.getLastThreeInvoice(CurrentOrg.id).then((res) => {
+        if (res.lastInvoice?.success) {
+          dispath(setLastInvoice(res.lastInvoice.payload));
+        }
+      });
+  }, []);
+
   useState(() => {
     getTotalUserInOrg();
     getTotalItems();
     getTotalRooms();
-    getTotalInvoices()  
- 
-  }, [])
-
+    getTotalInvoices();
+    getTotalAssetInStock();
+    getTotalAssetInUsed();
+    getTotalAssetDamage();
+    getTotalAssetDonated();
+    getTotalAssetBroken();
+    getTotalAssetLost();
+    getLastThreeInvoice();
+  }, []);
 
   return (
     <>
@@ -137,7 +263,7 @@ export default function DashboardComponent() {
                   </h1>
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
-                  <span className="text-lg font-sp-pro-text-bold text-text-color group-hover:text-white">
+                  <span className="text-2xl font-sp-pro-text-bold text-text-color group-hover:text-white">
                     {totalUsers}
                   </span>
                   <span className="text-[#5ec576] group-hover:text-white flex items-center">
@@ -159,7 +285,7 @@ export default function DashboardComponent() {
                   </h1>
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
-                  <span className="text-lg font-sp-pro-text-bold text-text-color group-hover:text-white">
+                  <span className="text-2xl font-sp-pro-text-bold text-text-color group-hover:text-white">
                     {totalItems}
                   </span>
                   <span className="text-[#5ec576] group-hover:text-white flex items-center">
@@ -179,7 +305,7 @@ export default function DashboardComponent() {
                   </h1>
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
-                  <span className="text-lg font-sp-pro-text-bold text-text-color  group-hover:text-white ">
+                  <span className="text-2xl font-sp-pro-text-bold text-text-color  group-hover:text-white ">
                     {totalRooms}
                   </span>
                   <span className="text-[#ff585f]  group-hover:text-white   flex items-center">
@@ -200,7 +326,7 @@ export default function DashboardComponent() {
                   </h1>
                 </div>
                 <div className="flex justify-between items-center font-sp-pro-text-regular mt-4">
-                  <span className="text-lg font-sp-pro-text-bold text-text-color  group-hover:text-white ">
+                  <span className="text-2xl font-sp-pro-text-bold text-text-color  group-hover:text-white ">
                     {totalInvoice}
                   </span>
                   <span className="text-blue-500  flex items-center ">
@@ -227,15 +353,18 @@ export default function DashboardComponent() {
                 </div>
               </div>
 
-              {/* Card  */}
+              {/* Bar chart  */}
               <div className="lg:h-[200px] xl:h-[220px] 2xl:h-[350px]">
+                {/* {assetPerSuperCategory.map((assets, index) => (
+                  
+                ))} */}
                 <Chart
                   height="100%"
                   width="100%"
                   type="bar"
                   series={[
                     {
-                      data: [44, 87, 66, 76, 65, 90, 150],
+                      data: assetPerSuperCategory,
                     },
                   ]}
                   options={{
@@ -284,15 +413,7 @@ export default function DashboardComponent() {
                     },
                     xaxis: {
                       tickPlacement: "on",
-                      categories: [
-                        "Furnature",
-                        "Office",
-                        "Kitchen",
-                        "Electronic",
-                        "Vihecle",
-                        "Uniform",
-                        "Accesories",
-                      ],
+                      categories: getSuperCategoryName,
                       // title: {
                       //   text: "Social Media User",
                       //   style: { color: "#f90000", fontSize: 30 },
@@ -328,42 +449,31 @@ export default function DashboardComponent() {
             </div>
 
             {/* ============= Pie Chart ============ */}
-            <div className=" lg:col-span-5 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative lg:p-6  2xl:p-10 ">
+            <div className=" lg:col-span-5 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative lg:p-4  2xl:p-10 ">
               <Chart
                 type="donut"
-                series={[43, 23, 65, 90]}
+                series={[
+                  inUsedAsset,
+                  inStockAsset,
+                  damageAsset,
+                  donatedAsset,
+                  lostAsset,
+                  brokenAsset,
+                ]}
                 options={{
                   responsive: [
                     {
                       breakpoint: 640,
                     },
                   ],
-                  // chart:{
-                  //   height:"400",
-                  //   width:"300"
-                  // },
-                  // colors: [
-                  //   "rgba(255, 99, 132, 0.5)",
-                  //   "rgba(255, 159, 64,0.5)",
-                  //   "rgba(255, 205, 86, 0.5)",
-                  //   "rgba(75, 192, 192, 0.5)",
-                  //   "rgba(54, 162, 235, 0.5)",
-                  //   "rgba(153, 102, 255, 0.5)",
-                  //   "rgba(201, 203, 207, 0.5)",
-                  // ],
-                  // stroke: {
-                  //   width: 1,
-                  //   colors: [
-                  //     "rgb(255, 99, 132)",
-                  //     "rgb(255, 159, 64)",
-                  //     "rgb(255, 205, 86)",
-                  //     "rgb(75, 192, 192)",
-                  //     "rgb(54, 162, 235)",
-                  //     "rgb(153, 102, 255)",
-                  //     "rgb(201, 203, 207)",
-                  //   ],
-                  // },
-                  labels: ["In Used", "In Stock", "Damage", "Donated"],
+                  labels: [
+                    "In Used",
+                    "In Stock",
+                    "Damage",
+                    "Donated",
+                    "Lost",
+                    "Broken",
+                  ],
                   dataLabels: {
                     enabled: false,
                     style: {
@@ -372,9 +482,10 @@ export default function DashboardComponent() {
                     },
                   },
                   legend: {
-                    fontSize: "12px",
+                    fontSize: "11px",
                     fontFamily: "Helvetica, Arial",
                     position: "bottom",
+                    // horizontalAlign: "center",
                   },
                 }}
               />
@@ -389,39 +500,45 @@ export default function DashboardComponent() {
                 3 lastest invoice
               </h1>
               {/* data table */}
-              <div className="text-text-color  mt-3 overflow-auto ">
-                <table className="table w-full z-0 ">
+              <div className="text-text-color mt-3 overflow-auto ">
+                <table className="table w-full ">
                   <thead>
                     <tr className="tracking-wide text-center ">
-                      <th className=" text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
-                        No
+                      <th className=" text-white bg-secondary-yellow font-sp-pro-text-semibold text-xs">
+                        Code
                       </th>
-                      <th className="text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
+                      <th className="text-white bg-secondary-yellow font-sp-pro-text-semibold text-xs">
                         Supplier
                       </th>
-                      <th className="text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
-                        Qty
+                      <th className="text-white bg-secondary-yellow font-sp-pro-semibold text-xs">
+                        Purchase By
                       </th>
-                      <th className="text-white bg-secondary-yellow font-sp-pro-text-regular text-xs">
-                        Amount
+                      <th className="text-white bg-secondary-yellow font-sp-pro-semibold text-xs">
+                        Create Date
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="text-center">
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        1
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        Electronic
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        100
-                      </td>
-                      <td className="text-text-color font-sp-pro-text-regular text-xs">
-                        $220
-                      </td>
-                    </tr>
+                    {lastThreeInvoice.map((invoiceList, index) => (
+                      <tr key={index} className="text-center">
+                        <td className="text-text-color font-sp-pro-text-medium text-md">
+                          <span className="px-3 py-1  bg-green rounded-md  text-white">
+                            {invoiceList.invoiceCode}
+                          </span>
+                        </td>
+                        <td className="text-text-color font-sp-pro-text-medium  text-md">
+                          {invoiceList.supplier == ""
+                            ? "....."
+                            : invoiceList.supplier}
+                        </td>
+                        <td className="text-text-color font-sp-pro-text-medium  text-md">
+                          {invoiceList.purchaseBy}
+                        </td>
+                        <td className="text-text-color font-sp-pro-text-medium text-md">
+                          {moment(invoiceList.createdAt).format("DD MMM yyyy")}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
