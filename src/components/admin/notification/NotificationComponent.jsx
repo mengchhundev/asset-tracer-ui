@@ -8,13 +8,20 @@ import furniture from "../../../assets/images/furniture.png";
 import gift from "../../../assets/images/gift.png";
 import book from "../../../assets/images/book.png";
 import cross from "../../../assets/images/cross.png";
-import { CheckIcon, ChevronUpDownIcon, EyeIcon } from "@heroicons/react/20/solid";
+import {
+  CheckIcon,
+  ChevronUpDownIcon,
+  EyeIcon,
+} from "@heroicons/react/20/solid";
 import { Combobox, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import NotificationService from "../../../redux/services/NotificationService";
 import { setAllNotification } from "../../../redux/slices/NotificationSlice";
+import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg";
 import moment from "moment";
+import UserService from "../../../redux/services/UserService";
+// import { isRejected } from "@reduxjs/toolkit";
 
 const people = [
   { id: 1, name: "Newest" },
@@ -24,13 +31,20 @@ const people = [
 ];
 
 export default function NotificationComponent() {
+  const organization = JSON.parse(sessionStorage.getItem("organization"));
+  const orgId = organization.id;
+  const [isApprove, setIsApprove] = useState(false);
+  const requestUsers = useSelector((state) => state.user.requestUsers);
+  const approveUserReq = useSelector((state) => state.user.approveUsers);
+  const [isReject, setIsReject] = useState(false);
   const [query, setQuery] = useState("");
   // const getAllSuperCategores = useSelector((state) => state.superCategory.data);
-  const getAllNotification = useSelector ((state) => state.notification.data)
-  console.log(getAllNotification)
+  const getAllNotification = useSelector((state) => state.notification.data);
+  console.log(getAllNotification);
   const [pageCount, setPageCount] = useState(2);
   const [selected, setSelected] = useState(people[0]);
   const dispatch = useDispatch();
+  const item = useSelector(state => state.organization.item)
   const filteredPeople =
     query === ""
       ? people
@@ -48,17 +62,41 @@ export default function NotificationComponent() {
   };
 
   const handleGetAllNotification = () => {
-    NotificationService.getAllNotification().then((res) => {
+    NotificationService.getAllNotification(orgId).then((res) => {
       if (res.data.success) {
         dispatch(setAllNotification(res.data.payload));
         // setTotalRow(res.data.totalData)
       }
+    }, err => {
+      dispatch(setAllNotification([]))
     });
   };
 
-  useEffect(()=>{
-    handleGetAllNotification()
-  },[])
+  // const handleApproveUserReq = (user) => {
+  //   setIsApprove(false)
+  //   UserService.approveUserRequests(organization.id, user.id).then((res) => {
+  //     if (res.data.success) {
+  //       setIsApprove(true)
+  //     }
+  //   })
+  // }
+
+  // const handleRejectUserReq = (user) => {
+  //   setIsReject(false)
+  //   UserService.rejectUserRequest(user.id, organization.id).then((res) => {
+  //     if (res.data.success) {
+  //       setIsReject(true)
+  //     }
+  //   })
+  // }
+
+  // useEffect(() => {
+  //   handleGetAllNotification();
+  // }, [isApprove]);
+
+  useEffect(() => {
+    handleGetAllNotification();
+  }, []);
 
   return (
     <main
@@ -183,18 +221,6 @@ export default function NotificationComponent() {
                 </div>
               </Combobox>
             </div>
-            
-
-            {/* add */}
-            <div className="block ">
-              <label
-                htmlFor="my-modal-3"
-                className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
-              >
-                <BsPlus className="w-6 h-6" />
-                &nbsp;Add User
-              </label>
-            </div>
           </div>
         </div>
 
@@ -205,13 +231,7 @@ export default function NotificationComponent() {
           }}
         >
           {/* table */}
-          <div
-            className="overflow-x-auto px-5 flex-grow"
-            style={
-              {
-              }
-            }
-          >
+          <div className="overflow-x-auto px-5 flex-grow" style={{}}>
             <table className="table w-full">
               <tbody>
                 <tr className="text-sm font-sp-pro-text-semibold text-text-color">
@@ -222,32 +242,41 @@ export default function NotificationComponent() {
                   <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                 </tr>
                 {getAllNotification.map((list, index) => (
-                  <tr key={index} className="text-sm font-sp-pro-text-regular text-text-color text-center">
+                  <tr
+                    key={index}
+                    className="text-sm font-sp-pro-text-regular text-text-color text-center"
+                  >
                     <td className="w-1.5/12 py-3 text-text-color text-left">
                       {index + 1}
                     </td>
-                    <td className="w-2.5/12 py-3">
-                      <div className="flex items-center">
-                        <div>{list.name}</div>
+                    <td className="w-2.5/12">
+                      <div className="flex items-center space-x-2">
+                        <img
+                          className="h-9 rounded-full w-9"
+                          src={
+                            list.image
+                              ? `http://localhost:8080/api/v1/files/getFile?fileName=${list.image}`
+                              : placeholder_square
+                          }
+                        ></img>
+                        <span className="text-sm">{list.name}</span>
                       </div>
                     </td>
                     <td className="w-2.5/12 py-3">
                       <div className="flex">
-                        <span className="w-2.5/12 py-3">
-                         {list.email}
-                        </span>
+                        <span className="w-2.5/12 py-3">{list.email}</span>
                       </div>
                     </td>
                     <td className="  ">
                       <div className="w-2/12 text-sm font-sp-pro-text-regular text-text-color">
-                         {moment(list.createAt).format("MMM DD YYYY")}
+                        {moment(list.createAt).format("MMM DD YYYY")}
                       </div>
-                   
                     </td>
                     <td className="w-2.5/12 py-3">
                       <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
+                          // onClick={() => handleApproveUserReq(user)}
                           // htmlFor="modalEdit"
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
                           aria-label="Edit"
@@ -256,6 +285,7 @@ export default function NotificationComponent() {
                         </label>
                         {/* Delete */}
                         <label
+                          // onClick={() => handleRejectUserReq(user)}
                           htmlFor="modalDelete"
                           className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 py-1 leading-5 rounded-md"
                           aria-label="Delete"
