@@ -355,7 +355,7 @@ console.log(organizations)
                                 {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}
                             </p>
                             <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
-                                <div className='w-full flex justify-center'>
+                                <div className='w-full flex justify-center h-5'>
                                     {list.users.map((user, index) => (
                                         <span key={index}>
                                             {

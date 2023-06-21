@@ -46,7 +46,7 @@ export default function SuperCategoryComponent() {
   const getAllSuperCategores = useSelector((state) => state.superCategory.data);
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const organizationId = organization.id;
-  
+
   const [isUpdate, setIsUpdate] = useState(false);
   let totalRow = useSelector(state => state.superCategory.totalRow)
   let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
@@ -90,7 +90,7 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
-    handleGetAllSuperCategory();
+    handleGetAllSuperCategory(selectedPage);
   }, [selectedPage, selectedSort]);
 
   // Delete room
@@ -107,7 +107,8 @@ export default function SuperCategoryComponent() {
     SuperCategoryService.saveSuperCategory(newData).then((res) => {
       if (res.data.success) {
         document.getElementById("btn-super-category").click();
-        handleGetAllSuperCategory();
+        handleGetAllSuperCategory(1);
+        setI(1)
       }
     });
   };
@@ -388,6 +389,9 @@ export default function SuperCategoryComponent() {
                 containerClassName="pagination"
                 activeClassName="active"
                 renderOnZeroPageCount={null}
+                onClick={(e) => {
+                  console.log('onClick', e);
+              }}
               />
             </div>
           </div>
