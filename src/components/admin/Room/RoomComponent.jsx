@@ -83,7 +83,7 @@ export default function RoomComponent() {
     const handlePageClick = (event) => {
         setSelectedPage(event.selected + 1)
         setI(event.selected * 8 + 1);
-        handleGetAllRooms(event.selected + 1, itemName, selectedSort)
+        setPageCount(Math.ceil(totalRow / 8));
     };
 
     useEffect(() => {
@@ -93,27 +93,15 @@ export default function RoomComponent() {
             handleGetAllRooms(selectedPage, itemName, selectedSort)
         }
 
-        setPageCount(Math.ceil(totalRow / 8));
+        if (isCreateSuccess || isUpdateSuccess) {
+            handleGetAllRooms(1)
+        }
 
-    }, [itemName, selectedSort, totalRow])
+    }, [itemName, selectedSort, isCreateSuccess, isUpdateSuccess])
 
-    useEffect(() => {
-        setSelectedPage(0)
-        setI(1)
-        handleGetAllRooms()
-        setIsCreateSuccess(false)
-    }, [isCreateSuccess])
-
-    useEffect(() => {
-        handleGetAllRooms(selectedPage, itemName, selectedSort)
-        setIsUpdateSuccess(false)
-    }, [isUpdateSuccess])
-
-    useEffect(() => {
-        setRoomId("")
-        handleGetAllRooms(1, "", "")
-        setRoomId('')
-    }, [roomId])
+    // useEffect(() => {
+    //     handleGetAllRooms(selectedPage)
+    // }, [selectedPage])
 
     const handleInputSearch = (e) => {
         setItemName(e.target.value)
@@ -387,6 +375,14 @@ export default function RoomComponent() {
                                     containerClassName="pagination"
                                     activeClassName="active"
                                     renderOnZeroPageCount={null}
+                                    onClick={(clickEvent) => {
+                                        console.log('onClick', clickEvent);
+                                        // Return false to prevent standard page change,
+                                        // return false; // --> Will do nothing.
+                                        // return a number to choose the next page,
+                                        // return 4; --> Will go to page 5 (index 4)
+                                        // return nothing (undefined) to let standard behavior take place.
+                                    }}
                                 />
                             </div>
                         </div>
@@ -398,7 +394,7 @@ export default function RoomComponent() {
             <DetailComponent className="modal" />
             <RoomAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess} />
             <RoomUpdateComponent className="modal" handleIsUpdateSuccess={handleIsUpdateSuccess} />
-            <RoomDeleteComponent className="modal" handleSetRoomId={handleSetRoomId}/>
+            <RoomDeleteComponent className="modal" handleSetRoomId={handleSetRoomId} />
         </>
     )
 }
