@@ -6,7 +6,7 @@ import "../../../style/pagination.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Listbox, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
 import { setAllSuperCategory } from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
@@ -23,18 +23,22 @@ import trash_ico from "../../../assets/images/trash.png";
 import moment from "moment";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
+import { AiOutlinePlus } from "react-icons/ai";
 
-const people = [
-  { id: 1, name: "Room" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "name", name: "Name"
+  },
+  {
+    id: "created_at", name: "Created Date"
+  },
 ];
 
 export default function SuperCategoryComponent() {
-  const [selected, setSelected] = useState(people[0]);
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
   const [selectedPage, setSelectedPage] = useState(1)
@@ -77,10 +81,12 @@ export default function SuperCategoryComponent() {
       if (res.data.success) {
         dispatch(setAllSuperCategory(res.data.payload));
         setTotalRow(res.data.totalData)
+        setPageCount(Math.ceil(res.data.totalData / 8));
+        setCountCurrentRow(res.data.payload.length)
       }
     });
   };
-
+console.log(countCurrentRow)
   // function delete SuperCategory
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
@@ -132,17 +138,9 @@ export default function SuperCategoryComponent() {
     }));
   };
 
-  const [query, setQuery] = useState("");
-
-  const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
+  const handleSelectedSort = (val) => {
+    setSelectedSort(val)
+  }
 
   const formik = useFormik({
     initialValues: newData,
@@ -225,77 +223,68 @@ export default function SuperCategoryComponent() {
 
             {/* filter */}
             <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <Combobox
-                value={selected}
-                onChange={setSelected}
-                className="z-20"
-              >
-                <div className="relative z-20">
-                  <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                    <Combobox.Input
-                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                      displayValue={(person) => person.name}
-                      onChange={(event) => setQuery(event.target.value)}
-                    />
-                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                      <ChevronUpDownIcon
-                        className="h-5 w-5 text-text-color"
-                        aria-hidden="true"
-                      />
-                    </Combobox.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                    afterLeave={() => setQuery("")}
-                  >
-                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {filteredPeople.length === 0 && query !== "" ? (
-                        <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                          Nothing found.
-                        </div>
-                      ) : (
-                        filteredPeople.map((person) => (
-                          <Combobox.Option
-                            key={person.id}
-                            className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                ? "bg-hover-yellow text-text-color"
-                                : "text-text-color"
-                              }`
-                            }
-                            value={person}
-                          >
-                            {({ selected, active }) => (
-                              <>
-                                <span
-                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                    }`}
-                                >
-                                  {person.name}
-                                </span>
-                                {selected ? (
-                                  <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                      }`}
-                                  >
-                                    <CheckIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  </span>
-                                ) : null}
-                              </>
-                            )}
-                          </Combobox.Option>
-                        ))
-                      )}
-                    </Combobox.Options>
-                  </Transition>
-                </div>
-              </Combobox>
+              <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+                {({ open }) => (
+                  <>
+                    <div className="relative z-30">
+                      <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                        <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
+                          {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                            <ChevronUpDownIcon
+                              className="h-5 w-5 text-text-color"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </Listbox.Button>
+                      </div>
+                      <Transition
+                        show={open}
+                        leave=""
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                      >
+                        <Listbox.Options
+                          static
+                          className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        >
+                          {sort.length == 0 ? (
+                            <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                              Nothing found.
+                            </div>
+                          ) : (
+                            sort.map((val, index) => (
+                              <Listbox.Option key={index} value={val.id}
+                                className={({ active }) =>
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                }
+                              >
+                                {({ selected, active }) => (
+                                  <>
+                                    <span
+                                      className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                    >
+                                      {val.name}
+                                    </span>
+                                    {selected ? (
+                                      <span
+                                        className={`${active ? "text-primary" : "text-primary"
+                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                      >
+                                      </span>
+                                    ) : null}
+                                  </>
+                                )}
+                              </Listbox.Option>
+                            ))
+                          )}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
             </div>
 
             {/* add */}
@@ -414,7 +403,7 @@ export default function SuperCategoryComponent() {
             <div className=" flex justify-between">
               <div className="flex">
                 <img src={gift} className="h-12 rounded-lg w-12 " />
-                <p className="mt-2 items-center font-sp-pro-text-semibold text-lg pl-3  text-text-color">
+                <p className="mt-2 items-center font-sp-pro-text-semibold text-lg pl-3 text-text-color">
                   Create Super Category
                 </p>
               </div>
@@ -468,7 +457,9 @@ export default function SuperCategoryComponent() {
                             id="logo"
                             onChange={handleFileSelect}
                           />
-                          <img src={addIcon} className="h-8 rounded-lg w-8 " />
+                          <div className="h-8 rounded-lg w-8 bg-bg-primary hover:bg-bg-primary-strockF flex justify-center items-center">
+                            <AiOutlinePlus className="text-xl" />
+                          </div>
                         </label>
                       </div>
                     </div>
