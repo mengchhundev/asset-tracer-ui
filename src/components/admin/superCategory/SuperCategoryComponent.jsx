@@ -6,13 +6,12 @@ import "../../../style/pagination.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Combobox, Listbox, Transition } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
-import { setAllSuperCategory } from "../../../redux/slices/SuperCategorySlice";
+import { setAllSuperCategory, setCountCurrentRow, setPageCount, setTotalRow } from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { RiCloseFill } from "react-icons/ri";
-import addIcon from "../../../assets/icon/addIcon.svg";
 import gift from "../../../assets/icon/gift.svg";
 import electronic from "../../../assets/icon/electronic.svg";
 import furniture from "../../../assets/icon/furniture.svg";
@@ -41,14 +40,17 @@ export default function SuperCategoryComponent() {
   const [selectedSort, setSelectedSort] = useState(sort[0].name)
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
+
+  const [itemName, setItemName] = useState("")
   const [selectedPage, setSelectedPage] = useState(1)
   const getAllSuperCategores = useSelector((state) => state.superCategory.data);
-  const [pageCount, setPageCount] = useState(2);
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const organizationId = organization.id;
+  
   const [isUpdate, setIsUpdate] = useState(false);
-  const [totalRow, setTotalRow] = useState(0);
-  const [countCurrentRow, setCountCurrentRow] = useState(0);
+  let totalRow = useSelector(state => state.superCategory.totalRow)
+  let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
+  let pageCount = useSelector(state => state.superCategory.pageCount)
   let formData = new FormData();
   const [selectedFile, setSelectedFile] = useState("");
   const [newData, setData] = useState({
@@ -61,7 +63,7 @@ export default function SuperCategoryComponent() {
   const handlePageClick = (event) => {
     setSelectedPage(event.selected + 1)
     setI(event.selected * 8 + 1);
-    setPageCount(Math.ceil(totalRow / 8));
+    dispatch(setPageCount(Math.ceil(totalRow / 8)))
   };
 
   // select file
@@ -75,19 +77,23 @@ export default function SuperCategoryComponent() {
       })
   };
 
-  // function get all super category
+  // Get all super categories
   const handleGetAllSuperCategory = (page = 1, name = "", sort = "") => {
     SuperCategoryService.getSuperCategories(organizationId, page, 8, name, sort).then((res) => {
       if (res.data.success) {
         dispatch(setAllSuperCategory(res.data.payload));
-        setTotalRow(res.data.totalData)
-        setPageCount(Math.ceil(res.data.totalData / 8));
-        setCountCurrentRow(res.data.payload.length)
+        dispatch(setTotalRow(res.data.totalData))
+        dispatch(setPageCount(Math.ceil(res.data.totalData / 8)));
+        dispatch(setCountCurrentRow(res.data.payload.length))
       }
     });
   };
-console.log(countCurrentRow)
-  // function delete SuperCategory
+
+  useEffect(() => {
+    handleGetAllSuperCategory();
+  }, [selectedPage, selectedSort]);
+
+  // Delete room
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
@@ -96,7 +102,7 @@ console.log(countCurrentRow)
     });
   };
 
-  // function ADD super category
+  // Add room
   const handleSaveSuperCategory = () => {
     SuperCategoryService.saveSuperCategory(newData).then((res) => {
       if (res.data.success) {
@@ -105,6 +111,8 @@ console.log(countCurrentRow)
       }
     });
   };
+
+  // Update room
   const handleUpdateSuperCategory = () => {
     SuperCategoryService.updateSuperCategory(newData.id, newData).then(
       (res) => {
@@ -115,12 +123,6 @@ console.log(countCurrentRow)
       }
     );
   };
-
-  useEffect(() => {
-    handleGetAllSuperCategory();
-    setPageCount(Math.ceil(totalRow / 8));
-    setCountCurrentRow(getAllSuperCategores.length)
-  }, []);
 
   useEffect(() => {
     setData((prevData) => ({
@@ -141,6 +143,10 @@ console.log(countCurrentRow)
   const handleSelectedSort = (val) => {
     setSelectedSort(val)
   }
+
+  const handleInputSearch = (e) => {
+    setItemName(e.target.value)
+  };
 
   const formik = useFormik({
     initialValues: newData,

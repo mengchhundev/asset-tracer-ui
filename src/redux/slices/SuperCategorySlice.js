@@ -6,7 +6,10 @@ const initialState = {
     superCategoryDetail : {
         name:"",
         icon:"",
-    }
+    },
+    countCurrentRow: "",
+    pageCount: 1,
+    totalRow: 0
 }
 
 export const superCategorySlice = createSlice({
@@ -25,9 +28,25 @@ export const superCategorySlice = createSlice({
         setUpdateSuperCategory: (state, action) => {
             state.setUpdateSuperCategory = action.payload
         },
-        
+        setCountCurrentRow: (state, action) => {
+            state.countCurrentRow = action.payload
+        },
+        setPageCount: (state, action) => {
+            state.pageCount = action.payload
+        },
+        setTotalRow: (state, action) => {
+            state.totalRow = action.payload
+        }
     }
 });
 
-export const { setAllSuperCategory, setSuperCategoryDetail, setDeleteSuperCategory,setUpdateSuperCategory } = superCategorySlice.actions
+export const { 
+    setAllSuperCategory, 
+    setSuperCategoryDetail, 
+    setDeleteSuperCategory,
+    setUpdateSuperCategory, 
+    setCountCurrentRow, 
+    setPageCount,
+    setTotalRow 
+} = superCategorySlice.actions
 export default superCategorySlice.reducer
