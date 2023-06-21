@@ -48,6 +48,11 @@ const getLastThreeInvoice = async (orgId) => {
 const getTotalAssetPerCategory = async (orgId) => {
     return await apiV2.get(`/super-categories/count-asset/${orgId}`)
 }
+// ================================================
+// ======== Current User =========
+// const getCurrentUser = async (orgId) => {
+//     return await apiV2.get(``)
+// }
 const DashboardService = {
     getTotalUserInOrg,
     getTotalAssetInOrg,
