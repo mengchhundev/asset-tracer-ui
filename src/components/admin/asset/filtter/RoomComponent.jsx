@@ -23,6 +23,7 @@ export default function RoomComponent() {
       }
     });
   };
+  
   const getData = useSelector((state) => state.room.data);
 
   useEffect(() => {

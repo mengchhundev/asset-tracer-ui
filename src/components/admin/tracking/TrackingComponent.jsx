@@ -1,25 +1,73 @@
 import React, { Fragment, useEffect, useState } from "react";
 //import combobox
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import ReactPaginate from "react-paginate";
 import avatar01 from "../../../assets/images/tracking/chair.png";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
+import RoomService from "../../../redux/services/RoomService";
+import AssetService from "../../../redux/services/AssetService";
+import { setAssets } from "../../../redux/slices/AssetSlice";
+import { useDispatch, useSelector } from "react-redux";
+import ViewDetailComponent from "./ViewDetailComponent";
+
+const status = [
+  { id: "in_stock", name: "In Stock" },
+]
+
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "name", name: "Name"
+  },
+  {
+    id: "type", name: "Room Type"
+  },
+  {
+    id: "floor", name: "Floor"
+  }
+];
 
 export default function TrackingComponent() {
 
+  const dispatch = useDispatch()
   const organization = JSON.parse(sessionStorage.getItem("organization"))
   const orgId = organization.id;
+  const assets = useSelector(state => state.asset.assets)
+
+  const [itemName, setItemName] = useState("")
 
   // combo box room
   const [roomName, setRoomName] = useState([])
   const [selectedRoom, setSelectedRoom] = useState()
-  const [queryRoom, setQueryRoom] = useState()
+  const [queryRoom, setQueryRoom] = useState("")
+  const [totalRow, setTotalRow] = useState(0)
+  const [i, setI] = useState(1)
+
+  const filteredRoom =
+    queryRoom === ""
+      ? roomName
+      : roomName.filter((list) =>
+        list.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(queryRoom.toLowerCase().replace(/\s+/g, ""))
+      );
+
+  // combo box status
+  const [selectedStatus, setSelectedStatus] = useState()
 
   //combo box category
-  const [normalCategoryName, setNormalCategoryName] = useState([])
+  const [normalCategoryName, setNormalCategoryName] = useState([
+    { id: "", name: "Default" },
+  ])
   const [selectedNormalCategory, setSelectedNormalCategory] = useState();
   const [queryNormalCategory, setQueryNormalCategory] = useState("");
+
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [selectedPage, setSelectedPage] = useState(1)
 
   useEffect(() => {
     NormalCategoryService.getAllNormalCategoryName(orgId).then(res => {
@@ -27,7 +75,15 @@ export default function TrackingComponent() {
         setNormalCategoryName(res.data.payload)
       }
     })
+
+    RoomService.getAllRoomByOrgId(orgId).then(res => {
+      if (res.data.success) {
+        setRoomName(res.data.payload)
+      }
+    })
   }, [])
+
+  console.log(normalCategoryName)
 
   const filteredNormalCategory =
     queryNormalCategory === ""
@@ -41,14 +97,41 @@ export default function TrackingComponent() {
 
   // pagination
   const [pageCount, setPageCount] = useState(2);
-  let [isOpen, setIsOpen] = useState(false);
-  function openDetail() {
-    setIsOpen(true);
-  }
+
   const handlePageClick = (event) => {
-    getAllSuperCategory(event.selectedNormalCategory + 1);
-    setI(event.selectedNormalCategory * 10 + 1);
+    getAllSuperCategory(event.selected + 1);
+    setI(event.selected * 10 + 1);
   };
+
+  const handleInputSearch = (e) => {
+    setItemName(e.target.value)
+  };
+
+  const handleSelectedStatus = (val) => {
+    setSelectedStatus(val)
+  }
+
+  const handleGetAllAssets = (page = 1, assetName = "", status = "", room = "", normalCategoryName = "", sort = "") => {
+    AssetService.getAllAssets(orgId, page, 8, assetName, "", "", status, "", room, normalCategoryName, sort).then(res => {
+      if (res.data.success) {
+        dispatch(setAssets(res.data.payload))
+        setTotalRow(res.data.totalData)
+      }
+    }, err => {
+      dispatch(setAssets([]))
+      setTotalRow(0)
+    })
+  }
+
+  useEffect(() => {
+    if (itemName != null || selectedRoom != null || selectedNormalCategory != null || selectedStatus != null) {
+      console.log(itemName)
+      handleGetAllAssets(1, itemName, selectedStatus, selectedRoom, selectedNormalCategory, "")
+    } else {
+      handleGetAllAssets(1)
+    }
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [itemName, selectedRoom, selectedNormalCategory, selectedSort])
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-7.8rem)]">
@@ -83,6 +166,7 @@ export default function TrackingComponent() {
                   className="w-full placeholder-black placeholder-opacity-20 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
+                  onInput={handleInputSearch}
                   placeholder="Search..."
                 />
               </div>
@@ -142,6 +226,116 @@ export default function TrackingComponent() {
                 </Combobox>
               </div>
             </div>
+
+            <div className="col-span-4 md:col-span-2 xl:col-span-1">
+              {/* filter */}
+              <div className="z-20">
+                <Combobox
+                  value={selectedRoom}
+                  onChange={setSelectedRoom}
+                  className="z-20"
+                >
+                  <div className="relative z-20">
+                    <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                      <Combobox.Input
+                        className={`text-text-color w-full placeholder-black placeholder-opacity-20 border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm  outline-none focus:border-primary`}
+                        displayValue={(list) => list.name}
+                        onChange={(event) => setQueryRoom(event.target.value)}
+                        placeholder='Select Room'
+                      />
+                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                        <ChevronUpDownIcon
+                          className="h-5 w-5 text-text-color"
+                          aria-hidden="true"
+                        />
+                      </Combobox.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                      afterLeave={() => setQueryRoom("")}
+                    >
+                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        {filteredNormalCategory.length === 0 && queryNormalCategory !== "" ? (
+                          <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                            Nothing found.
+                          </div>
+                        ) : (
+                          filteredRoom.map((list, index) => (
+                            <Combobox.Option
+                              key={index}
+                              className={({ active }) =>
+                                `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                              }
+                              value={list}
+                            >
+                              {list.name}
+                            </Combobox.Option>
+                          ))
+                        )}
+                      </Combobox.Options>
+                    </Transition>
+                  </div>
+                </Combobox>
+              </div>
+            </div>
+
+            <div className="col-span-4 md:col-span-2 xl:col-span-1">
+              {/* filter */}
+              <div className="z-20 ">
+                <Listbox as="div" value={selectedStatus} onChange={handleSelectedStatus}>
+                  {({ open }) => (
+                    <>
+                      <div className="relative z-30">
+                        <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                          <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200 bg-bg-main rounded-md text-gray-800">
+                            {selectedStatus ? <span className="block truncate text-sm text-text-color">
+                              {selectedStatus == "in_stock" ? "In Stock" : ""}
+                            </span> : <span className="block truncate text-sm text-black text-opacity-20">Select status</span>}
+
+                            <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                              <ChevronUpDownIcon
+                                className="h-5 w-5 text-text-color"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          </Listbox.Button>
+                        </div>
+                        <Transition
+                          show={open}
+                          leave=""
+                          leaveFrom="opacity-100"
+                          leaveTo="opacity-0"
+                        >
+                          <Listbox.Options
+                            static
+                            className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                          >
+                            {status.length == 0 ? (
+                              <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                                Nothing found.
+                              </div>
+                            ) : (
+                              status.map((val, index) => (
+                                <Listbox.Option key={index} value={val.id}
+                                  className={({ active }) =>
+                                    `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                  }
+                                >
+                                  {val.name}
+                                </Listbox.Option>
+                              ))
+                            )}
+                          </Listbox.Options>
+                        </Transition>
+                      </div>
+                    </>
+                  )}
+                </Listbox>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -153,11 +347,12 @@ export default function TrackingComponent() {
                 <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none">
                   <td className="bg-bg-main py-3">No</td>
                   <td className="w-2/12 bg-bg-main py-3">
-                    Label Code
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3">
                     Asset Name
                   </td>
+                  <td className="w-2/12 bg-bg-main py-3">
+                    Label Code
+                  </td>
+
                   <td className="w-2/12 bg-bg-main py-3">
                     Category
                   </td>
@@ -174,58 +369,74 @@ export default function TrackingComponent() {
                     Action
                   </td>
                 </tr>
+                {assets.length != 0
 
-                <tr className="text-sm font-sp-pro-text-regular">
-                  <td className="py-3 ">
-                    1
-                  </td>
-                  <td className="py-3 ">
-                    Mango-M092392
-                  </td>
-                  <td className="py-3">
-                    <div className="flex items-center">
-                      <div className="relative mr-2 w-8 h-8 ">
-                        <img
-                          src={avatar01}
-                          loading="lazy"
-                        />
-                      </div>
-                      <div>Chair</div>
-                    </div>
-                  </td>
-                  <td className="py-3 ">
-                    Furniture
-                  </td>
-                  <td>
-                    <div className="flex items-center">
-                      <label
-                        htmlFor="modalEdit"
-                        className="flex items-center border bg-reject bg-opacity-10 border-reject text-reject w-[90px] justify-center px-5 py-1 hover:bg-reject hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"
-                        aria-label="Edit"
-                      >
-                        Issue
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    Hongmeng
-                  </td>
-                  <td>
-                    Accouting
-                  </td>
-                  <td>
-                    <button className="px-3 py-2 bg-primary bg-opacity-10 rounded-md border border-primary text-primary">
-                      View Detail
-                    </button>
-                  </td>
-                </tr>
+                  ? assets.map((list, index) => (
+                    <tr key={index} className="text-sm font-sp-pro-text-regular">
+                      <td className="py-3 ">
+                        {index + i}
+                      </td>
+                      <td className="py-3">
+                        <div className="flex items-center">
+                          <div className="relative mr-2 w-8 h-8 ">
+                            {list.itemDetail.image ?
+                              <img
+                                src={avatar01}
+                                loading="lazy"
+                              />
+                              :
+                              null
+                            }
+
+                          </div>
+                          <div>{list.itemDetail.name}</div>
+                        </div>
+                      </td>
+                      <td className="py-3 ">
+                        {list.labelCode}
+                      </td>
+                      <td className="py-3 ">
+                        {list.itemDetail.normalCategoryName}
+                      </td>
+                      <td>
+                        <div className="flex items-center">
+                          <label
+                            htmlFor="modalEdit"
+                            className={`flex items-center border bg-opacity-10 justify-center px-5 py-1 cursor-pointer leading-5 rounded-full ${list.status == "in_stock" ? "bg-blue-700 border-blue-700 text-blue-700" : list.status == "in_used" ? "bg-accept border-apbg-accept text-apbg-accept" : "bg-reject border-reject text-reject"}`}
+                            aria-label="Edit"
+                          >
+                            {list.status == "in_stock" ? "In Stock" : list.status == "in_used" ? "In Used" : ""}
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        {list.owner}
+                      </td>
+                      <td>
+                        {list.roomName}
+                      </td>
+                      <td>
+                        <label htmlFor="view-detail" className="px-3 py-2 bg-primary bg-opacity-10 rounded-md border border-primary text-primary">
+                          View Detail
+                        </label>
+                      </td>
+                    </tr>
+
+                  ))
+
+                  :
+                  <tr>
+                    <td colSpan={99} className="text-center">No Data</td>
+                  </tr>
+                }
+
               </tbody>
             </table>
           </div>
 
           {/* pagination */}
           <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-            <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
+            <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of {totalRow} entries</div>
             <div id="react-paginate" className="">
               <ReactPaginate
                 nextLabel=" >"
@@ -251,6 +462,7 @@ export default function TrackingComponent() {
           </div>
         </div>
       </div>
+      <ViewDetailComponent className="modal" />
     </main>
   );
 }

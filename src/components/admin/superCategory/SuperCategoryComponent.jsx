@@ -52,30 +52,21 @@ export default function SuperCategoryComponent() {
     organizationId: organizationId,
   });
 
-  console.log(getAllSuperCategores);
-
   // select file
   const handleFileSelect = (event) => {
-    console.log("File : ", event.target.files[0]);
     setSelectedFile(event.target.files[0]);
     formData.append("file", event.target.files[0]);
+
     FileUploadService.storeFile(formData, localStorage.getItem("token"))
-      .then(
-        (res) => {
-          console.log("res : ", res);
-          setData({ ...newData, icon: res.data.payload });
-        },
-        (e) => console.log(e)
-      )
-      .catch((e) => console.log("Error upload file", e));
+      .then((res) => {
+        setData({ ...newData, icon: res.data.payload });
+      })
   };
-  console.log("Selected file : ", formData);
-  console.log("New Data : ", newData);
 
   // function get all super category
-  const handleGetAllSuperCategory = () => {
-    SuperCategoryService.getSuperCategories().then((res) => {
-      if (res?.data?.success) {
+  const handleGetAllSuperCategory = (page = 1, name = "", sort = "") => {
+    SuperCategoryService.getSuperCategories(organizationId, page, 8, name, sort).then((res) => {
+      if (res.data.success) {
         dispatch(setAllSuperCategory(res.data.payload));
       }
     });
@@ -85,7 +76,6 @@ export default function SuperCategoryComponent() {
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
-        setData
         handleGetAllSuperCategory();
       }
     });
@@ -93,7 +83,6 @@ export default function SuperCategoryComponent() {
 
   // function ADD super category
   const handleSaveSuperCategory = () => {
-    console.log("New Data : ", newData);
     SuperCategoryService.saveSuperCategory(newData).then((res) => {
       if (res.data.success) {
         document.getElementById("btn-super-category").click();
@@ -111,7 +100,6 @@ export default function SuperCategoryComponent() {
       }
     );
   };
-  console.log("Data : ", getAllSuperCategores);
 
   useEffect(() => {
     handleGetAllSuperCategory();
@@ -139,11 +127,11 @@ export default function SuperCategoryComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
 
   const formik = useFormik({
     initialValues: newData,
@@ -162,7 +150,7 @@ export default function SuperCategoryComponent() {
     if (!isUpdate) {
       formik.setValues({ id: "", name: "", organizationId: "" });
     }
-  }, isUpdate);
+  }, [isUpdate]);
 
   const handleShowSuperCategory = (val) => {
     setIsUpdate(true);
@@ -262,10 +250,9 @@ export default function SuperCategoryComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -273,17 +260,15 @@ export default function SuperCategoryComponent() {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"
@@ -519,11 +504,10 @@ export default function SuperCategoryComponent() {
                 <div className="">
                   <button
                     type="submit"
-                    className={`${
-                      isUpdate
-                        ? "hover:bg-green bg-green"
-                        : "hover:bg-primary bg-primary"
-                    }  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                    className={`${isUpdate
+                      ? "hover:bg-green bg-green"
+                      : "hover:bg-primary bg-primary"
+                      }  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
                   >
                     <FiSave className="text-lg" /> &nbsp;{" "}
                     {isUpdate ? "Save change" : "Add"}
