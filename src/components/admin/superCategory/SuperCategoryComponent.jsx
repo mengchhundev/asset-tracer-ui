@@ -185,6 +185,7 @@ export default function SuperCategoryComponent() {
       organizationId: organizationId,
     });
     formik.setValues({ id: "", name: "", organizationId: "" });
+    document.getElementById("btn-super-category").click()
   };
 
   return (
@@ -494,7 +495,6 @@ export default function SuperCategoryComponent() {
                 <div className="">
                   <label
                     onClick={handleHideModal}
-                    htmlFor='create-organization'
                     className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                   >
                     <RiCloseFill className='text-lg' />
