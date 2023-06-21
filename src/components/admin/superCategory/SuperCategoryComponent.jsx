@@ -64,10 +64,9 @@ export default function SuperCategoryComponent() {
   };
 
   // function get all super category
-  const handleGetAllSuperCategory = () => {
-    SuperCategoryService.getSuperCategories(organizationId).then((res) => {
+  const handleGetAllSuperCategory = (page = 1, name = "", sort = "") => {
+    SuperCategoryService.getSuperCategories(organizationId, page, 8, name, sort).then((res) => {
       if (res.data.success) {
-        console.log(res.data)
         dispatch(setAllSuperCategory(res.data.payload));
       }
     });

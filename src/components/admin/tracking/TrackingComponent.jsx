@@ -43,9 +43,7 @@ export default function TrackingComponent() {
   const [roomName, setRoomName] = useState([])
   const [selectedRoom, setSelectedRoom] = useState()
   const [queryRoom, setQueryRoom] = useState("")
-
   const [totalRow, setTotalRow] = useState(0)
-
   const [i, setI] = useState(1)
 
   const filteredRoom =
@@ -62,10 +60,11 @@ export default function TrackingComponent() {
   const [selectedStatus, setSelectedStatus] = useState()
 
   //combo box category
-  const [normalCategoryName, setNormalCategoryName] = useState([])
+  const [normalCategoryName, setNormalCategoryName] = useState([
+    { id: "", name: "Default" },
+  ])
   const [selectedNormalCategory, setSelectedNormalCategory] = useState();
   const [queryNormalCategory, setQueryNormalCategory] = useState("");
-
 
   const [selectedSort, setSelectedSort] = useState(sort[0].name)
   const [selectedPage, setSelectedPage] = useState(1)
@@ -84,6 +83,8 @@ export default function TrackingComponent() {
     })
   }, [])
 
+  console.log(normalCategoryName)
+
   const filteredNormalCategory =
     queryNormalCategory === ""
       ? normalCategoryName
@@ -98,8 +99,8 @@ export default function TrackingComponent() {
   const [pageCount, setPageCount] = useState(2);
 
   const handlePageClick = (event) => {
-    getAllSuperCategory(event.selectedNormalCategory + 1);
-    setI(event.selectedNormalCategory * 10 + 1);
+    getAllSuperCategory(event.selected + 1);
+    setI(event.selected * 10 + 1);
   };
 
   const handleInputSearch = (e) => {
@@ -111,7 +112,7 @@ export default function TrackingComponent() {
   }
 
   const handleGetAllAssets = (page = 1, assetName = "", status = "", room = "", normalCategoryName = "", sort = "") => {
-    AssetService.getAllAssets(orgId, page, 8, assetName, "", "", "", status, "", room, normalCategoryName, sort).then(res => {
+    AssetService.getAllAssets(orgId, page, 8, assetName, "", "", status, "", room, normalCategoryName, sort).then(res => {
       if (res.data.success) {
         dispatch(setAssets(res.data.payload))
         setTotalRow(res.data.totalData)
@@ -130,7 +131,7 @@ export default function TrackingComponent() {
       handleGetAllAssets(1)
     }
     setPageCount(Math.ceil(totalRow / 8));
-  }, [itemName])
+  }, [itemName, selectedRoom, selectedNormalCategory, selectedSort])
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-7.8rem)]">
@@ -228,7 +229,7 @@ export default function TrackingComponent() {
 
             <div className="col-span-4 md:col-span-2 xl:col-span-1">
               {/* filter */}
-              <div className="z-20 ">
+              <div className="z-20">
                 <Combobox
                   value={selectedRoom}
                   onChange={setSelectedRoom}
