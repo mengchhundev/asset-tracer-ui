@@ -18,12 +18,12 @@ import electronic from "../../../assets/icon/electronic.svg";
 import furniture from "../../../assets/icon/furniture.svg";
 import office from "../../../assets/icon/office.svg";
 import placeImg from "../../../assets/icon/placeImg.svg";
-import { FiSave, FiTrash2 } from "react-icons/fi";
+import { FiSave } from "react-icons/fi";
 import trash_ico from "../../../assets/images/trash.png";
 import moment from "moment";
 import FileUploadService from "../../../redux/services/FileUploadService";
-import { list } from "postcss";
 import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
+
 const people = [
   { id: 1, name: "Room" },
   { id: 2, name: "Arlene Mccoy" },
@@ -32,17 +32,19 @@ const people = [
   { id: 5, name: "Tanya Fox" },
   { id: 6, name: "Hellen Schmidt" },
 ];
-const serverLocation = "http://localhost:8080/api/v1/files/getFile?fileName=";
 
 export default function SuperCategoryComponent() {
   const [selected, setSelected] = useState(people[0]);
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
+  const [selectedPage, setSelectedPage] = useState(1)
   const getAllSuperCategores = useSelector((state) => state.superCategory.data);
   const [pageCount, setPageCount] = useState(2);
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const organizationId = organization.id;
   const [isUpdate, setIsUpdate] = useState(false);
+  const [totalRow, setTotalRow] = useState(0);
+  const [countCurrentRow, setCountCurrentRow] = useState(0);
   let formData = new FormData();
   const [selectedFile, setSelectedFile] = useState("");
   const [newData, setData] = useState({
@@ -51,6 +53,12 @@ export default function SuperCategoryComponent() {
     icon: "",
     organizationId: organizationId,
   });
+
+  const handlePageClick = (event) => {
+    setSelectedPage(event.selected + 1)
+    setI(event.selected * 8 + 1);
+    setPageCount(Math.ceil(totalRow / 8));
+  };
 
   // select file
   const handleFileSelect = (event) => {
@@ -68,6 +76,7 @@ export default function SuperCategoryComponent() {
     SuperCategoryService.getSuperCategories(organizationId, page, 8, name, sort).then((res) => {
       if (res.data.success) {
         dispatch(setAllSuperCategory(res.data.payload));
+        setTotalRow(res.data.totalData)
       }
     });
   };
@@ -103,6 +112,8 @@ export default function SuperCategoryComponent() {
 
   useEffect(() => {
     handleGetAllSuperCategory();
+    setPageCount(Math.ceil(totalRow / 8));
+    setCountCurrentRow(getAllSuperCategores.length)
   }, []);
 
   useEffect(() => {
@@ -305,25 +316,24 @@ export default function SuperCategoryComponent() {
             <table className="table w-full">
               <tbody className="">
                 <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
-                  <td className="w-1/5 bg-bg-main">No</td>
-                  <td className="w-2/5 bg-bg-main">Super Category Name</td>
-                  <td className="w-2/5 bg-bg-main">Created Date</td>
-                  <td className="w-1/5 bg-bg-main text-center">Action</td>
+                  <td className="w-1/5 bg-bg-main  py-3">No</td>
+                  <td className="w-2/5 bg-bg-main  py-3">Super Category Name</td>
+                  <td className="w-2/5 bg-bg-main  py-3">Created Date</td>
+                  <td className="w-1/5 bg-bg-main text-center  py-3">Action</td>
                 </tr>
                 {getAllSuperCategores.map((list, index) => (
                   <tr key={index} className="text-sm font-sp-pro-text-regular">
-                    <td className="w-1/5 ">{index + i}</td>
-
-                    <td className="w-2/5 ">
+                    <td className="w-1/5  py-3">{index + i}</td>
+                    <td className="w-2/5  py-3">
                       <div className="flex items-center space-x-5">
                         <img
                           className="h-9 rounded-full w-9"
-                          src={list.icon ?`${serverLocation}${list.icon}`:placeholder_square}
+                          src={list.icon ? FileUploadService.getImage(list.icon) : placeholder_square}
                         ></img>
                         <span className="text-sm ">{list.name}</span>
                       </div>
                     </td>
-                    <td className="w-2/5 py-3 text-sm font-sp-pro-text-regular p-2.5">
+                    <td className="w-2/5 py-3">
                       <div className="flex items-center space-x-5">
                         <span className="text-sm ">
                           {moment(list.createAt).format("MMM DD YYYY")}
@@ -359,14 +369,14 @@ export default function SuperCategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
+          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
             <div className="font-sp-pro-text-regular opacity-90">
-              Showing data 1 to 8 of 256K entries
+              Showing data 1 to {countCurrentRow} of {totalRow} entries
             </div>
-            <div id="react-paginate" className="">
+            <div id="react-paginate">
               <ReactPaginate
                 nextLabel=" >"
-                // onPageChange={handlePageClick}
+                onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={2}
                 pageCount={pageCount}
@@ -404,64 +414,61 @@ export default function SuperCategoryComponent() {
             <div className=" flex justify-between">
               <div className="flex">
                 <img src={gift} className="h-12 rounded-lg w-12 " />
-                <p className="mt-2 flexF items-center font-sp-pro-text-regular text-xl pl-6  text-text-color">
+                <p className="mt-2 items-center font-sp-pro-text-semibold text-lg pl-3  text-text-color">
                   Create Super Category
                 </p>
               </div>
             </div>
             <form onSubmit={formik.handleSubmit}>
-              <div className=" border border-bg-primary rounded-md p-3 my-3">
-                <div className="flex flex-row gap-4">
-                  <div>
-                    <p className="text-center">Choose Icon</p>
-                    <div className="flex flex- justify-between">
+              <div className=" border border-bg-primary rounded-md p-2 my-6">
+                <div className="flex items-center gap-3">
+                  <label>
+                    {selectedFile ? (
+                      <img
+                        src={URL.createObjectURL(selectedFile)}
+                        className="h-14 rounded-full w-14 "
+                      />
+                    ) : (
+                      <img
+                        className="h-14 rounded-lg w-14"
+                        src={placeImg}
+                      />
+                    )}
+                  </label>
+                  <div className="flex flex-col">
+                    <p className="px-2">Choose Icon</p>
+                    <div className="flex flex-row items-end justify-start">
                       <div className="p-2">
-                        <label>
-                          {selectedFile ? (
-                            <img
-                              src={URL.createObjectURL(selectedFile)}
-                              className="h-14 rounded-full w-14 "
-                            />
-                          ) : (
-                            <img
-                              className="h-14 rounded-lg w-14"
-                              src={placeImg}
-                            />
-                          )}
-                        </label>
-                      </div>
-                      <div className="p-2 mt-4">
-                        <label>
+                        <label className="cursor-pointer">
                           <img
                             src={electronic}
-                            className="h-9 rounded-lg w-9 "
+                            className="h-8 rounded-lg w-8 "
                           />
                         </label>
                       </div>
-                      <div className="p-2 mt-4">
-                        <label>
-                          <img src={office} className="h-9 rounded-lg w-9 " />
+                      <div className="p-2">
+                        <label className="cursor-pointer">
+                          <img src={office} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
-
-                      <div className="p-2 mt-4">
-                        <label>
+                      <div className="p-2">
+                        <label className="cursor-pointer">
                           <img
                             src={furniture}
-                            className="h-9 rounded-lg w-9 "
+                            className="h-8 rounded-lg w-8 "
                           />
                         </label>
                       </div>
 
-                      <div className="p-2 mt-4">
-                        <label>
+                      <div className="p-2">
+                        <label className="cursor-pointer">
                           <input
                             type="file"
                             className="hidden"
                             id="logo"
                             onChange={handleFileSelect}
                           />
-                          <img src={addIcon} className="h-9 rounded-lg w-9 " />
+                          <img src={addIcon} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
                     </div>
@@ -469,35 +476,28 @@ export default function SuperCategoryComponent() {
                 </div>
               </div>
 
-              <label
-                htmlFor=""
-                className="flex text-sm text-text-color font-sp-pro-text-regular py-2"
-              >
-                Name
-              </label>
-              <input
-                value={newData.name}
-                onInput={handleInputChange}
-                onChange={formik.handleChange}
-                name="name"
-                className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                type="text"
-                placeholder="super category"
-              />
-              {formik.touched.name && formik.errors?.name ? (
-                <p className="text-reject text-xs mt-2 pl-1">
-                  {formik.errors.name}
-                </p>
-              ) : null}
+              <div className='text-left'>
+                <label className="block mb-2 ml-1 text-sm">Super Category Name <span className='text-reject'>*</span></label>
+                <input
+                  type='text'
+                  value={newData.name}
+                  onInput={handleInputChange}
+                  onChange={formik.handleChange}
+                  name="name"
+                  className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20 focus:border-primary  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                  placeholder='Enter super category...'
+                />
+                {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+              </div>
               <div className="flex justify-end flex-row space-x-4 mt-10">
                 <div className="">
                   <label
-                    htmlFor="superCategory"
                     onClick={handleHideModal}
-                    className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center"
+                    htmlFor='create-organization'
+                    className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                   >
-                    <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                    &nbsp;Cancel
+                    <RiCloseFill className='text-lg' />
+                    Cancel
                   </label>
                 </div>
 
@@ -520,38 +520,6 @@ export default function SuperCategoryComponent() {
 
         {/* medal Delete */}
         <input type="checkbox" id="modalDelete" className="modal-toggle" />
-        {/* <div className="modal">
-          <div className="modal-box relative">
-            <div className="flex justify-start">
-              <div className="pl-2">
-                <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2 ">
-                  <FiTrash2 /> Delete
-                </span>
-                <p className="pt-1 ">Are you sure want to delete this post?</p>
-              </div>
-            </div>
-
-            <div className="flex justify-end space-x-4">
-              <div className="modal-action">
-                <label
-                  htmlFor="modalDelete"
-                  className="bg-[#F4F4F4] font-light text-text-color hover:bg-[#F4F4F4] border-2 border-[#D0D5DD] btn"
-                >
-                  Cancel
-                </label>
-              </div>
-              <div className="modal-action">
-                <label
-                  htmlFor="modalDelete"
-                  onClick={handlDeleteSuperCategory}
-                  className="bg-[#FFC5C5] font-light text-reject border-2 border-reject hover:bg-[#FFC5C5] btn"
-                >
-                  Delete
-                </label>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="modal">
           <div className="modal-box relative">
             <div className="absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer">

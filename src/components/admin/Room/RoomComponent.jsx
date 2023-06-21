@@ -44,6 +44,7 @@ export default function RoomComponent() {
     const dispatch = useDispatch();
     const getAllRooms = useSelector((state) => state.room.rooms);
     const [totalRow, setTotalRow] = useState(0);
+    const [countCurrentRow, setCountCurrentRow] = useState(0);
     const [i, setI] = useState(1);
 
     const [isCreateSuccess, setIsCreateSuccess] = useState(false)
@@ -62,7 +63,6 @@ export default function RoomComponent() {
     }
 
     //combobox
-    const [asset, setAsset] = useState({});
     const [itemName, setItemName] = useState();
 
     const handleGetAllRooms = (selectedPage = 1, search = "", sort = "") => {
@@ -88,6 +88,8 @@ export default function RoomComponent() {
 
     useEffect(() => {
 
+        setCountCurrentRow(getAllRooms.length)
+
         if (itemName != null || selectedSort != null) {
             setSelectedPage(1)
             handleGetAllRooms(selectedPage, itemName, selectedSort)
@@ -99,9 +101,9 @@ export default function RoomComponent() {
 
     }, [itemName, selectedSort, isCreateSuccess, isUpdateSuccess])
 
-    // useEffect(() => {
-    //     handleGetAllRooms(selectedPage)
-    // }, [selectedPage])
+    useEffect(() => {
+        // setPageCount(Math.ceil(totalRow / 8));
+    }, [])
 
     const handleInputSearch = (e) => {
         setItemName(e.target.value)
@@ -352,7 +354,7 @@ export default function RoomComponent() {
                         {/* pagination */}
                         <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
                             <div className="font-sp-pro-text-regular opacity-90">
-                                Showing data 1 to 8 of {totalRow} entries
+                                Showing data 1 to {countCurrentRow} of {totalRow} entries
                             </div>
 
                             <div id="react-paginate" className="">
@@ -377,11 +379,6 @@ export default function RoomComponent() {
                                     renderOnZeroPageCount={null}
                                     onClick={(clickEvent) => {
                                         console.log('onClick', clickEvent);
-                                        // Return false to prevent standard page change,
-                                        // return false; // --> Will do nothing.
-                                        // return a number to choose the next page,
-                                        // return 4; --> Will go to page 5 (index 4)
-                                        // return nothing (undefined) to let standard behavior take place.
                                     }}
                                 />
                             </div>

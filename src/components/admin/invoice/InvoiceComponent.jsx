@@ -222,7 +222,7 @@ export default function AssetComponent() {
           </div>
         </div>
 
-        <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto  flex-grow">
+        <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto flex-grow">
           {/* table */}
           <div className="px-5 z-0 flex-grow ">
             <table className="table w-full">
