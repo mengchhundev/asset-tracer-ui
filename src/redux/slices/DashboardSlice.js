@@ -13,7 +13,8 @@ const initialState = {
   lost: null,
   superCategory:[],
   superCategoryName:[],
-  lastInvoice:[]
+  lastInvoice:[],
+  users:[]
 };
 
 export const dashboardSlice = createSlice({
@@ -58,6 +59,9 @@ export const dashboardSlice = createSlice({
     },
     setLastInvoice:(state, action) => {
         state.lastInvoice = action.payload
+    },
+    setCurrentUSer:(state, action) => {
+      state.users = action.payload
     }
   },
 });
@@ -75,6 +79,7 @@ export const {
   setLostAssets,
   setSuperCategory,
   setCategoryName,
-  setLastInvoice
+  setLastInvoice,
+  setCurrentUSer
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;
