@@ -9,11 +9,14 @@ import  normalCategorySlice  from "./slices/NormalCategorySlice";
 import itemDetailSlice  from "./slices/ItemDetailSlice";
 import { ImportExport } from "@mui/icons-material";
 import  dashboardSlice  from "./slices/DashboardSlice";
+import notificationSlice from "./slices/NotificationSlice"
+
 
 
 
 export const store = configureStore({
     reducer: {
+        notification : notificationSlice, 
         superCategory: superCategorySlice,
         organization: organizationSlice,
         room: roomSilce,

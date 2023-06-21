@@ -10,8 +10,11 @@ import book from "../../../assets/images/book.png";
 import cross from "../../../assets/images/cross.png";
 import { CheckIcon, ChevronUpDownIcon, EyeIcon } from "@heroicons/react/20/solid";
 import { Combobox, Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
+import NotificationService from "../../../redux/services/NotificationService";
+import { setAllNotification } from "../../../redux/slices/NotificationSlice";
+import moment from "moment";
 
 const people = [
   { id: 1, name: "Newest" },
@@ -22,9 +25,12 @@ const people = [
 
 export default function NotificationComponent() {
   const [query, setQuery] = useState("");
+  // const getAllSuperCategores = useSelector((state) => state.superCategory.data);
+  const getAllNotification = useSelector ((state) => state.notification.data)
+  console.log(getAllNotification)
   const [pageCount, setPageCount] = useState(2);
   const [selected, setSelected] = useState(people[0]);
-
+  const dispatch = useDispatch();
   const filteredPeople =
     query === ""
       ? people
@@ -41,73 +47,19 @@ export default function NotificationComponent() {
     setI(event.selected * 10 + 1);
   };
 
+  const handleGetAllNotification = () => {
+    NotificationService.getAllNotification().then((res) => {
+      if (res.data.success) {
+        dispatch(setAllNotification(res.data.payload));
+        // setTotalRow(res.data.totalData)
+      }
+    });
+  };
 
-  const [notifications, setNotification] = useState([
-    {
-      id: 1,
-      location: "KPS",
-      name: "Olivia",
-      date: "12-27-2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/0f/b2/97/0fb2975d18129966010c0f58366b8ade.jpg",
-    },
-    {
-      id: 2,
-      location: "PP",
-      name: "Jiso",
-      date: "11-14-2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/a6/d3/e7/a6d3e70fea9bdd7be1788393cc6b782c.jpg",
-    },
-    {
-      id: 3,
-      location: "RK",
-      name: "Gin",
-      date: "09-12-2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/7f/c9/ff/7fc9ff3043b463345310170aed59517d.jpg",
-    },
-    {
-      id: 4,
-      location: "KT",
-      name: "Meng",
-      date: "03-12-2023",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/52/cb/81/52cb81eddd24d627b6cc602b02f0ef5d.jpg",
-    },
-    {
-      id: 5,
-      location: "TK",
-      name: "Benten",
-      date: "06-16-2003",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/f0/18/67/f01867dc61744df68b618409995916d1.jpg",
-    },
-    {
-      id: 6,
-      location: "KK",
-      name: "Amelia",
-      date: "12-17-2003",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/d1/f8/1c/d1f81c56679d70c555373d2e889e0f30.jpg",
-    },
-    {
-      id: 7,
-      location: "KPC",
-      name: "James",
-      date: "12-17-2003",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/3e/bb/0e/3ebb0e52632194dfbaceaaca80be2841.jpg",
-    },
-    {
-      id: 8,
-      location: "PP",
-      name: "Laxy",
-      date: "12-17-2003",
-      email: "hrdcenter@gamil.com",
-      src: "https://i.pinimg.com/474x/f2/a7/65/f2a765fa1f498a9cc4c64e08d1e893fa.jpg",
-    },
-  ]);
+  useEffect(()=>{
+    handleGetAllNotification()
+  },[])
+
   return (
     <main
       className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10"
@@ -263,44 +215,34 @@ export default function NotificationComponent() {
             <table className="table w-full">
               <tbody>
                 <tr className="text-sm font-sp-pro-text-semibold text-text-color">
-                  <td className="w-1/12  bg-bg-main py-3">No</td>
-                  <td className="w-1/12 bg-bg-main py-3">User Name</td>
-                  <td className="w-2/12 bg-bg-main py-3 text-center">Location</td>
-                  <td className="w-3/12 bg-bg-main py-3 text-center">
-                    Created Date
-                  </td>
+                  <td className="w-2/12  bg-bg-main py-3">No</td>
+                  <td className="w-3/12 bg-bg-main py-3">User Name</td>
+                  <td className="w-3/12 bg-bg-main py-3 ">Email</td>
+                  <td className="w-3/12 bg-bg-main py-3 ">Requested Date</td>
                   <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                 </tr>
-                {notifications.map((users) => (
-                  <tr className="text-sm font-sp-pro-text-regular text-text-color text-center">
+                {getAllNotification.map((list, index) => (
+                  <tr key={index} className="text-sm font-sp-pro-text-regular text-text-color text-center">
                     <td className="w-1.5/12 py-3 text-text-color text-left">
-                      {users.id}
+                      {index + 1}
                     </td>
                     <td className="w-2.5/12 py-3">
                       <div className="flex items-center">
-                        <div className="relative  mr-4 w-8 h-8 ">
-                          <img
-                            src={users.src}
-                            alt={users.title}
-                            loading="lazy"
-                            className="rounded-full h-full w-full"
-                          />
-                        </div>
-                        <div>{users.name}</div>
+                        <div>{list.name}</div>
                       </div>
                     </td>
                     <td className="w-2.5/12 py-3">
-                      <div className="flex items-center">
-                        <span className="w-8 h-8 overflow-hidden rounded-full bg-red-100 flex justify-center items-center font-sp-pro-text-regular text-red-500 text-xs mx-auto">
-                          {users.location}
-                        </span>
-                        <span className="text-sm text-text-color">
-                          {users.locationName}
+                      <div className="flex">
+                        <span className="w-2.5/12 py-3">
+                         {list.email}
                         </span>
                       </div>
                     </td>
-                    <td className="w-2.5/12 py-3 text-sm font-sp-pro-text-regular text-text-color p-2.5">
-                      {users.date}
+                    <td className="  ">
+                      <div className="w-2/12 text-sm font-sp-pro-text-regular text-text-color">
+                         {moment(list.createAt).format("MMM DD YYYY")}
+                      </div>
+                   
                     </td>
                     <td className="w-2.5/12 py-3">
                       <div className="flex items-center space-x-4 justify-center">
