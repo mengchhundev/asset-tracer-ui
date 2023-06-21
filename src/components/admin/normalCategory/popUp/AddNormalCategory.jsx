@@ -138,7 +138,7 @@ function AddNormalCategory({ props, val }) {
           <div className=" flex justify-between">
             <div className="flex">
               <img src={gift} className="h-12 rounded-lg w-12 " />
-              <p className="mt-2 flexF items-center font-sp-pro-text-regular text-xl pl-6  text-text-color">
+              <p className=" flex items-center font-sp-pro-text-regular text-xl pl-6  text-text-color">
                 Create Normal Category
               </p>
             </div>
@@ -195,7 +195,8 @@ function AddNormalCategory({ props, val }) {
           <form onSubmit={formik.handleSubmit} className="pt-2">
             <div className="space-y-5">
               <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                <label className="py-1">Super-Category</label>
+                <label 
+                className="px-2">Super-Category</label>
                 <Combobox
                   value={selected}
                   onChange={setSelected}
@@ -207,8 +208,7 @@ function AddNormalCategory({ props, val }) {
                         className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                         displayValue={(item) => item.name}
                         onInput={handleNormalInputChang}
-                        // onChange={formik.handleChange}
-                        // value={addNormal.superCategoryId}
+                        
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Super-category" // Add placeholder attribute
                       />
@@ -279,10 +279,10 @@ function AddNormalCategory({ props, val }) {
                 </Combobox>
               </div>
 
-              <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+              <div className="z-20 mb-2 md:mb-0 lg:mb-0 xl:mb-0">
                 <label
                   htmlFor=""
-                  className="flex text-sm text-text-color font-sp-pro-text-regular py-1"
+                  className="flex text-sm text-text-color font-sp-pro-text-regular px-1 py-2"
                 >
                   Normal Category
                 </label>

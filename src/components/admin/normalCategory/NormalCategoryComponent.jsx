@@ -8,6 +8,7 @@ import office from "../../../assets/icon/office.svg";
 import placeImg from "../../../assets/icon/placeImg.svg";
 import gift from "../../../assets/images/gift.png";
 import trash_ico from "../../../assets/images/trash.png";
+import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
@@ -327,7 +328,8 @@ export default function CategoryComponent() {
                         <div className="relative  mr-3 w-9 h-9 ">
                           <img
                             className="h-9 rounded-full w-9"
-                            src={`${serverLocationSuper}${item.icon}`}
+                            // src={`${serverLocationSuper}${item.icon}`}
+                            src={item.icon ? `${serverLocationSuper}${item.icon}` : placeholder_square}
                             loading="lazy"
                           />
                         </div>
@@ -339,7 +341,7 @@ export default function CategoryComponent() {
                         <div>
                           <img
                             className="h-9 rounded-full w-9"
-                            src={`${serverLocationSuper}${item.superCategoryIcon}`}
+                            src={item.superCategoryIcon ? `${serverLocationSuper}${item.superCategoryIcon}` : placeholder_square}
                             loading="lazy"
                           />
                         </div>

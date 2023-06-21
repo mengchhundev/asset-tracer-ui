@@ -23,7 +23,7 @@ import trash_ico from "../../../assets/images/trash.png";
 import moment from "moment";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import { list } from "postcss";
-
+import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
 const people = [
   { id: 1, name: "Room" },
   { id: 2, name: "Arlene Mccoy" },
@@ -318,7 +318,7 @@ export default function SuperCategoryComponent() {
                       <div className="flex items-center space-x-5">
                         <img
                           className="h-9 rounded-full w-9"
-                          src={`${serverLocation}${list.icon}`}
+                          src={list.icon ?`${serverLocation}${list.icon}`:placeholder_square}
                         ></img>
                         <span className="text-sm ">{list.name}</span>
                       </div>
