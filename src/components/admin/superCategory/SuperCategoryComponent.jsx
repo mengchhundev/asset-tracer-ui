@@ -23,6 +23,7 @@ import moment from "moment";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
 import { AiOutlinePlus } from "react-icons/ai";
+import { Alert } from "@mui/material";
 
 const sort = [
   {
@@ -53,6 +54,7 @@ export default function SuperCategoryComponent() {
   let pageCount = useSelector(state => state.superCategory.pageCount)
   let formData = new FormData();
   const [selectedFile, setSelectedFile] = useState("");
+
   const [newData, setData] = useState({
     id: "",
     name: "",
@@ -90,14 +92,26 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
+    
+    // if(countCurrentRow == 0) {
+    //   setSelectedPage(1)
+    // }
+
     handleGetAllSuperCategory(selectedPage);
-  }, [selectedPage, selectedSort]);
+
+  }, [selectedPage]);
+
+  useEffect(() => {
+    if (itemName != null || selectedSort != null) {
+      handleGetAllSuperCategory(1, itemName, selectedSort);
+    }
+  }, [itemName, selectedSort]);
 
   // Delete room
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
-        handleGetAllSuperCategory();
+        document.getElementsByClassName("page-link")[1].click()
       }
     });
   };
@@ -106,12 +120,14 @@ export default function SuperCategoryComponent() {
   const handleSaveSuperCategory = () => {
     SuperCategoryService.saveSuperCategory(newData).then((res) => {
       if (res.data.success) {
-        document.getElementById("btn-super-category").click();
-        handleGetAllSuperCategory(1);
         setI(1)
+        document.getElementById("btn-super-category").click();
+        document.getElementsByClassName("page-link")[1].click()
       }
     });
   };
+
+  
 
   // Update room
   const handleUpdateSuperCategory = () => {
@@ -119,7 +135,7 @@ export default function SuperCategoryComponent() {
       (res) => {
         if (res.data.success) {
           document.getElementById("btn-super-category").click();
-          handleGetAllSuperCategory();
+          handleGetAllSuperCategory(selectedPage);
         }
       }
     );
@@ -167,7 +183,7 @@ export default function SuperCategoryComponent() {
       formik.setValues({ id: "", name: "", organizationId: "" });
     }
   }, [isUpdate]);
-
+ 
   const handleShowSuperCategory = (val) => {
     setIsUpdate(true);
     setData({ ...val, organizationId: organizationId });
@@ -185,7 +201,6 @@ export default function SuperCategoryComponent() {
       organizationId: organizationId,
     });
     formik.setValues({ id: "", name: "", organizationId: "" });
-    document.getElementById("btn-super-category").click()
   };
 
   return (
@@ -224,6 +239,7 @@ export default function SuperCategoryComponent() {
                   className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
+                  onInput={handleInputSearch}
                   placeholder="Search..."
                 />
               </div>
@@ -390,9 +406,6 @@ export default function SuperCategoryComponent() {
                 containerClassName="pagination"
                 activeClassName="active"
                 renderOnZeroPageCount={null}
-                onClick={(e) => {
-                  console.log('onClick', e);
-              }}
               />
             </div>
           </div>
@@ -495,6 +508,7 @@ export default function SuperCategoryComponent() {
                 <div className="">
                   <label
                     onClick={handleHideModal}
+                    htmlFor="superCategory"
                     className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                   >
                     <RiCloseFill className='text-lg' />

@@ -107,8 +107,16 @@ export default function UsersAllComponent() {
   };
   const handleInputSearch = (e) => {
     setSearch(e.target.value);
-    // console.log(e.target.value);
   };
+
+  const handleSearchUser = () => {
+    UserService.searchUser(search).then(res => {
+      if(res.data.success) {
+        console.log(res)
+      }
+    })
+  }
+
   // const handleShowUserInOrg = (val) => {
   //   dispatch(console.log(setProfile(val)))
   //   sessionStorage.setItem("user", JSON.stringify(val))
@@ -686,7 +694,7 @@ export default function UsersAllComponent() {
                               d="M29.8332 18.6328V15.6328C29.8332 14.5282 28.9005 13.6328 27.7498 13.6328H15.2498C14.0992 13.6328 13.1665 14.5282 13.1665 15.6328V18.6328M29.8332 18.6328V27.6328C29.8332 28.7374 28.9005 29.6328 27.7498 29.6328H15.2498C14.0992 29.6328 13.1665 28.7374 13.1665 27.6328V18.6328M29.8332 18.6328H13.1665M17.3332 11.6328V15.6328M25.6665 11.6328V15.6328"
                               stroke="white"
                               stroke-width="1.91667"
-                              stroke-linecap="round"
+                              strokeLinecap="round"
                             />
                             <path
                               d="M17.8542 20.6328H15.7708C15.4832 20.6328 15.25 20.8567 15.25 21.1328V23.1328C15.25 23.409 15.4832 23.6328 15.7708 23.6328H17.8542C18.1418 23.6328 18.375 23.409 18.375 23.1328V21.1328C18.375 20.8567 18.1418 20.6328 17.8542 20.6328Z"
@@ -878,15 +886,15 @@ export default function UsersAllComponent() {
                               d="M21.5 21.4531C23.0188 21.4531 24.25 20.2219 24.25 18.7031C24.25 17.1843 23.0188 15.9531 21.5 15.9531C19.9812 15.9531 18.75 17.1843 18.75 18.7031C18.75 20.2219 19.9812 21.4531 21.5 21.4531Z"
                               stroke="white"
                               stroke-width="1.83333"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                             <path
                               d="M27.9168 18.4766C27.9168 23.6328 21.5002 28.7891 21.5002 28.7891C21.5002 28.7891 15.0835 23.6328 15.0835 18.4766C15.0835 15.0593 17.9563 12.2891 21.5002 12.2891C25.044 12.2891 27.9168 15.0593 27.9168 18.4766Z"
                               stroke="white"
                               stroke-width="1.83333"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                           </g>
                           <defs>
@@ -984,12 +992,15 @@ export default function UsersAllComponent() {
                       ></path>
                     </svg>
                   </div>
-                  <input
+                 <div className="flex">
+                 <input
                     className=" w-full h-9 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                     type="text"
                     name="search"
                     placeholder="Search team member or type an email"
                   />
+                  <button className="px-4 py-1 text-white bg-primary rounded-md">Search</button>
+                 </div>
                 </div>
               </div>
 

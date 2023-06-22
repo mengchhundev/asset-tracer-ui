@@ -54,6 +54,10 @@ const rejectUserRequest = async ( userId, orgId) => {
     return await apiV2.put(`/organizations/reject-user?userId=${userId}&organizationId=${orgId}`)
 }
 
+const searchUser = async (search) => {
+    return await apiV2.get(`/users/search-users?search=${search}`)
+}
+
 const UserService = {
     signin,
     singup,
@@ -67,7 +71,8 @@ const UserService = {
     getUserAllInOrganizations,
     getAllRequestUsers,
     approveUserRequests,
-    rejectUserRequest
+    rejectUserRequest,
+    searchUser
 }
 
 export default UserService;
