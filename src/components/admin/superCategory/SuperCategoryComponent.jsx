@@ -241,6 +241,7 @@ export default function SuperCategoryComponent() {
     setSelectedFile("")
     setSeletedImg("")
     formik.setValues({ id: "", name: "", organizationId: "" });
+    document.getElementById("btn-super-category").click()
   };
 
   const handleSelectedFile = (val) => {

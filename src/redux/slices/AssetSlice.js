@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   assets: [],
+  asset: {},
+  invoice : []
 };
 
 export const AssetSlice = createSlice({
@@ -10,9 +12,15 @@ export const AssetSlice = createSlice({
   reducers: {
     setAssets: (state, action) => {
       state.assets = action.payload;
+    },
+    setAsset: (state, action) => {
+      state.asset = action.payload
+    },
+    setAllInvoice: (state, action) => {
+      state.invoice = action.payload
     }
   },
 });
 
-export const { setAssets } = AssetSlice.actions;
+export const { setAssets, setAsset, setAllInvoice } = AssetSlice.actions;
 export default AssetSlice.reducer;

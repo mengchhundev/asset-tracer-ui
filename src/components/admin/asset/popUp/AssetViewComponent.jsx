@@ -1,210 +1,76 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { TbCalendarStats } from "react-icons/tb";
-import { HiOutlineQrcode } from "react-icons/hi";
-import { RiBarcodeFill, RiCloseFill } from "react-icons/ri";
-import logo from "../../../../assets/images/A_Tracer_logo1.png";
-import { BiCheck, BiHome } from "react-icons/bi";
+import { HiOutlineCurrencyDollar } from "react-icons/hi";
+import { RiCloseFill } from "react-icons/ri";
+import { BsGraphUp } from "react-icons/bs";
+import { BiHome } from "react-icons/bi";
+import { AiOutlineShopping } from "react-icons/ai"; 
+import { Tab } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
+import placeholder_square from "../../../../assets/images/placeholder/placeholder_square.jpg";
+// import InvoiceService from "../../../../redux/services/InvoiceService";
+import { useEffect } from "react";
+import InvoiceService from "../../../../redux/services/InvoiceService";
+function AssetViewComponent() {
 
-import { BsGraphUp, BsHouseCheck } from "react-icons/bs";
-import { RxCheck } from "react-icons/rx";
-
-function AssetViewComponent({ viewAsset }) {
+  let itemDetail = useSelector(state => state.itemDetail.itemDetail)
+  console.log(itemDetail)
+  const dispatch = useDispatch();
   const selectedImage =
     "https://cdn.pixabay.com/photo/2016/06/29/04/39/bride-1486004_960_720.jpg";
   const [topImage, setTopImage] = useState(selectedImage);
 
-  // console.log("View Asset as props", viewAsset);
   const handleImageClick = (newImage) => {
     setTopImage(newImage);
   };
-  const myBorderStyle = {
-    display: "inline-block",
-    marginTop: "10px",
-    height: "85px",
-    borderRight: "2px solid #ccc",
-  };
+console.log(itemDetail)
 
-  const [organization, setOrg] = useState([
-    {
-      id: 1,
-      name: "KSHRD Center",
-    },
-  ]);
-  const [user, setUser] = useState([
-    {
-      id: 1,
-      profile: "SE",
-      name: "Senglorn",
-      email: "hrdcenter@gamil.com",
-    },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      email: "hrdcenter@gamil.com",
-    },
-    ,
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      email: "hrdcenter@gamil.com",
-    },
-    {
-      id: 2,
-      profile: "HO",
-      name: "Hong Meng",
-      email: "hrdcenter@gamil.com",
-    },
-  ]);
+  const handleGetinvoice = () => {
+    InvoiceService.getAllInvoices().then(res =>{
+      if(res.data.success){
+        dispatch(setAllInvoice(res.data.payload));
+      }
+    })
+  }
+
+  useEffect(() => {
+    handleGetinvoice();
+  }, []);
+
   return (
     <>
       <div className="modal">
         <div className="p-6 modal-box max-w-4xl">
           {/* header */}
           <div className="flex justify-between mb-5">
-            <div className="flex">
+            <div className="flex flex-row items-end space-x-2">
               <span>
                 <BsGraphUp className="w-8 h-8 bg-primary text-white" />
               </span>
-              <span className="pl-3  text-text-color text-xl font-sp-pro-text-semibold">
+              <span className="text-text-color text-xl font-sp-pro-text-semibold">
                 Asset Details
               </span>
             </div>
+
             <div className="flex">
               {/*  */}
-              <label htmlFor="normalModal">
+              <label htmlFor="view-asset">
                 <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
               </label>
             </div>
           </div>
 
-          <div className="lg:flex lg:space-x-8 md:space-x-0 sm:flex-row">
-            <div className="w-1/2">
+          <div className="lg:flex lg:space-x-8 md:space-x-0 sm:flex-row w-full">
+            <div className="w-1/2 md:w-full">
               {/* slide */}
-              <div className=" ">
+              <div className="">
                 <div className="rounded-lg border shadow-sm border-slate-200">
                   <div className="carousel flex top-1/2">
-                    <div className="w-full">
+                    <div className="">
                       <img
                         className="w-full h-full rounded-lg"
-                        src="https://m.phnompenhpost.com/sites/default/files/styles/full-screen_watermarked/public/he-resort-also-has-a-riverside-beach-area-to-laze-about-on.-post-staff.jpg?itok=FoUkEx6S"
+                        src= {(itemDetail.image ? `http://localhost:8080/api/v1/files/getFile?fileName=${itemDetail.image}`: placeholder_square)}
                       />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Serial code */}
-              <div className="mt-5">
-                <div className="mb-3">
-                  <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
-                    Identifiers
-                  </h1>
-                </div>
-
-                <div className="rounded-lg border shadow-sm border-slate-200 w-full">
-                  <div className="flex justify-between px-2 py-2">
-                    <div className="p-2 flex flex-row gap-3 items-center">
-                      <div>
-                        <HiOutlineQrcode className="w-14 h-14 text-primary" />
-                      </div>
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-text-color font-sp-pro-text-medium text-base">
-                          Asset Name
-                        </span>
-                        <span className="text-text-color font-sp-pro-text-regular text-xs">
-                          Case Phone
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-2 flex flex-row gap-3 items-center">
-                      <div>
-                        <HiOutlineQrcode className="w-14 h-14 text-primary" />
-                      </div>
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-text-color font-sp-pro-text-medium text-base">
-                          Label code
-                        </span>
-                        <span className="text-text-color font-sp-pro-text-regular text-xs">
-                          Y8R6E6N9Z3W
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Identifiers */}
-            <div className="lg:mt-0 md:mt-4 mt-5 w-1/2">
-              {/* Asset Information */}
-              <div className="">
-                <div className="">
-                  <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
-                    Asset Information
-                  </h1>
-                  <div className="grid lg:grid-cols-2 rounded-lg border shadow-sm border-slate-200">
-                    <div className="p-4 lg:border-r-2 md:border-r-none border-gray-light h-[180px] mt-[10px]">
-                      <div className="mt-[-10px]">
-                        <label
-                          htmlFor=""
-                          className="font-sp-pro-text-medium text-text-color text-base"
-                        >
-                          Category Type
-                        </label>
-                        <div className="mt-3">
-                          <p className="flex items-center">
-                            <span className="bg-blue-400 rounded-full p-2 flex justify-center">
-                              <TbCalendarStats className="w-6 h-6 text-white" />
-                            </span>
-                            <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              {viewAsset.superCategoryName}
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 lg:mt-0 mt-[-90px]">
-                      <div>
-                        <label
-                          htmlFor=""
-                          className="font-sp-pro-text-medium text-text-color text-base"
-                        >
-                          Organization
-                        </label>
-                        <div className="mt-3">
-                          <p className="flex items-center">
-                            <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
-                              <BiHome className="w-6 h-6 text-yellow" />
-                            </span>
-                            <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              {viewAsset.name}
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-3">
-                        <label
-                          htmlFor=""
-                          className="font-sp-pro-text-medium text-text-color text-base"
-                        >
-                          Room Name
-                        </label>
-                        <div className="mt-3">
-                          <p className="flex items-center">
-                            <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
-                              <BsHouseCheck className="w-6 h-6 text-yellow" />
-                            </span>
-                            <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              {viewAsset.roomName}
-                            </span>
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -214,54 +80,219 @@ function AssetViewComponent({ viewAsset }) {
               <div className="col-span-6">
                 <div className="mt-5">
                   <h1 className="font-sp-pro-text-semibold text-base mb-2 text-text-color">
-                    Admin Information
+                    Asset Information
                   </h1>
-                  <div className="grid lg:grid-cols-2 rounded-lg border shadow-sm border-slate-200">
-                    <div className="p-4 lg:border-r-2 md:border-r-none border-gray-light h-[85px] mt-[10px]">
-                      <div className="mt-[-10px]">
-                        <label
-                          htmlFor=""
-                          className="font-sp-pro-text-medium text-text-color text-base"
-                        >
-                          Create by
-                        </label>
-                        <div className="flex items-center mt-3">
-                          <img
-                            src={logo}
-                            alt="background image"
-                            className="h-12"
-                          />
-                          <div className="pl-2">
-                            <span className="text-text-color font-sp-pro-text-regular text-sm">
-                              {viewAsset.owner}
-                            </span>
-                          </div>
-                        </div>
+                  <div className="grid md:grid-cols-2 rounded-lg border shadow-sm border-gray-light border-opacity-50">
+                    <div className="p-3 px-5 md:border-r-2 md:border-r-none border-gray-light border-opacity-50">
+                      <p className="font-sp-pro-text-regular text-text-color text-sm">
+                        Organization
+                      </p>
+                      <div className="flex flex-row items-end space-x-2 mt-3">
+                        <span className="rounded-full">
+                          <BiHome className="w-6 h-6 text-yellow" />
+                        </span>
+                        <span className="text-text-color text-xs font-sp-pro-text-regular text-opacity-70">
+                          KSGA
+                        </span>
                       </div>
                     </div>
 
-                    <div className="p-4">
-                      <div>
-                        <label
-                          htmlFor=""
-                          className="font-sp-pro-text-medium text-text-color text-base"
-                        >
-                          Create date
-                        </label>
-                        <div className="mt-3">
-                          <p className="flex items-center">
-                            <span className="bg-lightorange rounded-full w-[40px] p-2 flex justify-center">
-                              <TbCalendarStats className="w-6 h-6 text-yellow" />
-                            </span>
-                            <span className="text-text-color text-sm font-sp-pro-text-regular pl-3">
-                              {viewAsset.createdAt}
-                            </span>
-                          </p>
-                        </div>
+                    <div className="p-3 px-5">
+                      <p className="font-sp-pro-text-regular text-text-color text-sm">
+                        Category Type
+                      </p>
+                      <div className="flex flex-row items-end space-x-2 mt-3">
+                        <span className="rounded-full">
+                          <AiOutlineShopping className="w-6 h-6 text-yellow" />
+                        </span>
+                        <span className="text-text-color text-xs font-sp-pro-text-regular text-opacity-70">
+                          {itemDetail.normalCategoryName}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 rounded-lg border shadow-sm border-gray-light border-opacity-50 mt-5">
+                    <div className="p-3 px-5 md:border-r-2 md:border-r-none border-gray-light border-opacity-50">
+                      <p className="font-sp-pro-text-regular text-text-color text-sm">
+                        QTY
+                      </p>
+                      <div className="flex flex-row items-end space-x-2 mt-3">
+                        <span className="rounded-full">
+                          <TbCalendarStats className="w-6 h-6 text-yellow" />
+                        </span>
+                        <span className="text-text-color text-xs font-sp-pro-text-regular text-opacity-70">
+                          {itemDetail.qty}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-3 px-5">
+                      <p className="font-sp-pro-text-regular text-text-color text-sm">
+                        UnitPrice
+                      </p>
+                      <div className="flex flex-row items-end space-x-2 mt-3">
+                        <span className="rounded-full">
+                          <HiOutlineCurrencyDollar className="w-6 h-6 text-yellow" />
+                        </span>
+                        <span className="text-text-color text-xs font-sp-pro-text-regular text-opacity-70">
+                          {itemDetail.unitPrice}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Asset Label code */}
+            <div className="lg:mt-0 md:mt-5 mt-5 w-full">
+              <div className="w-full">
+                <Tab.Group>
+                  <div
+                    className="gap-6 bg-white rounded-lg overflow-hidden"
+                    style={{
+                      boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px",
+                    }}
+                  >
+                    <Tab.List className="flex space-x-1 text-text-color">
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={`px-4 py-3 w-1/2 rounded-sm outline-none border-b-4 border-white ${
+                              selected
+                                ? "bg-custom-yellow-showdow-light border-b-primary"
+                                : ""
+                            }`}
+                          >
+                            Already Set (
+                            <span className="text-red-500 font-sp-pro-text-regular">
+                              2
+                            </span>
+                            )
+                          </button>
+                        )}
+                      </Tab>
+
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={`px-4 py-3 w-1/2 rounded-sm outline-none border-b-4 border-white ${
+                              selected
+                                ? "bg-custom-yellow-showdow-light border-b-primary"
+                                : ""
+                            }`}
+                          >
+                            Unset Label (
+                            <span className="text-red-500 font-sp-pro-text-regular">
+                              1
+                            </span>
+                            )
+                          </button>
+                        )}
+                      </Tab>
+                    </Tab.List>
+                  </div>
+                  <div className="my-5">
+                    <Tab.Panels>
+                      <Tab.Panel>
+                        {/* table */}
+                        {/* <div
+                          className="bg-white p-4 rounded-lg overflow-y-auto h-[440px]"
+                          style={{
+                            boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px",
+                          }}
+                        >
+                          {itemDetail.map((item) => (
+                            <div className="w-full grid grid-cols-4 gap-2 mb-5 border-b-2 border-[#6DB33F] p-3 rounded-lg">
+                              <div className="flex flex-col space-y-3">
+                                <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                  Owner
+                                </span>
+                                <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70">
+                                  {item.name}
+                                </span>
+                              </div>
+
+                              <div className="flex flex-col space-y-3">
+                                <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                  Room
+                                </span>
+                                <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70">
+                                  SR Class
+                                </span>
+                              </div>
+
+                              <div className="flex flex-col space-y-3">
+                                <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                  Label Code
+                                </span>
+                                <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70">
+                                  Y8R6E6N9
+                                </span>
+                              </div>
+
+                              <div className="flex flex-col space-y-3">
+                                <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                  Serial Code
+                                </span>
+                                <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70">
+                                  216066
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div> */}
+                      </Tab.Panel>
+
+                      {/* Unset lable */}
+                      <Tab.Panel>
+                        {/* <div
+                          className="bg-white p-4 rounded-lg overflow-y-auto h-[440px]"
+                          style={{
+                            boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px",
+                          }}
+                        >
+                          <div className="grid grid-cols-2 gap-2">
+                            {invoice.map((item) => (
+                              <div className="w-full gap-2 mb-5 border-b-2 border-[#2076FF] p-3 rounded-lg">
+                                <div className="flex flex-row space-x-3 items-end pb-1.5">
+                                  <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                    Owner :
+                                  </span>
+                                  <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70">
+                                    {item.name}
+                                  </span>
+                                </div>
+
+                                <div className="flex flex-row space-x-3 items-end py-1.5">
+                                  <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                    Room :
+                                  </span>
+                                  <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70"></span>
+                                </div>
+
+                                <div className="flex flex-row space-x-3 items-end py-1.5">
+                                  <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                    Label Code :
+                                  </span>
+                                  <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70"></span>
+                                </div>
+
+                                <div className="flex flex-row space-x-3 items-end py-1.5">
+                                  <span className="text-text-color font-sp-pro-text-regular text-sm">
+                                    Serial Code :
+                                  </span>
+                                  <span className="text-text-color font-sp-pro-text-regular text-xs text-opacity-70"></span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div> */}
+                      </Tab.Panel>
+                    </Tab.Panels>
+                  </div>
+                </Tab.Group>
               </div>
             </div>
           </div>

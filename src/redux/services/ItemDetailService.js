@@ -12,6 +12,11 @@ const getAllItemByOrg = async (orgId) => {
   return await apiV2.get(`/item-details/get-all/${orgId}`)
 }
 
-const ItemDetailService = { getAllItems, getItemById, getAllItemByOrg };
+const getItemDetailById = async (itemId, orgId) => {
+  return await apiV2.get(`/item-details/get-by-id/${itemId}/${orgId}`)
+}
+
+
+const ItemDetailService = { getAllItems, getItemById, getAllItemByOrg, getItemDetailById };
 
 export default ItemDetailService;

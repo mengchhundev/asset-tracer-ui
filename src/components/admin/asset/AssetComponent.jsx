@@ -10,10 +10,11 @@ import moment from "moment";
 import AssetService from "../../../redux/services/AssetService";
 import { useDispatch, useSelector } from "react-redux";
 import ItemDetailService from "../../../redux/services/ItemDetailService";
-import { setItemDetails } from "../../../redux/slices/ItemDetailSlice";
+import { setItemDetail, setItemDetails } from "../../../redux/slices/ItemDetailSlice";
 import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
 import FileUploadService from '../../../redux/services/FileUploadService';
 import AssetDeleteComponent from "./popUp/AssetDeleteComponent";
+import { setAsset } from "../../../redux/slices/AssetSlice";
 
 const sort = [
   {
@@ -45,8 +46,17 @@ export default function AssetComponent() {
   const [itemId, setItemId] = useState()
 
   //combobox
-  const [asset, setAsset] = useState({});
   const [itemName, setItemName] = useState();
+
+  // get asset object
+  const handleGetAsset = (val) => {
+    ItemDetailService.getItemDetailById(val.id, organization.id).then(res => {
+      if(res.data.success) {
+        dispatch(setItemDetail(res.data.payload))
+        document.getElementById("view-asset").click()
+      }
+    })
+  }
 
   const handleGetAllItems = (page = 1, name = "", sort = "") => {
     ItemDetailService.getAllItems(organization.id, page, 8, name, "", sort).then(res => {
@@ -103,7 +113,7 @@ export default function AssetComponent() {
     style: "currency",
     currency: "USD",
   });
-
+console.log(getAllItems)
   return (
     <>
       <main className="px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -246,7 +256,7 @@ export default function AssetComponent() {
                       Unit Price
                     </td>
                     <td className="w-2/12 bg-bg-main py-3">Invoice Code</td>
-                    <td className="w-2/12 bg-bg-main py-3">Created At</td>
+                    <td className="w-2/12 bg-bg-main py-3">Type</td>
                     <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                   </tr>
                   {getAllItems != 0 ? getAllItems.map((list, index) => (
@@ -270,8 +280,8 @@ export default function AssetComponent() {
                       </td>
                       <td className="py-3 font-sp-pro-text-semibold">{list.qty}</td>
                       <td className="py-3 text-accept">{dollarUS.format(list.unitPrice)}</td>
-                      <td className="py-3">{list.invoiceCode != null ? <span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span> : <span className="px-3 py-1 bg-custom-midnight-blue rounded-md text-white">Normal</span>}</td>
-                      <td className="py-3">{moment(list.createdAt).format("MMM DD YYYY")}</td>
+                      <td className="py-3">{list.invoiceCode != null ? <span className="px-3 py-1 bg-green rounded-md text-white">{list.invoiceCode}</span> : <span className="pl-6">...</span>}</td>
+                      <td className="py-3">{list.invoiceCode != null ? <span className="px-3 py-1 bg-accept rounded-md text-white">Invoice</span> : <span className="px-3 py-1 bg-custom-midnight-blue rounded-md text-white">Normal</span>}</td>
                       <td>
                         <div className="flex flex-rol space-x-3 items-center justify-center">
                           <span className="w-6 h-6 ">
@@ -326,8 +336,7 @@ export default function AssetComponent() {
 
                           <span className="w-6 h-6 ">
                             <label
-                              htmlFor="normalModal"
-                              onClick={() => setAsset(asset)}
+                              onClick={() => handleGetAsset(list)}
                             >
                               <EyeIcon className="cursor-pointer h-6 w-6 text-gray-500 text-[#2076FF]" />
                             </label>
@@ -387,10 +396,10 @@ export default function AssetComponent() {
         {/* view */}
         <input
           type="checkbox"
-          id="normalModal"
+          id="view-asset"
           className="modal-toggle"
         />
-        <AssetViewComponent viewAsset={asset} className="modal" />
+        <AssetViewComponent className="modal" />
       </main>
     </>
   );
