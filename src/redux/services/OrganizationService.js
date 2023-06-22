@@ -23,7 +23,6 @@ const getOrganizationInvited = async () => {
     return await apiV2.get(`/organizations/get-all-invitation-from-organization/{orgId}`)
 }
 
-const acceptInvite = async ()
 const OrganizationService = {
     getAllOrganizations,
     joinOrganization,
