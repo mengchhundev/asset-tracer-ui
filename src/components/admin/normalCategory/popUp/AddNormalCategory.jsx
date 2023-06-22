@@ -14,121 +14,84 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllSuperCategory } from "../../../../redux/slices/SuperCategorySlice";
 import FileUploadService from "../../../../redux/services/FileUploadService";
-import NormalCategoryService, {
-  addNormalCategory,
-} from "../../../../redux/services/NormalCategoryService";
-import SuperCategoryService, {
-  getAllSuperCategory,
-} from "../../../../redux/services/SuperCategoryService";
-import { postNormalCategory } from "../../../../redux/slices/NormalCategorySlice";
 
-function AddNormalCategory({ props, val }) {
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "name", name: "Name"
+  },
+  {
+    id: "created_at", name: "Created Date"
+  },
+];
+
+
+export default function AddNormalCategory() {
+
   const dispatch = useDispatch();
-  //organization Id
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const orgId = organization.id;
+
   let formData = new FormData();
+
   const [selectedFile, setSelectedFile] = useState("");
-  const [newData, setData] = useState('');
+  const [newData, setNewData] = useState({
+    id: "",
+    name: "",
+    icon: "",
+    superCategoryId: "",
+    organizationId: orgId,
+  });
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0]);
+    formData.append("file", event.target.files[0]);
+  };
 
   const handleGetAllSuperCategory = () => {
     SuperCategoryService.getAllSuperCategores().then((res) => {
       if (res.data.success) {
-        console.log(res);
         dispatch(setAllSuperCategory(res.data.payload));
       }
     });
   };
 
-  useEffect(() => {
-    handleGetAllSuperCategory();
-  }, []);
-
-  //superCategory
-  const superCategory = useSelector((state) => state?.superCategory?.data);
-
-  const [selected, setSelected] = useState(superCategory);
-  useEffect(() => {
-    console.log("Selected Super", selected);
-  }, [selected]);
-
-  //   input value
-  const [addNormal, setAddNormal] = useState({
-    name: "",
-    icon: "",
-  });
-
-  const handleNormalInputChang = (e) => {
-    setAddNormal({ ...addNormal, name : e.target.value ,icon : newData });
+  // handle input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
   };
 
-  //post to endpoint
-  const handlePostNormalCategory = () => {
-    addNormalCategory(addNormal, selected, orgId).then((r) =>
-      dispatch(postNormalCategory(r?.data?.payload))
-    );
-  };
+  const handleSelectedSort = (val) => {
+    setSelectedSort(val)
+  }
 
-  // select file
-  const handleFileSelect = (event) => {
-    console.log("File : ", event.target.files[0]);
-    setSelectedFile(event.target.files[0]);
-    formData.append("file", event.target.files[0]);
-    FileUploadService.storeFile(formData, localStorage.getItem("token"))
-      .then(
-        (res) => {
-          console.log("res : ", res);
-          setData(res.data.payload );
-        },
-        (e) => console.log(e)
-      )
-      .catch((e) => console.log("Error upload file", e));
+  const handleInputSearch = (e) => {
+    setItemName(e.target.value)
   };
-  console.log("Selected file : ", formData);
-  console.log("New Data : ", newData);
 
   const formik = useFormik({
-    initialValues: addNormal,
+    initialValues: newData,
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Name is required"),
     }),
+
     onSubmit: (val, { resetForm }) => {
-      resetForm(
-        (val = {
-          name: "",
-          icon: "",
-          superCategoryId: "",
-          organizationId: orgId,
-        })
-      );
-      handlePostNormalCategory();
-      console.log("after submit");
-      setAddNormal({
-        name: "",
-        icon: "",
-        superCategoryId: "",
-        organizationId: orgId,
-      });
+     
+      resetForm((val = { id: "", name: "", organizationId: "" }));
+      setNewData({ id: "", name: "", organizationId: "" });
+      formik.setValues({ id: "", name: "", organizationId: "" });
     },
   });
-  useEffect(() => {
-    formik.setValues(addNormal);
-  }, []);
 
-  const [query, setQuery] = useState("");
-
-  const filteredsuperCategory =
-    query === ""
-      ? superCategory
-      : superCategory.filter((item) =>
-          item.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
   return (
     <>
-      <div className=" modal">
+      <div className="modal">
         <div className=" modal-box relative rounded-lg">
           <div className="absolute top-7 right-7">
             <label htmlFor="addnormalCategory">
@@ -138,13 +101,13 @@ function AddNormalCategory({ props, val }) {
           <div className=" flex justify-between">
             <div className="flex">
               <img src={gift} className="h-12 rounded-lg w-12 " />
-              <p className=" flex items-center font-sp-pro-text-regular text-xl pl-6  text-text-color">
+              <p className="mt-2 items-center font-sp-pro-text-semibold text-lg pl-3 text-text-color">
                 Create Normal Category
               </p>
             </div>
           </div>
           <div className=" border border-bg-primary rounded-md p-3 my-3">
-            
+
             <div>
               <p className="text-center">Choose Icon</p>
               <div className="flex">
@@ -194,90 +157,10 @@ function AddNormalCategory({ props, val }) {
 
           <form onSubmit={formik.handleSubmit} className="pt-2">
             <div className="space-y-5">
-              <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-                <label 
-                className="px-2">Super-Category</label>
-                <Combobox
-                  value={selected}
-                  onChange={setSelected}
-                  className="z-20"
-                >
-                  <div className="relative z-20">
-                    <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                      <Combobox.Input
-                        className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                        displayValue={(item) => item.name}
-                        onInput={handleNormalInputChang}
-                        
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Super-category" // Add placeholder attribute
-                      />
+              
 
-                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon
-                          className="h-5 w-5 text-text-color"
-                          aria-hidden="true"
-                        />
-                      </Combobox.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                      afterLeave={() => setQuery("")}
-                    >
-                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {filteredsuperCategory.length === 0 && query !== "" ? (
-                          <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                            Nothing found.
-                          </div>
-                        ) : (
-                          filteredsuperCategory.map((item, index) => (
-                            <Combobox.Option
-                              key={index + 1}
-                              className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "text-primary bg-custom-yellow-showdow-light"
-                                    : "text-text-color"
-                                }`
-                              }
-                              value={item}
-                            >
-                              {({ selected, active }) => (
-                                <>
-                                  <span
-                                    className={`block truncate ${
-                                      selected ? "font-medium" : "font-normal"
-                                    }`}
-                                  >
-                                    {item.name}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                        active
-                                          ? "text-white"
-                                          : "text-text-color"
-                                      }`}
-                                    >
-                                      <CheckIcon
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                      />
-                                    </span>
-                                  ) : null}
-                                </>
-                              )}
-                            </Combobox.Option>
-                          ))
-                        )}
-                      </Combobox.Options>
-                    </Transition>
-                  </div>
-                </Combobox>
-              </div>
+
+
 
               <div className="z-20 mb-2 md:mb-0 lg:mb-0 xl:mb-0">
                 <label
@@ -287,9 +170,9 @@ function AddNormalCategory({ props, val }) {
                   Normal Category
                 </label>
                 <input
-                  onInput={handleNormalInputChang}
-                  onChange={formik.handleChange}
-                  value={addNormal.name}
+                  // onInput={}
+                  // onChange={formik.handleChange}
+                  // value={addNormal.name}
                   name="name"
                   className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
                   type="text"
@@ -326,4 +209,3 @@ function AddNormalCategory({ props, val }) {
     </>
   );
 }
-export default AddNormalCategory;

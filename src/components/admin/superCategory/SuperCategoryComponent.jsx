@@ -241,7 +241,6 @@ export default function SuperCategoryComponent() {
     setSelectedFile("")
     setSeletedImg("")
     formik.setValues({ id: "", name: "", organizationId: "" });
-    document.getElementById("btn-super-category").click()
   };
 
   const handleSelectedFile = (val) => {
@@ -371,9 +370,10 @@ export default function SuperCategoryComponent() {
             </div>
           </div>
         </div>
-        {/* table */}
-        <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto  flex-grow">
-          <div className="px-5 z-0 flex-grow">
+
+        <div className="flex flex-col min-h-[calc(100vh-19rem)]">
+          {/* table */}
+          <div className="px-5 z-0 flex-grow overflow-x-scroll">
             <table className="table w-full">
               <tbody className="">
                 <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">

@@ -113,7 +113,7 @@ export default function AssetComponent() {
     style: "currency",
     currency: "USD",
   });
-console.log(getAllItems)
+  
   return (
     <>
       <main className="px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">

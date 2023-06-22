@@ -11,140 +11,83 @@ import trash_ico from "../../../assets/images/trash.png";
 import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
-import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { Combobox, Dialog, Listbox, Transition } from "@headlessui/react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import NormalCategoryService, {
-  updateNormalCategory,
-} from "../../../redux/services/NormalCategoryService";
 import { RiCloseFill } from "react-icons/ri";
-import { FiSave } from "react-icons/fi";
-import {
-  setAllCategory,
-  setDeletNormalCategory,
-  setUpdateNormalCategory,
-} from "../../../redux/slices/NormalCategorySlice";
 import * as Yup from "yup";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileUploadService from "../../../redux/services/FileUploadService";
+import AddNormalCategory from "./popUp/AddNormalCategory";
+import { setNormalCategories } from "../../../redux/slices/NormalCategorySlice";
+import NormalCategoryService from "../../../redux/services/NormalCategoryService";
+import NormalCategoryAddComponent from "./popUp/NormalCategoryAddComponent";
 
-const people = [
-  { id: 1, name: "Sort By", unavailable: false },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
+const sort = [
+  {
+    id: "", name: "Default"
+  },
+  {
+    id: "name", name: "Name"
+  },
+  {
+    id: "created_at", name: "Created Date"
+  },
 ];
 
-const serverLocationSuper = "http://localhost:8080/api/v1/files/getFile?fileName=";
-
 export default function CategoryComponent() {
-  const [selected, setSelected] = useState(people[0]);
-  const [state, setState] = useState([]);
-  const [query, setQuery] = useState("");
-  const [pageCount, setPageCount] = useState(2);
-  const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
+
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [i, setI] = useState(1);
+  const dispatch = useDispatch();
+
+  const [itemName, setItemName] = useState("")
+  const [selectedPage, setSelectedPage] = useState(1)
+  const organization = JSON.parse(sessionStorage.getItem("organization"));
+  const orgId = organization.id;
+
+  const [isUpdate, setIsUpdate] = useState(false);
+  let totalRow = useSelector(state => state.superCategory.totalRow)
+  let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
+  let pageCount = useSelector(state => state.superCategory.pageCount)
+  let formData = new FormData();
+  const [selectedFile, setSelectedFile] = useState("")
+  const [selectedImg, setSeletedImg] = useState("")
+
   const [updateNormal, setupdateNormal] = useState("");
   const [categoryUpdate, setCategoryUpdate] = useState({});
   const [deleteCategory, setDeleteCategory] = useState();
   const [getNormalName, setGetNormalName] = useState("");
-  const [selectedFile, setSelectedFile] = useState("");
-  let formData = new FormData();
-
-  // organization id
-  const organization = sessionStorage.getItem("organization");
-  const getOrganizationDetail = JSON.parse(organization);
-  const orgId = getOrganizationDetail.id;
 
   // get all normal category
-  const data = useSelector((state) => state.normalCategory.data);
-  const dispatch = useDispatch();
-  console.log(data);
+  const normalCategories = useSelector(state => state.normalCategory.normalCategories);
 
-  const getAllNormalCategory = () => {
-    NormalCategoryService.getAllNormalCategory(orgId).then((res) => {
-      dispatch(setAllCategory(res.data.payload));
+  const handleGetAllNormalCategories = (page = 1, name = "", sort = "") => {
+    NormalCategoryService.getAllNormalCategory(orgId, page, 8, name, sort).then((res) => {
+      if (res.data.success) {
+        dispatch(setNormalCategories(res.data.payload));
+      }
     })
   };
 
   useEffect(() => {
-    getAllNormalCategory();
+    handleGetAllNormalCategories();
   }, []);
 
-  // update normal category
-  const handleUpdateNormalCategory = (item, selectedFile) => {
-    setCategoryUpdate(item, selectedFile);
-  };
+  const handleSelectedSort = (val) => {
+    setSelectedSort(val)
+  }
 
-  const handleUpdateCategory = (e) => {
-    setupdateNormal({ ...updateNormal, [e.target.name]: e.target.value });
-  };
+  const handleSelectedFile = (val) => {
+    setSelectedFile(val)
+    setNewData({ ...newData, icon: val })
+  }
 
-  // update
-  const handleSubmit = () => {
-    const updateCategory = {
-      ...updateNormal,
-      organizationId: orgId,
-      icon: "string",
-      superCategoryId: "2604b0c0-7070-492d-8d45-0fc42b2abe37",
-    };
-    updateNormalCategory(categoryUpdate.id, updateCategory).then((r) =>
-      dispatch(setUpdateNormalCategory(r.data.payload))
-    );
-
-    handleNormalSuccess();
-  };
-
-  // delete
-  const handleDeletNormalCategory = (item) => {
-    setDeleteCategory(item);
-    setGetNormalName(item.name);
-  };
-
-
-  const handleClickDelete = () => {
-    NormalCategoryService.deleteNormalCategory(deleteCategory, orgId)
-      .then((res) => {
-        dispatch(setDeletNormalCategory(res.data.payload));
-        getAllNormalCategory();
-        console.log(res)
-      })
-  };
-  // useEffect(() => {
-  //   getAllNormalCategory();
-  // },[]);
-
-  // select file
-  const handleFileSelect = (event) => {
-    console.log("File : ", event.target.files[0]);
-    setSelectedFile(event.target.files[0]);
-    formData.append("file", event.target.files[0]);
-    FileUploadService.storeFile(formData, localStorage.getItem("token"))
-      .then(
-        (res) => {
-          console.log("res : ", res);
-          setData({ ...newData, icon: res.data.payload });
-        },
-        (e) => console.log(e)
-      )
-      .catch((e) => console.log("Error upload file", e));
-  };
-
-  const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
-      );
-
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     getAllSuperCategory(event.selected + 1);
-    setI(event.selected * 10 + 1);
+    setI(event.selected * 8 + 1);
   };
 
   const handleNormalSuccess = () =>
@@ -170,7 +113,7 @@ export default function CategoryComponent() {
           {/* search */}
           <div className="md:flex md:flex-row justify-start gap-10">
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20   bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1  focus:border-primary">
+              <div className="relative text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20  bg-[#F9FBFF]  border rounded-lg block w-full py-2 px-1 mb-1 ">
                 <div className="absolute inset-y-0 flex items-center pl-2">
                   <svg
                     className="w-5 h-5 text-primary"
@@ -196,83 +139,74 @@ export default function CategoryComponent() {
 
             {/* filter */}
             <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <Combobox
-                value={selected}
-                onChange={setSelected}
-                className="z-20"
-              >
-                <div className="relative z-20">
-                  <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                    <Combobox.Input
-                      className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2  pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                      displayValue={(person) => person.name}
-                      onChange={(event) => setQuery(event.target.value)}
-                    />
-                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                      <ChevronUpDownIcon
-                        className="h-5 w-5 text-text-color"
-                        aria-hidden="true"
-                      />
-                    </Combobox.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                    afterLeave={() => setQuery("")}
-                  >
-                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {filteredPeople.length === 0 && query !== "" ? (
-                        <div className="relative cursor-default select-none py-2 px-4 text-text-color">
-                          Nothing found.
-                        </div>
-                      ) : (
-                        filteredPeople.map((person) => (
-                          <Combobox.Option
-                            key={person.id}
-                            className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                ? "bg-hover-yellow text-text-color"
-                                : "text-text-color"
-                              }`
-                            }
-                            value={person}
-                          >
-                            {({ selected, active }) => (
-                              <>
-                                <span
-                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                    }`}
-                                >
-                                  {person.name}
-                                </span>
-                                {selected ? (
-                                  <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                      }`}
-                                  >
-                                    <CheckIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  </span>
-                                ) : null}
-                              </>
-                            )}
-                          </Combobox.Option>
-                        ))
-                      )}
-                    </Combobox.Options>
-                  </Transition>
-                </div>
-              </Combobox>
+              <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+                {({ open }) => (
+                  <>
+                    <div className="relative z-30">
+                      <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
+                        <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
+                          {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                            <ChevronUpDownIcon
+                              className="h-5 w-5 text-text-color"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </Listbox.Button>
+                      </div>
+                      <Transition
+                        show={open}
+                        leave=""
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                      >
+                        <Listbox.Options
+                          static
+                          className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        >
+                          {sort.length == 0 ? (
+                            <div className="relative cursor-default select-none py-2 px-4 text-text-color">
+                              Nothing found.
+                            </div>
+                          ) : (
+                            sort.map((val, index) => (
+                              <Listbox.Option key={index} value={val.id}
+                                className={({ active }) =>
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                }
+                              >
+                                {({ selected, active }) => (
+                                  <>
+                                    <span
+                                      className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                    >
+                                      {val.name}
+                                    </span>
+                                    {selected ? (
+                                      <span
+                                        className={`${active ? "text-primary" : "text-primary"
+                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                      >
+                                      </span>
+                                    ) : null}
+                                  </>
+                                )}
+                              </Listbox.Option>
+                            ))
+                          )}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
             </div>
 
             {/* add modal */}
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <label
-                htmlFor="addnormalCategory"
+                htmlFor="add-normal-category"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
                 <BsPlus className="w-6 h-6" />
@@ -282,17 +216,11 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        {/* add modal */}
-        <input
-          type="checkbox"
-          id="addnormalCategory"
-          className="modal-toggle"
-        />
-        <AddNormalCategory className="modal" />
+        <NormalCategoryAddComponent className="modal" />
 
-        <div className="flex flex-col justify-between relative overflow-x-auto">
+        <div className="flex flex-col min-h-[calc(100vh-19rem)]">
           {/* table */}
-          <div className="px-5 flex-grow">
+          <div className="px-5 z-0 flex-grow overflow-x-scroll">
             <table className="table w-full">
               <tbody className="">
                 <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
@@ -308,19 +236,18 @@ export default function CategoryComponent() {
                   </td>
                   <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                 </tr>
-                {data.map((item, index) => (
+                {normalCategories.length != 0 ? normalCategories.map((item, index) => (
                   <tr
                     key={index}
                     className="text-sm font-sp-pro-text-regular text-center"
                   >
-                    <td className="w-1/12 py-3 text-center ">{index + 1}</td>
-                    <td className="w-3/12 py-3">
+                    <td className="py-3 text-center ">{index + 1}</td>
+                    <td className="py-3">
                       <div className="flex items-center">
                         <div className="relative  mr-3 w-9 h-9 ">
                           <img
                             className="h-9 rounded-full w-9"
-                            // src={`${serverLocationSuper}${item.icon}`}
-                            src={item.icon ? `${serverLocationSuper}${item.icon}` : placeholder_square}
+                            src={placeholder_square}
                             loading="lazy"
                           />
                         </div>
@@ -331,20 +258,20 @@ export default function CategoryComponent() {
                       <div className="flex items-center m-auto space-x-3">
                         <div>
                           <img
-                            className="h-9 rounded-full w-9"
-                            src={item.superCategoryIcon ? `${serverLocationSuper}${item.superCategoryIcon}` : placeholder_square}
+                            className="rounded-full w-9"
+                            src={placeholder_square}
                             loading="lazy"
                           />
                         </div>
-                        <span className="text-sm ">
+                        <span className="text-sm">
                           {item.superCategoryName}
                         </span>
                       </div>
                     </td>
-                    <td className="w-2/12 py-3 text-sm font-sp-pro-text-regular p-2.5">
+                    <td className="py-3">
                       {moment(item.createdAt).format("MMM DD YYYY")}
                     </td>
-                    <td className="w-2/12 py-3">
+                    <td className="py-3">
                       <div className="flex items-center space-x-4 justify-center">
                         {/* edit */}
                         <label
@@ -369,17 +296,17 @@ export default function CategoryComponent() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                )) : null}
               </tbody>
             </table>
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm py-2 font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7">
+          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
             <div className="font-sp-pro-text-regular opacity-90">
-              Showing data 1 to 8 of 256K entries
+              Showing data 1 to {countCurrentRow} of {totalRow} entries
             </div>
-            <div id="react-paginate" className="">
+            <div id="react-paginate">
               <ReactPaginate
                 nextLabel=" >"
                 onPageChange={handlePageClick}
@@ -405,7 +332,7 @@ export default function CategoryComponent() {
         </div>
 
         {/* Edit and update Popup */}
-        <input type="checkbox" id="modalEdit" className="modal-toggle" />
+        {/* <input type="checkbox" id="modalEdit" className="modal-toggle" />
         <div className="modal">
           <div className=" modal-box relative rounded-lg">
             <div className="absolute top-7 right-7">
@@ -422,7 +349,6 @@ export default function CategoryComponent() {
               </div>
             </div>
 
-            {/* Choose Icon */}
             <div className=" border border-bg-primary rounded-md p-3 my-3">
               <div className="flex flex-row gap-4">
                 <div className="flex flex- justify-between">
@@ -470,7 +396,6 @@ export default function CategoryComponent() {
               </div>
             </div>
 
-            {/* input field */}
             <div>
               <label
                 htmlFor="EditSuperCategory"
@@ -488,7 +413,6 @@ export default function CategoryComponent() {
               />
             </div>
 
-            {/* Action */}
             <div className="flex justify-end flex-row space-x-4 mt-10">
               <div className="">
                 <label
@@ -511,7 +435,7 @@ export default function CategoryComponent() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* delete */}
         <input type="checkbox" id="modalDelete" className="modal-toggle" />
@@ -553,7 +477,7 @@ export default function CategoryComponent() {
               </label>
               <label
                 htmlFor="modalDelete"
-                onClick={handleClickDelete}
+                // onClick={}
                 type="button"
                 className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
               >

@@ -1,39 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { data } from "autoprefixer";
 
 const initialState = {
-  normalCategories: [],
-  data: [],
-  deletNormalData: {},
-  // updateNormalCategory: {}
+  normalCategories: []
 };
-export const normalCategorySlice = createSlice({
-  name: "normalCategory",
-  initialState,
 
+export const normalCategorySlice = createSlice({
+  name: "NormalCategory",
+  initialState,
   reducers: {
-    setAllCategory: (state, action) => {
-      state.data = action.payload;
-    },
-    postNormalCategory: (state, action) => {
-      state.data.unshift(action.payload);
-    },
-    setUpdateNormalCategory: (state, action) => {
-      const findIndex = state.data.findIndex(
-        (normalCategory) => normalCategory.id === action.payload.id
-      );
-      state.data[findIndex] = action.payload;
-    },
-    setDeletNormalCategory: (state, action) => {
-      state.data.filter((item) => item.id !== action.payload);
-    },
+    setNormalCategories: (state, action) => {
+      state.normalCategories = action.payload;
+    }
   },
 });
+
 export const {
-  setAllCategory,
-  setCategoryName,
-  setUpdateNormalCategory,
-  postNormalCategory,
-  setDeletNormalCategory,
+  setNormalCategories
 } = normalCategorySlice.actions;
+
 export default normalCategorySlice.reducer;

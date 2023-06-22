@@ -401,7 +401,7 @@ console.log(getOrgInvited)
 
                       <td className="w-2/12 py-3 p-2.5 m-auto">
                         {/* <div className="w-full flex justify-center"> */}
-                          {list.users}
+                          {/* {list.users} */}
                           {/* <div className="relative  w-8 h-8 mr-[-14px] z-10">
                             <img
                               src={avatar01}

@@ -118,7 +118,7 @@ export default function OrganizationListComponent() {
     const handleSelectedSort = (val) => {
         setSelectedSort(val)
     }
-
+    console.log(organizations)
     return (
         <main className="p-5 lg:px-3 con-Shadow bg-white rounded-xl min-h-[calc(100vh-9rem)]">
             <input type="checkbox" id="delete_org" className="modal-toggle" />
@@ -267,97 +267,97 @@ export default function OrganizationListComponent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-10 lg:gap-14 gap-y-8 p-5 w-full">
                 {organizations.length != 0 ? organizations.map((list, index) => (
                     <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
-                        {list.isActive &&
+                        {list.status != "is_invited" &&
+                            <>
+                                {list.isActive &&
 
-                            <div className='absolute top-3 right-3 cursor-pointer'>
-                                <Listbox as="div">
-                                    {({ open }) => (
-                                        <>
-                                            <div className="relative">
-                                                <span className="">
-                                                    <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
-                                                        <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
-                                                    </Listbox.Button>
-                                                </span> 
-                                                <Transition
-                                                    show={open}
-                                                    leave=""
-                                                    leaveFrom="opacity-100"
-                                                    leaveTo="opacity-0"
-                                                >
-                                                    <Listbox.Options
-                                                        static
-                                                        className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
-                                                    >
-                                                        <Listbox.Option>
-                                                            <label
-                                                                onClick={() => showOrganizationDetail(list)}
-                                                                htmlFor='show-organization'
-                                                                className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                    <div className='absolute top-3 right-3 cursor-pointer'>
+                                        <Listbox as="div">
+                                            {({ open }) => (
+                                                <>
+                                                    <div className="relative">
+                                                        <span className="">
+                                                            <Listbox.Button className="hover:bg-bg-primary focus:bg-bg-primary w-7 h-7 rounded-full flex justify-center cursor-pointer items-center text-gray   ">
+                                                                <span><BiDotsHorizontalRounded className="w-6 h-6" /></span>
+                                                            </Listbox.Button>
+                                                        </span>
+                                                        <Transition
+                                                            show={open}
+                                                            leave=""
+                                                            leaveFrom="opacity-100"
+                                                            leaveTo="opacity-0"
+                                                        >
+                                                            <Listbox.Options
+                                                                static
+                                                                className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
                                                             >
-                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                    <TbListDetails /> Show Detail
-                                                                </span>
-                                                            </label>
-                                                            {list?.roleName == "ADMIN" &&
-                                                                <>
+                                                                <Listbox.Option>
                                                                     <label
-                                                                        onClick={() => handleSetOrgDetail(list)}
-                                                                        htmlFor='update-organization'
-                                                                        className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                        onClick={() => showOrganizationDetail(list)}
+                                                                        htmlFor='show-organization'
+                                                                        className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                     >
                                                                         <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                            <FiTrash2 /> Edit
+                                                                            <TbListDetails /> Show Detail
                                                                         </span>
                                                                     </label>
-                                                                    <label
-                                                                        onClick={() => setOrgId(list.id)}
-                                                                        htmlFor='delete_org'
-                                                                        className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
-                                                                    >
-                                                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                            <FiTrash2 /> Delete
-                                                                        </span>
-                                                                    </label>
-                                                                </>
-                                                            }
+                                                                    {list?.roleName == "ADMIN" &&
+                                                                        <>
+                                                                            <label
+                                                                                onClick={() => handleSetOrgDetail(list)}
+                                                                                htmlFor='update-organization'
+                                                                                className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                            >
+                                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                                    <FiTrash2 /> Edit
+                                                                                </span>
+                                                                            </label>
+                                                                            <label
+                                                                                onClick={() => setOrgId(list.id)}
+                                                                                htmlFor='delete_org'
+                                                                                className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                                            >
+                                                                                <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                                    <FiTrash2 /> Delete
+                                                                                </span>
+                                                                            </label>
+                                                                        </>
+                                                                    }
 
-                                                        </Listbox.Option>
-                                                    </Listbox.Options>
-                                                </Transition>
-                                            </div>
-                                        </>
-                                    )}
-                                </Listbox>
-                            </div>
-                        }
-                        <label className="px-6" onClick={() => handleShowOrganization(list)}>
-                            <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
-
-                            {list.logo != "" && list.logo != null ? <>
-                                <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
-                                    <img src={FileUploadService.getImage(list.logo)} className='w-12 h-12  rounded-full flex justify-center items-center m-auto' />
-                                </div>
-                            </> : <>
-                                <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
-                                    <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
-                                        <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+                                                                </Listbox.Option>
+                                                            </Listbox.Options>
+                                                        </Transition>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </Listbox>
                                     </div>
-                                </div>
-                            </>}
-                            <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
-                            <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
-                                {list?.roleName == "ADMIN" ? "Owner" : "Member"}
-                            </p>
-                            <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
-                                {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}
-                            </p>
-                            <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
-                                <div className='w-full flex justify-center h-5'>
-                                    {list.users.map((user, index) => (
-                                        <span key={index}>
-                                            {
-                                                user.id != userId ?
+                                }
+                                <label className="px-6" onClick={() => handleShowOrganization(list)}>
+                                    <HiOutlineCheck className="w-4 h-4 bg-green text-white rounded-full ml-5 cursor-pointer" />
+
+                                    {list.logo != "" && list.logo != null ? <>
+                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                                            <img src={FileUploadService.getImage(list.logo)} className='w-12 h-12  rounded-full flex justify-center items-center m-auto' />
+                                        </div>
+                                    </> : <>
+                                        <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                                            <div className='w-12 h-12 bg-green rounded-full flex justify-center items-center m-auto'>
+                                                <p className='font-sp-pro-text-bold text-2xl lg:text-2xl text-white'>{list.name.substring(0, 1)}</p>
+                                            </div>
+                                        </div>
+                                    </>}
+                                    <p className='font-sp-pro-text-semibold text-md w-full text-center text-text-color capitalize cursor-pointer'>{list.name}</p>
+                                    <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
+                                        {list?.roleName == "ADMIN" ? "Owner" : "Member"}
+                                    </p>
+                                    <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
+                                        {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}
+                                    </p>
+                                    <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
+                                        <div className='w-full flex justify-center h-5'>
+                                            {list.users.map((user, index) => (
+                                                <span key={index}>
                                                     <>
                                                         {
                                                             user?.image ?
@@ -378,17 +378,17 @@ export default function OrganizationListComponent() {
                                                             {user.name.substring(0, 1)}
                                                         </div>
                                                     </>
-                                            }
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="w-full px-8 text-center cursor-pointer">
-                                <span className={`inline-block w-full rounded-md py-2 px-3 text-xs font-semibold  bg-opacity-10 ${list?.isActive ? "text-green bg-green" : "text-reject bg-reject"}`}>{list?.isActive ? "Joined" : "Pending"}</span>
-                            </div>
-                        </label>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="w-full px-8 text-center cursor-pointer">
+                                        <span className={`inline-block w-full rounded-md py-2 px-3 text-xs font-semibold  bg-opacity-10 ${list?.isActive ? "text-green bg-green" : "text-reject bg-reject"}`}>{list?.isActive ? "Joined" : "Pending"}</span>
+                                    </div>
+                                </label>
+                            </>
+                        }
                     </div>
-
                 )) :
                     <div className='text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center'>
                         <div className='mt-[-6rem]'>

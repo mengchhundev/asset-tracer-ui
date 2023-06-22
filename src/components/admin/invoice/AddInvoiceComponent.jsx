@@ -16,7 +16,6 @@ import { Combobox, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
-import { setCategoryName } from "../../../redux/slices/NormalCategorySlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
 
 export default function AddInvoiceComponent() {

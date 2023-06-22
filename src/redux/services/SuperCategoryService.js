@@ -1,13 +1,10 @@
 import apiV2 from "./apiV2"
 
-const getAllSuperCategory = async (page, size = 10, name = "") => {
-    return await apiV2.get(`/super-categories/?page=${page}&size=${size}&name=${name}`)
-}
-const getAllSuperCategores = async () => {
-    return await apiV2.get(`/super-categories/all`)
+const getAllSuperCategoresName = async (orgId) => {
+    return await apiV2.get(`/super-categories/name/${orgId}`)
 }
 
-const getSuperCategories = async (orgId, page = 1, size = 8, name = "", sort= "") => {
+const getSuperCategories = async (orgId, page = 1, size = 8, name = "", sort = "") => {
     return await apiV2.get(`/super-categories/by-organization/${orgId}?page=${page}&size=${size}&name=${name}&sort=${sort}`)
 }
 
@@ -23,9 +20,8 @@ const updateSuperCategory = async (id, data) => {
     return await apiV2.put(`/super-categories/${id}`, data);
 }
 
-
 const SuperCategoryService = {
-    getAllSuperCategores,
+    getAllSuperCategoresName,
     saveSuperCategory,
     deleteSuperCategory,
     updateSuperCategory,
