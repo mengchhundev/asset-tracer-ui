@@ -266,7 +266,7 @@ export default function DashboardComponent() {
           </div>
 
           {/* Card Box1 */}
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-5">
+          <div className="grid xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-5">
             {/* total user */}
             <div className="  rounded-lg con-Shadow-Card relative  overflow-hidden flex transition-all duration-200 ease-in-out bg-gray-50 group ">
               <span class=" absolute  bottom-0 left-0 w-full h-1 transition-all duration-200 ease-in-out bg-[#ffcb03]  group-hover:h-full"></span>
@@ -459,7 +459,7 @@ export default function DashboardComponent() {
           </div>
 
           {/* Card Box2 */}
-          <div className="grid md:grid-cols-12 sm:grid-cols-2 gap-5 mt-8">
+          <div className="grid lg:grid-cols-1 xl:grid-cols-12 md:grid-cols-12 sm:grid-cols-2 gap-5 mt-8">
             <div className="lg:col-span-7 md:col-span-12 sm:col-span-12  border-border-gray-light  rounded-lg shadow-sm border p-4">
               {/* header */}
               <div className="flex md:justify-between md:flex-row flex-col">
@@ -586,25 +586,25 @@ export default function DashboardComponent() {
                     },
                   ],
                   colors: [
+                    "rgba(255, 205, 86, 0.7)",
                     "rgba(255, 99, 132, 0.7)",
                     "rgba(255, 159, 64,0.7)",
-                    "rgba(255, 205, 86, 0.7)",
                     "rgba(75, 192, 192, 0.7)",
                     "rgba(54, 162, 235, 0.7)",
                     "rgba(153, 102, 255, 0.7)",
                     "rgba(201, 203, 207, 0.7)",
                   ],
-                  stroke: {
-                    // width: 1,
-                    colors: [
-                      "rgb(255, 99, 132)",
-                      "rgb(255, 159, 64)",
-                      "rgb(255, 205, 86)",
-                      "rgb(75, 192, 192)",
-                      "rgb(54, 162, 235)",
-                      "rgb(153, 102, 255)",
-                      "rgb(201, 203, 207)",
-                    ],},
+                  // stroke: {
+                  //   width: 0,
+                  //   colors: [
+                  //     "rgb(255, 99, 132)",
+                  //     "rgb(255, 159, 64)",
+                  //     "rgb(255, 205, 86)",
+                  //     "rgb(75, 192, 192)",
+                  //     "rgb(54, 162, 235)",
+                  //     "rgb(153, 102, 255)",
+                  //     "rgb(201, 203, 207)",
+                  //   ],},
                   labels: [
                     "In Used",
                     "In Stock",
@@ -632,7 +632,7 @@ export default function DashboardComponent() {
           </div>
           {/* Card Box2 */}
           {/* ============== Current Users ==============  */}
-          <div className="grid md:grid-cols-12 sm:grid-cols-2 gap-5 mt-8">
+          <div className="grid xl:grid-cols-12 2xl:grid-cols-12 md:grid-cols-1 sm:grid-cols-2 gap-5 mt-8">
             <div className=" lg:col-span-4 md:col-span-12 sm:col-span-12 md:w-full border-border-gray-light rounded-lg shadow-sm border relative lg:p-4  2xl:p-5  ">
               <h1 className="text-text-color font-sp-pro-text-medium text-base">
                 Recent Users
@@ -646,29 +646,29 @@ export default function DashboardComponent() {
                         <>
                           <div
                             key={index}
-                            className="flex justify-between my-3 h-16 p-6 con-Shadow-Card rounded-lg items-center"
+                            className="flex justify-between my-3 h-16 2xl:p-6 lg:p-3  con-Shadow-Card rounded-lg items-center"
                           >
                             <div className="flex items-center space-x-1">
                               {/* <div className="font-bold text-xl mx-auto pt-6 lt-14:pt-6 text-center flex flex-col justify-center w-full "> */}
-                                {list.image != "" && list.image != null ? (
-                                  <>
-                                    <div className="w-[47px] h-[47px] con-pro-color rounded-full">
-                                      <img
-                                        src={FileUploadService.getImage(
-                                          list.image
-                                        )}
-                                      />
-                                    </div>
-                                  </>
-                                ) : (
-                                  <>
-                                    <div className="w-[47px] h-[47px] con-pro-color rounded-full flex justify-center items-center m-auto ">
-                                      <p className="font-sp-pro-text-bold uppercase text-[18px] text-green ">
-                                        {list.name.substring(0, 2)}
-                                      </p>
-                                    </div>
-                                  </>
-                                )}
+                              {list.image != "" && list.image != null ? (
+                                <>
+                                  <div className="w-[47px] h-[47px] 2xl:w-[47px] 2xl:h-[47px] lg:w-[37px] lg:h-[37px] con-pro-color rounded-full">
+                                    <img
+                                      src={FileUploadService.getImage(
+                                        list.image
+                                      )}
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="w-[47px] h-[47px] 2xl:w-[47px] 2xl:h-[47px] lg:w-[37px] lg:h-[37px] con-pro-color rounded-full flex justify-center items-center m-auto ">
+                                    <p className="font-sp-pro-text-bold uppercase text-[18px] text-green ">
+                                      {list.name.substring(0, 2)}
+                                    </p>
+                                  </div>  
+                                </>
+                              )}
                               {/* </div> */}
                               <div className="pl-2 flex flex-col">
                                 <span className="text-blue-500 font-sp-pro-text-medium text-sm ">
@@ -685,14 +685,23 @@ export default function DashboardComponent() {
                     </>
                   ))
                 ) : (
-                  <div></div>
+                  <div>
+                    {/* <>
+                      {index == 3 ? (
+                        <div>
+                          <div className="py-3">
+                            <p className="text-gray font-sp-pro-text-regular text-sm uppercase flex flex-row">
+                              see all user{" "}
+                              <MdArrowForwardIos className="w-6 h-4 pl-3" />
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>  </div>
+                      )}
+                    </> */}
+                  </div>
                 )}
-              </div>
-
-              <div className="py-3">
-                <p className="text-gray font-sp-pro-text-regular text-sm uppercase flex flex-row">
-                  see all user <MdArrowForwardIos className="w-6 h-4 pl-3" />
-                </p>
               </div>
             </div>
             {/* =============== Last 3 invoice ================== */}

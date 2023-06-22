@@ -10,7 +10,8 @@ const initialState = {
         address: "",
         roleName: "",
         image: ""
-    }
+    },
+    orgInvited: [],
 }
 
 export const organizationSlice = createSlice({
@@ -25,9 +26,12 @@ export const organizationSlice = createSlice({
         },
         setOrgDetail: (state, action) => {
             state.orgDetail = action.payload
-        }
+        },
+        setOrganizationInvited: (state, action) => {
+            state.orgInvited = action.payload;
+        },
     }
 })
 
-export const { setAllOrganization, setItem, setOrgDetail } = organizationSlice.actions
+export const { setAllOrganization, setItem, setOrgDetail,setOrganizationInvited } = organizationSlice.actions
 export default organizationSlice.reducer

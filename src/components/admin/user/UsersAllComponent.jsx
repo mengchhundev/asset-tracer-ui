@@ -33,6 +33,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
   setAllUser,
+  setOrganizationInvited,
   setProfile,
   setProfileDetail,
   setUserDetail,
@@ -96,7 +97,6 @@ export default function UsersAllComponent() {
     UserService.getUserAllInOrganizations(orgId).then(
       (res) => {
         if (res.data?.success) {
-          // console.log(res.data.payload);
           dispatch(setAllUser(res.data.payload));
         }
       },
@@ -110,13 +110,11 @@ export default function UsersAllComponent() {
   };
 
   const handleSearchUser = () => {
-    UserService.searchUser(search).then(res => {
-      if(res.data.success) {
-        console.log(res)
+    UserService.searchUser(search).then((res) => {
+      if (res.data.success) {
       }
-    })
-  }
-
+    });
+  };
   // const handleShowUserInOrg = (val) => {
   //   dispatch(console.log(setProfile(val)))
   //   sessionStorage.setItem("user", JSON.stringify(val))
@@ -125,27 +123,20 @@ export default function UsersAllComponent() {
   useState(() => {
     getAllUserInOrganizations();
   }, []);
-
   useEffect(() => {
     if (
       selectedSort.id == "asc" ||
       selectedSort.id == "desc" ||
       search != null
     ) {
-      UserService.getUserAllInOrganizations(orgId).then(
-        (res) => {
-          if (res.data?.success) {
-            console.log(res.data.payload);
-            dispatch(setAllUser(res.data.payload));
-          }
-        },
-        (err) => {
-          dispatch(setAllUser([]));
+      UserService.getUserAllInOrganizations(orgId).then((res) => {
+        if (res.data?.success) {
+          dispatch(setAllUser(res.data.payload));
         }
-      );
+      });
     }
   }, [selectedSort, search]);
-
+ 
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
       <div className="gap-6 overflow-hidden z-10 ">
@@ -285,7 +276,7 @@ export default function UsersAllComponent() {
               users.map((list, index) => (
                 <button
                   type="button"
-                  onClick={() => getAllUserInOrganizations(list)}
+                  onClick={() => getAllUserInOrganizations()}
                   key={index}
                   className="relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer"
                   style={{
@@ -992,15 +983,17 @@ export default function UsersAllComponent() {
                       ></path>
                     </svg>
                   </div>
-                 <div className="flex">
-                 <input
-                    className=" w-full h-9 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                    type="text"
-                    name="search"
-                    placeholder="Search team member or type an email"
-                  />
-                  <button className="px-4 py-1 text-white bg-primary rounded-md">Search</button>
-                 </div>
+                  <div className="flex">
+                    <input
+                      className=" w-full h-9 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                      type="text"
+                      name="search"
+                      placeholder="Search team member or type an email"
+                    />
+                    <button className="px-4 py-1 text-white bg-primary rounded-md">
+                      Search
+                    </button>
+                  </div>
                 </div>
               </div>
 

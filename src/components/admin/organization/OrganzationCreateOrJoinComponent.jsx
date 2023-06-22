@@ -1,84 +1,90 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import { Combobox } from "@headlessui/react";
-import logo from '../../../../src/assets/images/A_Tracer_logo1.png';
+import logo from "../../../../src/assets/images/A_Tracer_logo1.png";
 import * as Yup from "yup";
 // // combobox import
-import { Fragment, useState } from 'react';
-import { Transition } from '@headlessui/react';
+import { Fragment, useState } from "react";
+import { Transition } from "@headlessui/react";
 import { ChevronUpDownIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
-import { useFormik } from 'formik';
-import OrganizationService from '../../../redux/services/OrganizationService';
-import { useDispatch, useSelector } from 'react-redux';
-import { setItem } from '../../../redux/slices/OrganizationSlice';
-import { useNavigate } from 'react-router-dom';
-import CreateOrganizatoinComponent from './popUp/CreateOrganizatoinComponent';
-import organization_pic from '../../../assets/images/organization.png'
-import ReactPaginate from 'react-paginate';
+import { useFormik } from "formik";
+import OrganizationService from "../../../redux/services/OrganizationService";
+import { useDispatch, useSelector } from "react-redux";
+import { setItem, setOrganizationInvited } from "../../../redux/slices/OrganizationSlice";
+import { useNavigate } from "react-router-dom";
+import CreateOrganizatoinComponent from "./popUp/CreateOrganizatoinComponent";
+import organization_pic from "../../../assets/images/organization.png";
+import ReactPaginate from "react-paginate";
 import avatar01 from "../../../assets/images/organization/avatar01.png";
 import avatar02 from "../../../assets/images/organization/avatar02.png";
 import avatar03 from "../../../assets/images/organization/avatar03.png";
 import avatar04 from "../../../assets/images/organization/avatar04.png";
 import avatar05 from "../../../assets/images/organization/organization.png";
-import '../../../style/shadow.css';
-import { FiPlus } from 'react-icons/fi';
-import err_pic from '../../../assets/images/false.png'
-import suc_pic from '../../../assets/images/success.png'
+import "../../../style/shadow.css";
+import { FiPlus } from "react-icons/fi";
+import err_pic from "../../../assets/images/false.png";
+import suc_pic from "../../../assets/images/success.png";
+import { CloudDone } from "@mui/icons-material";
 
 const people = [
-  { id: 1, name: 'Short by' },
-  { id: 2, name: 'Arlene Mccoy' },
-  { id: 3, name: 'Devon Webb' },
-  { id: 4, name: 'Tom Cook' },
-]
+  { id: 1, name: "Short by" },
+  { id: 2, name: "Arlene Mccoy" },
+  { id: 3, name: "Devon Webb" },
+  { id: 4, name: "Tom Cook" },
+];
 
 let organizationList = [
   {
     id: 1,
     name: "HRD Center",
     owner: "Sok Polen",
-    memebers: [
-
-    ]
-  }
-]
+    memebers: [],
+  },
+];
 
 export default function OrganzationCreateOrJoinComponent() {
-  const [selected, setSelected] = useState(people[0])
-  const [query, setQuery] = useState("")
-  const [message, setMessage] = useState()
-  const [newData, setNewData] = useState({ code: "" })
-  const dispatch = useDispatch()
-  const organizations = useSelector(state => state.organization.data)
-  const item = useSelector(state => state.organization?.item)
-  const organization = JSON.parse(sessionStorage.getItem("organization"))
-  const navigator = useNavigate()
-  const [isShowJoinPopup, setIsShowJoinPopup] = useState(false)
-  const [isJoinSuccess, setIsJoinSuccess] = useState(false)
+  const [selected, setSelected] = useState(people[0]);
+  const [query, setQuery] = useState("");
+  const [message, setMessage] = useState();
+  const [newData, setNewData] = useState({ code: "" });
+  const dispatch = useDispatch();
+  const organizations = useSelector((state) => state.organization.data);
+  const item = useSelector((state) => state.organization?.item);
+  const organization = JSON.parse(sessionStorage.getItem("organization"));
+  const navigator = useNavigate();
+  const [isShowJoinPopup, setIsShowJoinPopup] = useState(false);
+  const [isJoinSuccess, setIsJoinSuccess] = useState(false);
   const [pageCount, setPageCount] = useState(2);
-  const [isUpdate, setIsUpdate] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [i, setIndex] = useState(1);
 
   const handleUpdateSuccess = (val) => {
-    setIsUpdate(val)
-  }
+    setIsUpdate(val);
+  };
 
   const handleJoinOrganization = () => {
-    OrganizationService.joinOrganization(newData, localStorage.getItem("token")).then(res => {
-      if (res.data?.success) {
-        setIsShowJoinPopup(true)
-        setIsJoinSuccess(true)
+    OrganizationService.joinOrganization(
+      newData,
+      localStorage.getItem("token")
+    ).then(
+      (res) => {
+        if (res.data?.success) {
+          setIsShowJoinPopup(true);
+          setIsJoinSuccess(true);
+        }
+      },
+      (err) => {
+        console.log(err);
+        if (err.response.data.detail == "Organization not found") {
+          setMessage("Wrong code");
+        }
+        setIsShowJoinPopup(true);
+        setIsJoinSuccess(false);
       }
-    }, err => {
-      console.log(err)
-      if(err.response.data.detail == "Organization not found") {
-        setMessage("Wrong code")
-      }
-      setIsShowJoinPopup(true)
-      setIsJoinSuccess(false)
-    })
-  }
+    );
+  };
 
   const handleInputChange = (e) => {
-    setNewData({ ...newData, [e.target.name]: e.target.value })
+    setNewData({ ...newData, [e.target.name]: e.target.value });
   };
 
   const formik = useFormik({
@@ -87,58 +93,103 @@ export default function OrganzationCreateOrJoinComponent() {
       code: Yup.string().required("Code is required"),
     }),
     onSubmit: (val, { resetForm }) => {
-      handleJoinOrganization()
+      handleJoinOrganization();
       resetForm((val = { code: "" }));
       setNewData({ code: "" });
-    }
+    },
   });
 
   const filteredPeople =
-    query === ''
+    query === ""
       ? people
       : people.filter((person) =>
-        person.name
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.toLowerCase().replace(/\s+/g, ''))
-      )
+          person.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
 
   const handlePageClick = (event) => {
     getAllSuperCategory(event.selected + 1);
     setI(event.selected * 10 + 1);
   };
+  // ======================= Invite User =================
+  const getOrgInvited = useSelector((state) => state.organization.orgInvited);
+  const [isApprove, setIsApprove] = useState(false)
+  const [isReject, setIsReject] = useState(false)
+console.log(getOrgInvited)
+  const getAllOrgInvited = () => {
+    OrganizationService.getOrganizationInvited().then((res) => {
+      if (res.data?.success) {
+        dispatch(setOrganizationInvited(res.data.payload));
+        // console.log(res);
+      }
+    });
+  };
+  useEffect(() => {
+    OrganizationService.getOrganizationInvited().then((res) => {
+      if (res.o?.success) {
+        dispatch(setOrganizationInvited(res.data.payload));
+      }
+    });
+    // getAllOrgInvited();
+  }, []);
+  useState(() => {
+    getAllOrgInvited();
+  }, []);
 
+  // =================================================================
   return (
     <>
       <main className="overflow-y-auto pb-4">
         <div className="gap-6 bg-white rounded-xl overflow-hidden mb-5 p-10 px-5 md:px-10 lg:px-20 con-Shadow">
-          <div className='grid grid-cols-2 w-full gap-3 md:gap-8 py-4'>
-            <label htmlFor="create-organization" onClick={() => handleUpdateSuccess(false)} className="min-h-[9rem] col-span-2 md:col-span-1 px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center">
+          <div className="grid grid-cols-2 w-full gap-3 md:gap-8 py-4">
+            <label
+              htmlFor="create-organization"
+              onClick={() => handleUpdateSuccess(false)}
+              className="min-h-[9rem] col-span-2 md:col-span-1 px-10 mb-4 hover:border-green hover:border-opacity-40 hover:bg-green hover:bg-opacity-10 md:mb-0 border border-bg-primary outline-none text-center rounded-xl flex justify-center cursor-pointer shadow-md items-center"
+            >
               <div>
                 <PlusCircleIcon className="w-12 h-12 text-green rounded-full m-auto mb-2" />
-                <p className='text-lg font-sp-pro-text-bold text-green'>Add Organization</p>
+                <p className="text-lg font-sp-pro-text-bold text-green">
+                  Add Organization
+                </p>
               </div>
             </label>
-            <div className='border col-span-2 md:col-span-1 border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8'>
-              <div className='flex gap-6'>
-                <img src={organization_pic} className='w-16 h-16 mt-2' />
+            <div className="border col-span-2 md:col-span-1 border-bg-primary outline-none text-green text-center py-6 rounded-md shadow-md px-8">
+              <div className="flex gap-6">
+                <img src={organization_pic} className="w-16 h-16 mt-2" />
 
-                <form onSubmit={formik.handleSubmit} className='flex-grow justify-start'>
+                <form
+                  onSubmit={formik.handleSubmit}
+                  className="flex-grow justify-start"
+                >
                   <div className="text-left">
-                    <label className="block text-md ml-1 leading-6 text-secondary font-sp-pro-text-regular">Join organization with a code</label>
+                    <label className="block text-md ml-1 leading-6 text-secondary font-sp-pro-text-regular">
+                      Join organization with a code
+                    </label>
                     <input
                       onInput={handleInputChange}
                       onChange={formik.handleChange}
                       value={newData.code}
                       name="code"
-                      type='text'
-                      placeholder='Enter code...'
-                      className='relative text-secondary focus:border-primary px-3 w-full outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main '
+                      type="text"
+                      placeholder="Enter code..."
+                      className="relative text-secondary focus:border-primary px-3 w-full outline-none mt-2 border rounded-lg p-2 border-slate-200 bg-bg-main "
                     />
-                    {formik.touched.code && formik.errors?.code ? <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">{formik.errors.code}</p> : null}
+                    {formik.touched.code && formik.errors?.code ? (
+                      <p className="text-reject font-sp-pro-text-regular text-sm mt-2 pl-1">
+                        {formik.errors.code}
+                      </p>
+                    ) : null}
                   </div>
-                  <div className='w-full flex justify-start'>
-                    <button type='submit' className="mt-3 rounded text-center hover:bg-opacity-80 bg-primary px-10 py-1.5 text-sm font-sp-pro-text-medium text-white cursor-pointer">Join</button>
+                  <div className="w-full flex justify-start">
+                    <button
+                      type="submit"
+                      className="mt-3 rounded text-center hover:bg-opacity-80 bg-primary px-10 py-1.5 text-sm font-sp-pro-text-medium text-white cursor-pointer"
+                    >
+                      Join
+                    </button>
                   </div>
                 </form>
               </div>
@@ -146,39 +197,55 @@ export default function OrganzationCreateOrJoinComponent() {
           </div>
         </div>
 
-        <CreateOrganizatoinComponent className="modal" handleUpdateSuccess={handleUpdateSuccess}/>
+        <CreateOrganizatoinComponent
+          className="modal"
+          handleUpdateSuccess={handleUpdateSuccess}
+        />
       </main>
-      {isShowJoinPopup &&
+      {isShowJoinPopup && (
         <div className="z-30 fixed top-0 left-0 font-sp-pro-text-regular bg-none right-0 bottom-0 flex items-center justify-center">
-          <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl" >
+          <div className="bg-white rounded-xl p-6 py-10 w-72 z-10 border border-bg-primary shadow-xl">
             <div className="flex flex-col justify-end">
               <div className="relative w-40 m-auto pb-7">
-                <img src={isJoinSuccess ? suc_pic : err_pic} alt="Signup Picture" className="w-28 m-auto" />
+                <img
+                  src={isJoinSuccess ? suc_pic : err_pic}
+                  alt="Signup Picture"
+                  className="w-28 m-auto"
+                />
               </div>
-              <p className={`text-2xl text-center font-sp-pro-text-semibold ${isJoinSuccess ? 'text-custom-blue' : 'text-custom-red'}`}>
-                {isJoinSuccess ? 'Waiting For Approve' : ''}
+              <p
+                className={`text-2xl text-center font-sp-pro-text-semibold ${
+                  isJoinSuccess ? "text-custom-blue" : "text-custom-red"
+                }`}
+              >
+                {isJoinSuccess ? "Waiting For Approve" : ""}
               </p>
               <p className="text-sm font-sp-pro-text-regular text-center text-text-color mt-3">
-                {isJoinSuccess ? <>
-                  You cannot join organization until admin approve
-                </> : <>
-                  {message != null ? message : "You already joined this organization code"}
-                </>}
+                {isJoinSuccess ? (
+                  <>You cannot join organization until admin approve</>
+                ) : (
+                  <>
+                    {message != null
+                      ? message
+                      : "You already joined this organization code"}
+                  </>
+                )}
               </p>
               <button
                 onClick={() => setIsShowJoinPopup(false)}
-                className={`${isJoinSuccess ? 'bg-custom-blue' : 'bg-custom-red'} text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
+                className={`${
+                  isJoinSuccess ? "bg-custom-blue" : "bg-custom-red"
+                } text-white  mt-8 py-2 px-4 bg-bl rounded-2xl`}
               >
                 <span>Close</span>
               </button>
             </div>
           </div>
         </div>
-      }
+      )}
       <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden">
         <div className="gap-6 overflow-hidden z-10">
           <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-4 p-5 mb-5 text">
-
             {/* header */}
             <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
               <h2 className="text-2xl font-sp-pro-text-semibold">
@@ -251,9 +318,10 @@ export default function OrganzationCreateOrJoinComponent() {
                             <Combobox.Option
                               key={person.id}
                               className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                  active
+                                    ? "bg-hover-yellow text-text-color"
+                                    : "text-text-color"
                                 }`
                               }
                               value={person}
@@ -261,15 +329,19 @@ export default function OrganzationCreateOrJoinComponent() {
                               {({ selected, active }) => (
                                 <>
                                   <span
-                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                      }`}
+                                    className={`block truncate ${
+                                      selected ? "font-medium" : "font-normal"
+                                    }`}
                                   >
                                     {person.name}
                                   </span>
                                   {selected ? (
                                     <span
-                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
-                                        }`}
+                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                        active
+                                          ? "text-white"
+                                          : "text-text-color"
+                                      }`}
                                     >
                                       <CheckIcon
                                         className="h-5 w-5"
@@ -293,8 +365,7 @@ export default function OrganzationCreateOrJoinComponent() {
           <div className="flex flex-col justify-between ">
             {/* table */}
 
-            <div
-              className="overflow-scroll px-5 flex-grow">
+            <div className="overflow-scroll px-5 flex-grow">
               <table className="table w-full">
                 <tbody className="">
                   <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none">
@@ -312,29 +383,26 @@ export default function OrganzationCreateOrJoinComponent() {
                       Action
                     </td>
                   </tr>
-                  {organizationList.map(list => (
-                    <tr key={list.id} className="text-sm font-sp-pro-text-regular text-center">
-                      <td className="w-1/12 py-3 text-center ">
-                        1
-                      </td>
+                  {getOrgInvited.map((list, index) => (
+                    <tr
+                      key={index}
+                      className="text-sm font-sp-pro-text-regular text-center"
+                    >
+                      <td className="w-1/12 py-3 text-center ">{index + i}</td>
                       <td className="w-3/12 py-3 pl-24">
                         <div className="flex items-center">
                           <div className="relative  mr-3 w-8 h-8 ">
-                            <img
-                              src={avatar05}
-                              loading="lazy"
-                            />
+                            <img src={avatar05} loading="lazy" />
                           </div>
-                          <div>Electronic</div>
+                          <div>{list.name}</div>
                         </div>
                       </td>
-                      <td className="w-2/12 py-3">
-                        Sok polen
-                      </td>
+                      <td className="w-2/12 py-3">{list.owner}</td>
 
                       <td className="w-2/12 py-3 p-2.5 m-auto">
-                        <div className='w-full flex justify-center'>
-                          <div className="relative  w-8 h-8 mr-[-14px] z-10">
+                        {/* <div className="w-full flex justify-center"> */}
+                          {list.users}
+                          {/* <div className="relative  w-8 h-8 mr-[-14px] z-10">
                             <img
                               src={avatar01}
                               loading="lazy"
@@ -364,8 +432,8 @@ export default function OrganzationCreateOrJoinComponent() {
                           </div>
                           <div className="relative  w-8 h-8 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
                             8 <FiPlus />
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div> */}
                       </td>
                       <td className="w-2/12 py-3">
                         <div className="flex items-center space-x-4 justify-center">
@@ -376,19 +444,19 @@ export default function OrganzationCreateOrJoinComponent() {
                           >
                             Accept
                           </label>
-
                         </div>
                       </td>
                     </tr>
                   ))}
-
                 </tbody>
               </table>
             </div>
 
             {/* pagination */}
             <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
-              <div className="font-sp-pro-text-regular opacity-90">Showing data 1 to 8 of 256K entries</div>
+              <div className="font-sp-pro-text-regular opacity-90">
+                Showing data 1 to 8 of 256K entries
+              </div>
               <div id="react-paginate" className="">
                 <ReactPaginate
                   nextLabel=" >"
@@ -416,5 +484,5 @@ export default function OrganzationCreateOrJoinComponent() {
         </div>
       </main>
     </>
-  )
+  );
 }

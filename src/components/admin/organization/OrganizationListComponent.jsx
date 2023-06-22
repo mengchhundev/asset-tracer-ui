@@ -61,7 +61,6 @@ export default function OrganizationListComponent() {
     const token = localStorage.getItem("token")
     var decoded = jwt_decode(token);
     var userId = decoded.id;
-console.log(organizations)
     const getAllOrganizations = () => {
         OrganizationService.getAllOrganizations(userId).then(res => {
             if (res.data?.success) {
@@ -90,7 +89,6 @@ console.log(organizations)
     useState(() => {
         getAllOrganizations()
     }, [])
-console.log(organizations)
     useEffect(() => {
         if (selectedSort != null || search != null) {
             OrganizationService.getAllOrganizations(userId, search, selectedSort).then(res => {

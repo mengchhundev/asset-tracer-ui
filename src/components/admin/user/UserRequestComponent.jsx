@@ -20,11 +20,11 @@ import FileUploadService from "../../../redux/services/FileUploadService";
 import { isRejected } from "@reduxjs/toolkit";
 
 export default function UserRequestComponent() {
+
   const organization = JSON.parse(sessionStorage.getItem("organization"));
+
   const dispatch = useDispatch();
-  const [userRequest, setUserRequest] = useState([]);
   const requestUsers = useSelector((state) => state.user.requestUsers);
-  const approveUserReq = useSelector((state) => state.user.approveUsers);
   const [isApprove, setIsApprove] = useState(false)
   const [isReject, setIsReject] = useState(false)
 
@@ -63,6 +63,8 @@ export default function UserRequestComponent() {
   useEffect(() => {
     handleGetAllRequestUsers();
   }, []);
+
+
 
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
