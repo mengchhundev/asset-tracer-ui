@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { data } from "autoprefixer";
 
 const initialState = {
+  normalCategories: [],
   data: [],
   deletNormalData: {},
   // updateNormalCategory: {}
@@ -25,8 +26,6 @@ export const normalCategorySlice = createSlice({
     },
     setDeletNormalCategory: (state, action) => {
       state.data.filter((item) => item.id !== action.payload);
-      // state.deletNormalData = action.payload;
-      alert("Delete Successfully!");
     },
   },
 });

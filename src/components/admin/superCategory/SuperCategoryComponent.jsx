@@ -53,7 +53,8 @@ export default function SuperCategoryComponent() {
   let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
   let pageCount = useSelector(state => state.superCategory.pageCount)
   let formData = new FormData();
-  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState("")
+  const [selectedImg, setSeletedImg] = useState("")
 
   const [newData, setNewData] = useState({
     id: "",
@@ -117,9 +118,11 @@ export default function SuperCategoryComponent() {
       if (res.data.success) {
         handleGetAllSuperCategory(1)
         setI(1)
-        document.getElementById("btn-super-category").click();
+        document.getElementById("add-super-category").click();
         document.getElementsByClassName("page-link")[1].click()
         setItemName("")
+        setSelectedFile("")
+        setSeletedImg("")
       }
     });
   };
@@ -129,8 +132,10 @@ export default function SuperCategoryComponent() {
     SuperCategoryService.updateSuperCategory(newData.id, newData).then(
       (res) => {
         if (res.data.success) {
-          document.getElementById("btn-super-category").click();
+          document.getElementById("edit-super-category").click();
           handleGetAllSuperCategory(selectedPage);
+          setSelectedFile("")
+          setSeletedImg("")
         }
       }
     );
@@ -148,7 +153,7 @@ export default function SuperCategoryComponent() {
     const { name, value } = e.target;
     setNewData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -165,6 +170,7 @@ export default function SuperCategoryComponent() {
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Name is required"),
     }),
+
     onSubmit: (val, { resetForm }) => {
       isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory();
       resetForm((val = { id: "", name: "", organizationId: "" }));
@@ -180,15 +186,15 @@ export default function SuperCategoryComponent() {
   }, [isUpdate]);
 
   const handleShowSuperCategory = (val) => {
-    setIsUpdate(true);
+    if(val.icon != null) {
+      setSeletedImg(val.icon)
+    }
+    setIsUpdate(true)
     setNewData({ ...val, organizationId: organizationId });
-    formik.setValues(val);
+    formik.setValues(val)
   };
 
   const handleHideModal = () => {
-    setTimeout(() => {
-      setIsUpdate(false);
-    }, 100);
     setNewData({
       id: "",
       name: "",
@@ -196,12 +202,13 @@ export default function SuperCategoryComponent() {
       organizationId: organizationId,
     });
     setSelectedFile("")
+    setSeletedImg("")
     formik.setValues({ id: "", name: "", organizationId: "" });
   };
 
-  const handleSelectIcon = (val) => {
+  const handleSelectedFile = (val) => {
     setSelectedFile(val)
-    setNewData({ ...newData, icon: val + ".svg" })
+    setNewData({ ...newData, icon: val })
   }
 
   return (
@@ -316,6 +323,7 @@ export default function SuperCategoryComponent() {
             {/* add */}
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <label
+                onClick={() => setIsUpdate(false)}
                 htmlFor="superCategory"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
@@ -344,11 +352,11 @@ export default function SuperCategoryComponent() {
                         <img
                           className="h-9 rounded-full w-9"
                           src={
-                            list.icon == "office.svg" ? office : 
-                            list.icon == "electronic.svg" ? electronic : 
-                            list.icon == "furniture.svg" ? furniture : 
-                            list.icon != null ? FileUploadService.getImage(list.icon) : 
-                            placeholder_square}
+                            list.icon == "office.svg" ? office :
+                              list.icon == "electronic.svg" ? electronic :
+                                list.icon == "furniture.svg" ? furniture :
+                                  list.icon != null ? FileUploadService.getImage(list.icon) :
+                                    placeholder_square}
                         ></img>
                         <span className="text-sm ">{list.name}</span>
                       </div>
@@ -364,8 +372,8 @@ export default function SuperCategoryComponent() {
                       <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
-                          onClick={() => handleShowSuperCategory(list)}
-                          htmlFor="superCategory"
+                          onClick={() => { handleShowSuperCategory(list), setIsUpdate(true) }}
+                          htmlFor="editSuperCategory"
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
                           aria-label="Edit"
                         >
@@ -419,6 +427,129 @@ export default function SuperCategoryComponent() {
           </div>
         </div>
 
+        {/* Modal Edit normal category */}
+        <input type="checkbox" id="editSuperCategory" className="modal-toggle" />
+        <div className=" modal">
+          <div className=" modal-box relative rounded-lg">
+            <div className="absolute top-7 right-7">
+              <label
+                htmlFor="editSuperCategory"
+                id="edit-super-category"
+                onClick={handleHideModal}
+              >
+                <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+              </label>
+            </div>
+            <div className=" flex justify-between">
+              <div className="flex">
+                <img src={gift} className="h-12 rounded-lg w-12 " />
+                <p className="mt-2 items-center font-sp-pro-text-semibold text-lg pl-3 text-text-color">
+                  Edit Super Category
+                </p>
+              </div>
+            </div>
+            <form onSubmit={formik.handleSubmit}>
+              <div className=" border border-bg-primary rounded-md p-2 my-6">
+                <div className="flex items-center gap-3">
+                  <label>
+                    {selectedFile ?
+                      <img
+                        src={selectedFile == "electronic.svg" ? electronic : selectedFile == "office.svg" ? office : selectedFile == "furniture.svg" ? furniture : URL.createObjectURL(selectedFile)}
+                        className="h-14 rounded-full w-14 "
+                      />
+                      : selectedImg ?
+                        <img
+                          src={selectedImg == "electronic.svg" ? electronic : selectedImg == "office.svg" ? office : selectedImg == "furniture.svg" ? furniture : FileUploadService.getImage(selectedImg)}
+                          className="h-14 rounded-full w-14 "
+                        />
+                        :
+                        <img
+                          className="h-14 rounded-lg w-14"
+                          src={placeImg}
+                        />
+                    }
+                  </label>
+                  <div className="flex flex-col">
+                    <p className="px-2">Choose Icon</p>
+                    <div className="flex flex-row items-end justify-start">
+                      <div className="p-2">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("electronic.svg")}>
+                          <img
+                            src={electronic}
+                            className="h-8 rounded-lg w-8 "
+                          />
+                        </label>
+                      </div>
+                      <div className="p-2">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("office.svg")}>
+                          <img src={office} className="h-8 rounded-lg w-8 " />
+                        </label>
+                      </div>
+                      <div className="p-2">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("furniture.svg")}>
+                          <img
+                            src={furniture}
+                            className="h-8 rounded-lg w-8 "
+                          />
+                        </label>
+                      </div>
+
+                      <div className="p-2">
+                        <label className="cursor-pointer">
+                          <input
+                            type="file"
+                            className="hidden"
+                            id="logo"
+                            onChange={handleFileSelect}
+                          />
+                          <div className="h-8 rounded-lg w-8 bg-bg-primary hover:bg-bg-primary-strockF flex justify-center items-center">
+                            <AiOutlinePlus className="text-xl" />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className='text-left'>
+                <label className="block mb-2 ml-1 text-sm">Super Category Name <span className='text-reject'>*</span></label>
+                <input
+                  type='text'
+                  value={newData.name}
+                  onInput={handleInputChange}
+                  onChange={formik.handleChange}
+                  name="name"
+                  className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20 focus:border-primary  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                  placeholder='Enter super category...'
+                />
+                {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+              </div>
+              <div className="flex justify-end flex-row space-x-4 mt-10">
+                <div className="">
+                  <label
+                    onClick={handleHideModal}
+                    htmlFor="editSuperCategory"
+                    className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
+                  >
+                    <RiCloseFill className='text-lg' />
+                    Cancel
+                  </label>
+                </div>
+
+                <div className="">
+                  <button
+                    type="submit"
+                    className={`hover:bg-accept bg-accept hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                  >
+                    <FiSave className="text-lg" /> &nbsp; Save changes
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
         {/* Modal Add normal category */}
         <input type="checkbox" id="superCategory" className="modal-toggle" />
         <div className=" modal">
@@ -426,7 +557,7 @@ export default function SuperCategoryComponent() {
             <div className="absolute top-7 right-7">
               <label
                 htmlFor="superCategory"
-                id="btn-super-category"
+                id="add-super-category"
                 onClick={handleHideModal}
               >
                 <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
@@ -446,7 +577,7 @@ export default function SuperCategoryComponent() {
                   <label>
                     {selectedFile ?
                       <img
-                        src={selectedFile == "electronic" ? electronic : selectedFile == "office" ? office : selectedFile == "furniture" ? furniture : URL.createObjectURL(selectedFile)}
+                        src={selectedFile == "electronic.svg" ? electronic : selectedFile == "office.svg" ? office : selectedFile == "furniture.svg" ? furniture : URL.createObjectURL(selectedFile)}
                         className="h-14 rounded-full w-14 "
                       />
                       : <img
@@ -459,7 +590,7 @@ export default function SuperCategoryComponent() {
                     <p className="px-2">Choose Icon</p>
                     <div className="flex flex-row items-end justify-start">
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectIcon("electronic")}>
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("electronic.svg")}>
                           <img
                             src={electronic}
                             className="h-8 rounded-lg w-8 "
@@ -467,12 +598,12 @@ export default function SuperCategoryComponent() {
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectIcon("office")}>
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("office.svg")}>
                           <img src={office} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectIcon("furniture")}>
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("furniture.svg")}>
                           <img
                             src={furniture}
                             className="h-8 rounded-lg w-8 "

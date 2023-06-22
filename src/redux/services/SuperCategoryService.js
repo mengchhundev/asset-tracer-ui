@@ -1,6 +1,6 @@
 import apiV2 from "./apiV2"
 
-export const getAllSuperCategory = async (page, size = 10, name = "") => {
+const getAllSuperCategory = async (page, size = 10, name = "") => {
     return await apiV2.get(`/super-categories/?page=${page}&size=${size}&name=${name}`)
 }
 const getAllSuperCategores = async () => {
@@ -31,4 +31,5 @@ const SuperCategoryService = {
     updateSuperCategory,
     getSuperCategories
 };
+
 export default SuperCategoryService;
