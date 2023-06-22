@@ -55,7 +55,7 @@ export default function SuperCategoryComponent() {
   let formData = new FormData();
   const [selectedFile, setSelectedFile] = useState("");
 
-  const [newData, setData] = useState({
+  const [newData, setNewData] = useState({
     id: "",
     name: "",
     icon: "",
@@ -75,7 +75,7 @@ export default function SuperCategoryComponent() {
 
     FileUploadService.storeFile(formData, localStorage.getItem("token"))
       .then((res) => {
-        setData({ ...newData, icon: res.data.payload });
+        setNewData({ ...newData, icon: res.data.payload });
       })
   };
 
@@ -92,9 +92,7 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
-
     handleGetAllSuperCategory(selectedPage);
-
   }, [selectedPage]);
 
   useEffect(() => {
@@ -103,19 +101,21 @@ export default function SuperCategoryComponent() {
     }
   }, [itemName, selectedSort]);
 
-  // Delete room
+  // Delete Super Category
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
+        handleGetAllSuperCategory(1)
         document.getElementsByClassName("page-link")[1].click()
       }
     });
   };
 
-  // Add room
+  // Add Super Category
   const handleSaveSuperCategory = () => {
     SuperCategoryService.saveSuperCategory(newData).then((res) => {
       if (res.data.success) {
+        handleGetAllSuperCategory(1)
         setI(1)
         document.getElementById("btn-super-category").click();
         document.getElementsByClassName("page-link")[1].click()
@@ -124,9 +124,7 @@ export default function SuperCategoryComponent() {
     });
   };
 
-
-
-  // Update room
+  // Update Super Category
   const handleUpdateSuperCategory = () => {
     SuperCategoryService.updateSuperCategory(newData.id, newData).then(
       (res) => {
@@ -139,7 +137,7 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
-    setData((prevData) => ({
+    setNewData((prevData) => ({
       ...prevData,
       organizationId,
     }));
@@ -148,7 +146,7 @@ export default function SuperCategoryComponent() {
   // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setData((prevData) => ({
+    setNewData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -170,7 +168,7 @@ export default function SuperCategoryComponent() {
     onSubmit: (val, { resetForm }) => {
       isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory();
       resetForm((val = { id: "", name: "", organizationId: "" }));
-      setData({ id: "", name: "", organizationId: "" });
+      setNewData({ id: "", name: "", organizationId: "" });
       formik.setValues({ id: "", name: "", organizationId: "" });
     },
   });
@@ -183,7 +181,7 @@ export default function SuperCategoryComponent() {
 
   const handleShowSuperCategory = (val) => {
     setIsUpdate(true);
-    setData({ ...val, organizationId: organizationId });
+    setNewData({ ...val, organizationId: organizationId });
     formik.setValues(val);
   };
 
@@ -191,14 +189,20 @@ export default function SuperCategoryComponent() {
     setTimeout(() => {
       setIsUpdate(false);
     }, 100);
-    setData({
+    setNewData({
       id: "",
       name: "",
       icon: "",
       organizationId: organizationId,
     });
+    setSelectedFile("")
     formik.setValues({ id: "", name: "", organizationId: "" });
   };
+
+  const handleSelectIcon = (val) => {
+    setSelectedFile(val)
+    setNewData({ ...newData, icon: val + ".svg" })
+  }
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -339,7 +343,12 @@ export default function SuperCategoryComponent() {
                       <div className="flex items-center space-x-5">
                         <img
                           className="h-9 rounded-full w-9"
-                          src={list.icon ? FileUploadService.getImage(list.icon) : placeholder_square}
+                          src={
+                            list.icon == "office.svg" ? office : 
+                            list.icon == "electronic.svg" ? electronic : 
+                            list.icon == "furniture.svg" ? furniture : 
+                            list.icon != null ? FileUploadService.getImage(list.icon) : 
+                            placeholder_square}
                         ></img>
                         <span className="text-sm ">{list.name}</span>
                       </div>
@@ -435,23 +444,22 @@ export default function SuperCategoryComponent() {
               <div className=" border border-bg-primary rounded-md p-2 my-6">
                 <div className="flex items-center gap-3">
                   <label>
-                    {selectedFile ? (
+                    {selectedFile ?
                       <img
-                        src={URL.createObjectURL(selectedFile)}
+                        src={selectedFile == "electronic" ? electronic : selectedFile == "office" ? office : selectedFile == "furniture" ? furniture : URL.createObjectURL(selectedFile)}
                         className="h-14 rounded-full w-14 "
                       />
-                    ) : (
-                      <img
+                      : <img
                         className="h-14 rounded-lg w-14"
                         src={placeImg}
                       />
-                    )}
+                    }
                   </label>
                   <div className="flex flex-col">
                     <p className="px-2">Choose Icon</p>
                     <div className="flex flex-row items-end justify-start">
                       <div className="p-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer" onClick={() => handleSelectIcon("electronic")}>
                           <img
                             src={electronic}
                             className="h-8 rounded-lg w-8 "
@@ -459,12 +467,12 @@ export default function SuperCategoryComponent() {
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer" onClick={() => handleSelectIcon("office")}>
                           <img src={office} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer" onClick={() => handleSelectIcon("furniture")}>
                           <img
                             src={furniture}
                             className="h-8 rounded-lg w-8 "
@@ -518,13 +526,9 @@ export default function SuperCategoryComponent() {
                 <div className="">
                   <button
                     type="submit"
-                    className={`${isUpdate
-                      ? "hover:bg-green bg-green"
-                      : "hover:bg-primary bg-primary"
-                      }  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                    className={`hover:bg-primary bg-primary hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
                   >
-                    <FiSave className="text-lg" /> &nbsp;{" "}
-                    {isUpdate ? "Save change" : "Add"}
+                    <FiSave className="text-lg" /> &nbsp; Add
                   </button>
                 </div>
               </div>
@@ -555,8 +559,7 @@ export default function SuperCategoryComponent() {
                 <p className="pt-1 py-5">
                   Are you sure want to delete{"  "}
                   <span className="font-sp-pro-text-medium text-base">
-                    {"  "}
-                    {newData.name}{"  "}
+                    {newData.name}
                   </span>
                   this normal category?
                 </p>
