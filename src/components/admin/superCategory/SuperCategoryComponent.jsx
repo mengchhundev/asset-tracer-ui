@@ -72,12 +72,6 @@ export default function SuperCategoryComponent() {
   // select file
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
-    formData.append("file", event.target.files[0]);
-
-    FileUploadService.storeFile(formData, localStorage.getItem("token"))
-      .then((res) => {
-        setNewData({ ...newData, icon: res.data.payload });
-      })
   };
 
   // Get all super categories
@@ -114,31 +108,74 @@ export default function SuperCategoryComponent() {
 
   // Add Super Category
   const handleSaveSuperCategory = () => {
-    SuperCategoryService.saveSuperCategory(newData).then((res) => {
-      if (res.data.success) {
-        handleGetAllSuperCategory(1)
-        setI(1)
-        document.getElementById("add-super-category").click();
-        document.getElementsByClassName("page-link")[1].click()
-        setItemName("")
-        setSelectedFile("")
-        setSeletedImg("")
-      }
-    });
+    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token"))
+        .then((res) => {
+          if (res.data.success) {
+            SuperCategoryService.saveSuperCategory(
+              { ...newData, icon: res.data.payload }
+            ).then((res) => {
+              if (res.data.success) {
+                handleGetAllSuperCategory(1)
+                setI(1)
+                document.getElementById("add-super-category").click();
+                document.getElementsByClassName("page-link")[1].click()
+                setItemName("")
+                setSelectedFile("")
+                setSeletedImg("")
+              }
+            });
+          }
+        })
+    } else {
+      SuperCategoryService.saveSuperCategory(newData).then((res) => {
+        if (res.data.success) {
+          handleGetAllSuperCategory(1)
+          setI(1)
+          document.getElementById("add-super-category").click();
+          document.getElementsByClassName("page-link")[1].click()
+          setItemName("")
+          setSelectedFile("")
+          setSeletedImg("")
+        }
+      });
+    }
   };
 
   // Update Super Category
   const handleUpdateSuperCategory = () => {
-    SuperCategoryService.updateSuperCategory(newData.id, newData).then(
-      (res) => {
-        if (res.data.success) {
-          document.getElementById("edit-super-category").click();
-          handleGetAllSuperCategory(selectedPage);
-          setSelectedFile("")
-          setSeletedImg("")
+    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token"))
+        .then((res) => {
+          if (res.data.success) {
+            SuperCategoryService.updateSuperCategory(newData.id,
+              { ...newData, icon: res.data.payload }).then(
+                (res) => {
+                  if (res.data.success) {
+                    document.getElementById("edit-super-category").click();
+                    handleGetAllSuperCategory(selectedPage);
+                    setSelectedFile("")
+                    setSeletedImg("")
+                  }
+                }
+              );
+          }
+        })
+    }
+    else {
+      SuperCategoryService.updateSuperCategory(newData.id, newData).then(
+        (res) => {
+          if (res.data.success) {
+            document.getElementById("edit-super-category").click();
+            handleGetAllSuperCategory(selectedPage);
+            setSelectedFile("")
+            setSeletedImg("")
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   useEffect(() => {
@@ -186,7 +223,7 @@ export default function SuperCategoryComponent() {
   }, [isUpdate]);
 
   const handleShowSuperCategory = (val) => {
-    if(val.icon != null) {
+    if (val.icon != null) {
       setSeletedImg(val.icon)
     }
     setIsUpdate(true)
@@ -349,15 +386,22 @@ export default function SuperCategoryComponent() {
                     <td className="w-1/5  py-3">{index + i}</td>
                     <td className="w-2/5  py-3">
                       <div className="flex items-center space-x-5">
-                        <img
-                          className="h-9 rounded-full w-9"
-                          src={
-                            list.icon == "office.svg" ? office :
-                              list.icon == "electronic.svg" ? electronic :
-                                list.icon == "furniture.svg" ? furniture :
-                                  list.icon != null ? FileUploadService.getImage(list.icon) :
-                                    placeholder_square}
-                        ></img>
+                        {list.icon ?
+                          <img
+                            className="h-9 rounded-full w-9"
+                            src={
+                              list.icon == "office.svg" ? office :
+                                list.icon == "electronic.svg" ? electronic :
+                                  list.icon == "furniture.svg" ? furniture :
+                                    FileUploadService.getImage(list.icon)}
+                          />
+                          :
+                          < img
+                            className="h-9 rounded-full w-9"
+                            src={placeholder_square}
+                          />
+                        }
+
                         <span className="text-sm ">{list.name}</span>
                       </div>
                     </td>
