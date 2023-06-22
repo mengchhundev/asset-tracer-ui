@@ -53,9 +53,10 @@ export default function SuperCategoryComponent() {
   let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
   let pageCount = useSelector(state => state.superCategory.pageCount)
   let formData = new FormData();
-  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState("")
+  const [selectedImg, setSeletedImg] = useState("")
 
-  const [newData, setData] = useState({
+  const [newData, setNewData] = useState({
     id: "",
     name: "",
     icon: "",
@@ -71,12 +72,6 @@ export default function SuperCategoryComponent() {
   // select file
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
-    formData.append("file", event.target.files[0]);
-
-    FileUploadService.storeFile(formData, localStorage.getItem("token"))
-      .then((res) => {
-        setData({ ...newData, icon: res.data.payload });
-      })
   };
 
   // Get all super categories
@@ -92,13 +87,7 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
-    
-    // if(countCurrentRow == 0) {
-    //   setSelectedPage(1)
-    // }
-
     handleGetAllSuperCategory(selectedPage);
-
   }, [selectedPage]);
 
   useEffect(() => {
@@ -107,42 +96,90 @@ export default function SuperCategoryComponent() {
     }
   }, [itemName, selectedSort]);
 
-  // Delete room
+  // Delete Super Category
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
+        handleGetAllSuperCategory(1)
         document.getElementsByClassName("page-link")[1].click()
       }
     });
   };
 
-  // Add room
+  // Add Super Category
   const handleSaveSuperCategory = () => {
-    SuperCategoryService.saveSuperCategory(newData).then((res) => {
-      if (res.data.success) {
-        setI(1)
-        document.getElementById("btn-super-category").click();
-        document.getElementsByClassName("page-link")[1].click()
-      }
-    });
+    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token"))
+        .then((res) => {
+          if (res.data.success) {
+            SuperCategoryService.saveSuperCategory(
+              { ...newData, icon: res.data.payload }
+            ).then((res) => {
+              if (res.data.success) {
+                handleGetAllSuperCategory(1)
+                setI(1)
+                document.getElementById("add-super-category").click();
+                document.getElementsByClassName("page-link")[1].click()
+                setItemName("")
+                setSelectedFile("")
+                setSeletedImg("")
+              }
+            });
+          }
+        })
+    } else {
+      SuperCategoryService.saveSuperCategory(newData).then((res) => {
+        if (res.data.success) {
+          handleGetAllSuperCategory(1)
+          setI(1)
+          document.getElementById("add-super-category").click();
+          document.getElementsByClassName("page-link")[1].click()
+          setItemName("")
+          setSelectedFile("")
+          setSeletedImg("")
+        }
+      });
+    }
   };
 
-  
-
-  // Update room
+  // Update Super Category
   const handleUpdateSuperCategory = () => {
-    SuperCategoryService.updateSuperCategory(newData.id, newData).then(
-      (res) => {
-        if (res.data.success) {
-          document.getElementById("btn-super-category").click();
-          handleGetAllSuperCategory(selectedPage);
+    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token"))
+        .then((res) => {
+          if (res.data.success) {
+            SuperCategoryService.updateSuperCategory(newData.id,
+              { ...newData, icon: res.data.payload }).then(
+                (res) => {
+                  if (res.data.success) {
+                    document.getElementById("edit-super-category").click();
+                    handleGetAllSuperCategory(selectedPage);
+                    setSelectedFile("")
+                    setSeletedImg("")
+                  }
+                }
+              );
+          }
+        })
+    }
+    else {
+      SuperCategoryService.updateSuperCategory(newData.id, newData).then(
+        (res) => {
+          if (res.data.success) {
+            document.getElementById("edit-super-category").click();
+            handleGetAllSuperCategory(selectedPage);
+            setSelectedFile("")
+            setSeletedImg("")
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   useEffect(() => {
-    setData((prevData) => ({
+    setNewData((prevData) => ({
       ...prevData,
       organizationId,
     }));
@@ -151,9 +188,9 @@ export default function SuperCategoryComponent() {
   // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setData((prevData) => ({
+    setNewData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -170,10 +207,11 @@ export default function SuperCategoryComponent() {
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Name is required"),
     }),
+
     onSubmit: (val, { resetForm }) => {
       isUpdate ? handleUpdateSuperCategory() : handleSaveSuperCategory();
       resetForm((val = { id: "", name: "", organizationId: "" }));
-      setData({ id: "", name: "", organizationId: "" });
+      setNewData({ id: "", name: "", organizationId: "" });
       formik.setValues({ id: "", name: "", organizationId: "" });
     },
   });
@@ -183,25 +221,32 @@ export default function SuperCategoryComponent() {
       formik.setValues({ id: "", name: "", organizationId: "" });
     }
   }, [isUpdate]);
- 
+
   const handleShowSuperCategory = (val) => {
-    setIsUpdate(true);
-    setData({ ...val, organizationId: organizationId });
-    formik.setValues(val);
+    if (val.icon != null) {
+      setSeletedImg(val.icon)
+    }
+    setIsUpdate(true)
+    setNewData({ ...val, organizationId: organizationId });
+    formik.setValues(val)
   };
 
   const handleHideModal = () => {
-    setTimeout(() => {
-      setIsUpdate(false);
-    }, 100);
-    setData({
+    setNewData({
       id: "",
       name: "",
       icon: "",
       organizationId: organizationId,
     });
+    setSelectedFile("")
+    setSeletedImg("")
     formik.setValues({ id: "", name: "", organizationId: "" });
   };
+
+  const handleSelectedFile = (val) => {
+    setSelectedFile(val)
+    setNewData({ ...newData, icon: val })
+  }
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -239,6 +284,7 @@ export default function SuperCategoryComponent() {
                   className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
+                  value={itemName}
                   onInput={handleInputSearch}
                   placeholder="Search..."
                 />
@@ -314,6 +360,7 @@ export default function SuperCategoryComponent() {
             {/* add */}
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <label
+                onClick={() => setIsUpdate(false)}
                 htmlFor="superCategory"
                 className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
               >
@@ -339,10 +386,22 @@ export default function SuperCategoryComponent() {
                     <td className="w-1/5  py-3">{index + i}</td>
                     <td className="w-2/5  py-3">
                       <div className="flex items-center space-x-5">
-                        <img
-                          className="h-9 rounded-full w-9"
-                          src={list.icon ? FileUploadService.getImage(list.icon) : placeholder_square}
-                        ></img>
+                        {list.icon ?
+                          <img
+                            className="h-9 rounded-full w-9"
+                            src={
+                              list.icon == "office.svg" ? office :
+                                list.icon == "electronic.svg" ? electronic :
+                                  list.icon == "furniture.svg" ? furniture :
+                                    FileUploadService.getImage(list.icon)}
+                          />
+                          :
+                          < img
+                            className="h-9 rounded-full w-9"
+                            src={placeholder_square}
+                          />
+                        }
+
                         <span className="text-sm ">{list.name}</span>
                       </div>
                     </td>
@@ -357,8 +416,8 @@ export default function SuperCategoryComponent() {
                       <div className="flex items-center space-x-4 justify-center">
                         {/* Edit */}
                         <label
-                          onClick={() => handleShowSuperCategory(list)}
-                          htmlFor="superCategory"
+                          onClick={() => { handleShowSuperCategory(list), setIsUpdate(true) }}
+                          htmlFor="editSuperCategory"
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
                           aria-label="Edit"
                         >
@@ -382,7 +441,8 @@ export default function SuperCategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
+
+          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
             <div className="font-sp-pro-text-regular opacity-90">
               Showing data 1 to {countCurrentRow} of {totalRow} entries
             </div>
@@ -411,6 +471,129 @@ export default function SuperCategoryComponent() {
           </div>
         </div>
 
+        {/* Modal Edit normal category */}
+        <input type="checkbox" id="editSuperCategory" className="modal-toggle" />
+        <div className=" modal">
+          <div className=" modal-box relative rounded-lg">
+            <div className="absolute top-7 right-7">
+              <label
+                htmlFor="editSuperCategory"
+                id="edit-super-category"
+                onClick={handleHideModal}
+              >
+                <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
+              </label>
+            </div>
+            <div className=" flex justify-between">
+              <div className="flex">
+                <img src={gift} className="h-12 rounded-lg w-12 " />
+                <p className="mt-2 items-center font-sp-pro-text-semibold text-lg pl-3 text-text-color">
+                  Edit Super Category
+                </p>
+              </div>
+            </div>
+            <form onSubmit={formik.handleSubmit}>
+              <div className=" border border-bg-primary rounded-md p-2 my-6">
+                <div className="flex items-center gap-3">
+                  <label>
+                    {selectedFile ?
+                      <img
+                        src={selectedFile == "electronic.svg" ? electronic : selectedFile == "office.svg" ? office : selectedFile == "furniture.svg" ? furniture : URL.createObjectURL(selectedFile)}
+                        className="h-14 rounded-full w-14 "
+                      />
+                      : selectedImg ?
+                        <img
+                          src={selectedImg == "electronic.svg" ? electronic : selectedImg == "office.svg" ? office : selectedImg == "furniture.svg" ? furniture : FileUploadService.getImage(selectedImg)}
+                          className="h-14 rounded-full w-14 "
+                        />
+                        :
+                        <img
+                          className="h-14 rounded-lg w-14"
+                          src={placeImg}
+                        />
+                    }
+                  </label>
+                  <div className="flex flex-col">
+                    <p className="px-2">Choose Icon</p>
+                    <div className="flex flex-row items-end justify-start">
+                      <div className="p-2">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("electronic.svg")}>
+                          <img
+                            src={electronic}
+                            className="h-8 rounded-lg w-8 "
+                          />
+                        </label>
+                      </div>
+                      <div className="p-2">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("office.svg")}>
+                          <img src={office} className="h-8 rounded-lg w-8 " />
+                        </label>
+                      </div>
+                      <div className="p-2">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("furniture.svg")}>
+                          <img
+                            src={furniture}
+                            className="h-8 rounded-lg w-8 "
+                          />
+                        </label>
+                      </div>
+
+                      <div className="p-2">
+                        <label className="cursor-pointer">
+                          <input
+                            type="file"
+                            className="hidden"
+                            id="logo"
+                            onChange={handleFileSelect}
+                          />
+                          <div className="h-8 rounded-lg w-8 bg-bg-primary hover:bg-bg-primary-strockF flex justify-center items-center">
+                            <AiOutlinePlus className="text-xl" />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className='text-left'>
+                <label className="block mb-2 ml-1 text-sm">Super Category Name <span className='text-reject'>*</span></label>
+                <input
+                  type='text'
+                  value={newData.name}
+                  onInput={handleInputChange}
+                  onChange={formik.handleChange}
+                  name="name"
+                  className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20 focus:border-primary  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
+                  placeholder='Enter super category...'
+                />
+                {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+              </div>
+              <div className="flex justify-end flex-row space-x-4 mt-10">
+                <div className="">
+                  <label
+                    onClick={handleHideModal}
+                    htmlFor="editSuperCategory"
+                    className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
+                  >
+                    <RiCloseFill className='text-lg' />
+                    Cancel
+                  </label>
+                </div>
+
+                <div className="">
+                  <button
+                    type="submit"
+                    className={`hover:bg-accept bg-accept hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                  >
+                    <FiSave className="text-lg" /> &nbsp; Save changes
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
         {/* Modal Add normal category */}
         <input type="checkbox" id="superCategory" className="modal-toggle" />
         <div className=" modal">
@@ -418,7 +601,7 @@ export default function SuperCategoryComponent() {
             <div className="absolute top-7 right-7">
               <label
                 htmlFor="superCategory"
-                id="btn-super-category"
+                id="add-super-category"
                 onClick={handleHideModal}
               >
                 <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
@@ -436,23 +619,22 @@ export default function SuperCategoryComponent() {
               <div className=" border border-bg-primary rounded-md p-2 my-6">
                 <div className="flex items-center gap-3">
                   <label>
-                    {selectedFile ? (
+                    {selectedFile ?
                       <img
-                        src={URL.createObjectURL(selectedFile)}
+                        src={selectedFile == "electronic.svg" ? electronic : selectedFile == "office.svg" ? office : selectedFile == "furniture.svg" ? furniture : URL.createObjectURL(selectedFile)}
                         className="h-14 rounded-full w-14 "
                       />
-                    ) : (
-                      <img
+                      : <img
                         className="h-14 rounded-lg w-14"
                         src={placeImg}
                       />
-                    )}
+                    }
                   </label>
                   <div className="flex flex-col">
                     <p className="px-2">Choose Icon</p>
                     <div className="flex flex-row items-end justify-start">
                       <div className="p-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("electronic.svg")}>
                           <img
                             src={electronic}
                             className="h-8 rounded-lg w-8 "
@@ -460,12 +642,12 @@ export default function SuperCategoryComponent() {
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("office.svg")}>
                           <img src={office} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer" onClick={() => handleSelectedFile("furniture.svg")}>
                           <img
                             src={furniture}
                             className="h-8 rounded-lg w-8 "
@@ -519,13 +701,9 @@ export default function SuperCategoryComponent() {
                 <div className="">
                   <button
                     type="submit"
-                    className={`${isUpdate
-                      ? "hover:bg-green bg-green"
-                      : "hover:bg-primary bg-primary"
-                      }  hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
+                    className={`hover:bg-primary bg-primary hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
                   >
-                    <FiSave className="text-lg" /> &nbsp;{" "}
-                    {isUpdate ? "Save change" : "Add"}
+                    <FiSave className="text-lg" /> &nbsp; Add
                   </button>
                 </div>
               </div>
@@ -556,8 +734,7 @@ export default function SuperCategoryComponent() {
                 <p className="pt-1 py-5">
                   Are you sure want to delete{"  "}
                   <span className="font-sp-pro-text-medium text-base">
-                    {"  "}
-                    {newData.name}{"  "}
+                    {newData.name}
                   </span>
                   this normal category?
                 </p>

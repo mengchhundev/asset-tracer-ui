@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import NormalCategoryService, {
   updateNormalCategory,
 } from "../../../redux/services/NormalCategoryService";
-import AddNormalCategory from "./popUp/AddNormalCategory";
 import { RiCloseFill } from "react-icons/ri";
 import { FiSave } from "react-icons/fi";
 import {
@@ -37,7 +36,7 @@ const people = [
   { id: 3, name: "Devon Webb" },
 ];
 
-const serverLocationSuper ="http://localhost:8080/api/v1/files/getFile?fileName=";
+const serverLocationSuper = "http://localhost:8080/api/v1/files/getFile?fileName=";
 
 export default function CategoryComponent() {
   const [selected, setSelected] = useState(people[0]);
@@ -64,19 +63,14 @@ export default function CategoryComponent() {
   console.log(data);
 
   const getAllNormalCategory = () => {
-    NormalCategoryService.getAllNormalCategory(orgId)
-      .then((res) => {
-        dispatch(setAllCategory(res.data.payload));
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
+    NormalCategoryService.getAllNormalCategory(orgId).then((res) => {
+      dispatch(setAllCategory(res.data.payload));
+    })
   };
 
   useEffect(() => {
     getAllNormalCategory();
-  },[]);
+  }, []);
 
   // update normal category
   const handleUpdateNormalCategory = (item, selectedFile) => {
@@ -107,14 +101,14 @@ export default function CategoryComponent() {
     setDeleteCategory(item);
     setGetNormalName(item.name);
   };
-  
+
 
   const handleClickDelete = () => {
     NormalCategoryService.deleteNormalCategory(deleteCategory, orgId)
       .then((res) => {
         dispatch(setDeletNormalCategory(res.data.payload));
         getAllNormalCategory();
-      console.log(res)
+        console.log(res)
       })
   };
   // useEffect(() => {
@@ -141,11 +135,11 @@ export default function CategoryComponent() {
     query === ""
       ? people
       : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
@@ -238,10 +232,9 @@ export default function CategoryComponent() {
                           <Combobox.Option
                             key={person.id}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-hover-yellow text-text-color"
-                                  : "text-text-color"
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                                ? "bg-hover-yellow text-text-color"
+                                : "text-text-color"
                               }`
                             }
                             value={person}
@@ -249,17 +242,15 @@ export default function CategoryComponent() {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   {person.name}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-text-color"
-                                    }`}
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-text-color"
+                                      }`}
                                   >
                                     <CheckIcon
                                       className="h-5 w-5"

@@ -345,61 +345,63 @@ export default function SidebarComponent() {
                                     </span>
                                 </NavLink>
                             </li>
-                            <li>
-                                <NavLink
-                                    onClick={() => setShowUser(!showUser)}
-                                    className={`${isShowUser ? "bg-primary hover:bg-primary" : ""} ${isShowUser ? activeStyleDropDown : inActiveStyleDropDown}`}
-                                >
-                                    <span className="flex items-center justify-start">
+                            {organization.roleName == "ADMIN" ?
+                                <li>
+                                    <NavLink
+                                        onClick={() => setShowUser(!showUser)}
+                                        className={`${isShowUser ? "bg-primary hover:bg-primary" : ""} ${isShowUser ? activeStyleDropDown : inActiveStyleDropDown}`}
+                                    >
+                                        <span className="flex items-center justify-start">
 
-                                        <div className="w-5 h-5 relative">
-                                            <svg width="100%" height="100%" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="4.53901" cy="4.53901" r="4.53901" transform="matrix(-1 0 0 1 19.8228 1.16797)" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M7.34106 16.9805C7.34106 16.0042 7.9548 15.1333 8.87422 14.8049V14.8049C13.0194 13.3245 17.5492 13.3245 21.6944 14.8049V14.8049C22.6139 15.1333 23.2276 16.0042 23.2276 16.9805V18.4733C23.2276 19.8207 22.0342 20.8558 20.7003 20.6652L20.2555 20.6017C16.9581 20.1306 13.6105 20.1306 10.3131 20.6017L9.86839 20.6652C8.53449 20.8558 7.34106 19.8207 7.34106 18.4733V16.9805Z" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
-                                                <path d="M22.0899 10.371C24.0595 10.371 25.6562 8.77429 25.6562 6.80464C25.6562 4.835 24.0595 3.23828 22.0899 3.23828" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                                <path d="M25.9961 18.5074L26.3455 18.5573C27.3936 18.707 28.3313 17.8938 28.3313 16.8351V15.6622C28.3313 14.8951 27.849 14.2108 27.1266 13.9528C26.406 13.6955 25.6706 13.495 24.927 13.3516" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                                <path d="M7.91133 10.371C5.94169 10.371 4.34497 8.77429 4.34497 6.80464C4.34497 4.835 5.94169 3.23828 7.91133 3.23828" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                                <path d="M4.00516 18.5074L3.65572 18.5573C2.60766 18.707 1.66996 17.8938 1.66996 16.8351V15.6622C1.66996 14.8951 2.15218 14.2108 2.87458 13.9528C3.59518 13.6955 4.33058 13.495 5.07422 13.3516" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
-                                            </svg>
-                                        </div>
-                                        <p className="ml-3">User</p>
-                                    </span>
-                                    <RiArrowRightSLine
-                                        className={`${showUser && "rotate-90"
-                                            } transition-all text-2xl`}
-                                    />
-                                </NavLink>
-                                <ul
-                                    className={` ${showUser ? "h-[80px] pt-1 mt-1" : "h-0"
-                                        } overflow-y-hidden transition-all`}
-                                >
-                                    <li>
-                                        <NavLink
-                                            to="/user"
-                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
-                                                `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors  `}
-                                            onClick={() => { setIsShowUser(true), setIsShowAsset(false), setShowAsset(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
-                                        >
-                                            All Users
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            to="/user-request"
-                                            className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
-                                                `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors  `}
-                                            onClick={() => { setIsShowUser(true), setIsShowAsset(false), setShowAsset(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
-                                        >
-                                            User Request
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li>
+                                            <div className="w-5 h-5 relative">
+                                                <svg width="100%" height="100%" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="4.53901" cy="4.53901" r="4.53901" transform="matrix(-1 0 0 1 19.8228 1.16797)" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                    <path d="M7.34106 16.9805C7.34106 16.0042 7.9548 15.1333 8.87422 14.8049V14.8049C13.0194 13.3245 17.5492 13.3245 21.6944 14.8049V14.8049C22.6139 15.1333 23.2276 16.0042 23.2276 16.9805V18.4733C23.2276 19.8207 22.0342 20.8558 20.7003 20.6652L20.2555 20.6017C16.9581 20.1306 13.6105 20.1306 10.3131 20.6017L9.86839 20.6652C8.53449 20.8558 7.34106 19.8207 7.34106 18.4733V16.9805Z" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" />
+                                                    <path d="M22.0899 10.371C24.0595 10.371 25.6562 8.77429 25.6562 6.80464C25.6562 4.835 24.0595 3.23828 22.0899 3.23828" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                    <path d="M25.9961 18.5074L26.3455 18.5573C27.3936 18.707 28.3313 17.8938 28.3313 16.8351V15.6622C28.3313 14.8951 27.849 14.2108 27.1266 13.9528C26.406 13.6955 25.6706 13.495 24.927 13.3516" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                    <path d="M7.91133 10.371C5.94169 10.371 4.34497 8.77429 4.34497 6.80464C4.34497 4.835 5.94169 3.23828 7.91133 3.23828" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                    <path d="M4.00516 18.5074L3.65572 18.5573C2.60766 18.707 1.66996 17.8938 1.66996 16.8351V15.6622C1.66996 14.8951 2.15218 14.2108 2.87458 13.9528C3.59518 13.6955 4.33058 13.495 5.07422 13.3516" stroke={`${key == "user" || path.includes("user") ? "#FFFFFF" : "#737791"}`} strokeWidth="2" strokeLinecap="round" />
+                                                </svg>
+                                            </div>
+                                            <p className="ml-3">User</p>
+                                        </span>
+                                        <RiArrowRightSLine
+                                            className={`${showUser && "rotate-90"
+                                                } transition-all text-2xl`}
+                                        />
+                                    </NavLink>
+                                    <ul
+                                        className={` ${showUser ? "h-[80px] pt-1 mt-1" : "h-0"
+                                            } overflow-y-hidden transition-all`}
+                                    >
+                                        <li>
+                                            <NavLink
+                                                to="/user"
+                                                className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
+                                                    `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors  `}
+                                                onClick={() => { setIsShowUser(true), setIsShowAsset(false), setShowAsset(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
+                                            >
+                                                All Users
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/user-request"
+                                                className={({ isActive }) => isActive ? `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors text-primary ` :
+                                                    `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors  `}
+                                                onClick={() => { setIsShowUser(true), setIsShowAsset(false), setShowAsset(false), setShowOrganization(false), setIsShowOrganization(false), setIsShowCategory(false), setShowCategory(false), setShowMenu(false), setKey("user") }}
+                                            >
+                                                User Request
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                                : null}
                         </> : null}
                     </ul>
                 </div>
                 <nav className="font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
-                    {organization != null || item != null ?
+                    {(organization != null || item != null) && organization.roleName == "ADMIN" ?
                         <>
                             <NavLink
                                 to="/notification"
