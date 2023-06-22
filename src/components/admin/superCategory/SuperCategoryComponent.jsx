@@ -92,10 +92,6 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
-    
-    // if(countCurrentRow == 0) {
-    //   setSelectedPage(1)
-    // }
 
     handleGetAllSuperCategory(selectedPage);
 
@@ -123,6 +119,7 @@ export default function SuperCategoryComponent() {
         setI(1)
         document.getElementById("btn-super-category").click();
         document.getElementsByClassName("page-link")[1].click()
+        setItemName("")
       }
     });
   };
@@ -239,6 +236,7 @@ export default function SuperCategoryComponent() {
                   className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
+                  value={itemName}
                   onInput={handleInputSearch}
                   placeholder="Search..."
                 />
