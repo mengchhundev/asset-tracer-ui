@@ -4,8 +4,8 @@ const getAllNormalCategory = async (orgId = "", page = "", size = "", name = "",
   return await apiV2.get(`/normal-categories/get-all/${orgId}?page=${page}&size=${size}&name=${name}&sort=${sort}`)
 };
 
-const addNormalCategory = async (data, superId, orgId) => {
-  return await apiV2.post(`/normal-categories`, newData);
+const addNormalCategory = async (data) => {
+  return await apiV2.post(`/normal-categories`, data);
 };
 
 const updateNormalCategory = async (id, data) => {

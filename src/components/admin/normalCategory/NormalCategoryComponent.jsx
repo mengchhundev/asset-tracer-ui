@@ -43,7 +43,6 @@ export default function CategoryComponent() {
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
 
-  const [itemName, setItemName] = useState("")
   const [selectedPage, setSelectedPage] = useState(1)
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const orgId = organization.id;
@@ -52,18 +51,20 @@ export default function CategoryComponent() {
   let totalRow = useSelector(state => state.superCategory.totalRow)
   let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
   let pageCount = useSelector(state => state.superCategory.pageCount)
-  let formData = new FormData();
-  const [selectedFile, setSelectedFile] = useState("")
-  const [selectedImg, setSeletedImg] = useState("")
 
-  const [updateNormal, setupdateNormal] = useState("");
-  const [categoryUpdate, setCategoryUpdate] = useState({});
-  const [deleteCategory, setDeleteCategory] = useState();
-  const [getNormalName, setGetNormalName] = useState("");
+  const [isCreateSuccess, setIsCreateSuccess] = useState(false)
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
+
+  const handleIsCreateSuccess = (val) => {
+    setIsCreateSuccess(val)
+  }
+
+  const handleIsUpdateSuccess = (val) => {
+    setIsUpdateSuccess(val)
+  }
 
   // get all normal category
   const normalCategories = useSelector(state => state.normalCategory.normalCategories);
-
   const handleGetAllNormalCategories = (page = 1, name = "", sort = "") => {
     NormalCategoryService.getAllNormalCategory(orgId, page, 8, name, sort).then((res) => {
       if (res.data.success) {
@@ -78,11 +79,6 @@ export default function CategoryComponent() {
 
   const handleSelectedSort = (val) => {
     setSelectedSort(val)
-  }
-
-  const handleSelectedFile = (val) => {
-    setSelectedFile(val)
-    setNewData({ ...newData, icon: val })
   }
 
   const handlePageClick = (event) => {
@@ -216,7 +212,7 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        <NormalCategoryAddComponent className="modal" />
+        <NormalCategoryAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess}/>
 
         <div className="flex flex-col min-h-[calc(100vh-19rem)]">
           {/* table */}
@@ -458,12 +454,7 @@ export default function CategoryComponent() {
               <div className="pl-3 leading-none">
                 <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
                 <p className="pt-1 py-5">
-                  Are you sure want to delete{" "}
-                  <span className="font-sp-pro-text-medium text-base">
-                    {" "}
-                    {getNormalName}{" "}
-                  </span>
-                  this normal category?
+                  Are you sure want to delete this normal category?
                 </p>
               </div>
             </div>

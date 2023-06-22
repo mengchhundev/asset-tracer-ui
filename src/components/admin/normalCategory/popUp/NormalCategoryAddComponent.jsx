@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FileUploadService from "../../../../redux/services/FileUploadService";
 import { AiOutlinePlus } from "react-icons/ai";
 import SuperCategoryService from "../../../../redux/services/SuperCategoryService";
+import NormalCategoryService from "../../../../redux/services/NormalCategoryService";
 
 export default function NormalCategoryAddComponent() {
 
@@ -47,6 +48,7 @@ export default function NormalCategoryAddComponent() {
   const handleSelectedSuperCategory = (val) => {
     setSelectedSuperCategory(val)
     setNewData({ ...newData, superCategoryId: val.id })
+    formik.setValues({ ...newData, superCategoryId: val.id })
   }
 
   // handle input change
@@ -67,18 +69,18 @@ export default function NormalCategoryAddComponent() {
     })
   }, [])
 
-  console.log(superCategoryName)
   const formik = useFormik({
     initialValues: newData,
     validationSchema: Yup.object().shape({
-      name: Yup.string().required("Name is required"),
+      name: Yup.string().required("Normal category is required"),
+      superCategoryId: Yup.string().required("Super category is required"),
     }),
-
     onSubmit: (val, { resetForm }) => {
-
-      resetForm((val = { id: "", name: "", organizationId: "" }));
-      setNewData({ id: "", name: "", organizationId: "" });
-      formik.setValues({ id: "", name: "", organizationId: "" });
+      handleSaveNormalCategory()
+      resetForm((val = { id: "", name: "", superCategoryId: "", organizationId: "" }));
+      setNewData({ id: "", name: "", superCategoryId: "", organizationId: "" });
+      setSelectedSuperCategory("")
+      formik.setValues({ id: "", name: "", superCategoryId: "", organizationId: "" });
     },
   });
 
@@ -87,43 +89,34 @@ export default function NormalCategoryAddComponent() {
     setSelectedFile(event.target.files[0]);
   };
 
-  console.log(newData)
   // Add Super Category
-  // const handleSaveSuperCategory = () => {
-  // if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
-  //   formData.append("file", selectedFile)
-  //   FileUploadService.storeFile(formData, localStorage.getItem("token"))
-  //     .then((res) => {
-  //       if (res.data.success) {
-  //         SuperCategoryService.saveSuperCategory(
-  //           { ...newData, icon: res.data.payload }
-  //         ).then((res) => {
-  //           if (res.data.success) {
-  //             handleGetAllSuperCategory(1)
-  //             setI(1)
-  //             document.getElementById("add-normal-category").click();
-  //             document.getElementsByClassName("page-link")[1].click()
-  //             setItemName("")
-  //             setSelectedFile("")
-  //             setSeletedImg("")
-  //           }
-  //         });
-  //       }
-  //     })
-  // } else {
-  //   SuperCategoryService.saveSuperCategory(newData).then((res) => {
-  //     if (res.data.success) {
-  //       handleGetAllSuperCategory(1)
-  //       setI(1)
-  //       document.getElementById("add-normal-category").click();
-  //       document.getElementsByClassName("page-link")[1].click()
-  //       setItemName("")
-  //       setSelectedFile("")
-  //       setSeletedImg("")
-  //     }
-  //   });
-  // }
-  // };
+  const handleSaveNormalCategory = () => {
+    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
+      formData.append("file", selectedFile)
+      FileUploadService.storeFile(formData, localStorage.getItem("token"))
+        .then((res) => {
+          if (res.data.success) {
+            NormalCategoryService.addNormalCategory(
+              { ...newData, icon: res.data.payload }
+            ).then((res) => {
+              if (res.data.success) {
+                document.getElementById("add-normal-category").click();
+                setSelectedFile("")
+                setSelectedSuperCategory("")
+              }
+            });
+          }
+        })
+    } else {
+      NormalCategoryService.addNormalCategory(newData).then((res) => {
+        if (res.data.success) {
+          document.getElementById("add-normal-category").click();
+          setSelectedFile("")
+          setSelectedSuperCategory("")
+        }
+      });
+    }
+  };
 
   const handleHideModal = () => {
     setNewData({
@@ -132,8 +125,8 @@ export default function NormalCategoryAddComponent() {
       superCategoryId: "",
       organizationId: orgId
     });
+    setSelectedSuperCategory("")
     setSelectedFile("")
-    setSeletedImg("")
     formik.setValues({
       name: "",
       icon: "",
@@ -278,6 +271,7 @@ export default function NormalCategoryAddComponent() {
                     </Transition>
                   </div>
                 </Combobox>
+                {formik.touched.superCategoryId && formik.errors?.superCategoryId ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.superCategoryId}</p> : null}
               </div>
 
               <div className='text-left'>
