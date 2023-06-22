@@ -124,7 +124,7 @@ export default function SuperCategoryComponent() {
     });
   };
 
-  
+
 
   // Update room
   const handleUpdateSuperCategory = () => {
@@ -180,7 +180,7 @@ export default function SuperCategoryComponent() {
       formik.setValues({ id: "", name: "", organizationId: "" });
     }
   }, [isUpdate]);
- 
+
   const handleShowSuperCategory = (val) => {
     setIsUpdate(true);
     setData({ ...val, organizationId: organizationId });
@@ -380,7 +380,8 @@ export default function SuperCategoryComponent() {
           </div>
 
           {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
+
+          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
             <div className="font-sp-pro-text-regular opacity-90">
               Showing data 1 to {countCurrentRow} of {totalRow} entries
             </div>
