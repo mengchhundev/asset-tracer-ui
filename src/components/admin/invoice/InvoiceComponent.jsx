@@ -7,7 +7,7 @@ import cross from "../../../assets/images/cross.png";
 import furniture from "../../../assets/images/furniture.png";
 import book from "../../../assets/images/book.png";
 import { Combobox, Listbox, Transition } from "@headlessui/react";
-import "../../../style/shadow.css"
+import "../../../style/shadow.css";
 import {
   CheckIcon,
   ChevronUpDownIcon,
@@ -18,50 +18,66 @@ import { Link, NavLink } from "react-router-dom";
 import ViewInvoiceComponent from "./ViewInvoiceComponent";
 import { useDispatch, useSelector } from "react-redux";
 import InvoiceService from "../../../redux/services/InvoiceService";
-import { setAllInvoice, setInvoiceDetail } from "../../../redux/slices/InvoiceSlice";
+import {
+  setAllInvoice,
+  setInvoiceDetail,
+} from "../../../redux/slices/InvoiceSlice";
 import moment from "moment";
 import { TbListDetails } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
 import { AiOutlineCloudDownload } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import no_data_pic from '../../../assets/images/empty_box.png'
 
 const sort = [
   {
-    id: "", name: "Default"
+    id: "",
+    name: "Default",
   },
   {
-    id: "invoiceCode", name: "Invoice Code"
+    id: "invoiceCode",
+    name: "Invoice Code",
   },
   {
-    id: "supplier", name: "Supplier"
+    id: "supplier",
+    name: "Supplier",
   },
   {
-    id: "purchaseBy", name: "Purchaser"
+    id: "purchaseBy",
+    name: "Purchaser",
   },
   {
-    id: "purchaseDate", name: "Date"
-  }
+    id: "purchaseDate",
+    name: "Date",
+  },
 ];
 
 export default function AssetComponent() {
-
   const [i, setI] = useState(1);
-  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [selectedSort, setSelectedSort] = useState(sort[0].name);
   const getAllInvoices = useSelector((state) => state.invoice.data);
-  const [totalRow, setTotalRow] = useState(0)
-  const organization = JSON.parse(sessionStorage.getItem("organization"))
+  const [totalRow, setTotalRow] = useState(0);
+  const organization = JSON.parse(sessionStorage.getItem("organization"));
   const orgId = organization.id;
-  const [invoiceCode, setInvoiceCode] = useState()
-  const [selectedPage, setSelectedPage] = useState(1)
+  const [invoiceCode, setInvoiceCode] = useState();
+  const [selectedPage, setSelectedPage] = useState(1);
 
   const handleGetAllInvoices = (selectedPage, invoiceCode, selectedSort) => {
-    InvoiceService.getAllInvoices(organization.id, selectedPage, 8, invoiceCode, "", "", selectedSort).then(res => {
+    InvoiceService.getAllInvoices(
+      organization.id,
+      selectedPage,
+      8,
+      invoiceCode,
+      "",
+      "",
+      selectedSort
+    ).then((res) => {
       if (res.data.success) {
         dispatch(setAllInvoice(res.data.payload));
-        setTotalRow(res.data.totalData)
+        setTotalRow(res.data.totalData);
       }
-    })
-  }
+    });
+  };
 
   //combobox
   const [query, setQuery] = useState("");
@@ -71,32 +87,30 @@ export default function AssetComponent() {
   const [pageCount, setPageCount] = useState(4);
 
   const handlePageClick = (event) => {
-    setSelectedPage(event.selected + 1)
+    setSelectedPage(event.selected + 1);
     setI(event.selected * 8 + 1);
   };
 
   useEffect(() => {
     if (invoiceCode != null || selectedSort != null) {
-      setSelectedPage(1)
-      handleGetAllInvoices(selectedPage, invoiceCode, selectedSort)
+      setSelectedPage(1);
+      handleGetAllInvoices(selectedPage, invoiceCode, selectedSort);
     }
 
     setPageCount(Math.ceil(totalRow / 8));
-  }, [invoiceCode, selectedSort, totalRow])
+  }, [invoiceCode, selectedSort, totalRow]);
 
   useEffect(() => {
     setPageCount(Math.ceil(totalRow / 8));
-  }, [totalRow])
+  }, [totalRow]);
 
   const handleInputSearch = (e) => {
-    setInvoiceCode(e.target.value)
+    setInvoiceCode(e.target.value);
   };
 
   const handleSelectedSort = (val) => {
-    setSelectedSort(val)
-  }
-
-
+    setSelectedSort(val);
+  };
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -139,15 +153,36 @@ export default function AssetComponent() {
                 />
               </div>
             </div>
-    
+
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+              <Listbox
+                as="div"
+                value={selectedSort}
+                onChange={handleSelectedSort}
+              >
                 {({ open }) => (
                   <>
                     <div className="relative z-30">
                       <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                         <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
-                          {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+                          {selectedSort ? (
+                            <span
+                              className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${
+                                selectedSort == "Default"
+                                  ? "text-black text-opacity-20"
+                                  : ""
+                              }`}
+                            >
+                              <span className="text-black text-opacity-20">
+                                Sort by:{" "}
+                              </span>
+                              {selectedSort == "Default" ? "" : selectedSort}
+                            </span>
+                          ) : (
+                            <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">
+                              Sort by
+                            </span>
+                          )}
 
                           <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon
@@ -173,24 +208,38 @@ export default function AssetComponent() {
                             </div>
                           ) : (
                             sort.map((val, index) => (
-                              <Listbox.Option key={index} value={val.id}
+                              <Listbox.Option
+                                key={index}
+                                value={val.id}
                                 className={({ active }) =>
-                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${
+                                    active
+                                      ? "bg-custom-yellow-showdow-light"
+                                      : ""
+                                  }`
                                 }
                               >
                                 {({ selected, active }) => (
                                   <>
                                     <span
-                                      className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                      className={`block truncate ${
+                                        selected ? "font-medium" : "font-normal"
+                                      } ${
+                                        index == 0
+                                          ? "text-black text-opacity-20"
+                                          : ""
+                                      }`}
                                     >
                                       {val.name}
                                     </span>
                                     {selected ? (
                                       <span
-                                        className={`${active ? "text-primary" : "text-primary"
-                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
-                                      >
-                                      </span>
+                                        className={`${
+                                          active
+                                            ? "text-primary"
+                                            : "text-primary"
+                                        } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                      ></span>
                                     ) : null}
                                   </>
                                 )}
@@ -222,142 +271,137 @@ export default function AssetComponent() {
           </div>
         </div>
 
-        <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto flex-grow">
-          {/* table */}
-          <div className="px-5 z-0 flex-grow ">
-            <table className="table w-full">
-              <tbody>
-                <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-text-color">
-                  <td className="w-2/12  bg-bg-main py-3">No</td>
-                  <td className="w-2/12 bg-bg-main py-3">
-                    Invoice Code
-                  </td>
-                  <td className="w-3/12 bg-bg-main py-3">
-                    Supplier
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3">
-                    Purchaser
-                  </td>
-                  <td className="w-3/12 bg-bg-main py-3 text-center">Date</td>
-                  <td className="w-1/12  bg-bg-main py-3">Action</td>
-                </tr>
-                {getAllInvoices.length != 0 ? getAllInvoices?.map((list, index) => (
-                  <tr
-                    key={index}
-                    className="text-sm font-sp-pro-text-regular"
-                  >
-                    <td className="py-2.5">
-                      {i + index}
-                    </td>
-                    <td className="py-2.5">
-                      <span className="px-3 py-1 bg-green rounded-md  text-white">{list.invoiceCode != null ? list.invoiceCode : ""}</span>
-                    </td>
-                    <td className="py-2.5">
-                      {list.supplier}
-                    </td>
-                    <td className="py-2.5">
-                      {list.purchaseBy}
-                    </td>
-                    <td className="py-2.5 text-center">
-                      {moment(list.purchaseDate).format("MMM DD YYYY")}
-                    </td>
-                    {/* menu dropdown */}
-                    <td className="py-2.5 text-center">
-                      <Listbox as="div">
-                        {({ open }) => (
-                          <>
-                            <div className="relative">
-                              <span className="">
-                                <Listbox.Button className="h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer">
-                                  <EllipsisVerticalIcon />
-                                </Listbox.Button>
-                              </span>
-                              <Transition
-                                show={open}
-                                leave=""
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                              >
-                                <Listbox.Options
-                                  static
-                                  className="border border-bg-primary mt-1  bg-white shadow-md rounded-md absolute right-0 z-50 w-48 p-2"
+        {getAllInvoices.length != 0 ? (
+          <div className="flex flex-col min-h-[calc(100vh-19rem)] overflow-x-auto flex-grow">
+            {/* table */}
+            <div className="px-5 z-0 flex-grow ">
+              <table className="table w-full">
+                <tbody>
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none text-text-color">
+                    <td className="w-2/12  bg-bg-main py-3">No</td>
+                    <td className="w-2/12 bg-bg-main py-3">Invoice Code</td>
+                    <td className="w-3/12 bg-bg-main py-3">Supplier</td>
+                    <td className="w-2/12 bg-bg-main py-3">Purchaser</td>
+                    <td className="w-3/12 bg-bg-main py-3 text-center">Date</td>
+                    <td className="w-1/12  bg-bg-main py-3">Action</td>
+                  </tr>
+                  {getAllInvoices.map((list, index) => (
+                    <tr
+                      key={index}
+                      className="text-sm font-sp-pro-text-regular"
+                    >
+                      <td className="py-2.5">{i + index}</td>
+                      <td className="py-2.5">
+                        <span className="px-3 py-1 bg-green rounded-md  text-white">
+                          {list.invoiceCode != null ? list.invoiceCode : ""}
+                        </span>
+                      </td>
+                      <td className="py-2.5">{list.supplier}</td>
+                      <td className="py-2.5">{list.purchaseBy}</td>
+                      <td className="py-2.5 text-center">
+                        {moment(list.purchaseDate).format("MMM DD YYYY")}
+                      </td>
+                      {/* menu dropdown */}
+                      <td className="py-2.5 text-center">
+                        <Listbox as="div">
+                          {({ open }) => (
+                            <>
+                              <div className="relative">
+                                <span className="">
+                                  <Listbox.Button className="h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer">
+                                    <EllipsisVerticalIcon />
+                                  </Listbox.Button>
+                                </span>
+                                <Transition
+                                  show={open}
+                                  leave=""
+                                  leaveFrom="opacity-100"
+                                  leaveTo="opacity-0"
                                 >
-                                  <Listbox.Option className="flex flex-col">
-                                    <NavLink
-                                      to={`/invoice/view/${list.id}`}
-                                      className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                    >
-                                      <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                        <TbListDetails /> View
-                                      </span>
-                                    </NavLink>
-                                    <NavLink
-                                      to={`/invoice/update/${list.id}`}
-                                      htmlFor='create-organization'
-                                      className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                    >
-                                      <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                        <FiTrash2 /> Edit
-                                      </span>
-                                    </NavLink>
-                                    <label
-                                      onClick={() => setOrganizationObj(list)}
-                                      htmlFor='create-organization'
-                                      className={`cursor-pointer text-primary hover:bg-primary hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                    >
-                                      <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                        <AiOutlineCloudDownload /> Download
-                                      </span>
-                                    </label>
-
-                                  </Listbox.Option>
-                                </Listbox.Options>
-                              </Transition>
-                            </div>
-                          </>
-                        )}
-                      </Listbox>
-                    </td>
-                  </tr>
-                )) : <>
-                  <tr>
-                    <td colSpan={99} className="text-center">No Data</td>
-                  </tr>
-                </>}
-              </tbody>
-            </table>
-          </div>
-
-
-          {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
-            <div className="font-sp-pro-text-regular opacity-90">
-              Showing data 1 to 8 of {totalRow} entries
+                                  <Listbox.Options
+                                    static
+                                    className="border border-bg-primary mt-1  bg-white shadow-md rounded-md absolute right-0 z-50 w-48 p-2"
+                                  >
+                                    <Listbox.Option className="flex flex-col">
+                                      <NavLink
+                                        to={`/invoice/view/${list.id}`}
+                                        className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
+                                          <TbListDetails /> View
+                                        </span>
+                                      </NavLink>
+                                      <NavLink
+                                        to={`/invoice/update/${list.id}`}
+                                        htmlFor="create-organization"
+                                        className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
+                                          <FiTrash2 /> Edit
+                                        </span>
+                                      </NavLink>
+                                      <label
+                                        onClick={() => setOrganizationObj(list)}
+                                        htmlFor="create-organization"
+                                        className={`cursor-pointer text-primary hover:bg-primary hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                      >
+                                        <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
+                                          <AiOutlineCloudDownload /> Download
+                                        </span>
+                                      </label>
+                                    </Listbox.Option>
+                                  </Listbox.Options>
+                                </Transition>
+                              </div>
+                            </>
+                          )}
+                        </Listbox>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div id="react-paginate" className="">
-              <ReactPaginate
-                nextLabel=" >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="< "
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-              />
+
+            {/* pagination */}
+            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 h-10">
+              <div className="font-sp-pro-text-regular opacity-90">
+                Showing data 1 to 8 of {totalRow} entries
+              </div>
+              <div id="react-paginate" className="">
+                <ReactPaginate
+                  nextLabel=" >"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel="< "
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  renderOnZeroPageCount={null}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+            <div className="mt-[-6rem]">
+              <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
+              <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                No Invoice
+              </h2>
+            </div>
+          </div>
+        )}
 
         {/* Modal Add notification */}
         <input type="checkbox" id="normalCategory" className="modal-toggle" />

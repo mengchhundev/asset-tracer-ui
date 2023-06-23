@@ -8,7 +8,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Listbox, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
-import { setAllSuperCategory, setCountCurrentRow, setNameFromUpdate, setPageCount, setTotalRow } from "../../../redux/slices/SuperCategorySlice";
+import {
+  setAllSuperCategory,
+  setCountCurrentRow,
+  setNameFromUpdate,
+  setPageCount,
+  setTotalRow,
+} from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { RiCloseFill } from "react-icons/ri";
@@ -21,41 +27,48 @@ import { FiSave } from "react-icons/fi";
 import trash_ico from "../../../assets/images/trash.png";
 import moment from "moment";
 import FileUploadService from "../../../redux/services/FileUploadService";
-import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
+import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Alert } from "@mui/material";
+import no_data_pic from '../../../assets/images/empty_box.png'
+
 
 const sort = [
   {
-    id: "", name: "Default"
+    id: "",
+    name: "Default",
   },
   {
-    id: "name", name: "Name"
+    id: "name",
+    name: "Name",
   },
   {
-    id: "created_at", name: "Created Date"
+    id: "created_at",
+    name: "Created Date",
   },
 ];
 
 export default function SuperCategoryComponent() {
-  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [selectedSort, setSelectedSort] = useState(sort[0].name);
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
 
-  const [itemName, setItemName] = useState("")
-  const [selectedPage, setSelectedPage] = useState(1)
+  const [itemName, setItemName] = useState("");
+  const [selectedPage, setSelectedPage] = useState(1);
   const getAllSuperCategores = useSelector((state) => state.superCategory.data);
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const organizationId = organization.id;
 
   const [isUpdate, setIsUpdate] = useState(false);
-  let totalRow = useSelector(state => state.superCategory.totalRow)
-  let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
-  let pageCount = useSelector(state => state.superCategory.pageCount)
+  let totalRow = useSelector((state) => state.superCategory.totalRow);
+  let countCurrentRow = useSelector(
+    (state) => state.superCategory.countCurrentRow
+  );
+  let pageCount = useSelector((state) => state.superCategory.pageCount);
 
   let formData = new FormData();
-  const [selectedFile, setSelectedFile] = useState("")
-  const [selectedImg, setSeletedImg] = useState("")
+  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedImg, setSeletedImg] = useState("");
 
   const [newData, setNewData] = useState({
     id: "",
@@ -65,9 +78,9 @@ export default function SuperCategoryComponent() {
   });
 
   const handlePageClick = (event) => {
-    setSelectedPage(event.selected + 1)
+    setSelectedPage(event.selected + 1);
     setI(event.selected * 8 + 1);
-    dispatch(setPageCount(Math.ceil(totalRow / 8)))
+    dispatch(setPageCount(Math.ceil(totalRow / 8)));
   };
 
   // select file
@@ -77,12 +90,18 @@ export default function SuperCategoryComponent() {
 
   // Get all super categories
   const handleGetAllSuperCategory = (page = 1, name = "", sort = "") => {
-    SuperCategoryService.getSuperCategories(organizationId, page, 8, name, sort).then((res) => {
+    SuperCategoryService.getSuperCategories(
+      organizationId,
+      page,
+      8,
+      name,
+      sort
+    ).then((res) => {
       if (res.data.success) {
         dispatch(setAllSuperCategory(res.data.payload));
-        dispatch(setTotalRow(res.data.totalData))
+        dispatch(setTotalRow(res.data.totalData));
         dispatch(setPageCount(Math.ceil(res.data.totalData / 8)));
-        dispatch(setCountCurrentRow(res.data.payload.length))
+        dispatch(setCountCurrentRow(res.data.payload.length));
       }
     });
   };
@@ -105,45 +124,52 @@ export default function SuperCategoryComponent() {
   const handlDeleteSuperCategory = () => {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
-        handleGetAllSuperCategory(1)
-        document.getElementsByClassName("page-link")[1].click()
+        handleGetAllSuperCategory(1);
+        document.getElementsByClassName("page-link")[1].click();
       }
     });
   };
 
   // Add Super Category
   const handleSaveSuperCategory = () => {
-    dispatch(setNameFromUpdate(""))
-    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
-      formData.append("file", selectedFile)
-      FileUploadService.storeFile(formData, localStorage.getItem("token"))
-        .then((res) => {
+    dispatch(setNameFromUpdate(""));
+    if (
+      selectedFile != "electronic.svg" &&
+      selectedFile != "office.svg" &&
+      selectedFile != "furniture.svg" &&
+      selectedFile != ""
+    ) {
+      formData.append("file", selectedFile);
+      FileUploadService.storeFile(formData, localStorage.getItem("token")).then(
+        (res) => {
           if (res.data.success) {
-            SuperCategoryService.saveSuperCategory(
-              { ...newData, icon: res.data.payload }
-            ).then((res) => {
+            SuperCategoryService.saveSuperCategory({
+              ...newData,
+              icon: res.data.payload,
+            }).then((res) => {
               if (res.data.success) {
-                handleGetAllSuperCategory(1)
-                setI(1)
+                handleGetAllSuperCategory(1);
+                setI(1);
                 document.getElementById("add-super-category").click();
-                document.getElementsByClassName("page-link")[1].click()
-                setItemName("")
-                setSelectedFile("")
-                setSeletedImg("")
+                document.getElementsByClassName("page-link")[1].click();
+                setItemName("");
+                setSelectedFile("");
+                setSeletedImg("");
               }
             });
           }
-        })
+        }
+      );
     } else {
       SuperCategoryService.saveSuperCategory(newData).then((res) => {
         if (res.data.success) {
-          handleGetAllSuperCategory(1)
-          setI(1)
+          handleGetAllSuperCategory(1);
+          setI(1);
           document.getElementById("add-super-category").click();
-          document.getElementsByClassName("page-link")[1].click()
-          setItemName("")
-          setSelectedFile("")
-          setSeletedImg("")
+          document.getElementsByClassName("page-link")[1].click();
+          setItemName("");
+          setSelectedFile("");
+          setSeletedImg("");
         }
       });
     }
@@ -151,34 +177,39 @@ export default function SuperCategoryComponent() {
 
   // Update Super Category
   const handleUpdateSuperCategory = () => {
-    dispatch(setNameFromUpdate(""))
-    if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
-      formData.append("file", selectedFile)
-      FileUploadService.storeFile(formData, localStorage.getItem("token"))
-        .then((res) => {
+    dispatch(setNameFromUpdate(""));
+    if (
+      selectedFile != "electronic.svg" &&
+      selectedFile != "office.svg" &&
+      selectedFile != "furniture.svg" &&
+      selectedFile != ""
+    ) {
+      formData.append("file", selectedFile);
+      FileUploadService.storeFile(formData, localStorage.getItem("token")).then(
+        (res) => {
           if (res.data.success) {
-            SuperCategoryService.updateSuperCategory(newData.id,
-              { ...newData, icon: res.data.payload }).then(
-                (res) => {
-                  if (res.data.success) {
-                    document.getElementById("edit-super-category").click();
-                    handleGetAllSuperCategory(selectedPage);
-                    setSelectedFile("")
-                    setSeletedImg("")
-                  }
-                }
-              );
+            SuperCategoryService.updateSuperCategory(newData.id, {
+              ...newData,
+              icon: res.data.payload,
+            }).then((res) => {
+              if (res.data.success) {
+                document.getElementById("edit-super-category").click();
+                handleGetAllSuperCategory(selectedPage);
+                setSelectedFile("");
+                setSeletedImg("");
+              }
+            });
           }
-        })
-    }
-    else {
+        }
+      );
+    } else {
       SuperCategoryService.updateSuperCategory(newData.id, newData).then(
         (res) => {
           if (res.data.success) {
             document.getElementById("edit-super-category").click();
             handleGetAllSuperCategory(selectedPage);
-            setSelectedFile("")
-            setSeletedImg("")
+            setSelectedFile("");
+            setSeletedImg("");
           }
         }
       );
@@ -197,16 +228,16 @@ export default function SuperCategoryComponent() {
     const { name, value } = e.target;
     setNewData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSelectedSort = (val) => {
-    setSelectedSort(val)
-  }
+    setSelectedSort(val);
+  };
 
   const handleInputSearch = (e) => {
-    setItemName(e.target.value)
+    setItemName(e.target.value);
   };
 
   const formik = useFormik({
@@ -231,11 +262,11 @@ export default function SuperCategoryComponent() {
 
   const handleShowSuperCategory = (val) => {
     if (val.icon != null) {
-      setSeletedImg(val.icon)
+      setSeletedImg(val.icon);
     }
-    setIsUpdate(true)
+    setIsUpdate(true);
     setNewData({ ...val, organizationId: organizationId });
-    formik.setValues(val)
+    formik.setValues(val);
   };
 
   const handleHideModal = () => {
@@ -245,15 +276,15 @@ export default function SuperCategoryComponent() {
       icon: "",
       organizationId: organizationId,
     });
-    setSelectedFile("")
-    setSeletedImg("")
+    setSelectedFile("");
+    setSeletedImg("");
     formik.setValues({ id: "", name: "", organizationId: "" });
   };
 
   const handleSelectedFile = (val) => {
-    setSelectedFile(val)
-    setNewData({ ...newData, icon: val })
-  }
+    setSelectedFile(val);
+    setNewData({ ...newData, icon: val });
+  };
 
   return (
     <main className="overflow-y-auto px-10 py-6 bg-white rounded-xl relative lg:px-10 con-Shadow min-h-[calc(100vh-9rem)]">
@@ -300,13 +331,34 @@ export default function SuperCategoryComponent() {
 
             {/* filter */}
             <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+              <Listbox
+                as="div"
+                value={selectedSort}
+                onChange={handleSelectedSort}
+              >
                 {({ open }) => (
                   <>
                     <div className="relative z-30">
                       <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                         <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
-                          {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+                          {selectedSort ? (
+                            <span
+                              className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${
+                                selectedSort == "Default"
+                                  ? "text-black text-opacity-20"
+                                  : ""
+                              }`}
+                            >
+                              <span className="text-black text-opacity-20">
+                                Sort by:{" "}
+                              </span>
+                              {selectedSort == "Default" ? "" : selectedSort}
+                            </span>
+                          ) : (
+                            <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">
+                              Sort by
+                            </span>
+                          )}
 
                           <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon
@@ -332,24 +384,38 @@ export default function SuperCategoryComponent() {
                             </div>
                           ) : (
                             sort.map((val, index) => (
-                              <Listbox.Option key={index} value={val.id}
+                              <Listbox.Option
+                                key={index}
+                                value={val.id}
                                 className={({ active }) =>
-                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${
+                                    active
+                                      ? "bg-custom-yellow-showdow-light"
+                                      : ""
+                                  }`
                                 }
                               >
                                 {({ selected, active }) => (
                                   <>
                                     <span
-                                      className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                      className={`block truncate ${
+                                        selected ? "font-medium" : "font-normal"
+                                      } ${
+                                        index == 0
+                                          ? "text-black text-opacity-20"
+                                          : ""
+                                      }`}
                                     >
                                       {val.name}
                                     </span>
                                     {selected ? (
                                       <span
-                                        className={`${active ? "text-primary" : "text-primary"
-                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
-                                      >
-                                      </span>
+                                        className={`${
+                                          active
+                                            ? "text-primary"
+                                            : "text-primary"
+                                        } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                      ></span>
                                     ) : null}
                                   </>
                                 )}
@@ -377,110 +443,138 @@ export default function SuperCategoryComponent() {
             </div>
           </div>
         </div>
-
-        <div className="flex flex-col min-h-[calc(100vh-19rem)]">
-          {/* table */}
-          <div className="px-5 z-0 flex-grow overflow-x-scroll">
-            <table className="table w-full">
-              <tbody className="">
-                <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
-                  <td className="w-1/5 bg-bg-main  py-3">No</td>
-                  <td className="w-2/5 bg-bg-main  py-3">Super Category Name</td>
-                  <td className="w-2/5 bg-bg-main  py-3">Created Date</td>
-                  <td className="w-1/5 bg-bg-main text-center  py-3">Action</td>
-                </tr>
-                {getAllSuperCategores.map((list, index) => (
-                  <tr key={index} className="text-sm font-sp-pro-text-regular">
-                    <td className="w-1/5  py-3">{index + i}</td>
-                    <td className="w-2/5  py-3">
-                      <div className="flex items-center space-x-5">
-                        {list.icon ?
-                          <img
-                            className="h-9 rounded-full w-9"
-                            src={
-                              list.icon == "office.svg" ? office :
-                                list.icon == "electronic.svg" ? electronic :
-                                  list.icon == "furniture.svg" ? furniture :
-                                    FileUploadService.getImage(list.icon)}
-                          />
-                          :
-                          < img
-                            className="h-9 rounded-full w-9"
-                            src={placeholder_square}
-                          />
-                        }
-
-                        <span className="text-sm ">{list.name}</span>
-                      </div>
+        
+        {getAllSuperCategores.length != 0 ? (
+          <div className="flex flex-col min-h-[calc(100vh-19rem)]">
+            {/* table */}
+            <div className="px-5 z-0 flex-grow overflow-x-scroll">
+              <table className="table w-full">
+                <tbody className="">
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
+                    <td className="w-1/5 bg-bg-main  py-3">No</td>
+                    <td className="w-2/5 bg-bg-main  py-3">
+                      Super Category Name
                     </td>
-                    <td className="w-2/5 py-3">
-                      <div className="flex items-center space-x-5">
-                        <span className="text-sm ">
-                          {moment(list.createAt).format("MMM DD YYYY")}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="w-1/5 py-3">
-                      <div className="flex items-center space-x-4 justify-center">
-                        {/* Edit */}
-                        <label
-                          onClick={() => { handleShowSuperCategory(list), setIsUpdate(true) }}
-                          htmlFor="editSuperCategory"
-                          className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
-                          aria-label="Edit"
-                        >
-                          Edit
-                        </label>
-                        {/* Delete */}
-                        <label
-                          onClick={() => handleShowSuperCategory(list)}
-                          htmlFor="modalDelete"
-                          className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
-                          aria-label="Delete"
-                        >
-                          Delete
-                        </label>
-                      </div>
+                    <td className="w-2/5 bg-bg-main  py-3">Created Date</td>
+                    <td className="w-1/5 bg-bg-main text-center  py-3">
+                      Action
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                  {getAllSuperCategores.map((list, index) => (
+                    <tr
+                      key={index}
+                      className="text-sm font-sp-pro-text-regular"
+                    >
+                      <td className="w-1/5  py-3">{index + i}</td>
+                      <td className="w-2/5  py-3">
+                        <div className="flex items-center space-x-5">
+                          {list.icon ? (
+                            <img
+                              className="h-9 rounded-full w-9"
+                              src={
+                                list.icon == "office.svg"
+                                  ? office
+                                  : list.icon == "electronic.svg"
+                                  ? electronic
+                                  : list.icon == "furniture.svg"
+                                  ? furniture
+                                  : FileUploadService.getImage(list.icon)
+                              }
+                            />
+                          ) : (
+                            <img
+                              className="h-9 rounded-full w-9"
+                              src={placeholder_square}
+                            />
+                          )}
 
-          {/* pagination */}
-
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
-            <div className="font-sp-pro-text-regular opacity-90">
-              Showing data 1 to {countCurrentRow} of {totalRow} entries
+                          <span className="text-sm ">{list.name}</span>
+                        </div>
+                      </td>
+                      <td className="w-2/5 py-3">
+                        <div className="flex items-center space-x-5">
+                          <span className="text-sm ">
+                            {moment(list.createAt).format("MMM DD YYYY")}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="w-1/5 py-3">
+                        <div className="flex items-center space-x-4 justify-center">
+                          {/* Edit */}
+                          <label
+                            onClick={() => {
+                              handleShowSuperCategory(list), setIsUpdate(true);
+                            }}
+                            htmlFor="editSuperCategory"
+                            className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
+                            aria-label="Edit"
+                          >
+                            Edit
+                          </label>
+                          {/* Delete */}
+                          <label
+                            onClick={() => handleShowSuperCategory(list)}
+                            htmlFor="modalDelete"
+                            className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
+                            aria-label="Delete"
+                          >
+                            Delete
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div id="react-paginate">
-              <ReactPaginate
-                nextLabel=" >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="< "
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-              />
+
+            {/* pagination */}
+
+            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
+              <div className="font-sp-pro-text-regular opacity-90">
+                Showing data 1 to {countCurrentRow} of {totalRow} entries
+              </div>
+              <div id="react-paginate">
+                <ReactPaginate
+                  nextLabel=" >"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel="< "
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  renderOnZeroPageCount={null}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+            <div className="mt-[-6rem]">
+              <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
+              <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                No Super Category
+              </h2>
+            </div>
+          </div>
+        )}
 
         {/* Modal Edit normal category */}
-        <input type="checkbox" id="editSuperCategory" className="modal-toggle" />
+        <input
+          type="checkbox"
+          id="editSuperCategory"
+          className="modal-toggle"
+        />
         <div className=" modal">
           <div className=" modal-box relative rounded-lg">
             <div className="absolute top-7 right-7">
@@ -504,28 +598,44 @@ export default function SuperCategoryComponent() {
               <div className=" border border-bg-primary rounded-md p-2 my-6">
                 <div className="flex items-center gap-3">
                   <label>
-                    {selectedFile ?
+                    {selectedFile ? (
                       <img
-                        src={selectedFile == "electronic.svg" ? electronic : selectedFile == "office.svg" ? office : selectedFile == "furniture.svg" ? furniture : URL.createObjectURL(selectedFile)}
+                        src={
+                          selectedFile == "electronic.svg"
+                            ? electronic
+                            : selectedFile == "office.svg"
+                            ? office
+                            : selectedFile == "furniture.svg"
+                            ? furniture
+                            : URL.createObjectURL(selectedFile)
+                        }
                         className="h-14 rounded-full w-14 "
                       />
-                      : selectedImg ?
-                        <img
-                          src={selectedImg == "electronic.svg" ? electronic : selectedImg == "office.svg" ? office : selectedImg == "furniture.svg" ? furniture : FileUploadService.getImage(selectedImg)}
-                          className="h-14 rounded-full w-14 "
-                        />
-                        :
-                        <img
-                          className="h-14 rounded-lg w-14"
-                          src={placeImg}
-                        />
-                    }
+                    ) : selectedImg ? (
+                      <img
+                        src={
+                          selectedImg == "electronic.svg"
+                            ? electronic
+                            : selectedImg == "office.svg"
+                            ? office
+                            : selectedImg == "furniture.svg"
+                            ? furniture
+                            : FileUploadService.getImage(selectedImg)
+                        }
+                        className="h-14 rounded-full w-14 "
+                      />
+                    ) : (
+                      <img className="h-14 rounded-lg w-14" src={placeImg} />
+                    )}
                   </label>
                   <div className="flex flex-col">
                     <p className="px-2">Choose Icon</p>
                     <div className="flex flex-row items-end justify-start">
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectedFile("electronic.svg")}>
+                        <label
+                          className="cursor-pointer"
+                          onClick={() => handleSelectedFile("electronic.svg")}
+                        >
                           <img
                             src={electronic}
                             className="h-8 rounded-lg w-8 "
@@ -533,12 +643,18 @@ export default function SuperCategoryComponent() {
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectedFile("office.svg")}>
+                        <label
+                          className="cursor-pointer"
+                          onClick={() => handleSelectedFile("office.svg")}
+                        >
                           <img src={office} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectedFile("furniture.svg")}>
+                        <label
+                          className="cursor-pointer"
+                          onClick={() => handleSelectedFile("furniture.svg")}
+                        >
                           <img
                             src={furniture}
                             className="h-8 rounded-lg w-8 "
@@ -564,18 +680,24 @@ export default function SuperCategoryComponent() {
                 </div>
               </div>
 
-              <div className='text-left'>
-                <label className="block mb-2 ml-1 text-sm">Super Category Name <span className='text-reject'>*</span></label>
+              <div className="text-left">
+                <label className="block mb-2 ml-1 text-sm">
+                  Super Category Name <span className="text-reject">*</span>
+                </label>
                 <input
-                  type='text'
+                  type="text"
                   value={newData.name}
                   onInput={handleInputChange}
                   onChange={formik.handleChange}
                   name="name"
                   className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20 focus:border-primary  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                  placeholder='Enter super category...'
+                  placeholder="Enter super category..."
                 />
-                {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+                {formik.touched.name && formik.errors?.name ? (
+                  <p className="text-reject text-xs mt-2 pl-1">
+                    {formik.errors.name}
+                  </p>
+                ) : null}
               </div>
               <div className="flex justify-end flex-row space-x-4 mt-10">
                 <div className="">
@@ -584,7 +706,7 @@ export default function SuperCategoryComponent() {
                     htmlFor="editSuperCategory"
                     className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                   >
-                    <RiCloseFill className='text-lg' />
+                    <RiCloseFill className="text-lg" />
                     Cancel
                   </label>
                 </div>
@@ -627,22 +749,31 @@ export default function SuperCategoryComponent() {
               <div className=" border border-bg-primary rounded-md p-2 my-6">
                 <div className="flex items-center gap-3">
                   <label>
-                    {selectedFile ?
+                    {selectedFile ? (
                       <img
-                        src={selectedFile == "electronic.svg" ? electronic : selectedFile == "office.svg" ? office : selectedFile == "furniture.svg" ? furniture : URL.createObjectURL(selectedFile)}
+                        src={
+                          selectedFile == "electronic.svg"
+                            ? electronic
+                            : selectedFile == "office.svg"
+                            ? office
+                            : selectedFile == "furniture.svg"
+                            ? furniture
+                            : URL.createObjectURL(selectedFile)
+                        }
                         className="h-14 rounded-full w-14 "
                       />
-                      : <img
-                        className="h-14 rounded-lg w-14"
-                        src={placeImg}
-                      />
-                    }
+                    ) : (
+                      <img className="h-14 rounded-lg w-14" src={placeImg} />
+                    )}
                   </label>
                   <div className="flex flex-col">
                     <p className="px-2">Choose Icon</p>
                     <div className="flex flex-row items-end justify-start">
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectedFile("electronic.svg")}>
+                        <label
+                          className="cursor-pointer"
+                          onClick={() => handleSelectedFile("electronic.svg")}
+                        >
                           <img
                             src={electronic}
                             className="h-8 rounded-lg w-8 "
@@ -650,12 +781,18 @@ export default function SuperCategoryComponent() {
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectedFile("office.svg")}>
+                        <label
+                          className="cursor-pointer"
+                          onClick={() => handleSelectedFile("office.svg")}
+                        >
                           <img src={office} className="h-8 rounded-lg w-8 " />
                         </label>
                       </div>
                       <div className="p-2">
-                        <label className="cursor-pointer" onClick={() => handleSelectedFile("furniture.svg")}>
+                        <label
+                          className="cursor-pointer"
+                          onClick={() => handleSelectedFile("furniture.svg")}
+                        >
                           <img
                             src={furniture}
                             className="h-8 rounded-lg w-8 "
@@ -681,18 +818,24 @@ export default function SuperCategoryComponent() {
                 </div>
               </div>
 
-              <div className='text-left'>
-                <label className="block mb-2 ml-1 text-sm">Super Category Name <span className='text-reject'>*</span></label>
+              <div className="text-left">
+                <label className="block mb-2 ml-1 text-sm">
+                  Super Category Name <span className="text-reject">*</span>
+                </label>
                 <input
-                  type='text'
+                  type="text"
                   value={newData.name}
                   onInput={handleInputChange}
                   onChange={formik.handleChange}
                   name="name"
                   className="text-sm border-[#E1E9EE] placeholder-black placeholder-opacity-20 focus:border-primary  w-full border rounded-lg block py-2 px-4 mb-1 outline-none"
-                  placeholder='Enter super category...'
+                  placeholder="Enter super category..."
                 />
-                {formik.touched.name && formik.errors?.name ? <p className="text-reject text-xs mt-2 pl-1">{formik.errors.name}</p> : null}
+                {formik.touched.name && formik.errors?.name ? (
+                  <p className="text-reject text-xs mt-2 pl-1">
+                    {formik.errors.name}
+                  </p>
+                ) : null}
               </div>
               <div className="flex justify-end flex-row space-x-4 mt-10">
                 <div className="">
@@ -701,7 +844,7 @@ export default function SuperCategoryComponent() {
                     htmlFor="superCategory"
                     className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
                   >
-                    <RiCloseFill className='text-lg' />
+                    <RiCloseFill className="text-lg" />
                     Cancel
                   </label>
                 </div>

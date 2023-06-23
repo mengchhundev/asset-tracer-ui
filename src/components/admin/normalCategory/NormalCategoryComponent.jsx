@@ -5,7 +5,7 @@ import office from "../../../assets/icon/office.svg";
 import placeImg from "../../../assets/icon/placeImg.svg";
 import gift from "../../../assets/images/gift.png";
 import trash_ico from "../../../assets/images/trash.png";
-import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
+import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { Listbox, Transition } from "@headlessui/react";
@@ -16,82 +16,104 @@ import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileUploadService from "../../../redux/services/FileUploadService";
-import { setCountCurrentRow, setIsCreateSuccess, setIsUpdateSuccess, setNormalCategories, setNormalCategory, setPageCount, setTotalRow } from "../../../redux/slices/NormalCategorySlice";
+import {
+  setCountCurrentRow,
+  setIsCreateSuccess,
+  setIsUpdateSuccess,
+  setNormalCategories,
+  setNormalCategory,
+  setPageCount,
+  setTotalRow,
+} from "../../../redux/slices/NormalCategorySlice";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
 import NormalCategoryAddComponent from "./popUp/NormalCategoryAddComponent";
 import NormalCategoryUpdateComponent from "./popUp/NormalCategoryUpdateComponent";
+import no_data_pic from "../../../assets/images/empty_box.png";
 
 const sort = [
   {
-    id: "", name: "Default"
+    id: "",
+    name: "Default",
   },
   {
-    id: "name", name: "Name"
+    id: "name",
+    name: "Name",
   },
   {
-    id: "createdAt", name: "Created Date"
+    id: "createdAt",
+    name: "Created Date",
   },
 ];
 
 export default function CategoryComponent() {
-
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
 
-  const [selectedPage, setSelectedPage] = useState(1)
-  const [itemName, setItemName] = useState("")
-  const [selectedSort, setSelectedSort] = useState(sort[0].name)
+  const [selectedPage, setSelectedPage] = useState(1);
+  const [itemName, setItemName] = useState("");
+  const [selectedSort, setSelectedSort] = useState(sort[0].name);
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const orgId = organization.id;
 
   const [isUpdate, setIsUpdate] = useState(false);
-  let totalRow = useSelector(state => state.normalCategory.totalRow)
-  let countCurrentRow = useSelector(state => state.normalCategory.countCurrentRow)
-  let isCreateSuccess = useSelector(state => state.normalCategory.isCreateSuccess)
-  let isUpdateSuccess = useSelector(state => state.normalCategory.isUpdateSuccess)
-  let getNormalCategory = useSelector(state => state.normalCategory.normalCategory)
-  let pageCount = useSelector(state => state.normalCategory.pageCount)
+  let totalRow = useSelector((state) => state.normalCategory.totalRow);
+  let countCurrentRow = useSelector(
+    (state) => state.normalCategory.countCurrentRow
+  );
+  let isCreateSuccess = useSelector(
+    (state) => state.normalCategory.isCreateSuccess
+  );
+  let isUpdateSuccess = useSelector(
+    (state) => state.normalCategory.isUpdateSuccess
+  );
+  let getNormalCategory = useSelector(
+    (state) => state.normalCategory.normalCategory
+  );
+  let pageCount = useSelector((state) => state.normalCategory.pageCount);
 
   // get all normal category
-  const normalCategories = useSelector(state => state.normalCategory.normalCategories);
+  const normalCategories = useSelector(
+    (state) => state.normalCategory.normalCategories
+  );
   const handleGetAllNormalCategories = (page = 1, name = "", sort = "") => {
-    NormalCategoryService.getAllNormalCategory(orgId, page, 8, name, sort).then((res) => {
-      if (res.data.success) {
-        dispatch(setNormalCategories(res.data.payload));
-        dispatch(setTotalRow(res.data.totalData))
-        dispatch(setPageCount(Math.ceil(res.data.totalData / 8)));
-        dispatch(setCountCurrentRow(res.data.payload.length))
+    NormalCategoryService.getAllNormalCategory(orgId, page, 8, name, sort).then(
+      (res) => {
+        if (res.data.success) {
+          dispatch(setNormalCategories(res.data.payload));
+          dispatch(setTotalRow(res.data.totalData));
+          dispatch(setPageCount(Math.ceil(res.data.totalData / 8)));
+          dispatch(setCountCurrentRow(res.data.payload.length));
+        }
       }
-    })
+    );
   };
 
   useEffect(() => {
     if (isCreateSuccess) {
-      handleGetAllNormalCategories(1)
-      if(selectedPage != 1) {
-        document.getElementsByClassName("page-link")[1].click()
+      handleGetAllNormalCategories(1);
+      if (selectedPage != 1) {
+        document.getElementsByClassName("page-link")[1].click();
       }
     }
-    dispatch(setIsCreateSuccess(false))
-    
-  }, [isCreateSuccess])
+    dispatch(setIsCreateSuccess(false));
+  }, [isCreateSuccess]);
 
   useEffect(() => {
     if (isUpdateSuccess) {
-      handleGetAllNormalCategories(selectedPage)
+      handleGetAllNormalCategories(selectedPage);
     }
-    dispatch(setIsUpdateSuccess(false))
-  }, [isUpdateSuccess])
+    dispatch(setIsUpdateSuccess(false));
+  }, [isUpdateSuccess]);
 
   useEffect(() => {
     if (itemName != null || selectedSort != null) {
-      handleGetAllNormalCategories(1, itemName, selectedSort)
+      handleGetAllNormalCategories(1, itemName, selectedSort);
     }
   }, [itemName, selectedSort]);
 
   const handleSelectedSort = (val) => {
-    setSelectedSort(val)
-  }
+    setSelectedSort(val);
+  };
 
   useEffect(() => {
     handleGetAllNormalCategories(selectedPage);
@@ -99,25 +121,28 @@ export default function CategoryComponent() {
 
   const handlePageClick = (event) => {
     setI(event.selected * 8 + 1);
-    setSelectedPage(event.selected + 1)
-    dispatch(setPageCount(Math.ceil(totalRow / 8)))
+    setSelectedPage(event.selected + 1);
+    dispatch(setPageCount(Math.ceil(totalRow / 8)));
   };
 
   const handleDeleteNormalCategory = () => {
-    NormalCategoryService.deleteNormalCategory(getNormalCategory.id, orgId).then(res => {
+    NormalCategoryService.deleteNormalCategory(
+      getNormalCategory.id,
+      orgId
+    ).then((res) => {
       if (res.data.success) {
-        document.getElementsByClassName("page-link")[1].click()
-        handleGetAllNormalCategories(1)
+        document.getElementsByClassName("page-link")[1].click();
+        handleGetAllNormalCategories(1);
       }
-    })
-  }
+    });
+  };
 
   const handleShowNormalCategory = (val) => {
-    dispatch(setNormalCategory(val))
-  }
+    dispatch(setNormalCategory(val));
+  };
 
   const handleInputSearch = (e) => {
-    setItemName(e.target.value)
+    setItemName(e.target.value);
   };
 
   const handleNormalSuccess = () =>
@@ -170,13 +195,34 @@ export default function CategoryComponent() {
 
             {/* filter */}
             <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <Listbox as="div" value={selectedSort} onChange={handleSelectedSort}>
+              <Listbox
+                as="div"
+                value={selectedSort}
+                onChange={handleSelectedSort}
+              >
                 {({ open }) => (
                   <>
                     <div className="relative z-30">
                       <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
                         <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
-                          {selectedSort ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Sort by: </span>{selectedSort == "Default" ? "" : selectedSort}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Sort by</span>}
+                          {selectedSort ? (
+                            <span
+                              className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${
+                                selectedSort == "Default"
+                                  ? "text-black text-opacity-20"
+                                  : ""
+                              }`}
+                            >
+                              <span className="text-black text-opacity-20">
+                                Sort by:{" "}
+                              </span>
+                              {selectedSort == "Default" ? "" : selectedSort}
+                            </span>
+                          ) : (
+                            <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">
+                              Sort by
+                            </span>
+                          )}
 
                           <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon
@@ -202,24 +248,38 @@ export default function CategoryComponent() {
                             </div>
                           ) : (
                             sort.map((val, index) => (
-                              <Listbox.Option key={index} value={val.id}
+                              <Listbox.Option
+                                key={index}
+                                value={val.id}
                                 className={({ active }) =>
-                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${
+                                    active
+                                      ? "bg-custom-yellow-showdow-light"
+                                      : ""
+                                  }`
                                 }
                               >
                                 {({ selected, active }) => (
                                   <>
                                     <span
-                                      className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                      className={`block truncate ${
+                                        selected ? "font-medium" : "font-normal"
+                                      } ${
+                                        index == 0
+                                          ? "text-black text-opacity-20"
+                                          : ""
+                                      }`}
                                     >
                                       {val.name}
                                     </span>
                                     {selected ? (
                                       <span
-                                        className={`${active ? "text-primary" : "text-primary"
-                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
-                                      >
-                                      </span>
+                                        className={`${
+                                          active
+                                            ? "text-primary"
+                                            : "text-primary"
+                                        } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                      ></span>
                                     ) : null}
                                   </>
                                 )}
@@ -247,137 +307,164 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        <div className="flex flex-col min-h-[calc(100vh-19rem)]">
-          {/* table */}
-          <div className="px-5 z-0 flex-grow overflow-x-scroll">
-            <table className="table w-full">
-              <tbody className="">
-                <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
-                  <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
-                  <td className="w-3/12 bg-bg-main py-3">
-                    Normal Category Name
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3">
-                    Super Category Name
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3 text-center">
-                    Created Date
-                  </td>
-                  <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
-                </tr>
-                {normalCategories.length != 0 ? normalCategories.map((list, index) => (
-                  <tr
-                    key={index}
-                    className="text-sm font-sp-pro-text-regular text-center"
-                  >
-                    <td className="py-3 text-center ">{index + 1}</td>
-                    <td className="py-3">
-                      <div className="flex items-center">
-                        <div className="relative  mr-3 w-9 h-9 ">
-                          {list.icon ?
+        {normalCategories.length != 0 ? (
+          <div className="flex flex-col min-h-[calc(100vh-19rem)]">
+            {/* table */}
+            <div className="px-5 z-0 flex-grow overflow-x-scroll">
+              <table className="table w-full">
+                <tbody className="">
+                  <tr className="text-sm font-sp-pro-text-semibold text-opacity-90 divide-none sticky top-0 z-50">
+                    <td className="w-1/12 bg-bg-main py-3 text-center">No</td>
+                    <td className="w-3/12 bg-bg-main py-3">
+                      Normal Category Name
+                    </td>
+                    <td className="w-2/12 bg-bg-main py-3">
+                      Super Category Name
+                    </td>
+                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                      Created Date
+                    </td>
+                    <td className="w-2/12 bg-bg-main py-3 text-center">
+                      Action
+                    </td>
+                  </tr>
+                  {normalCategories.map((list, index) => (
+                    <tr
+                      key={index}
+                      className="text-sm font-sp-pro-text-regular text-center"
+                    >
+                      <td className="py-3 text-center ">{index + 1}</td>
+                      <td className="py-3">
+                        <div className="flex items-center">
+                          <div className="relative  mr-3 w-9 h-9 ">
+                            {list.icon ? (
+                              <img
+                                className="h-9 rounded-full w-9"
+                                src={
+                                  list.icon == "office.svg"
+                                    ? office
+                                    : list.icon == "electronic.svg"
+                                    ? electronic
+                                    : list.icon == "furniture.svg"
+                                    ? furniture
+                                    : FileUploadService.getImage(list.icon)
+                                }
+                              />
+                            ) : (
+                              <img
+                                className="h-9 rounded-full w-9"
+                                src={placeholder_square}
+                              />
+                            )}
+                          </div>
+                          <div>{list.name}</div>
+                        </div>
+                      </td>
+                      <td className="w-2/12 py-3">
+                        <div className="flex items-center m-auto space-x-3">
+                          {list.superCategoryIcon ? (
                             <img
                               className="h-9 rounded-full w-9"
                               src={
-                                list.icon == "office.svg" ? office :
-                                  list.icon == "electronic.svg" ? electronic :
-                                    list.icon == "furniture.svg" ? furniture :
-                                      FileUploadService.getImage(list.icon)}
+                                list.superCategoryIcon == "office.svg"
+                                  ? office
+                                  : list.superCategoryIcon == "electronic.svg"
+                                  ? electronic
+                                  : list.superCategoryIcon == "furniture.svg"
+                                  ? furniture
+                                  : FileUploadService.getImage(
+                                      list.superCategoryIcon
+                                    )
+                              }
                             />
-                            :
-                            < img
+                          ) : (
+                            <img
                               className="h-9 rounded-full w-9"
                               src={placeholder_square}
                             />
-                          }
+                          )}
+                          <span className="text-sm">
+                            {list.superCategoryName}
+                          </span>
                         </div>
-                        <div>{list.name}</div>
-                      </div>
-                    </td>
-                    <td className="w-2/12 py-3">
-                      <div className="flex items-center m-auto space-x-3">
-                        {list.superCategoryIcon ?
-                          <img
-                            className="h-9 rounded-full w-9"
-                            src={
-                              list.superCategoryIcon == "office.svg" ? office :
-                                list.superCategoryIcon == "electronic.svg" ? electronic :
-                                  list.superCategoryIcon == "furniture.svg" ? furniture :
-                                    FileUploadService.getImage(list.superCategoryIcon)}
-                          />
-                          :
-                          < img
-                            className="h-9 rounded-full w-9"
-                            src={placeholder_square}
-                          />
-                        }
-                        <span className="text-sm">
-                          {list.superCategoryName}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="py-3">
-                      {moment(list.createdAt).format("MMM DD YYYY")}
-                    </td>
-                    <td className="py-3">
-                      <div className="flex items-center space-x-4 justify-center">
-                        {/* edit */}
-                        <label
-                          htmlFor="edit-normal-category"
-                          onClick={() => handleShowNormalCategory(list)}
-                          className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
-                          aria-label="Edit"
-                        >
-                          Edit
-                        </label>
-                        {/* delete */}
-                        <label
-                          htmlFor="delete-normal-category"
-                          onClick={() => handleShowNormalCategory(list)}
-                          className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
-                          aria-label="Delete"
-                        >
-                          Delete
-                        </label>
-                      </div>
-                    </td>
-                  </tr>
-                )) : null}
-              </tbody>
-            </table>
-          </div>
+                      </td>
+                      <td className="py-3">
+                        {moment(list.createdAt).format("MMM DD YYYY")}
+                      </td>
+                      <td className="py-3">
+                        <div className="flex items-center space-x-4 justify-center">
+                          {/* edit */}
+                          <label
+                            htmlFor="edit-normal-category"
+                            onClick={() => handleShowNormalCategory(list)}
+                            className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
+                            aria-label="Edit"
+                          >
+                            Edit
+                          </label>
+                          {/* delete */}
+                          <label
+                            htmlFor="delete-normal-category"
+                            onClick={() => handleShowNormalCategory(list)}
+                            className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
+                            aria-label="Delete"
+                          >
+                            Delete
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          {/* pagination */}
-          <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
-            <div className="font-sp-pro-text-regular opacity-90">
-              Showing data 1 to {countCurrentRow} of {totalRow} entries
-            </div>
-            <div id="react-paginate">
-              <ReactPaginate
-                nextLabel=" >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="< "
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-              />
+            {/* pagination */}
+            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
+              <div className="font-sp-pro-text-regular opacity-90">
+                Showing data 1 to {countCurrentRow} of {totalRow} entries
+              </div>
+              <div id="react-paginate">
+                <ReactPaginate
+                  nextLabel=" >"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel="< "
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  renderOnZeroPageCount={null}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+            <div className="mt-[-6rem]">
+              <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
+              <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                No Normal Category
+              </h2>
+            </div>
+          </div>
+        )}
 
         {/* delete */}
-        <input type="checkbox" id="delete-normal-category" className="modal-toggle" />
+        <input
+          type="checkbox"
+          id="delete-normal-category"
+          className="modal-toggle"
+        />
         <div className="modal">
           <div className="modal-box relative">
             <div className="absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer">
