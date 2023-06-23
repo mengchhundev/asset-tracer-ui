@@ -20,6 +20,7 @@ import RoomUpdateComponent from "./popUpRoom/RoomUpdateComponent";
 import RoomDeleteComponent from "./popUpRoom/RoomDeleteComponent";
 import { RiCloseFill } from "react-icons/ri";
 import trash_ico from "../../../assets/images/trash.png"
+import no_data_pic from "../../../assets/images/empty_box.png";
 
 const sort = [
     {
@@ -265,20 +266,35 @@ export default function RoomComponent() {
                             </div>
 
                             {/* add */}
-                            <div>
-                                <div className="block w-max">
-                                    <label
-                                        htmlFor="create-room"
-                                        className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
-                                    >
-                                        <BsPlus className="w-6 h-6" />
-                                        &nbsp; Add New Room
-                                    </label>
+                            {organization.roleName == "ADMIN" ? ( 
+                                <div>
+                                    <div className="block w-max">
+                                        <label
+                                            htmlFor="create-room"
+                                            className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
+                                        >
+                                            <BsPlus className="w-6 h-6" />
+                                            &nbsp; Add New Room
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
+                                ) : (
+                                    <div>
+                                        <div className="block w-max">
+                                            <label
+                                                className="border border-opacity-40 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow  text-opacity-50 hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+                                            >
+                                                <BsPlus className="w-6 h-6" />
+                                                &nbsp; Add New Room
+                                            </label>
+                                        </div>
+                                    </div>
+                                )}
                         </div>
                     </div>
-                    <div className="flex flex-col min-h-[calc(100vh-19rem)]">
+
+                    {getAllRooms.length != 0 ? ( 
+                        <div className="flex flex-col min-h-[calc(100vh-19rem)]">
                         {/* table */}
                         <div className="px-5 z-0 flex-grow overflow-x-scroll">
                             <table className="table w-full">
@@ -295,10 +311,11 @@ export default function RoomComponent() {
                                             Floor
                                         </td>
                                         <td className="w-2/12 bg-bg-main py-3">Description</td>
-                                        <td className="w-1/12 bg-bg-main py-3 text-center">Action</td>
+                                        {organization.roleName == "ADMIN" ? ( 
+                                            <td className="w-1/12 bg-bg-main py-3 text-center">Action</td>
+                                        ) : null}
                                     </tr>
-                                    {getAllRooms.length != 0 ?
-                                        getAllRooms.map((list, index) => (
+                                    {getAllRooms.map((list, index) => (
                                             <tr key={index}>
                                                 <td className="py-3">{index + i}</td>
                                                 <td className="py-3">
@@ -317,70 +334,67 @@ export default function RoomComponent() {
                                                 <td className="py-3">{list.type != "" && list.type != null ? list.type : <span className="ml-2">...</span>}</td>
                                                 <td className="py-3">{list.floor != "" && list.floor != null ? list.floor : <span className="ml-2">...</span>}</td>
                                                 <td className="py-3">{list.description != "" && list.description != null ? list.description : <span className="ml-8">...</span>}</td>
-                                                <td className="py-3 text-center">
-                                                    <Listbox as="div">
-                                                        {({ open }) => (
-                                                            <>
-                                                                <div className="relative">
-                                                                    <span className="">
-                                                                        <Listbox.Button className="h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer">
-                                                                            <EllipsisVerticalIcon />
-                                                                        </Listbox.Button>
-                                                                    </span>
-                                                                    <Transition
-                                                                        show={open}
-                                                                        leave=""
-                                                                        leaveFrom="opacity-100"
-                                                                        leaveTo="opacity-0"
-                                                                    >
-                                                                        <Listbox.Options
-                                                                            static
-                                                                            className="border border-bg-primary mt-1  bg-white shadow-md rounded-md absolute right-5 z-50 w-48 p-2"
+                                                {organization.roleName == "ADMIN" ? ( 
+                                                    <td className="py-3 text-center">
+                                                        <Listbox as="div">
+                                                            {({ open }) => (
+                                                                <>
+                                                                    <div className="relative">
+                                                                        <span className="">
+                                                                            <Listbox.Button className="h-7 w-7 p-1 text-gray-500 bg-slate-100 rounded-full hover:bg-bg-primary-strock cursor-pointer">
+                                                                                <EllipsisVerticalIcon />
+                                                                            </Listbox.Button>
+                                                                        </span>
+                                                                        <Transition
+                                                                            show={open}
+                                                                            leave=""
+                                                                            leaveFrom="opacity-100"
+                                                                            leaveTo="opacity-0"
                                                                         >
-                                                                            <Listbox.Option className="flex flex-col">
-                                                                                <label
-                                                                                    htmlFor="detail"
-                                                                                    onClick={() => handleShowRoomDetail(list)}
-                                                                                    className={`cursor-pointer text-text-color hover:bg-bg-primary hover:bg-opacity-50 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                                                >
-                                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                                        <TbListDetails />  View Room Detail
-                                                                                    </span>
-                                                                                </label>
-                                                                                <label
-                                                                                    htmlFor='edit-room'
-                                                                                    onClick={() => handleShowRoom(list)}
-                                                                                    className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
-                                                                                >
-                                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                                        <FiTrash2 /> Edit
-                                                                                    </span>
-                                                                                </label>
-                                                                                <label
-                                                                                    htmlFor="delete-room"
-                                                                                    onClick={() => handleShowRoom(list)}
-                                                                                    className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
-                                                                                >
-                                                                                    <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                                        <FiTrash2 /> Delete
-                                                                                    </span>
-                                                                                </label>
+                                                                            <Listbox.Options
+                                                                                static
+                                                                                className="border border-bg-primary mt-1  bg-white shadow-md rounded-md absolute right-5 z-50 w-48 p-2"
+                                                                            >
+                                                                                <Listbox.Option className="flex flex-col">
+                                                                                    <label
+                                                                                        htmlFor="detail"
+                                                                                        onClick={() => handleShowRoomDetail(list)}
+                                                                                        className={`cursor-pointer text-text-color hover:bg-bg-primary hover:bg-opacity-50 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                                    >
+                                                                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                                            <TbListDetails />  View Room Detail
+                                                                                        </span>
+                                                                                    </label>
+                                                                                    <label
+                                                                                        htmlFor='edit-room'
+                                                                                        onClick={() => handleShowRoom(list)}
+                                                                                        className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
+                                                                                    >
+                                                                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                                            <FiTrash2 /> Edit
+                                                                                        </span>
+                                                                                    </label>
+                                                                                    <label
+                                                                                        htmlFor="delete-room"
+                                                                                        onClick={() => handleShowRoom(list)}
+                                                                                        className={`cursor-pointer text-reject hover:bg-reject hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full  text-gray-900 rounded-md `}
+                                                                                    >
+                                                                                        <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
+                                                                                            <FiTrash2 /> Delete
+                                                                                        </span>
+                                                                                    </label>
 
-                                                                            </Listbox.Option>
-                                                                        </Listbox.Options>
-                                                                    </Transition>
-                                                                </div>
-                                                            </>
-                                                        )}
-                                                    </Listbox>
-                                                </td>
+                                                                                </Listbox.Option>
+                                                                            </Listbox.Options>
+                                                                        </Transition>
+                                                                    </div>
+                                                                </>
+                                                            )}
+                                                        </Listbox>
+                                                    </td>
+                                                ) : null}
                                             </tr>
-                                        ))
-                                        :
-                                        <tr>
-                                            <td colSpan={99} className="text-center">No Data</td>
-                                        </tr>
-                                    }
+                                        ))}
                                 </tbody>
                             </table>
                         </div>
@@ -413,7 +427,18 @@ export default function RoomComponent() {
                                 />
                             </div>
                         </div>
-                    </div>
+                        </div>
+                    ) : (
+                        <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+                            <div className="mt-[-6rem]">
+                            <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
+                            <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                                No Room
+                            </h2>
+                            </div>
+                        </div>
+                    )}
+                    
                 </div>
             </main>
 

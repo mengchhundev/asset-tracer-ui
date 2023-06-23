@@ -224,7 +224,7 @@ export default function RoomAddComponent({ handleIsCreateSuccess }) {
                                 className="hover:bg-opacity-90 bg-primary rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1"
                             >
                                 <FiSave className='text-lg' />
-                                Add
+                                Create
                             </button>
                         </div>
                     </form>

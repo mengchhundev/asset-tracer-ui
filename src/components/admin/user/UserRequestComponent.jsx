@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRequestUsers, setUserReject, setUserapprove } from "../../../redux/slices/UserSlice";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import { isRejected } from "@reduxjs/toolkit";
+import no_data_pic from "../../../assets/images/empty_box.png";
 
 export default function UserRequestComponent() {
 
@@ -216,9 +217,9 @@ export default function UserRequestComponent() {
             <>
               <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
                 <div className="mt-[-6rem]">
-                  {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
+                  <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
                   <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
-                    No Requested Users
+                    No Requested User
                   </h2>
                 </div>
               </div>
