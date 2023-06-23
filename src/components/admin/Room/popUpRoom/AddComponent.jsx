@@ -118,6 +118,8 @@ function AddComponent(props) {
                         <div className="flex">
                             <HomeIcon className="h-8 w-8 text-white bg-primary p-2 rounded-lg" />
                             <p className="px-4 text-text-color text-[16px] text-opacity-90 item-center xl:text-[20px] font-sp-pro-text-bold">Room Information</p>
+                            <HomeIcon className="h-8 w-8 text-white bg-primary p-2 rounded-lg" />
+                            <p className="px-4 text-text-color text-[16px] text-opacity-90 item-center xl:text-[20px] font-sp-pro-text-bold">Room Information</p>
                         </div>
                         <div className="">
                             <label htmlFor="addroom" ><XMarkIcon className="cursor-pointer h-8 w-8 text-text-color hover:bg-bg-primary rounded-full p-1 " /></label>
@@ -286,6 +288,7 @@ function AddComponent(props) {
                                                                                         } cursor-default select-none relative py-2 pl-10 pr-4`}
                                                                                 >
                                                                                     <span
+                                                                                        className={`${selected ? "font-medium" : "font-normal"
                                                                                         className={`${selected ? "font-medium" : "font-normal"
                                                                                             }`}
                                                                                     >
