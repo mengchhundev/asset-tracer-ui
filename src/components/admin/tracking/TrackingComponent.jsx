@@ -187,7 +187,7 @@ export default function TrackingComponent() {
         <div className="flex-col justify-between gap-4 p-5 mb-5 text">
           {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4">
-            <h2 className="text-2xl font-sp-pro-text-semibold">All Tracking</h2>
+            <h2 className="text-2xl font-sp-pro-text-semibold">All <span className="text-primary">Tracking</span></h2>
           </div>
 
           <div className="grid grid-cols-4 gap-x-10 gap-y-5">
