@@ -22,6 +22,8 @@ import placeholder_square from "../../../assets/images/placeholder/placeholder_s
 import moment from "moment";
 import UserService from "../../../redux/services/UserService";
 // import { isRejected } from "@reduxjs/toolkit";
+import no_data_pic from '../../../assets/images/empty_box.png'
+
 
 const people = [
   { id: 1, name: "Newest" },
@@ -224,7 +226,8 @@ export default function NotificationComponent() {
           </div>
         </div>
 
-        <div
+        {getAllNotification.length != 0 ? (
+          <div
           className="flex flex-col justify-between"
           style={{
             minHeight: "calc(100vh - 18rem)",
@@ -327,6 +330,16 @@ export default function NotificationComponent() {
             </div>
           </div>
         </div>
+        ) : (
+        <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+            <div className="mt-[-6rem]">
+              <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
+              <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                No Notification
+              </h2>
+            </div>
+          </div>
+        )}
 
         {/* Modal Add notification */}
         <input type="checkbox" id="normalCategory" className="modal-toggle" />
