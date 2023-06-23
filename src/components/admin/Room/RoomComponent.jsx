@@ -50,6 +50,7 @@ export default function RoomComponent() {
     const [isCreateSuccess, setIsCreateSuccess] = useState(false)
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
     const [roomId, setRoomId] = useState();
+    
     const handleIsCreateSuccess = (val) => {
         setIsCreateSuccess(val)
     }

@@ -15,7 +15,6 @@ import DashboardComponent from './components/admin/dashboard/DashboardComponent'
 import AssetComponent from './components/admin/asset/AssetComponent'
 import InvoiceComponent from './components/admin/invoice/InvoiceComponent'
 import ProfileComponent from './components/admin/profile/ProfileComponent'
-import RoomListComponent from './components/admin/Room/RoomListComponent'
 import HomeComponent from './components/homepage/HomeComponent'
 import ContactComponent from './components/homepage/ContactComponent'
 import AboutPageComponent from './components/homepage/AboutPageComponent'
@@ -93,8 +92,10 @@ function App() {
             <Route path='/user-request' element={<UserRequestComponent />}></Route>
             <Route path='/profile' element={<ProfileComponent />} />
 
-            <Route path='/room-list' element={<RoomListComponent />}></Route>
+            {/* Room */}
             <Route path='/room' element={<RoomComponent />}></Route>
+
+            {/* Notification */}
             <Route path='/notification' element={<NotificationComponent />} />
 
           </Route>
