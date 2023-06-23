@@ -28,11 +28,12 @@ import Iconbackup from "../../assets/images/PictureLanding/Iconbackup.png";
 import Vector from "../../assets/images/PictureLanding/Vector.png";
 import { NavLink } from 'react-router-dom';
 
+let token = localStorage.getItem("token");
 export default function () {
 
   return (
     <div>
-      <main id='Home'>
+      <main id='home'>
       <NavbarComponent />
       <div className="bg-bg-pink pt-[90px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-12 ">
@@ -56,12 +57,13 @@ export default function () {
                 </div>
               </div>
               <div className="lg:pb-0 md:pb-10 sm:pb-10 pb-10 ">
-                <button
+              <NavLink
+                  to="/signup"
                   type="button"
-                  className=" px-7 3xl:py-2 py-3 2xl:px-14 xl:px-8 lg:px-7 text-white rounded-md bg-pending font-medium 3xl:text-lg text-md text-center mr-14 shadow-lg hover:bg-hover-yellow shadow-shadow"
+                  className="px-7 3xl:py-2 py-3 2xl:px-14 xl:px-8 lg:px-7 text-white rounded-md bg-pending font-medium 3xl:text-lg text-md text-center mr-14 shadow-lg hover:bg-hover-yellow shadow-shadow"
                 >
                   Try asset tracer free
-                </button>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -245,7 +247,7 @@ export default function () {
                 Members
               </h5>
               <p className="font-normal text-text-color ">
-                organization's owner csn be manage member such as limit scop for
+                Organization's owner can be manage member such as limit scop for
                 user by role and can promote those user to admin
               </p>
             </div>
@@ -310,8 +312,8 @@ export default function () {
                     asset acquisition, deployment, and maintenance.”
                   </div>
                   <div className="font-sp-pro-text-medium text-text-color pt-7">
-                    Kosal
-                    <div>Lahorem</div>
+                    Hongmeng
+                    <div>Leng</div>
                     <div>Cambodia</div>
                   </div>
                 </div>
@@ -328,8 +330,8 @@ export default function () {
                     asset acquisition, deployment, and maintenance.”
                   </div>
                   <div className="font-sp-pro-text-medium text-text-color pt-7">
-                    Kosal
-                    <div>Lahorem</div>
+                    Hongmeng
+                    <div>Leng</div>
                     <div>Cambodia</div>
                   </div>
                 </div>

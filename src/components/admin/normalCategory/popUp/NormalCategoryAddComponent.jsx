@@ -322,7 +322,7 @@ export default function NormalCategoryAddComponent() {
                   type="submit"
                   className={`hover:bg-primary bg-primary hover:bg-opacity-90 rounded-md cursor-pointer py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center`}
                 >
-                  <FiSave className="text-lg" /> &nbsp; Add
+                  <FiSave className="text-lg" /> &nbsp; Create
                 </button>
               </div>
             </div>

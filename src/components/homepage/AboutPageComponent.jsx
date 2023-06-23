@@ -7,9 +7,9 @@ import bgsiderightb from "../../assets/images/BacgroundPic/bgsiderightb.png";
 import Bgleftourteam from "../../assets/images/BacgroundPic/Bgleftourteam.png";
 import Frameright from "../../assets/images/BacgroundPic/Frameright.png";
 import bgrightbottom from "../../assets/images/BacgroundPic/bgrightbottom.png";
-import Mony from "../../assets/images/Iconteam/Mony.png";
+import koemony from "../../assets/images/Iconteam/koemony.jpg";
 import menghout from "../../assets/images/Iconteam/menghout.png";
-import Mnor from "../../assets/images/Iconteam/Mnor.png";
+import Bmnor from "../../assets/images/Iconteam/Mnor.png";
 import hongmenng from "../../assets/images/Iconteam/hongmenng.png";
 import senglorn from "../../assets/images/Iconteam/senglorn.png";
 import vanneat from "../../assets/images/Iconteam/vanneat.png";
@@ -17,12 +17,14 @@ import Rith from "../../assets/images/Iconteam/Rith.png";
 import Chhun from "../../assets/images/Iconteam/Chhun.png";
 import NavbarComponent from "./NavbarComponent";
 import FooterComponent from "./FooterComponent";
+import { Link, NavLink } from "react-router-dom";
 
+let token = localStorage.getItem("token");
 export default function AboutPageComponent() {
   return (
     <div>
       <NavbarComponent />
-      <div className="bg-bg-pink relative pt-[70px] 2xl:h-[950px]">
+      <div className="bg-bg-pink relative pt-[70px] 2xl:h-[950px]" id="about">
         <div className=" ">
           <img
             src={bgsideleft}
@@ -67,12 +69,19 @@ export default function AboutPageComponent() {
                   experience a better way to organize your assets.
                 </div>
                 <div className=" 3xl:pt-[100px] 2xl:pt-[80px] xl:pt-[15px] sm:pt-[8px] pt-[5px]">
-                  <button
+                   <NavLink
+                    to="/signup"
+                    type="button"
+                    className="text-white rounded-md bg-pending font-medium text-md px-14 py-2 text-center shadow-lg hover:bg-hover-yellow shadow-shadow"
+                  >
+                     See more
+                  </NavLink>
+                  {/* <button
                     type="button"
                     className="text-white rounded-md bg-pending font-medium text-md px-14 py-2 text-center shadow-lg hover:bg-hover-yellow shadow-shadow"
                   >
                     See more
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -215,8 +224,8 @@ export default function AboutPageComponent() {
               Welcome to <span className="text-pending">our team</span>
             </div>
             <div className="my-3 3xl:w-[35%] 2xl:w-[38%] xl:w-[40%] lg:w-[50%] md:w-[65%] sm:w-[70%] w-[90%] mx-auto lg:text-[18px] md:text-[18px] sm:text-[17px] text-[15px]">
-              We ensure that you'll embark on a perfectly planned, safe vacation
-              at a price you can afford.
+              We ensure that you'll embark on a perfectly planned, safe and don't 
+              be disappointed in your time.
             </div>
           </div>
 
@@ -227,7 +236,7 @@ export default function AboutPageComponent() {
                   <div className=" flex justify-between mb-[30px]  ">
                     <div className="w-[40%] h-[130px] text-center ">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={hongmenng} alt="Picture Hongmeng" />
+                        <img src={hongmenng} alt="Picture Hongmeng" className="rounded-full w-[80px] h-[80px]"/>
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -239,7 +248,7 @@ export default function AboutPageComponent() {
                     </div>
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={Chhun} alt="Picture Mengchhun" />
+                        <img src={Chhun} alt="Picture Mengchhun" className="rounded-full w-[80px] h-[80px]" />
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -254,7 +263,7 @@ export default function AboutPageComponent() {
                   <div className="flex justify-between mb-[30px]  ">
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={Mnor} alt="Picture Mnor" />
+                        <img src={Bmnor} alt="Picture Mnor" className="rounded-full w-[80px] h-[80px]" />
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -266,7 +275,7 @@ export default function AboutPageComponent() {
                     </div>
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={senglorn} alt="Picture Senglorn" />
+                        <img src={senglorn} alt="Picture Senglorn" className="rounded-full w-[80px] h-[80px]" />
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -287,7 +296,7 @@ export default function AboutPageComponent() {
                   <div className=" flex justify-between mb-[30px] ">
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={Mony} alt="Picture Mony" />
+                        <img src={koemony} alt="Picture Mony" className="rounded-full w-[80px] h-[80px]" />
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -299,7 +308,7 @@ export default function AboutPageComponent() {
                     </div>
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={menghout} alt="Picture Menghout" />
+                        <img src={menghout} alt="Picture Menghout" className="rounded-full w-[80px] h-[80px]"/>
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -314,7 +323,7 @@ export default function AboutPageComponent() {
                   <div className="flex justify-between mb-[30px] ">
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={vanneat} alt="Picture Vanneat" />
+                        <img src={vanneat} alt="Picture Vanneat" className="rounded-full w-[80px] h-[80px]" />
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">
@@ -326,7 +335,7 @@ export default function AboutPageComponent() {
                     </div>
                     <div className="w-[40%] h-[130px] text-center">
                       <div className="w-[80px] h-[80px] bg-bg-pink mx-auto rounded-full  mb-5">
-                        <img src={Rith} alt="Picture Rith" />
+                        <img src={Rith} alt="Picture Rith" className="rounded-full w-[80px] h-[80px]" />
                       </div>
 
                       <div className="text-sm font-sp-pro-text-regular text-text-color">

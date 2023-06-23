@@ -296,15 +296,27 @@ export default function CategoryComponent() {
             </div>
 
             {/* add modal */}
-            <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
-              <label
-                htmlFor="add-normal-category"
-                className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
-              >
-                <BsPlus className="w-6 h-6" />
-                &nbsp;Add Normal Category
-              </label>
-            </div>
+            {organization.roleName == "ADMIN" ? ( 
+              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                <label
+                  htmlFor="add-normal-category"
+                  className="border border-opacity-70 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow hover:bg-primary hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+                >
+                  <BsPlus className="w-6 h-6" />
+                  &nbsp;Add Normal Category
+                </label>
+              </div>
+            ) : (
+              <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+                <label
+                  className="border border-opacity-40 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow  text-opacity-50 hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"
+                >
+                  <BsPlus className="w-6 h-6" />
+                  &nbsp;Add Normal Category
+                </label>
+              </div>
+            )}
+            
           </div>
         </div>
 
@@ -325,10 +337,13 @@ export default function CategoryComponent() {
                     <td className="w-2/12 bg-bg-main py-3 text-center">
                       Created Date
                     </td>
-                    <td className="w-2/12 bg-bg-main py-3 text-center">
-                      Action
-                    </td>
+                    {organization.roleName == "ADMIN" ? (
+                      <td className="w-2/12 bg-bg-main py-3 text-center">
+                        Action
+                      </td>
+                    ) : null}
                   </tr>
+
                   {normalCategories.map((list, index) => (
                     <tr
                       key={index}
@@ -392,28 +407,30 @@ export default function CategoryComponent() {
                       <td className="py-3">
                         {moment(list.createdAt).format("MMM DD YYYY")}
                       </td>
-                      <td className="py-3">
-                        <div className="flex items-center space-x-4 justify-center">
-                          {/* edit */}
-                          <label
-                            htmlFor="edit-normal-category"
-                            onClick={() => handleShowNormalCategory(list)}
-                            className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
-                            aria-label="Edit"
-                          >
-                            Edit
-                          </label>
-                          {/* delete */}
-                          <label
-                            htmlFor="delete-normal-category"
-                            onClick={() => handleShowNormalCategory(list)}
-                            className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
-                            aria-label="Delete"
-                          >
-                            Delete
-                          </label>
-                        </div>
-                      </td>
+                      {organization.roleName == "ADMIN" ? ( 
+                        <td className="py-3">
+                          <div className="flex items-center space-x-4 justify-center">
+                            {/* edit */}
+                            <label
+                              htmlFor="edit-normal-category"
+                              onClick={() => handleShowNormalCategory(list)}
+                              className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
+                              aria-label="Edit"
+                            >
+                              Edit
+                            </label>
+                            {/* delete */}
+                            <label
+                              htmlFor="delete-normal-category"
+                              onClick={() => handleShowNormalCategory(list)}
+                              className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
+                              aria-label="Delete"
+                            >
+                              Delete
+                            </label>
+                          </div>
+                        </td>
+                      ) : null}
                     </tr>
                   ))}
                 </tbody>

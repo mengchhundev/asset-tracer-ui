@@ -31,6 +31,7 @@ import { CloudDone } from "@mui/icons-material";
 import moment from "moment/moment";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import { ToastContainer, toast } from "react-toastify";
+import no_data_pic from "../../../assets/images/empty_box.png";
 
 const people = [
   { id: 1, name: "Short by" },
@@ -136,6 +137,7 @@ export default function OrganzationCreateOrJoinComponent() {
       }
     });
   };
+  
 
   useState(() => {
     getAllOrgInvited();
@@ -364,9 +366,9 @@ export default function OrganzationCreateOrJoinComponent() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between ">
+          {getOrgInvited.length != 0 ? (
+            <div className="flex flex-col justify-between ">
             {/* table */}
-
             <div className="overflow-scroll px-5 flex-grow">
               <table className="table w-full">
                 <tbody className="">
@@ -381,9 +383,11 @@ export default function OrganzationCreateOrJoinComponent() {
                     <td className="w-2/12 bg-bg-main py-3 text-center">
                       Member
                     </td>
-                    <td className="w-2/12 bg-bg-main py-3 text-center">
-                      Action
-                    </td>
+                    {organization.roleName == "ADMIN" ? (
+                      <td className="w-2/12 bg-bg-main py-3 text-center">
+                        Action
+                      </td>
+                     ) : null}
                   </tr>
                   {getOrgInvited.map((list, index) => (
                     <tr
@@ -408,25 +412,30 @@ export default function OrganzationCreateOrJoinComponent() {
                       <td className="w-2/12 py-3 p-2.5 m-auto">
                         {moment(list.createdAt).format("DD MMM YYYY")}
                       </td>
-                      <td className="w-2/12 py-3">
-                        <div className="flex items-center space-x-4 justify-center">
-                          <label
-                            onClick={() => handleAcceptOrg(list.id)}
-                            htmlFor="modalEdit"
-                            className="flex items-center border bg-accept bg-opacity-10 border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"
-                            aria-label="Edit"
-                          >
-                            Accept
-                          </label>
-                          
-                        </div>
-                      </td>
+
+                      {organization.roleName == "ADMIN" ? (
+                        <td className="w-2/12 py-3">
+                          <div className="flex items-center space-x-4 justify-center">
+                            <label
+                              onClick={() => handleAcceptOrg(list.id)}
+                              htmlFor="modalEdit"
+                              className="flex items-center border bg-accept bg-opacity-10 border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"
+                              aria-label="Edit"
+                            >
+                              Accept
+                            </label>
+                            
+                          </div>
+                        </td>
+                       ) : null}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+
             <ToastContainer/>
+
             {/* pagination */}
             <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
               <div className="font-sp-pro-text-regular opacity-90">
@@ -455,7 +464,18 @@ export default function OrganzationCreateOrJoinComponent() {
                 />
               </div>
             </div>
-          </div>
+            </div>
+            ) : (
+              <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
+                <div className="mt-[-6rem]">
+                  <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
+                  <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
+                    No User
+                  </h2>
+                </div>
+              </div>
+          )}
+         
         </div>
       </main>
     </>

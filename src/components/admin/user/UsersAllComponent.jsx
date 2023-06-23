@@ -27,6 +27,7 @@ import UserService from "../../../redux/services/UserService";
 import { FiTrash2 } from "react-icons/fi";
 import { ArrowCircleUpSharp } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
+import no_data_pic from "../../../assets/images/empty_box.png";
 
 // import 'react-toastify/dist/ReactToastify.css';
 // const people = [
@@ -431,9 +432,9 @@ export default function UsersAllComponent() {
                 </button>
               ))
             ) : (
-              <div className="text-center w-full col-span-12 h-[calc(100vh-21rem)] flex justify-center items-center">
+              <div className="text-center w-full col-span-12 h-[calc(100vh-18.5rem)] flex justify-center items-center">
                 <div className="mt-[-6rem]">
-                  {/* <img src={no_data_pic} className='w-2/6 xl:w-3/6 m-auto pb-5' /> */}
+                  <img src={no_data_pic} className="w-2/6 xl:w-3/6 m-auto pb-5" />
                   <h2 className="text-2xl text-gray font-sp-pro-text-bold ">
                     No User
                   </h2>
