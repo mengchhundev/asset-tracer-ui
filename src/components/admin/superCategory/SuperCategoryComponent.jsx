@@ -52,7 +52,6 @@ export default function SuperCategoryComponent() {
   let totalRow = useSelector(state => state.superCategory.totalRow)
   let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
   let pageCount = useSelector(state => state.superCategory.pageCount)
-  let nameFromUpdate = useSelector(state => state.superCategory.nameFromUpdate)
 
   let formData = new FormData();
   const [selectedFile, setSelectedFile] = useState("")

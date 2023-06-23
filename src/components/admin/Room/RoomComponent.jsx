@@ -14,9 +14,8 @@ import RoomAddComponent from "./popUpRoom/RoomAddComponent";
 import RoomService from "../../../redux/services/RoomService";
 import { TbListDetails } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
-import DeletemodalComponent from "../../modalDelete/DeletemodalComponent";
 import DetailComponent from "./popUpRoom/DetailComponent";
-import { setRoom, setRoomDetail, setRooms } from "../../../redux/slices/RoomSlice";
+import { setCountCurrentRow, setPageCount, setRoom, setRoomDetail, setRooms, setTotalRow } from "../../../redux/slices/RoomSlice";
 import RoomUpdateComponent from "./popUpRoom/RoomUpdateComponent";
 import RoomDeleteComponent from "./popUpRoom/RoomDeleteComponent";
 
@@ -43,14 +42,16 @@ export default function RoomComponent() {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const dispatch = useDispatch();
     const getAllRooms = useSelector((state) => state.room.rooms);
-    const [totalRow, setTotalRow] = useState(0);
-    const [countCurrentRow, setCountCurrentRow] = useState(0);
     const [i, setI] = useState(1);
+
+    let totalRow = useSelector(state => state.room.totalRow)
+    let countCurrentRow = useSelector(state => state.room.countCurrentRow)
+    let pageCount = useSelector(state => state.room.pageCount)
 
     const [isCreateSuccess, setIsCreateSuccess] = useState(false)
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
     const [roomId, setRoomId] = useState();
-    
+    console.log(getAllRooms)
     const handleIsCreateSuccess = (val) => {
         setIsCreateSuccess(val)
     }
@@ -70,7 +71,9 @@ export default function RoomComponent() {
         RoomService.getAllRooms(organization.id, selectedPage, 8, search, sort).then(res => {
             if (res.data.success) {
                 dispatch(setRooms(res.data.payload))
-                setTotalRow(res.data.totalData)
+                dispatch(setTotalRow(res.data.totalData))
+                dispatch(setPageCount(Math.ceil(res.data.totalData / 8)));
+                dispatch(setCountCurrentRow(res.data.payload.length))
             }
         }, err => {
             dispatch(setRooms([]))
@@ -79,32 +82,47 @@ export default function RoomComponent() {
     }
 
     // pagination
-    const [pageCount, setPageCount] = useState(4);
-
     const handlePageClick = (event) => {
         setSelectedPage(event.selected + 1)
         setI(event.selected * 8 + 1);
-        setPageCount(Math.ceil(totalRow / 8));
+        dispatch(setPageCount(Math.ceil(totalRow / 8)));
     };
 
     useEffect(() => {
 
-        setCountCurrentRow(getAllRooms.length)
-
         if (itemName != null || selectedSort != null) {
             setSelectedPage(1)
-            handleGetAllRooms(selectedPage, itemName, selectedSort)
+            handleGetAllRooms(1, itemName, selectedSort)
         }
 
-        if (isCreateSuccess || isUpdateSuccess) {
-            handleGetAllRooms(1)
-        }
-
-    }, [itemName, selectedSort, isCreateSuccess, isUpdateSuccess])
+    }, [itemName, selectedSort])
 
     useEffect(() => {
-        // setPageCount(Math.ceil(totalRow / 8));
+
+        if (isCreateSuccess) {
+            handleGetAllRooms(1)
+            document.getElementsByClassName("page-link")[1].click()
+        }
+
+        setIsCreateSuccess(false)
+    }, [isCreateSuccess])
+
+    useEffect(() => {
+        if (isUpdateSuccess) {
+            handleGetAllRooms(selectedPage)
+        }
+        setIsUpdateSuccess(false)
+    }, [isUpdateSuccess])
+
+    useEffect(() => {
+        handleGetAllRooms(1)
+        dispatch(setPageCount(Math.ceil(totalRow / 8)));
     }, [])
+
+    useEffect(() => {
+        handleGetAllRooms(selectedPage)
+        dispatch(setPageCount(Math.ceil(totalRow / 8)));
+    }, [selectedPage])
 
     const handleInputSearch = (e) => {
         setItemName(e.target.value)
@@ -281,9 +299,9 @@ export default function RoomComponent() {
                                                         {list.name}
                                                     </div>
                                                 </td>
-                                                <td className="py-3">{list.type}</td>
-                                                <td className="py-3">{list.floor}</td>
-                                                <td className="py-3">{list.description}</td>
+                                                <td className="py-3">{list.type != "" && list.type != null ? list.type : <span className="ml-2">...</span>}</td>
+                                                <td className="py-3">{list.floor != "" && list.floor != null ? list.floor : <span className="ml-2">...</span>}</td>
+                                                <td className="py-3">{list.description != "" && list.description != null ? list.description : <span className="ml-8">...</span>}</td>
                                                 <td className="py-3 text-center">
                                                     <Listbox as="div">
                                                         {({ open }) => (
@@ -357,8 +375,7 @@ export default function RoomComponent() {
                             <div className="font-sp-pro-text-regular opacity-90">
                                 Showing data 1 to {countCurrentRow} of {totalRow} entries
                             </div>
-
-                            <div id="react-paginate" className="">
+                            <div id="react-paginate">
                                 <ReactPaginate
                                     nextLabel=" >"
                                     onPageChange={handlePageClick}
@@ -378,9 +395,6 @@ export default function RoomComponent() {
                                     containerClassName="pagination"
                                     activeClassName="active"
                                     renderOnZeroPageCount={null}
-                                    onClick={(clickEvent) => {
-                                        console.log('onClick', clickEvent);
-                                    }}
                                 />
                             </div>
                         </div>
@@ -388,7 +402,6 @@ export default function RoomComponent() {
                 </div>
             </main>
 
-            <input type="checkbox" id="detail" className="modal-toggle" />
             <DetailComponent className="modal" />
             <RoomAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess} />
             <RoomUpdateComponent className="modal" handleIsUpdateSuccess={handleIsUpdateSuccess} />

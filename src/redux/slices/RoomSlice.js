@@ -7,7 +7,10 @@ const initialState = {
     roomDetail: {},
     deleteRoom: {},
     updateroom:{},
-    newUpdateData:{}
+    newUpdateData:{},
+    countCurrentRow: "",
+    pageCount: 1,
+    totalRow: 0,
 }
 export const roomSilce = createSlice({
     name: "Room",
@@ -37,8 +40,28 @@ export const roomSilce = createSlice({
         },
         setRoom: (state, action) => {
             state.room = action.payload
-        }
+        },
+        setCountCurrentRow: (state, action) => {
+            state.countCurrentRow = action.payload
+        },
+        setPageCount: (state, action) => {
+            state.pageCount = action.payload
+        },
+        setTotalRow: (state, action) => {
+            state.totalRow = action.payload
+        },
     }
 });
-export const { setAllRoom, setRoomById, setRoomDetail, setDeleteRoom ,setUpdateRoom, setRooms, setRoom} = roomSilce.actions
+export const { 
+    setAllRoom, 
+    setRoomById, 
+    setRoomDetail, 
+    setDeleteRoom,
+    setUpdateRoom, 
+    setRooms, 
+    setRoom,
+    setCountCurrentRow,
+    setPageCount,
+    setTotalRow
+} = roomSilce.actions
 export default roomSilce.reducer
