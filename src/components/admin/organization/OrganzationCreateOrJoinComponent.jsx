@@ -39,14 +39,6 @@ const people = [
   { id: 4, name: "Tom Cook" },
 ];
 
-let organizationList = [
-  {
-    id: 1,
-    name: "HRD Center",
-    owner: "Sok Polen",
-    memebers: [],
-  },
-];
 
 export default function OrganzationCreateOrJoinComponent() {
   const [selected, setSelected] = useState(people[0]);
