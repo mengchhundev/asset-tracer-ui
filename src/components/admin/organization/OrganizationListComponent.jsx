@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiDotsHorizontalRounded, BiMessageSquareEdit } from "react-icons/bi";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { TbListDetails } from "react-icons/tb";
 import UpdateOrganizationComponent from './popUp/UpdateOrganizationComponent';
 import emoji from '../../../assets/images/emoji.svg'
+import { Edit, Update } from '@mui/icons-material';
 
 const sort = [
     {
@@ -265,7 +266,7 @@ export default function OrganizationListComponent() {
                     <div key={index} className='relative con-Shadow-Card rounded-xl min-w-max w-52 cursor-pointer'>
                         {list.status != "is_invited" &&
                             <>
-                                {list.isActive &&
+                                {list.isActive && list?.roleName == "ADMIN" &&
 
                                     <div className='absolute top-3 right-3 cursor-pointer'>
                                         <Listbox as="div">
@@ -288,7 +289,7 @@ export default function OrganizationListComponent() {
                                                                 className="border border-bg-primary mt-2  bg-white shadow-md rounded-md absolute right-0 z-50 w-40 p-2"
                                                             >
                                                                 <Listbox.Option>
-                                                                    <label
+                                                                    {/* <label
                                                                         onClick={() => showOrganizationDetail(list)}
                                                                         htmlFor='show-organization'
                                                                         className={`cursor-pointer text-text-color hover:bg-bg-primary inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
@@ -296,7 +297,7 @@ export default function OrganizationListComponent() {
                                                                         <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
                                                                             <TbListDetails /> Show Detail
                                                                         </span>
-                                                                    </label>
+                                                                    </label> */}
                                                                     {list?.roleName == "ADMIN" &&
                                                                         <>
                                                                             <label
@@ -305,7 +306,7 @@ export default function OrganizationListComponent() {
                                                                                 className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                                                             >
                                                                                 <span className='flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2'>
-                                                                                    <FiTrash2 /> Edit
+                                                                                    <BiMessageSquareEdit /> Edit
                                                                                 </span>
                                                                             </label>
                                                                             <label
@@ -350,7 +351,7 @@ export default function OrganizationListComponent() {
                                     <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer h-4">
                                         {list.roleName == "ADMIN" ? list.totalUser <= 1 ? "Member" : "Members" : null}
                                     </p>
-                                    <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
+                                    <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer '>
                                         <div className='w-full flex justify-center h-5'>
                                             {list.roleName == "ADMIN" ? list.users.map((user, index) => (
                                                 <span key={index}>
