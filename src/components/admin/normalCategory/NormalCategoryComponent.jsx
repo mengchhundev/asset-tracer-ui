@@ -67,11 +67,13 @@ export default function CategoryComponent() {
 
   useEffect(() => {
     if (isCreateSuccess) {
-      document.getElementsByClassName("page-link")[1].click()
       handleGetAllNormalCategories(1)
+      if(selectedPage != 1) {
+        document.getElementsByClassName("page-link")[1].click()
+      }
     }
     dispatch(setIsCreateSuccess(false))
-
+    
   }, [isCreateSuccess])
 
   useEffect(() => {
