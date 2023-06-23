@@ -10,6 +10,7 @@ import { setRequestUsers, setUserReject, setUserapprove } from "../../../redux/s
 import FileUploadService from "../../../redux/services/FileUploadService";
 import { isRejected } from "@reduxjs/toolkit";
 import no_data_pic from "../../../assets/images/empty_box.png";
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 export default function UserRequestComponent() {
 
@@ -35,6 +36,9 @@ export default function UserRequestComponent() {
     UserService.approveUserRequests(organization.id, user.id).then((res) => {
       if (res.data.success) {
         setIsApprove(true)
+        toast.success("Approved", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     })
   }
@@ -44,6 +48,9 @@ export default function UserRequestComponent() {
     UserService.rejectUserRequest(user.id, organization.id).then((res) => {
       if (res.data.success) {
         setIsReject(true)
+        toast.error("Rejected", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     })
   }
@@ -190,6 +197,7 @@ export default function UserRequestComponent() {
                                           <label onClick={() => handleRejectUserReq(user)} className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
                                             X
                                           </label>
+
                                           <label onClick={() => handleApproveUserReq(user)} >
                                             {/* {user?.id != 0 ? (
                                               toast.success("success")
@@ -200,12 +208,14 @@ export default function UserRequestComponent() {
                                             <RxCheck className="cursor-pointer w-8 h-8 p-1 rounded-md bg-white border border-border-strock text-green" />
                                           </label>
                                         </div>
+                                        
                                       </td>
                                     </tr>
                                   ))}
                               </tbody>
                             </table>
                           </div>
+
                         </div>
                       </div>
                     </div>
@@ -226,73 +236,7 @@ export default function UserRequestComponent() {
             </>
           )}
         </div>
-        {/* <div className="space-y-8 sm:px-3 px-10">
-          {organizations.map((organization) => (
-            <div className="overflow-x-auto px-10">
-              <h1 className="mb-2 text-text-color font-sp-pro-text-medium text-base">
-                {organization.name}
-              </h1>
-              <div className="rounded-xl border border-bg-main shadow"
-                style={{ boxShadow: " rgba(0, 0, 0, 0.1)  0px 2.45px 11.28px" }}
-              >
-                <div className="rounded-md pb-12 p-5 py-6  flex-col  ">
-                  <div className="overflow-x-auto h-[270px] ">
-                    <div className=" xl:px-11 sm:px-5 2xl:px-20 3xl:px-32 overflow-y-scroll">
-                      <div className="overflow-x-auto">
-                        <div className="p-1 overflow-y-scroll items-start">
-                          <table className="table border-spacing-y-3 border-separate w-[1020px]">
-                            <tbody>
-                              {user.map((users) => (
-                                <tr className="font-md text-text-color border-none">
-                                  <td
-                                    className="bg-bg-main text-center rounded-s-[5px]"
-                                    style={{ padding: "1.5rem" }}
-                                  >
-                                    {users.id}
-                                  </td>
-                                  <td className="bg-bg-main items-start ">
-                                    <div className="flex  items-center ml-40 space-x-3  ">
-                                      <img
-                                        src={users.src}
-                                        alt={users.title}
-                                        className="rounded-full h-10 "
-                                      />
-                                      <div>{users.name}</div>
-                                    </div>
-                                  </td>
-                                  <td className="bg-bg-main w-1/12 items-start  ">
-                                    <div className="flex items-center mr-20 space-x-3 ">
-                                      <span className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-sp-pro-text-regular text-red-500 text-sm">
-                                        {users.profile}
-                                      </span>
-                                      <span className="font-sp-pro-text-medium text-sm text-text-color">
-                                        {users.name}
-                                      </span>
-                                    </div>
-                                  </td>
-                                  <td className="bg-bg-main rounded-e-[4px]">
-                                    <div className="flex justify-center space-x-5 items-center">
-                                      <span className="w-7 h-7 bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
-                                        X
-                                      </span>
-                                      <span>
-                                        <RxCheck className="w-7 h-7 bg-white border border-border-strock text-green" />
-                                      </span>
-                                    </div>
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
+        <ToastContainer transition={Slide} autoClose={2000}></ToastContainer>
       </div>
     </main>
   );

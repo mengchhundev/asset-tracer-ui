@@ -67,6 +67,7 @@ export default function CreateOrganizatoinComponent({ handleUpdateSuccess }) {
                         logo: ""
                     })
                     navigator("/organization")
+                 
                 }
             })
         }

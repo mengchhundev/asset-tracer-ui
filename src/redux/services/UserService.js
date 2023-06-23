@@ -38,8 +38,8 @@ const getProfileUser = async (userId) => {
     return await api.get(`users/${userId}`)
 }
 
-const getUserAllInOrganizations = async (orgId) => {
-    return await apiV2.get(`/organizations/get-all-joined-users/${orgId}`);
+const getUserAllInOrganizations = async (orgId,search = "",sort = "") => {
+    return await apiV2.get(`/organizations/get-all-joined-users/${orgId}?search=${search}&sort=${sort}`);
 }
 
 const getAllRequestUsers = async (orgId) => {
@@ -62,7 +62,6 @@ const inviteUser = async (data) => {
     return await apiV2.put(`/users/invite-user`, data)
 }
 
-
 const UserService = {
     signin,
     singup,
@@ -79,7 +78,6 @@ const UserService = {
     rejectUserRequest,
     searchUser,
     inviteUser,
-
 }
 
 export default UserService;

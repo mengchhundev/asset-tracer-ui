@@ -26,8 +26,8 @@ import {
 import UserService from "../../../redux/services/UserService";
 import { FiTrash2 } from "react-icons/fi";
 import { ArrowCircleUpSharp } from "@mui/icons-material";
-import { ToastContainer, toast } from "react-toastify";
 import no_data_pic from "../../../assets/images/empty_box.png";
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 // import 'react-toastify/dist/ReactToastify.css';
 // const people = [
@@ -53,7 +53,7 @@ const sort = [
 ];
 
 export default function UsersAllComponent() {
-  const [selectedSort, setSelectedSort] = useState(sort[0]);
+  const [selectedSort, setSelectedSort] = useState(sort[0].name);
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState();
   const [searchInvite, setSearchInvite] = useState();
@@ -127,15 +127,16 @@ export default function UsersAllComponent() {
   }, []);
   useEffect(() => {
     if (
-      selectedSort.id == "asc" ||
-      selectedSort.id == "desc" ||
+      selectedSort != null ||
       search != null
     ) {
-      UserService.getUserAllInOrganizations(orgId).then((res) => {
+      UserService.getUserAllInOrganizations(orgId, search, selectedSort).then((res) => {
         if (res.data?.success) {
           dispatch(setAllUser(res.data.payload));
         }
-      });
+      }, err => {
+        dispatch(setAllUser([]))
+    });
     }
 
     if (searchInvite != null) {
@@ -145,14 +146,11 @@ export default function UsersAllComponent() {
         }
       });
     }
-  }, [selectedSort, search]);
+  }, [search, selectedSort]);
 
-  //   const showToastMessage = () => {
-  //     toast.success('Success Notification !', {
-  //         position: toast.POSITION.TOP_RIGHT
-  //     });
+  // const handleSelectedSort = (val) => {
+  //   setSelectedSort(val);
   // };
-
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
       {/* <button onClick={showToastMessage}>Notify</button>
@@ -1066,7 +1064,7 @@ export default function UsersAllComponent() {
                       >
                         <p>Invite</p>
                       </button>
-                      <ToastContainer />
+                      <ToastContainer transition={Slide} autoClose={2000} />
                     </div>
                   </div>
                 ))}
