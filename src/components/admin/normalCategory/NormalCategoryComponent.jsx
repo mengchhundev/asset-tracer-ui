@@ -29,6 +29,7 @@ import NormalCategoryService from "../../../redux/services/NormalCategoryService
 import NormalCategoryAddComponent from "./popUp/NormalCategoryAddComponent";
 import NormalCategoryUpdateComponent from "./popUp/NormalCategoryUpdateComponent";
 import no_data_pic from "../../../assets/images/empty_box.png";
+import { list } from "postcss";
 
 const sort = [
   {
@@ -484,14 +485,18 @@ export default function CategoryComponent() {
               <div className="pl-3 leading-none">
                 <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
                 <p className="pt-1 py-5">
-                  Are you sure, you want to delete this normal category?
+                  Are you sure you want to delete{"  "} 
+                  <span className="font-sp-pro-text-medium text-base">
+                    {list.name}
+                  </span>
+                  {"  "}this normal category?
                 </p>
               </div>
             </div>
             <br />
             <div className="flex justify-end space-x-4">
               <label
-                htmlFor="modalDelete"
+                htmlFor="delete-normal-category"
                 className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color text-opacity-90 border border-[#D0D5DD] flex justify-center items-center gap-1"
               >
                 Cancel

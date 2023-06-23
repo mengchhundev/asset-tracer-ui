@@ -255,19 +255,32 @@ export default function AssetComponent() {
             </div>
 
             {/* add */}
-            <div>
-              <Link to={"/invoice/add"}>
-                <div className="block w-max">
-                  <label
-                    htmlFor="my-modal-3"
-                    className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
-                  >
-                    <BsPlus className="w-6 h-6" />
-                    &nbsp; Add New Invoice
-                  </label>
-                </div>
-              </Link>
-            </div>
+            {organization.roleName == "ADMIN" ? ( 
+              <div>
+                <Link to={"/invoice/add"}>
+                  <div className="block w-max">
+                    <label
+                      htmlFor="my-modal-3"
+                      className="border ml-auto cursor-pointer border-yellow text-yellow p-1.5 pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase hover:bg-custom-yellow-showdow-light"
+                    >
+                      <BsPlus className="w-6 h-6" />
+                      &nbsp; Add New Invoice
+                    </label>
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <div>
+                  <div className="block w-max">
+                    <label
+                      className="border border-opacity-40 w-max mr-auto md:min-w-max cursor-pointer border-yellow text-yellow  text-opacity-50 hover:bg-opacity-10 p-[5px] pr-3 rounded-lg font-sp-pro-text-medium text-sm flex items-center uppercase"  
+                    >
+                      <BsPlus className="w-6 h-6" />
+                      &nbsp; Add New Invoice
+                    </label>
+                  </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -283,7 +296,9 @@ export default function AssetComponent() {
                     <td className="w-3/12 bg-bg-main py-3">Supplier</td>
                     <td className="w-2/12 bg-bg-main py-3">Purchaser</td>
                     <td className="w-3/12 bg-bg-main py-3 text-center">Date</td>
-                    <td className="w-1/12  bg-bg-main py-3">Action</td>
+                    {organization.roleName == "ADMIN" ? (
+                      <td className="w-1/12  bg-bg-main py-3">Action</td>
+                     ) : null}
                   </tr>
                   {getAllInvoices.map((list, index) => (
                     <tr
@@ -302,7 +317,8 @@ export default function AssetComponent() {
                         {moment(list.purchaseDate).format("MMM DD YYYY")}
                       </td>
                       {/* menu dropdown */}
-                      <td className="py-2.5 text-center">
+                      {organization.roleName == "ADMIN" ? ( 
+                        <td className="py-2.5 text-center">
                         <Listbox as="div">
                           {({ open }) => (
                             <>
@@ -356,7 +372,8 @@ export default function AssetComponent() {
                             </>
                           )}
                         </Listbox>
-                      </td>
+                        </td>
+                      ) : null}
                     </tr>
                   ))}
                 </tbody>
