@@ -12,7 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import ViewDetailComponent from "./ViewDetailComponent";
 import no_data_pic from "../../../assets/images/empty_box.png";
 
-const status = [{ id: "in_stock", name: "In Stock" }];
+const status = [
+  { id: "", name: "Default" },
+  { id: "in_stock", name: "In Stock" },
+  { id: "in_used", name: "In Used" },
+  { id: "damage", name: "Damaged" },
+  { id: "donated", name: "Donated" },
+  { id: "lost", name: "Lost" },
+  { id: "broken", name: "Broken" }
+];
 
 const sort = [
   {
@@ -169,6 +177,10 @@ export default function TrackingComponent() {
     setPageCount(Math.ceil(totalRow / 8));
   }, [itemName, selectedRoom, selectedNormalCategory, selectedSort]);
 
+  const handleSelectedSort = (val) => {
+    setSelectedSort(val)
+  }
+
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-7.8rem)]">
       <div className="gap-6 overflow-hidden z-10">
@@ -324,25 +336,13 @@ export default function TrackingComponent() {
             <div className="col-span-4 md:col-span-2 xl:col-span-1">
               {/* filter */}
               <div className="z-20 ">
-                <Listbox
-                  as="div"
-                  value={selectedStatus}
-                  onChange={handleSelectedStatus}
-                >
+                <Listbox as="div" value={selectedStatus} onChange={handleSelectedStatus}>
                   {({ open }) => (
                     <>
                       <div className="relative z-30">
                         <div className="relative w-full cursor-default overflow-hidden text-left rounded-md">
-                          <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue relative border border-slate-200 bg-bg-main rounded-md text-gray-800">
-                            {selectedStatus ? (
-                              <span className="block truncate text-sm text-text-color">
-                                {selectedStatus == "in_stock" ? "In Stock" : ""}
-                              </span>
-                            ) : (
-                              <span className="block truncate text-sm text-black text-opacity-20">
-                                Select status
-                              </span>
-                            )}
+                          <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
+                            {selectedStatus ? <span className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedStatus == "Default" ? "text-black text-opacity-20" : ""}`}><span className="text-black text-opacity-20">Status: </span>{selectedStatus == "Default" ? "" : selectedStatus == "in_stock" ? "In Stock" : selectedStatus == "in_used" ? "In Used" : selectedStatus == "damaged" ? "Damaged" : selectedStatus == "donated" ? "Donated" : selectedStatus == "lost" ? "Lost" : selectedStatus == "broken" ? "Broken" : ""}</span> : <span className="block w-full md:w-32 lg:w-full xl:w-32 text-left truncate text-sm text-black text-opacity-20">Status</span>}
 
                             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                               <ChevronUpDownIcon
@@ -368,17 +368,27 @@ export default function TrackingComponent() {
                               </div>
                             ) : (
                               status.map((val, index) => (
-                                <Listbox.Option
-                                  key={index}
-                                  value={val.id}
+                                <Listbox.Option key={index} value={val.id}
                                   className={({ active }) =>
-                                    `relative cursor-pointer select-none py-2 px-5 text-text-color ${active
-                                      ? "bg-custom-yellow-showdow-light"
-                                      : ""
-                                    }`
+                                    `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""}`
                                   }
                                 >
-                                  {val.name}
+                                  {({ selected, active }) => (
+                                    <>
+                                      <span
+                                        className={`block truncate ${selected ? "font-medium" : "font-normal"} ${index == 0 ? "text-black text-opacity-20" : ""}`}
+                                      >
+                                        {val.name}
+                                      </span>
+                                      {selected ? (
+                                        <span
+                                          className={`${active ? "text-primary" : "text-primary"
+                                            } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                        >
+                                        </span>
+                                      ) : null}
+                                    </>
+                                  )}
                                 </Listbox.Option>
                               ))
                             )}
