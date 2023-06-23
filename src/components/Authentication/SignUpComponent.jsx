@@ -44,8 +44,8 @@ export default function SignUpComponent() {
         email: Yup.string().required('Email is required').email('Invalid email').test('has-com', 'Email must end with .com', (value) =>
             value.endsWith('.com')
         ),
-        password: Yup.string().required('Password is Required'),
         name: Yup.string().required('Name is Required'),
+        password: Yup.string().min(6, 'Password must be at least 6 characters long').required('Password is Required')
     });
 
 
