@@ -69,9 +69,9 @@ export default function NavbarComponent() {
     } else if (pathName.includes("profile")) {
       setPath("Profile")
     } else if (pathName.includes("asset-add")) {
-      setPath("Add Asset")
+      setPath("Create Asset")
     } else if (pathName.includes("asset-set")) {
-      setPath("Set Asset")
+      setPath("Import Asset")
     } else if (pathName.includes("asset")) {
       setPath("All Asset")
     }
