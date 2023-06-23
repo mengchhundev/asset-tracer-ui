@@ -23,13 +23,18 @@ const getOrganizationInvited = async () => {
     return await apiV2.get(`/organizations/get-all-invitation-from-organization/{orgId}`)
 }
 
+const acceptionInvite = async (orgId) => {
+    return await apiV2.put(`/organizations/approve-invitation/${orgId}`)
+ }
+ 
 const OrganizationService = {
     getAllOrganizations,
     joinOrganization,
     saveOrganization,
     updateOrganization,
     deleteOrganization,
-    getOrganizationInvited
+    getOrganizationInvited,
+    acceptionInvite
 }
 
 export default OrganizationService;

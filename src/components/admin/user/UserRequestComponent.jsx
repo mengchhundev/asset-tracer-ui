@@ -2,17 +2,8 @@ import React, { useEffect, useState } from "react";
 import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
 import UserSortByComponent from "./UserSortByComponent";
 import { RxCheck } from "react-icons/rx";
-import { toast } from "react-hot-toast";
-// image
-import facebook from "../../../assets/images/user/fb.png";
-import linkin from "../../../assets/images/user/in.png";
-import cancel from "../../../assets/images/user/cancel.png";
-import check from "../../../assets/images/user/check.png";
-import Ellipse_1 from "../../../assets/icon/default profile/Ellipse 1.svg";
-import Ellipse_2 from "../../../assets/icon/default profile/Ellipse 2.svg";
-import Ellipse_3 from "../../../assets/icon/default profile/Ellipse 3.svg";
-import Ellipse_4 from "../../../assets/icon/default profile/Ellipse 4.svg";
-import Ellipse_5 from "../../../assets/icon/default profile/Ellipse 5.svg";
+
+
 import UserService from "../../../redux/services/UserService";
 import { useDispatch, useSelector } from "react-redux";
 import { setRequestUsers, setUserReject, setUserapprove } from "../../../redux/slices/UserSlice";
@@ -140,7 +131,7 @@ export default function UserRequestComponent() {
                     )}
 
                     <div className="overflow-x-auto">
-                      <div className=" xl:px-11 sm:px-5 2xl:px-20 3xl:px-32 overflow-y-scroll">
+                      <div className=" xl:px-11 sm:px-5 2xl:px-10 3xl:px-32 overflow-y-scroll">
                         <div className="overflow-x-auto">
                           <div className="p-1 overflow-y-scroll items-start">
                             <table className="table border-spacing-y-3 border-separate w-[1020px]">
@@ -149,12 +140,12 @@ export default function UserRequestComponent() {
                                   list.users.map((user, secondIndex) => (
                                     <tr key={secondIndex} className="font-md text-text-color border-none">
                                       <td
-                                        className="bg-bg-main text-left rounded-s-[5px]"
+                                        className="bg-bg-main text-center rounded-s-[5px]"
                                         style={{ padding: "1.5rem" }}
                                       >
                                         {secondIndex + 1}
                                       </td>
-                                      <td className="bg-bg-main w-1/12 items-start  ">
+                                      <td className="bg-bg-main w-1/6 items-start  ">
                                         <div className="flex items-center mr-20 space-x-3 ">
                                           {user?.image ? (
                                             <img
@@ -176,7 +167,7 @@ export default function UserRequestComponent() {
                                       </td>
                                       <td className="bg-bg-main w-1/12 items-start  ">
                                         {list?.logo ? (
-                                          <div className="flex items-center mr-20 space-x-3 ">
+                                          <div className="flex items-center mr-16 space-x-3 ">
                                             <img
                                               src={FileUploadService.getImage(
                                                 list.logo
@@ -193,7 +184,7 @@ export default function UserRequestComponent() {
                                           </span>
                                         )}
                                       </td>
-                                      <td className="bg-bg-main rounded-e-[4px]">
+                                      <td className="bg-bg-main rounded-e-[4px] ">
                                         <div className="flex justify-center space-x-5 items-center">
                                           <label onClick={() => handleRejectUserReq(user)} className="cursor-pointer w-8 h-8 rounded-md bg-white border border-border-strock text-reject flex items-center justify-center font-sp-pro-text-medium">
                                             X

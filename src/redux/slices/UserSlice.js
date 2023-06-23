@@ -19,6 +19,9 @@ const initialState = {
   requestUsers: [],
   approveUsers: [],
   rejectUseReq: [],
+  searchUsers:[],
+  invite:[],
+
   
 };
 
@@ -53,6 +56,12 @@ export const userSlice = createSlice({
     setUserReject: (state, action) => {
       state.data = action.payload;
     },
+    setInviteUser: (state, action) => {
+      state.searchUsers = action.payload
+    },
+    setInvite: (state, action) => {
+      state.invite = action.payload
+    },
   },
 });
 
@@ -66,6 +75,9 @@ export const {
   setRequestUsers,
   setUserapprove,
   setUserReject,
-  setOrganizationInvited
+  setOrganizationInvited,
+  setInviteUser,
+  setInvite,
+
 } = userSlice.actions;
 export default userSlice.reducer;

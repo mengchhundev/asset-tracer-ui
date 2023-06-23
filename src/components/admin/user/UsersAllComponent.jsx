@@ -9,22 +9,8 @@ import UserDetail from "./userPopup/UserDetail";
 import FileUploadService from "../../../redux/services/FileUploadService";
 import { Listbox } from "@headlessui/react";
 
-import {
-  CalendarDaysIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  UserCircleIcon,
-  UserIcon,
-  XCircleIcon,
-} from "@heroicons/react/20/solid";
-import { RiFacebookCircleLine } from "react-icons/ri";
-import {
-  TiSocialLinkedinCircular,
-  TiSocialTwitterCircular,
-} from "react-icons/ti";
-import { TbBrandInstagram, TbListDetails } from "react-icons/tb";
-import { BsGenderAmbiguous } from "react-icons/bs";
-import { PhoneIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/20/solid";
+import { TbListDetails } from "react-icons/tb";
 import "../../../style/shadow.css";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { Combobox, Transition } from "@headlessui/react";
@@ -33,22 +19,16 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
   setAllUser,
-  setOrganizationInvited,
-  setProfile,
-  setProfileDetail,
   setUserDetail,
+  setInviteUser,
+  setInvite,
 } from "../../../redux/slices/UserSlice";
 import UserService from "../../../redux/services/UserService";
-import { list } from "postcss";
-import { FiTrash, FiTrash2 } from "react-icons/fi";
-import {
-  ArrowCircleLeftSharp,
-  ArrowCircleUpSharp,
-  ArrowUpward,
-  PlusOne,
-  Upcoming,
-} from "@mui/icons-material";
-import { toast } from "react-hot-toast";
+import { FiTrash2 } from "react-icons/fi";
+import { ArrowCircleUpSharp } from "@mui/icons-material";
+import { ToastContainer, toast } from "react-toastify";
+
+// import 'react-toastify/dist/ReactToastify.css';
 // const people = [
 //   { id: 1, name: "Sort by" },
 //   { id: 2, name: "A - Z" },
@@ -74,12 +54,11 @@ const sort = [
 export default function UsersAllComponent() {
   const [selectedSort, setSelectedSort] = useState(sort[0]);
   const [query, setQuery] = useState("");
-  const [userId, setUserId] = useState();
   const [search, setSearch] = useState();
+  const [searchInvite, setSearchInvite] = useState();
   const CurrentOrg = JSON.parse(sessionStorage.getItem("organization"));
-
   const userDetail = useSelector((state) => state.user.userDetail);
-
+  const getSearchInvite = useSelector((state) => state.user.searchUsers);
   const filteredPeople =
     query === ""
       ? sort
@@ -94,32 +73,54 @@ export default function UsersAllComponent() {
   const users = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
   const getAllUserInOrganizations = () => {
-    UserService.getUserAllInOrganizations(orgId).then(
-      (res) => {
+    UserService.getUserAllInOrganizations(orgId).then((res) => {
+      if (res.data?.success) {
+        dispatch(setAllUser(res.data.payload));
+      }
+    });
+  };
+  // ============ get search user to invite =============== 
+  const getAllSearchInvite = () => {
+    if (searchInvite != null) {
+      UserService.searchUser(searchInvite).then((res) => {
+        console.log(res);
         if (res.data?.success) {
-          dispatch(setAllUser(res.data.payload));
+          dispatch(setInviteUser(res.data.payload));
+        }
+      });
+    }
+  };
+  // ============ Invite User to Organization ===============
+  const inviteUserToOrganization = (userId, organizationId) => {
+    UserService.inviteUser({
+      userId: userId,
+      organizationId: organizationId,
+    }).then(
+      (res) => {
+        console.log(res);
+        if (res.data?.success) {
+          dispatch(setInvite(res.data.payload));
+          toast.success(" Invite Successfully !", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         }
       },
       (err) => {
-        dispatch(setAllUser([]));
+        toast.error("User was invited !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     );
   };
+  
   const handleInputSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleSearchUser = () => {
-    UserService.searchUser(search).then((res) => {
-      if (res.data.success) {
-      }
-    });
+  const handleInputSearchUser = (e) => {
+    setSearchInvite(e.target.value);
   };
-  // const handleShowUserInOrg = (val) => {
-  //   dispatch(console.log(setProfile(val)))
-  //   sessionStorage.setItem("user", JSON.stringify(val))
-  //   navigator("/user", {state: {hideOrganizationBar: true}})
-  // }
+
   useState(() => {
     getAllUserInOrganizations();
   }, []);
@@ -135,10 +136,26 @@ export default function UsersAllComponent() {
         }
       });
     }
+
+    if (searchInvite != null) {
+      UserService.searchUser(searchInvite).then((res) => {
+        if (res.searchUsers?.success) {
+          dispatch(setInviteUser(res.searchUsers.payload));
+        }
+      });
+    }
   }, [selectedSort, search]);
- 
+
+  //   const showToastMessage = () => {
+  //     toast.success('Success Notification !', {
+  //         position: toast.POSITION.TOP_RIGHT
+  //     });
+  // };
+
   return (
     <main className="p-6 con-Shadow px-4 lg:px-3 py-6 bg-white rounded-2xl relative">
+      {/* <button onClick={showToastMessage}>Notify</button>
+            <ToastContainer /> */}
       <div className="gap-6 overflow-hidden z-10 ">
         <div className="xl:flex xl:flex-row md:flex-col sm:flex-col justify-between gap-5 p-5">
           {/* header */}
@@ -985,12 +1002,16 @@ export default function UsersAllComponent() {
                   </div>
                   <div className="flex">
                     <input
+                      onInput={handleInputSearchUser}
                       className=" w-full h-9 pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                       type="text"
                       name="search"
                       placeholder="Search team member or type an email"
                     />
-                    <button className="px-4 py-1 text-white bg-primary rounded-md">
+                    <button
+                      onClick={getAllSearchInvite}
+                      className="px-4 py-1 text-white bg-primary rounded-md"
+                    >
                       Search
                     </button>
                   </div>
@@ -1001,14 +1022,29 @@ export default function UsersAllComponent() {
             </div>
             <div className="relative overflow-y-auto p-4 px-6 ">
               <div className="overflow-y-auto  scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-bg-primary-strock scrollbar-track-bg-primary sm:h-[15rem] lg:h-[20rem] h-[20rem] relative max-w-xl  mx-auto divide-border-gray-light bg-bg-main ring-1 ring-black/5 rounded-[4px] flex flex-col divide-y highlight-white/5 ">
-                {/* {users.map((users) => (
+                {getSearchInvite.map((users) => (
                   <div className="flex 3xl:space-x-[28rem] sm:space-x-[18rem] lg:space-x-[23rem] items-center  ">
                     <div className="flex items-center gap-4 p-4 ">
-                      <img
-                        className="w-12 h-12 rounded-full"
-                        src={users.src}
-                        alt=""
-                      />
+                      {users.image != null ? (
+                        <>
+                          <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                            <img
+                              src={FileUploadService.getImage(users.image)}
+                              className="w-12 h-12  rounded-full flex justify-center items-center m-auto"
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="font-bold text-xl mx-auto text-center w-full mt-4 mb-2 cursor-pointer">
+                            <div className="w-12 h-12 bg-red-200 rounded-full flex justify-center items-center m-auto uppercase">
+                              <p className="font-sp-pro-text-bold text-2xl lg:text-2xl text-red-600">
+                                {users.name.substring(0, 2)}
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      )}
                       <div className="flex flex-col ">
                         <strong className="text-slate-900 text-sm font-sp-pro-text-regular ">
                           {users.name}
@@ -1019,12 +1055,18 @@ export default function UsersAllComponent() {
                       </div>
                     </div>
                     <div className="absolute flex items-center">
-                      <button className="w-20 h-8 bg-yellow rounded-[3px] text-white text-md ">
+                      <button
+                        onClick={() =>
+                          inviteUserToOrganization(users.id, organization.id)
+                        }
+                        className="w-20 h-8 bg-yellow rounded-[3px] text-white text-md "
+                      >
                         <p>Invite</p>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
-                ))} */}
+                ))}
               </div>
             </div>
           </div>

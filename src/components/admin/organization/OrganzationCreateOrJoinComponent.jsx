@@ -9,7 +9,11 @@ import { ChevronUpDownIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { useFormik } from "formik";
 import OrganizationService from "../../../redux/services/OrganizationService";
 import { useDispatch, useSelector } from "react-redux";
-import { setItem, setOrganizationInvited } from "../../../redux/slices/OrganizationSlice";
+import {
+  setAcceptInvite,
+  setItem,
+  setOrganizationInvited,
+} from "../../../redux/slices/OrganizationSlice";
 import { useNavigate } from "react-router-dom";
 import CreateOrganizatoinComponent from "./popUp/CreateOrganizatoinComponent";
 import organization_pic from "../../../assets/images/organization.png";
@@ -24,6 +28,9 @@ import { FiPlus } from "react-icons/fi";
 import err_pic from "../../../assets/images/false.png";
 import suc_pic from "../../../assets/images/success.png";
 import { CloudDone } from "@mui/icons-material";
+import moment from "moment/moment";
+import FileUploadService from "../../../redux/services/FileUploadService";
+import { ToastContainer, toast } from "react-toastify";
 
 const people = [
   { id: 1, name: "Short by" },
@@ -115,30 +122,33 @@ export default function OrganzationCreateOrJoinComponent() {
   };
   // ======================= Invite User =================
   const getOrgInvited = useSelector((state) => state.organization.orgInvited);
-  const [isApprove, setIsApprove] = useState(false)
-  const [isReject, setIsReject] = useState(false)
-console.log(getOrgInvited)
   const getAllOrgInvited = () => {
     OrganizationService.getOrganizationInvited().then((res) => {
       if (res.data?.success) {
         dispatch(setOrganizationInvited(res.data.payload));
-        // console.log(res);
+      }
+    }, err => {
+      dispatch(setOrganizationInvited([]));
+    });
+  };
+
+  // ================== Accept Organization Invited =================
+
+  const handleAcceptOrg = (orgId) => {
+    OrganizationService.acceptionInvite(orgId).then((res) => {
+      if (res.data?.success) {
+        getAllOrgInvited();
+        toast.success(" You have accepted !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     });
   };
-  useEffect(() => {
-    OrganizationService.getOrganizationInvited().then((res) => {
-      if (res.o?.success) {
-        dispatch(setOrganizationInvited(res.data.payload));
-      }
-    });
-    // getAllOrgInvited();
-  }, []);
+
   useState(() => {
     getAllOrgInvited();
   }, []);
 
-  // =================================================================
   return (
     <>
       <main className="overflow-y-auto pb-4">
@@ -392,58 +402,31 @@ console.log(getOrgInvited)
                       <td className="w-3/12 py-3 pl-24">
                         <div className="flex items-center">
                           <div className="relative  mr-3 w-8 h-8 ">
-                            <img src={avatar05} loading="lazy" />
+                            <img
+                              src={FileUploadService.getImage(list.logo)}
+                              loading="lazy"
+                            />
+                            {/* {} */}
                           </div>
-                          <div>{list.name}</div>
+                          <div>{list.organizationName}</div>
                         </div>
                       </td>
                       <td className="w-2/12 py-3">{list.owner}</td>
 
                       <td className="w-2/12 py-3 p-2.5 m-auto">
-                        {/* <div className="w-full flex justify-center"> */}
-                          {/* {list.users} */}
-                          {/* <div className="relative  w-8 h-8 mr-[-14px] z-10">
-                            <img
-                              src={avatar01}
-                              loading="lazy"
-                              className="rounded-full h-full w-full"
-                            />
-                          </div>
-                          <div className="relative  w-8 h-8 mr-[-14px] z-20">
-                            <img
-                              src={avatar02}
-                              loading="lazy"
-                              className="rounded-full h-full w-full"
-                            />
-                          </div>
-                          <div className="relative  w-8 h-8 mr-[-14px] z-30">
-                            <img
-                              src={avatar03}
-                              loading="lazy"
-                              className="rounded-full h-full w-full"
-                            />
-                          </div>
-                          <div className="relative  w-8 h-8 mr-[-14px] z-40">
-                            <img
-                              src={avatar04}
-                              loading="lazy"
-                              className="rounded-full h-full w-full"
-                            />
-                          </div>
-                          <div className="relative  w-8 h-8 mr-[-14px] z-50 border-2 text-xs font-sp-pro-text-semibold bg-white  border-bg-primary rounded-full flex items-center justify-center">
-                            8 <FiPlus />
-                          </div> */}
-                        {/* </div> */}
+                        {moment(list.createdAt).format("DD MMM YYYY")}
                       </td>
                       <td className="w-2/12 py-3">
                         <div className="flex items-center space-x-4 justify-center">
                           <label
+                            onClick={() => handleAcceptOrg(list.id)}
                             htmlFor="modalEdit"
                             className="flex items-center border bg-accept bg-opacity-10 border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-full"
                             aria-label="Edit"
                           >
                             Accept
                           </label>
+                          
                         </div>
                       </td>
                     </tr>
@@ -451,7 +434,7 @@ console.log(getOrgInvited)
                 </tbody>
               </table>
             </div>
-
+            <ToastContainer/>
             {/* pagination */}
             <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
               <div className="font-sp-pro-text-regular opacity-90">

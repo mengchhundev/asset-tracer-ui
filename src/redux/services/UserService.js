@@ -58,6 +58,11 @@ const searchUser = async (search) => {
     return await apiV2.get(`/users/search-users?search=${search}`)
 }
 
+const inviteUser = async (data) => {
+    return await apiV2.put(`/users/invite-user`, data)
+}
+
+
 const UserService = {
     signin,
     singup,
@@ -72,7 +77,9 @@ const UserService = {
     getAllRequestUsers,
     approveUserRequests,
     rejectUserRequest,
-    searchUser
+    searchUser,
+    inviteUser,
+
 }
 
 export default UserService;
