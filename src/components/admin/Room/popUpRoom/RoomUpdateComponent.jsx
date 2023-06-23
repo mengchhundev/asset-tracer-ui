@@ -11,11 +11,10 @@ import RoomService from '../../../../redux/services/RoomService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRoom } from '../../../../redux/slices/RoomSlice';
 
-export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
+export default function RoomUpdateComponent({ handleIsUpdateSuccess }) {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const orgId = organization.id
     const dispatch = useDispatch()
-    const getAllRooms = useSelector(state => state.room.rooms)
     const room = useSelector(state => state.room.room)
 
     // Upload file
@@ -61,12 +60,6 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
                                 image: "",
                                 organizationId: orgId
                             })
-
-                            getAllRooms.filter(room => {
-                                if(room.id == res.data.payload.id) {
-                                    getAllRooms[getAllRooms.indexOf(room)] = res.data.payload
-                                }
-                            })
                         }
                     })
                 }
@@ -85,11 +78,6 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
                             description: "",
                             image: "",
                             organizationId: orgId
-                        })
-                        getAllRooms.filter(room => {
-                            if(room.id == res.data.payload.id) {
-                                getAllRooms[getAllRooms.indexOf(room)] = res.data.payload
-                            }
                         })
                     }
                 }
@@ -117,9 +105,9 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
 
     useEffect(() => {
         setNewData(room)
-        formik.setValues(room)
-        if (room.image) {
-            setImage(FileUploadService.getImage(room.image))
+        formik.setValues(room)  
+        if(room.image) {
+            setImage(room.image)
         }
     }, [room])
 
@@ -160,8 +148,8 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
                                         <div className='w-64 p-5 min-h-[13.8rem] flex relative'>
                                             {
                                                 selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                                                    : image ? <img src={image} className='h-full m-auto' />
-                                                    : <img className="block m-auto" src={upload_placeholder} />
+                                                    : image ? <img src={FileUploadService.getImage(image)} className='h-full m-auto' />
+                                                        : <img className="block m-auto" src={upload_placeholder} />
                                             }
                                         </div>
                                         <p className='mt-5 text-xs'>Upload Room Picture</p>

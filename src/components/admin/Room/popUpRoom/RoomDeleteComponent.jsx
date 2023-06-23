@@ -3,16 +3,18 @@ import { RiCloseFill } from 'react-icons/ri'
 import trash_ico from "../../../../assets/images/trash.png"
 import { useDispatch, useSelector } from 'react-redux'
 import RoomService from '../../../../redux/services/RoomService'
+import { setRoom } from '../../../../redux/slices/RoomSlice'
 
 export default function RoomDeleteComponent({handleIsDeleteSuccess, handleSetRoomId}) {
-    const getAllRooms = useSelector(state => state.room.rooms)
     const room = useSelector(state => state.room.room)
+    const dispatch = useDispatch()
 
     const handleDeleteRoom = () => {
         RoomService.deleteRoom(room.id).then(res => {
             if (res.data.success) {
                 document.getElementById("delete-room").click()
                 handleSetRoomId(res.data.payload)
+                dispatch(setRoom({}))
             }
         })
     }

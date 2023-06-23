@@ -73,7 +73,7 @@ export default function NavbarComponent() {
     } else if (pathName.includes("asset-set")) {
       setPath("Import Asset")
     } else if (pathName.includes("asset")) {
-      setPath("All Asset")
+      setPath("Create Asset")
     }
   }, [pathName])
 

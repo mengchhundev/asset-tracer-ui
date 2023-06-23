@@ -4,16 +4,18 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import FileUploadService from "../../../../redux/services/FileUploadService";
 import placeholder from "../../../../assets/images/placeholder/placeholder-image.png"
+import moment from "moment";
 
 function DetailComponent() {
     const roomDetail = useSelector(state => state.room.roomDetail)
     const [image, setImage] = useState("");
+
     useEffect(() => {
         if (roomDetail.image) {
             setImage(FileUploadService.getImage(roomDetail.image))
         }
     }, [roomDetail])
-
+console.log(roomDetail)
     return (
         <>
             <input type="checkbox" id="detail" className="modal-toggle" />
@@ -49,7 +51,6 @@ function DetailComponent() {
                                         loading="lazy"
                                     />
                                 }
-
                             </div>
                         </div>
                         <div className="xl:w-7/12 md:ml-10 md:w-1/2 rounded-lg">
@@ -68,7 +69,7 @@ function DetailComponent() {
                                                 <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Organization</label>
                                                 <div className=" mt-2 flex ">
                                                     <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><HomeIcon className="h-5 w-5 text-white" /></span>
-                                                    <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">{roomDetail?.organization?.name}</p>
+                                                    <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">{roomDetail.organizationName}</p>
                                                 </div>
                                             </div>
                                             <div className="pt-5">
@@ -86,14 +87,14 @@ function DetailComponent() {
                                             <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created Date</label>
                                             <div className=" mt-2 flex ">
                                                 <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-emerald-200 text-emerald-500"><CalendarDaysIcon className="h-6 w-6 text-gray-500" /></span>
-                                                <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2"> {roomDetail && roomDetail.createdAt ? roomDetail.createdAt.split("T")[0] : ""}</p>
+                                                <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2"> {moment(roomDetail.createdAt).format("DD MMM YYYY")}</p>
                                             </div>
                                         </div>
                                         <div className="pt-5">
                                             <label htmlFor="" className="font-sp-pro-text-semibold text-[15px]">Created by</label>
                                             <div className=" mt-2 flex ">
                                                 <span className="font-sp-pro-text-medium p-2 text-[16] rounded-full bg-amber-200"><UserCircleIcon className="h-6 w-6 text-white" /></span>
-                                                <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">Boeurn Mnor</p>
+                                                <p className="font-sp-pro-text-medium text-[13.05px] text-text-color p-2">{roomDetail.createdByUsername}</p>
                                             </div>
                                         </div>
                                         <div className="pt-5">

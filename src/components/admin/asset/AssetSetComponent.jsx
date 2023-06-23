@@ -13,7 +13,7 @@ import placeholder from "../../../assets/images/placeholder/placeholder-image.pn
 import ItemDetailService from "../../../redux/services/ItemDetailService";
 import RoomService from "../../../redux/services/RoomService";
 import AssetService from "../../../redux/services/AssetService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const status = [
   { id: "in_stock", name: "In Stock" },
@@ -381,14 +381,16 @@ export default function AssetSetComponent() {
 
           </div>
           <div className='w-full flex justify-end gap-x-3 px-5 lg:px-10 xl:px-16 mb-10'>
+            <Link to={"/asset"}>
+              <label
+                htmlFor='create-organization'
+                className="rounded-md bg-bg-primary py-2 cursor-pointer px-3 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
+              >
+                <RiCloseFill className='text-lg' />
+                Cancel
+              </label>
+            </Link>
 
-            <label
-              htmlFor='create-organization'
-              className="rounded-md bg-bg-primary py-2 cursor-pointer px-3 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
-            >
-              <RiCloseFill className='text-lg' />
-              Cancel
-            </label>
             <button
               type="submit"
               className={`hover:bg-opacity-90 bg-primary  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
