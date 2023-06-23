@@ -271,7 +271,7 @@ export default function SidebarComponent() {
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
                                             onClick={() => { setIsShowAsset(true), setIsShowCategory(false), setShowCategory(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("asset") }}
                                         >
-                                            Add Asset
+                                            Create Asset
                                         </NavLink>
                                     </li>
                                     <li>
@@ -281,7 +281,7 @@ export default function SidebarComponent() {
                                                 `py-2 px-4 ml-12 block relative before:w-[8px] before:h-[8px] before:absolute before:bg-sidebar before:rounded-full before:-left-[6px] before:top-1/2 before:-translate-y-1/2 transition-colors`}
                                             onClick={() => { setIsShowAsset(true), setIsShowCategory(false), setShowCategory(false), setIsShowUser(false), setShowUser(false), setIsShowOrganization(false), setShowOrganization(false), setShowMenu(false), handleChangeColor("asset") }}
                                         >
-                                            Set Asset
+                                            Import Asset
                                         </NavLink>
                                     </li>
                                 </ul>

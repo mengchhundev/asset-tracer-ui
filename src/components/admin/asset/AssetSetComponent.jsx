@@ -131,9 +131,10 @@ export default function AssetSetComponent() {
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
-        <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
-          <h1 className="flex items-center">
-            <HiDocumentText /> &nbsp; Set Asset
+        <div className="py-4 px-10">
+          <h1 className="flex items-center text-2xl font-sp-pro-text-semibold">
+            <HiDocumentText /> &nbsp; Import
+          <span className="text-pending primary pl-2 flex items-center text-2xl font-sp-pro-text-semibold">Asset</span>
           </h1>
         </div>
         <hr className="border-[#E1E9EE] border-1" />
