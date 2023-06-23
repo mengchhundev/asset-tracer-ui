@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import ItemComponent from "../asset/filtter/ItemComponent";
 import { RiAddBoxFill } from "react-icons/ri";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaFileInvoice } from "react-icons/fa";
 import '../../../style/shadow.css'
 import { AiOutlineFileAdd, AiOutlinePlus } from "react-icons/ai";
@@ -194,9 +194,10 @@ export default function AddInvoiceComponent() {
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
-        <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
+        <div className="flex text-2xl font-sp-pro-text-semibold py-4 px-10 text-text-color">
           <h1 className="flex items-center">
-            <FaFileInvoice /> &nbsp;Add Invoice
+            <FaFileInvoice /> &nbsp;Add 
+            <h1 className="text-2xl font-sp-pro-text-semibold pl-2 text-primary">Invoice</h1>
           </h1>
         </div>
         <hr className="border-[#E1E9EE] border-1" />
@@ -440,13 +441,14 @@ export default function AddInvoiceComponent() {
           </div>
           <div className='w-full flex justify-end gap-x-3 px-5 lg:px-10 xl:px-16 mb-10'>
 
+            <Link to={'/invoice'}>
             <label
               htmlFor='create-organization'
               className="rounded-md bg-bg-primary py-2 cursor-pointer px-3 text-sm font-sp-pro-text-medium text-text-color text-opacity-70 flex justify-center items-center gap-1"
             >
               <RiCloseFill className='text-lg' />
               Cancel
-            </label>
+            </label></Link>
             <button
               type="submit"
               className={`hover:bg-opacity-90 bg-primary  rounded-md cursor-pointer  py-2 px-5 text-sm font-sp-pro-text-medium text-white flex justify-center items-center gap-1`}
