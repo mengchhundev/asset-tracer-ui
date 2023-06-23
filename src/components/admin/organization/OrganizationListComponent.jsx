@@ -42,10 +42,6 @@ export default function OrganizationListComponent() {
     const [isWaitingApprove, setIsWaitingApprove] = useState(false)
     const orgDetail = useSelector(state => state.organization.orgDetail)
 
-    const handleUpdateSuccess = (val) => {
-        setIsUpdateSuccess(val)
-    }
-
     useEffect(() => {
         getAllOrganizations()
         setIsUpdateSuccess(false)
@@ -351,35 +347,30 @@ export default function OrganizationListComponent() {
                                     <p className="text-gray-700 text-xs text-center opacity-60 cursor-pointer">
                                         {list?.roleName == "ADMIN" ? "Owner" : "Member"}
                                     </p>
-                                    <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer">
-                                        {list.totalUser} {list.totalUser <= 1 ? "Member" : "Members"}
+                                    <p className="text-gray-700 text-xs mt-4 text-center text-text-color cursor-pointer h-4">
+                                        {list.roleName == "ADMIN" ? list.totalUser <= 1 ? "Member" : "Members" : null}
                                     </p>
                                     <div className='w-full flex flex-row justify-center my-1 mb-5 cursor-pointer'>
                                         <div className='w-full flex justify-center h-5'>
-                                            {list.users.map((user, index) => (
+                                            {list.roleName == "ADMIN" ? list.users.map((user, index) => (
                                                 <span key={index}>
-                                                    <>
-                                                        {
-                                                            user?.image ?
-                                                                <div className="relative  w-7 h-7 z-10">
-                                                                    <img
-                                                                        src={FileUploadService.getImage(user.image)}
-                                                                        loading="lazy"
-                                                                        className="rounded-full h-full w-full"
-                                                                    />
-                                                                </div>
-                                                                :
-                                                                <div className="relative  w-7 h-7 z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
-                                                                    {user.name.substring(0, 1)}
-                                                                </div>
-                                                        }
-                                                    </> : <>
-                                                        <div className="invisible w-7 h-7 mr-[-28px] z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
-                                                            {user.name.substring(0, 1)}
-                                                        </div>
-                                                    </>
+                                                    {
+                                                        user.image != null ?
+
+                                                            <div className="relative  w-7 h-7 z-10">
+                                                                <img
+                                                                    src={FileUploadService.getImage(user.image)}
+                                                                    loading="lazy"
+                                                                    className="rounded-full h-full w-full"
+                                                                />
+                                                            </div>
+                                                            :
+                                                            <div className="relative  w-7 h-7 z-10 bg-green rounded-full flex justify-center items-center text-white shadow-sm">
+                                                                {user.name.substring(0, 1)}
+                                                            </div>
+                                                    }
                                                 </span>
-                                            ))}
+                                            )) : null}
                                         </div>
                                     </div>
                                     <div className="w-full px-8 text-center cursor-pointer">
