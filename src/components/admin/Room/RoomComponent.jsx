@@ -100,7 +100,9 @@ export default function RoomComponent() {
 
         if (isCreateSuccess) {
             handleGetAllRooms(1)
-            document.getElementsByClassName("page-link")[1].click()
+            if(selectedPage != 1) {
+                document.getElementsByClassName("page-link")[1].click()
+            }
         }
 
         setIsCreateSuccess(false)
