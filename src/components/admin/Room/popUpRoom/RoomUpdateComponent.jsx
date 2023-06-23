@@ -31,10 +31,6 @@ export default function RoomUpdateComponent({ handleIsUpdateSuccess }) {
         organizationId: orgId
     })
 
-    useEffect(() => {
-        setNewData(room)
-    }, [room])
-
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0]);
     };
@@ -109,9 +105,9 @@ export default function RoomUpdateComponent({ handleIsUpdateSuccess }) {
 
     useEffect(() => {
         setNewData(room)
-        formik.setValues(room)
-        if (room.image) {
-            setImage(FileUploadService.getImage(room.image))
+        formik.setValues(room)  
+        if(room.image) {
+            setImage(room.image)
         }
     }, [room])
 
@@ -152,7 +148,7 @@ export default function RoomUpdateComponent({ handleIsUpdateSuccess }) {
                                         <div className='w-64 p-5 min-h-[13.8rem] flex relative'>
                                             {
                                                 selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
-                                                    : image ? <img src={image} className='h-full m-auto' />
+                                                    : image ? <img src={FileUploadService.getImage(image)} className='h-full m-auto' />
                                                         : <img className="block m-auto" src={upload_placeholder} />
                                             }
                                         </div>
