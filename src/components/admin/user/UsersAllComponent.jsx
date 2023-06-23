@@ -195,7 +195,7 @@ export default function UsersAllComponent() {
             </div>
 
             {/* filter */}
-            <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
+            {/* <div className="z-20 mb-4 md:mb-0 lg:mb-0 xl:mb-0">
               <Combobox
                 value={selectedSort}
                 onChange={setSelectedSort}
@@ -270,7 +270,7 @@ export default function UsersAllComponent() {
                   </Transition>
                 </div>
               </Combobox>
-            </div>
+            </div> */}
 
             {/* add */}
             <div className="mb-4 md:mb-0 lg:mb-0 xl:mb-0">
