@@ -9,7 +9,7 @@ const addNormalCategory = async (data) => {
 };
 
 const updateNormalCategory = async (id, data) => {
-  respone = await apiV2.put(`/normal-categories/${id}`, data);
+  return await apiV2.put(`/normal-categories/${id}`, data);
 };
 
 const getAllNormalCategoryName = async (orgId) => {

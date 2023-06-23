@@ -16,23 +16,27 @@ import FileUploadService from "../../../../redux/services/FileUploadService";
 import { AiOutlinePlus } from "react-icons/ai";
 import SuperCategoryService from "../../../../redux/services/SuperCategoryService";
 import NormalCategoryService from "../../../../redux/services/NormalCategoryService";
+import { setIsCreateSuccess } from "../../../../redux/slices/NormalCategorySlice";
 
 export default function NormalCategoryAddComponent() {
 
+  const dispatch = useDispatch()
+  let formData = new FormData()
   let organization = JSON.parse(sessionStorage.getItem("organization"))
   let orgId = organization.id
-  const [selectedFile, setSelectedFile] = useState("")
 
-  const [superCategoryName, setSuperCategoryName] = useState([]);
-  const [selectedSuperCategory, setSelectedSuperCategory] = useState();
+  const [selectedFile, setSelectedFile] = useState("")
+  const [superCategoryName, setSuperCategoryName] = useState([])
+  const [selectedSuperCategory, setSelectedSuperCategory] = useState()
+
   //combobox
-  const [querySuperCategory, setQuerySuperCateogry] = useState("");
+  const [querySuperCategory, setQuerySuperCateogry] = useState("")
 
   const [newData, setNewData] = useState({
     name: "",
     icon: "",
     superCategoryId: "",
-    organizationId: orgId
+    organizationId: organization.id
   })
 
   const filteredSuperCategoryName =
@@ -59,7 +63,6 @@ export default function NormalCategoryAddComponent() {
       [name]: value
     }));
   };
-  console.log(newData)
 
   useEffect(() => {
     SuperCategoryService.getAllSuperCategoresName(orgId).then(res => {
@@ -77,10 +80,21 @@ export default function NormalCategoryAddComponent() {
     }),
     onSubmit: (val, { resetForm }) => {
       handleSaveNormalCategory()
-      resetForm((val = { id: "", name: "", superCategoryId: "", organizationId: "" }));
-      setNewData({ id: "", name: "", superCategoryId: "", organizationId: "" });
+      resetForm((val = { id: "", name: "", superCategoryId: "", organizationId: orgId }));
       setSelectedSuperCategory("")
-      formik.setValues({ id: "", name: "", superCategoryId: "", organizationId: "" });
+      setNewData({
+        name: "",
+        icon: "",
+        superCategoryId: "",
+        organizationId: organization.id
+      })
+
+      formik.setValues({
+        name: "",
+        icon: "",
+        superCategoryId: "",
+        organizationId: organization.id
+      })
     },
   });
 
@@ -103,6 +117,7 @@ export default function NormalCategoryAddComponent() {
                 document.getElementById("add-normal-category").click();
                 setSelectedFile("")
                 setSelectedSuperCategory("")
+                dispatch(setIsCreateSuccess(true))
               }
             });
           }
@@ -113,6 +128,7 @@ export default function NormalCategoryAddComponent() {
           document.getElementById("add-normal-category").click();
           setSelectedFile("")
           setSelectedSuperCategory("")
+          dispatch(setIsCreateSuccess(true))
         }
       });
     }

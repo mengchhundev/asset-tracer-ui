@@ -1,29 +1,25 @@
-import axios from "axios";
 import React, { useState, useEffect, Fragment } from "react";
-import trash from "../../../assets/images/trash.png";
 import electronic from "../../../assets/icon/electronic.svg";
-import addIcon from "../../../assets/icon/addIcon.svg";
 import furniture from "../../../assets/images/furniture.png";
 import office from "../../../assets/icon/office.svg";
 import placeImg from "../../../assets/icon/placeImg.svg";
 import gift from "../../../assets/images/gift.png";
 import trash_ico from "../../../assets/images/trash.png";
 import placeholder_square from "../../../assets/images/placeholder/placeholder_square.jpg"
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
-import { Combobox, Dialog, Listbox, Transition } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
-import * as Yup from "yup";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileUploadService from "../../../redux/services/FileUploadService";
-import AddNormalCategory from "./popUp/AddNormalCategory";
-import { setNormalCategories } from "../../../redux/slices/NormalCategorySlice";
+import { setCountCurrentRow, setIsCreateSuccess, setIsUpdateSuccess, setNormalCategories, setNormalCategory, setPageCount, setTotalRow } from "../../../redux/slices/NormalCategorySlice";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
 import NormalCategoryAddComponent from "./popUp/NormalCategoryAddComponent";
+import NormalCategoryUpdateComponent from "./popUp/NormalCategoryUpdateComponent";
 
 const sort = [
   {
@@ -33,35 +29,28 @@ const sort = [
     id: "name", name: "Name"
   },
   {
-    id: "created_at", name: "Created Date"
+    id: "createdAt", name: "Created Date"
   },
 ];
 
 export default function CategoryComponent() {
 
-  const [selectedSort, setSelectedSort] = useState(sort[0].name)
   const [i, setI] = useState(1);
   const dispatch = useDispatch();
 
   const [selectedPage, setSelectedPage] = useState(1)
+  const [itemName, setItemName] = useState("")
+  const [selectedSort, setSelectedSort] = useState(sort[0].name)
   const organization = JSON.parse(sessionStorage.getItem("organization"));
   const orgId = organization.id;
 
   const [isUpdate, setIsUpdate] = useState(false);
-  let totalRow = useSelector(state => state.superCategory.totalRow)
-  let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
-  let pageCount = useSelector(state => state.superCategory.pageCount)
-
-  const [isCreateSuccess, setIsCreateSuccess] = useState(false)
-  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
-
-  const handleIsCreateSuccess = (val) => {
-    setIsCreateSuccess(val)
-  }
-
-  const handleIsUpdateSuccess = (val) => {
-    setIsUpdateSuccess(val)
-  }
+  let totalRow = useSelector(state => state.normalCategory.totalRow)
+  let countCurrentRow = useSelector(state => state.normalCategory.countCurrentRow)
+  let isCreateSuccess = useSelector(state => state.normalCategory.isCreateSuccess)
+  let isUpdateSuccess = useSelector(state => state.normalCategory.isUpdateSuccess)
+  let getNormalCategory = useSelector(state => state.normalCategory.normalCategory)
+  let pageCount = useSelector(state => state.normalCategory.pageCount)
 
   // get all normal category
   const normalCategories = useSelector(state => state.normalCategory.normalCategories);
@@ -69,21 +58,64 @@ export default function CategoryComponent() {
     NormalCategoryService.getAllNormalCategory(orgId, page, 8, name, sort).then((res) => {
       if (res.data.success) {
         dispatch(setNormalCategories(res.data.payload));
+        dispatch(setTotalRow(res.data.totalData))
+        dispatch(setPageCount(Math.ceil(res.data.totalData / 8)));
+        dispatch(setCountCurrentRow(res.data.payload.length))
       }
     })
   };
 
   useEffect(() => {
-    handleGetAllNormalCategories();
-  }, []);
+    if (isCreateSuccess) {
+      document.getElementsByClassName("page-link")[1].click()
+      handleGetAllNormalCategories(1)
+    }
+    dispatch(setIsCreateSuccess(false))
+
+  }, [isCreateSuccess])
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      handleGetAllNormalCategories(selectedPage)
+    }
+    dispatch(setIsUpdateSuccess(false))
+  }, [isUpdateSuccess])
+
+  useEffect(() => {
+    if (itemName != null || selectedSort != null) {
+      handleGetAllNormalCategories(1, itemName, selectedSort)
+    }
+  }, [itemName, selectedSort]);
 
   const handleSelectedSort = (val) => {
     setSelectedSort(val)
   }
 
+  useEffect(() => {
+    handleGetAllNormalCategories(selectedPage);
+  }, [selectedPage]);
+
   const handlePageClick = (event) => {
-    getAllSuperCategory(event.selected + 1);
     setI(event.selected * 8 + 1);
+    setSelectedPage(event.selected + 1)
+    dispatch(setPageCount(Math.ceil(totalRow / 8)))
+  };
+
+  const handleDeleteNormalCategory = () => {
+    NormalCategoryService.deleteNormalCategory(getNormalCategory.id, orgId).then(res => {
+      if (res.data.success) {
+        document.getElementsByClassName("page-link")[1].click()
+        handleGetAllNormalCategories(1)
+      }
+    })
+  }
+
+  const handleShowNormalCategory = (val) => {
+    dispatch(setNormalCategory(val))
+  }
+
+  const handleInputSearch = (e) => {
+    setItemName(e.target.value)
   };
 
   const handleNormalSuccess = () =>
@@ -128,6 +160,7 @@ export default function CategoryComponent() {
                   className="w-full pl-10 pr-2 bg-transparent text-gray-700 placeholder-gray-600 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500  focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   name="search"
+                  onInput={handleInputSearch}
                   placeholder="Search..."
                 />
               </div>
@@ -212,8 +245,6 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        <NormalCategoryAddComponent className="modal" handleIsCreateSuccess={handleIsCreateSuccess}/>
-
         <div className="flex flex-col min-h-[calc(100vh-19rem)]">
           {/* table */}
           <div className="px-5 z-0 flex-grow overflow-x-scroll">
@@ -232,7 +263,7 @@ export default function CategoryComponent() {
                   </td>
                   <td className="w-2/12 bg-bg-main py-3 text-center">Action</td>
                 </tr>
-                {normalCategories.length != 0 ? normalCategories.map((item, index) => (
+                {normalCategories.length != 0 ? normalCategories.map((list, index) => (
                   <tr
                     key={index}
                     className="text-sm font-sp-pro-text-regular text-center"
@@ -241,40 +272,56 @@ export default function CategoryComponent() {
                     <td className="py-3">
                       <div className="flex items-center">
                         <div className="relative  mr-3 w-9 h-9 ">
-                          <img
-                            className="h-9 rounded-full w-9"
-                            src={placeholder_square}
-                            loading="lazy"
-                          />
+                          {list.icon ?
+                            <img
+                              className="h-9 rounded-full w-9"
+                              src={
+                                list.icon == "office.svg" ? office :
+                                  list.icon == "electronic.svg" ? electronic :
+                                    list.icon == "furniture.svg" ? furniture :
+                                      FileUploadService.getImage(list.icon)}
+                            />
+                            :
+                            < img
+                              className="h-9 rounded-full w-9"
+                              src={placeholder_square}
+                            />
+                          }
                         </div>
-                        <div>{item.name}</div>
+                        <div>{list.name}</div>
                       </div>
                     </td>
                     <td className="w-2/12 py-3">
                       <div className="flex items-center m-auto space-x-3">
-                        <div>
+                        {list.superCategoryIcon ?
                           <img
-                            className="rounded-full w-9"
-                            src={placeholder_square}
-                            loading="lazy"
+                            className="h-9 rounded-full w-9"
+                            src={
+                              list.superCategoryIcon == "office.svg" ? office :
+                                list.superCategoryIcon == "electronic.svg" ? electronic :
+                                  list.superCategoryIcon == "furniture.svg" ? furniture :
+                                    FileUploadService.getImage(list.superCategoryIcon)}
                           />
-                        </div>
+                          :
+                          < img
+                            className="h-9 rounded-full w-9"
+                            src={placeholder_square}
+                          />
+                        }
                         <span className="text-sm">
-                          {item.superCategoryName}
+                          {list.superCategoryName}
                         </span>
                       </div>
                     </td>
                     <td className="py-3">
-                      {moment(item.createdAt).format("MMM DD YYYY")}
+                      {moment(list.createdAt).format("MMM DD YYYY")}
                     </td>
                     <td className="py-3">
                       <div className="flex items-center space-x-4 justify-center">
                         {/* edit */}
                         <label
-                          htmlFor="modalEdit"
-                          onClick={() =>
-                            handleUpdateNormalCategory(item)
-                          }
+                          htmlFor="edit-normal-category"
+                          onClick={() => handleShowNormalCategory(list)}
                           className="flex items-center border border-accept text-accept w-[90px] justify-center px-5 py-1 hover:bg-green hover:bg-opacity-10 cursor-pointer leading-5 rounded-md"
                           aria-label="Edit"
                         >
@@ -282,8 +329,8 @@ export default function CategoryComponent() {
                         </label>
                         {/* delete */}
                         <label
-                          htmlFor="modalDelete"
-                          onClick={() => handleDeletNormalCategory(item)}
+                          htmlFor="delete-normal-category"
+                          onClick={() => handleShowNormalCategory(list)}
                           className="flex items-center border border-reject text-reject w-[90px] justify-center px-5 hover:bg-reject py-1 hover:bg-opacity-10 cursor-pointer  leading-5 rounded-md"
                           aria-label="Delete"
                         >
@@ -327,118 +374,12 @@ export default function CategoryComponent() {
           </div>
         </div>
 
-        {/* Edit and update Popup */}
-        {/* <input type="checkbox" id="modalEdit" className="modal-toggle" />
-        <div className="modal">
-          <div className=" modal-box relative rounded-lg">
-            <div className="absolute top-7 right-7">
-              <label htmlFor="modalEdit">
-                <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-              </label>
-            </div>
-            <div className=" flex justify-between">
-              <div className="flex">
-                <img src={gift} className="h-12 rounded-lg w-12 " />
-                <p className="mt-2 flexF items-center font-sp-pro-text-medium text-xl pl-6  text-text-color">
-                  Update Normal Category
-                </p>
-              </div>
-            </div>
-
-            <div className=" border border-bg-primary rounded-md p-3 my-3">
-              <div className="flex flex-row gap-4">
-                <div className="flex flex- justify-between">
-                  <div className="p-2">
-                    <label>
-                      {selectedFile ? (
-                        <img
-                          src={URL.createObjectURL(selectedFile)}
-                          className="h-14 rounded-full w-14 "
-                        />
-                      ) : (
-                        <img className="h-14 rounded-lg w-14" src={placeImg} />
-                      )}
-                    </label>
-                  </div>
-                  <div className="p-2 mt-4">
-                    <label>
-                      <img src={electronic} className="h-9 rounded-lg w-9 " />
-                    </label>
-                  </div>
-                  <div className="p-2 mt-4">
-                    <label>
-                      <img src={office} className="h-9 rounded-lg w-9 " />
-                    </label>
-                  </div>
-
-                  <div className="p-2 mt-4">
-                    <label>
-                      <img src={furniture} className="h-9 rounded-lg w-9 " />
-                    </label>
-                  </div>
-
-                  <div className="p-2 mt-4">
-                    <label>
-                      <input
-                        type="file"
-                        className="hidden"
-                        id="logo"
-                        onChange={handleFileSelect}
-                      />
-                      <img src={addIcon} className="h-9 rounded-lg w-9 " />
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="EditSuperCategory"
-                className="flex text-sm text-text-color font-sp-pro-text-regular py-2"
-              >
-                Name
-              </label>
-              <input
-                value={updateNormal.name}
-                name="name"
-                onInput={handleUpdateCategory}
-                className=" w-full border-[#E1E9EE] border rounded-lg py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary"
-                type="text"
-                placeholder={categoryUpdate.name}
-              />
-            </div>
-
-            <div className="flex justify-end flex-row space-x-4 mt-10">
-              <div className="">
-                <label
-                  htmlFor="modalEdit"
-                  className="rounded-md bg-bg-primary py-2 cursor-pointer px-5 text-sm font-sp-pro-text-medium text-text-color w-full flex items-center"
-                >
-                  <RiCloseFill className="cursor-pointer h-5 w-5 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
-                  &nbsp; Cancel
-                </label>
-              </div>
-
-              <div className="">
-                <label
-                  htmlFor="modalEdit"
-                  onClick={() => handleSubmit()}
-                  className="hover:bg-green hover:bg-opacity-90 rounded-md cursor-pointer bg-green py-2 px-5 text-sm font-sp-pro-text-medium text-white hover:opacity-90 w-full flex items-center"
-                >
-                  <FiSave className="text-lg" /> &nbsp; Update Change
-                </label>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
         {/* delete */}
-        <input type="checkbox" id="modalDelete" className="modal-toggle" />
+        <input type="checkbox" id="delete-normal-category" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box relative">
             <div className="absolute right-4 top-3 hover:bg-bg-primary w-8 h-8 flex justify-center rounded-full items-center cursor-pointer">
-              <label htmlFor="modalDelete">
+              <label htmlFor="delete-normal-category">
                 <RiCloseFill className="cursor-pointer h-9 w-9 p-1 hover:bg-bg-primary text-secondary text-opacity-70 rounded-full" />
               </label>
             </div>
@@ -454,7 +395,7 @@ export default function CategoryComponent() {
               <div className="pl-3 leading-none">
                 <h3 className="font-sp-pro-text-bold text-xl">Delete</h3>
                 <p className="pt-1 py-5">
-                  Are you sure want to delete this normal category?
+                  Are you sure, you want to delete this normal category?
                 </p>
               </div>
             </div>
@@ -467,8 +408,8 @@ export default function CategoryComponent() {
                 Cancel
               </label>
               <label
-                htmlFor="modalDelete"
-                // onClick={}
+                htmlFor="delete-normal-category"
+                onClick={handleDeleteNormalCategory}
                 type="button"
                 className="bg-opacity-10 rounded-md cursor-pointer bg-reject border border-reject py-2 px-5 text-sm font-sp-pro-text-medium text-reject flex justify-center items-center gap-1"
               >
@@ -478,6 +419,8 @@ export default function CategoryComponent() {
           </div>
         </div>
       </div>
+      <NormalCategoryAddComponent className="modal" />
+      <NormalCategoryUpdateComponent className="modal" />
     </main>
   );
 }

@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Listbox, Transition } from "@headlessui/react";
 import SuperCategoryService from "../../../redux/services/SuperCategoryService";
-import { setAllSuperCategory, setCountCurrentRow, setPageCount, setTotalRow } from "../../../redux/slices/SuperCategorySlice";
+import { setAllSuperCategory, setCountCurrentRow, setNameFromUpdate, setPageCount, setTotalRow } from "../../../redux/slices/SuperCategorySlice";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { BsPlus } from "react-icons/bs";
 import { RiCloseFill } from "react-icons/ri";
@@ -52,6 +52,8 @@ export default function SuperCategoryComponent() {
   let totalRow = useSelector(state => state.superCategory.totalRow)
   let countCurrentRow = useSelector(state => state.superCategory.countCurrentRow)
   let pageCount = useSelector(state => state.superCategory.pageCount)
+  let nameFromUpdate = useSelector(state => state.superCategory.nameFromUpdate)
+
   let formData = new FormData();
   const [selectedFile, setSelectedFile] = useState("")
   const [selectedImg, setSeletedImg] = useState("")
@@ -87,7 +89,11 @@ export default function SuperCategoryComponent() {
   };
 
   useEffect(() => {
-    handleGetAllSuperCategory(selectedPage);
+    handleGetAllSuperCategory(1);
+  }, []);
+
+  useEffect(() => {
+    handleGetAllSuperCategory(selectedPage, "", "");
   }, [selectedPage]);
 
   useEffect(() => {
@@ -108,6 +114,7 @@ export default function SuperCategoryComponent() {
 
   // Add Super Category
   const handleSaveSuperCategory = () => {
+    dispatch(setNameFromUpdate(""))
     if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
       formData.append("file", selectedFile)
       FileUploadService.storeFile(formData, localStorage.getItem("token"))
@@ -145,6 +152,7 @@ export default function SuperCategoryComponent() {
 
   // Update Super Category
   const handleUpdateSuperCategory = () => {
+    dispatch(setNameFromUpdate(""))
     if (selectedFile != "electronic.svg" && selectedFile != "office.svg" && selectedFile != "furniture.svg" && selectedFile != "") {
       formData.append("file", selectedFile)
       FileUploadService.storeFile(formData, localStorage.getItem("token"))

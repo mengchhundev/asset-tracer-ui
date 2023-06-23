@@ -9,7 +9,8 @@ const initialState = {
     },
     countCurrentRow: "",
     pageCount: 1,
-    totalRow: 0
+    totalRow: 0,
+    nameFromUpdate: ""
 }
 
 export const superCategorySlice = createSlice({
@@ -36,6 +37,9 @@ export const superCategorySlice = createSlice({
         },
         setTotalRow: (state, action) => {
             state.totalRow = action.payload
+        },
+        setNameFromUpdate: (state, action) => {
+            state.nameFromUpdate = action.payload
         }
     }
 });
@@ -47,6 +51,7 @@ export const {
     setUpdateSuperCategory, 
     setCountCurrentRow, 
     setPageCount,
-    setTotalRow 
+    setTotalRow,
+    setNameFromUpdate
 } = superCategorySlice.actions
 export default superCategorySlice.reducer
