@@ -26,7 +26,7 @@ import moment from "moment";
 import { TbListDetails } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
 import { AiOutlineCloudDownload } from "react-icons/ai";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiDotsHorizontalRounded, BiMessageSquareEdit } from "react-icons/bi";
 import no_data_pic from '../../../assets/images/empty_box.png'
 
 const sort = [
@@ -353,7 +353,7 @@ export default function AssetComponent() {
                                         className={`cursor-pointer text-green hover:bg-green hover:bg-opacity-10 inline-block select-none relative py-2 p-4 w-full text-gray-900 rounded-md `}
                                       >
                                         <span className="flex justify-start text-[14px] font-sp-pro-text-semibold items-center gap-2">
-                                          <FiTrash2 /> Edit
+                                          <BiMessageSquareEdit/> Edit
                                         </span>
                                       </NavLink>
                                       <label
