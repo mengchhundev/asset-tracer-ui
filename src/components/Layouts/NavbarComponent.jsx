@@ -168,7 +168,7 @@ export default function NavbarComponent() {
             <h1>{path}</h1>
           </div>
           <nav className="flex items-center gap-2 ">
-            <Menu
+            {/* <Menu
               menuButton={
                 <MenuButton className="relative hover:bg-secondary-100 p-2 rounded-lg transition-colors">
                   <RiNotification3Line className="text-primary " />
@@ -183,7 +183,6 @@ export default function NavbarComponent() {
               arrowClassName="bg-secondary-100"
               menuClassName="bg-secondary-100 rounded-lg shadow-lg"
             >
-              {/* router by menghout */}
               <Link to="/">
                 <div className="flex justify-between px-3">
                   <h1 className="flex  items-center ">
@@ -243,7 +242,7 @@ export default function NavbarComponent() {
                   </Link>
                 </MenuItem>
               </div>
-            </Menu>
+            </Menu> */}
 
             <Menu
               menuButton={

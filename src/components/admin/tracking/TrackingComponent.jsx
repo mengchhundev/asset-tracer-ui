@@ -7,7 +7,7 @@ import avatar01 from "../../../assets/images/tracking/chair.png";
 import NormalCategoryService from "../../../redux/services/NormalCategoryService";
 import RoomService from "../../../redux/services/RoomService";
 import AssetService from "../../../redux/services/AssetService";
-import { setAssets } from "../../../redux/slices/AssetSlice";
+import { setAssets, setCountCurrentRow, setTotalRow } from "../../../redux/slices/AssetSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ViewDetailComponent from "./ViewDetailComponent";
 import no_data_pic from "../../../assets/images/empty_box.png";
@@ -53,8 +53,12 @@ export default function TrackingComponent() {
   const [roomName, setRoomName] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState();
   const [queryRoom, setQueryRoom] = useState("");
-  const [totalRow, setTotalRow] = useState(0);
   const [i, setI] = useState(1);
+
+  let totalRow = useSelector((state) => state.asset.totalRow);
+  let countCurrentRow = useSelector(
+    (state) => state.asset.countCurrentRow
+  );
 
   const filteredRoom =
     queryRoom === ""
@@ -66,23 +70,29 @@ export default function TrackingComponent() {
           .includes(queryRoom.toLowerCase().replace(/\s+/g, ""))
       );
 
-  // combo box status
-  const [selectedStatus, setSelectedStatus] = useState();
+  const [normalCategoryName, setNormalCategoryName] = useState([]);
+  const [selectedNormalCategory, setSelectedNormalCategory] = useState({});
+  const [selectedNormalCategoryName, setSelectedNormalCategoryName] = useState("")
+  const handleSetSeletedNormalCategory = (val) => {
+    if (val.name != "Default") {
+      setSelectedNormalCategory(val)
+      setSelectedNormalCategoryName(val.name)
+    } else {
+      setSelectedNormalCategoryName("")
+      setSelectedNormalCategory({})
+    }
+  }
 
-  //combo box category
-  const [normalCategoryName, setNormalCategoryName] = useState([
-    { id: "", name: "Default" },
-  ]);
-  const [selectedNormalCategory, setSelectedNormalCategory] = useState();
+
   const [queryNormalCategory, setQueryNormalCategory] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState(status[0].name);
 
-  const [selectedSort, setSelectedSort] = useState(sort[0].name);
   const [selectedPage, setSelectedPage] = useState(1);
 
   useEffect(() => {
     NormalCategoryService.getAllNormalCategoryName(orgId).then((res) => {
       if (res.data.success) {
-        setNormalCategoryName(res.data.payload);
+        setNormalCategoryName([{ id: "", name: "Default" }, ...res.data.payload]);
       }
     });
 
@@ -92,8 +102,6 @@ export default function TrackingComponent() {
       }
     });
   }, []);
-
-  console.log(normalCategoryName);
 
   const filteredNormalCategory =
     queryNormalCategory === ""
@@ -121,71 +129,45 @@ export default function TrackingComponent() {
     setSelectedStatus(val);
   };
 
-  const handleGetAllAssets = (
-    page = 1,
-    assetName = "",
-    status = "",
-    room = "",
-    normalCategoryName = "",
-    sort = ""
-  ) => {
-    AssetService.getAllAssets(
-      orgId,
-      page,
-      8,
-      assetName,
-      "",
-      "",
-      status,
-      "",
-      room,
-      normalCategoryName,
-      sort
-    ).then(
+  const handleGetAllAssets = (page = 1, assetName = "", status = "", room = "", normalCategoryName = "c") => {
+    AssetService.getAllAssets(orgId, page, 8, assetName, status, room, normalCategoryName).then(
       (res) => {
         if (res.data.success) {
           dispatch(setAssets(res.data.payload));
-          setTotalRow(res.data.totalData);
+          dispatch(setTotalRow(res.data.totalData))
+          dispatch(setCountCurrentRow(res.data.payload.length));
         }
       },
       (err) => {
         dispatch(setAssets([]));
-        setTotalRow(0);
+        dispatch(setTotalRow(0))
       }
     );
   };
 
   useEffect(() => {
-    if (
-      itemName != null ||
-      selectedRoom != null ||
-      selectedNormalCategory != null ||
-      selectedStatus != null
-    ) {
-      console.log(itemName);
+    if (itemName != null || selectedStatus != null || selectedRoom != null || selectedNormalCategoryName != null) {
       handleGetAllAssets(
         1,
         itemName,
         selectedStatus,
         selectedRoom,
-        selectedNormalCategory,
-        ""
+        selectedNormalCategoryName
       );
-    } else {
-      handleGetAllAssets(1);
     }
-    setPageCount(Math.ceil(totalRow / 8));
-  }, [itemName, selectedRoom, selectedNormalCategory, selectedSort]);
 
-  const handleSelectedSort = (val) => {
-    setSelectedSort(val)
-  }
+    setPageCount(Math.ceil(totalRow / 8));
+  }, [itemName]);
+
+  useEffect(() => {
+    handleGetAllAssets(1)
+  }, [])
+
 
   return (
     <main className="px-4 lg:px-10 py-6 bg-white rounded-2xl relative overflow-hidden h-[calc(100vh-7.8rem)]">
       <div className="gap-6 overflow-hidden z-10">
         <div className="flex-col justify-between gap-4 p-5 mb-5 text">
-          {/* header */}
           <div className="md:pb-0 sm:pb-2 min-w-max mb-4">
             <h2 className="text-2xl font-sp-pro-text-semibold">All <span className="text-primary">Tracking</span></h2>
           </div>
@@ -217,12 +199,11 @@ export default function TrackingComponent() {
               </div>
             </div>
 
-            <div className="col-span-4 md:col-span-2 xl:col-span-1">
-              {/* filter */}
+            {/* <div className="col-span-4 md:col-span-2 xl:col-span-1">
               <div className="z-20 ">
                 <Combobox
                   value={selectedNormalCategory}
-                  onChange={setSelectedNormalCategory}
+                  onChange={handleSetSeletedNormalCategory}
                   className="z-20"
                 >
                   <div className="relative z-20">
@@ -265,7 +246,13 @@ export default function TrackingComponent() {
                               }
                               value={list}
                             >
-                              {list.name}
+                              {list.name == "Default" ?
+                                <span className="text-black text-opacity-20">
+                                  {list.name}
+                                </span>
+                                :
+                                list.name
+                              }
                             </Combobox.Option>
                           ))
                         )}
@@ -274,10 +261,9 @@ export default function TrackingComponent() {
                   </div>
                 </Combobox>
               </div>
-            </div>
+            </div> */}
 
-            <div className="col-span-4 md:col-span-2 xl:col-span-1">
-              {/* filter */}
+            {/* <div className="col-span-4 md:col-span-2 xl:col-span-1">
               <div className="z-20">
                 <Combobox
                   value={selectedRoom}
@@ -331,10 +317,9 @@ export default function TrackingComponent() {
                   </div>
                 </Combobox>
               </div>
-            </div>
+            </div> */}
 
-            <div className="col-span-4 md:col-span-2 xl:col-span-1">
-              {/* filter */}
+            {/* <div className="col-span-4 md:col-span-2 xl:col-span-1">
               <div className="z-20 ">
                 <Listbox as="div" value={selectedStatus} onChange={handleSelectedStatus}>
                   {({ open }) => (
@@ -399,7 +384,7 @@ export default function TrackingComponent() {
                   )}
                 </Listbox>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -479,11 +464,12 @@ export default function TrackingComponent() {
             </div>
 
             {/* pagination */}
-            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 h-14 flex-grow-0 px-7">
+
+            <div className="w-full flex justify-between items-center text-sm  font-sp-pro-text-medium text-gray-500 flex-grow-0 px-7 mt-3 h-10">
               <div className="font-sp-pro-text-regular opacity-90">
-                Showing data 1 to 8 of {totalRow} entries
+                Showing data 1 to {countCurrentRow} of {totalRow} entries
               </div>
-              <div id="react-paginate" className="">
+              <div id="react-paginate">
                 <ReactPaginate
                   nextLabel=" >"
                   onPageChange={handlePageClick}

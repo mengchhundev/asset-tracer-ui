@@ -387,13 +387,13 @@ export default function ProfileComponent() {
                             </div>
                         </div>
                         <Tab.List className="flex space-x-1 text-text-color">
-                            <Tab as={Fragment}>
+                            {/* <Tab as={Fragment}>
                                 {({ selected }) => (
                                     <button className={`px-4 py-3 rounded-sm outline-none border-b-4 border-white ${selected ? "bg-custom-yellow-showdow-light border-b-primary" : ""}`}>
                                         Your Organizations
                                     </button>
                                 )}
-                            </Tab>
+                            </Tab> */}
                             <Tab as={Fragment}>
                                 {({ selected }) => (
                                     <button className={`px-4 py-3 rounded-sm outline-none border-b-4 border-white ${selected ? "bg-custom-yellow-showdow-light border-b-primary" : ""}`}>
@@ -405,7 +405,7 @@ export default function ProfileComponent() {
                     </div>
                     <div className='my-5 p-5 relative gap-6 bg-white rounded-xl' style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 1px 10px" }}>
                         <Tab.Panels>
-                            <Tab.Panel>
+                            {/* <Tab.Panel>
                                 <div className='w-full'>
                                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-14 gap-y-8 p-5 px-10 w-full">
                                         <div className='relative con-Shadow-Card rounded-xl min-w-max w-64 cursor-pointer'>
@@ -552,7 +552,7 @@ export default function ProfileComponent() {
 
                                     </div>
                                 </div>
-                            </Tab.Panel>
+                            </Tab.Panel> */}
                             <Tab.Panel>
                                 <div className='w-full md:w-6/12 lg:w-4/12 m-auto'>
                                     <h2 className='text-center text-2xl font-sp-pro-text-bold my-5 pt-5'>Change Password</h2>

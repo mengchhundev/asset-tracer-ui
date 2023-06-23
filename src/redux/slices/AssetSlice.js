@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   assets: [],
   asset: {},
-  invoice : []
+  invoice: [],
+  countCurrentRow: "",
+  pageCount: 1,
+  totalRow: 0,
 };
 
 export const AssetSlice = createSlice({
@@ -18,9 +21,18 @@ export const AssetSlice = createSlice({
     },
     setAllInvoice: (state, action) => {
       state.invoice = action.payload
-    }
+    },
+    setCountCurrentRow: (state, action) => {
+      state.countCurrentRow = action.payload
+    },
+    setPageCount: (state, action) => {
+      state.pageCount = action.payload
+    },
+    setTotalRow: (state, action) => {
+      state.totalRow = action.payload
+    },
   },
 });
 
-export const { setAssets, setAsset, setAllInvoice } = AssetSlice.actions;
+export const { setAssets, setAsset, setAllInvoice, setCountCurrentRow, setPageCount, setTotalRow } = AssetSlice.actions;
 export default AssetSlice.reducer;

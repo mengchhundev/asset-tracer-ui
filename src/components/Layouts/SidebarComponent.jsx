@@ -401,7 +401,7 @@ export default function SidebarComponent() {
                     </ul>
                 </div>
                 <nav className="font-sp-pro-text-regular rounded-xl mt-3 shadow-sm py-3">
-                    {(organization != null || item != null) && organization.roleName == "ADMIN" ?
+                    {/* {(organization != null || item != null) && organization.roleName == "ADMIN" ?
                         <>
                             <NavLink
                                 to="/notification"
@@ -419,7 +419,7 @@ export default function SidebarComponent() {
                                     <p className="ml-3">Notification</p>
                                 </span>
                             </NavLink>
-                        </> : null}
+                        </> : null} */}
 
                     <label htmlFor="my-modal"
                         className="flex py-2.5 px-5 items-center hover:bg-bg-primary rounded-xl transition-colors cursor-pointer">
