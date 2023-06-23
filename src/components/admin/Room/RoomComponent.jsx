@@ -50,7 +50,6 @@ export default function RoomComponent() {
     let pageCount = useSelector(state => state.room.pageCount)
 
     let room = useSelector(state => state.room.room)
-    console.log(room)
 
     const [isCreateSuccess, setIsCreateSuccess] = useState(false)
     const [isUpdateSuccess, setIsUpdateSuccess] = useState(false)
@@ -118,6 +117,9 @@ export default function RoomComponent() {
     useEffect(() => {
         handleGetAllRooms(1)
         dispatch(setPageCount(Math.ceil(totalRow / 8)));
+        if(selectedPage != 1) {
+            document.getElementsByClassName("page-link")[1].click()
+        }
     }, [])
 
     useEffect(() => {
@@ -146,7 +148,9 @@ export default function RoomComponent() {
         RoomService.deleteRoom(room.id).then(res => {
             if(res.data.success) {
                 handleGetAllRooms(1)
-                document.getElementsByClassName("page-link")[1].click()
+                if(selectedPage != 1) {
+                    document.getElementsByClassName("page-link")[1].click()
+                }
                 document.getElementById("delete-room").click()
             }
         })

@@ -52,11 +52,11 @@ export default function TrackingComponent() {
     queryRoom === ""
       ? roomName
       : roomName.filter((list) =>
-          list.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(queryRoom.toLowerCase().replace(/\s+/g, ""))
-        );
+        list.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(queryRoom.toLowerCase().replace(/\s+/g, ""))
+      );
 
   // combo box status
   const [selectedStatus, setSelectedStatus] = useState();
@@ -91,11 +91,11 @@ export default function TrackingComponent() {
     queryNormalCategory === ""
       ? normalCategoryName
       : normalCategoryName.filter((list) =>
-          list.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(queryNormalCategory.toLowerCase().replace(/\s+/g, ""))
-        );
+        list.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(queryNormalCategory.toLowerCase().replace(/\s+/g, ""))
+      );
 
   // pagination
   const [pageCount, setPageCount] = useState(2);
@@ -239,7 +239,7 @@ export default function TrackingComponent() {
                     >
                       <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {filteredNormalCategory.length === 0 &&
-                        queryNormalCategory !== "" ? (
+                          queryNormalCategory !== "" ? (
                           <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                             Nothing found.
                           </div>
@@ -248,8 +248,7 @@ export default function TrackingComponent() {
                             <Combobox.Option
                               key={index}
                               className={({ active }) =>
-                                `relative cursor-pointer select-none py-2 px-5 text-text-color ${
-                                  active ? "bg-custom-yellow-showdow-light" : ""
+                                `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""
                                 }`
                               }
                               value={list}
@@ -297,7 +296,7 @@ export default function TrackingComponent() {
                     >
                       <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {filteredNormalCategory.length === 0 &&
-                        queryNormalCategory !== "" ? (
+                          queryNormalCategory !== "" ? (
                           <div className="relative cursor-default select-none py-2 px-4 text-text-color">
                             Nothing found.
                           </div>
@@ -306,8 +305,7 @@ export default function TrackingComponent() {
                             <Combobox.Option
                               key={index}
                               className={({ active }) =>
-                                `relative cursor-pointer select-none py-2 px-5 text-text-color ${
-                                  active ? "bg-custom-yellow-showdow-light" : ""
+                                `relative cursor-pointer select-none py-2 px-5 text-text-color ${active ? "bg-custom-yellow-showdow-light" : ""
                                 }`
                               }
                               value={list}
@@ -374,10 +372,9 @@ export default function TrackingComponent() {
                                   key={index}
                                   value={val.id}
                                   className={({ active }) =>
-                                    `relative cursor-pointer select-none py-2 px-5 text-text-color ${
-                                      active
-                                        ? "bg-custom-yellow-showdow-light"
-                                        : ""
+                                    `relative cursor-pointer select-none py-2 px-5 text-text-color ${active
+                                      ? "bg-custom-yellow-showdow-light"
+                                      : ""
                                     }`
                                   }
                                 >
@@ -439,20 +436,19 @@ export default function TrackingComponent() {
                         <div className="flex items-center">
                           <label
                             htmlFor="modalEdit"
-                            className={`flex items-center border bg-opacity-10 justify-center px-5 py-1 cursor-pointer leading-5 rounded-full ${
-                              list.status == "in_stock"
-                                ? "bg-blue-700 border-blue-700 text-blue-700"
-                                : list.status == "in_used"
+                            className={`flex items-center border bg-opacity-10 justify-center px-5 py-1 cursor-pointer leading-5 rounded-full ${list.status == "in_stock"
+                              ? "bg-blue-700 border-blue-700 text-blue-700"
+                              : list.status == "in_used"
                                 ? "bg-accept border-apbg-accept text-apbg-accept"
                                 : "bg-reject border-reject text-reject"
-                            }`}
+                              }`}
                             aria-label="Edit"
                           >
                             {list.status == "in_stock"
                               ? "In Stock"
                               : list.status == "in_used"
-                              ? "In Used"
-                              : ""}
+                                ? "In Used"
+                                : ""}
                           </label>
                         </div>
                       </td>

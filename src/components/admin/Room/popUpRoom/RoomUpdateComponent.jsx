@@ -11,11 +11,10 @@ import RoomService from '../../../../redux/services/RoomService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRoom } from '../../../../redux/slices/RoomSlice';
 
-export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
+export default function RoomUpdateComponent({ handleIsUpdateSuccess }) {
     const organization = JSON.parse(sessionStorage.getItem("organization"))
     const orgId = organization.id
     const dispatch = useDispatch()
-    const getAllRooms = useSelector(state => state.room.rooms)
     const room = useSelector(state => state.room.room)
 
     // Upload file
@@ -31,6 +30,10 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
         image: "",
         organizationId: orgId
     })
+
+    useEffect(() => {
+        setNewData(room)
+    }, [room])
 
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -61,12 +64,6 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
                                 image: "",
                                 organizationId: orgId
                             })
-
-                            getAllRooms.filter(room => {
-                                if(room.id == res.data.payload.id) {
-                                    getAllRooms[getAllRooms.indexOf(room)] = res.data.payload
-                                }
-                            })
                         }
                     })
                 }
@@ -85,11 +82,6 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
                             description: "",
                             image: "",
                             organizationId: orgId
-                        })
-                        getAllRooms.filter(room => {
-                            if(room.id == res.data.payload.id) {
-                                getAllRooms[getAllRooms.indexOf(room)] = res.data.payload
-                            }
                         })
                     }
                 }
@@ -161,7 +153,7 @@ export default function RoomUpdateComponent({handleIsUpdateSuccess}) {
                                             {
                                                 selectedFile ? <img src={URL.createObjectURL(selectedFile)} className='h-full m-auto' />
                                                     : image ? <img src={image} className='h-full m-auto' />
-                                                    : <img className="block m-auto" src={upload_placeholder} />
+                                                        : <img className="block m-auto" src={upload_placeholder} />
                                             }
                                         </div>
                                         <p className='mt-5 text-xs'>Upload Room Picture</p>

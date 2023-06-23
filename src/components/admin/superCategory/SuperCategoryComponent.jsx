@@ -125,7 +125,11 @@ export default function SuperCategoryComponent() {
     SuperCategoryService.deleteSuperCategory(newData.id).then((res) => {
       if (res.data.success) {
         handleGetAllSuperCategory(1);
-        document.getElementsByClassName("page-link")[1].click();
+        if (selectedPage != 1) {
+          if (selectedPage != 1) {
+            document.getElementsByClassName("page-link")[1].click()
+          }
+        }
       }
     });
   };
@@ -151,7 +155,9 @@ export default function SuperCategoryComponent() {
                 handleGetAllSuperCategory(1);
                 setI(1);
                 document.getElementById("add-super-category").click();
-                document.getElementsByClassName("page-link")[1].click();
+                if (selectedPage != 1) {
+                  document.getElementsByClassName("page-link")[1].click()
+                }
                 setItemName("");
                 setSelectedFile("");
                 setSeletedImg("");
@@ -166,7 +172,9 @@ export default function SuperCategoryComponent() {
           handleGetAllSuperCategory(1);
           setI(1);
           document.getElementById("add-super-category").click();
-          document.getElementsByClassName("page-link")[1].click();
+          if (selectedPage != 1) {
+            document.getElementsByClassName("page-link")[1].click()
+          }
           setItemName("");
           setSelectedFile("");
           setSeletedImg("");
@@ -193,7 +201,9 @@ export default function SuperCategoryComponent() {
               icon: res.data.payload,
             }).then((res) => {
               if (res.data.success) {
-                document.getElementById("edit-super-category").click();
+                if (selectedPage != 1) {
+                  document.getElementsByClassName("page-link")[1].click()
+                }
                 handleGetAllSuperCategory(selectedPage);
                 setSelectedFile("");
                 setSeletedImg("");
@@ -206,7 +216,9 @@ export default function SuperCategoryComponent() {
       SuperCategoryService.updateSuperCategory(newData.id, newData).then(
         (res) => {
           if (res.data.success) {
-            document.getElementById("edit-super-category").click();
+            if (selectedPage != 1) {
+              document.getElementsByClassName("page-link")[1].click()
+            }
             handleGetAllSuperCategory(selectedPage);
             setSelectedFile("");
             setSeletedImg("");
@@ -343,11 +355,10 @@ export default function SuperCategoryComponent() {
                         <Listbox.Button className="w-full border-[#E1E9EE] border rounded-lg bg-[#F9FBFF] py-2 pl-3 pr-10 text-sm text-text-color outline-none focus:border-primary">
                           {selectedSort ? (
                             <span
-                              className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${
-                                selectedSort == "Default"
-                                  ? "text-black text-opacity-20"
-                                  : ""
-                              }`}
+                              className={`block truncate text-sm w-full md:w-32 lg:w-full xl:w-32 text-left text-text-color ${selectedSort == "Default"
+                                ? "text-black text-opacity-20"
+                                : ""
+                                }`}
                             >
                               <span className="text-black text-opacity-20">
                                 Sort by:{" "}
@@ -388,33 +399,29 @@ export default function SuperCategoryComponent() {
                                 key={index}
                                 value={val.id}
                                 className={({ active }) =>
-                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${
-                                    active
-                                      ? "bg-custom-yellow-showdow-light"
-                                      : ""
+                                  `relative cursor-pointer select-none py-2 px-5 text-text-color ${active
+                                    ? "bg-custom-yellow-showdow-light"
+                                    : ""
                                   }`
                                 }
                               >
                                 {({ selected, active }) => (
                                   <>
                                     <span
-                                      className={`block truncate ${
-                                        selected ? "font-medium" : "font-normal"
-                                      } ${
-                                        index == 0
+                                      className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                        } ${index == 0
                                           ? "text-black text-opacity-20"
                                           : ""
-                                      }`}
+                                        }`}
                                     >
                                       {val.name}
                                     </span>
                                     {selected ? (
                                       <span
-                                        className={`${
-                                          active
-                                            ? "text-primary"
-                                            : "text-primary"
-                                        } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                        className={`${active
+                                          ? "text-primary"
+                                          : "text-primary"
+                                          } absolute inset-y-0 left-0 flex items-center pl-2`}
                                       ></span>
                                     ) : null}
                                   </>
@@ -443,7 +450,7 @@ export default function SuperCategoryComponent() {
             </div>
           </div>
         </div>
-        
+
         {getAllSuperCategores.length != 0 ? (
           <div className="flex flex-col min-h-[calc(100vh-19rem)]">
             {/* table */}
@@ -475,10 +482,10 @@ export default function SuperCategoryComponent() {
                                 list.icon == "office.svg"
                                   ? office
                                   : list.icon == "electronic.svg"
-                                  ? electronic
-                                  : list.icon == "furniture.svg"
-                                  ? furniture
-                                  : FileUploadService.getImage(list.icon)
+                                    ? electronic
+                                    : list.icon == "furniture.svg"
+                                      ? furniture
+                                      : FileUploadService.getImage(list.icon)
                               }
                             />
                           ) : (
@@ -604,10 +611,10 @@ export default function SuperCategoryComponent() {
                           selectedFile == "electronic.svg"
                             ? electronic
                             : selectedFile == "office.svg"
-                            ? office
-                            : selectedFile == "furniture.svg"
-                            ? furniture
-                            : URL.createObjectURL(selectedFile)
+                              ? office
+                              : selectedFile == "furniture.svg"
+                                ? furniture
+                                : URL.createObjectURL(selectedFile)
                         }
                         className="h-14 rounded-full w-14 "
                       />
@@ -617,10 +624,10 @@ export default function SuperCategoryComponent() {
                           selectedImg == "electronic.svg"
                             ? electronic
                             : selectedImg == "office.svg"
-                            ? office
-                            : selectedImg == "furniture.svg"
-                            ? furniture
-                            : FileUploadService.getImage(selectedImg)
+                              ? office
+                              : selectedImg == "furniture.svg"
+                                ? furniture
+                                : FileUploadService.getImage(selectedImg)
                         }
                         className="h-14 rounded-full w-14 "
                       />
@@ -755,10 +762,10 @@ export default function SuperCategoryComponent() {
                           selectedFile == "electronic.svg"
                             ? electronic
                             : selectedFile == "office.svg"
-                            ? office
-                            : selectedFile == "furniture.svg"
-                            ? furniture
-                            : URL.createObjectURL(selectedFile)
+                              ? office
+                              : selectedFile == "furniture.svg"
+                                ? furniture
+                                : URL.createObjectURL(selectedFile)
                         }
                         className="h-14 rounded-full w-14 "
                       />
