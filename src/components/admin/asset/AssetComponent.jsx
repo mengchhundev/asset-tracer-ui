@@ -123,7 +123,7 @@ export default function AssetComponent() {
             {/* header */}
             <div className="md:pb-0 sm:pb-2 min-w-max mb-4 xl:mb-0">
               <h2 className="text-2xl font-sp-pro-text-semibold">
-                All <span className="text-pending">Assets</span> Items
+                All <span className="text-pending">Asset</span> Items
               </h2>
               <p className="font-sp-pro-text-regular text-sm text-green">
                 Active Assets

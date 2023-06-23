@@ -133,9 +133,10 @@ export default function AssetAddComponent() {
   return (
     <>
       <main className="overflow-y-auto bg-white rounded-xl relative con-Shadow text-text-color">
-        <div className="text-2xl font-sp-pro-text-bold py-4 px-10">
+        <div className="text-2xl font-sp-pro-text-semibold py-4 px-10">
           <h1 className="flex items-center">
-            <HiTemplate /> &nbsp; Add Asset
+            <HiTemplate /> &nbsp; Create 
+            <h1 className="text-2xl font-sp-pro-text-semibold pl-2 text-primary">Asset</h1>
           </h1>
         </div>
         <hr className="border-[#E1E9EE] border-1" />
